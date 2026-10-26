@@ -1,802 +1,2169 @@
 {
-  "schemaVersion": 2,
-  "ticker": "LOG",
-  "empresa": "Logista",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "LOG",
+ "empresa": "Logista Integral, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2016-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2016-3M",
+   "fecha": "2015-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +1,7 %, EBIT ajustado +9,7 %, beneficio neto +22,8 %, margen 19,8 % (+1,45 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2022-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 2986.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 398.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 84.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 21.1
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 71.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 60.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 263.9
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 78.5
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 56.4
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": 1.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Ingresos",
+     "valor": 2366.0
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 5935.4
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 833.8
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 183.1
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 22.0
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 146.1
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 125.8
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 547.8
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 176.9
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 111.3
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": 0.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Ventas económicas",
+     "valor": 251.0
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 9149.8
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 1260.3
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 273.3
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 22.0
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 216.8
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 193.4
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 824.0
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 271.2
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 168.5
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": -0.8
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBIT ajustado",
+     "valor": 49.6
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 12428.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 1684.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 366.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 21.7
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 293.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 272.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 1093.0
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 370.0
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 226.0
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": -1.8
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Margen sobre VE",
+     "valor": 19.8
     },
     {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas Económicas +7.0 %, Bº Explotación Ajustado +6.0 %, Beneficio Neto +21.7 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 20.9 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 0.5 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 3166.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 426.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 89.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 20.9
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 72.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 73.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 277.3
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 96.0
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 54.2
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": -0.5
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBIT",
+     "valor": 35.3
     },
     {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas Económicas +4.0 %, Bº Explotación Ajustado +5.4 %, Beneficio Neto +27.2 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 22.3 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 0.9 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 6206.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 867.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 193.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 22.3
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 168.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 160.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 569.3
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 190.1
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 110.8
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": -0.9
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Beneficio neto",
+     "valor": 24.8
     },
     {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas Económicas +4.6 %, Bº Explotación Ajustado +6.1 %, Beneficio Neto +22.5 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 22.0 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 0.7 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 9480.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 1318.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 290.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 22.0
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 249.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 237.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 861.7
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 297.8
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 163.5
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": -0.7
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "VE Iberia",
+     "valor": 123.0
     },
     {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas Económicas +4.3 %, Bº Explotación Ajustado +5.2 %, Beneficio Neto +13.2 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 21.9 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia sube 0.4 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 12986.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 1757.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 385.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 21.9
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 326.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 308.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 1144.0
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 402.0
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 216.0
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": 0.4
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "VE Italia",
+     "valor": 55.5
     },
     {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas Económicas +7.5 %, Bº Explotación Ajustado +10.1 %, Beneficio Neto +5.5 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 21.4 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia sube 3.8 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 3292.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 458.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 98.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 21.4
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 86.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 77.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 304.0
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 104.0
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 51.0
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": 3.8
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas Económicas +5.7 %, Bº Explotación Ajustado +4.7 %, Beneficio Neto -5.6 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 22.1 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia sube 0.3 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 6425.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 916.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 202.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 22.1
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 174.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 151.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 606.0
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 213.0
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 101.0
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": 0.3
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas Económicas +3.3 %, Bº Explotación Ajustado -1.0 %, Beneficio Neto -9.7 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 21.1 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia se mantiene plano 0.0 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 9937.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 1361.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 287.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 21.1
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 245.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 214.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 895.0
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 322.0
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 150.0
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": 0.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ventas Económicas +3.0 %, Bº Explotación Ajustado -1.8 %, Beneficio Neto -8.8 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 20.9 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 0.4 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 13536.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 1809.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 378.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 20.9
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 318.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 281.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 1181.0
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 434.0
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 200.0
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": -0.4
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas Económicas -0.9 %, Bº Explotación Ajustado +2.0 %, Beneficio Neto -7.8 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 22.0 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 2.0 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 3399.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 454.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 100.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 22.0
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 82.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 71.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 300.0
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 106.0
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 50.0
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": -2.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas Económicas -1.3 %, Bº Explotación Ajustado -3.5 %, Beneficio Neto -9.9 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 21.6 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 1.2 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 6594.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 904.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 195.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 21.6
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 159.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 136.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 583.0
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 222.0
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 102.0
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": -1.2
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2026-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas Económicas +1.1 %, Bº Explotación Ajustado +3.1 %, Beneficio Neto -1.9 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 21.5 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 1.3 %, que es la señal única de la tesis.  ·  QUIEBRE DE PERÍMETRO: desde este informe Polonia pasa de Iberia a Francia y la empresa ha reexpresado 2025. La serie de Iberia y la de Francia tienen aquí un escalón que no es operativo: ninguna lectura interanual de esas dos columnas que cruce este punto se lee sin este aviso.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 10165.0
-        },
-        {
-          "nombre": "Ventas Económicas (M€)",
-          "valor": 1376.0
-        },
-        {
-          "nombre": "Bº Explot. Ajustado (M€)",
-          "valor": 296.0
-        },
-        {
-          "nombre": "Margen s/ VE (%)",
-          "valor": 21.5
-        },
-        {
-          "nombre": "Bº Explotación (M€)",
-          "valor": 244.0
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 210.0
-        },
-        {
-          "nombre": "VE Iberia (M€)",
-          "valor": 884.0
-        },
-        {
-          "nombre": "VE Italia (M€)",
-          "valor": 343.0
-        },
-        {
-          "nombre": "VE Francia (M€)",
-          "valor": 154.0
-        },
-        {
-          "nombre": "Volumen tabaco Iberia (%)",
-          "valor": -1.3
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "VE Francia",
+     "valor": 71.0
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2016-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2016-S1",
+   "fecha": "2016-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +0,8 %, EBIT ajustado -5,8 %, beneficio neto +8,7 %, margen 19,9 % (-1,40 pp) frente al mismo periodo del año anterior. Ámbar por: EBIT ajustado a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4575.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 498.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 99.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 19.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 68.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 51.2
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 247.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 109.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 139.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2016-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2016-9M",
+   "fecha": "2016-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +3,7 %, EBIT ajustado +7,5 %, beneficio neto +25,9 %, margen 22,2 % (+0,78 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 7047.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 777.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 172.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 128.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 93.7
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 380.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 183.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 210.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2016-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2016",
+   "fecha": "2016-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +2,8 %, EBIT ajustado +5,3 %, beneficio neto +21,0 %, margen 22,6 % (+0,55 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 9632.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1038.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 235.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 177.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 132.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 507.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 245.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 282.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2017-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2017-3M",
+   "fecha": "2016-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +4,1 %, EBIT ajustado +6,3 %, beneficio neto +85,9 %, margen 20,2 % (+0,40 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2283.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 262.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 52.7
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 20.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 35.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 46.1
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 134.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 56.9
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 70.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2017-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2017-S1",
+   "fecha": "2017-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +2,7 %, EBIT ajustado +1,0 %, beneficio neto +49,6 %, margen 19,5 % (-0,33 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4527.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 512.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 100.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 19.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 69.5
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 76.6
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 262.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 112.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 136.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2017-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2017-9M",
+   "fecha": "2017-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas -0,2 %, EBIT ajustado -10,8 %, beneficio neto +22,8 %, margen 19,8 % (-2,35 pp) frente al mismo periodo del año anterior. Ámbar por: ventas económicas a la baja, EBIT ajustado a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 7011.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 775.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 154.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 19.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 109.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 115.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 399.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 169.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 206.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2018-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2018-3M",
+   "fecha": "2017-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +5,0 %, EBIT ajustado +12,5 %, beneficio neto -20,2 %, margen 21,6 % (+1,44 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2286.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 275.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 59.3
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 44.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 36.8
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 141.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 71.3
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 61.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2018-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2018-S1",
+   "fecha": "2018-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +6,5 %, EBIT ajustado +14,1 %, beneficio neto -7,2 %, margen 20,9 % (+1,39 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4466.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 545.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 114.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 20.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 87.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 71.1
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 277.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 142.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 126.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2018-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2018-9M",
+   "fecha": "2018-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +7,8 %, EBIT ajustado +16,1 %, beneficio neto -1,9 %, margen 21,4 % (+1,53 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 6920.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 836.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 179.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 138.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 113.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 421.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 220.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 193.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2018-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2018",
+   "fecha": "2018-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +6,5 %, EBIT ajustado +12,4 %, beneficio neto +1,8 %, margen 22,0 % (+1,15 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 9476.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1118.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 246.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 190.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 157.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 561.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 290.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 264.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2019-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2019-3M",
+   "fecha": "2018-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +2,3 %, EBIT ajustado +0,5 %, beneficio neto -2,2 %, margen 21,2 % (-0,38 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2401.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 281.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 59.6
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 44.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 36.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 144.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 69.2
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 67.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2019-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2019-S1",
+   "fecha": "2019-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +4,1 %, EBIT ajustado +10,5 %, beneficio neto +5,1 %, margen 22,2 % (+1,30 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4765.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 567.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 126.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 93.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 74.7
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 292.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 139.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 135.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2019-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2019-9M",
+   "fecha": "2019-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +2,2 %, EBIT ajustado +6,6 %, beneficio neto +4,2 %, margen 22,3 % (+0,90 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 7380.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 854.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 190.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 148.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 118.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 436.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 210.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 206.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2019-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2019",
+   "fecha": "2019-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +2,8 %, EBIT ajustado +6,5 %, beneficio neto +5,0 %, margen 22,8 % (+0,80 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 10148.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1149.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 262.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 204.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 165.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 582.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 286.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 278.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2020-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2020-3M",
+   "fecha": "2019-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +4,1 %, EBIT ajustado +3,0 %, beneficio neto +3,3 %, margen 21,0 % (-0,22 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2582.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 292.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 61.4
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 47.5
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 37.2
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 150.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 75.1
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 66.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2020-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2020-S1",
+   "fecha": "2020-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas -0,1 %, EBIT ajustado -11,1 %, beneficio neto -11,8 %, margen 19,8 % (-2,45 pp) frente al mismo periodo del año anterior. Ámbar por: ventas económicas a la baja, EBIT ajustado a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5004.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 567.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 112.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 19.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 84.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 65.9
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 296.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 145.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 124.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2020-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2020-9M",
+   "fecha": "2020-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas -0,8 %, EBIT ajustado -7,9 %, beneficio neto -12,4 %, margen 20,7 % (-1,59 pp) frente al mismo periodo del año anterior. Rojo por: ventas económicas a la baja, EBIT ajustado a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 7661.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 848.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 175.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 20.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 134.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 103.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 433.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 222.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 190.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2020-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2020",
+   "fecha": "2020-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +0,7 %, EBIT ajustado -1,9 %, beneficio neto -4,5 %, margen 22,2 % (-0,59 pp) frente al mismo periodo del año anterior. Rojo por: EBIT ajustado a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 10559.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1157.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 257.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 206.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 157.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 585.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 304.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 264.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2020-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +2,9 %, EBIT ajustado +10,3 %, beneficio neto +21,8 %, margen 22,5 % (+1,50 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2676.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 301.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 67.7
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 55.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 45.3
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 159.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 75.1
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 65.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2021-S1",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +5,8 %, EBIT ajustado +23,1 %, beneficio neto +33,2 %, margen 23,0 % (+3,23 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5238.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 600.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 138.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 23.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 110.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 87.8
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 310.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 158.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 129.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2021-9M",
+   "fecha": "2021-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +7,3 %, EBIT ajustado +22,6 %, beneficio neto +32,6 %, margen 23,6 % (+2,96 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 7997.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 909.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 215.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 23.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 174.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 137.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 467.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 239.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 199.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2021",
+   "fecha": "2021-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +5,6 %, EBIT ajustado +13,2 %, beneficio neto +10,7 %, margen 25,2 % (+1,69 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 10817.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1180.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 298.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 25.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 240.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 174.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 634.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 325.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 225.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2021-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +2,6 %, EBIT ajustado +8,5 %, beneficio neto +14,1 %, margen 25,1 % (+1,37 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2767.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 299.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 75.2
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 25.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 68.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 51.7
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 172.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 74.1
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 54.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +3,0 %, EBIT ajustado +6,3 %, beneficio neto +0,1 %, margen 25,0 % (+0,78 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5454.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 597.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 149.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 25.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 128.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 87.9
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 337.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 156.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 106.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +3,9 %, EBIT ajustado +5,5 %, beneficio neto +4,4 %, margen 25,1 % (+0,39 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 8412.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 911.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 229.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 25.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 199.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 143.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 514.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 240.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 160.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +4,7 %, EBIT ajustado +4,7 %, beneficio neto +14,4 %, margen 25,3 % (+0,01 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 11464.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1235.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 312.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 25.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 266.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 199.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 692.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 331.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 216.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +33,1 %, EBIT ajustado +12,0 %, beneficio neto +15,4 %, margen 21,1 % (-3,98 pp), volumen de tabaco en Iberia +1,0 % frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2986.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 398.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 84.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 71.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 60.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 264.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 78.5
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 56.4
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": 1.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +39,6 %, EBIT ajustado +22,6 %, beneficio neto +43,1 %, margen 22,0 % (-3,05 pp), volumen de tabaco en Iberia +0,0 % frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen. Corrección del analista: Cambio de perímetro: la caída del margen viene de consolidar las compras de transporte (El Mosca, Carbó), de menor margen; el beneficio sube más de un 40 %. No es deterioro del negocio.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5935.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 834.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 183.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 146.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 126.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 548.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 177.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 111.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": 0.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +38,3 %, EBIT ajustado +19,6 %, beneficio neto +35,7 %, margen 21,7 % (-3,39 pp), volumen de tabaco en Iberia -0,8 % frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen. Corrección del analista: Cambio de perímetro: la caída del margen viene de consolidar las compras de transporte (El Mosca, Carbó), de menor margen; el beneficio sube más de un 40 %. No es deterioro del negocio.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 9150.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1260.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 273.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 217.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 193.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 824.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 271.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 168.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": -0.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +36,4 %, EBIT ajustado +17,3 %, beneficio neto +36,7 %, margen 21,7 % (-3,53 pp), volumen de tabaco en Iberia -1,8 % frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen, volumen de tabaco en Iberia por debajo del umbral. Corrección del analista: Cambio de perímetro: la caída del margen viene de consolidar las compras de transporte (El Mosca, Carbó), de menor margen; el beneficio sube más de un 40 %. No es deterioro del negocio.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 12428.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1684.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 366.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 293.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 272.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 1093.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 370.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 226.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": -1.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +7,0 %, EBIT ajustado +6,0 %, beneficio neto +21,7 %, margen 20,9 % (-0,21 pp), volumen de tabaco en Iberia -0,5 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3166.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 426.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 89.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 20.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 72.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 73.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 277.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 96.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 54.2
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": -0.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +4,0 %, EBIT ajustado +5,5 %, beneficio neto +27,0 %, margen 22,3 % (+0,32 pp), volumen de tabaco en Iberia -0,9 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 6206.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 867.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 193.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 168.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 160.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 569.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 190.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 111.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": -0.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +4,6 %, EBIT ajustado +6,2 %, beneficio neto +22,8 %, margen 22,0 % (+0,34 pp), volumen de tabaco en Iberia -0,7 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 9480.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1318.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 290.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 249.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 237.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 862.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 298.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 164.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": -0.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +4,3 %, EBIT ajustado +5,2 %, beneficio neto +13,2 %, margen 21,9 % (+0,18 pp), volumen de tabaco en Iberia +0,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 12986.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1757.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 385.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 326.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 308.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 1144.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 402.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 216.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": 0.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +7,5 %, EBIT ajustado +10,1 %, beneficio neto +5,5 %, margen 21,4 % (+0,51 pp), volumen de tabaco en Iberia +3,8 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3292.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 458.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 98.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 86.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 77.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 304.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 104.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 51.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": 3.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +5,7 %, EBIT ajustado +4,7 %, beneficio neto -5,6 %, margen 22,1 % (-0,21 pp), volumen de tabaco en Iberia +0,3 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 6425.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 916.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 202.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 174.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 151.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 606.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 213.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 101.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": 0.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +3,3 %, EBIT ajustado -1,0 %, beneficio neto -9,7 %, margen 21,1 % (-0,92 pp), volumen de tabaco en Iberia +0,0 % frente al mismo periodo del año anterior. Ámbar por: EBIT ajustado a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 9937.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1361.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 287.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 245.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 214.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 895.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 322.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 150.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": 0.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +3,0 %, EBIT ajustado -1,8 %, beneficio neto -8,8 %, margen 20,9 % (-1,02 pp), volumen de tabaco en Iberia -0,4 % frente al mismo periodo del año anterior. Rojo por: EBIT ajustado a la baja, el margen empeora. Rojo: el margen sobre ventas económicas cae un punto y empeora por segundo periodo seguido; el beneficio baja un 8,8 %. Las ventas siguen creciendo (+3 %).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 13536.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1809.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 378.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 20.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 318.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 281.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 1181.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 434.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 200.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": -0.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas -0,9 %, EBIT ajustado +2,0 %, beneficio neto -7,8 %, margen 22,0 % (+0,63 pp), volumen de tabaco en Iberia -2,0 % frente al mismo periodo del año anterior. Ámbar por: ventas económicas a la baja, volumen de tabaco en Iberia por debajo del umbral. Ámbar: ventas económicas −0,9 % y volumen de Iberia −2,0 %, por debajo del umbral; el EBIT ajustado aún crece (+2 %).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3399.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 454.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 100.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 22.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 82.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 71.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 300.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 106.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 50.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": -2.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas -1,3 %, EBIT ajustado -3,5 %, beneficio neto -9,9 %, margen 21,6 % (-0,48 pp), volumen de tabaco en Iberia -1,2 % frente al mismo periodo del año anterior. Ámbar por: ventas económicas a la baja, EBIT ajustado a la baja. Ámbar: ventas económicas −1,3 % y beneficio −9,9 %, con el margen −0,5 puntos. Revisado en la Nota S6 del 7-oct (método actual): REAFIRMAR.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 6594.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 904.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 195.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 159.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 136.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 583.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 222.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 102.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": -1.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +1,1 %, EBIT ajustado +3,1 %, beneficio neto -1,9 %, margen 21,5 % (+0,42 pp), volumen de tabaco en Iberia -1,3 % frente al mismo periodo del año anterior. Verde: nada que señalar. Se recupera tras dos periodos en ámbar: el EBIT ajustado vuelve a crecer (+3,1 %) y el margen sube 0,4 puntos, con Italia (+8,1 %) tirando del grupo. Lo débil sigue igual: Francia (EBIT ajustado −10,3 %) y el volumen de tabaco en Iberia (−1,3 %), dentro del declive que la tesis da por hecho. Con este verde se corta la racha de ámbar que abrió la S6 (reafirmada el 7-oct). Sin cambios en la tesis.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 10165.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1376.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 296.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 244.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 210.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 884.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 343.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 154.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": -1.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

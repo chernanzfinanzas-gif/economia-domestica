@@ -1,749 +1,782 @@
 {
-  "schemaVersion": 2,
-  "ticker": "LDA",
-  "empresa": "Línea Directa",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "LDA",
+ "empresa": "Linea Directa Aseguradora, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +3,3 %, resultado técnico -64,3 % frente al mismo periodo del año anterior. Verde: solo resultado técnico a la baja, sin más señales.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-04-21",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el margen técnico de Autos está en -6.8 %, por debajo del corte rojo (5.0), y eso basta (regla del §10.1).",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 244.209
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": -15.627
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 8.386
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": -5.291
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 106.8
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": -6.8
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 155.0
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 183.0
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3471
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2604
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Primas",
+     "valor": 773.0
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-07-21",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el margen técnico de Autos está en -9.2 %, por debajo del corte rojo (5.0), y eso basta (regla del §10.1).",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 491.947
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": -36.534
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 16.784
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": -15.093
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 107.9
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": -9.2
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 157.1
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 186.0
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3420
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2562
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Resultado técnico",
+     "valor": 34.7
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-10-27",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el margen técnico de Autos está en -6.6 %, por debajo del corte rojo (5.0), y eso basta (regla del §10.1).",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 731.945
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": -41.743
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 25.36
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": -12.489
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 106.0
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": -6.6
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 157.4
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 180.0
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3360
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2512
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "«2023 Q4 Resultados Línea Directa.pdf» no tiene capa de texto y su portada no imprime fecha (comprobado con OCR de las 12 primeras páginas): se usa el cierre del periodo. NO es una fecha de mercado.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el margen técnico de Autos está en -4.5 %, por debajo del corte rojo (5.0), y eso basta (regla del §10.1).",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 973.281
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": -38.225
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 33.992
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": -4.39
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 104.1
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": -4.5
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 158.2
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 180.0
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3319
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2471
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-04-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primas +3.0 %, Resultado técnico +140.4 %, Resultado neto +291.1 % contra el mismo periodo del ejercicio anterior, con el margen técnico de Autos en 3.5 % (banda del §10.1: verde ≥ 7.0, rojo < 5.0). El margen técnico de Autos sube 10.3 puntos sobre el mismo periodo del ejercicio anterior (3.5 % frente a -6.8 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 251.419
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": 6.311
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 9.226
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 10.11
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 97.3
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": 3.5
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 141.6
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 183.0
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3316
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2459
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-07-24",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primas +2.4 %, Resultado técnico +159.1 %, Resultado neto +268.4 % contra el mismo periodo del ejercicio anterior, con el margen técnico de Autos en 4.4 % (banda del §10.1: verde ≥ 7.0, rojo < 5.0). El margen técnico de Autos sube 13.6 puntos sobre el mismo periodo del ejercicio anterior (4.4 % frente a -9.2 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 503.9
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": 21.587
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 16.601
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 25.418
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 95.5
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": 4.4
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 142.2
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 184.0
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3338
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2465
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-10-21",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primas +3.5 %, Resultado técnico +178.7 %, Resultado neto +426.3 % contra el mismo periodo del ejercicio anterior, con el margen técnico de Autos en 4.5 % (banda del §10.1: verde ≥ 7.0, rojo < 5.0). El margen técnico de Autos sube 11.1 puntos sobre el mismo periodo del ejercicio anterior (4.5 % frente a -6.6 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 757.629
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": 32.852
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 26.905
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 40.747
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 95.4
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": 4.5
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 140.5
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 189.5
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3377
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2484
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-01-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +4.8 %, Resultado técnico +234.0 %, Resultado neto +1562.8 % contra el mismo periodo del ejercicio anterior, con el margen técnico de Autos en 5.2 % (banda del §10.1: verde ≥ 7.0, rojo < 5.0). El margen técnico de Autos sube 9.7 puntos sobre el mismo periodo del ejercicio anterior (5.2 % frente a -4.5 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 1019.606
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": 51.226
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 39.649
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 64.216
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 94.7
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": 5.2
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 140.3
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 185.4
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3435
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2514
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-04-28",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +9.5 %, Resultado técnico +202.6 %, Resultado neto +106.1 % contra el mismo periodo del ejercicio anterior, con el margen técnico de Autos en 8.1 % (banda del §10.1: verde ≥ 7.0, rojo < 5.0). El margen técnico de Autos sube 4.6 puntos sobre el mismo periodo del ejercicio anterior (8.1 % frente a 3.5 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 275.198
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": 19.098
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 10.201
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 20.834
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 92.3
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": 8.1
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 133.2
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 187.0
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3500
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2564
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-07-23",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +10.8 %, Resultado técnico +79.5 %, Resultado neto +72.2 % contra el mismo periodo del ejercicio anterior, con el margen técnico de Autos en 8.0 % (banda del §10.1: verde ≥ 7.0, rojo < 5.0). El margen técnico de Autos sube 3.6 puntos sobre el mismo periodo del ejercicio anterior (8.0 % frente a 4.4 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 558.219
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": 38.744
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 22.233
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 43.769
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 92.3
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": 8.0
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 133.7
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 193.2
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3579
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2626
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-10-27",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +11.4 %, Resultado técnico +55.4 %, Resultado neto +46.4 % contra el mismo periodo del ejercicio anterior, con el margen técnico de Autos en 6.6 % (banda del §10.1: verde ≥ 7.0, rojo < 5.0). El margen técnico de Autos sube 2.1 puntos sobre el mismo periodo del ejercicio anterior (6.6 % frente a 4.5 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 843.814
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": 51.039
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 31.998
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 59.672
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 93.4
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": 6.6
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 131.0
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 188.7
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3652
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2680
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2026-02-23",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +11.3 %, Resultado técnico +51.1 %, Resultado neto +33.5 % contra el mismo periodo del ejercicio anterior, con el margen técnico de Autos en 7.2 % (banda del §10.1: verde ≥ 7.0, rojo < 5.0). El margen técnico de Autos sube 2.0 puntos sobre el mismo periodo del ejercicio anterior (7.2 % frente a 5.2 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 1134.67
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": 77.422
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 41.785
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 85.71
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 92.6
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": 7.2
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 125.7
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 182.6
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3725
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2730
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-04-27",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +10.2 %, Resultado técnico +20.1 %, Resultado neto +12.3 % contra el mismo periodo del ejercicio anterior, con el margen técnico de Autos en 8.6 % (banda del §10.1: verde ≥ 7.0, rojo < 5.0). El margen técnico de Autos sube 0.5 puntos sobre el mismo periodo del ejercicio anterior (8.6 % frente a 8.1 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 303.229
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": 22.929
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 9.467
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 23.398
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 91.7
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": 8.6
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 124.2
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 190.6
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3797
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2790
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-07-27",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha impresa en la portada de cada presentación de resultados, leída una a una. Excepción: FY-2023, que declara «cierre» con su motivo.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +9.2 %, Resultado técnico +28.4 %, Resultado neto +19.0 % contra el mismo periodo del ejercicio anterior, con el margen técnico de Autos en 8.9 % (banda del §10.1: verde ≥ 7.0, rojo < 5.0). El margen técnico de Autos sube 0.9 puntos sobre el mismo periodo del ejercicio anterior (8.9 % frente a 8.0 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Primas emitidas (M€)",
-          "valor": 609.298
-        },
-        {
-          "nombre": "Resultado técnico (M€)",
-          "valor": 49.731
-        },
-        {
-          "nombre": "Rdo. inversiones (M€)",
-          "valor": 21.824
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 52.095
-        },
-        {
-          "nombre": "Combinado Grupo (%)",
-          "valor": 91.1
-        },
-        {
-          "nombre": "Margen técn. Autos (100 − comb., %)",
-          "valor": 8.9
-        },
-        {
-          "nombre": "Combinado Salud (%)",
-          "valor": 125.1
-        },
-        {
-          "nombre": "Solvencia II (%)",
-          "valor": 196.3
-        },
-        {
-          "nombre": "Asegurados (miles)",
-          "valor": 3857
-        },
-        {
-          "nombre": "Asegurados Autos (miles)",
-          "valor": 2848
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Solvencia II",
+     "valor": 188.4
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-04-21",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +5,3 %, resultado técnico -164,8 %, resultado neto -0,2 %, margen -6,8 % (-17,80 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): -6,8 pp. Ámbar por: resultado técnico a la baja, el margen empeora, caída de beneficio o margen, margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 244.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": -15.6
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 8.4
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": -5.3
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 106.8
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": -6.8
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 155.0
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 182.9
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3471.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2604.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-07-21",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +3,6 %, resultado técnico -182,9 %, resultado neto +3,0 %, margen -7,9 % (-17,90 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): -9,2 pp. Ámbar por: resultado técnico a la baja, el margen empeora, caída de beneficio o margen, margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 492.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": -36.5
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 16.8
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": -15.1
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 107.9
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": -9.2
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 186.0
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3420.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2562.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-10-27",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +3,0 %, resultado técnico -188,0 %, resultado neto -121,4 %, margen -6,0 % (-13,10 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): -6,6 pp. Rojo por: resultado técnico a la baja, el margen empeora, caída de beneficio o margen, margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 732.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": -41.7
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 25.4
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": -12.5
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 106.0
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": -6.6
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 180.0
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3360.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2512.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "«2023 Q4 Resultados Línea Directa.pdf» no tiene capa de texto y su portada no imprime fecha (comprobado con OCR de las 12 primeras páginas): se usa el cierre del periodo. NO es una fecha de mercado.",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": false,
+   "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el margen técnico de Autos está en -4.5 %, por debajo del corte rojo (5.0), y eso basta (regla del §10.1).",
+   "metricas": [
+    {
+     "nombre": "Primas emitidas (M€)",
+     "valor": 973.281
+    },
+    {
+     "nombre": "Resultado técnico (M€)",
+     "valor": -38.225
+    },
+    {
+     "nombre": "Rdo. inversiones (M€)",
+     "valor": 33.992
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": -4.39
+    },
+    {
+     "nombre": "Combinado Grupo (%)",
+     "valor": 104.1
+    },
+    {
+     "nombre": "Margen técn. Autos (100 − comb., %)",
+     "valor": -4.5
+    },
+    {
+     "nombre": "Combinado Salud (%)",
+     "valor": 158.2
+    },
+    {
+     "nombre": "Solvencia II (%)",
+     "valor": 180.0
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3319
+    },
+    {
+     "nombre": "Asegurados Autos (miles)",
+     "valor": 2471
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-04-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +3,0 %, resultado técnico +140,4 %, resultado neto +291,1 %, margen 2,7 % (+9,50 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 3,5 pp. Verde: solo margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 251.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": 6.3
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 9.2
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 10.1
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 97.3
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": 3.5
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 141.6
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 183.0
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3316.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2459.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-07-24",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +2,4 %, resultado técnico +159,1 %, resultado neto +268,4 %, margen 4,5 % (+12,40 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 4,4 pp. Verde: solo margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 504.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": 21.6
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 16.6
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 25.4
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 95.5
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": 4.4
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 142.2
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 191.0
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3338.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2465.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-10-21",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +3,5 %, resultado técnico +178,7 %, resultado neto +426,3 %, margen 4,6 % (+10,60 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 4,5 pp. Verde: solo margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 758.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": 32.9
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 26.9
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 40.7
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 95.4
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": 4.5
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 140.5
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 189.5
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3377.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2484.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2025-01-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +4,8 %, resultado técnico +234,0 %, resultado neto +1562,8 %, margen 5,3 % frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 5,2 pp. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 1020.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": 51.2
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 39.6
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 64.2
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 94.7
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": 5.2
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 140.3
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 185.4
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3440.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2514.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-04-28",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +9,5 %, resultado técnico +202,6 %, resultado neto +106,1 %, margen 7,7 % (+5,00 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 8,1 pp. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 275.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": 19.1
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 10.2
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 20.8
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 92.3
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": 8.1
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 133.2
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 187.0
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3500.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2564.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-07-23",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +10,8 %, resultado técnico +79,5 %, resultado neto +72,2 %, margen 7,7 % (+3,20 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 8,0 pp. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 558.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": 38.7
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 22.2
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 43.8
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 92.3
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": 8.0
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 133.7
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 193.2
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3579.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2626.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-10-27",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +11,4 %, resultado técnico +55,4 %, resultado neto +46,4 %, margen 6,6 % (+2,00 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 6,6 pp. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 844.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": 51.0
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 32.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 59.7
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 93.4
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": 6.6
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 131.0
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 189.0
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3652.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2680.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2026-02-23",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +11,3 %, resultado técnico +51,1 %, resultado neto +33,5 %, margen 7,4 % (+2,10 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 7,2 pp. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 1135.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": 77.4
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 41.8
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 85.7
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 92.6
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": 7.2
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 125.7
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 182.6
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3730.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2730.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-04-27",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +10,2 %, resultado técnico +20,1 %, resultado neto +12,3 %, margen 8,3 % (+0,60 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 8,6 pp. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 303.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": 22.9
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 9.5
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 23.4
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 91.7
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": 8.6
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 124.2
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 190.6
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3797.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2790.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-07-27",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +9,2 %, resultado técnico +28,4 %, resultado neto +19,0 %, margen 8,9 % (+1,20 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 8,9 pp. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 609.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": 49.7
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 21.8
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 52.1
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 91.1
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": 8.9
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 125.1
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 196.3
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3857.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2848.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

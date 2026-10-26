@@ -1,101 +1,48 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "ITX",
  "empresa": "Industria de Diseño Textil, S.A.",
- "fecha": "2026-09-11",
+ "fecha": "2026-10-25",
+ "revisadoEl": "2026-10-26",
  "rating": "AA",
- "score": 82.9,
+ "score": 82.1,
  "decision": "ESPERAR",
- "metodoValoracion": "Síntesis ponderada del §6.5 — DCF a tres escenarios (50 %) + seis patas de múltiplos históricos a diez años (40 %) + renta por dividendo (10 %), que es la norma del arquetipo CONSUMO sin retoque. PO oficial = 38.55 €/acc. Las dos familias no coinciden y está declarado: el DCF central da 26,66 € y la media de múltiplos 49,24, un factor de 1,85. Contraste externo: el reverse DCF del §6.x dice HEROICO — el precio de hoy exige un 17,4 % de crecimiento anual del flujo contra un 6,45 % autofinanciable.",
- "poBear": 28.46,
- "poBase": 38.55,
- "poBull": 46.31,
- "entMin": 28.46,
- "entMax": 33.53,
- "stop": 23.87,
- "dpaPrevisto": 1.75,
- "moat": "MOAT MODERADO · 66.3/100 (ventaja en costes 88 · escala 82 · intangibles 72 · efecto red 25 · costes de cambio 20)",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 30 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 8 % · PER 10 % · P/VC 6 % · P/FCL 8 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl recurrente",
+ "poBear": 42.86,
+ "poBase": 49.71,
+ "poBull": 57.62,
+ "entMin": 42.86,
+ "entMax": 43.23,
+ "stop": 30.93,
+ "dpaPrevisto": 1.6834,
+ "moat": "66,3 sobre 100 · MOAT MODERADO. Es moda: la ventaja de la proximidad y la logística se vuelve a jugar cada temporada",
  "catalizadores": [
-  "El crecimiento del primer semestre se sostiene en el ejercicio entero",
-  "El margen bruto se expande en vez de quedarse plano",
-  "El mercado deja de tratar la aceleración como un rebote",
-  "Termina el ciclo alto de reforma de tiendas y el flujo libre recupera",
-  "El dividendo vuelve a crecer y se demuestra que cabe"
+  "El crecimiento del primer semestre se sostiene en el ejercicio: Ingresos y beneficio +9 %. (mar-2027)",
+  "El margen bruto se expande: Margen EBITDA +0,5 pp. (mar-2027)",
+  "El mercado deja de tratar la aceleración como un rebote: Re-rating del 10 %. (12-24 meses)",
+  "Termina el ciclo alto de reforma de tiendas: 500 M€ menos de CAPEX al año. Fuera del bull. (24-36 meses)",
+  "El dividendo vuelve a crecer y se demuestra que cabe: DPA +8 %. Fuera del bull: informa sobre el riesgo 6. (mar-2027)"
  ],
  "riesgos": [
-  "LA MODA CHINA SIN TIENDA BAJA LA VARA DEL PRECIO (Competitivo · prob. alta · −4 a −13%)",
-  "ES MODA, Y LA COLECCIÓN SE VUELVE A JUGAR CADA TEMPORADA (Comercial · prob. media · −7 a −17%)",
-  "REVERSIÓN DEL MÚLTIPLO A SU PROPIA MEDIA (Mercado · prob. media · −6 a −12%)",
-  "LA PROXIMIDAD SE ENCARECE (Operativo · prob. media · −4 a −9%)",
-  "REGULACIÓN TEXTIL EUROPEA: RESIDUO, ECODISEÑO Y TRAZABILIDAD (Regulatorio · prob. alta · −2 a −6%)",
-  "EL DIVIDENDO YA NO CABE EN LA CAJA DEL AÑO (Asignación de capital · prob. media · −4 a −7%)",
-  "VENDE EN MÁS DE 200 MERCADOS Y REPORTA EN EUROS (Divisa · prob. alta · −2 a −3%)",
-  "PARADA PROLONGADA DE SISTEMAS EN UN NEGOCIO QUE YA ES UN CUARTO DIGITAL (Ciberseguridad · prob. baja · −2 a −4%)"
+  "La moda china sin tienda baja la vara del precio (Alta): Precio −1 % a volumen constante (todo es margen): −1 pp; duro: −3 %. Comparte canal con los riesgos 4 y 5.",
+  "Es moda: la colección se vuelve a jugar cada temporada (Media): Volumen −8 % y −20 %.",
+  "Reversión del múltiplo a su propia media (Media): Múltiplos −10 % y −20 %.",
+  "La proximidad se encarece (Media): Coste laboral y energía en los países de aprovisionamiento: margen −1 pp y −2 pp.",
+  "Regulación textil europea: residuo, ecodiseño y trazabilidad (Alta): Margen −0,5 pp y −1,5 pp.",
+  "El dividendo ya no cabe en la caja del año (Media): Dividendo −25 % y −50 %. El modelo lo mide como pérdida por la pata de rentabilidad por dividendo; económicamente, un recorte que evita quemar el colchón no destruye valor.",
+  "Vende en más de 200 mercados y reporta en euros (Alta): Volumen −2 % y −4 % por traslación. Comparte canal con el riesgo 2.",
+  "Parada prolongada de sistemas en un negocio que ya es un cuarto digital (Baja): Margen −0,5 pp y −1 pp como aproximación de una campaña perdida y la remediación."
  ],
- "bull": "Los tres primeros catalizadores a la vez: el +9,2 % a tipo constante del primer semestre sostenido en el ejercicio entero, el margen bruto expandiéndose 50 pb en vez de quedarse plano, y el mercado aceptando pagar una prima mayor por un negocio que crece al 9 % con el doble de margen que H&M. Da 46,31 €, un +20,1 % sobre el precio objetivo.",
- "bear": "La cadena A del §8.2: dos temporadas seguidas de acierto mediocre coinciden con un comprador que ha recalibrado lo que le parece caro. Volumen −15 % y de-rating −15 %. Da 28,46 €, un −26,2 %. Ningún riesgo AISLADO produce un bear en esta empresa: los 10.958 M€ de caja neta y un margen que dobla al de su comparable directo absorben cualquier golpe individual, así que el bear es la cadena combinada.",
- "resumen": "Empresa de calidad AA con un moat moderado pero real —ventaja en costes 88 sobre 100— y un ROCE publicado por la propia empresa del 40 %. Falla UNA de las cuatro condiciones de compra, y es la del precio: margen de seguridad −29,4 % contra un umbral del +15 %. La banda de entrada está en 28,46 – 33,53 € y la acción cotiza a 54,58. El negocio va más rápido de lo que la valoración supuso —+9,2 % a tipo constante en el primer semestre contra el +3,2 % del ejercicio valorado— pero el reverse DCF dice HEROICO y el mercado ya no paga crecimiento sin margen. Es una espera de PRECIO, no una duda sobre la empresa.",
- "confianza": {
-  "score": 100,
-  "nivel": "A",
-  "motivos": [
-   "sin huecos críticos ni discrepancias abiertas"
-  ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-09-11"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "etiquetaPrecioSensible": false,
-  "matizada": false,
-  "banda": {
-   "p10": 28.46,
-   "p50": 38.55,
-   "p90": 46.31
-  },
-  "sensibilidad": {
-   "sobre": "sintesis",
-   "regla": "F100",
-   "poMin": 37.53,
-   "poMax": 40.08,
-   "poBase": 38.55,
-   "cotizacion": 54.58,
-   "cotizacionBase": "actual",
-   "componente": "DCF Base",
-   "pesoPerturbado": 0.3,
-   "componentesIntactos": 8,
-   "dcf": {
-    "poMin": 23.24,
-    "poMax": 31.74,
-    "poBase": 26.6623203317842
-   },
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -31.2,
-   "mdsMax": -26.6
-  },
-  "beta": {
-   "capm": 1.073,
-   "ref2": 1.049,
-   "aviso": null
-  },
-  "motivos": [
-   "QUÉ SE HA PERTURBADO: solo «DCF Base» (30 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 70 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
-   "la cotización (54.58) queda por ENCIMA de toda la banda del precio objetivo de síntesis [37.53–40.08] → sobrevalorada en todo el rango; la cautela es ROBUSTA",
-   "para contraste, el DCF puro (§6.3) se mueve en [23.24–31.74] € alrededor de 26.66 €: es la sensibilidad del MODELO, no la del precio objetivo"
-  ],
-  "calculadoEl": "2026-09-11"
- },
+ "bull": "57,62 € — escenario optimista: la reforma de tiendas y el online devuelven el crecimiento a la media de la década",
+ "bear": "42,86 € — escenario pesimista: la desaceleración de la serie continúa: +35,9 %, +17,5 %, +10,4 %, +7,5 % y +3,2 % de 2021 a 2025",
+ "resumen": "ESPERAR con la cotización de 56,74 € (2026-10-23): precio objetivo 49,71 € (bear 42,86 · bull 57,62), margen −12,4 %. Banda de entrada 42,86–43,23 €, stop de tesis 30,93 €.",
  "dividendSafety": {
   "score": 67,
   "banda": "Seguro",
+  "aplica": true,
+  "rama": "general",
   "componentes": {
    "C1": 16,
    "C2": 7,
@@ -103,45 +50,42 @@
    "C4": 9,
    "C5": 15
   },
-  "shareholderYield": 3.05,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 1.20x / FCL 1.25x (3a OE 1.36x) → 16/35",
-   "C2 payout BN ord.: 84% (3a 79%) → 7/15",
-   "C3 balance parcial → 20/20",
-   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
-   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+   "Seguro: cobertura OE 1.30x · payout 84 % · 1 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-09-11"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 3.06
  },
  "forense": {
   "aplica": true,
+  "ejercicio": "2026",
   "piotroski": {
-   "score": 7,
+   "score": 8,
    "banda": "fuerte",
    "detalle": {
     "roa_pos": 1,
     "cfo_pos": 1,
     "roa_up": 1,
     "accrual": 1,
-    "lever_dn": 0,
+    "lever_dn": 1,
     "liquid_up": 0,
     "no_dilu": 1,
     "margin_up": 1,
     "turn_up": 1
    },
-   "nota": "margen=bruto"
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
   },
   "altman": {
-   "z": 8.99,
+   "z": 5.83,
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.88,
+   "m": -2.89,
    "senal": "sin indicios",
    "aproximado": [
     "SGAI"
@@ -154,209 +98,32 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-09-11"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 17.44,
-  "gIntrinseco": 6.45,
-  "veredicto": "HEROICO",
-  "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
-  "calculadoEl": "2026-09-11",
+  "gImplicito": 10.65,
+  "gIntrinseco": 13.05,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (≤ g intrínseco 13.1 %)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
   "entradas": {
-   "fcl": 4430.8,
-   "wacc": 9.45,
+   "fcl": 4732.5256,
+   "wacc": 7.0,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 3116.652,
-   "deudaNeta": -10958,
+   "acciones": 3110.045,
+   "deudaNeta": -5246.639,
    "modo": "EV",
-   "precioBase": 54.58,
-   "validado": true,
-   "desviacion": -0.005,
-   "gBase": 17.435,
-   "fechaBase": "2026-09-11",
-   "congeladoEl": "2026-09-12"
+   "precioBase": 56.74,
+   "gBase": 11.48,
+   "fechaBase": "2026-10-23",
+   "congeladoEl": "2026-10-26",
+   "validado": false,
+   "desviacion": 0.82
   }
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "fuente": "Datos Financieros Inditex.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 1,
-   "nombre": "LA MÁQUINA DE CUPÓN",
-   "lema": "rinde mucho, reinvierte poco",
-   "porSpread": false,
-   "roiicFragil": false,
-   "cortes": {
-    "reinversion": 20.0,
-    "roiic": 14.45,
-    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
-   }
-  },
-  "cifras": {
-   "reinversionMedia": 9.79,
-   "roiic5a": null,
-   "roiic": 77.97,
-   "roiicVentana": "3A",
-   "roicMedio": 53.15,
-   "spread": 56.27,
-   "wacc": 9.45,
-   "conversionMedia": 59.28,
-   "coberturaDividendo": 1.2,
-   "gIntrinseco": 6.45,
-   "capexCrecimiento10a": 4500.0,
-   "fcl10a": 46171.0,
-   "retribucion10a": 32779.2,
-   "retribucionSobreFcl": 71.0
-  },
-  "tension": {
-   "anios": [
-    2020,
-    2023,
-    2024,
-    2025
-   ],
-   "coberturaFcl": [
-    1.06,
-    1.42,
-    1.26,
-    1.2
-   ],
-   "coberturaOe": [
-    0.83,
-    1.51,
-    1.49,
-    1.41
-   ],
-   "payoutBn": [
-    197.3,
-    89.2,
-    89.3,
-    87.7
-   ],
-   "payoutFcl": [
-    94.5,
-    70.6,
-    79.1,
-    83.7
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "El mayor grupo de moda del mundo, y <b>uno que nació fabricando</b>: primero un taller en A Coruña (1963), después la primera Zara (1975). Ocho formatos, seis creados en casa, sobre una cadena integrada que produce cerca —España, Portugal, Marruecos, Turquía— lo que tiene que reponerse en semanas y lejos lo que no cambia de temporada: reponer rápido es lo que le permite no rebajar. Para su tamaño es de <b>activo ligero</b>: el CAPEX es el 5,5 % de las ventas en la década y la conversión de EBITDA en caja libre es del <b>59,3 % de media</b>, a un paso del 60 % que pide la banda, con 5 de los diez años por encima.",
-     "La estructura de capital es de las más limpias del IBEX —una sola clase de acción, sin blindajes, el mismo número de títulos toda la década y recompras sólo para cubrir incentivos— y el control, de los más concentrados: Pontegadea tiene la mayoría absoluta. Presidencia familiar no ejecutiva, gestión profesional fuera de la familia."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>De una máquina que gira mucho sobre poco capital.</b> El ROIC medio de la década es un 53,1 % contra un WACC del 9,45 %, y el spread de 2025, <b>+56,27 pp</b>; ni en 2020, el único año de ventas en contracción, bajó del coste de capital (+10,01 pp). Sale del margen —el primero de sus comparables por mucho— y de una red que ha crecido sustituyendo: de 23.311 a 39.864 M€ de ventas con una cuarta parte menos de tiendas y prácticamente la misma plantilla que en 2016.",
-     "El <b>ROIIC es del 78,0 % a tres años, porque a cinco el libro no lo da</b>: el euro nuevo rinde como los viejos. Y aun así ha reinvertido poco: una <b>reinversión media del 9,8 %</b>, con 2019, 2020 y 2021 a cero, y un crecimiento autofinanciable del 6,5 % anual. Inditex no compra empresas: reinvierte en su red y reparte el resto. De los 46.171 M€ de caja libre de la década, <b>32.779 M€ —el 71 %— han ido al accionista</b>."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "<b>La tensión está en los dos últimos años, y es de las buenas, pero es tensión.</b> La reinversión saltó al 20,7 % en 2024 —por encima del corte del 20 % que separa la máquina de cupón del compuesto— y quedó en el 18,8 % en 2025, justo debajo: el plan logístico y la reforma del parque. Mientras, la caja libre se ha quedado plana —6.795 M€ en 2023, 6.520 en 2025— y la retribución ha seguido subiendo, de 4.800 a 5.454 M€. La cobertura ha bajado de 1,42x a <b>1,20x</b>, con el 87,7 % del beneficio repartido.",
-     "No es la primera vez que se estrecha: en 2017 y 2018 la caja libre no cubrió el dividendo (0,94x y 0,88x), y en 2020 tampoco lo cubrieron los owner earnings (0,83x). El extraordinario está en nueve de los diez años: es política, no regalo. Y el mercado ya ha dicho qué no perdona: en septiembre de 2026 castigó un semestre récord porque el margen salió plano."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra Inditex compra <b>un cupón muy alto sobre un negocio de retorno excepcional</b>, y la pregunta de los próximos años es si deja de ser cupón para ser compuesto. Si la reinversión se sostiene por encima del corte con un ROIIC como el actual, la media acabará cruzándolo y la familia pasará a la 2, y eso sería bueno. Lo que no cabe es más CAPEX y más dividendo con la caja libre plana: las dos cosas sólo suman si la caja vuelve a crecer.",
-     "<b>Qué vigilar cada trimestre, por ser familia 1:</b> la cobertura del dividendo con caja libre, hoy 1,20x y bajando. Si cae por debajo de la unidad con el CAPEX alto, el extraordinario deja de pagarse con la caja del año. Y, a su lado, la banda de margen bruto que la empresa guía cada semestre: es la única cifra que se compromete a dar."
-    ]
-   }
-  ],
-  "vigilar": "La cobertura del dividendo con caja libre: viene bajando y, con el CAPEX alto, si cae por debajo de la unidad el extraordinario deja de pagarse con la caja del año.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "Moda con calidad AA, 10.958 M€ de caja neta y un ROCE que la propia empresa publica en el 40 %.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Sólida: seis de seis umbrales en verde y sin deuda.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Crea valor los diez ejercicios sin excepción: ROIC del 65,7 % contra un WACC del 9,45 %.",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 9,8 % del NOPAT de media; ROIIC a tres años del 78,0 % contra un corte del 14,5 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "Caja de primera calidad, pero el dividendo se ha comido casi toda la holgura: cubierto 1,20 veces.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "AA · 82,9 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 38,55 € contra 54,58 €: margen de seguridad −29,4 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Moat moderado (66,3): ventaja en costes 88 y escala 82.",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "La moda china sin tienda baja la vara del precio (probabilidad alta, −4 a −13 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "Que el crecimiento del primer semestre se sostenga todo el ejercicio y que el margen bruto se expanda.",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>ESPERAR</b> · banda de entrada 28,46 – 33,53 € · stop de tesis 23,87 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "La cobertura del dividendo con caja libre: viene bajando y, con el CAPEX alto, si cae por debajo de la unidad el extraordinario deja de pagarse con la caja del año.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "Ningún dato crítico abierto; la amortización del libro se revisa al rehacerla, contra la de la nota de la memoria.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 38,55 → 49,71 €."
 }

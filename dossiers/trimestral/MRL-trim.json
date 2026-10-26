@@ -1,749 +1,824 @@
 {
-  "schemaVersion": 2,
-  "ticker": "MRL",
-  "empresa": "Merlin Properties",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "MRL",
+ "empresa": "Merlin Properties, SOCIMI, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +8,4 %, EBITDA +21,7 %, FFO +19,6 %, margen 74,5 % (+8,17 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 121.4
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 119.2
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 8.1
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 90.4
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 75.8
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 75.3
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.16
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 15.82
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 32.5
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 158297.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Rentas brutas",
+     "valor": 223.0
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 243.4
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 237.8
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 7.7
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 181.7
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 76.4
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 147.4
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.31
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 15.36
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 33.9
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 267043.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Rentas LfL (%)",
+     "valor": 7.1
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 365.4
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 356.6
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 7.6
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 274.2
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 76.9
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 216.0
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.46
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 15.49
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 34.0
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 512081.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBITDA",
+     "valor": 166.0
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 488.3
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 475.6
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 6.5
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 367.0
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 77.2
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 284.2
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.61
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 15.08
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 35.0
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 638373.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 74.5
     },
     {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Rentas brutas +4.2 %, EBITDA +3.5 %, FFO por acción -6.3 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 3.8 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción cae un 3.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 127.3
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 124.2
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 3.8
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 93.6
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 75.4
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 72.0
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.15
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 15.2
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 35.0
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 110784.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "FFO",
+     "valor": 158.0
     },
     {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Rentas brutas +4.4 %, EBITDA +3.7 %, FFO por acción +0.0 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 2.8 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción cae un 1.6 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 253.7
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 248.2
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 2.8
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 188.4
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 75.9
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 147.8
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.31
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 15.11
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 35.6
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 186317.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "FFO por acción",
+     "valor": 0.3
     },
     {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Rentas brutas +4.7 %, EBITDA +4.7 %, FFO por acción -10.9 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 2.7 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción cae un 7.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 383.6
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 373.5
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 2.7
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 287.2
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 76.9
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 230.5
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.41
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 14.35
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 27.4
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 261851.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Rentas brutas +5.2 %, EBITDA +3.3 %, FFO por acción -9.8 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 3.4 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción cae un 5.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 516.7
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 500.4
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 3.4
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 379.2
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 75.8
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 310.8
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.55
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 14.32
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 28.3
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 353918.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Rentas brutas +6.7 %, EBITDA +9.0 %, FFO por acción +0.0 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 2.7 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción cae un 4.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 138.0
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 132.5
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 2.7
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 102.0
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 76.9
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 84.2
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.15
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 14.47
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 28.5
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 274614.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Rentas brutas +6.6 %, EBITDA +9.0 %, FFO por acción -3.2 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 3.4 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción cae un 0.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 275.3
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 264.7
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 3.4
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 205.3
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 77.6
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 166.6
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.3
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 15.04
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 28.6
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 457335.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Rentas brutas +6.6 %, EBITDA +7.4 %, FFO por acción +7.3 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 3.4 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción sube un 5.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 413.0
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 398.1
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 3.4
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 308.4
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 77.5
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 245.4
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.44
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 15.17
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 28.6
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 713261.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Rentas brutas +8.3 %, EBITDA +9.7 %, FFO por acción +5.5 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 3.5 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción sube un 7.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 564.9
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 541.9
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 3.5
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 415.8
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 76.7
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 326.7
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.58
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 15.36
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 28.9
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 803178.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Rentas brutas +10.3 %, EBITDA +11.4 %, FFO por acción -6.7 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 3.5 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción sube un 5.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 153.4
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 146.2
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 3.5
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 113.6
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 77.7
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 87.4
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.14
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 15.32
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 24.4
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 93245.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Rentas brutas +10.2 %, EBITDA +11.7 %, FFO por acción -3.3 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 3.3 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción sube un 6.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 307.7
-        },
-        {
-          "nombre": "Rentas brutas (M€)",
-          "valor": 291.7
-        },
-        {
-          "nombre": "Rentas like-for-like (%)",
-          "valor": 3.3
-        },
-        {
-          "nombre": "EBITDA del informe (M€)",
-          "valor": 229.4
-        },
-        {
-          "nombre": "Margen EBITDA sobre rentas (%)",
-          "valor": 78.6
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 180.0
-        },
-        {
-          "nombre": "FFO por acción (€)",
-          "valor": 0.29
-        },
-        {
-          "nombre": "EPRA NTA por acción (€)",
-          "valor": 15.99
-        },
-        {
-          "nombre": "LTV (%)",
-          "valor": 24.5
-        },
-        {
-          "nombre": "Superficie contratada (m²)",
-          "valor": 148130.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "AFFO",
+     "valor": 153.0
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +7,9 %, EBITDA +14,7 %, FFO +6,4 %, margen 73,9 % (+4,39 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 32,7 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Rentas brutas",
+     "valor": 453.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 7.3
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 335.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 73.9
+    },
+    {
+     "nombre": "FFO",
+     "valor": 290.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.6
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 15.7
+    },
+    {
+     "nombre": "LTV",
+     "valor": 32.7
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 271.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +6,9 %, EBITDA +7,7 %, FFO -5,5 %, margen 75,8 % (+0,59 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 121.0
+    },
+    {
+     "nombre": "Rentas brutas",
+     "valor": 119.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 8.1
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 90.4
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 75.8
+    },
+    {
+     "nombre": "FFO",
+     "valor": 75.3
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.2
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 15.8
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 72.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +6,8 %, EBITDA +9,6 %, FFO -6,4 %, margen 76,4 % (+1,93 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 33,9 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Rentas brutas",
+     "valor": 238.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 7.7
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 182.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 76.4
+    },
+    {
+     "nombre": "FFO",
+     "valor": 147.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.3
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 15.4
+    },
+    {
+     "nombre": "LTV",
+     "valor": 33.9
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 141.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +6,4 %, EBITDA +9,9 %, FFO -3,6 %, margen 76,9 % (+2,45 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 365.0
+    },
+    {
+     "nombre": "Rentas brutas",
+     "valor": 357.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 7.6
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 274.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 76.9
+    },
+    {
+     "nombre": "FFO",
+     "valor": 216.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.5
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 15.5
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 205.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +5,0 %, EBITDA +9,7 %, FFO -2,2 %, margen 77,2 % (+3,25 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 35,0 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Rentas brutas",
+     "valor": 476.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 6.5
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 367.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 77.2
+    },
+    {
+     "nombre": "FFO",
+     "valor": 284.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.6
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 15.1
+    },
+    {
+     "nombre": "LTV",
+     "valor": 35.0
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 263.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +4,2 %, EBITDA +3,5 %, FFO -4,4 %, margen 75,4 % (-0,48 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 127.0
+    },
+    {
+     "nombre": "Rentas brutas",
+     "valor": 124.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 3.8
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 93.6
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 75.4
+    },
+    {
+     "nombre": "FFO",
+     "valor": 72.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.1
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 15.2
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 70.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +4,4 %, EBITDA +3,7 %, FFO +0,3 %, margen 75,9 % (-0,50 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 35,6 %. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Rentas brutas",
+     "valor": 248.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 2.8
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 188.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 75.9
+    },
+    {
+     "nombre": "FFO",
+     "valor": 148.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.3
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 15.1
+    },
+    {
+     "nombre": "LTV",
+     "valor": 35.6
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 142.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +4,7 %, EBITDA +4,7 %, FFO +6,7 %, margen 76,9 % (+0,00 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 27,4 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 384.0
+    },
+    {
+     "nombre": "Rentas brutas",
+     "valor": 374.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 2.7
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 287.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 76.9
+    },
+    {
+     "nombre": "FFO",
+     "valor": 230.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.4
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 14.3
+    },
+    {
+     "nombre": "LTV",
+     "valor": 27.4
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 219.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +5,2 %, EBITDA +3,3 %, FFO +9,4 %, margen 75,8 % (-1,39 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 28,3 %. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Rentas brutas",
+     "valor": 500.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 3.4
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 379.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 75.8
+    },
+    {
+     "nombre": "FFO",
+     "valor": 311.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.6
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 14.3
+    },
+    {
+     "nombre": "LTV",
+     "valor": 28.3
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 291.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +6.7 %, EBITDA +9.0 %, FFO por acción +0.0 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 2.7 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción cae un 4.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+   "metricas": [
+    {
+     "nombre": "Ingresos totales (M€)",
+     "valor": 138.0
+    },
+    {
+     "nombre": "Rentas brutas (M€)",
+     "valor": 132.5
+    },
+    {
+     "nombre": "Rentas like-for-like (%)",
+     "valor": 2.7
+    },
+    {
+     "nombre": "EBITDA del informe (M€)",
+     "valor": 102.0
+    },
+    {
+     "nombre": "Margen EBITDA sobre rentas (%)",
+     "valor": 76.9
+    },
+    {
+     "nombre": "FFO (M€)",
+     "valor": 84.2
+    },
+    {
+     "nombre": "FFO por acción (€)",
+     "valor": 0.15
+    },
+    {
+     "nombre": "EPRA NTA por acción (€)",
+     "valor": 14.47
+    },
+    {
+     "nombre": "LTV (%)",
+     "valor": 28.5
+    },
+    {
+     "nombre": "Superficie contratada (m²)",
+     "valor": 274614.0
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +6,6 %, EBITDA +9,0 %, FFO +12,7 %, margen 77,6 % (+1,65 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 28,6 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 275.0
+    },
+    {
+     "nombre": "Rentas brutas",
+     "valor": 265.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 3.4
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 205.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 77.6
+    },
+    {
+     "nombre": "FFO",
+     "valor": 167.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.3
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 15.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 28.6
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 160.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +6,6 %, EBITDA +7,4 %, FFO +6,5 %, margen 77,5 % (+0,57 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 28,6 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 413.0
+    },
+    {
+     "nombre": "Rentas brutas",
+     "valor": 398.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 3.4
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 308.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 77.5
+    },
+    {
+     "nombre": "FFO",
+     "valor": 245.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.4
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 15.2
+    },
+    {
+     "nombre": "LTV",
+     "valor": 28.6
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 234.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +8,3 %, EBITDA +9,7 %, FFO +5,1 %, margen 76,7 % (+0,95 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 28,9 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Rentas brutas",
+     "valor": 542.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 3.5
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 416.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 76.7
+    },
+    {
+     "nombre": "FFO",
+     "valor": 327.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.6
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 15.4
+    },
+    {
+     "nombre": "LTV",
+     "valor": 28.9
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 305.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +10,3 %, EBITDA +11,4 %, FFO +3,8 %, margen 77,7 % (+0,72 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 24,4 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 153.0
+    },
+    {
+     "nombre": "Rentas brutas",
+     "valor": 146.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 3.5
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 114.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 77.7
+    },
+    {
+     "nombre": "FFO",
+     "valor": 87.4
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.1
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 15.3
+    },
+    {
+     "nombre": "LTV",
+     "valor": 24.4
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 85.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +10,2 %, EBITDA +11,7 %, FFO +8,0 %, margen 78,6 % (+1,08 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 24,5 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 308.0
+    },
+    {
+     "nombre": "Rentas brutas",
+     "valor": 292.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 3.3
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 229.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 78.6
+    },
+    {
+     "nombre": "FFO",
+     "valor": 180.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.3
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 16.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 24.5
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 175.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

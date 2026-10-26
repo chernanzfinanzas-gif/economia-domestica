@@ -1,749 +1,821 @@
 {
-  "schemaVersion": 2,
-  "ticker": "UNI",
-  "empresa": "Unicaja",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "UNI",
+ "empresa": "Unicaja Banco, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto -2,4 %, margen de explotación -2,4 %, resultado consolidado -43,3 %, margen 42,9 % (-0,04 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 6,5 %. Rojo por: margen bruto a la baja, margen de explotación a la baja, caída de beneficio o margen, RoTE publicado (la señal única de la tesis) por debajo del umbral.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el RoTE publicado está en 6.5 %, por debajo del corte rojo (8.0), y eso basta (regla del §10.1).",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 88737.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 51606.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 20851.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 293.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 373.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 34.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 48.6
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 6.5
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 3.6
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 13.5
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "M. intereses",
+     "valor": 293.0
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el RoTE publicado está en 7.0 %, por debajo del corte rojo (8.0), y eso basta (regla del §10.1).",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 88662.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 51231.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 21004.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 616.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 831.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 148.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 47.9
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 7.0
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 3.6
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 13.8
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "M. bruto",
+     "valor": 373.0
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el RoTE publicado está en 5.7 %, por debajo del corte rojo (8.0), y eso basta (regla del §10.1).",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 87536.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 49533.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 20759.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 973.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 1333.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 285.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 45.9
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 5.7
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 3.4
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 14.2
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Resultado consolidado",
+     "valor": 34.0
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el RoTE publicado está en 5.3 %, por debajo del corte rojo (8.0), y eso basta (regla del §10.1).",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 88825.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 48325.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 21087.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 1353.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 1776.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 267.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 46.7
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 5.3
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 3.1
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 14.7
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "RoTE",
+     "valor": 6.5
     },
     {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-04-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Margen de intereses +33.1 %, Margen bruto +23.9 %, Resultado consolidado +226.5 % contra el mismo periodo del ejercicio anterior, con el RoTE publicado en 5.4 % (banda del §10.1: verde ≥ 9.4, rojo < 8.0). El RoTE publicado cae 1.1 puntos sobre el mismo periodo del ejercicio anterior (5.4 % frente a 6.5 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 88114.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 47528.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 21424.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 390.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 462.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 111.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 48.6
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 5.4
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 3.0
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 14.5
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "CET1",
+     "valor": 13.5
     },
     {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-07-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Margen de intereses +25.6 %, Margen bruto +21.1 %, Resultado consolidado +98.6 % contra el mismo periodo del ejercicio anterior, con el RoTE publicado en 6.5 % (banda del §10.1: verde ≥ 9.4, rojo < 8.0). El RoTE publicado cae 0.5 puntos sobre el mismo periodo del ejercicio anterior (6.5 % frente a 7.0 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 89598.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 48220.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 21422.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 774.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 1006.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 294.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 44.6
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 6.5
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 2.9
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 15.1
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Morosidad",
+     "valor": 3.6
     },
     {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-10-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Margen de intereses +19.0 %, Margen bruto +14.0 %, Resultado consolidado +58.2 % contra el mismo periodo del ejercicio anterior, con el RoTE publicado en 6.8 % (banda del §10.1: verde ≥ 9.4, rojo < 8.0). El RoTE publicado sube 1.1 puntos sobre el mismo periodo del ejercicio anterior (6.8 % frente a 5.7 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 91335.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 46944.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 22185.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 1158.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 1520.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 451.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 44.5
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 6.8
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 2.8
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 15.4
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Coste del riesgo",
+     "valor": 0.26
     },
     {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-02-04",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Margen de intereses +13.7 %, Margen bruto +14.9 %, Resultado consolidado +114.6 % contra el mismo periodo del ejercicio anterior, con el RoTE publicado en 9.1 % (banda del §10.1: verde ≥ 9.4, rojo < 8.0). El RoTE publicado sube 3.8 puntos sobre el mismo periodo del ejercicio anterior (9.1 % frente a 5.3 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 93515.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 46353.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 22587.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 1538.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 2041.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 573.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 44.4
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 9.1
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 2.7
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 15.1
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Eficiencia",
+     "valor": 48.6
     },
     {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-04-28",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Margen de intereses -5.4 %, Margen bruto +11.5 %, Resultado consolidado +42.3 % contra el mismo periodo del ejercicio anterior, con el RoTE publicado en 9.7 % (banda del §10.1: verde ≥ 9.4, rojo < 8.0). El RoTE publicado sube 4.3 puntos sobre el mismo periodo del ejercicio anterior (9.7 % frente a 5.4 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 92424.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 46511.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 23436.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 369.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 515.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 158.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 45.6
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 9.7
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 2.6
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 15.4
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Crédito performing",
+     "valor": 51606.0
     },
     {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-07-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Margen de intereses -4.0 %, Margen bruto +5.2 %, Resultado consolidado +15.0 % contra el mismo periodo del ejercicio anterior, con el RoTE publicado en 9.7 % (banda del §10.1: verde ≥ 9.4, rojo < 8.0). El RoTE publicado sube 3.2 puntos sobre el mismo periodo del ejercicio anterior (9.7 % frente a 6.5 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 94598.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 48162.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 24215.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 743.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 1058.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 338.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 44.6
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 9.7
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 2.2
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 15.8
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Recursos minoristas",
+     "valor": 88737.0
     },
     {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-10-31",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Margen de intereses -3.5 %, Margen bruto +3.5 %, Resultado consolidado +11.5 % contra el mismo periodo del ejercicio anterior, con el RoTE publicado en 9.8 % (banda del §10.1: verde ≥ 9.4, rojo < 8.0). El RoTE publicado sube 3.0 puntos sobre el mismo periodo del ejercicio anterior (9.8 % frente a 6.8 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 93976.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 47047.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 24987.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 1117.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 1573.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 503.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 45.2
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 9.8
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 2.2
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 16.1
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2026-02-03",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Margen de intereses -2.8 %, Margen bruto +2.6 %, Resultado consolidado +10.3 % contra el mismo periodo del ejercicio anterior, con el RoTE publicado en 9.8 % (banda del §10.1: verde ≥ 9.4, rojo < 8.0). El RoTE publicado sube 0.7 puntos sobre el mismo periodo del ejercicio anterior (9.8 % frente a 9.1 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 96789.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 47245.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 25697.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 1495.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 2095.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 632.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 45.5
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 9.8
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 2.1
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 15.9
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Margen de intereses +1.1 %, Margen bruto +1.0 %, Resultado consolidado +1.9 % contra el mismo periodo del ejercicio anterior, con el RoTE publicado en 9.6 % (banda del §10.1: verde ≥ 9.4, rojo < 8.0). El RoTE publicado cae 0.1 puntos sobre el mismo periodo del ejercicio anterior (9.6 % frente a 9.7 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 96003.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 47622.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 25910.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 373.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 520.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 161.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 47.2
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 9.6
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 2.0
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 15.8
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Comprobado en los 14 informes: ocho imprimen su fecha de publicación en la portada (del 1T-2024 al 4T-2025) y llevan esa fecha con origen «portada»; los cuatro de 2023 y los dos de 2026 no la imprimen, y esos seis periodos llevan la fecha de CIERRE, que no es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Margen de intereses +1.6 %, Margen bruto +2.6 %, Resultado consolidado +6.8 % contra el mismo periodo del ejercicio anterior, con el RoTE publicado en 10.0 % (banda del §10.1: verde ≥ 9.4, rojo < 8.0). El RoTE publicado sube 0.3 puntos sobre el mismo periodo del ejercicio anterior (10.0 % frente a 9.7 %), y es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Recursos de clientes minoristas (M€)",
-          "valor": 97866.0
-        },
-        {
-          "nombre": "Crédito performing bruto (M€)",
-          "valor": 49941.0
-        },
-        {
-          "nombre": "Recursos fuera de balance y seguros (M€)",
-          "valor": 27289.0
-        },
-        {
-          "nombre": "Margen de intereses (M€)",
-          "valor": 755.0
-        },
-        {
-          "nombre": "Margen bruto (M€)",
-          "valor": 1085.0
-        },
-        {
-          "nombre": "Resultado consolidado (M€)",
-          "valor": 361.0
-        },
-        {
-          "nombre": "Ratio de eficiencia (%)",
-          "valor": 45.6
-        },
-        {
-          "nombre": "RoTE publicado (%)",
-          "valor": 10.0
-        },
-        {
-          "nombre": "Ratio de morosidad (%)",
-          "valor": 1.8
-        },
-        {
-          "nombre": "CET1 fully loaded (%)",
-          "valor": 15.7
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Fuera de balance",
+     "valor": 20851.0
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto -0,1 %, margen de explotación +1,5 %, resultado consolidado -12,9 %, margen 48,4 % (+0,78 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 7,0 %. Ámbar por: margen bruto a la baja, caída de beneficio o margen, RoTE publicado (la señal única de la tesis) por debajo del umbral.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 616.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 831.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 148.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 7.0
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.8
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.6
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.3
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 47.9
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 51231.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 88662.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 21004.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +5,9 %, margen de explotación +14,4 %, resultado consolidado +4,8 %, margen 51,9 % (+3,86 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 5,7 %. Verde: solo RoTE publicado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 973.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1333.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 285.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 5.7
+    },
+    {
+     "nombre": "CET1",
+     "valor": 14.2
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.4
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.3
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 45.9
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 49533.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 87536.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 20759.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +10,6 %, margen de explotación +23,3 %, resultado consolidado -4,0 %, margen 51,6 % (+5,31 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 5,3 %. Verde: solo RoTE publicado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 1353.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1776.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 267.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 5.3
+    },
+    {
+     "nombre": "CET1",
+     "valor": 14.7
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.1
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.27
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 46.7
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 48325.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 88825.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 21087.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-04-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +23,9 %, margen de explotación +48,1 %, resultado consolidado +226,5 %, margen 51,3 % (+8,40 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 5,4 %. Verde: solo RoTE publicado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 390.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 462.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 111.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 5.4
+    },
+    {
+     "nombre": "CET1",
+     "valor": 14.5
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.0
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.25
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 48.6
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 47528.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 88114.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 21424.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-07-30",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +21,1 %, margen de explotación +38,8 %, resultado consolidado +98,6 %, margen 55,5 % (+7,09 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 6,5 %. Verde: solo RoTE publicado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 774.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1006.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 294.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 6.5
+    },
+    {
+     "nombre": "CET1",
+     "valor": 15.1
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.9
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.23
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 44.6
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 48220.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 89598.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 21422.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-10-30",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +14,0 %, margen de explotación +22,0 %, resultado consolidado +58,2 %, margen 55,5 % (+3,61 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 6,8 %. Verde: solo RoTE publicado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 1158.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1520.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 451.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 6.8
+    },
+    {
+     "nombre": "CET1",
+     "valor": 15.4
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.8
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.23
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 44.5
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 46944.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 91335.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 22185.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2025-02-04",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +14,9 %, margen de explotación +23,8 %, resultado consolidado +114,6 %, margen 55,6 % (+3,98 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 9,1 %. Verde: solo RoTE publicado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 1538.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 2041.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 573.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 9.1
+    },
+    {
+     "nombre": "CET1",
+     "valor": 15.1
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.7
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.2
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 44.4
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 46353.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 93515.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 22587.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-04-28",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +11,5 %, margen de explotación +18,1 %, resultado consolidado +42,3 %, margen 54,4 % (+3,07 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 9,7 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 369.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 515.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 158.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 9.7
+    },
+    {
+     "nombre": "CET1",
+     "valor": 15.4
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.6
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.27
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 45.6
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 46511.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 92424.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 23436.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-07-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +5,2 %, margen de explotación +5,2 %, resultado consolidado +15,0 %, margen 55,5 % (+0,01 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 9,7 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 743.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1058.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 338.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 9.7
+    },
+    {
+     "nombre": "CET1",
+     "valor": 15.8
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.2
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.26
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 44.6
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 48162.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 94598.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 24215.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-10-31",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +3,5 %, margen de explotación +2,1 %, resultado consolidado +11,5 %, margen 54,8 % (-0,73 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 9,8 %. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 1117.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1573.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 503.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 9.8
+    },
+    {
+     "nombre": "CET1",
+     "valor": 16.1
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.2
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.24
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 45.2
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 47047.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 93976.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 24987.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2026-02-03",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +2,6 %, margen de explotación +0,5 %, resultado consolidado +10,3 %, margen 54,5 % (-1,15 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 9,8 %. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 1495.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 2095.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 632.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 9.8
+    },
+    {
+     "nombre": "CET1",
+     "valor": 15.9
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.1
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.27
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 45.5
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 47245.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 96789.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 25697.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +1,0 %, margen de explotación -1,8 %, resultado consolidado +1,9 %, margen 52,9 % (-1,48 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 9,6 %. Ámbar por: margen de explotación a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 373.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 520.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 161.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 9.6
+    },
+    {
+     "nombre": "CET1",
+     "valor": 15.8
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.0
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.2
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 47.2
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 47622.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 96003.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 25910.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +2,6 %, margen de explotación +0,5 %, resultado consolidado +6,8 %, margen 54,4 % (-1,10 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 10,0 %. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 755.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1085.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 361.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 10.0
+    },
+    {
+     "nombre": "CET1",
+     "valor": 15.7
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 1.8
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.18
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 45.6
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 49941.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 97866.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 27289.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

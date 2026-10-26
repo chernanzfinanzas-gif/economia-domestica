@@ -1,749 +1,759 @@
 {
-  "schemaVersion": 2,
-  "ticker": "RED",
-  "empresa": "Redeia",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "RED",
+ "empresa": "Redeia Corporación, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -3,4 %, EBITDA -3,2 %, beneficio neto -2,8 %, margen 80,3 % (+0,16 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-04-26",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 516.9
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 401.8
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 77.73
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 271.6
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 180.4
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 362.6
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 154.8
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 4435.6
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 98.4
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Ingresos",
+     "valor": 484.0
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-07-26",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 1029.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 789.3
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 76.7
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 527.6
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 354.3
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 632.3
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 413.5
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 4312.7
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 98.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBITDA",
+     "valor": 388.0
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-10-31",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 1548.4
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1183.1
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 76.41
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 790.1
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 535.3
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 991.3
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 621.6
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 4970.6
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 97.9
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Margen EBITDA",
+     "valor": 80.3
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-02-28",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 2064.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1507.8
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 73.05
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 989.7
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 689.6
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 1156.3
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 996.2
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 4975.4
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": 824.5
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 97.6
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBIT",
+     "valor": 266.0
     },
     {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-04-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocio -23.7 %, EBITDA -23.7 %, beneficio atribuido -26.7 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 77.8 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0).   ·  QUIEBRE DE PERÍMETRO: AQUÍ EMPIEZA LA SERIE SIN HISPASAT. Las cifras de este periodo y de los dos siguientes NO son las que su informe publicó en su día —lo hizo con Hispasat dentro, 455,7 M€ de cifra de negocio— sino las REEXPRESADAS por NIIF 5 que la empresa publica como comparativo en sus informes de 2025. Sin ese cambio, 2025 aparentaba caer un 11 % cuando la empresa publica un +2,6 %, y el semáforo habría pintado en ámbar un negocio que crecía. Ni el crecimiento ni el margen de 2024 contra 2023 son comparables: 2023 sigue llevando el satélite.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 394.2
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 306.6
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 77.78
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 197.6
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 132.3
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 432.2
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 149.8
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 4892.2
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": 139.3
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 98.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-07-31",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocio -23.2 %, EBITDA -21.6 %, beneficio atribuido -24.0 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 78.3 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). ",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 790.4
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 618.7
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 78.28
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 401.2
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 269.3
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 635.4
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 449.0
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 5111.2
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": 421.4
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 97.8
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-10-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocio -23.2 %, EBITDA -22.0 %, beneficio atribuido -23.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 77.7 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). ",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 1188.8
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 923.4
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 77.67
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 593.0
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 408.8
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 927.6
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 655.6
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 5427.9
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": 603.2
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 97.8
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-02-26",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocio -22.8 %, EBITDA -19.7 %, beneficio atribuido -46.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 75.9 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). La inversión del TSO en España sube un 34.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 1594.2
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1210.1
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 75.91
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 761.4
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 368.4
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 1187.4
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 1172.8
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 5369.9
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": 1104.9
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 97.99
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-04-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocio +2.6 %, EBITDA +4.4 %, beneficio atribuido +4.2 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 79.1 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). La inversión del TSO en España sube un 70.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 404.5
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 320.1
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 79.13
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 210.6
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 137.8
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 253.7
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 253.5
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 5577.0
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": 236.8
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 98.93
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-07-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocio +2.7 %, EBITDA +2.8 %, beneficio atribuido +0.1 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 78.3 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). La inversión del TSO en España sube un 33.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 811.9
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 636.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 78.33
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 416.2
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 269.5
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 472.6
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 602.7
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 5539.4
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": 564.2
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 98.8
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-10-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocio +2.5 %, EBITDA +3.0 %, beneficio atribuido -4.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 78.1 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). La inversión del TSO en España sube un 51.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 1218.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 950.9
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 78.06
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 615.6
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 389.8
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 713.2
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 967.5
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 6083.4
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": 915.0
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 98.63
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2026-02-26",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocio +4.1 %, EBITDA +4.0 %, beneficio atribuido +37.2 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 75.8 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). La inversión del TSO en España sube un 40.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 1659.5
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1258.3
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 75.82
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 806.8
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 505.6
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 1034.5
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 1626.2
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 5474.2
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": 1551.0
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 98.39
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-04-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocio +6.3 %, EBITDA +5.8 %, beneficio atribuido +1.8 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 78.8 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). La inversión del TSO en España sube un 42.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 429.8
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 338.8
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 78.83
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 214.9
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 140.3
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 298.3
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 350.2
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 5569.4
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": 338.4
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 98.46
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-07-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocio +7.1 %, EBITDA +5.8 %, beneficio atribuido +4.0 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 77.4 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). La inversión del TSO en España sube un 11.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocio (M€)",
-          "valor": 869.2
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 672.6
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 77.38
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 422.6
-        },
-        {
-          "nombre": "Beneficio atribuido (M€)",
-          "valor": 280.4
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 546.2
-        },
-        {
-          "nombre": "Inversiones (M€)",
-          "valor": 657.1
-        },
-        {
-          "nombre": "Deuda financiera neta (M€)",
-          "valor": 5009.4
-        },
-        {
-          "nombre": "Inversión del TSO en España (M€)",
-          "valor": 631.0
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 97.97
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Beneficio neto",
+     "valor": 266.0
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2021-9M",
+   "fecha": "2021-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -0,0 %, EBITDA +0,3 %, beneficio neto +2,8 %, margen 79,0 % (+0,23 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1466.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1158.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 79.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 792.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 792.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,5 %, EBITDA +1,8 %, beneficio neto -0,4 %, margen 79,0 % (-1,31 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 501.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 395.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 79.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 265.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 265.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,8 %, EBITDA +0,9 %, beneficio neto +1,4 %, margen 79,0 % (-1,52 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1003.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 792.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 79.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 524.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 363.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 6185.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,8 %, EBITDA +2,1 %, beneficio neto -0,5 %, margen 76,0 % (-2,01 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1555.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1182.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 76.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 788.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 788.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,2 %, EBITDA -0,5 %, beneficio neto -2,3 %, margen 74,8 % (-2,76 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2015.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1507.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 74.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 962.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 665.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 6454.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-04-26",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,3 %, EBITDA +1,6 %, beneficio neto +2,4 %, margen 77,7 % (-1,28 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 517.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 402.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 77.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 272.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 272.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-07-26",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,6 %, EBITDA +0,6 %, beneficio neto -2,4 %, margen 77,5 % (-1,49 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1029.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 798.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 77.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 528.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 354.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 5844.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-10-31",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,8 %, EBITDA +0,1 %, margen 74,0 % (-2,00 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1598.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1183.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 74.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 790.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2024-02-28",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -9,7 %, EBITDA -7,3 %, beneficio neto +3,7 %, margen 76,8 % (+1,99 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1819.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1396.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 76.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 957.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 690.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 5968.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-04-30",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -11,8 %, EBITDA -15,5 %, beneficio neto -24,4 %, margen 74,5 % (-3,23 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 456.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 340.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 74.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 206.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 206.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-07-31",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -23,2 %, EBITDA -21,6 %, beneficio neto -24,0 %, margen 79,1 % (+1,60 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 790.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 625.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 79.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 401.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 269.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 6969.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "fecha": "2024-10-30",
+   "fechaOrigen": "portada",
+   "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocio -23.2 %, EBITDA -22.0 %, beneficio atribuido -23.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 77.7 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). ",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocio (M€)",
+     "valor": 1188.8
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 923.4
+    },
+    {
+     "nombre": "Margen EBITDA (%)",
+     "valor": 77.67
+    },
+    {
+     "nombre": "EBIT (M€)",
+     "valor": 593.0
+    },
+    {
+     "nombre": "Beneficio atribuido (M€)",
+     "valor": 408.8
+    },
+    {
+     "nombre": "FFO (M€)",
+     "valor": 927.6
+    },
+    {
+     "nombre": "Inversiones (M€)",
+     "valor": 655.6
+    },
+    {
+     "nombre": "Deuda financiera neta (M€)",
+     "valor": 5427.9
+    },
+    {
+     "nombre": "Inversión del TSO en España (M€)",
+     "valor": 603.2
+    },
+    {
+     "nombre": "Disponibilidad de la red (%)",
+     "valor": 97.8
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2025-02-26",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -12,3 %, EBITDA -12,4 %, beneficio neto -46,6 %, margen 76,7 % (-0,04 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1594.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1223.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 76.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 761.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 368.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 6113.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-04-30",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,6 %, EBITDA +4,4 %, beneficio neto +6,5 %, margen 79,1 % (+1,35 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 404.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 320.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 79.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 211.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 211.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-07-30",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,7 %, EBITDA +4,0 %, beneficio neto +0,1 %, margen 80,1 % (+0,97 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 812.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 650.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 80.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 416.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 269.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 6355.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "fecha": "2025-10-29",
+   "fechaOrigen": "portada",
+   "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocio +2.5 %, EBITDA +3.0 %, beneficio atribuido -4.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 78.1 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). La inversión del TSO en España sube un 51.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocio (M€)",
+     "valor": 1218.1
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 950.9
+    },
+    {
+     "nombre": "Margen EBITDA (%)",
+     "valor": 78.06
+    },
+    {
+     "nombre": "EBIT (M€)",
+     "valor": 615.6
+    },
+    {
+     "nombre": "Beneficio atribuido (M€)",
+     "valor": 389.8
+    },
+    {
+     "nombre": "FFO (M€)",
+     "valor": 713.2
+    },
+    {
+     "nombre": "Inversiones (M€)",
+     "valor": 967.5
+    },
+    {
+     "nombre": "Deuda financiera neta (M€)",
+     "valor": 6083.4
+    },
+    {
+     "nombre": "Inversión del TSO en España (M€)",
+     "valor": 915.0
+    },
+    {
+     "nombre": "Disponibilidad de la red (%)",
+     "valor": 98.63
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2026-02-26",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,1 %, EBITDA +4,7 %, beneficio neto +37,2 %, margen 77,2 % (+0,45 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: EBITDA +4,7 %, beneficio +37,2 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1660.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1281.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 77.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 807.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 506.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 6217.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-04-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,3 %, EBITDA +5,8 %, beneficio neto +2,0 %, margen 78,8 % (-0,34 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +6,3 %, EBITDA +5,8 %, beneficio +2,0 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 430.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 339.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 78.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 215.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 215.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-07-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,1 %, EBITDA +6,0 %, beneficio neto +4,0 %, margen 79,3 % (-0,77 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales. Verde: ingresos +7,1 %, EBITDA +6,0 %, beneficio +4,0 %; el margen baja 0,8 puntos (79,3 %), sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 869.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 689.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 79.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 423.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 280.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 5887.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

@@ -1,8 +1,86 @@
 {
  "schemaVersion": 2,
  "ticker": "AMS",
- "empresa": "Amadeus",
+ "empresa": "Amadeus IT Group, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
  "revisiones": [
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +87,3 %, EBITDA +334,2 %, beneficio neto +321,3 %, margen 37,7 % (+21,44 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2100.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 792.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 37.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 474.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 318.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3742.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +68,0 %, EBITDA +182,8 %, beneficio neto +566,6 %, margen 35,5 % (+14,41 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4486.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1593.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 35.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 952.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 664.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3002.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
   {
    "periodo": "2023-Q1",
    "periodoDisplay": "1T",
@@ -52,463 +130,282 @@
      "valor": 1.1
     }
    ],
-   "hechos": []
+   "hechos": [],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
   },
   {
    "periodo": "2023-Q2",
-   "periodoDisplay": "1S",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
    "fecha": "2023-07-28",
+   "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Volcado histórico. Reservas +17,2 % y pasajeros embarcados +36,8 %. Margen EBITDA ya en el 38,9 %, nivel pre-covid. Deuda en 1,0 veces EBITDA.",
+   "resumen": "Ingresos +28,2 %, EBITDA +32,5 %, beneficio neto +76,9 %, margen 38,9 % (+1,25 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 235.5
+     "nombre": "Ingresos",
+     "valor": 2692.0
     },
     {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 903.7
+     "nombre": "EBITDA",
+     "valor": 1048.0
     },
     {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 1360.5
-    },
-    {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 2692.1
-    },
-    {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 1046.1
-    },
-    {
-     "nombre": "Mg. EBITDA (%)",
+     "nombre": "Margen EBITDA",
      "valor": 38.9
     },
     {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 560.3
+     "nombre": "EBIT",
+     "valor": 737.0
     },
     {
-     "nombre": "FCL (M€)",
-     "valor": 482.4
+     "nombre": "Beneficio neto",
+     "valor": 563.0
     },
     {
-     "nombre": "DFN contratos (M€)",
-     "valor": 1870.1
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 1
+     "nombre": "Deuda neta",
+     "valor": 2549.0
     }
    ],
-   "hechos": []
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2023-Q3",
    "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
    "fecha": "2023-11-10",
+   "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Volcado histórico. Ingresos +23,2 % y EBITDA +33,8 %. Margen del 39,0 %. Nada que vigilar en el periodo.",
+   "resumen": "Ingresos +23,2 %, EBITDA +33,8 %, margen 39,0 % (+3,10 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 348
+     "nombre": "Ingresos",
+     "valor": 4086.0
     },
     {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 1452.8
+     "nombre": "EBITDA",
+     "valor": 1594.0
     },
     {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 2027.6
-    },
-    {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 4086.5
-    },
-    {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 1593.8
-    },
-    {
-     "nombre": "Mg. EBITDA (%)",
-     "valor": 39
-    },
-    {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 875.8
-    },
-    {
-     "nombre": "FCL (M€)",
-     "valor": 940.5
-    },
-    {
-     "nombre": "DFN contratos (M€)",
-     "valor": 2121.7
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 1.1
+     "nombre": "Margen EBITDA",
+     "valor": 39.0
     }
    ],
-   "hechos": []
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2023-Q4",
    "periodoDisplay": "FY",
+   "periodoV3": "2023",
    "fecha": "2024-02-28",
+   "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Volcado histórico. Primer ejercicio completo normalizado tras el covid: ingresos 5.441,2 M€ (+21,3 %) y EBITDA ajustado 2.063,2 M€. Ojo al cruzar con el monitor anual: ese EBITDA es el ajustado que publica la empresa, no el de la fuente del Capítulo I.",
+   "resumen": "Ingresos +21,3 %, EBITDA +29,4 %, beneficio neto +68,2 %, margen 37,9 % (+2,36 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 450.2
+     "nombre": "Ingresos",
+     "valor": 5441.0
     },
     {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 1952.3
+     "nombre": "EBITDA",
+     "valor": 2060.0
     },
     {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 2655.1
-    },
-    {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 5441.2
-    },
-    {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 2063.2
-    },
-    {
-     "nombre": "Mg. EBITDA (%)",
+     "nombre": "Margen EBITDA",
      "valor": 37.9
     },
     {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 1123.9
+     "nombre": "EBIT",
+     "valor": 1420.0
     },
     {
-     "nombre": "FCL (M€)",
-     "valor": 1148.6
+     "nombre": "Beneficio neto",
+     "valor": 1118.0
     },
     {
-     "nombre": "DFN contratos (M€)",
-     "valor": 2140.6
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 1
+     "nombre": "Deuda neta",
+     "valor": 2496.0
     }
    ],
-   "hechos": []
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2024-Q1",
    "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
    "fecha": "2024-05-08",
+   "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Volcado histórico. Crecimiento ya de un dígito alto (ingresos +12,4 %): la base de comparación deja de ser el covid. Deuda al alza por adquisiciones.",
+   "resumen": "Ingresos +14,0 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 125.2
-    },
-    {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 476.4
-    },
-    {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 764.4
-    },
-    {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 1496.3
-    },
-    {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 581.4
-    },
-    {
-     "nombre": "Mg. EBITDA (%)",
-     "valor": 38.9
-    },
-    {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 324.5
-    },
-    {
-     "nombre": "FCL (M€)",
-     "valor": 336.1
-    },
-    {
-     "nombre": "DFN contratos (M€)",
-     "valor": 2460
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 1.1
+     "nombre": "Ingresos",
+     "valor": 1496.0
     }
    ],
-   "hechos": []
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2024-Q2",
-   "periodoDisplay": "1S",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
    "fecha": "2024-07-31",
+   "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Volcado histórico. Margen EBITDA en el 39,4 %, máximo de la serie post-covid. Reservas +2,9 %: el volumen empieza a normalizarse mientras el precio por reserva sostiene el ingreso.",
+   "resumen": "Ingresos +13,4 %, EBITDA +13,3 %, beneficio neto +15,0 %, margen 38,9 % (-0,02 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 242.4
+     "nombre": "Ingresos",
+     "valor": 3053.0
     },
     {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 1029
+     "nombre": "EBITDA",
+     "valor": 1188.0
     },
     {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 1506
+     "nombre": "Margen EBITDA",
+     "valor": 38.9
     },
     {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 3052.6
+     "nombre": "EBIT",
+     "valor": 868.0
     },
     {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 1203
+     "nombre": "Beneficio neto",
+     "valor": 648.0
     },
     {
-     "nombre": "Mg. EBITDA (%)",
-     "valor": 39.4
-    },
-    {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 683.4
-    },
-    {
-     "nombre": "FCL (M€)",
-     "valor": 530.3
-    },
-    {
-     "nombre": "DFN contratos (M€)",
-     "valor": 2594.7
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 1.15
+     "nombre": "Deuda neta",
+     "valor": 3177.0
     }
    ],
-   "hechos": []
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2024-Q3",
    "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
    "fecha": "2024-11-07",
+   "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Volcado histórico. Ingresos +12,6 % y EBITDA +13,3 %. Aviso de forma, no de fondo: la banda de portada del informe dice «Enero – Junio 2024» por un error de la propia Amadeus, y el contenido son los nueve meses cerrados a 30 de septiembre. Verificado a mano contra el título interior.",
+   "resumen": "Ingresos +13,0 %, EBITDA +13,0 %, margen 39,3 % (-0,00 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 359.8
+     "nombre": "Ingresos",
+     "valor": 4601.0
     },
     {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 1626.6
+     "nombre": "EBITDA",
+     "valor": 1806.0
     },
     {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 2230.5
-    },
-    {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 4600.6
-    },
-    {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 1806.3
-    },
-    {
-     "nombre": "Mg. EBITDA (%)",
+     "nombre": "Margen EBITDA",
      "valor": 39.3
-    },
-    {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 1028.2
-    },
-    {
-     "nombre": "FCL (M€)",
-     "valor": 975.2
-    },
-    {
-     "nombre": "DFN contratos (M€)",
-     "valor": 2511
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 1.09
     }
    ],
-   "hechos": []
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2024-Q4",
    "periodoDisplay": "FY",
+   "periodoV3": "2024",
    "fecha": "2025-02-28",
+   "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Volcado histórico. Ingresos 6.141,7 M€ (+12,9 %) y EBITDA ajustado 2.335,1 M€. Cifras COMO SE PUBLICARON: el informe de 2025 reexpresa después ese EBITDA a 2.327,7 M€, y el quiebre se marca en vez de alisarse.",
+   "resumen": "Ingresos +12,9 %, EBITDA +11,0 %, beneficio neto +12,1 %, margen 37,2 % (-0,64 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 471.2
+     "nombre": "Ingresos",
+     "valor": 6142.0
     },
     {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 2166.1
+     "nombre": "EBITDA",
+     "valor": 2286.0
     },
     {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 2945.7
+     "nombre": "Margen EBITDA",
+     "valor": 37.2
     },
     {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 6141.7
+     "nombre": "EBIT",
+     "valor": 1634.0
     },
     {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 2335.1
+     "nombre": "Beneficio neto",
+     "valor": 1253.0
     },
     {
-     "nombre": "Mg. EBITDA (%)",
-     "valor": 38
-    },
-    {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 1347.9
-    },
-    {
-     "nombre": "FCL (M€)",
-     "valor": 1334.8
-    },
-    {
-     "nombre": "DFN contratos (M€)",
-     "valor": 2111.3
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 0.91
+     "nombre": "Deuda neta",
+     "valor": 2589.0
     }
    ],
-   "hechos": []
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2025-Q1",
    "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
    "fecha": "2025-05-08",
+   "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Volcado histórico. Ingresos +9,1 % y EBITDA +8,1 %. Primer aviso en la caja: el flujo de caja libre cae un 22,1 % por calendario de impuestos, no por el negocio.",
+   "resumen": "Ingresos +9,1 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 128.3
-    },
-    {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 502.7
-    },
-    {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 821.3
-    },
-    {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 1632.2
-    },
-    {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 628.3
-    },
-    {
-     "nombre": "Mg. EBITDA (%)",
-     "valor": 38.5
-    },
-    {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 363.7
-    },
-    {
-     "nombre": "FCL (M€)",
-     "valor": 261.8
-    },
-    {
-     "nombre": "DFN contratos (M€)",
-     "valor": 1875.5
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 0.79
+     "nombre": "Ingresos",
+     "valor": 1632.0
     }
    ],
-   "hechos": []
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2025-Q2",
-   "periodoDisplay": "1S",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
    "fecha": "2025-07-31",
+   "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Reservas +2,0 %, la cifra más baja desde la reapertura: la normalización del tráfico aéreo empieza a verse. Ingresos +6,8 % y margen 39,1 %, sostenidos por el ingreso por reserva. Flujo de caja libre −11,6 %, segundo periodo por debajo.",
+   "resumen": "Ingresos +6,8 %, EBITDA +7,2 %, beneficio neto +12,3 %, margen 39,1 % (+0,14 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 247.3
+     "nombre": "Ingresos",
+     "valor": 3260.0
     },
     {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 1076.8
+     "nombre": "EBITDA",
+     "valor": 1274.0
     },
     {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 1608
-    },
-    {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 3260
-    },
-    {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 1276
-    },
-    {
-     "nombre": "Mg. EBITDA (%)",
+     "nombre": "Margen EBITDA",
      "valor": 39.1
     },
     {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 738.7
+     "nombre": "EBIT",
+     "valor": 937.0
     },
     {
-     "nombre": "FCL (M€)",
-     "valor": 468.6
+     "nombre": "Beneficio neto",
+     "valor": 727.0
     },
     {
-     "nombre": "DFN contratos (M€)",
-     "valor": 1715
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 0.71
+     "nombre": "Deuda neta",
+     "valor": 2325.0
     }
    ],
    "hechos": [
@@ -518,106 +415,68 @@
      "impacto": "+",
      "valoracion": "Reduce el número de acciones, que es el denominador de siete de las diez patas del precio objetivo. Es el uso de capital que la compañía ha elegido frente a más compras."
     }
-   ]
+   ],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2025-Q3",
    "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
    "fecha": "2025-11-07",
+   "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Reservas +2,7 % y pasajeros +3,7 %. Margen EBITDA 39,4 %. La deuda vuelve a subir, pero por la recompra de acciones, no por el negocio.",
+   "resumen": "Ingresos +6,4 %, EBITDA +7,1 %, margen 39,4 % (+0,24 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 369.4
+     "nombre": "Ingresos",
+     "valor": 4895.0
     },
     {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 1687.5
+     "nombre": "EBITDA",
+     "valor": 1929.0
     },
     {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 2377.2
-    },
-    {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 4895.3
-    },
-    {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 1928.7
-    },
-    {
-     "nombre": "Mg. EBITDA (%)",
+     "nombre": "Margen EBITDA",
      "valor": 39.4
-    },
-    {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 1108.9
-    },
-    {
-     "nombre": "FCL (M€)",
-     "valor": 955.2
-    },
-    {
-     "nombre": "DFN contratos (M€)",
-     "valor": 2219.9
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 0.9
     }
    ],
-   "hechos": []
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2025-Q4",
    "periodoDisplay": "FY",
+   "periodoV3": "2025",
    "fecha": "2026-02-27",
+   "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "AÑO BASE DEL ANÁLISIS. Ingresos 6.517,0 M€ (+6,1 %), EBITDA ajustado 2.506,6 M€ y margen 38,5 %. Reservas +2,8 % y pasajeros +3,8 %, los dos por debajo de su tendencia decenal. El flujo de caja libre cede un 2,4 %. Todo dentro de los umbrales del §10.1.",
+   "resumen": "Ingresos +6,1 %, EBITDA +6,6 %, beneficio neto +6,6 %, margen 37,4 % (+0,17 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 484.5
+     "nombre": "Ingresos",
+     "valor": 6517.0
     },
     {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 2248.6
+     "nombre": "EBITDA",
+     "valor": 2437.0
     },
     {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 3119.2
+     "nombre": "Margen EBITDA",
+     "valor": 37.4
     },
     {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 6517
+     "nombre": "EBIT",
+     "valor": 1754.0
     },
     {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 2506.6
+     "nombre": "Beneficio neto",
+     "valor": 1336.0
     },
     {
-     "nombre": "Mg. EBITDA (%)",
-     "valor": 38.5
-    },
-    {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 1420.2
-    },
-    {
-     "nombre": "FCL (M€)",
-     "valor": 1302.2
-    },
-    {
-     "nombre": "DFN contratos (M€)",
-     "valor": 2141.4
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 0.9
+     "nombre": "Deuda neta",
+     "valor": 2535.0
     }
    ],
    "hechos": [
@@ -639,7 +498,8 @@
      "impacto": "+",
      "valoracion": "Simbólico más que material: no mueve cifras a corto plazo."
     }
-   ]
+   ],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2026-Q1",
@@ -703,55 +563,42 @@
      "impacto": "+",
      "valoracion": "Sigue ensanchando el negocio de Soluciones Tecnológicas, que es el que crece por encima de Distribución Aérea."
     }
-   ]
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
   },
   {
    "periodo": "2026-Q2",
-   "periodoDisplay": "1S",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
    "fecha": "2026-07-31",
-   "semaforoGlobal": "R",
-   "tesisSigueIntacta": false,
-   "resumen": "SEGUNDO TRIMESTRE CONSECUTIVO DE CAÍDA DE RESERVAS (−7,6 % en el trimestre, −3,7 % en el semestre): la SEÑAL ÚNICA de la tesis del §9.4 queda DISPARADA y se abre una señal S2. Matiz importante: el dinero no ha seguido al volumen — ingresos +2,3 %, EBITDA +4,6 % y el margen mejora casi un punto, porque el ingreso por reserva sube más de lo que cae el número de reservas. La deuda sube 436,1 M€ por la recompra. El beneficio NIIF cede un 3,7 %.",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,3 %, EBITDA +2,1 %, beneficio neto -3,7 %, margen 39,0 % (-0,08 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde. Los ingresos suben un 2,3 % en euros pero un 5 % a tipo de cambio constante: la diferencia es el dólar. El entorno es difícil para la distribución aérea (ingresos +1,1 %), compensado por IT para aerolíneas (+8,7 %) y hoteles y pagos (+9,2 %) (documento: «2026-07-31 La sociedad remite la información financiera del primer semestre de 2026»). El monitor no tiene fila para 2026-3M aunque el informe del 8-may-2026 existe (ingresos +8 % a tipo constante).",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 238
+     "nombre": "Ingresos",
+     "valor": 3335.0
     },
     {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 1089.1
+     "nombre": "EBITDA",
+     "valor": 1300.0
     },
     {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 1584.7
+     "nombre": "Margen EBITDA",
+     "valor": 39.0
     },
     {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 3334.9
+     "nombre": "EBIT",
+     "valor": 946.0
     },
     {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 1334.3
+     "nombre": "Beneficio neto",
+     "valor": 701.0
     },
     {
-     "nombre": "Mg. EBITDA (%)",
-     "valor": 40
-    },
-    {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 748.7
-    },
-    {
-     "nombre": "FCL (M€)",
-     "valor": 472.2
-    },
-    {
-     "nombre": "DFN contratos (M€)",
-     "valor": 2577.5
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 1
+     "nombre": "Deuda neta",
+     "valor": 3155.0
     }
    ],
    "hechos": [
@@ -773,7 +620,8 @@
      "impacto": "+",
      "valoracion": "El segmento tecnológico sigue ganando cuota mientras el de distribución cede volumen. Es la parte de la tesis que no está en cuestión."
     }
-   ]
+   ],
+   "origen": "metodo-v3"
   }
  ]
 }

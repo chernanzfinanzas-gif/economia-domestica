@@ -1,315 +1,74 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "UNI",
- "empresa": "Unicaja",
- "fecha": "2026-10-13",
+ "empresa": "Unicaja Banco, S.A.",
+ "fecha": "2026-10-25",
+ "revisadoEl": "2026-10-25",
  "rating": "A",
- "score": 62.9,
+ "score": 70.1,
  "decision": "ESPERAR",
- "metodoValoracion": "P/TBV justificado por exceso de rentabilidad (RoTE vs CoE) + múltiplos históricos de nueve años + rentabilidad por dividendo — rama BANCA, sin DCF ni EBITDA. PO oficial = síntesis ponderada del §6.5 (2,55 €): tres P/TBV justificados (42 %), P/TBV, PER y P/BV históricos (23 %) y RPD media (35 %). Bear 1,82 € (margen de clientes −50 pb), bull 3,20 € (capital sobrante devuelto, guía de 2026 y pay-out del 95 %).",
- "poBear": 1.82,
- "poBull": 3.2,
- "entMin": 1.82,
- "entMax": 2.22,
- "stop": 1.1,
- "poBase": 2.54819772680441,
+ "metodoValoracion": "Síntesis ponderada (método v3): ptbv_pesimista 8 % · ptbv_base 26 % · ptbv_optimista 8 % · m_ptbv 11 % · m_per 7 % · m_pvc 5 % · m_rpd 35 % · flujo base del DCF: P/TBV justificado (banca)",
+ "poBear": 1.91,
+ "poBase": 2.65,
+ "poBull": 3.23,
+ "entMin": 1.91,
+ "entMax": 2.31,
+ "stop": 0.94,
  "dpaPrevisto": 0.1723,
- "dpaPrevistoMotivo": "Último dividendo ordinario declarado, con cargo a 2025 (0,1723 €). El puente lo toma como previsión anual mientras la empresa no publique el de 2026.",
- "moat": "44,8 · SIN MOAT CLARO (sobre 100): costes de cambio 60 (35 %), escala eficiente 50 (25 %), activos intangibles 40 (20 %), efecto de red 15 (15 %), ventaja en costes 20 (5 %). La horquilla moviendo los pesos va de 28,8 a 45,2.",
+ "moat": "43,1 sobre 100 · SIN MOAT CLARO. Franquicia regional con depósitos estables que el RoTE todavía no enseña",
  "catalizadores": [
-  "El dividendo pasa al 95 % del beneficio, en efectivo (0-12 meses · +16,26 % sobre el PO). Disparador: Pago del segundo y tercer dividendo de 2026 con el pay-out en efectivo del 95 % confirmado en las cuentas anuales de 2026.",
-  "El capital sobrante vuelve al accionista y el RoTE sube al ajustado (6-24 meses · +3,64 % sobre el PO). Disparador: Anuncio de una recompra o de un dividendo extraordinario que lleve el CET1 fully loaded hacia el 14 % del Plan 2025-2027.",
-  "Se cumple la guía de beneficio de 2026 (0-6 meses · +5,12 % sobre el PO). Disparador: Beneficio de 2026 por encima de 660 M€ (+4,4 % sobre los 632,4 de 2025) con el coste del riesgo por debajo de 25 pb."
+  "El dividendo pasa al 95 % del beneficio, en efectivo: Política anunciada el 5-may-2026: del 72 % de payout de 2025 al 95 %, el dividendo por acción sube un 32 %. (0-12 meses)",
+  "El capital sobrante vuelve al accionista y el RoTE sube al ajustado: 1.017 M€ por encima de un CET1 del 12,5 %: si se devuelven, el valor tangible baja un 16 % y el RoTE sube al 12 % ajustado (+2,55 pp sobre el caso base). (12-24 meses)",
+  "Se cumple la guía de beneficio de 2026: Crecimiento de un dígito medio sobre 2025: unos 32 M€ más de beneficio (45 M€ antes de impuestos). (0-12 meses)"
  ],
  "riesgos": [
-  "Financiero · Media · −28,42 a −42,06% · Los tipos vuelven abajo y el margen de clientes con ellos. Riesgo dominante.",
-  "Macroeconómico · Baja-Media · −1,48 a −20,38% · Una recesión en sus territorios dispara las provisiones.",
-  "Regulatorio · Media · −3,30 a −11,03% · Más carga fiscal sobre la banca.",
-  "Competitivo · Media · −5,68 a −14,21% · La competencia por depósitos e hipotecas aprieta el margen.",
-  "Mercado · Media · −13,72 a −27,45% · El múltiplo vuelve al de su peor año.",
-  "Societario · Baja-Media · −3,14 a −8,50% · Una operación corporativa cambia el control o reabre una integración.",
-  "Gobernanza · Media · −1,88 a −3,77% · La sucesión en la presidencia.",
-  "Ciberseguridad · Baja · −0,15 a −0,60% · Caída prolongada de los sistemas o ciberataque."
+  "Los tipos vuelven abajo y el margen de clientes con ellos (Media): El RoTE pasó del 4 % al 10 % con la subida de tipos; el margen de clientes fue del 1,35 % (2021) al 2,28 % (2025). Suave: −50 pb (−175 M€ de beneficio); duro: vuelve al 1,54 % de 2022 (−259 M€). En antes de impuestos (tasa 29,7 %).",
+  "Una recesión en sus territorios dispara las provisiones (Baja-Media): Coste del riesgo del 0,85 % en 2020 contra el 0,26 % de 2025; ese año el mercado bajó el P/TBV un 28 %. Suave: un año con el coste de 2020 contra el capital; duro: dos años y el múltiplo de 2020.",
+  "Más carga fiscal sobre la banca (Media): El impuesto sobre el margen de intereses y comisiones fue de 20,3 M€ en 2025 y el gravamen temporal de 88,3 M€ en 2024. Suave: se duplica; duro: vuelve al nivel de 2024.",
+  "La competencia por depósitos e hipotecas aprieta el margen (Media): Es el menos eficiente del grupo (45,5 %) y compite con bancos mucho mayores. −10 y −25 pb de margen de clientes sin perder volumen.",
+  "El múltiplo vuelve al de su peor año (Media): P/TBV medio de 0,52 veces desde la salida a bolsa y mínimo de 0,29 (2020): los múltiplos caen la mitad o todo lo que separa la media del mínimo.",
+  "Una operación corporativa cambia el control o reabre una integración (Baja-Media): 1.017 M€ de capital sobrante y consolidación bancaria en España: puede ser compradora u objetivo. Se mide como descuento en los múltiplos.",
+  "La sucesión en la presidencia (Media): José Sevilla no optará a la reelección (1-oct-2026) y sigue como presidente no ejecutivo hasta la junta de 2027; la acción cayó un 6 % con el anuncio.",
+  "Caída prolongada de los sistemas o ciberataque (Baja): 5,7 M€ de margen bruto al día: se pierden 5 o 20 días, de una vez."
  ],
- "bull": "3,20 € (+25,6 % sobre el PO). Los tres catalizadores del §9.1 cumplidos a la vez: el banco devuelve los 1.017 M€ de capital sobrante (−16,14 % del capital tangible) y el que queda rinde el 12,0 % ajustado que ya publica (+2,55 pp de RoTE); el beneficio crece un 5 % como dice la guía de 2026; y el dividendo pasa a ser el 95 % del beneficio, en efectivo (+34,21 % sobre el pay-out de 2025). Sobre la cotización de 3,24 € sería un −123,5 %.",
- "bear": "1,82 € (0,714 × PO). El riesgo DOMINANTE del §8.1 en su extremo SUAVE, como manda F147: el margen de clientes baja 50 pb (del 2,28 % al 1,78 %), −175,1 M€ de beneficio (−27,76 % del de 12 meses), con el dividendo y el RoTE sostenible de los tres escenarios en la misma proporción (el central pasa del 9,45 % al 6,83 %). La catástrofe es la peor cadena del §8.2, A · Vuelven los tipos bajos y el mercado vuelve a pagar el banco de antes: 1,25 €, ancla del stop.",
- "resumen": "Banco minorista español nacido de cajas andaluzas, EspañaDuero y Liberbank: CET1 del 15,9 %, morosidad del 2,1 % y un RoTE del 9,8 % en 2025, a la par de su coste del capital; rating A (62,9) y sin moat claro (44,8). A 3,24 € cotiza un 21,35 % por encima de su precio objetivo de 2,55 €: ESPERAR, con banda de entrada 1,82–2,22 € y stop de tesis en 1,10 €.",
- "revisadoEl": "2026-10-13",
- "confianza": {
-  "score": 96,
-  "nivel": "A",
-  "motivos": [
-   "2 dato(s) secundario(s) en 'Pte. Revisión' (−4)"
-  ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-10-13"
- },
+ "bull": "3,23 € — escenario optimista: RoTE ajustado al exceso de capital publicado a jun-2026: el banco devuelve el capital que sobra sobre un CET1 del 12,5 %",
+ "bear": "1,91 € — escenario pesimista: media de diez años: vuelven los tipos cero y el banco rinde lo que rindió entre 2016 y 2023",
+ "resumen": "ESPERAR, como en octubre. A 3,10 € el margen es del −14 % y falla además el moat (43,1, sin moat claro): aunque bajara de precio, no sería COMPRAR. Es una tesis de capital y dividendo (el payout va al 95 %), no de franquicia.",
  "dividendSafety": {
   "score": 59,
   "banda": "Vigilar",
   "aplica": true,
   "rama": "banca",
-  "componentes": {
-   "C1": 8,
-   "C2": 25,
-   "C3": 10,
-   "C4": 9,
-   "C5": 7
-  },
-  "shareholderYield": 7.69,
+  "componentes": {},
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 pay-out dividendo (DPA/BPA) 71% → 8/30",
-   "C2 CET1 15.9% → 25/25",
-   "C3 RoTE 9.8% → 10/20",
-   "C4 trayectoria: 1 recorte(s) en 9a · DPA creciente → 9/15",
-   "C5 predictores: pay-out alto → 7/10",
-   "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
+   "Vigilar · payout del dividendo 72 % → 8/30 · CET1 15.9 % → 25/25 · RoTE 9.8 % → 10/20 · 1 recorte(s) en 10 años → 9/15 · predictores: payout alto → 7/10"
   ],
-  "calculadoEl": "2026-10-13"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 8.87
  },
  "forense": {
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-10-13"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "etiquetaPrecioSensible": false,
-  "matizada": false,
-  "banda": {
-   "p10": 1.82,
-   "p50": 2.54819772680441,
-   "p90": 3.2
-  },
-  "sensibilidad": {
-   "sobre": "modelo",
-   "regla": "F100",
-   "poMin": 1.89,
-   "poMax": 2.77,
-   "poBase": 2.27587281795511,
-   "cotizacion": 3.24,
-   "cotizacionBase": "actual",
-   "componente": null,
-   "pesoPerturbado": 1.0,
-   "componentesIntactos": 0,
-   "dcf": {
-    "poMin": 1.89,
-    "poMax": 2.77,
-    "poBase": 2.27587281795511
-   },
-   "ejeCoste": "CoE",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -41.7,
-   "mdsMax": -14.4
-  },
-  "beta": {
-   "capm": 1.177,
-   "ref2": 1.1186,
-   "aviso": null
-  },
-  "motivos": [
-   "⚠ la sensibilidad va sobre el modelo del §6.3 (CoE × RoTE) SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
-   "la cotización (3.24) queda por ENCIMA de toda la banda del valor por acción del modelo del §6.3 (CoE × RoTE) [1.89–2.77] → sobrevalorada en todo el rango",
-   "…y la banda de margen de seguridad [-41.7 % … -14.4 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA"
-  ],
-  "calculadoEl": "2026-10-13"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
-  "aplica": false,
-  "veredicto": "No aplica",
-  "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
-  "calculadoEl": "2026-10-13"
+  "aplica": true,
+  "gImplicito": 12.78,
+  "gIntrinseco": null,
+  "veredicto": "EXIGENTE",
+  "motivo": "EXIGENTE (exige un RoTE de 12.0 %, hasta 3 pp por encima del último, 9.8 %)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "roteImplicito": 12.04
  },
- "lecturaNegocio": {
-  "fecha": "2026-10-13",
-  "rama": "financiera",
-  "subrama": "banca",
-  "fuente": "Datos Financieros Unicaja.xlsx · Cuenta de Resultados · Beneficio neto; Datos de Mercado · DPA declarado; Datos de Mercado · Nº acciones en circulación; Desempeño Operativo · CoE — coste del capital del método; Flujos de Caja · Payout total ((dividendos + recompras) / BN); Métricas Específicas · RoTE — rentabilidad sobre capital tangible; Métricas Específicas · VCPA-T — valor TANGIBLE por acción; Solvencia Financiera · Colchón de CET1 sobre el requisito",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 3,
-   "nombre": "LA TRAMPA DEL CAPITAL",
-   "lema": "retiene mucho y lo retenido no le rinde",
-   "porSpread": false,
-   "roiicFragil": false,
-   "cortes": {
-    "retencion": 50.0,
-    "valorTangible": 10.02,
-    "regla": "retención ≥ 50 % y valor tangible por acción + dividendos a 5 años ≥ CoE · financieras, 25-sep-2026"
-   }
-  },
-  "cifras": {
-   "retencionMedia": 57.09,
-   "valorTangible5a": 3.55,
-   "valorTangible10a": -0.54,
-   "roteMedio": 4.9,
-   "spread": -0.22,
-   "coe": 10.02,
-   "coeFuente": "«Desempeño Operativo» · CoE del método, último año",
-   "tension": 7.17,
-   "tensionAnio": 2025,
-   "tensionNombre": "Colchón de CET1 sobre el requisito del BCE",
-   "tensionUnidad": "pp",
-   "repartosExtraordinarios": {}
-  },
-  "tension": {
-   "anios": [
-    2016,
-    2020,
-    2021,
-    2025
-   ],
-   "rote": [
-    4.9,
-    2.0,
-    2.4,
-    9.8
-   ],
-   "payoutTotal": [
-    12.0,
-    46.2,
-    6.1,
-    101.3
-   ],
-   "valorTangible": [
-    3.15,
-    2.46,
-    2.15,
-    2.5
-   ],
-   "capital": [
-    2.5,
-    6.2,
-    4.5,
-    7.2
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "<b>Un banco minorista de hipotecas y depósitos</b>, nacido de antiguas cajas y concentrado en seis comunidades donde es banco de referencia. El 71 % de su margen bruto es margen de intereses; los fondos y los seguros, vendidos con socios, son la segunda pata.",
-     "Su perímetro cambió en la década: EspañaDuero en 2018 y Liberbank en 2021. Las acciones pasaron de 923 millones a 2.571 millones, por la salida a bolsa y el canje de la fusión, no por ampliaciones para financiarse."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>De los tipos, y sólo desde hace dos años.</b> El RoTE estuvo en el 3,8 % de media entre 2016 y 2023 y subió al <b>9,8 %</b> en 2025, −0,22 pp frente a un coste del capital del 10,02 %: ya no destruye valor, pero aún no lo crea.",
-     "Por acción: el valor tangible pasó de 3,15 € en 2016 a <b>2,50 €</b> en 2025, más 0,50 € de dividendos por el camino: un 3,6 % anual en los últimos cinco años, por debajo de su coste del capital. Ha retenido el 57,1 % de lo que ganó de media en la década, y lo retenido apenas le ha rendido."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "En el capital no hay ninguna: el colchón de CET1 sobre lo que exige el BCE es de <b>7,17 puntos</b> en 2025, con el CET1 más alto de su grupo. Ese colchón es justamente lo que hoy reparte: el payout total pasó del 6,1 % de 2021 al 101,3 % de 2025.",
-     "La tensión de verdad está en los tipos: el riesgo mayor del Bloque 8, el moat y la peor cadena del pre-mortem cuelgan de la misma variable, el margen de clientes."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra Unicaja compra <b>un banco sano que ha dejado de destruir valor y que devuelve casi todo lo que gana</b>, a un precio que ya descuenta que su rentabilidad subirá hacia el 12 % con el capital devuelto. La tesis de solvencia se sostiene; la de precio, no.",
-     "<b>Qué vigilar cada trimestre:</b> el RoTE publicado contra el 9,45 % del caso central y el margen de clientes contra el 2,0 %."
-    ]
-   }
-  ],
-  "vigilar": "El RoTE publicado contra el 9,45 % del caso central, y el margen de clientes contra el 2,0 %: los dos miden lo mismo, cuánto de la rentabilidad de hoy es ciclo de tipos.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "Banco minorista de hipotecas y depósitos en seis comunidades: el 71 % de su margen bruto es margen de intereses.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Sí, con holgura: CET1 fully loaded del 15,9 %, 7,17 pp por encima del requisito del BCE, LCR del 301 % y mora del 2,1 %.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Lo justo para no destruir valor: RoTE del 9,8 % en 2025, −0,22 pp frente a su coste del capital, y sólo desde que subieron los tipos.",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 3 · La trampa del capital: retiene mucho y lo retenido no le rinde. Retiene el 57,1 % de lo que gana y su valor tangible por acción más dividendos crece un 3,6 % al año en cinco años, contra un coste del capital del 10,02 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "En un banco no hay flujo libre: lo que reparte es capital, el 101,3 % del beneficio en 2025, con una generación orgánica ya nula.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "A · 62,9 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 2,55 € contra 3,24 €: margen de seguridad −21,4 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Poco: sin moat claro (44,8); su mejor baza es una franquicia de depósitos barata en sus regiones.",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "Los tipos: si el margen de clientes vuelve al de 2022, el precio objetivo cae entre un 28,42 % y un 42,06 %. Es el que fija el escenario pesimista.",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "Que reparta el 95 % del beneficio en efectivo, ya en marcha en 2026: lleva el valor a 2,96 €, aún por debajo del precio.",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>ESPERAR</b> · banda de entrada 1,82 – 2,22 € · stop de tesis 1,10 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "El RoTE publicado contra el 9,45 % del caso central, y el margen de clientes contra el 2,0 %: los dos miden lo mismo, cuánto de la rentabilidad de hoy es ciclo de tipos.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "Ningún dato crítico abierto; quedan sin medir cómo pasó el propio Unicaja la crisis de 2008, el origen de los intereses de clientes no residentes y el sucesor del presidente.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 2,55 → 2,65 €."
 }

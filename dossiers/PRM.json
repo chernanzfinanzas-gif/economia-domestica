@@ -1,125 +1,67 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "PRM",
  "empresa": "Prim, S.A.",
- "fecha": "2026-09-13",
+ "fecha": "2026-10-25",
+ "revisadoEl": "2026-10-26",
  "rating": "A",
- "score": 63.5,
+ "score": 66.3,
  "decision": "ESPERAR",
- "metodoValoracion": "Síntesis ponderada del §6.5 — DCF 50 · múltiplos 40 · renta 10 · activos 0, que son EXACTAMENTE los pesos de la norma del arquetipo SALUD, sin desviación que justificar. El PO oficial (10,83 €) es esa síntesis de nueve patas, no el DCF puro: el caso central del DCF da 7,48 € y la media de las cinco patas de múltiplo 13,71 €, y el §6.6 declara que el DCF de Prim sale por lo BAJO porque descuenta owner earnings medios de diez años (5,63 M€, el 16,6 % del EBITDA) que incluyen los ejercicios en que el circulante se comió la caja.",
- "poBear": 8.98,
- "poBase": 10.83,
- "poBull": 11.54,
- "entMin": 8.98,
- "entMax": 9.41,
- "stop": 6.71,
- "dpaPrevisto": 0.528,
- "moat": "MOAT ESTRECHO · 45,3 sobre 100",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 12 % · DCF base 26 % · DCF optimista 12 % · EV/EBITDA 10 % · EV/EBIT 8 % · PER 10 % · P/VC 6 % · P/FCL 6 % · rentabilidad por dividendo 10 % · flujo base del DCF: owner earnings",
+ "poBear": 9.49,
+ "poBase": 11.31,
+ "poBull": 12.07,
+ "entMin": 9.49,
+ "entMax": 9.84,
+ "stop": 7.31,
+ "dpaPrevisto": 0.4688,
+ "moat": "45,0 sobre 100 · MOAT ESTRECHO. Distribuidor: el ROIC alto viene del modelo de poco capital, no de una barrera",
  "catalizadores": [
-  "La conversión de caja de 2024-2025 se confirma en el cierre de 2026: es el catalizador de esta empresa y no hay otro que se le acerque. Llevaría el flujo base del DCF de 5,63 a 14,90 M€ y el precio objetivo de 10,83 a 17,51 €.",
-  "Re-rating hacia el múltiplo de sus comparables europeos: Prim cotiza a 13,05x beneficio contra 17,0x de Embla Medical, 30,4x de AddLife y 52,4x de Asker, haciendo el mismo negocio y sin la deuda de 2,2-2,4x que llevan los tres.",
-  "El margen EBIT recupera un punto de los 2,96 perdidos en la década: la caída del 11,83 % al 8,87 % es casi toda amortización —la D&A pasa del 1,89 % de las ventas al 4,52 %— y revierte sola a medida que los intangibles de las compras se agotan.",
-  "Una compra que aporte fabricación propia en vez de más distribución: las siete adquisiciones desde 2021 están todas en Movilidad y Cuidados de la Salud, que gana un BAI del 7,6 % contra el 12,9 % de Tecnologías Médicas."
+  "La conversión de caja de 2024-2025 se confirma en 2026: El DCF descuenta los owner earnings medios de diez años, que llevan dentro la absorción de circulante de 2022-2023. Si 2026 confirma el régimen de 2024-2025, la base pasa a la del post-ciclo. No es un golpe del modelo, es un cambio de la base del flujo: octubre lo midió aparte (17,51 €, +61,8 %). (feb-2027)",
+  "Re-rating hacia el múltiplo de sus comparables europeos: Prim cotiza a 13x beneficio frente a 17-52x de Embla, AddLife y Asker, con mejor ROIC: un re-rating del 10 %. (12-18 meses)",
+  "El margen EBIT recupera un punto: Casi toda la caída del margen EBIT en la década es amortización de las compras, que revierte sola: +1 pp de margen EBITDA. (12-24 meses)",
+  "Una compra que aporte fabricación propia: Movería la mezcla hacia el margen de un fabricante. No se deriva impacto: no hay operación anunciada. (0-18 meses)"
  ],
  "riesgos": [
-  "Comercial (−17 a −46 %): el concurso público aprieta el precio. Es el riesgo dominante y el que fija el bear case.",
-  "Operativo (−13 a −33 %): el circulante vuelve a absorber como en 2022-2023, cuando la conversión EBITDA→FCL fue del −77 %.",
-  "Competitivo (−7 a −18 %): un fabricante que Prim distribuye monta filial propia en España.",
-  "Asignación de capital (−6 a −15 %): una compra grande pagada con deuda que no aporta margen. Con el Plan 2026-2031 encima, ha dejado de ser hipotético.",
-  "Societario (−7 a −16 %): exclusión pactada o cambio de control a precio de mercado, con la acción cotizando por encima de su precio objetivo.",
-  "Contable (−1 a −2 %): deterioro del fondo de comercio y de los intangibles de las compras. El impacto es pequeño porque el modelo casi no mira el balance, no porque el riesgo lo sea.",
-  "Ciberseguridad (−12 a −25 %): parón de sistemas o brecha de datos de salud. El informe de gestión no nombra este riesgo en ningún sitio."
+  "El concurso público aprieta el precio (Media): El 90,5 % de las ventas es España y el pagador principal son mutuas y hospitales públicos que adjudican por concurso cada 2-4 años. Una bajada de precio pasa entera al margen. Un punto de margen EBITDA son 2,5 M€.",
+  "El circulante vuelve a absorber como en 2022-2023 (Media): Existencias más clientes menos proveedores pasaron de 56,7 a 95,9 M€ en la década; el flujo libre fue negativo en 2019, 2022 y 2023. Se modela como una salida de caja anual de 2 y 5 M€.",
+  "Un fabricante distribuido monta filial propia (Baja-Media): Tecnologías Médicas es la mitad del grupo y la mitad rentable, con producto de terceros. Perder el 3 % o el 8 % de los ingresos del grupo.",
+  "Una compra grande pagada con deuda que no aporta margen (Baja-Media): Siete compras desde 2021, todas en el segmento de peor margen y pagadas con caja; una mayor exigiría deuda.",
+  "Exclusión pactada o cambio de control a precio deprimido (Baja): El 62,7 % está en cuatro manos: una OPA hostil es impracticable, pero sí una exclusión pactada o la venta del paquete de Comenge a 13x beneficio, frente a 17-52x de sus comparables.",
+  "Deterioro del fondo de comercio y de los intangibles de las compras (Baja): Fondo de comercio de 8,4 M€ (6,1 % del patrimonio). El modelo casi no mira el balance: el impacto pequeño mide esa ceguera, no la pequeñez del riesgo.",
+  "Parón de sistemas o brecha de datos de salud (Baja): Logística con entrega comprometida en pliego y datos de salud. Seis semanas de parón: ingresos del año −5 % y 2 M€ de recuperación; la mitad del episodio como golpe suave."
  ],
- "bull": "Los dos primeros catalizadores perturbados JUNTOS —que la conversión de caja de 2024-2025 se confirme, llevando el flujo base del DCF de 5,63 a 14,90 M€, y un re-rating del 10 % hacia el múltiplo de los comparables europeos—: 11,54 €.",
- "bear": "El riesgo dominante del §8.1 en su extremo SUAVE: una bajada del 1 % en el precio de concurso que se traslada íntegra al margen, porque el coste de la mercancía no baja con el precio de venta. Da 8,98 €, o sea 0,829 × precio objetivo, dentro de la banda 0,70-0,85 que el método declara.",
- "resumen": "Prim es una empresa de calidad A (63,5) con un balance excepcional —caja neta, seis de cada diez años sin deuda, cobertura de intereses mínima de 31,5x— y una generación de caja que sólo ahora empieza a demostrarse: la conversión EBITDA→FCL media de la década es del 21,9 % y hay tres ejercicios con caja libre negativa. A 12,80 € el margen de seguridad es −15,4 % contra el precio objetivo de 10,83 €, así que se cumplen tres de las cuatro condiciones de COMPRAR y falla justamente la del precio. VEREDICTO: ESPERAR, con banda de entrada en 8,98-9,41 € y stop de tesis en 6,71 €. Dos avisos que van con la decisión: el dividendo renta un 4,00 % pero su Dividend Safety es 40 sobre 100 con el tope duro activo —no es una acción de renta—, y la tesis entera cuelga de una sola variable, el margen sobre el precio de concurso público, que fija el mismo pagador en el 90,5 % de las ventas.",
- "confianza": {
-  "score": 100,
-  "nivel": "A",
-  "motivos": [
-   "sin huecos críticos ni discrepancias abiertas"
-  ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-09-13"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "etiquetaPrecioSensible": false,
-  "matizada": false,
-  "banda": {
-   "p10": 8.98,
-   "p50": 10.83,
-   "p90": 11.54
-  },
-  "sensibilidad": {
-   "sobre": "sintesis",
-   "regla": "F100",
-   "poMin": 10.46,
-   "poMax": 11.47,
-   "poBase": 10.83,
-   "cotizacion": 12.8,
-   "cotizacionBase": "actual",
-   "componente": "DCF Base",
-   "pesoPerturbado": 0.26,
-   "componentesIntactos": 8,
-   "dcf": {
-    "poMin": 6.05,
-    "poMax": 9.96,
-    "poBase": 7.48266240312826
-   },
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -18.3,
-   "mdsMax": -10.4
-  },
-  "beta": {
-   "capm": 0.51,
-   "ref2": 0.27,
-   "aviso": null
-  },
-  "motivos": [
-   "QUÉ SE HA PERTURBADO: solo «DCF Base» (26 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 74 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
-   "la cotización (12.80) queda por ENCIMA de toda la banda del precio objetivo de síntesis [10.46–11.47] → sobrevalorada en todo el rango",
-   "…y la banda de margen de seguridad [-18.3 % … -10.4 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
-   "para contraste, el DCF puro (§6.3) se mueve en [6.05–9.96] € alrededor de 7.48 €: es la sensibilidad del MODELO, no la del precio objetivo"
-  ],
-  "calculadoEl": "2026-09-13"
- },
+ "bull": "12,07 € — escenario optimista: 2024-2025 son el giro: el flujo crece cerca del EBITDA",
+ "bear": "9,49 € — escenario pesimista: la erosión de margen sigue y el circulante se come la amortización",
+ "resumen": "ESPERAR con la cotización de 12,60 € (2026-10-23): precio objetivo 11,31 € (bear 9,49 · bull 12,07), margen −10,2 %. Banda de entrada 9,49–9,84 €, stop de tesis 7,31 €.",
  "dividendSafety": {
   "score": 40,
   "banda": "Vigilar",
+  "aplica": true,
+  "rama": "general",
   "componentes": {
-   "C1": 1,
+   "C1": 0,
    "C2": 13,
    "C3": 20,
-   "C4": 3,
+   "C4": 0,
    "C5": 15
   },
-  "shareholderYield": 3.74,
   "topeDuro": {
    "activo": true,
-   "motivo": "cobertura sobre owner earnings 3a 0.57x < 1,0x"
+   "motivo": "Vigilar: cobertura OE 0.39x · payout 54 % · 3 recorte(s) del DPA · TOPE en 40 (no se cubre con caja o payout 3 años > 100 %)"
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 2.62x / FCL 2.27x (3a OE 0.57x) → 1/35",
-   "C2 payout BN ord.: 48% (3a 54%) → 13/15",
-   "C3 balance parcial → 20/20",
-   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
-   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral.",
-   "TOPE DURO aplicado (score 52 → 40): cobertura sobre owner earnings 3a 0.57x < 1,0x"
+   "Vigilar: cobertura OE 0.39x · payout 54 % · 3 recorte(s) del DPA · TOPE en 40 (no se cubre con caja o payout 3 años > 100 %)"
   ],
-  "calculadoEl": "2026-09-13"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 3.74
  },
  "forense": {
   "aplica": true,
+  "ejercicio": "2025",
   "piotroski": {
    "score": 9,
    "banda": "fuerte",
@@ -134,10 +76,10 @@
     "margin_up": 1,
     "turn_up": 1
    },
-   "nota": "margen=bruto"
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
   },
   "altman": {
-   "z": 9.84,
+   "z": 8.56,
    "zona": "segura"
   },
   "beneish": {
@@ -154,209 +96,32 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-09-13"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 13.08,
-  "gIntrinseco": 6.01,
+  "gImplicito": 12.87,
+  "gIntrinseco": 6.1,
   "veredicto": "HEROICO",
-  "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
-  "calculadoEl": "2026-09-13",
+  "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
   "entradas": {
-   "fcl": 5.6297894,
+   "fcl": 5.6307,
    "wacc": 7.5,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 17.036578,
-   "deudaNeta": -2.08018,
+   "acciones": 17.0235,
+   "deudaNeta": -1.499,
    "modo": "EV",
-   "precioBase": 12.8,
-   "validado": true,
-   "desviacion": 0.002,
-   "gBase": 13.082,
-   "fechaBase": "2026-09-13",
-   "congeladoEl": "2026-09-13"
+   "precioBase": 12.6,
+   "gBase": 14.61,
+   "fechaBase": "2026-10-23",
+   "congeladoEl": "2026-10-26",
+   "validado": false,
+   "desviacion": 1.74
   }
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "fuente": "Datos Financieros Prim.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 1,
-   "nombre": "LA MÁQUINA DE CUPÓN",
-   "lema": "rinde mucho, reinvierte poco",
-   "porSpread": false,
-   "roiicFragil": false,
-   "cortes": {
-    "reinversion": 20.0,
-    "roiic": 12.5,
-    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
-   }
-  },
-  "cifras": {
-   "reinversionMedia": 10.08,
-   "roiic5a": 23.2,
-   "roiic": 23.2,
-   "roiicVentana": "5A",
-   "roicMedio": 10.27,
-   "spread": 5.1,
-   "wacc": 7.5,
-   "conversionMedia": 21.87,
-   "coberturaDividendo": 2.02,
-   "gIntrinseco": 6.01,
-   "capexCrecimiento10a": 10.4,
-   "fcl10a": 48.2,
-   "retribucion10a": 78.8,
-   "retribucionSobreFcl": 163.5
-  },
-  "tension": {
-   "anios": [
-    2019,
-    2022,
-    2023,
-    2025
-   ],
-   "coberturaFcl": [
-    null,
-    null,
-    null,
-    2.02
-   ],
-   "coberturaOe": [
-    null,
-    null,
-    null,
-    2.1
-   ],
-   "payoutBn": [
-    34.0,
-    74.4,
-    60.0,
-    54.0
-   ],
-   "payoutFcl": [
-    null,
-    null,
-    null,
-    49.6
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "Un <b>distribuidor-fabricante sanitario ibérico</b> con dos mitades casi iguales: Tecnologías Médicas, que vende a hospitales por concurso, y Movilidad y Cuidados de la Salud, que fabrica ortopedia y la vende en mostrador. Detrás de casi todo hay un único mecanismo de precio, el del sistema público de salud. No necesita mucho inmovilizado —el CAPEX es el <b>4,3 % de las ventas</b>—, pero sí mucho circulante, y eso es lo que decide su caja: <b>21,9 % de conversión media</b> del EBITDA en flujo libre, con 1 solo de los diez años por encima del umbral de la banda y tres (2019, 2022 y 2023) en negativo.",
-     "Las ventas han pasado de 110,1 M€ en 2016 a 251,9 M€ en 2025, pero ese crecimiento es en buena parte comprado: diez operaciones pequeñas y baratas en la década, varias de ellas por debajo del valor de los activos. Prim compra situaciones, no activos de precio alto."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>De un margen bruto defendido, no de un retorno alto.</b> El ROIC medio de la década es un 10,3 % contra un WACC del 7,5 %: crea valor, pero con poco margen, y en 2022 —el año de la inflación de aprovisionamientos con precios administrados— el spread fue de <b>−1,98 pp</b>. En 2025 ha vuelto a +5,10 pp.",
-     "El ROIIC a cinco años sale del <b>23,2 %</b>, muy por encima del corte de WACC más cinco puntos, pero hay que leerlo con cuidado: se mide sobre muy poco capital. El CAPEX de crecimiento de toda la década suma <b>10,4 M€</b>, el 0,6 % de las ventas, y la reinversión media es del <b>10,1 %</b>; por eso cae en la casilla del cupón. Las compras de empresas, que es por donde crece de verdad, no entran en esa reinversión. Y el cupón ha ido por delante de la caja: de 48,2 M€ de flujo libre en diez años se han repartido <b>78,8 M€, el 163 %</b>."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "<b>Una máquina de cupón con la caja rota tres veces en diez años.</b> En 2023 el negocio creció y la caja se fue: flujo libre de <b>−20,1 M€</b> y conversión del −77,1 %, con el circulante comiéndose la amortización. En 2022 la deuda neta subió 24,5 M€. El dividendo se recortó dos veces en la década, con cargo a 2019 y a 2022, que son justamente años de caja negativa. 2024 y 2025 son la recuperación: cobertura de 1,41x y <b>2,02x</b>, y caja neta al cierre de 2025.",
-     "La tensión nueva es el plan 2026-2031: duplicar las ventas y comprar una decena de empresas por al menos 100 M€, cerca de la mitad de la capitalización, sobre un balance que hoy tiene caja neta y cuyo máximo de deuda de la década no llegó a 20 M€. A la vez fija un suelo de dividendo igual al pagado en 2025. Las dos promesas compiten por la misma caja, y el primer semestre de 2026 ya salió con el EBITDA cayendo."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra Prim hoy compra <b>un cupón que depende de que la conversión de 2024-2025 se confirme</b>, y un plan que, si se ejecuta, la sacará de esta casilla: con cien millones en compras la reinversión dejará de ser pequeña y lo que habrá que medir será el retorno de esas compras. El descuento frente a sus pares europeos no es un error: es el precio de un solo pagador, de un circulante caprichoso y de dos recortes en diez años.",
-     "<b>Qué vigilar cada trimestre, por ser familia 1:</b> la cobertura del dividendo con caja libre. Si vuelve a caer por debajo de la unidad con el suelo del dividendo ya comprometido, el suelo lo pagará la deuda. <b>Fuera de ventana:</b> la compra de Ortopedia Queraltó (agosto de 2026) no está en ninguna cifra del libro."
-    ]
-   }
-  ],
-  "vigilar": "La cobertura del dividendo con caja libre: si vuelve a caer por debajo de la unidad —como en 2017, 2018 y en los tres años de flujo libre negativo— con el suelo de dividendo del plan 2026-2031 ya comprometido, el suelo lo pagará la deuda.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "Suministros médicos y ortopedia con un balance excepcional, cuya caja sólo ahora empieza a demostrarse.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Sólida: 6 de 6 métricas en verde; caja neta seis de cada diez años.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Crea valor: diferencial positivo 9 de 10 años (ROIC del 10,3 % contra el 7,5 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 10,1 % del NOPAT de media; ROIIC a cinco años del 23,2 % contra un corte del 12,5 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "La caja no acompaña: conversión media del EBITDA en flujo libre del 21,9 %, con tres años en negativo.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "A · 63,5 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 10,83 € contra 12,80 €: margen de seguridad −15,4 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Moat estrecho (45,3), y barata contra sus comparables.",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "El concurso público aprieta el precio (−17 a −46 %). Ninguna cadena llega al −50 %, y eso no es buena noticia.",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "Que la conversión de caja de 2024-2025 se confirme en 2026: no hay otro catalizador que se le acerque.",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>ESPERAR</b> · banda de entrada 8,98 – 9,41 € · stop de tesis 6,71 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "La cobertura del dividendo con caja libre: si vuelve a caer por debajo de la unidad —como en 2017, 2018 y en los tres años de flujo libre negativo— con el suelo de dividendo del plan 2026-2031 ya comprometido, el suelo lo pagará la deuda.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "Ningún dato crítico abierto.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 10,83 → 11,31 €."
 }

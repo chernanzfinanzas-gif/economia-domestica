@@ -1,312 +1,76 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "MAP",
  "empresa": "Mapfre, S.A.",
- "fecha": "2026-09-18",
+ "fecha": "2026-10-25",
+ "revisadoEl": "2026-10-25",
  "rating": "A",
- "score": 70.4,
+ "score": 67.9,
  "decision": "ESPERAR",
- "metodoValoracion": "P/TBV justificado (RoTE vs CoE) + DDM de Gordon + múltiplos históricos — aseguradora. PO oficial = síntesis ponderada del §6.5 sobre once patas: siete de múltiplos con el 65 % del peso y cuatro de renta con el 35 %, DCF 0 %. Bear 3,02 € (riesgo dominante del §8.1), base 3,61 €, bull 4,17 € (tres catalizadores del §9.1). Sin DCF de flujo de caja libre, EV/EBITDA ni deuda neta: en seguros no aplican.",
- "poBear": 3.02,
- "poBase": 3.61,
- "poBull": 4.17,
- "entMin": 3.02,
- "entMax": 3.14,
- "stop": 2.77,
+ "metodoValoracion": "Síntesis ponderada (método v3): ptbv_pesimista 6 % · ptbv_base 18 % · ptbv_optimista 6 % · ptbv_estructural 12 % · m_ptbv 11 % · m_per 7 % · m_pvc 5 % · ddm_pesimista 5 % · ddm_base 15 % · ddm_optimista 5 % · m_rpd 10 % · flujo base del DCF: P/TBV justificado y DDM (seguros)",
+ "poBear": 2.83,
+ "poBase": 3.36,
+ "poBull": 3.88,
+ "entMin": 2.83,
+ "entMax": 2.93,
+ "stop": 2.59,
  "dpaPrevisto": 0.18,
- "moat": "50/100 · MOAT ESTRECHO. Lo sostienen la escala eficiente (65) y los intangibles de marca y red (60); lo hunde la ventaja de costes (30), con el ratio de gastos plano diez años. Efecto de red y costes de cambio, 40 cada uno. Ningún eje llega a 65: no hay una sola pata que aguante sola. Horquilla de ponderación 41,2 – 52.",
+ "moat": "52,4 sobre 100 · MOAT ESTRECHO. El RoTE supera al coste del capital por un suelo bajo, no por una barrera",
  "catalizadores": [
-  "El combinado se queda por debajo del objetivo de su propio Plan",
-  "El exceso de capital habilita más retribución",
-  "El descuento estructural se estrecha",
-  "Safety Insurance cierra y aporta rentabilidad desde el primer año",
-  "Autos consolida por debajo del 100 %"
+  "El combinado se queda por debajo del objetivo de su Plan: Cerró 2025 en el 90,2 %. Si se sostiene en vez de revertir, el RoTE del caso central pasa del 13,26 % al 15,37 % de 2025 (+2,11 pp). (feb-2027 y feb-2028)",
+  "El exceso de capital habilita más retribución: Solvencia II del 205 % con un payout del 49 %, el más bajo de la década: DPA +15 %. (mar-2027)",
+  "El descuento estructural se estrecha: Si el capital retenido empieza a llegar al valor contable, el descuento se estrecha 10 puntos. (12-24 meses)",
+  "Safety cierra y aporta rentabilidad desde el primer año: Derivación conservadora: +0,5 pp de RoTE. (1T-2027 y los cuatro trimestres siguientes)",
+  "Autos consolida por debajo del 100 %: Un punto más de mejora del combinado de Autos son +0,42 pp de RoTE del grupo. (feb-2027)"
  ],
  "riesgos": [
-  "AUTOMÓVILES ACABA DE CRUZAR A BENEFICIO TÉCNICO Y EL MARGEN ES DE 0,2 PUNTOS · probabilidad Alta · impacto −2 a −9%",
-  "EL 41 % DE LAS PRIMAS SE COBRA EN MONEDAS QUE SE DEPRECIAN CONTRA EL EURO · probabilidad Alta · impacto −4 a −10%",
-  "DE CADA EURO RETENIDO LLEGAN DIEZ CÉNTIMOS AL VALOR CONTABLE, Y EL MERCADO LO LLEVA DESCONTANDO DIEZ AÑOS · probabilidad Alta · impacto −2 a −4%",
-  "CATÁSTROFES Y EL PRECIO DEL REASEGURO, QUE ES EL RIESGO QUE LA PROPIA EMPRESA SEÑALA · probabilidad Media · impacto −6 a −13%",
-  "SAFETY INSURANCE: 1 · probabilidad Media · impacto −5 a −9%"
+  "Automóviles vuelve a perder dinero técnico (Alta): Autos es el ramo mayor (6.568 M€ de primas, 29 % de No Vida) y cerró 2025 en el 99,8 % de combinado tras el 104,6 % de 2024. Cada punto de combinado de Autos son −0,42 pp de RoTE del grupo. Suave: Autos al 101 % (+1,2 pp); duro: vuelve al 104,6 % de 2024.",
+  "El 41 % de las primas se cobra en monedas que se deprecian (Alta): Latinoamérica aporta 9.759 M€ de primas de 24.047. Sensibilidad publicada: −10 % de las cuatro divisas = −344,5 M€ de patrimonio (−3,43 %) y −31,8 M€ de beneficio. Suave −10 %; duro −25 %. Tasa efectiva del 28,8 %.",
+  "El capital retenido no llega al valor contable y el descuento se ensancha (Alta): De cada euro retenido en diez años llegan 0,10 € al valor contable y el mercado ha pagado de media el 75 % de lo justificado. Suave: el descuento va a la media de los cinco últimos años (−11,5 pp); duro: al mínimo de la década (−23,8 pp).",
+  "Catástrofes y precio del reaseguro (Media): El golpe se da en el combinado del grupo y se toma permanente (lo que dura es el precio del reaseguro). Suave +1 pp de combinado (−1,43 pp de RoTE); duro +2 pp (−2,87 pp).",
+  "La reinversión del float rinde menos (Media): La cartera de renta fija (23.097 M€) se reinvierte a cupones más bajos: −25 pb permanentes = 29,4 M€ atribuibles (−0,37 pp de RoTE); −50 pb, el doble. El efecto de mercado de una bajada de tipos es positivo (está bien casada en duración).",
+  "Safety Insurance: 1.352 M€ en efectivo que salen del capital tangible (Media): Compra acordada el 23-jul-2026 por 1.542 M$ en efectivo, cierre previsto en el 1T-2027. Suave: fondo de comercio de 650 M€ (valor tangible −8,1 %); duro: 950 M€ y sin rentabilidad el primer año (−11,9 % y −0,40 pp de RoTE).",
+  "Fundación Mapfre controla el 69,7 % y el free float es del 30 % (Baja-Media): La prima de gobernanza y de iliquidez se mide en el coste del capital: +0,5 pp o +1 pp.",
+  "Ciberataque sobre una base de datos de más de cuarenta países (Baja-Media): Golpe puntual (no baja el RoTE sostenible): suave −150 M€ (valor tangible −1,9 %); duro −400 M€ (−5,0 %) y +0,3 pp de coste del capital por pérdida de confianza. Hay precedente propio: el ransomware de agosto de 2020."
  ],
- "bull": "Los tres primeros catalizadores del §9.1 perturbados juntos dan 4,17 €, un +15,6 % sobre el precio objetivo: el ratio combinado consolidando por debajo del 92 %, el exceso de solvencia convertido en retribución y el descuento estructural estrechándose.",
- "bear": "La cadena C del §8.2 da 3,02 €, un −16,2 %: el fondo de comercio de Safety Insurance diluye el capital tangible un 11,9 %, la integración cuesta un punto de ratio combinado, y el mercado ensancha el descuento estructural 15 puntos porque la operación confirma que el capital retenido no vuelve al accionista.",
- "resumen": "Mapfre está en el mejor momento de su década: ratio combinado del 90,2 %, RoTE del 15,4 % y el primer beneficio por encima de 1.000 M€. El problema no es la empresa, es el precio: a 4,43 € cotiza un 18,5 % por encima del objetivo de 3,61 €, y el mercado ya paga el 79,0 % del P/TBV justificado frente al 75,8 % de media de la década. La causa del descuento está medida: de cada euro retenido en diez años llegaron diez céntimos al valor contable. ESPERAR, con banda de entrada en 3,02–3,14 € y stop de tesis en 2,77 €.",
- "confianza": {
-  "score": 90,
-  "nivel": "A",
-  "motivos": [
-   "1 input(s) crítico(s) en 'Pte. Revisión' (−8)",
-   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)"
-  ],
-  "sensibleASupuestos": true,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-09-18"
- },
- "robustez": {
-  "nivel": "sensible",
-  "sobreviveDecision": false,
-  "etiquetaPrecioSensible": false,
-  "matizada": false,
-  "banda": {
-   "p10": 3.02,
-   "p50": 3.61,
-   "p90": 4.17
-  },
-  "sensibilidad": {
-   "sobre": "modelo",
-   "regla": "F100",
-   "poMin": 3.7,
-   "poMax": 5.63,
-   "poBase": 4.721507673798,
-   "cotizacion": 4.43,
-   "cotizacionBase": "actual",
-   "componente": null,
-   "pesoPerturbado": 1.0,
-   "componentesIntactos": 0,
-   "dcf": {
-    "poMin": 3.7,
-    "poMax": 5.63,
-    "poBase": 4.721507673798
-   },
-   "ejeCoste": "CoE",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -16.4,
-   "mdsMax": 27.1
-  },
-  "beta": {
-   "capm": 0.844,
-   "ref2": null,
-   "aviso": null
-  },
-  "motivos": [
-   "⚠ la sensibilidad va sobre el modelo del §6.3 (CoE × RoTE) SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
-   "la cotización (4.43) cae DENTRO de la banda del valor por acción del modelo del §6.3 (CoE × RoTE) [3.70–5.63], y la banda de margen de seguridad [-16.4 % … +27.1 %] CRUZA el umbral del 5 % y del 15 % de la tabla del §9.4 → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
-  ],
-  "calculadoEl": "2026-09-18"
- },
+ "bull": "3,88 € — escenario optimista: el RoTE de 2025 se sostiene (combinado del 90 %); el coste del capital, en el suelo del 8 %",
+ "bear": "2,83 € — escenario pesimista: media de los diez años (2016-2025): el combinado vuelve a donde estuvo 2016-2020",
+ "resumen": "ESPERAR, como en octubre. Calidad A y moat estrecho, pero a 4,39 € cotiza un 23 % por encima del precio objetivo y un 13 % por encima del bull (3,88 €): ni con el combinado de 2025 sostenido, más dividendo y menos descuento llega a lo que cuesta. Zona de compra: 2,83 – 2,93 €.",
  "dividendSafety": {
   "score": 94,
   "banda": "Muy seguro",
   "aplica": true,
   "rama": "seguros",
-  "componentes": {
-   "C1": 30,
-   "C2": 25,
-   "C3": 20,
-   "C4": 9,
-   "C5": 10
-  },
-  "shareholderYield": 4.2,
+  "componentes": {},
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 pay-out sobre BN 49% → 30/30",
-   "C2 Solvencia II 207% → 25/25",
-   "C3 ratio combinado 90.2% → 20/20",
-   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
-   "C5 predictores: ninguno → 10/10",
-   "Rama FINANCIERA (seguros): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
+   "Muy seguro · payout 49 % → 30/30 · Solvencia II 205 % → 25/25 · ratio combinado 90.2 % → 20/20 · 1 recorte(s) en 10 años → 9/15 · predictores: ninguno → 10/10"
   ],
-  "calculadoEl": "2026-09-18"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": null
  },
  "forense": {
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-09-18"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
-  "aplica": false,
-  "veredicto": "No aplica",
-  "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
-  "calculadoEl": "2026-09-18"
+  "aplica": true,
+  "gImplicito": -0.39,
+  "gIntrinseco": null,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (exige un RoTE de 13.8 %, no más que el último, 16.0 %)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "roteImplicito": 13.83
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "rama": "financiera",
-  "subrama": "seguros",
-  "fuente": "Datos Financieros Mapfre.xlsx · Cuenta de Resultados · Beneficio neto; Datos de Mercado · DPA (dividendo por acción); Datos de Mercado · Nº acciones en circulación; Datos de Mercado · VCPA-T (valor contable tangible por acción); Desempeño Operativo · CoE — coste del capital del método; Desempeño Operativo · Ratio combinado No Vida; Desempeño Operativo · Ratio combinado · AUTOMÓVILES (el ramo mayor); Flujos de Caja · Payout total ((dividendo + recompras) / BN); Métricas Específicas · RoTE — Rentabilidad sobre capital tangible (%); Solvencia Financiera · Ratio de Solvencia II (cierre de ejercicio)",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 1,
-   "nombre": "LA MÁQUINA DE CUPÓN",
-   "lema": "rinde por encima de su coste y reparte casi todo",
-   "porSpread": false,
-   "roiicFragil": false,
-   "cortes": {
-    "retencion": 50.0,
-    "valorTangible": 8.19,
-    "regla": "retención ≥ 50 % y valor tangible por acción + dividendos a 5 años ≥ CoE · financieras, 25-sep-2026"
-   }
-  },
-  "cifras": {
-   "retencionMedia": 33.91,
-   "valorTangible5a": 9.1,
-   "valorTangible10a": 6.51,
-   "roteMedio": 11.66,
-   "spread": 7.18,
-   "coe": 8.19,
-   "coeFuente": "«Desempeño Operativo» · CoE del método, último año",
-   "tension": 207.4,
-   "tensionAnio": 2024,
-   "tensionNombre": "Ratio de Solvencia II",
-   "tensionUnidad": "%",
-   "repartosExtraordinarios": {}
-  },
-  "tension": {
-   "anios": [
-    2016,
-    2018,
-    2022,
-    2025
-   ],
-   "rote": [
-    11.88,
-    9.17,
-    12.97,
-    15.37
-   ],
-   "payoutTotal": [
-    65.0,
-    84.4,
-    69.5,
-    51.9
-   ],
-   "valorTangible": [
-    2.12,
-    1.87,
-    1.61,
-    2.39
-   ],
-   "capital": [
-    null,
-    190.0,
-    201.2,
-    null
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "<b>Una aseguradora con dos motores</b>: la suscripción —primas menos siniestros menos gastos, que se mide con el ratio combinado— y la inversión de las reservas técnicas. Es multirramo y multinacional: el 41 % de las primas se cobra en monedas que se deprecian contra el euro.",
-     "El capital no se ha tocado en la década: <b>3.080 millones de acciones</b> en 2016 y las mismas en 2025. Todo lo que ha recibido el accionista ha sido dividendo."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>De repartir casi todo.</b> El payout total ha sido del 66,1 % de media en la década —84,4 % en 2018—: Mapfre retiene sólo el 33,9 % de lo que gana. Y lo que retuvo apenas movió el valor tangible por acción, de 2,12 € a <b>2,39 €</b> en nueve años, con un mínimo de 1,61 € en 2022, el año de la subida de tipos.",
-     "Con los dividendos cobrados, <b>un 6,5 % anual en la década, por debajo de su coste del capital del 8,19 %, y un 9,1 % en los últimos cinco años</b>, ya por encima. Lo que ha cambiado es la suscripción: el ratio combinado No Vida baja del 97,4 % de 2016 al <b>90,2 %</b> de 2025, el mejor de su historia, y el RoTE sube al 15,4 %. Rinde por encima de su coste y reparte casi todo: <b>la máquina de cupón</b>."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "No en la solvencia: el ratio de Solvencia II estaba en el <b>207,4 %</b> al cierre de 2024 —el de 2025 está pendiente en el libro—, el doble de lo que exige el regulador. La tensión está en que la mejora es reciente y de un solo componente. Automóviles, el ramo mayor, tuvo un ratio combinado de 106,1 % en 2022 y de <b>99,8 %</b> en 2025: acaba de volver al beneficio técnico, con muy poco margen.",
-     "Y en la divisa: con el 41 % de las primas en monedas que se deprecian, parte del beneficio que se gana en origen no llega al accionista en euros."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra Mapfre compra <b>un cupón de aseguradora en su mejor momento técnico</b>, que reparte casi todo lo que gana y cuyo valor por acción apenas ha crecido en la década. El dividendo depende de que el ratio combinado se quede donde está, no de que el capital componga.",
-     "<b>Qué vigilar cada trimestre:</b> el ratio combinado de Automóviles. Si vuelve por encima de 100, la mejora de la suscripción era de un ramo y de un año."
-    ]
-   }
-  ],
-  "vigilar": "El ratio combinado de Automóviles: acaba de bajar de 100 y buena parte del margen técnico nuevo depende de que se quede ahí.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "Aseguradora en el mejor momento de su década: ratio combinado No Vida del 90,2 %, el mejor de su historia.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Sólida, con el apalancamiento en vigilancia.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Desempeño fuerte y en máximos, pero la mejora es reciente y de un solo componente: RoTE del 15,4 %.",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 1 · La máquina de cupón: rinde por encima de su coste y reparte casi todo. Retiene el 33,9 % de lo que gana y su valor tangible por acción más dividendos crece un 9,1 % al año en cinco años, contra un coste del capital del 8,19 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "Dividendo sostenible y con holgura creciente: el payout total baja del 84,4 % de 2018 al 51,9 % de 2025 y la cobertura sube a 2,04 veces.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "A · 70,4 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 3,61 € contra 4,43 €: margen de seguridad −18,5 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Moat estrecho (50 sobre 100): escala 65 e intangibles 60; la ventaja de costes (30) lo hunde.",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "Automóviles acaba de volver al beneficio técnico, con un margen de 0,2 puntos (probabilidad alta, −2 a −9 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "Un ratio combinado por debajo del objetivo de su plan, y que el exceso de capital permita más retribución.",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>ESPERAR</b> · banda de entrada 3,02 – 3,14 € · stop de tesis 2,77 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "El ratio combinado de Automóviles: acaba de bajar de 100 y buena parte del margen técnico nuevo depende de que se quede ahí.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "1 dato crítico abierto; el fichero no dice cuál → Pte. Revisión.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 3,61 → 3,36 €."
 }

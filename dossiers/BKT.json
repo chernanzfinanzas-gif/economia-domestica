@@ -1,317 +1,73 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "BKT",
  "empresa": "Bankinter, S.A.",
- "fecha": "2026-09-18",
+ "fecha": "2026-10-25",
+ "revisadoEl": "2026-10-25",
  "rating": "A",
- "score": 74.7,
+ "score": 73.0,
  "decision": "ESPERAR",
- "metodoValoracion": "P/TBV justificado por exceso de rentabilidad — (RoTE − g) / (CoE − g) × VCPA-T, rama BANCA. El PO oficial es la síntesis del §6.5: 12,44 €, con bear 9,59 € y bull 14,82 €. Sin DCF y sin EBITDA: la norma de pesos de FINANCIERAS pone el descuento de flujos a CERO DURO, porque la caja de operaciones de un banco oscila con el crédito y los depósitos y produce resultados falsos. El peso se reparte 65 % múltiplos y 35 % renta.",
- "poBear": 9.59,
- "poBase": 12.4388870985338,
- "poBull": 14.82,
- "entMin": 9.59,
- "entMax": 10.82,
- "stop": 7.61,
- "dpaPrevisto": 0.6015,
- "moat": "45 · MOAT ESTRECHO (sobre 100). Cinco ejes con los pesos de la norma: costes de cambio 55, escala eficiente 30, intangibles 55, efecto de red 20 y ventaja de costes 85. El moat real de Bankinter es UNO solo —la ventaja de costes, medida: 36,09 % de ratio de eficiencia, primero de los seis bancos españoles— y pesa 5 puntos de 100 en la norma. Los cuatro ejes que más pesan son los que menos puntúa.",
+ "metodoValoracion": "Síntesis ponderada (método v3): ptbv_pesimista 8 % · ptbv_base 26 % · ptbv_optimista 8 % · m_ptbv 11 % · m_per 7 % · m_pvc 5 % · m_rpd 35 % · flujo base del DCF: P/TBV justificado (banca)",
+ "poBear": 9.35,
+ "poBase": 10.84,
+ "poBull": 12.87,
+ "entMin": 9.35,
+ "entMax": 9.43,
+ "stop": 6.72,
+ "dpaPrevisto": 0.575,
+ "moat": "64,7 sobre 100 · MOAT MODERADO. Sin ajuste",
  "catalizadores": [
-  "El RoTE aguanta el pico de tipos (0-12 meses, +11,1 % sobre el PO). El caso base juzga que el RoTE sostenible son 15,7 %, el punto medio entre el régimen de tipo cero y el pico. El banco publica 20,03 % en 2025 y corre al 20,36 % en el 1S-2026.",
-  "El coste del riesgo baja al mínimo de su propia década (12-18 meses, +8,0 % sobre el PO). Está en 0,353 % en 2025 y su mínimo de los diez años es 0,116 % (2018): la diferencia sobre una cartera de 92.457 M€ son 219,1 M€ de dotación.",
-  "Las dos operaciones societarias mueven el banco hacia comisiones (12-24 meses, impacto NO derivable). Tulp Hypotheken —del orden de 1.000 M€ al año de hipoteca en Países Bajos— y la fusión de Bankinter Investment con Plenium Partners más el 64 % de Access Capital Partners, que suman más de 14.000 M€ de capital comprometido. Ninguna publica importe.",
-  "Y uno que NO es catalizador, escrito para que nadie lo cuente dos veces: el gravamen a la banca no vuelve. Bankinter cargó 95 M€ en 2024 y CERO en 2025, así que el caso base ya está construido sobre un año sin impuesto."
+  "El RoTE aguanta el pico de tipos: El caso base usa un 15,7 %; el banco hace el 20 % en 2025 y el 20,4 % en el 1S-2026. Llevar el RoTE sostenible al 19,1 % (media 2023-2025) son +3,4 pp. (12-24 meses)",
+  "El coste del riesgo baja al mínimo de su década: Del 0,35 % al 0,12 % de 2018: −0,24 pp sobre la cartera. (12-24 meses)"
  ],
  "riesgos": [
-  "La rentabilidad depende del tipo del BCE, y el ciclo ya ha girado (Media · −7 a −13 % sobre el PO). El margen de intereses es el 73,4 % del margen bruto y el NIM ya baja.",
-  "El colchón de provisiones es de los más delgados del sector (Baja-Media · −1 a −14 %). Medido sobre los seis bancos: 67,89 % de cobertura.",
-  "Los competidores están estrechando su ventaja (Media · −3 a −5 %). Bankinter es 1º de 6 en eficiencia con un 36,09 %, y esa ventaja es la que sostiene el exceso de rentabilidad.",
-  "Un solo país, sin la pata aseguradora y sin escala global (Baja-Media · −3 a −6 %).",
-  "Cambio de control: es el banco español de tamaño más comprable (Baja · −13 a −15 %).",
-  "Recorte del dividendo: la palanca más potente del modelo, y no es el RoTE (Baja-Media · −8 a −14 %). La derivación lo destapó: la pata del dividendo pesa 35 puntos del modelo.",
-  "El impuesto a la banca vuelve (Media · −3 a −5 %). La cifra está publicada: 95 M€ en 2024.",
-  "Interrupción prolongada de los sistemas de un banco digital (Baja · −1 a −2 %)."
+  "La rentabilidad depende del tipo del BCE, y el ciclo ya ha girado (Media): El margen de intereses es el 73 % del margen bruto y el NIM ya baja (1,97 % en 2023, 1,73 % en 2025). Si vuelve a la media de 2016-2019 (1,46 %) son −355 M€ antes de impuestos; la mitad, en el extremo suave.",
+  "El colchón de provisiones es de los más delgados del sector (Baja-Media): Cobertura del 67,9 %, 4º de 6. Llevarla a la mediana del sector (72,4 %) cuesta 81 M€ de una vez; al 85 % de BBVA, 307 M€.",
+  "Los competidores estrechan su ventaja en eficiencia (Media): Es el más eficiente de los seis (36,1 %). Si converge al 38,8 % de BBVA son 83 M€ al año; a la mediana de los seis (40,3 %), 129 M€.",
+  "Un solo país, sin pata aseguradora y sin escala global (Baja-Media): Sin diversificación geográfica ni de negocio, el mercado le puede exigir más coste del capital: +0,5 y +1,0 pp.",
+  "Cambio de control: es el banco español más comprable (Baja): Para un minoritario, el daño es que se deshaga la prima que hoy paga el mercado (o una OPA a un precio por debajo del valor). Se mide por los múltiplos.",
+  "Recorte del dividendo: la palanca más potente del modelo (Baja-Media): La rentabilidad por dividendo pesa 35 de 100 en el precio objetivo. Payout del 51,5 % en 2025: bajar al 40 % es −22 %; al 30 %, −42 %.",
+  "Vuelve el impuesto a la banca (Media): 95 M€ en 2024 y cero en 2025: si vuelve, no es deducible (134 M€ antes de impuestos de equivalente); el doble en el extremo duro.",
+  "Interrupción prolongada de los sistemas de un banco digital (Baja): 8,3 M€ de margen bruto al día: se pierden 5 o 20 días."
  ],
- "bull": "Los dos catalizadores derivables acumulados —RoTE sostenible al 19,1 % y coste del riesgo al 0,116 %, en total +5,86 pp de RoTE— llevan el valor a 14,82 €. Aun así se queda por DEBAJO de la cotización: ni el mejor escenario del libro justifica el precio de hoy.",
- "bear": "Los TRES riesgos de probabilidad Media del §8.1 en su extremo duro —ciclo de tipos −3,98 pp, convergencia de la eficiencia −1,44 pp y regreso del gravamen −1,58 pp, total −7,00 pp de RoTE sostenible— dejan el valor en 9,59 €, un 0,771x el PO.",
- "resumen": "Bankinter es un banco excelente en lo que hace y estrecho en todo lo demás: rating A con 74,7 sobre 100, primero de los seis bancos españoles en eficiencia (36,09 %) y un RoTE de 20,03 %, pero con un moat de 45 que se apoya en un solo eje. El precio objetivo del método —P/TBV justificado, sin DCF— es de 12,44 €, y la cotización de referencia (16,60 €) está un 25,07 % POR ENCIMA. De las cuatro condiciones del §9.4 se cumplen tres: falla la del margen de seguridad, y falla con holgura. El veredicto es ESPERAR, no VENDER: la tesis no está rota, está cara. La banda de acumulación es 9,59–10,82 € y el stop de tesis, 7,61 €, cuelga del escenario catastrófico del §8.2 y no del bear.",
- "confianza": {
-  "score": 82,
-  "nivel": "A",
-  "motivos": [
-   "1 input(s) crítico(s) en 'Pte. Revisión' (−8)",
-   "5 dato(s) secundario(s) en 'Pte. Revisión' (−10)"
-  ],
-  "sensibleASupuestos": true,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-09-15"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "etiquetaPrecioSensible": false,
-  "matizada": false,
-  "banda": {
-   "p10": 9.5922,
-   "p50": 12.4389,
-   "p90": 14.8213
-  },
-  "sensibilidad": {
-   "sobre": "modelo",
-   "regla": "F100",
-   "poMin": 11.08,
-   "poMax": 15.64,
-   "poBase": 13.051150202977,
-   "cotizacion": 16.6,
-   "cotizacionBase": "actual",
-   "componente": null,
-   "pesoPerturbado": 1.0,
-   "componentesIntactos": 0,
-   "dcf": {
-    "poMin": 11.08,
-    "poMax": 15.64,
-    "poBase": 13.051150202977
-   },
-   "ejeCoste": "CoE",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -33.3,
-   "mdsMax": -5.8
-  },
-  "beta": {
-   "capm": 1.061,
-   "ref2": null,
-   "aviso": null
-  },
-  "motivos": [
-   "⚠ la sensibilidad va sobre el modelo del §6.3 (CoE × RoTE) SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
-   "la cotización (16.60) queda por ENCIMA de toda la banda del valor por acción del modelo del §6.3 (CoE × RoTE) [11.08–15.64] → sobrevalorada en todo el rango",
-   "…y la banda de margen de seguridad [-33.3 % … -5.8 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA"
-  ],
-  "calculadoEl": "2026-09-15"
- },
+ "bull": "12,87 € — escenario optimista: el pico se queda: media del RoTE publicado de 2023-2025",
+ "bear": "9,35 € — escenario pesimista: media del RoTE de 2016-2019, los cuatro años de tipo cero",
+ "resumen": "ESPERAR. A 14,01 € cotiza un 9 % por encima del bull (12,87 €) y un 49 % por encima del techo de compra (9,43 €). Es el más barato de los seis respecto a lo que vale y el de dividendo más seguro (89), pero sigue sin margen.",
  "dividendSafety": {
-  "score": 83,
+  "score": 89,
   "banda": "Muy seguro",
   "aplica": true,
   "rama": "banca",
-  "componentes": {
-   "C1": 24,
-   "C2": 20,
-   "C3": 20,
-   "C4": 9,
-   "C5": 10
-  },
-  "shareholderYield": 4.42,
+  "componentes": {},
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 pay-out dividendo (DPA/BPA) 52% → 24/30",
-   "C2 CET1 12.7% → 20/25",
-   "C3 RoTE 20.0% → 20/20",
-   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
-   "C5 predictores: ninguno → 10/10",
-   "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
+   "Muy seguro · payout del dividendo 48 % → 30/30 · CET1 12.7 % → 20/25 · RoTE 20.0 % → 20/20 · 1 recorte(s) en 10 años → 9/15 · predictores: ninguno → 10/10"
   ],
-  "calculadoEl": "2026-09-15"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 4.42
  },
  "forense": {
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-09-15"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
-  "aplica": false,
-  "veredicto": "No aplica",
-  "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
-  "calculadoEl": "2026-09-15"
+  "aplica": true,
+  "gImplicito": 4.74,
+  "gIntrinseco": null,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (exige un RoTE de 18.7 %, no más que el último publicado, 20.0 %)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "roteImplicito": 18.67
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "rama": "financiera",
-  "subrama": "banca",
-  "fuente": "Datos Financieros Bankinter.xlsx · Cuenta de Resultados · Beneficio neto; Datos de Mercado · DPA declarado; Datos de Mercado · Nº acciones en circulación; Desempeño Operativo · CoE — coste del capital del método; Flujos de Caja · Payout total ((dividendos + recompras) / BN); Métricas Específicas · RoTE — rentabilidad sobre capital tangible; Métricas Específicas · VCPA-T — valor TANGIBLE por acción; Solvencia Financiera · Colchón de CET1 sobre el requisito",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 2,
-   "nombre": "EL COMPUESTO",
-   "lema": "retiene mucho y lo retenido le rinde",
-   "porSpread": false,
-   "roiicFragil": false,
-   "cortes": {
-    "retencion": 50.0,
-    "valorTangible": 9.39,
-    "regla": "retención ≥ 50 % y valor tangible por acción + dividendos a 5 años ≥ CoE · financieras, 25-sep-2026"
-   }
-  },
-  "cifras": {
-   "retencionMedia": 56.83,
-   "valorTangible5a": 14.26,
-   "valorTangible10a": 11.16,
-   "roteMedio": 14.58,
-   "spread": 10.64,
-   "coe": 9.39,
-   "coeFuente": "«Desempeño Operativo» · CoE del método, último año",
-   "tension": 4.36,
-   "tensionAnio": 2025,
-   "tensionNombre": "Colchón de CET1 sobre el requisito del BCE",
-   "tensionUnidad": "pp",
-   "repartosExtraordinarios": {
-    "2021": 1.3175
-   }
-  },
-  "tension": {
-   "anios": [
-    2019,
-    2020,
-    2021,
-    2025
-   ],
-   "rote": [
-    null,
-    7.44,
-    10.18,
-    20.03
-   ],
-   "payoutTotal": [
-    49.0,
-    15.8,
-    16.4,
-    51.6
-   ],
-   "valorTangible": [
-    4.9,
-    5.24,
-    5.1,
-    6.72
-   ],
-   "capital": [
-    3.4,
-    4.6,
-    4.4,
-    4.4
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "<b>Un banco comercial que gana por eficiencia, no por tamaño.</b> Es el más eficiente de los seis bancos comerciales cotizados españoles —gasta 36 céntimos por cada euro de margen—, y casi todo lo que ingresa depende del precio del dinero: el margen de intereses es el 73 % del margen bruto.",
-     "Su estructura de capital es de las más limpias del parque: <b>898.866.154 acciones en 2016 y las mismas en 2025</b>, sin una ampliación, y en 2021 devolvió al accionista un negocio entero —Línea Directa, repartida en acciones—."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>De retener la mitad y hacerla rendir.</b> Reparte en torno a la mitad del beneficio desde 2017 y retiene el resto —56,8 % de media en la década—, porque en un banco el beneficio retenido es capital regulatorio: sin él no puede prestar más. Lo que decide es si ese capital rinde, y rinde: el RoTE pasó del 7,4 % de 2020 al <b>20,0 %</b> de 2025, +10,64 pp por encima de su coste del capital del 9,39 %.",
-     "La prueba por acción es la que manda: el valor tangible por acción pasó de 4,29 € a <b>6,72 €</b> en la década, y además el accionista cobró 3,07 € de dividendos y 1,32 € en acciones de Línea Directa. Todo junto, <b>un 14,3 % anual en los últimos cinco años y un 11,2 % en la década</b>, por encima de su coste en las dos ventanas. Retiene mucho y lo retenido le rinde: <b>el compuesto</b>."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "No está en el capital: el colchón de CET1 sobre lo que exige el BCE es de 4,4 puntos y apenas se mueve, porque el banco no acumula capital, lo pone a trabajar. La tensión está en el <b>precio del dinero</b>. El RoTE de 2023-2025 se ganó con los tipos altos, y con el 73 % del margen bruto en intereses, cada bajada del BCE va contra la cifra que hace del banco un compuesto.",
-     "2020 y 2021 no son política del banco: el BCE prohibió repartir y el payout cayó al 15,8 % y al 16,4 %; el beneficio de 2021 lleva además la plusvalía de Línea Directa."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra Bankinter compra <b>un banco que compone valor por acción a más de su coste y sin diluir</b>, con un solo motor —el margen de intereses— y ese motor en la parte alta del ciclo. La calidad está probada; lo que no está probado es cuánto del RoTE actual sobrevive a unos tipos más bajos.",
-     "<b>Qué vigilar cada trimestre:</b> el RoTE contra el coste del capital. Si baja hacia el 9,4 %, el banco sigue reteniendo la mitad pero lo retenido deja de rendir, y el compuesto se convierte en otra cosa."
-    ]
-   }
-  ],
-  "vigilar": "El RoTE contra el coste del capital mientras bajan los tipos: el margen de intereses es el 73 % del margen bruto, y si el RoTE se acerca al CoE lo que el banco retiene deja de rendir.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "Un banco excelente en lo que hace y estrecho en todo lo demás: el más eficiente de los seis españoles (36,1 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Sólida.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Excelente: RoTE del 20,03 % contra un coste del capital del 9,39 % (+10,64 pp).",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 2 · El compuesto: retiene mucho y lo retenido le rinde. Retiene el 56,8 % de lo que gana y su valor tangible por acción más dividendos crece un 14,3 % al año en cinco años, contra un coste del capital del 9,39 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "Retribución sostenible; seguridad del dividendo: muy seguro.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "A · 74,7 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 12,44 € contra 16,60 €: margen de seguridad −25,1 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Moat estrecho (45).",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "El ciclo de tipos: el margen de intereses es el 73,4 % del margen bruto y el ciclo ya ha girado (−7 a −13 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "Que el RoTE aguante el pico de tipos (+11 % al precio objetivo) y que el coste del riesgo baje a su mínimo de la década (+8 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>ESPERAR</b> · banda de entrada 9,59 – 10,82 € · stop de tesis 7,61 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "El RoTE contra el coste del capital mientras bajan los tipos: el margen de intereses es el 73 % del margen bruto, y si el RoTE se acerca al CoE lo que el banco retiene deja de rendir.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "1 dato crítico y 5 secundarios abiertos; el rating A figuraba como «preliminar» en su titular.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 12,44 → 10,84 €."
 }

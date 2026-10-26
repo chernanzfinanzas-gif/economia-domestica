@@ -1,749 +1,696 @@
 {
-  "schemaVersion": 2,
-  "ticker": "ACS",
-  "empresa": "ACS",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "ACS",
+ "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -10,6 %, EBITDA -4,1 %, margen 5,1 % (+0,35 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-05-12",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Once de los catorce informes imprimen su fecha de publicación en la portada y se han leído uno a uno (el del 1T 2023, «May 12th, 2023», en la hoja de cifras clave). Los de 6M, 9M y ejercicio 2023 no la imprimen: esos tres periodos declaran «cierre» en su propio registro.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 8089
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 437
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 5.4
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 259
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 163
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 153
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 12365
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 71270
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.53
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": -1948
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Ingresos",
+     "valor": 6389.0
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes de resultados de ACS de 6M, 9M y ejercicio 2023 no imprimen su fecha de publicación (comprobado en los tres); se declara la fecha de cierre del periodo.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 17674
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1040
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 5.88
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 483
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 385
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 301
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 23802
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 76863
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.35
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": -1165
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBITDA",
+     "valor": 329.0
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes de resultados de ACS de 6M, 9M y ejercicio 2023 no imprimen su fecha de publicación (comprobado en los tres); se declara la fecha de cierre del periodo.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 26395
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1425
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 5.4
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 915
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 576
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 431
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 34747
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 74909
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.32
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": -590
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Margen EBITDA",
+     "valor": 5.1
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes de resultados de ACS de 6M, 9M y ejercicio 2023 no imprimen su fecha de publicación (comprobado en los tres); se declara la fecha de cierre del periodo.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 35738
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1909
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 5.34
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 1127
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 780
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 600
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 45104
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 73538
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.26
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": 400
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-05-14",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Once de los catorce informes imprimen su fecha de publicación en la portada y se han leído uno a uno (el del 1T 2023, «May 12th, 2023», en la hoja de cifras clave). Los de 6M, 9M y ejercicio 2023 no la imprimen: esos tres periodos declaran «cierre» en su propio registro.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ventas +7.6 %, Adjudicaciones +6.8 %, Beneficio neto +8.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 5.30 % (banda del §10.1: verde ≥ 5.91, rojo < 5.66). Las adjudicaciones del grupo suben un 6.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 8706
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 461
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 5.3
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 280
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 177
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 163
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 13210
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 77917
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.52
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": -1625
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-07-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Once de los catorce informes imprimen su fecha de publicación en la portada y se han leído uno a uno (el del 1T 2023, «May 12th, 2023», en la hoja de cifras clave). Los de 6M, 9M y ejercicio 2023 no la imprimen: esos tres periodos declaran «cierre» en su propio registro.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +6.1 %, Adjudicaciones +15.6 %, Beneficio neto +8.1 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 6.17 % (banda del §10.1: verde ≥ 5.91, rojo < 5.66). Las adjudicaciones del grupo suben un 15.6 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).  ·  QUIEBRE DE PERÍMETRO: desde mayo de 2024 Thiess consolida por integración global (antes, puesta en equivalencia) y la SH-288 pasa a puesta en equivalencia. El interanual de 2024 se mide contra el comparativo proforma que publica ACS; desde 2025 entra además Dornan, que ACS no reexpresa.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 18749
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1157
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 6.17
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 564
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 416
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 335
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 27506
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 86693
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.47
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": -1605
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-11-12",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Once de los catorce informes imprimen su fecha de publicación en la portada y se han leído uno a uno (el del 1T 2023, «May 12th, 2023», en la hoja de cifras clave). Los de 6M, 9M y ejercicio 2023 no la imprimen: esos tres periodos declaran «cierre» en su propio registro.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ventas +12.5 %, Adjudicaciones +16.1 %, Beneficio neto +5.0 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 5.65 % (banda del §10.1: verde ≥ 5.91, rojo < 5.66). Las adjudicaciones del grupo suben un 16.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 29702
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1679
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 5.65
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 735
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 605
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 489
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 40354
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 86555
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.36
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": -2400
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-02-28",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Once de los catorce informes imprimen su fecha de publicación en la portada y se han leído uno a uno (el del 1T 2023, «May 12th, 2023», en la hoja de cifras clave). Los de 6M, 9M y ejercicio 2023 no la imprimen: esos tres periodos declaran «cierre» en su propio registro.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +16.5 %, Adjudicaciones +14.2 %, Beneficio neto +6.2 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 5.90 % (banda del §10.1: verde ≥ 5.91, rojo < 5.66). Las adjudicaciones del grupo suben un 14.2 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 41633
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 2456
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 5.9
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 993
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 828
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 684
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 51521
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 88209
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.24
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": -702
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-05-13",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Once de los catorce informes imprimen su fecha de publicación en la portada y se han leído uno a uno (el del 1T 2023, «May 12th, 2023», en la hoja de cifras clave). Los de 6M, 9M y ejercicio 2023 no la imprimen: esos tres periodos declaran «cierre» en su propio registro.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +35.4 %, Adjudicaciones +18.3 %, Beneficio neto +7.9 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 5.93 % (banda del §10.1: verde ≥ 5.91, rojo < 5.66). Las adjudicaciones del grupo suben un 18.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 11790
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 699
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 5.93
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 353
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 191
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 191
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 15621
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 90807
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.32
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": -2847
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-07-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Once de los catorce informes imprimen su fecha de publicación en la portada y se han leído uno a uno (el del 1T 2023, «May 12th, 2023», en la hoja de cifras clave). Los de 6M, 9M y ejercicio 2023 no la imprimen: esos tres periodos declaran «cierre» en su propio registro.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +28.6 %, Adjudicaciones +15.3 %, Beneficio neto +8.2 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 5.95 % (banda del §10.1: verde ≥ 5.91, rojo < 5.66). Las adjudicaciones del grupo suben un 15.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 24108
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1434
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 5.95
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 708
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 450
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 392
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 31722
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 89342
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.32
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": -2202
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-11-14",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Once de los catorce informes imprimen su fecha de publicación en la portada y se han leído uno a uno (el del 1T 2023, «May 12th, 2023», en la hoja de cifras clave). Los de 6M, 9M y ejercicio 2023 no la imprimen: esos tres periodos declaran «cierre» en su propio registro.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +23.7 %, Adjudicaciones +8.7 %, Beneficio neto +8.3 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 6.03 % (banda del §10.1: verde ≥ 5.91, rojo < 5.66). Las adjudicaciones del grupo suben un 8.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 36753
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 2217
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 6.03
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 1104
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 655
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 585
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 43850
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 89274
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.19
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": -2227
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2026-02-26",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Once de los catorce informes imprimen su fecha de publicación en la portada y se han leído uno a uno (el del 1T 2023, «May 12th, 2023», en la hoja de cifras clave). Los de 6M, 9M y ejercicio 2023 no la imprimen: esos tres periodos declaran «cierre» en su propio registro.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +19.7 %, Adjudicaciones +21.4 %, Beneficio neto +14.7 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 6.16 % (banda del §10.1: verde ≥ 5.91, rojo < 5.66). Las adjudicaciones del grupo suben un 21.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 49848
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 3070
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 6.16
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 1662
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 950
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 857
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 62528
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 92858
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.25
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": 17
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-05-12",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Once de los catorce informes imprimen su fecha de publicación en la portada y se han leído uno a uno (el del 1T 2023, «May 12th, 2023», en la hoja de cifras clave). Los de 6M, 9M y ejercicio 2023 no la imprimen: esos tres periodos declaran «cierre» en su propio registro.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +4.7 %, Adjudicaciones +11.8 %, Beneficio neto +21.5 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 6.25 % (banda del §10.1: verde ≥ 5.91, rojo < 5.66). Las adjudicaciones del grupo suben un 11.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 12344
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 772
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 6.25
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 410
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 232
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 239
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 17467
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 99825
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.42
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": -1472
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-07-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Once de los catorce informes imprimen su fecha de publicación en la portada y se han leído uno a uno (el del 1T 2023, «May 12th, 2023», en la hoja de cifras clave). Los de 6M, 9M y ejercicio 2023 no la imprimen: esos tres periodos declaran «cierre» en su propio registro.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +8.5 %, Adjudicaciones +15.3 %, Beneficio neto +13.3 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 6.18 % (banda del §10.1: verde ≥ 5.91, rojo < 5.66). Las adjudicaciones del grupo suben un 15.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 26168
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1618
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 6.18
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 909
-        },
-        {
-          "nombre": "Beneficio neto (M€)",
-          "valor": 510
-        },
-        {
-          "nombre": "Beneficio neto ordinario (M€)",
-          "valor": 510
-        },
-        {
-          "nombre": "Adjudicaciones (M€)",
-          "valor": 36575
-        },
-        {
-          "nombre": "Cartera de proyectos (M€)",
-          "valor": 105856
-        },
-        {
-          "nombre": "Book-to-bill (x)",
-          "valor": 1.4
-        },
-        {
-          "nombre": "Caja (+) / deuda (−) neta (M€)",
-          "valor": 1006
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBIT",
+     "valor": 205.0
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2021-9M",
+   "fecha": "2021-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -2,8 %, EBITDA +12,6 %, beneficio neto +24,7 %, margen 5,7 % (+0,78 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 20365.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1165.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 775.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 545.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +8,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 6926.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +15,6 %, EBITDA +9,3 %, beneficio neto -6,0 %, margen 5,4 % (-0,31 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 15415.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 833.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 594.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 330.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3709.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +20,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 24526.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +20,8 %, EBITDA +99,6 %, beneficio neto -78,1 %, margen 5,0 % (+1,99 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 33615.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1694.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1074.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 668.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 957.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-05-12",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +17,1 %, EBITDA +15,6 %, beneficio neto +20,0 %, margen 5,7 % (-0,07 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 8111.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 462.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 163.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,5 %, EBITDA +7,9 %, beneficio neto +16,7 %, margen 5,3 % (-0,13 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 17033.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 899.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 639.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 385.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2588.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "Los informes de resultados de ACS de 6M, 9M y ejercicio 2023 no imprimen su fecha de publicación (comprobado en los tres); se declara la fecha de cierre del periodo.",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 26395
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 1425
+    },
+    {
+     "nombre": "Margen EBITDA (%)",
+     "valor": 5.4
+    },
+    {
+     "nombre": "BAI (M€)",
+     "valor": 915
+    },
+    {
+     "nombre": "Beneficio neto (M€)",
+     "valor": 576
+    },
+    {
+     "nombre": "Beneficio neto ordinario (M€)",
+     "valor": 431
+    },
+    {
+     "nombre": "Adjudicaciones (M€)",
+     "valor": 34747
+    },
+    {
+     "nombre": "Cartera de proyectos (M€)",
+     "valor": 74909
+    },
+    {
+     "nombre": "Book-to-bill (x)",
+     "valor": 1.32
+    },
+    {
+     "nombre": "Caja (+) / deuda (−) neta (M€)",
+     "valor": -590
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,3 %, EBITDA -0,4 %, beneficio neto +16,7 %, margen 4,7 % (-0,32 pp) frente al mismo periodo del año anterior. Verde: solo EBITDA a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 35738.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1687.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 4.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1136.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 780.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 789.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-05-14",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,3 %, EBITDA -0,2 %, beneficio neto +8,6 %, margen 5,3 % (-0,40 pp) frente al mismo periodo del año anterior. Verde: solo EBITDA a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 8706.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 461.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 327.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 177.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-07-30",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,1 %, EBITDA +30,5 %, beneficio neto +8,1 %, margen 6,3 % (+0,98 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 18749.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1173.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 824.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 416.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3153.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-11-12",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +12,5 %, EBITDA +17,8 %, margen 5,7 % (+0,25 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 29702.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1679.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1079.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2025-02-28",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +16,5 %, EBITDA +36,9 %, beneficio neto +6,1 %, margen 5,5 % (+0,83 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 41633.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2310.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1443.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 828.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1785.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-05-13",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +35,4 %, EBITDA +51,6 %, beneficio neto +7,9 %, margen 5,9 % (+0,63 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 11790.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 699.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 470.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 191.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-07-30",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +28,6 %, EBITDA +21,0 %, beneficio neto +8,1 %, margen 5,9 % (-0,37 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 24108.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1420.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 927.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 450.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3674.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-11-14",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +23,7 %, EBITDA +32,0 %, margen 6,0 % (+0,38 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 36753.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2217.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1497.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2026-02-26",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +19,7 %, EBITDA +37,8 %, beneficio neto +14,8 %, margen 6,4 % (+0,84 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 49848.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 3183.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 2213.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 950.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2425.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-05-12",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,7 %, EBITDA +10,4 %, beneficio neto +21,5 %, margen 6,3 % (+0,33 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +4,7 %, EBITDA +10,4 % y beneficio neto +21,5 %, con el margen subiendo 0,33 pp.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 12344.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 772.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 549.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 232.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-07-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +8,5 %, EBITDA +10,8 %, beneficio neto +13,3 %, margen 6,0 % (+0,12 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +8,5 %, EBITDA +10,8 %, beneficio neto +13,3 % y margen 6,0 % (+0,12 pp). Nada que corregir.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 26168.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1573.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1111.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 510.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 757.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

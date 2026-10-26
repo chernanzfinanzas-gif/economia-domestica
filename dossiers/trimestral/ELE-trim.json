@@ -1,749 +1,565 @@
 {
-  "schemaVersion": 2,
-  "ticker": "ELE",
-  "empresa": "Endesa",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "ELE",
+ "empresa": "Endesa, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +66,0 %, EBITDA +15,0 %, beneficio neto +10,1 %, margen 14,3 % (-6,34 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-05-09",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 7504.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1462.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 990.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 594.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 594.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 19.48
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": null
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 15680.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 6835.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 22044.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Ingresos",
+     "valor": 14702.0
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-07-26",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 13121.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 2476.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 1521.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 879.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 879.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 18.87
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": null
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 29490.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 12441.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 22044.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBITDA",
+     "valor": 2104.0
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-10-31",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 19211.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 3353.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 1903.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 1059.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 1059.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 17.45
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 54.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 45982.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 19357.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 22044.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Margen EBITDA",
+     "valor": 14.3
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-02-28",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 25459.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 3777.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 1645.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 742.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 951.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 14.84
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 52.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 60264.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 24865.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 21247.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBIT",
+     "valor": 1316.0
     },
     {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-05-08",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ingresos -26.1 %, EBITDA -26.2 %, Resultado ordinario neto -50.8 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 19.4 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 58.0 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 5547.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1079.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 573.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 292.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 292.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 19.45
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 58.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 15618.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 6591.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 21247.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Beneficio neto",
+     "valor": 916.0
     },
     {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-07-24",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "S",
-      "tesisSigueIntacta": true,
-      "resumen": "HUECO DECLARADO, no un dato que falte: ÚNICO informe del histórico publicado en INGLÉS. Su anexo no trae la línea de ingresos con el rótulo de los demás, así que ingresos y margen EBITDA van en hueco declarado; el resto —EBITDA, EBIT, resultado neto y ordinario, capacidad, producción y margen unitario— sí se ha leído, y su tabla trae además las columnas en orden INVERSO al de las versiones españolas. Las demás magnitudes de este periodo sí están y son buenas, así que el periodo se escribe entero menos esta celda. La fila va SIN COLOR a propósito: un ámbar aquí se leería como un juicio sobre el margen, y no hay margen que juzgar.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 2413.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 1383.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 800.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 772.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": null
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 58.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 29778.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 12246.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 21440.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-10-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos -17.9 %, EBITDA +15.7 %, Resultado ordinario neto +29.9 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 24.6 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 57.0 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 15765.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 3881.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 2300.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 1404.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 1376.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 24.62
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 57.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 45742.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 19344.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 21440.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-02-27",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos -16.3 %, EBITDA +40.1 %, Resultado ordinario neto +109.6 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 24.8 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 55.0 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 21307.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 5293.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 3071.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 1888.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 1993.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 24.84
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 55.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 59780.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 24152.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 21449.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-05-07",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos +6.3 %, EBITDA +32.6 %, Resultado ordinario neto +99.7 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 24.3 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 54.0 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 5899.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1431.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 859.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 583.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 583.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 24.26
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 54.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 15939.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 7134.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 22072.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-07-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "HUECO DE CADENCIA, no falta de dato: la empresa publicó 2024 pero NO publicó su «S1», así que este periodo no tiene gemelo del ejercicio anterior con el que compararse. No es el primero de la serie ni hay nada que buscar: el periodo con el que se compararía no existe. El color se deja en ámbar porque el crecimiento no se puede razonar, no porque haya deterioro; el margen de este periodo, que sí está, es del 24.9 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). ",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 10880.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 2711.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 1594.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 1041.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 1041.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 24.92
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 53.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 30136.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 12087.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 22099.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-10-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos +1.2 %, EBITDA +8.8 %, Resultado ordinario neto +26.1 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 26.5 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 53.0 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 15948.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 4224.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 2545.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 1711.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 1735.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 26.49
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 53.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 46377.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 19065.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 22346.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2026-02-24",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos +0.5 %, EBITDA +8.7 %, Resultado ordinario neto +18.0 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 26.9 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 52.0 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 21424.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 5756.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 3331.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 2198.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 2351.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 26.87
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 52.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 61011.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 24924.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 22616.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-05-06",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos -1.3 %, EBITDA +14.0 %, Resultado ordinario neto +24.4 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 28.0 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 54.0 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 5824.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1632.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 1063.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 725.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 725.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 28.02
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 54.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 16900.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 6818.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 22616.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-07-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos +1.1 %, EBITDA +19.5 %, Resultado ordinario neto +42.2 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 29.5 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 56.0 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 10995.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 3240.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 2094.0
-        },
-        {
-          "nombre": "Resultado neto atribuible (M€)",
-          "valor": 1470.0
-        },
-        {
-          "nombre": "Resultado ordinario neto (M€)",
-          "valor": 1480.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 29.47
-        },
-        {
-          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
-          "valor": 56.0
-        },
-        {
-          "nombre": "Producción total (GWh)",
-          "valor": 32708.0
-        },
-        {
-          "nombre": "Producción nuclear (GWh)",
-          "valor": 12636.0
-        },
-        {
-          "nombre": "Capacidad instalada neta total (MW)",
-          "valor": 22744.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Deuda neta",
+     "valor": 14117.0
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +58,5 %, EBITDA +53,2 %, beneficio neto +77,1 %, margen 16,4 % (-0,57 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 32545.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 5340.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 3687.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 2541.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 17617.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-05-09",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,2 %, EBITDA +60,0 %, beneficio neto +75,7 %, margen 19,5 % (+7,45 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 7504.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1462.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 990.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 594.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-07-26",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -12,3 %, EBITDA +12,8 %, beneficio neto -4,0 %, margen 18,4 % (+4,09 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 12895.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2373.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 18.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1521.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 879.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 13768.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-10-31",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -22,0 %, EBITDA -9,6 %, margen 17,5 % (+2,38 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 19211.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 3353.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2024-02-28",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -23,0 %, EBITDA -36,1 %, beneficio neto -70,8 %, margen 13,6 % (-2,79 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 25070.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 3413.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1645.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 742.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 11629.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-05-08",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -26,1 %, EBITDA -26,2 %, beneficio neto -50,8 %, margen 19,5 % (-0,03 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5547.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1079.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 573.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 292.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-07-24",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -20,6 %, EBITDA -3,2 %, beneficio neto -9,0 %, margen 22,4 % (+4,01 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 10244.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2296.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 22.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1383.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 800.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 11701.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-10-30",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -17,9 %, EBITDA +15,7 %, margen 24,6 % (+7,16 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 15765.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 3881.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2025-02-27",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -16,5 %, EBITDA +45,7 %, beneficio neto +154,4 %, margen 23,8 % (+10,15 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 20935.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4974.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 3071.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1888.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 9718.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-05-07",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,3 %, EBITDA +32,6 %, beneficio neto +99,7 %, margen 24,3 % (+4,81 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5899.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1431.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 859.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 583.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-07-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,6 %, EBITDA +13,5 %, beneficio neto +30,1 %, margen 24,3 % (+1,92 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 10712.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2607.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1594.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1041.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 10272.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-10-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,2 %, EBITDA +8,8 %, margen 26,5 % (+1,87 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 15948.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4224.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 26.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2026-02-24",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +0,5 %, EBITDA +8,4 %, beneficio neto +16,4 %, margen 25,6 % (+1,87 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ventas +0,5 %, EBITDA +8,4 % y beneficio +16,4 %, margen 25,6 % (+1,87 puntos).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 21031.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 5391.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 25.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 3331.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 2198.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 10396.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-05-06",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,3 %, EBITDA +14,0 %, beneficio neto +24,4 %, margen 28,0 % (+3,76 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. Verde: ventas −1,3 %, EBITDA +14,0 % y beneficio +24,4 %, con el margen en 28,0 % (+3,76 puntos).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5824.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1632.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1063.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 725.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-07-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +0,9 %, EBITDA +20,7 %, beneficio neto +41,2 %, margen 29,1 % (+4,78 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ventas +0,9 %, EBITDA +20,7 %, beneficio +41,2 % y margen 29,1 % (+4,78 puntos).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 10807.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 3147.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 29.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 2094.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1470.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 10901.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

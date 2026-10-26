@@ -1,484 +1,457 @@
 {
-  "schemaVersion": 2,
-  "ticker": "NTGY",
-  "empresa": "Naturgy",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "NTGY",
+ "empresa": "Naturgy Energy Group, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +83,3 %, EBITDA +4,6 %, beneficio neto +15,3 %, margen 10,7 % (-8,05 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-06-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 12054.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 2849.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 23.64
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 1713.0
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 1045.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 10752.0
-        },
-        {
-          "nombre": "Puntos conexión gas España (miles)",
-          "valor": 5359.0
-        },
-        {
-          "nombre": "Var. interanual puntos gas (%)",
-          "valor": null
-        },
-        {
-          "nombre": "EBITDA Gas España (M€)",
-          "valor": 412.0
-        },
-        {
-          "nombre": "EBITDA Electricidad España (M€)",
-          "valor": 322.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Ingresos",
+     "valor": 16737.0
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 22617.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 5475.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 24.21
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 3470.0
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 1986.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 12090.0
-        },
-        {
-          "nombre": "Puntos conexión gas España (miles)",
-          "valor": 5352.0
-        },
-        {
-          "nombre": "Var. interanual puntos gas (%)",
-          "valor": -0.34
-        },
-        {
-          "nombre": "EBITDA Gas España (M€)",
-          "valor": 822.0
-        },
-        {
-          "nombre": "EBITDA Electricidad España (M€)",
-          "valor": 650.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBITDA",
+     "valor": 1788.0
     },
     {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-06-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "EBITDA -0.1 %, EBIT +8.3 %, Resultado neto -0.2 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA sobre ingresos publicados en 31.4 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). Los puntos de conexión de gas en España caen 0.3 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 9071.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 2846.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 31.37
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 1856.0
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 1043.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 11838.0
-        },
-        {
-          "nombre": "Puntos conexión gas España (miles)",
-          "valor": 5340.0
-        },
-        {
-          "nombre": "Var. interanual puntos gas (%)",
-          "valor": -0.35
-        },
-        {
-          "nombre": "EBITDA Gas España (M€)",
-          "valor": 393.0
-        },
-        {
-          "nombre": "EBITDA Electricidad España (M€)",
-          "valor": 341.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Margen EBITDA",
+     "valor": 10.7
     },
     {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-12-31",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "EBITDA -2.0 %, EBIT +2.3 %, Resultado neto -4.3 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA sobre ingresos publicados en 27.9 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). Los puntos de conexión de gas en España caen 0.4 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 19267.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 5365.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 27.85
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 3549.0
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 1901.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 12201.0
-        },
-        {
-          "nombre": "Puntos conexión gas España (miles)",
-          "valor": 5331.0
-        },
-        {
-          "nombre": "Var. interanual puntos gas (%)",
-          "valor": -0.39
-        },
-        {
-          "nombre": "EBITDA Gas España (M€)",
-          "valor": 763.0
-        },
-        {
-          "nombre": "EBITDA Electricidad España (M€)",
-          "valor": 670.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBIT",
+     "valor": 1102.0
     },
     {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-06-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "EBITDA +0.1 %, EBIT +5.8 %, Resultado neto +10.0 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA sobre ingresos publicados en 28.6 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). Los puntos de conexión de gas en España caen 0.4 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 9961.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 2848.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 28.59
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 1963.0
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 1147.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 13689.0
-        },
-        {
-          "nombre": "Puntos conexión gas España (miles)",
-          "valor": 5319.0
-        },
-        {
-          "nombre": "Var. interanual puntos gas (%)",
-          "valor": -0.39
-        },
-        {
-          "nombre": "EBITDA Gas España (M€)",
-          "valor": 376.0
-        },
-        {
-          "nombre": "EBITDA Electricidad España (M€)",
-          "valor": 388.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Beneficio neto",
+     "valor": 558.0
     },
     {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-09-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "HUECO DE CADENCIA, no falta de dato: la empresa publicó 2024 pero NO publicó su «9M», así que este periodo no tiene gemelo del ejercicio anterior con el que compararse. No es el primero de la serie ni hay nada que buscar: el periodo con el que se compararía no existe. El color se deja en ámbar porque el crecimiento no se puede razonar, no porque haya deterioro; el margen de este periodo, que sí está, es del 28.9 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). ",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 14586.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 4214.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 28.89
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 2912.0
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 1668.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 12913.0
-        },
-        {
-          "nombre": "Puntos conexión gas España (miles)",
-          "valor": 5314.0
-        },
-        {
-          "nombre": "Var. interanual puntos gas (%)",
-          "valor": -0.36
-        },
-        {
-          "nombre": "EBITDA Gas España (M€)",
-          "valor": 583.0
-        },
-        {
-          "nombre": "EBITDA Electricidad España (M€)",
-          "valor": 565.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-12-31",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "EBITDA -0.6 %, EBIT +0.9 %, Resultado neto +6.4 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA sobre ingresos publicados en 27.4 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). Los puntos de conexión de gas en España caen 0.4 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 19455.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 5334.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 27.42
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 3580.0
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 2023.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 12317.0
-        },
-        {
-          "nombre": "Puntos conexión gas España (miles)",
-          "valor": 5312.0
-        },
-        {
-          "nombre": "Var. interanual puntos gas (%)",
-          "valor": -0.36
-        },
-        {
-          "nombre": "EBITDA Gas España (M€)",
-          "valor": 756.0
-        },
-        {
-          "nombre": "EBITDA Electricidad España (M€)",
-          "valor": 741.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-03-31",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "HUECO DE CADENCIA, no falta de dato: la empresa publicó 2025 pero NO publicó su «Q1», así que este periodo no tiene gemelo del ejercicio anterior con el que compararse. No es el primero de la serie ni hay nada que buscar: el periodo con el que se compararía no existe. El color se deja en ámbar porque el crecimiento no se puede razonar, no porque haya deterioro; el margen de este periodo, que sí está, es del 26.7 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). ",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 5101.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 1362.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 26.7
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 917.0
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 530.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 12151.0
-        },
-        {
-          "nombre": "Puntos conexión gas España (miles)",
-          "valor": 5302.0
-        },
-        {
-          "nombre": "Var. interanual puntos gas (%)",
-          "valor": -0.43
-        },
-        {
-          "nombre": "EBITDA Gas España (M€)",
-          "valor": 170.0
-        },
-        {
-          "nombre": "EBITDA Electricidad España (M€)",
-          "valor": 186.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-06-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "EBITDA +4.5 %, EBIT +7.5 %, Resultado neto +5.9 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA sobre ingresos publicados en 29.5 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). Los puntos de conexión de gas en España caen 0.5 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 10097.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 2975.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 29.46
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 2110.0
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 1215.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 11745.0
-        },
-        {
-          "nombre": "Puntos conexión gas España (miles)",
-          "valor": 5295.0
-        },
-        {
-          "nombre": "Var. interanual puntos gas (%)",
-          "valor": -0.45
-        },
-        {
-          "nombre": "EBITDA Gas España (M€)",
-          "valor": 359.0
-        },
-        {
-          "nombre": "EBITDA Electricidad España (M€)",
-          "valor": 496.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Deuda neta",
+     "valor": 12152.0
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +53,4 %, EBITDA +26,0 %, beneficio neto +35,8 %, margen 13,2 % (-2,86 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 33965.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4467.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 3083.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1649.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 12291.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -28,0 %, EBITDA +34,5 %, beneficio neto +87,3 %, margen 19,9 % (+9,26 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 12054.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2404.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1713.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1045.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 11006.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -33,4 %, EBITDA +10,2 %, beneficio neto +20,4 %, margen 21,8 % (+8,62 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 22616.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4924.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 21.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 3470.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1986.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 12278.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -24,7 %, EBITDA +8,8 %, beneficio neto -0,2 %, margen 28,8 % (+8,89 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 9071.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2615.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1856.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1043.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 12047.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -14,8 %, EBITDA +3,4 %, beneficio neto -4,3 %, margen 26,4 % (+4,65 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 19267.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 5090.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 26.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 3549.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1901.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 12363.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,8 %, EBITDA +5,1 %, beneficio neto +9,9 %, margen 27,6 % (-1,24 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales. Verde con el margen a la baja (−1,2 puntos) porque los ingresos crecen más (+9,8 %) que el EBITDA (+5,1 %); el beneficio sube un 9,9 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 9961.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2749.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 27.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1963.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1147.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 13770.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "portada",
+   "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "HUECO DE CADENCIA, no falta de dato: la empresa publicó 2024 pero NO publicó su «9M», así que este periodo no tiene gemelo del ejercicio anterior con el que compararse. No es el primero de la serie ni hay nada que buscar: el periodo con el que se compararía no existe. El color se deja en ámbar porque el crecimiento no se puede razonar, no porque haya deterioro; el margen de este periodo, que sí está, es del 28.9 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). ",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 14586.0
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 4214.0
+    },
+    {
+     "nombre": "Margen EBITDA (%)",
+     "valor": 28.89
+    },
+    {
+     "nombre": "EBIT (M€)",
+     "valor": 2912.0
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 1668.0
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 12913.0
+    },
+    {
+     "nombre": "Puntos conexión gas España (miles)",
+     "valor": 5314.0
+    },
+    {
+     "nombre": "Var. interanual puntos gas (%)",
+     "valor": -0.36
+    },
+    {
+     "nombre": "EBITDA Gas España (M€)",
+     "valor": 583.0
+    },
+    {
+     "nombre": "EBITDA Electricidad España (M€)",
+     "valor": 565.0
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,0 %, EBITDA +1,8 %, beneficio neto +6,4 %, margen 26,6 % (+0,22 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: EBITDA +1,8 %, beneficio +6,4 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 19455.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 5182.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 26.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 3580.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 2023.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 12395.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "portada",
+   "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "HUECO DE CADENCIA, no falta de dato: la empresa publicó 2025 pero NO publicó su «Q1», así que este periodo no tiene gemelo del ejercicio anterior con el que compararse. No es el primero de la serie ni hay nada que buscar: el periodo con el que se compararía no existe. El color se deja en ámbar porque el crecimiento no se puede razonar, no porque haya deterioro; el margen de este periodo, que sí está, es del 26.7 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). ",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 5101.0
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 1362.0
+    },
+    {
+     "nombre": "Margen EBITDA (%)",
+     "valor": 26.7
+    },
+    {
+     "nombre": "EBIT (M€)",
+     "valor": 917.0
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 530.0
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 12151.0
+    },
+    {
+     "nombre": "Puntos conexión gas España (miles)",
+     "valor": 5302.0
+    },
+    {
+     "nombre": "Var. interanual puntos gas (%)",
+     "valor": -0.43
+    },
+    {
+     "nombre": "EBITDA Gas España (M€)",
+     "valor": 170.0
+    },
+    {
+     "nombre": "EBITDA Electricidad España (M€)",
+     "valor": 186.0
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,4 %, EBITDA +6,2 %, beneficio neto +6,0 %, margen 28,9 % (+1,30 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +1,4 %, EBITDA +6,2 %, beneficio +6,0 % y margen 28,9 % (+1,3 puntos).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 10097.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2918.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 2110.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1215.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 11832.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

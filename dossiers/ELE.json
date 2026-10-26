@@ -1,128 +1,70 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "ELE",
  "empresa": "Endesa, S.A.",
- "fecha": "2026-09-13",
+ "fecha": "2026-10-26",
+ "revisadoEl": "2026-10-26",
  "rating": "A",
- "score": 65.8,
+ "score": 69.2,
  "decision": "ESPERAR",
- "metodoValoracion": "Síntesis ponderada de nueve métodos (55 % DCF a tres escenarios + 45 % múltiplos contra la propia década de Endesa, incluida la pata de rentabilidad por dividendo con 15 puntos) — arquetipo REGULADAS, subtipo Eléctrica Integrada. PO oficial = síntesis §6.5 = 23,37 €/acc, con WACC del 5,5 % y beta 0,435 del arquetipo (no la propia, declarado en el §3.2-ter). Las nueve patas van de 9,17 € (DCF pesimista) a 33,61 € (DCF optimista); la más baja de las de múltiplos es P/FCL, 16,87 €, porque el FCL medio de la década (1.148 M€) está muy por debajo del de 2025 (1.874 M€). El Plan Estratégico 2026-2028 NO está descontado en el caso base: entra entero en el bull case, que da 34,93 € y aun así queda un 17,0 % por debajo de la cotización de 42,10 €.",
- "poBear": 18.33,
- "poBase": 23.37,
- "poBull": 34.93,
- "entMin": 18.33,
- "entMax": 20.32,
- "stop": 15.4,
- "dpaPrevisto": 1.584,
- "moat": "65,1 · MOAT MODERADO (escala del método: ANCHO ≥ 75 · MODERADO 60-74 · ESTRECHO 45-59). Es un foso de LICENCIA, no de marca: la distribución son 321.843 km de red en concesión, 2.078 de los 5.756 M€ de EBITDA (36,1 %) con un margen del 74 %, y la cuota SUBE del 43,3 % al 43,9 % mientras las tres cuotas competidas bajan (generación 18,7→18,0 %, comercialización 28,9→28,4 %, gas 11,1→9,5 %). Dos pilares independientes: escala eficiente 78 y activos intangibles 68; los otros ejes son ventaja de costes 62, costes de cambio 25 y efecto de red N/A. La horquilla medida con las dos ponderaciones extremas va de 53,6 a 65,1: el 65,1 publicado es el extremo alto, y con los pesos repartidos de la peor forma el moat caería a ESTRECHO. El techo del eje fuerte es que el foso protege al 36 % del EBITDA, no al 64 %.",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 35 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 6 % · PER 6 % · P/VC 4 % · P/FCL 6 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl",
+ "poBear": 21.92,
+ "poBase": 25.88,
+ "poBull": 37.3,
+ "entMin": 21.92,
+ "entMax": 22.51,
+ "stop": 17.55,
+ "dpaPrevisto": 1.327,
+ "moat": "65,3 sobre 100 · MOAT MODERADO. La distribución regulada es todo el foso y las huellas ya la recogen casi entera",
  "catalizadores": [
-  "El Plan Estratégico 2026-2028 cumple su EBITDA (feb-2029 (cierre FY2028), con hitos anuales cada febrero): Endesa publica en el Apartado 7 de su Informe de Gestión de 2025 una previsión de EBITDA de 6. Impacto derivado en el PO: +35.87 %. Disparador: EBITDA de 2026 por encima de 5.986 M EUR (el 4 % anual del propio plan) en los resultados de febrero de 2027. Dos ejercicios por debajo de esa senda y el plan no llega.",
-  "El Real Decreto de planes de inversión en redes 2026-2030 se aprueba con retribución íntegra (0-18 meses): El Plan destina 5. Impacto derivado en el PO: +12.08 %. Disparador: La publicación en el BOE del Real Decreto con el límite de inversión ampliado. Si sale sin ampliarlo, o con retribución parcial, este catalizador no es que se retrase: desaparece.",
-  "El suelo del dividendo en el 70 % del beneficio ordinario para 2026, 2027 y 2028 (los tres ejercicios, con pago en enero y julio): El Consejo declara en su política de dividendos que procurará que el dividendo ordinario de 2026, 2027 y 2028 sea como mínimo el 70 % del beneficio ordinario neto atribuido. Impacto derivado en el PO: +0.92 %. Disparador: Que el dividendo con cargo a 2026 anunciado en febrero de 2027 no baje de 1,584 EUR. El suelo es del beneficio ordinario, no del DPA: si el beneficio cae, el suelo cae con él.",
-  "El mercado cierra la mitad del descuento contra los cuatro pares (18-36 meses): El §7 midió que Endesa es la MENOS apalancada de las cinco eléctricas españolas (1,76x contra 2,50 · 3,20 · 3,66 · 4,35) y la MÁS rentable (ROE 29,0 %), y cotiza en la mitad baja del grupo por EV/EBITDA: 9,5x contra 8,1 · 12,2 · 13,9 · 15,4. Impacto derivado en el PO: +10.88 %. Disparador: Que el EV/EBITDA de Endesa pase de 11x sin que su deuda neta haya subido por encima de la senda del plan. Y el contra-trigger, que es más importante: cualquier amortización de autocartera que estreche el flotante empuja en la dirección CONTRARIA."
+  "El Plan Estratégico 2026-2028 cumple su EBITDA, con su deuda dentro: EBITDA de 6.200-6.500 M€ en 2028: +594 M€; y la deuda del plan, +4.390 M€. (feb-2029, hitos cada febrero)",
+  "El Real Decreto de inversión en redes sale con retribución íntegra: +200 M€ de EBITDA regulado al final del periodo. (0-18 meses)",
+  "El suelo del dividendo en el 70 % del beneficio ordinario: DPA hacia 1,69 € contra 1,584 € de 2025: +6,4 %. (2026-2028)",
+  "El mercado cierra la mitad del descuento contra sus pares: Re-rating del 20 % de los múltiplos. (18-36 meses)"
  ],
  "riesgos": [
-  "Regulatorio (riesgo nº 1 · prob. Alta · impacto −10 a −19%): EL MARCO RETRIBUTIVO 2026-2031 DE LA DISTRIBUCIÓN, QUE ES EL 36 % DEL EBITDA Y TODO EL FOSO. Señal: El Real Decreto de desarrollo de la Circular 8/2025 y las primeras liquidaciones del ejercicio 2026: si la retribución reconocida de Edistribución cae más de un 5 % contra 2025 a base de activos constante, el recorte ya está dentro y no hay que esperar al cierre.",
-  "Mercado (riesgo nº 2 · prob. Media · impacto −11 a −29%): EL PRECIO DE CAPTURA DEL 64 % QUE NO ESTÁ REGULADO. Señal: El precio medio de captura de la generación peninsular publicado trimestralmente contra el pool del mismo trimestre: cuando la prima de captura se estrecha dos trimestres seguidos, el margen del año ya está comprometido.",
-  "Competitivo (riesgo nº 3 · prob. Alta · impacto −11 a −22%): EL VÍNCULO DISTRIBUIDORA ↔ COMERCIALIZADORA, QUE ES LO QUE LA CNMC ESTÁ PERSIGUIENDO. Señal: La propuesta de resolución del S/0007/23 y, sin esperar a ella, la cuota de comercialización del mercado libre en el informe trimestral de la CNMC: dos trimestres consecutivos por debajo del 28 % es la pérdida ya consumada.",
-  "Financiero (riesgo nº 4 · prob. Alta · impacto −4 a −13%): EL HUECO DE LA DÉCADA ENTRE EL FLUJO LIBRE Y EL DIVIDENDO, FINANCIADO CON DEUDA. Señal: La cobertura del dividendo con FCL del ejercicio: un año más por debajo de 1,0x con la deuda neta subiendo es la confirmación de que el hueco no era del ciclo.",
-  "Societario (riesgo nº 5 · prob. Alta · impacto −5 a −11%): ENEL CERRANDO EL CÍRCULO CON LA CAJA DE LA FILIAL. Señal: Cualquier comunicación de amortización de autocartera, o que el free float publicado baje del 25 %: por debajo de ese umbral el peso en los índices deja de sostener la demanda estructural del papel.",
-  "Político (riesgo nº 6 · prob. Media · impacto −9 a −16%): LA CAPA FISCAL, QUE NO ES EL REGULADOR SINO EL GOBIERNO. Señal: El Real Decreto que fije la tarifa unitaria de la tasa Enresa del siguiente periodo y los Presupuestos Generales del Estado en lo que toca al IVPEE: los dos se publican con meses de antelación sobre el efecto en cuenta.",
-  "Operativo (riesgo nº 7 · prob. Alta · impacto −1 a −8%): EL ARBITRAJE DEL GNL Y LA REVISIÓN DE LOS CONTRATOS DE APROVISIONAMIENTO. Señal: El laudo del último trimestre de 2026 y, antes, cualquier dotación de provisión por este arbitraje en los estados intermedios: una provisión es la empresa diciendo que la salida es probable.",
-  "Ciberseguridad (riesgo nº 8 · prob. Media · impacto −9 a −20%): INFRAESTRUCTURA CRÍTICA, Y LO DECLARA LA PROPIA EMPRESA. Señal: Cualquier comunicación de incidente al supervisor o interrupción no programada de la facturación o del canal comercial: en este riesgo la señal y el daño llegan casi a la vez, y por eso la fila existe aunque no anticipe."
+  "El marco retributivo 2026-2031 de la distribución (Alta): La distribución aporta 2.072 M€ de EBITDA: recorte del 8 % (−166 M€) y del 15 % (−311 M€).",
+  "El precio de captura de la energía no regulada (Media): −3 €/MWh sobre 61.011 GWh son −183 M€ de EBITDA; −8 €/MWh, −488 M€.",
+  "El vínculo distribuidora-comercializadora que persigue la CNMC (Alta): Ingresos −3 % más una multa de 250 M€; duro: ingresos −6 % con la misma multa.",
+  "El hueco entre el flujo libre y el dividendo, financiado con deuda (Alta): Dos años más de hueco: deuda +1.500 M€; cuatro años, +3.000 M€ con el dividendo −30 % para pararlo.",
+  "Enel cerrando el círculo con la caja de la filial (Alta): Flotante más estrecho, menos liquidez y descuento de minoritario: múltiplos −10 % y −20 %.",
+  "La capa fiscal del Gobierno (Media): 150 M€ de carga fiscal adicional; duro: duplicar la tasa Enresa, +258 M€.",
+  "El arbitraje del GNL y los contratos de aprovisionamiento (Alta): El laudo solo: 185 M€ de caja de una vez; duro: el laudo más 120 M€ al año de aprovisionamiento más caro.",
+  "Infraestructura crítica: ciberataque (Media): Incidente contenido: ingresos −1 % y 80 M€ al año de remediación; grave: −2 %, 150 M€ al año y múltiplos −5 %."
  ],
- "bull": "34,93 €. El Plan Estratégico 2026-2028 de la propia Endesa cumplido entero —EBITDA a la banda alta de 6.200-6.500 M€, dividendo en el suelo declarado del 70 % del beneficio ordinario, deuda neta a 14.500 M€— más un re-rating del 20 % por cierre de la mitad del descuento contra los cuatro pares. Es el hallazgo del Bloque 9: el mejor escenario derivable de fuentes públicas se queda un 17,0 % POR DEBAJO de la cotización de 42,10 €.",
- "bear": "18,33 €. El riesgo dominante del §8.1 en su extremo DURO: la resolución del expediente S/0007/23 de la CNMC rompiendo el vínculo entre la distribuidora y la comercializadora (volumen −6 % y 250 M€ de deuda adicional). Se eligió el extremo duro y no el suave que manda F147 porque el suave daba 20,77 €, por encima del techo de la banda de entrada (20,32 €), y habría invertido la banda; la elección va escrita en el libro.",
- "resumen": "Endesa es una buena empresa a un precio que no lo es. Rating A (65,8), moat MODERADO (65,1) con dos pilares independientes, la menor deuda de las cinco eléctricas españolas cotizadas (1,76x EBITDA contra 2,50x de Naturgy y 4,35x de Redeia), spread ROIC−WACC de +7,44 pp sostenido en nueve de los diez años y forense limpio (Piotroski 8/9). El precio objetivo son 23,37 € contra una cotización de 42,10 €: margen de seguridad −44,49 %. De las cuatro condiciones de COMPRAR se cumplen tres —pérdida al bear desde la entrada máxima −9,79 %, rating A, moat presente— y falla la única que mide el precio. Por eso ESPERAR y no VENDER: no hay nada roto que arreglar, hay un precio al que volver. Banda de entrada 18,33 – 20,32 € y stop de tesis 15,40 €. La concentración de la tesis es el precio capturado del 64 % del EBITDA que no está regulado, y su termómetro —el margen unitario eléctrico liberalizado— lleva tres años estrechándose, de 65 a 52 €/MWh.",
- "confianza": {
-  "score": 84,
-  "nivel": "A",
-  "motivos": [
-   "3 dato(s) secundario(s) en 'Pte. Revisión' (−6)",
-   "2 línea(s) de conciliación ⚠ sin corregir (−10)"
-  ],
-  "sensibleASupuestos": true,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-09-13"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "etiquetaPrecioSensible": false,
-  "matizada": false,
-  "banda": {
-   "p10": 18.33,
-   "p50": 23.37,
-   "p90": 34.93
-  },
-  "sensibilidad": {
-   "sobre": "sintesis",
-   "regla": "F100",
-   "poMin": 20.33,
-   "poMax": 30.91,
-   "poBase": 23.37,
-   "cotizacion": 42.1,
-   "cotizacionBase": "actual",
-   "componente": "DCF Base",
-   "pesoPerturbado": 0.35,
-   "componentesIntactos": 8,
-   "dcf": {
-    "poMin": 13.37,
-    "poMax": 43.59,
-    "poBase": 22.0559923295328
-   },
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -51.7,
-   "mdsMax": -26.6
-  },
-  "beta": {
-   "capm": 0.435,
-   "ref2": null,
-   "aviso": null
-  },
-  "motivos": [
-   "QUÉ SE HA PERTURBADO: solo «DCF Base» (35 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 65 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
-   "la cotización (42.10) queda por ENCIMA de toda la banda del precio objetivo de síntesis [20.33–30.91] → sobrevalorada en todo el rango",
-   "…y la banda de margen de seguridad [-51.7 % … -26.6 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
-   "para contraste, el DCF puro (§6.3) se mueve en [13.37–43.59] € alrededor de 22.06 €: es la sensibilidad del MODELO, no la del precio objetivo"
-  ],
-  "calculadoEl": "2026-09-13"
- },
+ "bull": "37,30 € — escenario optimista: el Plan 2026-2028 se ejecuta entero, con la retribución de redes reconocida",
+ "bear": "21,92 € — escenario pesimista: su propia década: el FCL por acción de 2025 es el de 2016",
+ "resumen": "ESPERAR con la cotización de 43,70 € (2026-10-23): precio objetivo 25,88 € (bear 21,92 · bull 37,30), margen −40,8 %. Banda de entrada 21,92–22,51 €, stop de tesis 17,55 €.",
  "dividendSafety": {
-  "score": 61,
+  "score": 66,
   "banda": "Seguro",
+  "aplica": true,
+  "rama": "general",
   "componentes": {
-   "C1": 22,
+   "C1": 27,
    "C2": 4,
    "C3": 17,
    "C4": 3,
    "C5": 15
   },
-  "shareholderYield": 5.9,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 1.43x / FCL 1.35x (3a OE 1.60x) → 22/35",
-   "C2 payout BN ord.: 63% (3a 85%) → 4/15",
-   "C3 balance: DN/EBITDA 1.76x, cob.int 6.1x → 17/20",
-   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
-   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+   "Seguro: cobertura OE 1.72x · payout 85 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-09-13"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 6.04
  },
  "forense": {
   "aplica": true,
+  "ejercicio": "2025",
   "piotroski": {
-   "score": 8,
+   "score": 7,
    "banda": "fuerte",
    "detalle": {
     "roa_pos": 1,
@@ -132,20 +74,19 @@
     "lever_dn": 1,
     "liquid_up": 0,
     "no_dilu": 1,
-    "margin_up": 1,
+    "margin_up": 0,
     "turn_up": 1
    },
-   "nota": "margen=EBIT (sin bruto)"
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
   },
   "altman": {
-   "z": 4.75,
-   "zona": "segura"
+   "z": 1.49,
+   "zona": "gris"
   },
   "beneish": {
-   "m": -2.81,
+   "m": -2.71,
    "senal": "sin indicios",
    "aproximado": [
-    "GMI",
     "SGAI"
    ]
   },
@@ -153,212 +94,37 @@
    "accruals": -5.0,
    "senal": "normal"
   },
-  "flags": [],
+  "flags": [
+   "Altman Z''=1.49 en zona gris"
+  ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-09-13"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 9.13,
-  "gIntrinseco": 6.86,
-  "veredicto": "EXIGENTE",
-  "motivo": "El precio exige algo por encima de lo autofinanciable (g intrínseco): descuenta ejecución. Alcanzable si el negocio reinvierte con retornos altos (ROIC>WACC), pero el margen de seguridad se estrecha.",
-  "calculadoEl": "2026-09-13",
+  "gImplicito": 10.94,
+  "gIntrinseco": 7.09,
+  "veredicto": "HEROICO",
+  "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
   "entradas": {
-   "fcl": 1148.2,
-   "wacc": 5.5,
+   "fcl": 1385.1819,
+   "wacc": 6.5839,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 1058.752117,
-   "deudaNeta": 10110,
+   "acciones": 1046.6667,
+   "deudaNeta": 10396.0,
    "modo": "EV",
-   "precioBase": 42.1,
-   "validado": true,
-   "desviacion": 0.005,
-   "gBase": 9.135,
-   "fechaBase": "2026-09-13",
-   "congeladoEl": "2026-09-13"
+   "precioBase": 43.7,
+   "gBase": 12.32,
+   "fechaBase": "2026-10-23",
+   "congeladoEl": "2026-10-26",
+   "validado": false,
+   "desviacion": 1.38
   }
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "fuente": "Datos Financieros Endesa.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 2,
-   "nombre": "EL COMPUESTO",
-   "lema": "reinvierte mucho y bien",
-   "porSpread": false,
-   "roiicFragil": false,
-   "cortes": {
-    "reinversion": 20.0,
-    "roiic": 10.5,
-    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
-   }
-  },
-  "cifras": {
-   "reinversionMedia": 37.82,
-   "roiic5a": 19.54,
-   "roiic": 19.54,
-   "roiicVentana": "5A",
-   "roicMedio": 10.4,
-   "spread": 7.44,
-   "wacc": 5.5,
-   "conversionMedia": 28.84,
-   "coberturaDividendo": 1.12,
-   "gIntrinseco": 6.86,
-   "capexCrecimiento10a": 3508.0,
-   "fcl10a": 11482.0,
-   "retribucion10a": 15939.8,
-   "retribucionSobreFcl": 138.8
-  },
-  "tension": {
-   "anios": [
-    2019,
-    2022,
-    2024,
-    2025
-   ],
-   "coberturaFcl": [
-    0.65,
-    null,
-    1.08,
-    1.12
-   ],
-   "coberturaOe": [
-    1.04,
-    0.01,
-    1.19,
-    1.19
-   ],
-   "payoutBn": [
-    913.4,
-    66.1,
-    73.9,
-    76.3
-   ],
-   "payoutFcl": [
-    152.8,
-    null,
-    92.4,
-    89.5
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "Una <b>utility ibérica con dos economías opuestas</b> bajo el mismo techo: la distribución eléctrica, un monopolio con licencia sobre la mayor red de España, que da algo más de un tercio del EBITDA con márgenes altísimos y previsibles; y la generación y comercialización —con el parque nuclear como activo que manda—, que da el resto, compite en precio y pierde cuota. Es intensiva en capital, con un CAPEX del <b>8,9 % de las ventas</b>, y convierte poco EBITDA en caja: <b>28,8 % de media</b>, ningún año (0 de diez) por encima del umbral de la banda.",
-     "Desde la venta de Latinoamérica a Enel en 2014 es una empresa puramente ibérica, controlada por Enel con algo más del setenta por ciento del capital, y con el mismo número de acciones los diez años: todo lo que ha recibido el accionista ha sido en efectivo."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>De la red y de la nuclear.</b> El ROIC medio de la década es un 10,4 % contra un WACC del 5,5 %, y el spread de 2025 es de <b>+7,44 pp</b>. Sólo un año lo destruyó: 2019, con un ROIC del 2,1 % y un spread de −3,36 pp. Lo que ha invertido para crecer ha rendido bien: el <b>ROIIC a cinco años es del 19,5 %</b>, holgadamente por encima del corte de WACC más cinco puntos.",
-     "Y ha invertido: la reinversión media de la década es del <b>37,8 %</b>, por encima del umbral de un compuesto, con 647 M€ anuales de CAPEX de crecimiento de media entre 2019 y 2023, después de tres años (2016-2018) sin un euro. Eso la pone en la casilla del compuesto. Pero el compuesto no se ha financiado solo: de 11.482 M€ de flujo libre en diez años se han repartido <b>15.940 M€, el 139 %</b>, y la diferencia la ha puesto la deuda."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "<b>La casilla está en el borde, y la sostiene un solo año.</b> En 2019 el beneficio operativo se hundió y la reinversión, que se mide sobre él, se disparó al 199,6 %. Sin ese año, la media de los otros nueve se queda rozando el corte por debajo, y Endesa estaría en la casilla del cupón. Y los dos últimos años apuntan a cupón, no a compuesto: la reinversión de 2024-2025 es del <b>5,7 %</b> de media, con 136 M€ anuales de CAPEX de crecimiento. Ojo, no obstante, a lo que el libro no ve: la compra de la hidráulica de Acciona en 2025, unos mil millones, no está en el CAPEX de crecimiento.",
-     "Y el cupón se pagó durante años con balance: la deuda neta subió todos los ejercicios entre 2017 y 2022. En 2017-2021 la cobertura del dividendo con caja libre fue de 0,58x de media, con 0,15x en 2021; en 2022 el flujo libre fue negativo, −698 M€, y la deuda neta subió 2.063 M€ en el año. Cuando la caja no llegó, en 2023 recortó el dividendo. Hoy la cobertura es de <b>1,12x</b>."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra Endesa no compra todavía un compuesto demostrado: compra <b>la apuesta de que el plan 2026-2028 lo convierta en uno</b>. Son unos diez mil millones en tres años —más de la mitad a redes de distribución—, con la deuda neta subiendo de unos diez a catorce o quince mil millones y un dividendo mínimo del setenta por ciento del beneficio ordinario. La red se retribuye a la tasa que fija la CNMC, y esa inversión difícilmente repetirá el 19,5 % del último quinquenio; lo que importa es cuánto baja. El relevo del consejero delegado, con un perfil de redes, apunta en la misma dirección.",
-     "<b>Qué vigilar cada trimestre, por ser familia 2:</b> el ROIIC. Con la reinversión subiendo por el plan, si el ROIIC a cinco años cae por debajo del corte de WACC más cinco puntos, Endesa pasa de compuesto a trampa del capital. Y a su lado, la condición que pone la propia empresa: el Real Decreto de planes de inversión en redes tiene que garantizar la retribución íntegra de lo invertido."
-    ]
-   }
-  ],
-  "vigilar": "El ROIIC a cinco años: el plan 2026-2028 multiplica la inversión, sobre todo en redes con retribución regulada; si el ROIIC baja del corte de WACC más cinco puntos con la reinversión ya alta, Endesa deja de ser un compuesto y pasa a la trampa del capital.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "Una buena empresa a un precio que no lo es: la eléctrica menos endeudada de las cinco cotizadas.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Sólida, pero ya no holgada, y el deterioro es de diseño, no de un mal año.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Crea valor: ROIC medio del 10,4 % contra un WACC del 5,5 %.",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 2 · El compuesto: reinvierte mucho y bien. Reinvierte el 37,8 % del NOPAT de media; ROIIC a cinco años del 19,5 % contra un corte del 10,5 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "Dividendo seguro: cubierto 1,12 veces.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "A · 65,8 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 23,37 € contra 42,10 €: margen de seguridad −44,5 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Moat moderado (65,1): un foso de licencia, no de marca.",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "El marco retributivo de la distribución 2026-2031 (probabilidad alta, −10 a −19 %): es el 36 % del EBITDA.",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "Que el plan 2026-2028 cumpla su EBITDA y que se apruebe la inversión en redes con retribución íntegra.",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>ESPERAR</b> · banda de entrada 18,33 – 20,32 € · stop de tesis 15,40 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "El ROIIC a cinco años: el plan 2026-2028 multiplica la inversión, sobre todo en redes con retribución regulada; si el ROIIC baja del corte de WACC más cinco puntos con la reinversión ya alta, Endesa deja de ser un compuesto y pasa a la trampa del capital.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "3 datos secundarios abiertos y 2 líneas de conciliación sin corregir; la compra hidráulica a Acciona (2025) no está en el CAPEX.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 23,37 → 25,88 €."
 }

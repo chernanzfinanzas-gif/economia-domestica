@@ -1,128 +1,70 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "AENA",
- "empresa": "Aena S.M.E., S.A.",
- "fecha": "2026-09-17",
- "rating": "AA",
- "score": 75.015,
+ "empresa": "Aena, S.M.E., S.A.",
+ "fecha": "2026-10-26",
+ "revisadoEl": "2026-10-26",
+ "rating": "A",
+ "score": 73.0,
  "decision": "ESPERAR",
- "metodoValoracion": "Síntesis ponderada multi-método — arquetipo CONCESIONAL (infraestructura aeroportuaria regulada). El PO oficial es el del §6.5: DCF a tres escenarios 60 % (pesimista 12 · base 36 · optimista 12), múltiplos históricos de 10 años excluyendo 2020-2021 25 %, rentabilidad por dividendo 15 % y activos 0 % —desvío de la banda del arquetipo declarado y registrado, porque el valor contable no informa sobre una red de aeropuertos—. WACC del método 7,668 %. PO base 16,27 €; el DCF puro daría 9,37 € (rango 5,70 – 15,26) y la media de los seis múltiplos 23,50 €: la tensión entre las dos familias es de 2,5x y está declarada.",
- "poBear": 13.21,
- "poBase": 16.27,
- "poBull": 21.45,
- "entMin": 13.21,
- "entMax": 14.14,
- "stop": 5.63,
- "dpaPrevisto": 1.09,
- "moat": "76,0 · MOAT ANCHO — escala eficiente 85 (peso 30) · activos intangibles/licencia 80 (30) · costes de cambio 75 (10) · ventaja en costes 65 (25) · efecto de red 55 (5). Horquilla medida con las dos ponderaciones extremas: 67,0 – 77,5. Pilares INDEPENDIENTES: uno — los cuatro ejes altos describen el mismo hecho, que la red española es un monopolio legal.",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 12 % · DCF base 36 % · DCF optimista 12 % · EV/EBITDA 8 % · EV/EBIT 6 % · PER 6 % · P/VC 3 % · P/FCL 2 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl",
+ "poBear": 14.57,
+ "poBase": 17.63,
+ "poBull": 22.42,
+ "entMin": 14.57,
+ "entMax": 15.33,
+ "stop": 9.41,
+ "dpaPrevisto": 0.976,
+ "moat": "70,5 sobre 100 · MOAT MODERADO. Monopolio legal de la red española: el regulador limita el exceso de retorno",
  "catalizadores": [
-  "El CAPEX no regulado del DORA III se ejecuta más despacio de lo anunciado: de los ~13.000 M€, unos 3.000 no son inversión regulada y Aena decide su ritmo (feb-2028, +14,73 % en el PO)",
-  "Se revierte la compresión de margen del primer semestre de 2026: el margen EBITDA cayó del 56,5 % al 54,5 % con los ingresos creciendo el 10,1 % (jul-2027, +6,17 %)",
-  "El tráfico cierra 2026 en el 3 % que la propia compañía guía, tras un primer semestre de 189,96 M de pasajeros (+3,9 %) (ene-2027, +5,49 %)",
-  "El dividendo sube con el beneficio al 80 % de payout declarado: beneficio atribuido del 1S-2026 de 1.002 M€, un 12,1 % más (feb-abr 2027, +3,20 %)",
-  "La pata internacional deja de ser una promesa: Leeds Bradford y Newcastle (270 M£) llevan los pasajeros en Reino Unido de 17 a 26,5 M, y RIOgaleão se adjudicó en marzo de 2026 (0-18 meses, +2,05 %)"
+  "El tráfico crece el 3 % guiado y Leeds Bradford consolida: +4,12 % de volumen entre los dos. (0-12 meses)",
+  "Se recuperan los dos puntos de margen del 1S-2026: +2 pp de margen EBITDA. (6-12 meses)",
+  "Menos CAPEX no regulado: 300 M€ al año menos de inversión fuera del DORA. (12-24 meses)",
+  "El dividendo sube el 12 %: DPA +12 %. (abr-2027)"
  ],
  "riesgos": [
-  "Asignación de capital · probabilidad Alta · −19 a −22 % — RIESGO DOMINANTE: la mayor ola inversora de su historia con la tarifa congelada. El DORA III impone ~13.000 M€ entre 2027 y 2031, unos 2.600 M€ de CAPEX al año contra los 1.060,8 de 2025",
-  "Regulatorio · Alta · −3 a −9 % — el DORA se queda el excedente: el marco fija la tarifa sobre costes más retorno, así que cada euro de eficiencia vuelve al pasajero. El DORA III concede el +0,33 % anual frente al +3,82 % pedido",
-  "Macroeconómico · Baja-Media · −18 a −37 % — el tráfico, que nadie controla: costes fijos del 95,3 % y apalancamiento operativo. En 2020 el tráfico cayó de 275,2 a 76,1 M de pasajeros y el margen EBIT pasó de +43,91 % a −4,12 %",
-  "Político · Media · −8 a −17 % — la red única se fragmenta: proyecto de ley de cogestión de los aeropuertos de Baleares en tramitación (CNMV, 8-sep-2026)",
-  "Mercado · Media · −5 a −12 % — de-rating del múltiplo: cinco de las nueve patas de la síntesis son múltiplos históricos, así que una compresión se traslada al PO sin que cambien las cuentas",
-  "Financiero · Media · −8 a −13 % — el dividendo se recorta para pagar la obra: cobertura sobre flujo libre en 1,06x y payout sobre FCL del 94,69 %, con el CAPEX a punto de multiplicarse por dos y medio",
-  "Societario · Baja · −3 a −8 % — el 51 % del Estado decide por el minoritario: ENAIRE no puede bajar de la mayoría por ley, así que no hay prima de cambio de control posible",
-  "Ciberseguridad · Baja-Media · −5 a −15 % — parada prolongada de sistemas críticos en una red de 46 aeropuertos: facturación, embarque, equipajes y control de accesos"
+  "El DORA se queda el excedente (Alta): El regulador fija la tarifa a cinco años: margen EBITDA −1 pp y −3 pp.",
+  "La red única se fragmenta (Media): Presión política para trocear la red: margen −1,5 pp y múltiplos −5 %; duro: −3 pp y −12 %.",
+  "El tráfico, que nadie controla (Baja-Media): Volumen −10 % y −20 %. Conservador: en 2020 la caída fue mucho mayor.",
+  "La mayor ola inversora de su historia con la tarifa congelada (Alta): El DORA III lleva el CAPEX a unos 2.600 M€ al año cinco ejercicios: el exceso que el flujo no absorbe vale 6.200 M€ en valor presente, metido como deuda. Duro: además el margen cede 1 pp.",
+  "De-rating del múltiplo (Media): Múltiplos −8 % y −18 %.",
+  "El dividendo se recorta para pagar la obra (Media): Dividendo −30 % y −50 %.",
+  "El 51 % del Estado decide por el minoritario (Baja): Descuento por controlada estatal: múltiplos −5 % y −12 %.",
+  "Parada prolongada de sistemas críticos (Baja-Media): Pérdida de volumen del ejercicio: −3 % y −8 %."
  ],
- "bull": "21,45 €/acción con los CINCO catalizadores perturbados a la vez: el tráfico creciendo el 3 % guiado más Leeds Bradford consolidando (+4,12 % de volumen entre los dos), los dos puntos de margen del primer semestre de 2026 recuperados, 300 M€ al año menos de CAPEX no regulado y el dividendo subiendo el 12 %. Un +31,87 % sobre el precio objetivo — y aun así un 14,1 % POR DEBAJO de la cotización de 24,98 €.",
- "bear": "13,21 €/acción (0,812 × PO) derivado del riesgo dominante —asignación de capital— en su extremo SUAVE, que es lo que manda la regla: el suave cae dentro de la banda 0,70-0,85 × PO, así que no hay nada que elegir. El golpe no es una estimación: el DORA III mueve el CAPEX de 1.060,8 M€ a unos 2.600 M€ al año durante cinco ejercicios y el exceso que el flujo no absorbe (1.539,2 M€ al año) entra como deuda.",
- "resumen": "Aena es un negocio excelente a un precio que esta tesis no autoriza pagar. La calidad no está en discusión —rating AA con 75,015 sobre 100, moat ANCHO de 76,0, ROIC del 15,58 % contra un WACC del 7,67 % (el mayor spread de la década, +7,91 pp) y una deuda neta que ha bajado un 33 % en diez años mientras el patrimonio crecía un 82 %—. El problema es el precio: el objetivo de síntesis son 16,27 € y la acción cotiza a 24,98 €, un margen de −34,88 % contra el +15 % exigido. Se cumplen 3 de las 4 condiciones de COMPRAR y falla la del margen. Ni siquiera el bull case con los cinco catalizadores a la vez (21,45 €) alcanza el precio de hoy, y el reverse DCF dice que la cotización exige un crecimiento del flujo libre del 14,6 % anual contra un 3,54 % autofinanciable: veredicto HEROICO. Veredicto ESPERAR, con banda de entrada de 13,21 – 14,14 € y stop de tesis en 5,63 €.",
- "confianza": {
-  "score": 100,
-  "nivel": "A",
-  "motivos": [
-   "sin huecos críticos ni discrepancias abiertas"
-  ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-09-17"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "etiquetaPrecioSensible": false,
-  "matizada": false,
-  "banda": {
-   "p10": 13.21,
-   "p50": 16.27,
-   "p90": 21.45
-  },
-  "sensibilidad": {
-   "sobre": "sintesis",
-   "regla": "F100",
-   "poMin": 15.42,
-   "poMax": 17.68,
-   "poBase": 16.27,
-   "cotizacion": 24.98,
-   "cotizacionBase": "actual",
-   "componente": "DCF Base",
-   "pesoPerturbado": 0.36,
-   "componentesIntactos": 8,
-   "dcf": {
-    "poMin": 7.02,
-    "poMax": 13.29,
-    "poBase": 9.37279166963005
-   },
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -38.3,
-   "mdsMax": -29.2
-  },
-  "beta": {
-   "capm": 0.902,
-   "ref2": null,
-   "aviso": null
-  },
-  "motivos": [
-   "QUÉ SE HA PERTURBADO: solo «DCF Base» (36 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 64 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
-   "la cotización (24.98) queda por ENCIMA de toda la banda del precio objetivo de síntesis [15.42–17.68] → sobrevalorada en todo el rango",
-   "…y la banda de margen de seguridad [-38.3 % … -29.2 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
-   "para contraste, el DCF puro (§6.3) se mueve en [7.02–13.29] € alrededor de 9.37 €: es la sensibilidad del MODELO, no la del precio objetivo"
-  ],
-  "calculadoEl": "2026-09-17"
- },
+ "bull": "22,42 € — escenario optimista: tráfico por encima de la tendencia e ingresos comerciales",
+ "bear": "14,57 € — escenario pesimista: el DORA III sale peor: tarifa casi congelada con la mayor inversión de su historia",
+ "resumen": "ESPERAR con la cotización de 26,50 € (2026-10-23): precio objetivo 17,63 € (bear 14,57 · bull 22,42), margen −33,5 %. Banda de entrada 14,57–15,33 €, stop de tesis 9,41 €.",
  "dividendSafety": {
-  "score": 73,
+  "score": 68,
   "banda": "Seguro",
+  "aplica": true,
+  "rama": "general",
   "componentes": {
    "C1": 22,
-   "C2": 7,
-   "C3": 20,
-   "C4": 9,
+   "C2": 10,
+   "C3": 18,
+   "C4": 3,
    "C5": 15
   },
-  "shareholderYield": 4.19,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 1.37x / FCL 1.15x (3a OE 1.59x) → 22/35",
-   "C2 payout BN ord.: 70% (3a 60%) → 7/15",
-   "C3 balance parcial → 20/20",
-   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
-   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+   "Seguro: cobertura OE 1.42x · payout 69 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-09-17"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 4.1
  },
  "forense": {
   "aplica": true,
+  "ejercicio": "2025",
   "piotroski": {
-   "score": 8,
+   "score": 7,
    "banda": "fuerte",
    "detalle": {
     "roa_pos": 1,
@@ -131,14 +73,14 @@
     "accrual": 1,
     "lever_dn": 0,
     "liquid_up": 1,
-    "no_dilu": 1,
+    "no_dilu": 0,
     "margin_up": 1,
     "turn_up": 1
    },
-   "nota": "margen=bruto"
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
   },
   "altman": {
-   "z": 7.19,
+   "z": 4.16,
    "zona": "segura"
   },
   "beneish": {
@@ -155,204 +97,32 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-09-17"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 14.63,
-  "gIntrinseco": 3.54,
+  "gImplicito": 14.64,
+  "gIntrinseco": 3.78,
   "veredicto": "HEROICO",
-  "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
-  "calculadoEl": "2026-09-17",
+  "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
   "entradas": {
-   "fcl": 1045.6668,
-   "wacc": 7.67,
+   "fcl": 1102.8987,
+   "wacc": 7.6782,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 1500,
+   "acciones": 1500.0,
    "deudaNeta": 5509.027,
    "modo": "EV",
-   "precioBase": 24.98,
-   "validado": true,
-   "desviacion": 0.005,
-   "gBase": 14.635,
-   "fechaBase": "2026-09-17",
-   "congeladoEl": "2026-09-17"
+   "precioBase": 26.5,
+   "gBase": 17.32,
+   "fechaBase": "2026-10-23",
+   "congeladoEl": "2026-10-26",
+   "validado": false,
+   "desviacion": 2.69
   }
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "fuente": "Datos Financieros Aena.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 1,
-   "nombre": "LA MÁQUINA DE CUPÓN",
-   "lema": "rinde mucho, reinvierte poco",
-   "porSpread": false,
-   "roiicFragil": false,
-   "cortes": {
-    "reinversion": 20.0,
-    "roiic": 12.67,
-    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
-   }
-  },
-  "cifras": {
-   "reinversionMedia": 6.13,
-   "roiic5a": null,
-   "roiic": 72.5,
-   "roiicVentana": "3A",
-   "roicMedio": 9.02,
-   "spread": 7.91,
-   "wacc": 7.67,
-   "conversionMedia": 29.68,
-   "coberturaDividendo": 1.06,
-   "gIntrinseco": 3.54,
-   "capexCrecimiento10a": 1070.5,
-   "fcl10a": 10550.5,
-   "retribucion10a": 7546.1,
-   "retribucionSobreFcl": 71.5
-  },
-  "tension": {
-   "anios": [
-    2021,
-    2023,
-    2025
-   ],
-   "coberturaFcl": [
-    null,
-    0.73,
-    1.06
-   ],
-   "coberturaOe": [
-    null,
-    1.22,
-    1.22
-   ],
-   "payoutBn": [
-    null,
-    70.5,
-    76.5
-   ],
-   "payoutFcl": [
-    null,
-    137.5,
-    94.7
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "Un <b>monopolio legal con la tarifa fijada por otro</b>. Aena gestiona los aeropuertos y helipuertos de interés general de España —no hay un segundo operador porque la ley no lo contempla— y cobra por dos ventanillas: la aeronáutica, cuya senda tarifaria fija el DORA quinquenal que aprueba el Consejo de Ministros, y la comercial —tiendas, restauración, aparcamientos—, que gana un margen más del doble que la regulada y es la única que crece sin pedir permiso. Es un negocio de <b>activo pesado</b>: el CAPEX se lleva el <b>17,3 % de las ventas</b> de la década, y la conversión de EBITDA en caja libre se queda en un <b>29,7 % de media</b>, con sólo 2 de los diez años por encima del 60 %. La media la hunden 2020 y 2021, con la conversión en negativo, pero ni en los años buenos recientes llega a la banda: 45,6 % en 2025.",
-     "El dueño es el Estado y lo seguirá siendo: ENAIRE conserva por ley la mayoría del capital (RDL 13/2010), y el mayor accionista privado es el fondo de Christopher Hohn, que entró en la salida a bolsa de febrero de 2015 y no se ha ido. Para el minoritario eso significa dos cosas: <b>no hay prima de control posible</b>, y el dividendo y la inversión los decide un accionista que no es financiero."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>De la red y de la tienda, no de la tarifa.</b> El ROIC medio de la década es un 9,0 % contra un WACC del 7,67 %: holgura escasa en la media, porque 2020 y 2021 dejaron el ROIC en negativo, y amplia al cierre —15,6 % en 2025, un spread de <b>+7,91 pp</b>—. Lo que lo ha empujado desde la pandemia es el tráfico, que en la red española superó en 2023 el de 2019 y siguió creciendo, y el ingreso comercial por pasajero, que ha batido el objetivo del plan 2022-2026.",
-     "El <b>ROIIC es del 72,5 % a tres años, porque a cinco el libro no lo da</b>, muy por encima del corte de WACC más cinco puntos. Hay que leerlo con cuidado: esos tres años son los de la recuperación del tráfico sobre aeropuertos que ya existían, así que miden sobre todo capacidad que se volvió a llenar, no el rendimiento de capital nuevo. Y reinvierte poco: una <b>reinversión media del 6,1 %</b>, con CAPEX de crecimiento sólo en tres años de diez —los dos grandes, 243 M€ en 2019 y 563 M€ en 2023, son los años de las concesiones brasileñas—, lo que da un crecimiento autofinanciable del <b>3,5 % anual</b>. El resto se reparte: de 10.550 M€ de caja libre en la década, <b>7.546 M€ —el 72 %— han ido al accionista</b>, y eso con 2019, 2020 y 2021 sin retribución."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "<b>La cobertura es fina, y ya se rompió una vez sin pandemia.</b> En 2023, el año de los once aeropuertos brasileños, la caja libre cubrió el dividendo sólo <b>0,73x</b> —sobre owner earnings sí llegaba, 1,22x: lo rompió el CAPEX de crecimiento, no el negocio—. Desde entonces ha ido de 1,31x en 2024 a <b>1,06x</b> en 2025, con el 76,5 % del beneficio repartido. Cubierto, pero sin colchón: en 2025 la deuda neta ya subió 11,4 M€.",
-     "Y lo que viene lo cambia de escala. El DORA III, aprobado en septiembre de 2026, fija para 2027-2031 casi diez mil millones de inversión regulada —unos trece mil con la no regulada— a cambio de una subida de tarifa que la prensa resumió en <b>tres céntimos por pasajero al año</b>: la licencia da el monopolio y no da poder de precio. A la vez, lo internacional es el único objetivo del plan 2022-2026 que va por detrás, y la dirección ha respondido comprando: Leeds Bradford y Newcastle en diciembre de 2025, RIOgaleão en marzo de 2026. Con ese CAPEX, la reinversión puede dejar de ser la de una máquina de cupón en este quinquenio, y lo que decidirá a qué familia pasa es el retorno que el regulador le deje sobre esa base."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra Aena compra <b>un cupón regulado sobre una red sin competencia</b>, con dos letras pequeñas: el dueño es el Estado, que decide dividendo e inversión y no puede vender el control, y el quinquenio que empieza es de inversión, no de reparto. El dividendo está cubierto —1,06x— pero con la holgura más estrecha de la ventana salvo 2023, justo a la entrada del túnel del DORA III. El precedente útil es Fraport, que acaba de volver a caja libre positiva tras terminar su gran terminal: Aena entra ahora en ese túnel, no sale de él.",
-     "<b>Qué vigilar cada trimestre, por ser familia 1:</b> la cobertura del dividendo con caja libre. Si cae por debajo de la unidad mientras arranca el CAPEX del DORA III, payout e inversión dejan de caber juntos y uno de los dos cede. <b>Fuera de ventana:</b> el Plan Estratégico 2027-2031, que la empresa ya está elaborando, será el primero escrito con la tarifa fijada para cinco años; es el documento que dirá si Aena sigue siendo familia 1."
-    ]
-   }
-  ],
-  "vigilar": "La cobertura del dividendo con caja libre: si cae por debajo de la unidad mientras arranca el CAPEX del DORA III, payout e inversión dejan de caber juntos.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "Opera los aeropuertos de España en concesión regulada: un negocio excelente a un precio que la tesis no autoriza pagar.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Sólida: los cinco umbrales en verde; la deuda neta ha bajado un 33 % en diez años.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Crea valor: ROIC del 15,58 % contra un WACC del 7,67 % (+7,91 pp), el mejor diferencial de su década.",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 6,1 % del NOPAT de media; ROIIC a tres años del 72,5 % contra un corte del 12,7 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "Caja suficiente, pero justa: 1.727 M€ de flujo libre y el dividendo cubierto 1,06 veces.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "AA · 75,0 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 16,27 € contra 24,98 €: margen de seguridad −34,9 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Moat ancho (76,0): escala eficiente 85 y licencia 80. El retorno lo fija el regulador.",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "La mayor ola inversora de su historia (DORA III) con la tarifa congelada: −19 a −22 %. El titular del Bloque 8 decía «el tráfico»; el análisis vigente pone éste como dominante.",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "Que la parte no regulada del DORA III (~3.000 M€) se ejecute más despacio, y que se revierta la caída de margen del primer semestre de 2026 (del 56,5 % al 54,5 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>ESPERAR</b> · banda de entrada 13,21 – 14,14 € · stop de tesis 5,63 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "La cobertura del dividendo con caja libre: si cae por debajo de la unidad mientras arranca el CAPEX del DORA III, payout e inversión dejan de caber juntos.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "Ningún dato crítico abierto. El libro da retribución cero en 2019-2021 y el perfil dice que «sostuvo el payout»: se revisa al rehacerla.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 16,27 → 17,63 €; rating AA → A."
 }

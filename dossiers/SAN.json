@@ -1,318 +1,76 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "SAN",
  "empresa": "Banco Santander, S.A.",
- "fecha": "2026-09-18",
+ "fecha": "2026-10-25",
+ "revisadoEl": "2026-10-25",
  "rating": "A",
- "score": 74.5,
+ "score": 73.1,
  "decision": "ESPERAR",
- "metodoValoracion": "P/TBV justificado por exceso de rentabilidad (RoTE vs CoE) + múltiplos bancarios históricos · SIN DCF de flujo de caja libre, que en un banco no aplica. El PO es la síntesis ponderada del §6.5.",
- "poBear": 5.79,
- "poBase": 7.82087834593207,
- "poBull": 10.52,
- "entMin": 5.79,
- "entMax": 6.8,
- "stop": 4.51,
+ "metodoValoracion": "Síntesis ponderada (método v3): ptbv_pesimista 8 % · ptbv_base 26 % · ptbv_optimista 8 % · m_ptbv 11 % · m_per 7 % · m_pvc 5 % · m_rpd 35 % · flujo base del DCF: P/TBV justificado (banca)",
+ "poBear": 5.67,
+ "poBase": 6.89,
+ "poBull": 8.59,
+ "entMin": 5.67,
+ "entMax": 5.99,
+ "stop": 3.54,
  "dpaPrevisto": 0.24,
- "moat": "67,8 · MODERADO · con los pesos de la rama banca. Dos pilares independientes y con peso relevante: costes de cambio (70, peso 35 %) y escala eficiente (80, peso 25 %). La horquilla de ponderación va de 60,5 a 71,5 y en los dos extremos sigue siendo MODERADO: el veredicto no depende de los pesos elegidos.",
+ "moat": "68,1 sobre 100 · MOAT MODERADO. Escala y vinculación de clientes que el RoTE de la década no enseña entero",
  "catalizadores": [
-  "A · El coste del riesgo se normaliza hacia el 0,90 % desde el 1,15 % actual: +12,96 % del PO.",
-  "C · El mercado cierra la mitad del descuento de P/BV frente a los peers: +11,29 %.",
-  "E · El BCE deja de bajar tipos y el margen de intereses se estabiliza: +5,28 %.",
-  "B · El RoTE sostenible se confirma en el 17,1 % y no revierte al 16,0 %: +4,31 %.",
-  "D · Las recompras continúan al ritmo de 2025: −1,49 %. RESTA, porque con la acción por encima del P/TBV justo la recompra transfiere valor del que se queda al que vende."
+  "El coste del riesgo se normaliza hacia el 0,90 %: Está en 1,15 % y no baja del 0,77 % en diez años: −25 pb sobre 1,04 billones de préstamos. (12-24 meses)",
+  "El RoTE se sostiene en el 17,1 %: El caso base usa la mediana de tres años (16,3 %); si el 17,1 % de 2025 se sostiene, el RoTE de los tres escenarios sube 0,8 pp. (6-18 meses)",
+  "El mercado cierra parte del descuento frente a sus comparables: Santander cotiza a 1,6 veces libros, por debajo de BBVA, CaixaBank y Bankinter: múltiplos +25 %. (12-24 meses)",
+  "Las recompras se hacen al doble del valor tangible: Comprar un 3 % de las acciones a 2 veces el valor tangible baja el valor tangible por acción un 3 %: resta. (en curso)",
+  "El BCE deja de bajar tipos y el margen de intereses se estabiliza: Margen de intereses +4 % frente al escenario de hoy (margen bruto +3 %). (6-12 meses)"
  ],
  "riesgos": [
-  "Financiero · Alta · −11 a −21 % · compresión del margen de intereses al bajar los tipos.",
-  "Macroeconómico · Alta · −13 a −26 % · coste del riesgo en emergentes. Es el DOMINANTE y el que fija el bear case.",
-  "Mercado · Media · −10 a −20 % · de-rating del sector bancario europeo.",
-  "Divisa · Media · −5 a −12 % · real brasileño y peso mexicano contra el euro.",
-  "Regulatorio · Media · −2 a −13 % · requisito de CET1 o impuesto sectorial permanente.",
-  "Asignación de capital · Media · −3 a −10 % · la integración de Webster no devuelve el coste del capital, o se retrasa la recompra.",
-  "Tecnológico · Baja-Media · −3 a −8 % · competencia en pagos y banca digital sobre las comisiones.",
-  "Ciberseguridad · Baja-Media · −1 a −5 % · incidente de continuidad o brecha de datos."
+  "El margen de intereses se comprime con la bajada de tipos (Alta): El margen de intereses es el 72 % del margen bruto (42.348 M€ en 2025) y ya bajó en 2025 (43.787 M€ en 2024). Con los gastos quietos a un año vista, cada 5 % menos de margen de intereses es un 3,6 % menos de margen bruto.",
+  "El coste del riesgo repunta en los emergentes (Alta): 1,15 % en 2025, en rojo por la banda del método (>1 %) y sin bajar del 0,77 % en diez años: es el precio de la mezcla geográfica (Brasil, México) que da el RoTE. Cada 25 pb sobre 1,04 billones de préstamos son unos 2.590 M€ antes de impuestos.",
+  "El real y el peso se deprecian contra el euro (Media): El beneficio se gana en moneda local y se publica en euros. Supuesto declarado (no hay desglose geográfico en los datos): beneficio atribuido −5 % o −12 %, expresado como pérdida antes de impuestos (tasa 25,3 %).",
+  "Más capital exigido o impuesto a la banca permanente (Media): Un requisito de CET1 más alto obliga a retener capital y baja el RoTE; un impuesto sectorial resta beneficio. El colchón es de 3,70 pp sobre el 9,80 % exigido en 2025.",
+  "El mercado deja de pagar el múltiplo de hoy (Media): Cotiza a 2,0 veces su valor tangible frente a una media de 0,96 en diez años: la banca europea se ha recalificado y puede deshacerlo.",
+  "La compra de Webster Financial sale cara (Media): Operación cerrada el 20-ago-2026 (posterior a las cuentas de 2025): una compra con prima consume capital tangible y tarda en rendir.",
+  "Las comisiones se erosionan por la competencia en pagos (Baja-Media): Las comisiones netas son el 22 % del margen bruto (12.976 M€ en 2025) y su peso baja desde el 23 % de 2016. Cada 5 % menos de comisiones es un 1,1 % menos de margen bruto.",
+  "Ciberataque o caída prolongada de sistemas (Baja-Media): 1,04 billones de depósitos y una base de clientes digital: se mide como lucro cesante y multa, no como fuga de depósitos (el modelo no la tiene)."
  ],
- "bull": "10,52 € (+34,51 % sobre el PO). Los cinco catalizadores compuestos en UNA sola perturbación del §6.5, no sumados. Y aun así se queda un 18,4 % POR DEBAJO de la cotización de 12,886 €: ni el escenario bueno justifica el precio de hoy.",
- "bear": "5,794 € (0,741 × PO). Derivado del riesgo dominante —el coste del riesgo— en su extremo DURO. El suave daría 6,807 € = 0,870 × PO, que se sale por arriba de la banda 0,70-0,85 que el método declara para un bear: un bear al 0,87 × PO es el caso base con otro nombre.",
- "resumen": "Banco de calidad A (74,5 sobre 100) cotizando por encima de lo que su propia rentabilidad justifica. Tres de las cuatro condiciones de COMPRAR se cumplen; la que falla es el margen de seguridad, −39,31 % contra un umbral del +15 %. El precio de hoy exige un RoTE implícito del 19,90 % sostenido para siempre, superior a cualquiera que este banco haya tenido nunca (máximo de la década: 17,1 %). Capital en máximos (CET1 13,50 %, colchón de 3,70 pp sobre el requisito del BCE) y dividendo seguro. La tesis descansa en UNA variable: cada punto de RoTE mueve el PO un 3,92 %. El plan 2026-2028 del Investor Day (RoTE >20 %, eficiencia ~36 %) está NOMBRADO y NO incorporado: el método puntúa trayectoria cumplida, no objetivos anunciados.",
- "confianza": {
-  "score": 82,
-  "nivel": "A",
-  "motivos": [
-   "2 input(s) crítico(s) en 'Pte. Revisión' (−16)",
-   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)"
-  ],
-  "sensibleASupuestos": true,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": true,
-   "motivo": "2 inputs críticos sin confirmar",
-   "accion": "Si el veredicto fuese COMPRAR, debería ser condicionado/ESPERAR (hoy la decisión no es COMPRAR)."
-  },
-  "calculadoEl": "2026-09-14"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "etiquetaPrecioSensible": false,
-  "matizada": false,
-  "banda": {
-   "p10": 5.794,
-   "p50": 7.821,
-   "p90": 10.44
-  },
-  "sensibilidad": {
-   "sobre": "modelo",
-   "regla": "F100",
-   "poMin": 8.64,
-   "poMax": 11.93,
-   "poBase": 10.08,
-   "cotizacion": 12.886,
-   "cotizacionBase": "actual",
-   "componente": null,
-   "pesoPerturbado": 1.0,
-   "componentesIntactos": 0,
-   "dcf": {
-    "poMin": 8.64,
-    "poMax": 11.93,
-    "poBase": 10.08
-   },
-   "ejeCoste": "CoE",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -33.0,
-   "mdsMax": -7.4
-  },
-  "beta": {
-   "capm": 1.0,
-   "ref2": null,
-   "aviso": null
-  },
-  "motivos": [
-   "⚠ la sensibilidad va sobre el modelo del §6.3 (CoE × RoTE) SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
-   "la cotización (12.89) queda por ENCIMA de toda la banda del valor por acción del modelo del §6.3 (CoE × RoTE) [8.64–11.93] → sobrevalorada en todo el rango",
-   "…y la banda de margen de seguridad [-33.0 % … -7.4 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA"
-  ],
-  "calculadoEl": "2026-09-15"
- },
+ "bull": "8,59 € — escenario optimista: RoTE del último año (o +1 pp sobre el base)",
+ "bear": "5,67 € — escenario pesimista: RoTE medio de 5 años",
+ "resumen": "ESPERAR, como en septiembre. A 11,51 € la cotización está casi al doble del techo de la banda de entrada (5,67-5,99 €) y un 34 % por encima incluso del bull (8,59 €). El banco es bueno (A, moat moderado, dividendo muy seguro); el precio no deja margen. Cumple tres de las cuatro condiciones de COMPRAR; falla el margen de seguridad.",
  "dividendSafety": {
   "score": 88,
   "banda": "Muy seguro",
   "aplica": true,
   "rama": "banca",
-  "componentes": {
-   "C1": 30,
-   "C2": 25,
-   "C3": 20,
-   "C4": 3,
-   "C5": 10
-  },
-  "shareholderYield": 5.02,
+  "componentes": {},
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 pay-out dividendo (DPA/BPA) 27% → 30/30",
-   "C2 CET1 13.5% → 25/25",
-   "C3 RoTE 17.1% → 20/20",
-   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
-   "C5 predictores: ninguno → 10/10",
-   "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
+   "Muy seguro · payout del dividendo 26 % → 30/30 · CET1 13.5 % → 25/25 · RoTE 17.1 % → 20/20 · 2 recorte(s) en 10 años → 3/15 · predictores: ninguno → 10/10"
   ],
-  "calculadoEl": "2026-09-15"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 5.14
  },
  "forense": {
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-09-14"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
-  "aplica": false,
-  "gImplicito": null,
+  "aplica": true,
+  "gImplicito": 7.94,
   "gIntrinseco": null,
   "veredicto": "HEROICO",
-  "motivo": "No aplica el Reverse DCF del método —un banco no tiene DCF de flujo de caja libre—, así que el §6.x usa el reverse de la rama banca: qué RoTE exige el precio. A 12,886 € el mercado exige un RoTE del 19,90 % sostenido con CoE 10 % y g 2 %, por encima de cualquier RoTE que este banco haya tenido nunca. La alternativa es creerse un coste del capital del 8,75 %, por debajo del ~10 % de la banca europea.",
-  "calculadoEl": "2026-09-14"
+  "motivo": "IMPROBABLE (exige un RoTE de 22.2 %, más de 3 pp por encima del último, 17.1 %)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "roteImplicito": 22.23
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "rama": "financiera",
-  "subrama": "banca",
-  "fuente": "Datos Financieros Banco Santander.xlsx · Cuenta de Resultados · Beneficio neto; Datos de Mercado · DPA · declarado con cargo al ejercicio (OFICIAL); Datos de Mercado · Nº acciones en circulación; Flujos de Caja · Payout total ((dividendos + recompras) / BN); Métricas Específicas · RoTE — rentabilidad sobre capital tangible; Métricas Específicas · VCPA-T — valor contable TANGIBLE por acción; Solvencia Financiera · Colchón de CET1 sobre el requisito; Valoración · CoE — coste del capital, escenario base; «Valoración» · CoE del escenario base (el libro no trae la serie del Bloque 3)",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 2,
-   "nombre": "EL COMPUESTO",
-   "lema": "retiene mucho y lo retenido le rinde",
-   "porSpread": false,
-   "roiicFragil": false,
-   "cortes": {
-    "retencion": 50.0,
-    "valorTangible": 10.0,
-    "regla": "retención ≥ 50 % y valor tangible por acción + dividendos a 5 años ≥ CoE · financieras, 25-sep-2026"
-   }
-  },
-  "cifras": {
-   "retencionMedia": 57.76,
-   "valorTangible5a": 11.75,
-   "valorTangible10a": 6.25,
-   "roteMedio": 11.97,
-   "spread": 7.1,
-   "coe": 10.0,
-   "coeFuente": "«Valoración» · CoE del escenario base (el libro no trae la serie del Bloque 3)",
-   "tension": 3.7,
-   "tensionAnio": 2025,
-   "tensionNombre": "Colchón de CET1 sobre el requisito del BCE",
-   "tensionUnidad": "pp",
-   "repartosExtraordinarios": {}
-  },
-  "tension": {
-   "anios": [
-    2017,
-    2019,
-    2020,
-    2025
-   ],
-   "rote": [
-    10.41,
-    11.44,
-    1.95,
-    17.1
-   ],
-   "payoutTotal": [
-    40.3,
-    57.9,
-    null,
-    46.9
-   ],
-   "valorTangible": [
-    4.15,
-    4.18,
-    3.79,
-    5.76
-   ],
-   "capital": [
-    3.1,
-    1.9,
-    3.0,
-    3.7
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "<b>Un banco comercial de escala mundial</b>: capta depósitos de 180 millones de clientes, presta ese dinero y se queda con la diferencia, más las comisiones de lo que les vende por el camino. Opera en Europa y en América, y una parte grande del riesgo de crédito está en mercados emergentes.",
-     "Su estructura de capital ha cambiado dos veces en la década: amplió capital para comprar el Popular en 2017 y, desde 2022, recompra y amortiza acciones —de 16.794 millones a 14.689 millones en tres años—."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>De una década partida en dos.</b> El RoTE estuvo en el 11,0 % de media en 2016-2019, apenas por encima del 10 % de coste del capital que el método usa para el escenario base; se hundió en 2020 —−8.771 M€ de resultado, por los saneamientos— y desde 2021 sube cada año hasta el <b>17,1 %</b> de 2025, +7,10 pp por encima de ese coste.",
-     "La prueba por acción es más dura que el RoTE, porque recoge la ampliación del Popular y los saneamientos: el valor tangible por acción era de 4,22 € en 2016 y seguía en 4,18 € en 2019; hoy es de <b>5,76 €</b>. Con los dividendos cobrados, <b>un 11,7 % anual en los últimos cinco años, pero sólo un 6,2 % en la década</b>. Retiene mucho —57,8 % de media— y en la ventana que manda lo retenido le rinde: <b>el compuesto</b>, con una primera mitad de década que no lo fue."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "En el capital. Santander opera con el colchón más estrecho de los dos bancos del parque: <b>3,7 puntos de CET1</b> sobre lo que exige el BCE en 2025, que eran 1,9 en 2019. Lo que retiene no se acumula: se va en crecer el crédito y en recomprar acciones, y el payout total ha pasado del 37,2 % de 2016 al 46,9 % de 2025.",
-     "Y en el crédito: el riesgo que fija el escenario pesimista es el coste del riesgo en emergentes. Un repunte de morosidad allí come beneficio, y el beneficio es lo que alimenta el colchón y las recompras a la vez."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra Santander compra <b>un banco que lleva cinco años componiendo valor por acción a más de su coste</b>, con recompras que ya se notan en el número de acciones, después de una década que en conjunto no lo cubrió. La tesis es que los cinco años buenos son el banco nuevo y no un ciclo favorable.",
-     "<b>Qué vigilar cada trimestre:</b> el coste del riesgo en emergentes y el colchón de CET1. Si el primero sube, el segundo deja de alcanzar para crecer y recomprar a la vez."
-    ]
-   }
-  ],
-  "vigilar": "El coste del riesgo en emergentes y el colchón de CET1: con 3,7 puntos sobre el requisito, el capital que retiene es el que paga las recompras.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "Capta depósitos de 180 millones de clientes, presta ese dinero y se queda con la diferencia, más las comisiones.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Sólida por capital: se mide por el colchón de CET1 sobre lo que exige el BCE.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Fuerte y mejorando: RoTE del 10,4 % al 17,1 %, por encima de su coste desde 2021.",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 2 · El compuesto: retiene mucho y lo retenido le rinde. Retiene el 57,8 % de lo que gana y su valor tangible por acción más dividendos crece un 11,7 % al año en cinco años, contra un coste del capital del 10,00 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "Retribución sana: payout total del 46,9 %.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "A · 74,5 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 7,82 € contra 12,89 €: margen de seguridad −39,3 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Moat moderado (67,8): costes de cambio y escala.",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "El coste del riesgo en emergentes (probabilidad alta, −13 a −26 %). Es el que fija el escenario pesimista.",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "Que el coste del riesgo baje al 0,90 % (+13 % al precio objetivo) y que se cierre la mitad del descuento contra sus comparables (+11 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>ESPERAR</b> · banda de entrada 5,79 – 6,80 € · stop de tesis 4,51 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "El coste del riesgo en emergentes y el colchón de CET1: con 3,7 puntos sobre el requisito, el capital que retiene es el que paga las recompras.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "2 datos críticos abiertos; el fichero no dice cuáles → Pte. Revisión.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 7,82 → 6,89 €."
 }

@@ -1,129 +1,69 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "FDR",
  "empresa": "Fluidra, S.A.",
- "fecha": "2026-09-25",
- "rating": "A",
- "score": 64.9,
- "decision": "COMPRAR",
- "metodoValoracion": "Síntesis ponderada DCF + múltiplos históricos + renta — industrial (norma INDUSTRIAL: DCF 40 · múltiplos 50 · renta 10). PO oficial = síntesis del §6.5, 24,19 €; el DCF puro da 11,43 / 21,86 / 27,46 € y los seis múltiplos de la década 26,10 € de media. Bear (16,65 €) y bull (34,53 €) derivados en el §9.2.",
- "poBear": 16.65,
- "poBase": 24.19,
- "poBull": 34.53,
- "entMin": 16.65,
- "entMax": 20.81,
- "stop": 12.95,
- "dpaPrevisto": 0.65,
- "moat": "51,8 · MOAT ESTRECHO (horquilla de ponderación 44,8–55,8): intangibles 65 · escala eficiente 60 · costes 50 · costes de cambio 45 · red 30",
+ "fecha": "2026-10-26",
+ "revisadoEl": "2026-10-26",
+ "rating": "BBB",
+ "score": 53.8,
+ "decision": "MANTENER",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 20 % · DCF optimista 10 % · EV/EBITDA 12 % · EV/EBIT 12 % · PER 10 % · P/VC 4 % · P/FCL 12 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl",
+ "poBear": 17.36,
+ "poBase": 23.35,
+ "poBull": 32.55,
+ "entMin": 17.36,
+ "entMax": 19.73,
+ "stop": 13.32,
+ "dpaPrevisto": 0.609,
+ "moat": "52,2 sobre 100 · MOAT ESTRECHO. Líder mundial de equipamiento de piscina con red de distribución y marca, que las huellas del ROIC no recogen",
  "catalizadores": [
-  "Guía 2026 cumplida (ventas +3 % a +7 %, margen EBITDA ajustado 23,3-24,3 %): +14,02 % sobre el PO · febrero de 2027",
-  "Plan de eficiencia 2026-2030 (120 M€) lleva el margen EBITDA ajustado por encima del 25 %: +18,75 % · 2027-2030",
-  "Vuelve la obra nueva y el mercado vuelve a pagar los múltiplos de la década: +7,15 % · 12-24 meses",
-  "Compras de 2026 (Hydrapro, Riaan, VarioPool): impacto Pte. Revisión, sin precio publicado",
-  "Recompra de 40 M€ terminada el 18-sep-2026: impacto Pte. Revisión hasta que se acuerde amortizarla"
+  "La guía de 2026 se cumple: Punto medio: ventas +5 % y margen +0,9 pp. En 2025 el BPA ajustado quedó por debajo del rango. (2026)",
+  "El plan de eficiencia 2026-2030 llega a la cuenta: La mitad (60 M€) llega al EBITDA; la otra mitad se la come la inflación. (2026-2030)",
+  "Vuelve la obra nueva y el mercado vuelve a pagar la década: Re-rating del 10 %. (12-18 meses)"
  ],
  "riesgos": [
-  "Ciclo de obra nueva y consumo en EE.UU. (probabilidad media): −12,59 % a −31,16 %",
-  "Fabricantes chinos con otro modelo, sobre todo en robots (media): −7,03 % a −24,88 %",
-  "El mercado deja de pagar los múltiplos de la década (media): −10,72 % a −17,86 %",
-  "Aranceles de EE.UU. sobre producto importado (media): −3,51 % a −10,54 %",
-  "Crecer comprando con un capital que ya rinde poco (media): −4,13 % a −8,26 %",
-  "Ciberataque en plena temporada (baja): −3,15 % a −7,87 %",
-  "Deterioro del fondo de comercio, 79 % del patrimonio (baja-media): −0,57 % a −1,14 %",
-  "Refinanciar 1.012 M€ de 2029 sin coberturas de tipo (baja): −0,49 % a −0,98 %"
+  "La obra nueva de piscina y el consumo en EE.UU. (Media): Ventas −8 % con el apalancamiento medido (margen −0,12 pp); duro, el 2023 entero: −14,2 %, −0,23 pp y múltiplos −15 %.",
+  "Entran fabricantes chinos con otro modelo (Media): Margen −1 pp; duro: guerra de precios de −3 pp con volumen −3 %.",
+  "Aranceles de EE.UU. (Media): Se traslada casi todo y queda −0,5 pp de margen; duro: −1,5 pp sin trasladar.",
+  "Crecer comprando con un capital que ya rinde poco (Media): Una compra de 300 M€ con deuda que no aporta EBITDA; duro: 600 M€.",
+  "Refinanciar sin coberturas (Baja): +100 pb sobre 1.042 M€ de deuda bancaria: 10,4 M€ antes de impuestos; +200 pb: 20,8 M€.",
+  "Deterioro del fondo de comercio (Baja-Media): Patrimonio −15 % y −30 %. El modelo apenas lo ve: el daño real estaría en los covenants.",
+  "El mercado deja de pagar los múltiplos de la década (Media): Múltiplos −15 % y −25 %.",
+  "Caída de sistemas en plena temporada (Baja): Ventas −2 % y −5 %."
  ],
- "bull": "34,53 €: la guía de 2026 se cumple, el plan de eficiencia lleva el margen EBITDA ajustado por encima del 25 % y la obra nueva vuelve con los múltiplos de la década, los tres a la vez.",
- "bear": "16,65 €: el ciclo de obra nueva y consumo en EE.UU. en su extremo duro (−31,16 % sobre el PO). La peor cadena del pre-mortem —otra vez 2023 con los rivales chinos dentro— se lleva un 42,12 % (14,00 €), ancla del stop.",
- "resumen": "COMPRAR con posición moderada. PO 24,19 € contra 17,65 €: margen de seguridad del 37,04 %, dentro de la banda 16,65-20,81 €, stop 12,95 €. Líder mundial de la piscina (13 % de cuota) con margen EBITDA del 21,0 % y caja que cubre el dividendo 2,17 veces, pero con un capital total que rinde apenas su coste (ROIC 8,47 % frente a WACC 7,50 %). La tesis cuelga del margen: un punto de margen EBITDA vale un 7,03 % del PO; se vigila el margen bruto trimestral (corte 55 %, hoy 56,5 %).",
- "confianza": {
-  "score": 100,
-  "nivel": "A",
-  "motivos": [
-   "sin huecos críticos ni discrepancias abiertas"
-  ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-09-25"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "etiquetaPrecioSensible": false,
-  "matizada": false,
-  "banda": {
-   "p10": 16.65,
-   "p50": 24.19,
-   "p90": 34.53
-  },
-  "sensibilidad": {
-   "sobre": "sintesis",
-   "regla": "F100",
-   "poMin": 23.12,
-   "poMax": 26.04,
-   "poBase": 24.19,
-   "cotizacion": 17.65,
-   "cotizacionBase": "actual",
-   "componente": "DCF Base",
-   "pesoPerturbado": 0.2,
-   "componentesIntactos": 8,
-   "dcf": {
-    "poMin": 16.52,
-    "poMax": 31.12,
-    "poBase": 21.8638872091097
-   },
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": 31.0,
-   "mdsMax": 47.5
-  },
-  "beta": {
-   "capm": 0.748,
-   "ref2": 0.952,
-   "aviso": null
-  },
-  "motivos": [
-   "QUÉ SE HA PERTURBADO: solo «DCF Base» (20 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 80 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
-   "la cotización (17.65) queda por DEBAJO de toda la banda del precio objetivo de síntesis [23.12–26.04] → infravalorada en todo el rango",
-   "…y la banda de margen de seguridad [+31.0 % … +47.5 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
-   "para contraste, el DCF puro (§6.3) se mueve en [16.52–31.12] € alrededor de 21.86 €: es la sensibilidad del MODELO, no la del precio objetivo",
-   "ojo al leerlo junto a la banda de escenarios [16.65–34.53] €, que SÍ contiene la cotización: bear/base/bull son tres historias distintas sobre el negocio, y esto de aquí mide otra cosa —el mismo escenario base con otros supuestos de coste de capital y crecimiento—. No se contradicen"
-  ],
-  "calculadoEl": "2026-09-25"
- },
+ "bull": "32,55 € — escenario optimista: orgánico del 6 % como en 2025, sin bajar el WACC del suelo",
+ "bear": "17,36 € — escenario pesimista: el WACC que la propia Fluidra usa en sus pruebas de deterioro, con poco crecimiento",
+ "resumen": "MANTENER con la cotización de 18,10 € (2026-10-23): precio objetivo 23,35 € (bear 17,36 · bull 32,55), margen +29,0 %. Banda de entrada 17,36–19,73 €, stop de tesis 13,32 €.",
  "dividendSafety": {
-  "score": 62,
-  "banda": "Seguro",
+  "score": 51,
+  "banda": "Vigilar",
+  "aplica": true,
+  "rama": "general",
   "componentes": {
-   "C1": 27,
+   "C1": 16,
    "C2": 7,
    "C3": 13,
    "C4": 0,
    "C5": 15
   },
-  "shareholderYield": 2.57,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 1.80x / FCL 2.38x (3a OE 1.91x) → 27/35",
-   "C2 payout BN ord.: 65% (3a 82%) → 7/15",
-   "C3 balance: DN/EBITDA 2.17x, cob.int 5.8x → 13/20",
-   "C4 trayectoria: 3 recorte(s) en 10a · DPA creciente → 0/15",
-   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+   "Vigilar: cobertura OE 1.22x · payout 83 % · 3 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-09-25"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 5.09
  },
  "forense": {
   "aplica": true,
+  "ejercicio": "2025",
   "piotroski": {
-   "score": 8,
+   "score": 7,
    "banda": "fuerte",
    "detalle": {
     "roa_pos": 1,
@@ -133,17 +73,17 @@
     "lever_dn": 1,
     "liquid_up": 0,
     "no_dilu": 1,
-    "margin_up": 1,
+    "margin_up": 0,
     "turn_up": 1
    },
-   "nota": "margen=bruto"
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
   },
   "altman": {
-   "z": 5.8,
+   "z": 3.6,
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.79,
+   "m": -2.77,
    "senal": "sin indicios",
    "aproximado": [
     "SGAI"
@@ -156,208 +96,32 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-09-25"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 2.55,
-  "gIntrinseco": 5.19,
+  "gImplicito": 3.12,
+  "gIntrinseco": 5.31,
   "veredicto": "PLAUSIBLE",
-  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-09-25",
+  "motivo": "PLAUSIBLE (≤ g intrínseco 5.3 %)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
   "entradas": {
-   "fcl": 237.3724,
-   "wacc": 7.5,
+   "fcl": 237.5103,
+   "wacc": 7.6526,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 192.129,
-   "deudaNeta": 1086.582,
+   "acciones": 189.2753,
+   "deudaNeta": 1103.454,
    "modo": "EV",
-   "precioBase": 17.65,
+   "precioBase": 18.1,
+   "gBase": 3.12,
+   "fechaBase": "2026-10-23",
+   "congeladoEl": "2026-10-26",
    "validado": true,
-   "desviacion": 0.001,
-   "gBase": 2.551,
-   "fechaBase": "2026-09-25",
-   "congeladoEl": "2026-09-25"
+   "desviacion": 0.0
   }
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "fuente": "Datos Financieros Fluidra.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 1,
-   "nombre": "LA MÁQUINA DE CUPÓN",
-   "lema": "rinde mucho, reinvierte poco",
-   "porSpread": false,
-   "roiicFragil": true,
-   "cortes": {
-    "reinversion": 20.0,
-    "roiic": 12.5,
-    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
-   }
-  },
-  "cifras": {
-   "reinversionMedia": -20.37,
-   "roiic5a": 14.1,
-   "roiic": 14.1,
-   "roiicVentana": "5A",
-   "roicMedio": 6.37,
-   "spread": 0.97,
-   "wacc": 7.5,
-   "conversionMedia": 48.28,
-   "coberturaDividendo": 2.17,
-   "gIntrinseco": 5.19,
-   "capexCrecimiento10a": 78.9,
-   "fcl10a": 1619.4,
-   "retribucion10a": 961.1,
-   "retribucionSobreFcl": 59.3
-  },
-  "tension": {
-   "anios": [
-    2021,
-    2022,
-    2023,
-    2025
-   ],
-   "coberturaFcl": [
-    1.63,
-    0.31,
-    3.45,
-    2.17
-   ],
-   "coberturaOe": [
-    1.83,
-    0.49,
-    3.45,
-    2.2
-   ],
-   "payoutBn": [
-    65.9,
-    84.1,
-    92.8,
-    70.9
-   ],
-   "payoutFcl": [
-    61.3,
-    320.9,
-    29.0,
-    46.0
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "Un fabricante de equipamiento de piscina <b>ligero en capital fijo</b>: el CAPEX es el <b>3,2 % de las ventas</b> en la década y el crecimiento orgánico apenas necesita inversión (CAPEX de crecimiento acumulado: 78,9 M€ en diez años). La conversión media del EBITDA en caja libre es del <b>48,3 %</b>, con 2 de diez años por encima del 60 %.",
-     "El 60 % de su demanda es reposición de piscinas que ya existen: eso le da la estabilidad de un negocio de consumibles, y el 30 % de obra nueva le da el ciclo."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "Del margen, no del capital. Lo que invierte ahora rinde un ROIIC del <b>14,1 %</b>, pero la década tiene un ROIC medio del 6,4 %, por debajo de su coste de capital: la fusión con Zodiac se pagó en acciones y dejó un fondo de comercio que el capital total todavía no ha rentabilizado.",
-     "La reinversión orgánica es mínima: la media de la década sale en −20,4 % porque 2018, con beneficio operativo negativo, la distorsiona; sin ese año es del 5,8 %. Por eso la casilla es la 1 y el ROIIC es un dato frágil."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "La casilla dice «máquina de cupón» porque la regla mide la reinversión por el CAPEX de crecimiento, y Fluidra no crece invirtiendo en fábricas: <b>crece comprando</b>. Si se cuentan las compras, el capital invertido desde 2020 equivale al 61 % del beneficio operativo acumulado y la empresa sería un compuesto. El spread del capital total es de <b>+0,97 pp</b> en 2025, sobre un WACC del 7,5 %: por la mínima.",
-     "El cupón está cubierto: el dividendo se cubre 2,17x con caja libre en 2025, pero en 2022, con el circulante hinchado, la cobertura cayó a 0,31x."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Se compra por el margen y por el dividendo que paga la reposición, no por la reinversión. Lo que puede romperlo es el margen; lo que puede estropear el cupón es una compra grande pagada cara. <b>Qué vigilar cada trimestre:</b> el margen bruto, y cada compra que anuncie con su precio."
-    ]
-   }
-  ],
-  "vigilar": "El margen bruto trimestral: 56,5 % en el primer semestre de 2026, a 1,5 pp del corte del 55 %. Por debajo del 55 % con las ventas cayendo, revisión en siete días (señal S2).",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "Del equipamiento de piscina: es el líder mundial, con el 13 % del mercado, y el 60 % de lo que vende es reposición de piscinas que ya existen.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "SÓLIDA: siete de siete umbrales de solvencia en verde en 2025; deuda neta 2,30 veces el EBITDA y bajando tres años seguidos.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Crea valor por la mínima en el total (+0,97 pp sobre el WACC) y con holgura en el capital nuevo (ROIIC del 14,1 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el −20,4 % del NOPAT de media; ROIIC a cinco años del 14,1 % contra un corte del 12,5 % (dato frágil: sale de una inversión casi nula).",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "Sí: caja sólida, el dividendo está cubierto 2,17x por la caja libre; la variable es el circulante, que en 2022 dejó la cobertura en 0,31x.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "A · 64,9 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 24,19 € contra 17,65 €: margen de seguridad +37,1 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Un moat estrecho (51,8): marcas del canal profesional, patentes y escala en un mercado de pocos fabricantes; no basta para impedir que un rival grande le quite margen.",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "El margen es el riesgo: el ciclo de obra nueva en EE.UU., los rivales chinos y los aranceles golpean el mismo margen; la peor cadena se lleva un 42,12 %.",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "El plan de eficiencia 2026-2030: si lleva el margen EBITDA ajustado por encima del 25 %, vale un 18,75 % sobre el precio objetivo.",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>COMPRAR</b> · banda de entrada 16,65 – 20,81 € · stop de tesis 12,95 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "El margen bruto trimestral: 56,5 % en el primer semestre de 2026, a 1,5 pp del corte del 55 %. Por debajo del 55 % con las ventas cayendo, revisión en siete días (señal S2).",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "El precio de las compras de 2026 (VarioPool, Hydrapro y Riaan) y los objetivos del plan anterior al Capital Markets Day de 2025: «Pte. Revisión» hasta las cuentas de 2026 y la presentación de ese CMD.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 24,19 → 23,35 €; decisión COMPRAR → MANTENER; rating A → BBB."
 }

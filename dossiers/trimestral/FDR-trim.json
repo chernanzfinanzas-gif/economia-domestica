@@ -1,749 +1,622 @@
 {
-  "schemaVersion": 2,
-  "ticker": "FDR",
-  "empresa": "Fluidra",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "FDR",
+ "empresa": "Fluidra, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +61,0 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-05-10",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 554.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": -17.9
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 238.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 230.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 52.1
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 121.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 21.8
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 60.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": -138.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 3.19
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-07-28",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1186.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": -18.0
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 480.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 544.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 52.5
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 288.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 24.3
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 151.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": 42.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.96
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-10-26",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1623.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": -16.2
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 658.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 718.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 52.4
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 366.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 22.6
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 180.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": 236.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.91
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-02-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 2051.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": -12.7
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 870.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 827.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 53.2
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 445.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 21.7
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 211.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": 365.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.63
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-05-08",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ventas -4.9 %, EBITDA ajustado -2.5 %, Beneficio neto ajustado -1.7 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 54.8 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 5.2 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 527.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": -4.4
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 239.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 206.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 54.8
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 118.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 22.4
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 59.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": -146.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 3.04
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-08-01",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas -1.3 %, EBITDA ajustado +2.8 %, Beneficio neto ajustado +4.0 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 55.9 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 6.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1171.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": -1.5
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 500.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 514.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 55.9
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 296.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 25.3
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 157.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": 62.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.54
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-10-31",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +0.9 %, EBITDA ajustado +5.5 %, Beneficio neto ajustado +7.8 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 55.9 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 6.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1637.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": 0.9
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 690.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 701.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 55.9
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 386.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 23.6
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 194.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": 201.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.3
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-02-27",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +2.5 %, EBITDA ajustado +7.2 %, Beneficio neto ajustado +10.4 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 56.6 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 6.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 2102.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": 2.6
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 935.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 812.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 56.6
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 477.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 22.7
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 233.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": 238.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.37
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-05-07",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +7.0 %, EBITDA ajustado +11.0 %, Beneficio neto ajustado +11.9 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 57.3 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 4.6 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 564.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": 5.1
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 262.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 217.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 57.3
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 131.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 23.2
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 66.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": -191.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.72
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-07-31",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +4.8 %, EBITDA ajustado +6.1 %, Beneficio neto ajustado +8.9 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 56.5 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 1.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1227.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": 5.4
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 527.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 538.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 56.5
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 314.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 25.6
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 171.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": 3.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.25
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-10-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +5.3 %, EBITDA ajustado +6.5 %, Beneficio neto ajustado +9.8 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 56.1 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 0.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1724.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": 6.6
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 729.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 742.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 56.1
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 411.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 23.8
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 213.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": 153.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.06
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2026-02-26",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +3.9 %, EBITDA ajustado +5.0 %, Beneficio neto ajustado +7.3 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 56.6 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto se mantiene plana un 0.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 2184.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": 6.1
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 959.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 861.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 56.6
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 501.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 22.9
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 250.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": 272.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.17
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-05-06",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +0.0 %, EBITDA ajustado -5.3 %, Beneficio neto ajustado -7.6 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 57.1 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto cae un 0.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 564.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": 5.3
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 249.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 228.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 57.1
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 124.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 22.0
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 61.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": -150.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.59
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-07-30",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +2.5 %, EBITDA ajustado +2.2 %, Beneficio neto ajustado +2.3 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 56.5 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto se mantiene plana un 0.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1258.0
-        },
-        {
-          "nombre": "Crecimiento orgánico (%)",
-          "valor": 4.4
-        },
-        {
-          "nombre": "Ventas América del Norte (M€)",
-          "valor": 518.0
-        },
-        {
-          "nombre": "Ventas Europa (M€)",
-          "valor": 574.0
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 56.5
-        },
-        {
-          "nombre": "EBITDA ajustado (M€)",
-          "valor": 321.0
-        },
-        {
-          "nombre": "Margen EBITDA ajustado (%)",
-          "valor": 25.5
-        },
-        {
-          "nombre": "Beneficio neto ajustado (M€)",
-          "valor": 175.0
-        },
-        {
-          "nombre": "FCL · explotación + CAPEX (M€)",
-          "valor": 46.0
-        },
-        {
-          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-          "valor": 2.17
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Ingresos",
+     "valor": 508.0
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +31,1 %, EBITDA +25,8 %, margen 25,5 % (-1,07 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 667.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 170.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 25.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +21,8 %, EBITDA +15,6 %, beneficio neto -4,5 %, margen 24,2 % (-1,30 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1445.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 350.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 274.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 166.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1279.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +15,4 %, EBITDA +1,2 %, margen 23,2 % (-3,27 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1967.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 456.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,2 %, EBITDA -8,5 %, beneficio neto -36,6 %, margen 19,3 % (-3,74 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2389.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 461.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 304.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 160.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1385.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-05-10",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -16,9 %, EBITDA -28,8 %, margen 21,8 % (-3,65 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 554.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 121.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 21.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-07-28",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -18,0 %, EBITDA -25,6 %, beneficio neto -37,5 %, margen 21,9 % (-2,26 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1186.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 260.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 21.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 182.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 104.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1366.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-10-26",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -17,5 %, EBITDA -19,7 %, margen 22,6 % (-0,63 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1623.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 366.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 22.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2024-02-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -14,2 %, EBITDA -14,8 %, beneficio neto -28,8 %, margen 19,2 % (-0,13 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2051.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 393.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 236.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 114.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1215.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-05-08",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -4,9 %, EBITDA -2,5 %, margen 22,4 % (+0,55 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 527.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 118.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 22.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-08-01",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,2 %, EBITDA +3,2 %, beneficio neto +7,5 %, margen 22,9 % (+0,98 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1171.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 268.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 22.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 191.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 112.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1195.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-10-31",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +0,9 %, EBITDA +5,5 %, margen 23,6 % (+1,03 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1637.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 386.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2025-02-27",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,5 %, EBITDA +6,9 %, beneficio neto +21,3 %, margen 20,0 % (+0,83 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2102.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 421.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 20.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 260.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 138.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1158.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-05-07",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,0 %, EBITDA +11,0 %, margen 23,2 % (+0,84 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +7,0 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 564.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 131.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-07-31",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,8 %, EBITDA +12,1 %, beneficio neto +21,1 %, margen 24,5 % (+1,60 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +4,8 %, EBITDA +12,1 %, beneficio +21,1 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1227.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 301.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 221.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 136.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1157.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-10-30",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,0 % frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +5,0 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1724.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2026-02-26",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,9 %, EBITDA +11,9 %, beneficio neto +27,5 %, margen 21,6 % (+1,54 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +3,9 %, EBITDA +11,9 % y beneficio +27,5 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2184.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 471.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 21.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 309.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 176.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1103.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "fecha": "2026-05-06",
+   "fechaOrigen": "portada",
+   "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +0.0 %, EBITDA ajustado -5.3 %, Beneficio neto ajustado -7.6 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 57.1 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto cae un 0.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 564.0
+    },
+    {
+     "nombre": "Crecimiento orgánico (%)",
+     "valor": 5.3
+    },
+    {
+     "nombre": "Ventas América del Norte (M€)",
+     "valor": 249.0
+    },
+    {
+     "nombre": "Ventas Europa (M€)",
+     "valor": 228.0
+    },
+    {
+     "nombre": "Margen bruto (%)",
+     "valor": 57.1
+    },
+    {
+     "nombre": "EBITDA ajustado (M€)",
+     "valor": 124.0
+    },
+    {
+     "nombre": "Margen EBITDA ajustado (%)",
+     "valor": 22.0
+    },
+    {
+     "nombre": "Beneficio neto ajustado (M€)",
+     "valor": 61.0
+    },
+    {
+     "nombre": "FCL · explotación + CAPEX (M€)",
+     "valor": -150.0
+    },
+    {
+     "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+     "valor": 2.59
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-07-30",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,6 %, EBITDA -4,8 %, beneficio neto -7,1 %, margen 22,7 % (-1,75 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora. Corrección del analista: Extraordinario no recurrente: los gastos de reestructuración, M&A e integración suben de 12 a 33 M€ (plan de eficiencia y cierre del centro de I+D en Francia); el EBITDA ajustado crece un 2,4 % con el margen estable en el 25,5 % y el beneficio neto ajustado sube un 2,0 % (documento: «2026-07-30 Presentación de resultados 1S 2026»). Ámbar automático (EBITDA contable −4,8 %, beneficio −7,1 %), pero la caída viene de los gastos de reestructuración, M&A e integración, que pasan de 12 a 33 M€ por el plan de eficiencia y el cierre de un centro de I+D en Francia. Sin ellos, el EBITDA ajustado sube un 2,4 % (+5,7 % a moneda constante), el margen ajustado se queda en el 25,5 % (25,6 % un año antes) y el beneficio neto ajustado sube un 2,0 %; el margen bruto se mantiene en el 56,5 % y la empresa mantiene la guía de 2026 (documento: «2026-07-30 Presentación de resultados 1S 2026»).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1258.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 286.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 22.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 207.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 126.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1112.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

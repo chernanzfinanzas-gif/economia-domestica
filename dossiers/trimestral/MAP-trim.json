@@ -1,749 +1,787 @@
 {
-  "schemaVersion": 2,
-  "ticker": "MAP",
-  "empresa": "Mapfre",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "MAP",
+ "empresa": "Mapfre, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +10,8 %, margen 2,0 % (-0,50 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 98,0 %. Verde: solo ratio combinado No Vida (la señal única de la tesis) por encima del umbral, sin más señales.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "S",
-      "tesisSigueIntacta": true,
-      "resumen": "HUECO DECLARADO, no un dato que falte: Mapfre no publica el ROE ni los fondos propios en el informe del primer trimestre de 2023, que es el primero de la serie y el más escueto de los catorce: comprobado en el documento, no supuesto. Hueco DECLARADO [F588], no un dato que nadie buscó. Las demás magnitudes de este periodo sí están y son buenas, así que el periodo se escribe entero menos esta celda. La fila va SIN COLOR a propósito: un ámbar aquí se leería como un juicio sobre el margen, y no hay margen que juzgar.",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 7786.2
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 1575.2
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1109.4
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 1866.4
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 98.5
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 71.2
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.2
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 127.6
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": null
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Primas",
+     "valor": 24540.0
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 14349.9
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 3074.3
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1383.4
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 1307.7
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 97.1
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 70.0
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.1
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 317.0
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 8.1
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 7683.3
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Combinado",
+     "valor": 98.0
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-10-27",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 20679.4
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 4624.8
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1698.0
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 1950.7
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 96.8
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 69.5
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.3
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 470.6
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 8.2
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 7649.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Siniestralidad",
+     "valor": 70.6
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 26917.2
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 6109.3
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1996.4
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 2664.7
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 97.2
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 69.6
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.6
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 677.0
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 8.3
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 8070.8
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +4.6 %, Resultado neto +69.5 %, Primas de Autos +3.4 % contra el mismo periodo del ejercicio anterior, con el ROE en 10.1 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 8142.8
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 1629.2
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1176.0
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 784.6
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 95.8
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 68.0
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.7
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 216.3
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 10.1
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 8067.4
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +5.5 %, Resultado neto +45.6 %, Primas de Autos +5.5 % contra el mismo periodo del ejercicio anterior, con el ROE en 10.4 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 1.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 15145.1
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 3242.8
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1496.8
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 1443.8
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 95.7
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 68.2
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.5
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 461.6
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 10.4
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 8088.9
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-10-29",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +4.6 %, Resultado neto +38.9 %, Primas de Autos +4.4 % contra el mismo periodo del ejercicio anterior, con el ROE en 10.9 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 21622.4
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 4829.3
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1806.2
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 2111.3
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 94.8
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 67.4
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.4
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 653.5
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 10.9
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 8434.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-02-12",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +4.5 %, Resultado neto +33.2 %, Primas de Autos +6.1 % contra el mismo periodo del ejercicio anterior, con el ROE en 11.1 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 28121.7
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 6483.6
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 2154.4
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 2695.6
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 94.4
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 67.4
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.1
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 901.6
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 11.1
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 8508.3
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-04-25",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +5.4 %, Resultado neto +27.6 %, Primas de Autos +3.5 % contra el mismo periodo del ejercicio anterior, con el ROE en 11.7 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 1.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 8584.3
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 1685.7
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1241.1
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 724.6
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 94.1
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 66.9
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.2
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 275.9
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 11.7
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 8380.8
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-07-24",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +5.3 %, Resultado neto +23.6 %, Primas de Autos +2.3 % contra el mismo periodo del ejercicio anterior, con el ROE en 12.2 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 15947.4
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 3316.9
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1569.1
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 1332.0
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 93.1
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 66.0
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.2
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 570.4
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 12.2
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 8518.5
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-10-31",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +3.5 %, Resultado neto +26.9 %, Primas de Autos +2.3 % contra el mismo periodo del ejercicio anterior, con el ROE en 12.4 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 22383.8
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 4941.0
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1894.6
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 2033.9
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 92.6
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 65.1
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.5
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 829.0
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 12.4
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 8923.9
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2026-02-12",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +3.6 %, Resultado neto +19.7 %, Primas de Autos +1.3 % contra el mismo periodo del ejercicio anterior, con el ROE en 12.4 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 29144.7
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 6568.4
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 2251.7
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 2678.8
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 92.2
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 64.9
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.3
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 1078.8
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 12.4
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 8960.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas -2.2 %, Resultado neto +12.7 %, Primas de Autos -0.9 % contra el mismo periodo del ejercicio anterior, con el ROE en 12.9 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 1.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 8393.8
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 1669.8
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1307.2
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 758.5
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 93.2
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 65.2
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 28.0
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 310.9
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 12.9
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 8924.2
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-07-23",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primas +1.1 %, Resultado neto +9.4 %, Primas de Autos +1.4 % contra el mismo periodo del ejercicio anterior, con el ROE en 12.5 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 0.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 16126.9
-        },
-        {
-          "nombre": "Primas Autos (M€)",
-          "valor": 3364.4
-        },
-        {
-          "nombre": "Primas Salud y Accidentes (M€)",
-          "valor": 1695.1
-        },
-        {
-          "nombre": "Primas Vida (M€)",
-          "valor": 1448.2
-        },
-        {
-          "nombre": "Ratio combinado No Vida (%)",
-          "valor": 92.8
-        },
-        {
-          "nombre": "Ratio de siniestralidad (%)",
-          "valor": 65.0
-        },
-        {
-          "nombre": "Ratio de gastos (%)",
-          "valor": 27.8
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 624.2
-        },
-        {
-          "nombre": "ROE (%)",
-          "valor": 12.5
-        },
-        {
-          "nombre": "Fondos propios (M€)",
-          "valor": 9591.9
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Gastos",
+     "valor": 27.4
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +19,1 %, resultado neto -17,4 %, margen 1,5 % (-0,50 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 98,5 %. Ámbar por: resultado neto a la baja, caída de beneficio o margen, ratio combinado No Vida (la señal única de la tesis) por encima del umbral.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 7786.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 1575.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1109.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 674.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 98.5
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 71.2
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.2
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 128.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +14,7 %, resultado neto -6,1 %, margen 2,9 % (+1,20 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 97,1 %. Ámbar por: resultado neto a la baja, ratio combinado No Vida (la señal única de la tesis) por encima del umbral.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 14350.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 3074.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1383.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 1308.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 97.1
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 70.0
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.1
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 317.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 8.1
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 7683.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-10-27",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +10,9 %, resultado neto -3,6 %, margen 3,2 % (+1,60 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 96,8 %. Ámbar por: resultado neto a la baja, ratio combinado No Vida (la señal única de la tesis) por encima del umbral.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 20679.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 4625.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1698.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 1995.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 96.8
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 69.5
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.3
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 471.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 8.2
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 7649.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +9,7 %, resultado neto +7,7 %, margen 2,8 % (+0,80 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 97,2 %. Verde: solo ratio combinado No Vida (la señal única de la tesis) por encima del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 26917.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 6109.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1996.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 2665.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 97.2
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 69.6
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.6
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 692.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 9.0
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 8071.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +4,6 %, resultado neto +69,5 %, margen 4,2 % (+2,70 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 95,8 %. Verde: solo ratio combinado No Vida (la señal única de la tesis) por encima del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 8143.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 1629.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1176.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 785.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 95.8
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 68.0
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.7
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 216.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 10.1
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 8067.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +5,5 %, resultado neto +45,6 %, margen 4,3 % (+1,40 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 95,7 %. Verde: solo ratio combinado No Vida (la señal única de la tesis) por encima del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 15145.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 3243.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1497.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 1444.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 95.7
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 68.2
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.5
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 462.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 10.6
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 8089.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-10-29",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +4,6 %, resultado neto +38,9 %, margen 5,2 % (+2,00 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 94,8 %. Verde: solo ratio combinado No Vida (la señal única de la tesis) por encima del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 21622.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 4829.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1806.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 2130.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 94.8
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 67.4
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.4
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 654.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 10.9
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 8434.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2025-02-12",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +4,5 %, resultado neto +30,3 %, margen 5,6 % (+2,80 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 94,4 %. Verde: solo ratio combinado No Vida (la señal única de la tesis) por encima del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 28122.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 6484.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 2154.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 2760.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 94.4
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 67.4
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.1
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 902.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 10.9
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 8508.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-04-25",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +5,4 %, resultado neto +27,6 %, margen 5,9 % (+1,70 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 94,1 %. Verde: solo ratio combinado No Vida (la señal única de la tesis) por encima del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 8584.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 1686.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1241.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 725.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 94.1
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 66.9
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.2
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 276.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 11.7
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 8381.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-07-24",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +5,3 %, resultado neto +23,6 %, margen 6,9 % (+2,60 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 93,1 %. Verde: solo ratio combinado No Vida (la señal única de la tesis) por encima del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 15947.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 3317.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1569.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 1332.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 93.1
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 66.0
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.2
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 570.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 12.2
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 8518.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-10-31",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +3,5 %, resultado neto +26,9 %, margen 7,4 % (+2,20 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 92,6 %. Verde: solo ratio combinado No Vida (la señal única de la tesis) por encima del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 22384.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 4941.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1895.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 2034.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 92.6
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 65.1
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.5
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 829.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 12.4
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 8924.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2026-02-12",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +3,6 %, resultado neto +19,7 %, margen 7,8 % (+2,20 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 92,2 %. Verde: solo ratio combinado No Vida (la señal única de la tesis) por encima del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 29145.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 6568.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 2252.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 2679.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 92.2
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 64.9
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.3
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 1079.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 12.4
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 8960.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas -2,2 %, resultado neto +12,7 %, margen 6,8 % (+0,90 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 93,2 %. Ámbar por: primas a la baja, ratio combinado No Vida (la señal única de la tesis) por encima del umbral.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 8394.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 1670.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1307.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 758.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 93.2
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 65.2
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 28.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 311.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 12.9
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 8924.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-07-23",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +1,1 %, resultado neto +9,4 %, margen 7,2 % (+0,30 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 92,8 %. Verde: solo ratio combinado No Vida (la señal única de la tesis) por encima del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 16127.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 3364.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 1695.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 1448.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 92.8
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 65.0
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.8
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 624.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 12.5
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 9592.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

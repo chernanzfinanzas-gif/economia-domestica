@@ -1,126 +1,70 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "ENG",
  "empresa": "Enagás, S.A.",
- "fecha": "2026-09-23",
- "rating": "BBB",
- "score": 54.4,
- "decision": "MANTENER",
- "metodoValoracion": "Síntesis ponderada del §6.5 — DCF 55 · múltiplos 30 · renta 15 · activos 0 (utility regulada). PO oficial = 19,14 €/acc, la ponderación de nueve métodos: tres escenarios de DCF a dos fases (10+10 y perpetuidad), seis múltiplos históricos de diez años y la pata de renta por rentabilidad por dividendo. El DCF caso central daría 23,14 € y la media de las patas de múltiplos ~14,6 €: la tensión entre las dos familias está declarada en el §6.6 y el PO cae entre ellas. NO incorpora la compra del 31,5 % de Teréga (573 M€, cerrada el 30-jul-2026), posterior al último ejercicio cerrado; su efecto derivado por el canal de deuda es de −5,58 % a −8,00 % y está escrito en el §8.1 y en el capítulo ⑨ del dossier.",
- "poBear": 15.86,
- "poBase": 19.14,
- "poBull": 22.72,
- "entMin": 15.86,
- "entMax": 16.65,
- "stop": 13.42,
- "dpaPrevisto": 1.0,
- "moat": "60,0 · MOAT MODERADO. Escala eficiente 88 e intangibles 58 lo sostienen; ventaja de costes 35, costes de cambio 55 y efecto de red 40 no. Horquilla de ponderación medida: 46,5 – 63,3, o sea que el RATING sí depende del reparto de pesos y va de estrecho a moderado.",
+ "fecha": "2026-10-26",
+ "revisadoEl": "2026-10-26",
+ "rating": "BB",
+ "score": 47.8,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 35 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 7 % · PER 8 % · P/VC 4 % · P/FCL 3 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl recurrente",
+ "poBear": 15.47,
+ "poBase": 17.74,
+ "poBull": 21.47,
+ "entMin": 13.57,
+ "entMax": 15.43,
+ "stop": 11.81,
+ "dpaPrevisto": 0.9889,
+ "moat": "59,7 sobre 100 · MOAT ESTRECHO. Monopolio regulado, pero la base de activos se vacía y el regulador fija el retorno",
  "catalizadores": [
-  "Circular de la CNMC · la TRF del marco 2027-2032 pasa del 5,44 % a «aproximadamente el 6,5 %»",
-  "Cobro del laudo de Perú (~303 M$) y sentencia favorable del Supremo sobre Castor",
-  "Extensión de vida útil de los activos totalmente amortizados que siguen en operación",
-  "Venta del 40 % de Enagás Renovable a Hy24"
+  "La Circular de la CNMC sube la TRF al 6,5 %: Empata el vaciado de la base: +0,23 % anual de ingresos, unos +1,2 % en cinco años. (marco 2027-2032)",
+  "Cobro del laudo de Perú y sentencia de Castor: Unos 280 M€ de caja a reducir deuda. (0-18 meses)",
+  "Extensión de vida útil de los activos amortizados: Libera CAPEX: −50 M€ al año. (marco 2027-2032)",
+  "Venta del 40 % de Enagás Renovable a Hy24: 48 M€ a reducir deuda; cerrada el 21-abr-2026. (cerrada)"
  ],
  "riesgos": [
-  "Regulatorio (−8,6 a −17,1%) · EL MARCO 2027-2032 NO COMPENSA EL VACIADO DE LA BASE",
-  "Estructural (−3,4 a −13,7%) · LA BASE DE ACTIVOS SE AMORTIZA MÁS DEPRISA DE LO QUE SE REPONE",
-  "Asignación de capital (−12,1 a −24,2%) · EL CAPEX DE HIDRÓGENO ENTRA EN LA BASE ANTES DE QUE SE RETRIBUYA · Y AHORA HAY ADEMÁS UNA COMPRA REAL, CERRADA",
-  "Competitivo (−5,1 a −13,7%) · LA DEMANDA DE GAS NATURAL EN LA TRANSICIÓN ENERGÉTICA",
-  "Financiero (−0,7 a −1,2%) · REFINANCIACIÓN A TIPOS MÁS ALTOS · Y ES EL RIESGO QUE EL MODELO NO SABE VER",
-  "Mercado (−4,0 a −12,0%) · DE-RATING DEL MÚLTIPLO",
-  "Ciberseguridad (−8,3 a −24,8%) · CIBERATAQUE SOBRE LOS SISTEMAS DE CONTROL DE LA RED",
-  "Societario (−0,3 a −1,0%) · EL ESTADO GOBIERNA SIN SER DUEÑO · Y LOS TRES CIEGOS SOCIETARIOS, JUNTOS"
+  "El marco 2027-2032 no compensa el vaciado de la base (Alta): Recorte del ingreso regulado (el opex se traslada): ingresos −5 % y −10 %.",
+  "La base de activos se amortiza más deprisa de lo que se repone (Alta): Ingresos −2 % y −8 %. Mide el escalón, no la deriva: el desgaste continuo actúa sobre el crecimiento.",
+  "El CAPEX de hidrógeno entra en la base antes de retribuirse (Media): CAPEX +50 M€ al año y +100 M€ al año sin retribución (y la compra del 31,5 % de Teréga).",
+  "La demanda de gas natural en la transición (Media): Ingresos −3 % y −8 %; mismo canal que el riesgo 2, no se suman.",
+  "Refinanciación a tipos más altos (Media): Refinanciar al 3,5 %: +34,7 M€ de intereses; al 4,5 %: +59,4 M€. Va por debajo del EBIT: el modelo apenas lo ve.",
+  "De-rating del múltiplo (Media): Múltiplos −10 % y −30 %.",
+  "Ciberataque sobre los sistemas de control de la red (Baja-Media): Ingresos −2 % con CAPEX +20 M€ al año; duro: −6 % y +60 M€.",
+  "El Estado gobierna sin ser dueño (Baja): La ley impide una OPA (nadie puede tener más del 5 %) y quita la prima de control; la SEPI está en el consejo. No mueve ninguna palanca del modelo: múltiplos −1 % y −2 % como aproximación."
  ],
- "bull": "22,72 € (+18,67 % sobre el PO). Los cuatro catalizadores derivables del §9.1 aplicados a la vez: la Circular de la CNMC elevando la TRF, el cobro del laudo de Perú con la sentencia del Supremo sobre Castor, la extensión de vida útil de los activos amortizados y la venta del 40 % de Enagás Renovable a Hy24 por 48 M€.",
- "bear": "15,86 € (−17,16 % sobre el PO). El riesgo dominante del §8.1 —el regulatorio— en su extremo DURO, por el canal de VOLUMEN de ingreso regulado y no por el margen: el marco traslada el opex, así que un recorte retributivo baja el ingreso con el coste detrás. Se usa el extremo duro porque el suave (17,50 €) invertiría la banda de entrada.",
- "resumen": "MANTENER. Monopolio legal irreproducible —Gestor Técnico del Sistema y Transportista Único por ley, con una OPA legalmente imposible por la DA 31ª de la Ley 34/1998— con un problema de precio y otro de dividendo. Falla DOS de las cuatro condiciones de COMPRAR: el margen de seguridad es del +13,95 % contra el 15 % exigido y el rating de calidad es BBB contra el A que se pide; además la cotización (16,80 €) está por encima del techo de su propia banda de entrada (16,65 €). Debajo hay un deterioro estructural medido: el EBITDA cae un 6,45 % anual desde 2021, el RAB sustituto se vacía un 2,39 % anual y el CAPEX repone 0,42 € de cada euro amortizado. Y lo único que la distingue de Snam, Italgas, Terna y Redeia —su 7,60 % de rentabilidad por dividendo frente al 4,02-5,39 % de ellos— descansa sobre un dividendo con Dividend Safety 29/100, banda Frágil y tope duro ACTIVO. Consecuencia operativa: sizing reducido, no veredicto degradado.",
- "confianza": {
-  "score": 100,
-  "nivel": "A",
-  "motivos": [
-   "sin huecos críticos ni discrepancias abiertas"
-  ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-09-23"
- },
- "robustez": {
-  "nivel": "sensible",
-  "sobreviveDecision": false,
-  "etiquetaPrecioSensible": false,
-  "matizada": false,
-  "banda": {
-   "p10": 15.86,
-   "p50": 19.14,
-   "p90": 22.72
-  },
-  "sensibilidad": {
-   "sobre": "sintesis",
-   "regla": "F100",
-   "poMin": 16.61,
-   "poMax": 24.17,
-   "poBase": 19.14,
-   "cotizacion": 16.8,
-   "cotizacionBase": "actual",
-   "componente": "DCF Base",
-   "pesoPerturbado": 0.35,
-   "componentesIntactos": 8,
-   "dcf": {
-    "poMin": 15.88,
-    "poMax": 37.48,
-    "poBase": 23.1357597658076
-   },
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -1.2,
-   "mdsMax": 43.8
-  },
-  "beta": {
-   "capm": 0.523,
-   "ref2": null,
-   "aviso": null
-  },
-  "motivos": [
-   "QUÉ SE HA PERTURBADO: solo «DCF Base» (35 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 65 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
-   "la cotización (16.80) cae DENTRO de la banda del precio objetivo de síntesis [16.61–24.17], y la banda de margen de seguridad [-1.2 % … +43.8 %] CRUZA el umbral del 5 % y del 15 % de la tabla del §9.4 → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
-   "para contraste, el DCF puro (§6.3) se mueve en [15.88–37.48] € alrededor de 23.14 €: es la sensibilidad del MODELO, no la del precio objetivo"
-  ],
-  "calculadoEl": "2026-09-23"
- },
+ "bull": "21,47 € — escenario optimista: la TRF sube al 6,5 % y el CAPEX de hidrógeno vuelve a hacer crecer la base",
+ "bear": "15,47 € — escenario pesimista: el vaciado de la base de activos sigue y el marco 2027-2032 no lo compensa",
+ "resumen": "ESPERAR con la cotización de 17,54 € (2026-10-23): precio objetivo 17,74 € (bear 15,47 · bull 21,47), margen +1,1 %. Banda de entrada 13,57–15,43 €, stop de tesis 11,81 €.",
  "dividendSafety": {
-  "score": 29,
+  "score": 20,
   "banda": "Frágil",
+  "aplica": true,
+  "rama": "general",
   "componentes": {
-   "C1": 4,
+   "C1": 0,
    "C2": 0,
    "C3": 8,
-   "C4": 5,
-   "C5": 12
+   "C4": 3,
+   "C5": 9
   },
-  "shareholderYield": 8.1,
   "topeDuro": {
    "activo": true,
-   "motivo": "payout BN 3a 144% > 100%"
+   "motivo": "Frágil: cobertura OE 0.47x · payout 285 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja"
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 0.73x / FCL 0.36x (3a OE 2.14x) → 4/35",
-   "C2 payout BN ord.: 77% (3a 144%) → 0/15",
-   "C3 balance: DN/EBITDA 4.74x, cob.int 5.9x → 8/20",
-   "C4 trayectoria: 1 recorte(s) en 10a (reciente) → 5/15",
-   "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY → 12/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+   "Frágil: cobertura OE 0.47x · payout 285 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja"
   ],
-  "calculadoEl": "2026-09-23"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 8.05
  },
  "forense": {
   "aplica": true,
+  "ejercicio": "2025",
   "piotroski": {
-   "score": 6,
+   "score": 5,
    "banda": "medio",
    "detalle": {
     "roa_pos": 1,
@@ -130,19 +74,20 @@
     "lever_dn": 1,
     "liquid_up": 0,
     "no_dilu": 0,
-    "margin_up": 1,
+    "margin_up": 0,
     "turn_up": 1
    },
-   "nota": "margen=bruto"
+   "nota": "margen=EBIT (sin aprovisionamientos)"
   },
   "altman": {
-   "z": 4.23,
-   "zona": "segura"
+   "z": 1.94,
+   "zona": "gris"
   },
   "beneish": {
    "m": -2.24,
    "senal": "sin indicios",
    "aproximado": [
+    "GMI",
     "SGAI"
    ]
   },
@@ -150,212 +95,37 @@
    "accruals": 1.8,
    "senal": "normal"
   },
-  "flags": [],
+  "flags": [
+   "Altman Z''=1.94 en zona gris"
+  ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-09-23"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -4.92,
-  "gIntrinseco": -8.73,
+  "gImplicito": -3.04,
+  "gIntrinseco": -7.76,
   "veredicto": "PLAUSIBLE",
-  "motivo": "El precio solo exige un -4.92% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
-  "calculadoEl": "2026-09-23",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
   "entradas": {
-   "fcl": 401.7434,
+   "fcl": 371.5084,
    "wacc": 5.5,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 262,
-   "deudaNeta": 2475.1,
+   "acciones": 262.8775,
+   "deudaNeta": 2695.932,
    "modo": "EV",
-   "precioBase": 16.8,
+   "precioBase": 17.54,
+   "gBase": -3.04,
+   "fechaBase": "2026-10-23",
+   "congeladoEl": "2026-10-26",
    "validado": true,
-   "desviacion": -0.005,
-   "gBase": -4.925,
-   "fechaBase": "2026-09-23",
-   "congeladoEl": "2026-09-23"
+   "desviacion": 0.0
   }
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "fuente": "Datos Financieros Enagás.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 1,
-   "nombre": "LA MÁQUINA DE CUPÓN",
-   "lema": "rinde mucho, reinvierte poco",
-   "porSpread": true,
-   "roiicFragil": false,
-   "cortes": {
-    "reinversion": 20.0,
-    "roiic": 10.5,
-    "regla": "ROIIC no significativo: por el spread ROIC − WACC (reinvierte poco: > 0 → 1; mucho: ≥ 5 → 2, 0-5 → 4, ≤ 0 → 3) · regla del 25-sep-2026"
-   }
-  },
-  "cifras": {
-   "reinversionMedia": 0.0,
-   "roiic5a": null,
-   "roiic": null,
-   "roiicVentana": null,
-   "roicMedio": 6.68,
-   "spread": 0.89,
-   "wacc": 5.5,
-   "conversionMedia": 59.15,
-   "coberturaDividendo": 0.36,
-   "gIntrinseco": -8.73,
-   "capexCrecimiento10a": 0.0,
-   "fcl10a": 5504.0,
-   "retribucion10a": 3329.0,
-   "retribucionSobreFcl": 60.5
-  },
-  "tension": {
-   "anios": [
-    2022,
-    2023,
-    2024,
-    2025
-   ],
-   "coberturaFcl": [
-    1.41,
-    0.9,
-    1.36,
-    0.36
-   ],
-   "coberturaOe": [
-    1.03,
-    0.65,
-    0.64,
-    null
-   ],
-   "payoutBn": [
-    119.9,
-    133.1,
-    null,
-    77.3
-   ],
-   "payoutFcl": [
-    70.9,
-    110.7,
-    73.4,
-    277.5
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "<b>Un monopolio legal de infraestructura</b>: Gestor Técnico del Sistema gasista y Transportista Único de la red troncal, con unos 11.000 km de gasoductos y presencia en seis de las siete plantas de regasificación de la península. No compite con nadie; su precio lo fija una circular de la CNMC que se revisa cada seis años, la próxima vez para 2027. Casi todo el ingreso es regulado español, pero un tercio del resultado de explotación de 2025 llega de participadas internacionales por puesta en equivalencia, sin ingresos detrás.",
-     "Es una red <b>que se amortiza más deprisa de lo que se renueva</b>: el CAPEX es el 7,7 % de las ventas y no llega a cubrir la amortización ningún año, así que el libro no clasifica ni un euro como CAPEX de crecimiento —0 M€ en diez años—. Los ingresos han pasado de 1.360 M€ en 2017 a 960 en 2025."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>De la retribución regulada, y cada vez menos.</b> El ROIC medio de la década es un 6,7 % contra un WACC del 5,5 %: el spread era de +1,77 pp de media en 2016-2019, fue negativo en 2022 (−0,39 pp), ya con el marco 2021-2026 recortando la retribución, y en 2025 es de <b>+0,89 pp</b>. Es el retorno de un activo regulado: fiable, pero pegado al coste de capital.",
-     "<b>Por qué máquina de cupón, y con aviso.</b> Enagás lleva cinco años haciéndose más pequeña: vendió Quintero, Morelos y COGA en 2022 y Tallgrass en 2024, y el capital invertido de 2025 es muy inferior al de 2020 y al de 2022. Cuando caen a la vez el capital y el NOPAT, su cociente no es un retorno sobre capital nuevo; el libro lo marca «n.s.» a cinco y a tres años, y la casilla se lee con el spread: no reinvierte —0,0 %— y gana <b>+0,89 pp</b> por encima de su coste. Eso la pone en la máquina de cupón, pero en el borde: el margen es de menos de un punto, el crecimiento intrínseco es del −8,73 % y el ROIC se sostiene porque el denominador encoge más o menos al ritmo del beneficio. No es un negocio que reinvierta: es uno que <b>se está liquidando despacio mientras decide si el hidrógeno será su siguiente red</b>."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "La tensión es el dividendo. El payout sobre beneficio fue del 121,1 % de media en 2021-2023, y el 20 de febrero de 2024 la compañía recortó el dividendo de los 1,74 € que había comprometido por escrito hasta 2026 a 1,00 €, diecinueve meses después de prometerlo. Aun así, el flujo libre de 2025 se hundió a 94 M€, frente a 632 de media en 2016-2023, y la cobertura con caja libre cayó a <b>0,36x</b>: el dividendo recortado tampoco lo paga el negocio.",
-     "Y la deuda no ha bajado con caja: la reducción de 943 M€ de 2024 es la venta de Tallgrass, y en 2025 la deuda neta volvió a subir 71 M€. Lo que viene va en la otra dirección: Teréga, 573 M€ cerrados en julio de 2026; una red troncal de hidrógeno que todavía no tiene marco retributivo; y el marco regulatorio 2027-2032, que fijará el precio de todo lo demás."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra Enagás compra <b>un cupón alto sobre una red que no crece y cuyo precio se renegocia en 2027</b>. Lo que la protege es real —el monopolio legal y un blindaje accionarial que hace imposible una OPA—; lo que la amenaza es aritmética: un activo que se amortiza más deprisa de lo que se renueva, una caja libre que ya no cubre el dividendo y un plan de inversión en hidrógeno que, la última vez que chocó con el dividendo, ganó.",
-     "<b>Qué vigilar cada trimestre:</b> la cobertura del dividendo con caja libre, que el operador dejó escrita como su señal única. En 0,36x, el dividendo de 1,00 € depende en 2026 del cobro de Castor, de las participadas y del balance; si la cobertura no vuelve por encima de 1,0x mientras arranca la inversión en hidrógeno, el precedente de 2024 deja de ser historia."
-    ]
-   }
-  ],
-  "vigilar": "La cobertura del dividendo con caja libre: mientras no vuelva por encima de 1,0x, el dividendo lo pagan el balance, las participadas y los cobros extraordinarios, no la red.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "La red de gas de España, un monopolio legal irreproducible, con un problema de precio y otro de dividendo.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Balance mucho mejor que en 2016 (deuda neta de 5,36 a 3,66 veces el EBITDA), pero pagado con desinversiones, no con el negocio.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Apenas cubre su coste: ROIC medio del 6,7 % contra un WACC del 5,5 %, con 0,89 puntos de margen hoy.",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 0,0 % del NOPAT de media; el ROIIC no es significativo y la casilla sale del spread (+0,89 pp).",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "No hay caja para el dividendo: cubierto 0,36 veces con caja libre. Seguridad del dividendo: frágil.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "BBB · 54,4 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 19,14 € contra 16,80 €: margen de seguridad +13,9 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Moat moderado (60,0): escala eficiente 88; el resto no lo sostiene.",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "Que el marco regulatorio 2027-2032 no compense el vaciado de la base de activos (−8,6 a −17,1 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "La nueva tasa de retribución de la CNMC (del 5,44 % a en torno al 6,5 %) y el cobro del laudo de Perú (~303 M$).",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>MANTENER</b> · banda de entrada 15,86 – 16,65 € · stop de tesis 13,42 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "La cobertura del dividendo con caja libre: mientras no vuelva por encima de 1,0x, el dividendo lo pagan el balance, las participadas y los cobros extraordinarios, no la red.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "Ningún dato crítico abierto; la cobertura de 2025 sobre owner earnings figura en «Pte. Revisión».",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 19,14 → 17,74 €; decisión MANTENER → ESPERAR; rating BBB → BB."
 }

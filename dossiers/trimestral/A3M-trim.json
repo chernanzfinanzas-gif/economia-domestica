@@ -1,813 +1,692 @@
 {
-  "schemaVersion": 2,
-  "ticker": "A3M",
-  "empresa": "Atresmedia",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "A3M",
+ "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -8,7 % frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-04-27",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 212.3
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 169.5
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 196.4
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 18.7
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 36.3
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 17.1
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 23.4
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 12.1
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 27.3
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 14.2
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-07-27",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 472.863
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 376.87
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 439.402
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 38.524
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 88.554
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 18.73
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 59.803
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": -46.626
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 27.0
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 13.7
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-10-26",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 666.4
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 533.2
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 618.9
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 54.3
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 110.3
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 16.55
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 71.5
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 20.1
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 26.8
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 13.4
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-02-28",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 971.429
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 783.785
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 902.784
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 77.037
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 173.126
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 17.82
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 171.163
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 23.06
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 26.8
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 13.3
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-04-25",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos +15.4 %, Publicidad audiovisual +14.4 %, EBITDA +38.0 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 20.4 % (banda del §10.1: verde ≥ 16.0, rojo < 13.0). Los ingresos de publicidad en Contenido Audiovisual suben un 14.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 245.1
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 193.9
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 229.1
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 18.6
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 50.1
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 20.44
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 33.4
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 56.3
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 26.9
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 12.9
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-07-25",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos +10.6 %, Publicidad audiovisual +9.5 %, EBITDA +15.3 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 19.5 % (banda del §10.1: verde ≥ 16.0, rojo < 13.0). Los ingresos de publicidad en Contenido Audiovisual suben un 9.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 523.212
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 412.589
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 487.138
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 41.013
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 102.105
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 19.52
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 69.059
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 64.407
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 27.1
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 13.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-10-24",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos +7.0 %, Publicidad audiovisual +5.2 %, EBITDA +5.2 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 16.3 % (banda del §10.1: verde ≥ 16.0, rojo < 13.0). Los ingresos de publicidad en Contenido Audiovisual suben un 5.2 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 713.2
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 560.9
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 662.3
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 57.7
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 116.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 16.26
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 77.4
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 145.1
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 26.4
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 12.6
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-02-27",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos +4.8 %, Publicidad audiovisual +2.5 %, EBITDA +2.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 17.4 % (banda del §10.1: verde ≥ 16.0, rojo < 13.0). Los ingresos de publicidad en Contenido Audiovisual suben un 2.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 1017.879
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 803.366
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 943.69
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 82.478
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 177.628
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 17.45
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 120.282
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 139.876
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 26.4
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 12.6
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-04-24",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos -0.8 %, Publicidad audiovisual -4.0 %, EBITDA -14.0 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 17.7 % (banda del §10.1: verde ≥ 16.0, rojo < 13.0). Los ingresos de publicidad en Contenido Audiovisual caen un 4.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 243.2
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 186.2
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 226.4
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 19.5
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 43.1
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 17.72
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 28.6
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 184.7
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 26.2
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 12.7
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-07-24",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos -3.2 %, Publicidad audiovisual -5.1 %, EBITDA -16.7 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 16.8 % (banda del §10.1: verde ≥ 16.0, rojo < 13.0). Los ingresos de publicidad en Contenido Audiovisual caen un 5.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 506.646
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 391.436
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 468.81
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 42.927
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 85.025
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 16.78
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 63.835
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 65.398
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 26.4
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 12.8
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-10-23",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ingresos -2.3 %, Publicidad audiovisual -5.7 %, EBITDA -22.2 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 12.9 % (banda del §10.1: verde ≥ 16.0, rojo < 13.0). Los ingresos de publicidad en Contenido Audiovisual caen un 5.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 696.5
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 529.0
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 643.0
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 60.3
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 90.2
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 12.95
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 63.5
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 70.5
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 26.2
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 12.8
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2026-02-26",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ingresos -1.5 %, Publicidad audiovisual -6.2 %, EBITDA -50.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 8.8 % (banda del §10.1: verde ≥ 16.0, rojo < 13.0). Los ingresos de publicidad en Contenido Audiovisual caen un 6.2 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 1002.231
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 753.936
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 924.847
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 85.741
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 87.714
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 8.75
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 62.107
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 58.126
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 26.1
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 12.8
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-04-23",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos -2.4 %, Publicidad audiovisual -2.9 %, EBITDA -11.8 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 16.0 % (banda del §10.1: verde ≥ 16.0, rojo < 13.0). Los ingresos de publicidad en Contenido Audiovisual caen un 2.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 237.3
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 180.8
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 220.1
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 19.8
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 38.0
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 16.01
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 23.8
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 97.1
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 25.6
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 12.8
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-07-23",
-      "fechaOrigen": "portada",
-      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicacion y se han leido una a una de los PDF de Informes/Trimestrales. Todos los periodos estan en base PUBLICADA EN SU DIA: Atresmedia no ha reexpresado ningun comparativo en la ventana 2023-2026 (comprobado informe a informe), asi que no hay quiebre de base como el de F755.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos +2.6 %, Publicidad audiovisual -1.3 %, EBITDA +2.5 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 16.8 % (banda del §10.1: verde ≥ 16.0, rojo < 13.0). Los ingresos de publicidad en Contenido Audiovisual caen un 1.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 520.033
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 386.241
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 481.246
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 43.707
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 87.11
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 16.75
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 56.409
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 70.194
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 25.4
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 12.7
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2026-09-30",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": true,
-      "resumen": "Margen EBITDA 12.6% (RBE 91,3 M€ / ingresos 724,3 M€), por DEBAJO del umbral rojo del 13,0% del §10.1 -y cayendo desde el 16,75% de S1-2026, porque el 3T aislado ha sido débil-. Los ingresos de publicidad en Contenido Audiovisual (señal única) caen un 1,8% interanual, peor que el -1,3% de S1-2026: segundo trimestre consecutivo en negativo y empeorando. EBITDA ajustado (excluye el efecto NIIF16 de AMVIA) cae un 2,3% frente al +1,2% del reportado. BNA cae un 15,2% hasta 53,8 M€, en parte por la base 2025 (intereses de demora AEAT) y en parte por la dilución temporal de los dos primeros meses de AMVIA, consolidada desde agosto. Posición financiera neta sigue POSITIVA (233,2 M€, caja neta), reforzada por la venta de Fever Labs (plusvalía de 205 M€ registrada en Patrimonio Neto, no en el EBITDA). Ingresos totales +4,0% (724,3 M€), apoyados en diversificación (producción y distribución +7,2%, otros ingresos +45,7%, AMVIA aporta 12,8 M€ en sus dos primeros meses) y no en el negocio publicitario base, que sigue debilitado por el impacto del Mundial de Fútbol en las audiencias de TV (24,9% vs 26,2% un año antes).",
-      "metricas": [
-        {
-          "nombre": "Ingresos Netos (M€)",
-          "valor": 724.3
-        },
-        {
-          "nombre": "Publicidad en Contenido Audiovisual (M€)",
-          "valor": 519.4
-        },
-        {
-          "nombre": "Ingresos Audiovisual (M€)",
-          "valor": 657.5
-        },
-        {
-          "nombre": "Ingresos Radio (M€)",
-          "valor": 60.4
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 91.3
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 12.6
-        },
-        {
-          "nombre": "Beneficio del ejercicio (M€)",
-          "valor": 53.8
-        },
-        {
-          "nombre": "Posición Financiera Neta (M€)",
-          "valor": 233.2
-        },
-        {
-          "nombre": "Audiencia total TV · grupo (%)",
-          "valor": 24.9
-        },
-        {
-          "nombre": "Antena 3 · cuota (%)",
-          "valor": 12.5
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Adquisición",
-          "hecho": "Toma de control efectiva de AMVIA (antes Clear Channel España), uno de los principales operadores de publicidad exterior en España, en agosto de 2026; aporta 12,8 M€ de ingresos en sus dos primeros meses en el Grupo.",
-          "impacto": "=",
-          "valoracion": "Diversifica ingresos fuera de la publicidad audiovisual, que sigue cayendo, pero aún no aporta margen por los costes de integración y el efecto NIIF16; a vigilar su contribución a EBITDA en los próximos trimestres (la propia empresa estima para AMVIA en términos anualizados unos 100 M€ de ingresos y un margen EBITDA cercano al 18%)."
-        },
-        {
-          "tipo": "Desinversión",
-          "hecho": "Plusvalía neta de 205 M€ por la venta de Fever Labs, registrada directamente en Patrimonio Neto (no en la cuenta de resultados ni en el EBITDA).",
-          "impacto": "+",
-          "valoracion": "Refuerza la posición financiera neta (233,2 M€ de caja), que financia parte del dividendo extraordinario anunciado; no afecta a la lectura operativa del trimestre."
-        }
-      ]
+     "nombre": "Ingresos",
+     "valor": 204.0
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2021-9M",
+   "fecha": "2021-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +14,6 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 665.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,6 %, EBITDA +1,7 %, margen 16,8 % (-0,14 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 209.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 35.2
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +0,2 %, EBITDA -2,9 %, beneficio neto -8,5 %, margen 20,9 % (-0,65 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 423.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 88.6
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 20.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 79.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 57.2
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 117.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,6 %, EBITDA -3,1 %, margen 17,8 % (-0,28 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 654.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 117.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,2 %, EBITDA +0,3 %, beneficio neto -4,7 %, margen 20,0 % (+0,29 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 867.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 173.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 20.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 155.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 113.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 115.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-04-27",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,4 %, EBITDA +3,1 %, margen 17,1 % (+0,28 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 212.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 36.3
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 32.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-07-27",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,0 %, EBITDA -0,1 %, beneficio neto +4,6 %, margen 20,7 % (-0,22 pp) frente al mismo periodo del año anterior. Verde: solo EBITDA a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 428.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 88.6
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 20.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 80.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 59.8
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 65.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-10-26",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,8 %, EBITDA -5,4 %, margen 16,6 % (-1,27 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 666.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 110.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 96.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2024-02-28",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,2 %, EBITDA -0,6 %, beneficio neto +51,6 %, margen 19,4 % (-0,54 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 886.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 172.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 155.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 171.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -6.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-04-25",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +15,4 %, EBITDA +38,0 %, margen 20,4 % (+3,34 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 245.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 50.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 20.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 45.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-07-25",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,8 %, EBITDA +15,3 %, beneficio neto +15,5 %, margen 21,7 % (+1,03 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 470.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 102.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 21.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 93.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 69.1
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -38.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-10-24",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,0 %, EBITDA +5,2 %, margen 16,3 % (-0,29 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 713.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 116.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 103.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2025-02-27",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,7 %, EBITDA +3,2 %, beneficio neto -29,7 %, margen 19,3 % (-0,09 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 919.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 178.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 160.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 120.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -128.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-04-24",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -0,8 %, EBITDA -14,0 %, margen 17,7 % (-2,72 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. Ingresos -0,8 % y EBITDA -14,0 %: la publicidad audiovisual baja un 4,0 % frente a un primer trimestre de 2024 excepcional (mercado de televisión -2,7 %), con los costes sin bajar. Es el negocio, no un extraordinario (documento: «2025-04-30 Nota de Comunicación de Resultados del 1er Trimestre de 2025»).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 243.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 43.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 38.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-07-24",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -4,4 %, EBITDA -16,7 %, beneficio neto -7,6 %, margen 18,9 % (-2,81 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. EBITDA -16,7 %: el mercado de televisión cae un 4,6 % y los gastos de personal (+6,9 %) y otros gastos (+6,7 %) suben por nuevos negocios e inflación. No encuentro en el informe un motivo extraordinario; deterioro real (documento: «2025-07-23 Atresmedia Resultados 1S25 CNMV»).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 449.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 85.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 18.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 76.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 63.8
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -68.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-10-23",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -2,3 %, EBITDA -22,2 %, margen 13,0 % (-3,31 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. EBITDA -22,2 % con el mercado de televisión -5,1 %; los ingresos solo caen un 2,3 % gracias a producción, radio y compras. Sin extraordinarios en el informe: deterioro real del negocio publicitario (documento: «2025-10-23 Nota de Comunicación de Resultados 9M2025»).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 696.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 90.2
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 77.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2026-02-26",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -2,7 %, EBITDA -50,6 %, beneficio neto -48,4 %, margen 9,8 % (-9,51 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. El EBITDA publicado (-50,6 %) incluye una provisión de 45,6 M€ por el plan de bajas incentivadas, que no se repite. Pero sin ella el EBITDA sigue cayendo un 25 % (133,3 frente a 177,6 M€), así que el rojo es real y no lo corrijo (documento: «2026-02-26 Resultados del ejercicio 2025»). Ojo: el anuncio da 45,6 M€ de provisión; el catalizador de la tesis usa 37,9 M€.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 894.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 87.7
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 9.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 70.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 62.1
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -45.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-04-23",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -2,4 %, EBITDA -11,8 %, margen 16,0 % (-1,71 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora. Ingresos -2,4 % y EBITDA -11,7 %: la publicidad audiovisual baja un 2,9 % con el mercado total subiendo un 2 %, y producción y distribución cae un 24,7 %. Pierde frente al mercado; no veo motivo extraordinario (documento: «2026-04-23 Nota de Comunicación de Resultados del 1er Trimestre de 2026»).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 237.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 38.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 33.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-07-23",
+   "fechaOrigen": "portada",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,1 %, EBITDA +2,5 %, beneficio neto -11,6 %, margen 19,0 % (+0,07 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales. Verde. El beneficio neto baja un 11,6 % porque en el primer semestre de 2025 entraron 9,5 M€ de intereses de demora de Hacienda, que no se repiten (documentos: «2026-02-26 Resultados del ejercicio 2025» y «2026-10-22 Nota Comunicación de Resultados 9M2026»).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 458.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 87.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 78.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 56.4
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -55.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,0 %, EBITDA +1,2 %, margen 12,6 % (-0,35 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde, pero ayudado por el perímetro: AMVIA (antes Clear Channel España) aporta 12,8 M€ de ingresos en dos meses; sin ella los ingresos subirían en torno a un 2,2 %. El EBITDA ajustado sin NIIF 16 es 88,2 M€ frente a 90,2 M€ (-2,2 %). La plusvalía de Fever (205 M€) va a patrimonio, no a resultados (documento: «2026-10-22 Nota Comunicación de Resultados 9M2026»).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 724.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 91.3
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 74.3
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Adquisición",
+     "hecho": "Toma de control efectiva de AMVIA (antes Clear Channel España), uno de los principales operadores de publicidad exterior en España, en agosto de 2026; aporta 12,8 M€ de ingresos en sus dos primeros meses en el Grupo.",
+     "impacto": "=",
+     "valoracion": "Diversifica ingresos fuera de la publicidad audiovisual, que sigue cayendo, pero aún no aporta margen por los costes de integración y el efecto NIIF16; a vigilar su contribución a EBITDA en los próximos trimestres (la propia empresa estima para AMVIA en términos anualizados unos 100 M€ de ingresos y un margen EBITDA cercano al 18%)."
+    },
+    {
+     "tipo": "Desinversión",
+     "hecho": "Plusvalía neta de 205 M€ por la venta de Fever Labs, registrada directamente en Patrimonio Neto (no en la cuenta de resultados ni en el EBITDA).",
+     "impacto": "+",
+     "valoracion": "Refuerza la posición financiera neta (233,2 M€ de caja), que financia parte del dividendo extraordinario anunciado; no afecta a la lectura operativa del trimestre."
+    }
+   ],
+   "origen": "metodo-v3"
+  }
+ ]
 }

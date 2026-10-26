@@ -1,749 +1,819 @@
 {
-  "schemaVersion": 2,
-  "ticker": "SAN",
-  "empresa": "Banco Santander",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "SAN",
+ "empresa": "Banco Santander, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +12,3 %, margen neto +12,9 %, beneficio atribuido +18,2 %, margen 54,1 % (+0,28 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 13,4 %. Verde: solo RoTE acumulado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 10396.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 13922.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 2571.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 14.38
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 12.2
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 3.05
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.05
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 44.1
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1041388.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 51919.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "M. intereses",
+     "valor": 38619.0
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 20920.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 28010.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 5241.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 14.49
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 12.2
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 3.07
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.08
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 44.2
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1045044.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 52517.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "M. bruto",
+     "valor": 52117.0
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 32139.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 42871.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 8143.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 14.83
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 12.3
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 3.13
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.13
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 44.0
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1039172.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 53568.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Beneficio atribuido",
+     "valor": 9605.0
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 43261.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 57423.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 11076.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 15.06
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 12.3
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 3.14
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.18
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 44.1
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1036349.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 54161.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "RoTE",
+     "valor": 13.37
     },
     {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "El margen de intereses +15.3 %, el margen bruto +8.1 %, el beneficio atribuido +10.9 % contra el mismo periodo del ejercicio anterior, con el RoTE acumulado en 14.9 % (banda del §10.1: verde ≥ 14.0, rojo < 11.0). ",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 11983.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 15045.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 2852.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 14.9
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 12.3
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 3.1
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.2
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 42.6
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1049533.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 55305.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "CET1",
+     "valor": 12.04
     },
     {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "El margen de intereses +12.1 %, el margen bruto +9.7 %, el beneficio atribuido +15.6 % contra el mismo periodo del ejercicio anterior, con el RoTE acumulado en 15.9 % (banda del §10.1: verde ≥ 14.0, rojo < 11.0). ",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 23457.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 30715.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 6059.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 15.9
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 12.5
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 3.02
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.21
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 41.6
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1065596.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 57000.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Morosidad",
+     "valor": 3.08
     },
     {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "El margen de intereses +7.9 %, el margen bruto +6.9 %, el beneficio atribuido +14.3 % contra el mismo periodo del ejercicio anterior, con el RoTE acumulado en 16.2 % (banda del §10.1: verde ≥ 14.0, rojo < 11.0). ",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 34682.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 45850.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 9309.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 16.2
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 12.5
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 3.06
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.18
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 41.7
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1067419.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 57801.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Coste del riesgo",
+     "valor": 0.99
     },
     {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "El margen de intereses +7.9 %, el margen bruto +7.8 %, el beneficio atribuido +13.5 % contra el mismo periodo del ejercicio anterior, con el RoTE acumulado en 16.3 % (banda del §10.1: verde ≥ 14.0, rojo < 11.0). ",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 46668.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 61876.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 12574.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 16.3
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 12.8
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 3.05
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.15
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 41.8
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1054069.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 59317.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Eficiencia",
+     "valor": 45.8
     },
     {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "El margen de intereses -5.0 %, el margen bruto +3.3 %, el beneficio atribuido +19.3 % contra el mismo periodo del ejercicio anterior, con el RoTE acumulado en 16.6 % (banda del §10.1: verde ≥ 14.0, rojo < 11.0). ",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 11378.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 15537.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 3402.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 16.6
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 12.9
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 2.99
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.14
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 41.8
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1064416.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 60651.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Préstamos",
+     "valor": 1036004.0
     },
     {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "El margen de intereses -9.6 %, el margen bruto -5.0 %, el beneficio atribuido +12.8 % contra el mismo periodo del ejercicio anterior, con el RoTE acumulado en 16.7 % (banda del §10.1: verde ≥ 14.0, rojo < 11.0).   ·  QUIEBRE DE PERÍMETRO: desde este informe Polonia va en «actividades interrumpidas» y el banco rehace hacia abajo los comparativos de 2024 (1S-2024: margen de intereses de 23.457 a 22.056 M€; ejercicio 2024: de 46.668 a 43.787). Este monitor guarda cada periodo COMO SE PUBLICÓ EN SU DÍA, así que el crecimiento que se lee entre 2024 y 2025 en las dos primeras columnas está exagerado a la baja: la caída comparable del margen de intereses del ejercicio es del −3,29 % y no del −9,26 %, y el margen bruto no cayó, subió un 0,50 %. Medido: el COLOR de los tres periodos afectados no cambia con ninguna de las dos varas. El beneficio atribuido no se ve afectado.",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 21211.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 29182.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 6833.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 16.7
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 13.0
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 2.91
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.14
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 41.5
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1010727.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 61100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "El margen de intereses -9.0 %, el margen bruto -5.1 %, el beneficio atribuido +11.0 % contra el mismo periodo del ejercicio anterior, con el RoTE acumulado en 16.8 % (banda del §10.1: verde ≥ 14.0, rojo < 11.0). ",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 31559.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 43507.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 10337.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 16.8
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 13.1
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 2.92
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.13
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 41.3
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1027209.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 62258.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "El margen de intereses -9.3 %, el margen bruto -5.2 %, el beneficio atribuido +12.1 % contra el mismo periodo del ejercicio anterior, con el RoTE acumulado en 17.1 % (banda del §10.1: verde ≥ 14.0, rojo < 11.0). ",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 42348.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 58670.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 14101.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 17.1
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 13.5
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 2.91
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.15
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 41.2
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1037288.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 62982.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "El margen de intereses -3.2 %, el margen bruto -2.6 %, el beneficio atribuido +60.3 % contra el mismo periodo del ejercicio anterior, con el RoTE acumulado en 17.3 % (banda del §10.1: verde ≥ 14.0, rojo < 11.0). ",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 11019.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 15140.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 5455.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 17.3
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 14.4
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 3.0
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.14
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 42.8
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1070809.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 60435.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO en los catorce PDF: sólo el informe del 4T-2025 imprime su fecha de publicación («3 de febrero de 2026»); los otros trece no la llevan en ninguna página. Para no mezclar dos varas dentro de la misma serie, TODAS las revisiones llevan la fecha de CIERRE de su periodo. NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "El margen de intereses +7.1 %, el margen bruto +5.6 %, el beneficio atribuido +31.3 % contra el mismo periodo del ejercicio anterior, con el RoTE acumulado en 17.4 % (banda del §10.1: verde ≥ 14.0, rojo < 11.0). ",
-      "metricas": [
-        {
-          "nombre": "M. intereses (M€)",
-          "valor": 22711.0
-        },
-        {
-          "nombre": "M. bruto (M€)",
-          "valor": 30822.0
-        },
-        {
-          "nombre": "BNA (M€)",
-          "valor": 8973.0
-        },
-        {
-          "nombre": "RoTE (%)",
-          "valor": 17.4
-        },
-        {
-          "nombre": "CET1 (%)",
-          "valor": 14.0
-        },
-        {
-          "nombre": "Morosidad (%)",
-          "valor": 2.93
-        },
-        {
-          "nombre": "Coste riesgo (%)",
-          "valor": 1.15
-        },
-        {
-          "nombre": "Eficiencia (%)",
-          "valor": 42.8
-        },
-        {
-          "nombre": "Préstamos clientela (M€)",
-          "valor": 1149162.0
-        },
-        {
-          "nombre": "Clientes digitales (miles)",
-          "valor": 61998.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Clientes digitales (miles)",
+     "valor": 51470.0
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +13,1 %, margen neto +14,9 %, beneficio atribuido +1,1 %, margen 55,9 % (+0,84 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 14,4 %. Verde: solo RoTE acumulado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 10396.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 13922.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 2571.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 14.38
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.2
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.05
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.05
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 44.1
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1041388.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 51919.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +11,5 %, margen neto +13,5 %, beneficio atribuido +7,1 %, margen 55,4 % (+0,97 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 14,5 %. Verde: solo RoTE acumulado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 20920.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 28010.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 5241.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 14.49
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.2
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.07
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.08
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 44.2
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1045044.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 52517.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +11,1 %, margen neto +13,9 %, beneficio atribuido +11,3 %, margen 55,8 % (+1,36 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 14,8 %. Verde: solo RoTE acumulado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 32139.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 42871.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 8143.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 14.83
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.3
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.13
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.13
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 44.0
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1039172.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 53568.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +10,2 %, margen neto +13,4 %, beneficio atribuido +15,3 %, margen 55,7 % (+1,59 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 15,1 %. Verde: solo RoTE acumulado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 43261.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 57423.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 11076.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 15.06
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.3
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.14
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.18
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 44.1
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1036349.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 54161.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +8,1 %, margen neto +9,3 %, beneficio atribuido +10,9 %, margen 56,5 % (+0,62 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 14,9 %. Verde: solo RoTE acumulado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 11983.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 15045.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 2852.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 14.9
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.3
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.1
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.2
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 42.6
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1049533.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 55305.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +9,7 %, margen neto +14,6 %, beneficio atribuido +15,6 %, margen 58,0 % (+2,51 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 15,9 %. Verde: solo RoTE acumulado (la señal única de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 23457.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 30715.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 6059.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 15.9
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.5
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.02
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.21
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 41.6
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1065596.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 57000.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +6,9 %, margen neto +11,2 %, beneficio atribuido +14,3 %, margen 58,0 % (+2,22 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 16,2 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 34682.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 45850.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 9309.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 16.2
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.5
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.06
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.18
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 41.7
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1067419.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 57801.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +7,8 %, margen neto +12,0 %, beneficio atribuido +13,5 %, margen 57,9 % (+2,20 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 16,3 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 46668.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 61876.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 12574.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 16.3
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.8
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.05
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.15
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 41.8
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1054069.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 59317.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +3,3 %, margen neto +6,5 %, beneficio atribuido +19,3 %, margen 58,2 % (+1,75 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 16,6 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 11378.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 15537.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 3402.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 16.6
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.9
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.99
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.14
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 41.8
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1064416.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 60651.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +0,5 %, margen neto +1,6 %, beneficio atribuido +12,8 %, margen 57,6 % (+0,62 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 16,7 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 21211.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 29182.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 6833.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 16.7
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.0
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.91
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.14
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 41.5
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1010727.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 61100.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +0,6 %, margen neto +1,9 %, beneficio atribuido +11,0 %, margen 57,8 % (+0,75 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 16,8 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 31559.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 43507.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 10337.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 16.8
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.1
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.92
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.13
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 41.3
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1027209.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 62258.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +0,5 %, margen neto +2,2 %, beneficio atribuido +12,1 %, margen 57,9 % (+0,96 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 17,1 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 42348.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 58670.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 14101.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 17.1
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.5
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.91
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.15
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 41.2
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1037288.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 62982.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +3,8 %, margen neto +8,5 %, beneficio atribuido +60,3 %, margen 59,5 % (+2,54 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 17,3 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 11019.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 15140.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 5455.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 17.3
+    },
+    {
+     "nombre": "CET1",
+     "valor": 14.4
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.0
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.14
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 42.8
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1070809.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 60435.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +6,4 %, margen neto +10,3 %, beneficio atribuido +31,3 %, margen 59,3 % (+2,12 pp) frente al mismo periodo del año anterior. RoTE acumulado (la señal única de la tesis): 17,4 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 22711.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 30822.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 8973.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 17.4
+    },
+    {
+     "nombre": "CET1",
+     "valor": 14.0
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.93
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 1.15
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 42.8
+    },
+    {
+     "nombre": "Préstamos",
+     "valor": 1149162.0
+    },
+    {
+     "nombre": "Clientes digitales (miles)",
+     "valor": 61998.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

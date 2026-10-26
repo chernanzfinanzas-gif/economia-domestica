@@ -1,749 +1,693 @@
 {
-  "schemaVersion": 2,
-  "ticker": "PRM",
-  "empresa": "Prim",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "PRM",
+ "empresa": "Prim, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -3,1 %, EBITDA +7,9 %, margen 14,4 % (+1,47 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 54.57
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 49.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 6.62
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 12.13
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 4.43
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 2.19
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.277
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Ingresos",
+     "valor": 37.2
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 108.741
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 50.32
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 14.99
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 13.79
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 10.415
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 4.575
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 8.013
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.47
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": 58.665
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": 49.849
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBITDA",
+     "valor": 5.3
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 154.8
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 49.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 17.7
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 11.43
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 10.5
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 7.2
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.459
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 216.62
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 49.33
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 26.055
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 12.03
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 16.012
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 10.043
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 12.67
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.745
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": 112.227
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": 103.345
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocios +3.5 %, EBITDA +2.7 %, Resultado de explotación -7.4 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 49.3 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 49.3 %, que es la señal única de la tesis, y gana 0.20 pp contra el mismo periodo del ejercicio anterior.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 56.5
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 49.3
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 6.8
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 12.04
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 4.1
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 2.7
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.185
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocios +10.1 %, EBITDA -3.3 %, Resultado de explotación -13.1 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 49.6 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 49.6 %, que es la señal única de la tesis, y cede 0.75 pp contra el mismo periodo del ejercicio anterior.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 119.693
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 49.57
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 14.495
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 12.11
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 9.055
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 5.44
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 6.767
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.4
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": 62.377
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": 57.121
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocios +9.5 %, EBITDA +5.6 %, Resultado de explotación +0.0 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 49.1 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 49.1 %, que es la señal única de la tesis, plano contra el mismo periodo del ejercicio anterior.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 169.5
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 49.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 18.7
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 11.03
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 10.5
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 8.2
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.459
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocios +7.7 %, EBITDA +2.6 %, Resultado de explotación -2.5 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 47.4 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 47.4 %, que es la señal única de la tesis, y cede 1.98 pp contra el mismo periodo del ejercicio anterior.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 233.36
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 47.35
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 26.734
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 11.46
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 15.614
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 11.12
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 10.92
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.642
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": 118.748
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": 114.555
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocios +8.8 %, EBITDA +25.0 %, Resultado de explotación +39.0 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 50.3 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 50.3 %, que es la señal única de la tesis, y gana 1.00 pp contra el mismo periodo del ejercicio anterior.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 61.5
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 50.3
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 8.5
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 13.82
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 5.7
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 2.8
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.281
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocios +6.1 %, EBITDA +28.6 %, Resultado de explotación +44.2 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 51.8 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 51.8 %, que es la señal única de la tesis, y gana 2.26 pp contra el mismo periodo del ejercicio anterior.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 127.012
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 51.83
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 18.645
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 14.68
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 13.054
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 5.591
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 10.399
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.61
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": 65.192
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": 61.007
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocios +7.4 %, EBITDA +31.0 %, Resultado de explotación +53.3 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 51.0 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 51.0 %, que es la señal única de la tesis, y gana 1.90 pp contra el mismo periodo del ejercicio anterior.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 182.1
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 51.0
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 24.5
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 13.45
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 16.1
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 8.4
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.717
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocios +7.9 %, EBITDA +26.9 %, Resultado de explotación +43.0 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 51.0 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 51.0 %, que es la señal única de la tesis, y gana 3.67 pp contra el mismo periodo del ejercicio anterior.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 251.89
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 51.02
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 33.925
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 13.47
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 22.331
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 11.594
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 16.68
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.981
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": 125.601
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": 123.832
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocios +0.5 %, EBITDA -12.9 %, Resultado de explotación sin comparativo contra el mismo periodo del ejercicio anterior, con el margen bruto en 50.6 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 50.6 %, que es la señal única de la tesis, y gana 0.30 pp contra el mismo periodo del ejercicio anterior.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 61.8
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 50.6
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 7.4
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 11.97
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 3.2
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.19
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cifra de negocios -1.0 %, EBITDA -18.4 %, Resultado de explotación -29.7 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 51.3 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 51.3 %, que es la señal única de la tesis, y cede 0.52 pp contra el mismo periodo del ejercicio anterior.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 125.769
-        },
-        {
-          "nombre": "Margen bruto (%)",
-          "valor": 51.31
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 15.208
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 12.09
-        },
-        {
-          "nombre": "Resultado de explotación (M€)",
-          "valor": 9.172
-        },
-        {
-          "nombre": "Amortización (M€)",
-          "valor": 6.036
-        },
-        {
-          "nombre": "Resultado neto (M€)",
-          "valor": 6.75
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 0.4
-        },
-        {
-          "nombre": "Ventas Tecnologías Médicas (M€)",
-          "valor": 64.994
-        },
-        {
-          "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-          "valor": 59.368
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Margen EBITDA",
+     "valor": 14.4
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +27,0 %, EBITDA +2,6 %, margen 11,7 % (-2,77 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 47.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 5.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +21,2 %, EBITDA -7,7 %, beneficio neto -35,3 %, margen 12,0 % (-3,77 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 99.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 11.9
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 7.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 6.8
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 5.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +17,1 %, EBITDA -26,9 %, beneficio neto -51,8 %, margen 9,0 % (-5,39 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 197.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 17.7
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 9.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 9.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 8.4
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 14.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +15,0 %, EBITDA +20,8 %, margen 12,1 % (+0,58 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 54.6
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 6.6
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,9 %, EBITDA +25,9 %, beneficio neto +17,8 %, margen 13,8 % (+1,76 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 109.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 15.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 10.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 8.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 19.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios (M€)",
+     "valor": 154.8
+    },
+    {
+     "nombre": "Margen bruto (%)",
+     "valor": 49.1
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 17.7
+    },
+    {
+     "nombre": "Margen EBITDA (%)",
+     "valor": 11.43
+    },
+    {
+     "nombre": "Resultado de explotación (M€)",
+     "valor": 10.5
+    },
+    {
+     "nombre": "Amortización (M€)",
+     "valor": 7.2
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 0.459
+    },
+    {
+     "nombre": "Ventas Tecnologías Médicas (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
+     "valor": null
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,8 %, EBITDA +47,0 %, beneficio neto +51,0 %, margen 12,0 % (+3,05 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 217.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 26.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 16.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 12.7
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 22.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,4 %, EBITDA -18,1 %, margen 12,0 % (-3,15 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 56.5
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 6.8
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,1 %, EBITDA -3,3 %, beneficio neto -15,5 %, margen 12,1 % (-1,68 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 120.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 14.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 9.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 6.8
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 13.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +9.5 %, EBITDA +5.6 %, Resultado de explotación +0.0 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 49.1 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 49.1 %, que es la señal única de la tesis, plano contra el mismo periodo del ejercicio anterior.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios (M€)",
+     "valor": 169.5
+    },
+    {
+     "nombre": "Margen bruto (%)",
+     "valor": 49.1
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 18.7
+    },
+    {
+     "nombre": "Margen EBITDA (%)",
+     "valor": 11.03
+    },
+    {
+     "nombre": "Resultado de explotación (M€)",
+     "valor": 10.5
+    },
+    {
+     "nombre": "Amortización (M€)",
+     "valor": 8.2
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 0.459
+    },
+    {
+     "nombre": "Ventas Tecnologías Médicas (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
+     "valor": null
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,7 %, EBITDA +2,6 %, beneficio neto -13,8 %, margen 11,5 % (-0,57 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 233.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 26.7
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 15.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 10.9
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 10.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,4 %, EBITDA +25,0 %, margen 13,8 % (+1,72 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +9,4 %, EBITDA +25,0 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 61.5
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 8.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,1 %, EBITDA +28,6 %, beneficio neto +53,7 %, margen 14,7 % (+2,57 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +6,1 %, EBITDA +28,6 %, beneficio +53,7 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 127.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 18.6
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 13.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 10.4
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 13.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +7.4 %, EBITDA +31.0 %, Resultado de explotación +53.3 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 51.0 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 51.0 %, que es la señal única de la tesis, y gana 1.90 pp contra el mismo periodo del ejercicio anterior.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios (M€)",
+     "valor": 182.1
+    },
+    {
+     "nombre": "Margen bruto (%)",
+     "valor": 51.0
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 24.5
+    },
+    {
+     "nombre": "Margen EBITDA (%)",
+     "valor": 13.45
+    },
+    {
+     "nombre": "Resultado de explotación (M€)",
+     "valor": 16.1
+    },
+    {
+     "nombre": "Amortización (M€)",
+     "valor": 8.4
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 0.717
+    },
+    {
+     "nombre": "Ventas Tecnologías Médicas (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
+     "valor": null
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +8,0 %, EBITDA +26,9 %, beneficio neto +52,8 %, margen 13,5 % (+2,01 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +8,0 %, EBITDA +26,9 % y beneficio +52,8 %; es la base alta contra la que se compara 2026.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 252.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 33.9
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 22.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 16.7
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -1.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +0.5 %, EBITDA -12.9 %, Resultado de explotación sin comparativo contra el mismo periodo del ejercicio anterior, con el margen bruto en 50.6 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 50.6 %, que es la señal única de la tesis, y gana 0.30 pp contra el mismo periodo del ejercicio anterior.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios (M€)",
+     "valor": 61.8
+    },
+    {
+     "nombre": "Margen bruto (%)",
+     "valor": 50.6
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 7.4
+    },
+    {
+     "nombre": "Margen EBITDA (%)",
+     "valor": 11.97
+    },
+    {
+     "nombre": "Resultado de explotación (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "Amortización (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 3.2
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 0.19
+    },
+    {
+     "nombre": "Ventas Tecnologías Médicas (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
+     "valor": null
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,0 %, EBITDA -18,4 %, beneficio neto -35,1 %, margen 12,1 % (-2,59 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: ventas −1,0 %, EBITDA −18,4 % (15,2 frente a 18,6 M€), beneficio −35,1 % y margen EBITDA 12,1 % (−2,6 puntos). En la carpeta no está el informe del primer semestre; el del primer trimestre atribuye la caída a una causa del propio negocio: costes crecientes del plan de crecimiento con ventas planas, más huelga de médicos y clima en enero-febrero (documento: «2026-05-04 Presentación de resultado Grupo Prim primer trimestre 2026»). Restando el trimestre, el segundo trimestre sale aún peor (EBITDA cerca de −23 %), así que no fue solo cosa de enero y febrero. No encuentro en los informes un motivo extraordinario: el rojo se mantiene.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 126.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 15.2
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 9.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 6.8
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -1.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

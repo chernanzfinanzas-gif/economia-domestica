@@ -1,957 +1,889 @@
 {
-  "schemaVersion": 2,
-  "ticker": "EBRO",
-  "empresa": "Ebro Foods",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "EBRO",
+ "empresa": "Ebro Foods, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -8,9 %, EBITDA +0,0 %, beneficio neto +10,6 %, margen 13,4 % (+1,19 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "fecha": "2023-04-26",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +11,6 % pero por PRECIO: se traspasó la inflación de materias primas, con el Basmati +80 %. La deuda neta cierra en 743,9 M€, 144 por encima del umbral de 600 del §10.1, y el margen cede a 11,9 %.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 810.2
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 23.4
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 96.3
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 11.9
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 12.6
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 43.8
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 10.6
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 743.9
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 34
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 31
-        }
-      ],
-      "periodoDisplay": "1T",
-      "hechos": [
-        {
-          "tipo": "Otros",
-          "hecho": "Concentracion de toda la actividad de InHarvest en una sola planta para mejorar su productividad, tras la compra de sus activos.",
-          "impacto": "+",
-          "valoracion": "Primera senal de que la integracion se gestiona por eficiencia y no por volumen. Pequeña en importe, pero marca el patron que se repite toda la serie: Ebro compra y despues racionaliza."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "En marcha fuertes inversiones de nueva capacidad fabril en productos de microondas en Europa y Norteamerica, con entrega escalonada entre el 4T23 y el final de 2024.",
-          "impacto": "+",
-          "valoracion": "Es el CAPEX de crecimiento que va a deprimir la conversion EBITDA→FCL durante dos años —el KPI del §10.1 que pide ≥45 %— antes de mejorarla. Hay que leer el FCL bajo de 2023-2024 con esto delante."
-        }
-      ]
+     "nombre": "Ingresos",
+     "valor": 586.0
     },
     {
-      "periodo": "2023-Q2",
-      "fecha": "2023-07-26",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "El beneficio despega (+64,1 %) pero la deuda toca el MÁXIMO de la serie, 778,5 M€, con un apalancamiento del 36,1 %. El circulante sigue absorbiendo caja por precios de stock altos.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1557.9
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 41.8
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 194.8
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 12.5
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 13
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 93.1
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 11.2
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 778.5
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 36.1
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 62.3
-        }
-      ],
-      "periodoDisplay": "1S",
-      "hechos": [
-        {
-          "tipo": "Otros",
-          "hecho": "Concluida la integracion de InHarvest en Riviana con el cierre de la planta de Woodland y la consolidacion de toda la actividad en Colusa.",
-          "impacto": "+",
-          "valoracion": "Ejecucion limpia y en plazo de lo anunciado el trimestre anterior. Es el tipo de evidencia que sostiene la nota de Management del §7."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Se recupera un pago de 25,1 MEUR ligado a la plusvalia de la venta de las acciones de Panzani, adelantado en ejercicios anteriores.",
-          "impacto": "+",
-          "valoracion": "Caja no recurrente. No cambia la tesis; explica parte de la mejora de deuda del semestre sin que sea generacion del negocio."
-        }
-      ]
+     "nombre": "EBITDA",
+     "valor": 78.3
     },
     {
-      "periodo": "2023-Q3",
-      "fecha": "2023-10-31",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "La deuda cae 190 M€ en un trimestre y vuelve por debajo del umbral (588,2 M€) al reducirse inventarios. Ventas +5,7 % y beneficio +60,9 %: el trimestre en que se enderezó el ciclo.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 2306.8
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 64.7
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 284.4
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 12.3
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 12.7
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 140.1
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 11.9
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 588.2
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 26.4
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 102.5
-        }
-      ],
-      "periodoDisplay": "9M",
-      "hechos": [
-        {
-          "tipo": "Desinversión",
-          "hecho": "Venta de la fabrica de Woodland, adquirida con los activos de InHarvest, con un ingreso de 10,6 MEUR.",
-          "impacto": "+",
-          "valoracion": "Cierra la racionalizacion iniciada en 1T23 y monetiza el activo sobrante. Coherente: no es una venta para tapar un agujero de caja, que es lo que vigila el predictor b5 de la checklist de dividendo."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Plan inversor confirmado: doblar la capacidad de doypacks en Jerez y, en Riviana, duplicar la de vasitos y terminar su primera planta de doypacks, todo con horizonte 2024.",
-          "impacto": "+",
-          "valoracion": "El pico de CAPEX queda fechado: 2024. Es la promesa contra la que hay que medir el FCL de 2025 y 2026 —y el §10.1 pide >150 M€—."
-        }
-      ]
+     "nombre": "Margen EBITDA",
+     "valor": 13.4
     },
     {
-      "periodo": "2023-Q4",
-      "fecha": "2024-02-29",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cierre con las anclas del §10.1 cumplidas: ventas +3,9 % (>3 %), deuda 570,4 M€ (<600) y ROCE-A 12,6 % (>10 %). El margen recupera a 12,6 %.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 3084.5
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 86.3
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 387.2
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 12.6
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 12.7
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 187
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 12.6
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 570.4
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 26.1
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 141.7
-        }
-      ],
-      "periodoDisplay": "FY",
-      "hechos": [
-        {
-          "tipo": "Dividendo",
-          "hecho": "Tras varios años con el dividendo ordinario sostenido, la compañia anuncia que propondra a la JGA un incremento del 15,8 %, hasta 0,66 EUR/accion.",
-          "impacto": "+",
-          "valoracion": "El hecho mas relevante del año para la tesis de renta: rompe cuatro ejercicios de DPA plano en 0,57 €. Activa la rama REFUERZA del KPI «DPA crece todos los años» del §10.1 — por primera y, visto lo visto, casi ultima vez en la serie."
-        },
-        {
-          "tipo": "Desinversión",
-          "hecho": "El 29 de diciembre de 2023 se vende el 100 % de Ebro Frost North America Inc. a Riviana Foods Inc. por 54.299 miles de euros, con un resultado positivo de 49.799 miles de euros antes de impuestos para Ebro Foods, S.A.; el 3 de enero de 2024 Ebro Frost North America se fusiona en Riviana.",
-          "impacto": "=",
-          "valoracion": "CUIDADO CON LEER ESTO COMO UNA VENTA: Riviana es filial al 100 % del propio Grupo. Es una reorganizacion INTRAGRUPO — no sale nada del perimetro consolidado y la plusvalia de 49,8 M€ solo existe en las cuentas individuales de la matriz. Quien la cruce con el resultado consolidado creera ver un extraordinario que no esta."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Se inician reorganizaciones societarias en Benelux, Reino Unido y Canada para obtener ahorros y sinergias.",
-          "impacto": "+",
-          "valoracion": "Simplificacion de estructura sin coste anunciado. Consistente con la expansion de margen EBITDA-A que el §10.3 recoge de 2023 en adelante."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Los cuatro prestamos por 350 MEUR firmados a finales de 2021, a vencimiento unico en diciembre de 2024 y con un tipo medio del 0,45 %, se reclasifican a corto plazo.",
-          "impacto": "-",
-          "valoracion": "Es la bomba de relojeria del coste financiero, y llega con un año de aviso: 350 M€ al 0,45 % hay que refinanciarlos en el pico de tipos. Explica por adelantado el desplome de la cobertura de intereses que se ve en 2024-2025."
-        }
-      ]
+     "nombre": "EBIT",
+     "valor": 55.3
     },
     {
-      "periodo": "2024-Q1",
-      "fecha": "2024-04-24",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Primera caída de ventas (−0,4 %) y sin embargo el mejor trimestre: margen +1,7 pp hasta 13,6 % y deuda en 507,0 M€. Es el arranque del cambio de mezcla — se cede volumen y se gana margen.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 806.6
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 25.4
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 109.7
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 13.6
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 13.2
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 53.7
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 13.4
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 507
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 22.3
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 34.3
-        }
-      ],
-      "periodoDisplay": "1T",
-      "hechos": [
-        {
-          "tipo": "Otros",
-          "hecho": "Se completa la ampliacion de capacidad de vasitos de Memphis (Riviana), que dara precio mas competitivo desde el 2T24.",
-          "impacto": "+",
-          "valoracion": "Primera de las inversiones del ciclo que entra en produccion. El retorno hay que exigirlo en el margen, no en las ventas."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "La compañia anuncia que durante el ejercicio finalizaran las obras de microondas en Norteamerica y Europa y de gnocchi en Francia, con un menor nivel de CAPEX a partir de 2025, y estima unos 30 MEUR de caja extraordinaria por ventas inmobiliarias.",
-          "impacto": "+",
-          "valoracion": "Compromiso explicito de bajada de CAPEX desde 2025. Medido despues: el CAPEX de 2025 fue 134,9 M€ frente a 155,3 en 2024, asi que cumplio —pero se quedo en el entorno de los 135-155 M€ de siempre, no bajo de escalon. La promesa se cumplio en direccion, no en magnitud."
-        }
-      ]
-    },
-    {
-      "periodo": "2024-Q2",
-      "fecha": "2024-07-29",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +1,4 %, por debajo del +3 % del §10.1, pero beneficio +16,9 % y margen sostenido. La publicidad sube al 3,03 % de las ventas: no se está financiando el margen recortando marca.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1580.1
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 47.9
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 210.5
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 13.3
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 13.3
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 108.9
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 13.6
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 572.5
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 25.7
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 68.5
-        }
-      ],
-      "periodoDisplay": "1S",
-      "hechos": [
-        {
-          "tipo": "Dividendo",
-          "hecho": "La Junta General del 5 de junio de 2024 aprueba un dividendo de 0,66 EUR/accion con cargo al beneficio de 2023 y reservas, por 101.551 miles de euros, en tres pagos de 0,22 EUR.",
-          "impacto": "+",
-          "valoracion": "Confirma en Junta la subida anunciada en febrero. Con el payout resultante todavia en el entorno del 50 %, el reparto queda cubierto: el predictor H2 de la checklist B4 no se acerca al 100 %."
-        }
-      ]
-    },
-    {
-      "periodo": "2024-Q3",
-      "fecha": "2024-10-30",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "ROCE-A en el MÁXIMO de la serie, 14,1 %. Deuda 511,4 M€ y beneficio +20,8 %.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 2346.8
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 72.7
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 308
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 13.1
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 13.1
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 169.2
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 14.1
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 511.4
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 23
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 100.7
-        }
-      ],
-      "periodoDisplay": "9M",
-      "hechos": [
-        {
-          "tipo": "Guidance",
-          "hecho": "La compañia da una prevision numerica de cierre de ejercicio: EBITDA-A de entre 402 y 407 MEUR para FY-2024.",
-          "impacto": "+",
-          "valoracion": "Ebro casi nunca da guia numerica —el §10.3 tiene la fila FY-2026 (GUIA) vacia por eso—, asi que este dato es doblemente util: cerro en 413,1 M€, por ENCIMA de su propio rango. Cuando esta compañia se moja, se queda corta. Es un punto a favor en la lectura del Management del §7."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "La compañia advierte de que el circulante aumentara al cierre del ejercicio por el sobrecoste de los fletes y la necesidad de volver a aprovisionar arroz en barcos completos.",
-          "impacto": "-",
-          "valoracion": "Toca directamente el riesgo nº1 del §8.1 —el ciclo de circulante del arroz, con alarma en CCC > 190 dias dos trimestres seguidos—. Y es la propia compañia quien lo anuncia: no es una sorpresa, es un mecanismo conocido que se repite cada vez que los fletes suben."
-        }
-      ]
-    },
-    {
-      "periodo": "2024-Q4",
-      "fecha": "2025-02-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Buen cierre —beneficio +11,2 %, ROCE-A 14,0 %— con UN AVISO: las ventas crecen +1,8 %, segundo año por debajo del +3 % que pide el §10.1. La deuda queda en 593,2 M€, a 7 del umbral.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 3140.5
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 94.7
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 413.1
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 13.2
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 13.3
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 207.9
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 14
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 593.2
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 25.5
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 155.3
-        }
-      ],
-      "periodoDisplay": "FY",
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "El 27 de noviembre de 2024 Grupo Tradifin, S.L. y Hercalianz Investing Group, S.L. renuncian como consejeros para ser sustituidos por las personas fisicas que les representaban, don Felix Hernandez Callejas y doña Blanca Hernandez Rodriguez, que aceptan el cargo ese mismo dia. Ambas sociedades siguen siendo accionistas significativos.",
-          "impacto": "=",
-          "valoracion": "No cambia el control: las mismas personas, ahora a titulo personal. Lo relevante para el §7 es que aumenta la transparencia del consejo —desaparecen dos consejeros persona juridica— sin alterar el nucleo accionarial familiar."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Al vencimiento de diciembre de 2024 se amortizan los 350 MEUR de prestamos: 175 con tesoreria propia y 175 con tres prestamos nuevos —50 MEUR a tres años al 2,40 % y 125 MEUR a un año a Euribor + 0,25 %—, mas 10 MEUR a dos años al 3 % firmados en julio.",
-          "impacto": "-",
-          "valoracion": "Aqui esta la explicacion de la caida de la cobertura de intereses de 32,6x (2016) a 17,4x (2025): la deuda pasa del 0,45 % al 2,4-3 %. Sigue siendo una cobertura holgadisima —el predictor b2 de B4 no se activa—, pero la trayectoria es la que es, y se debe a un hecho fechado, no a un deterioro del negocio."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "El ejercicio se cierra habiendo superado la DANA de Algemesi, el encarecimiento de los fletes, el retraso en la finalizacion de inversiones de CAPEX y la escasez de personal de mantenimiento en EE.UU. y el norte de Europa.",
-          "impacto": "-",
-          "valoracion": "Cuatro contratiempos operativos en un año y aun asi EBITDA-A record. Es la evidencia de resiliencia que el capitulo ② del dossier cita; tambien deja claro que el retraso del CAPEX empuja gasto hacia 2025."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "El Calendario Corporativo 2025 recoge tres pagos de dividendo ordinario de 0,23 EUR/accion, frente a los 0,22 de 2024.",
-          "impacto": "+",
-          "valoracion": "Segundo año consecutivo de subida (0,66 → 0,69, +4,5 %). Es la ultima subida de la serie: el calendario de 2026 repite 0,23, con lo que el KPI del §10.1 pasa a PLANO — la rama DEBILITA."
-        }
-      ]
-    },
-    {
-      "periodo": "2025-Q1",
-      "fecha": "2025-04-30",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer periodo con ventas Y beneficio a la baja a la vez (−1,8 % y −6,4 %), y la deuda a 0,7 M€ del umbral de 600. El margen sigue subiendo (14,2 %), así que el deterioro es de tamaño, no de calidad.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 792
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 26.2
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 112.1
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 14.2
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 14.3
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 50.3
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 13.7
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 599.3
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 25.7
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 29.9
-        }
-      ],
-      "periodoDisplay": "1T",
-      "hechos": [
-        {
-          "tipo": "Regulatorio",
-          "hecho": "La nueva administracion de EE.UU. anuncia aranceles a las importaciones de Tailandia (36 %), India (27 %) y Europa (20 %), lo que lleva al Grupo a acelerar entregas y a agilizar las importaciones de arroces fragantes y de productos microondas.",
-          "impacto": "-",
-          "valoracion": "Es el disparo de salida del ciclo arancelario que domina los seis trimestres siguientes. Y el mecanismo de daño no es el arancel en si: es que adelantar compras INFLA EL CIRCULANTE, que es el riesgo nº1 del §8.1. La cadena riesgo → evidencia se ve aqui entera."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Los bajos precios del arroz aconsejan tomar posiciones largas de materia prima en varias geografias, incrementando el circulante.",
-          "impacto": "-",
-          "valoracion": "Decision deliberada de la direccion, no un accidente. Es defendible por margen —comprar barato— y es exactamente lo que tensa la deuda dos trimestres despues. La misma decision se lee bien en la cuenta de resultados y mal en el balance."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Termina la ampliacion de capacidad de la fabrica de pasta fresca de Lyon y se prepara el lanzamiento de una pasta alta en proteinas bajo Garofalo.",
-          "impacto": "+",
-          "valoracion": "Sigue el patron: la inversion aterriza en las categorias premium, que son las que sostienen el margen. Sin efecto medible todavia."
-        }
-      ]
-    },
-    {
-      "periodo": "2025-Q2",
-      "fecha": "2025-07-29",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "ROMPE el umbral del §10.1: deuda neta 675,8 M€, 76 por encima de 600, con apalancamiento del 31,2 %. Y llega con ventas −3,0 % y beneficio −10,9 %. Es el único ROJO de la serie y el que habría disparado una señal S2 si el monitor hubiera estado corriendo en julio de 2025.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1533.4
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 48.2
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 212.9
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 13.9
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 14.3
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 97
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 13.4
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 675.8
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 31.2
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 66.3
-        }
-      ],
-      "periodoDisplay": "1S",
-      "hechos": [
-        {
-          "tipo": "Regulatorio",
-          "hecho": "Ebro se une a las asociaciones agrarias para solicitar a la Union Europea un endurecimiento de su posicion arancelaria en defensa de los agricultores europeos.",
-          "impacto": "=",
-          "valoracion": "Ebro juega a dos bandas y conviene decirlo: como industrial se beneficia del arroz asiatico barato, y a la vez pide protegerse de el. Si la UE le hiciera caso, subiria su coste de materia prima. Neutro, y una senal de que el interes del Grupo y el del sector no coinciden."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "La compañia declara que su implantacion industrial en EE.UU. la protege del riesgo arancelario en arroz, y anuncia para el segundo semestre lanzamientos de microondas y el inicio de las ventas de refrigerados de base arroz.",
-          "impacto": "+",
-          "valoracion": "Cierto para el arroz y falso para la pasta, que se fabrica en Italia: es precisamente la division que los aranceles destrozan en 2026. La proteccion es de media empresa, y la mitad desprotegida es la que se rompe."
-        }
-      ]
-    },
-    {
-      "periodo": "2025-Q3",
-      "fecha": "2025-10-29",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "La deuda vuelve dentro del umbral (578,5 M€): el pico del semestre fue estacional, no estructural. Pero ventas y beneficio siguen cayendo (−3,0 % y −8,8 %), tercer periodo consecutivo.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 2276
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 72.3
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 311.5
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 13.7
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 14.1
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 154.3
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 13.3
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 578.5
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 26.1
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 94.8
-        }
-      ],
-      "periodoDisplay": "9M",
-      "hechos": [
-        {
-          "tipo": "Regulatorio",
-          "hecho": "EE.UU. sube el arancel del arroz Jazmine importado de Tailandia del 1 % al 19 % y aplica a India un 25 % mas un 25 % de sancion por la compra de petroleo ruso; el arancel general a la UE pasa del 14,2 % al 15 %.",
-          "impacto": "-",
-          "valoracion": "Riviana entra con stocks maximizados antes de la entrada en vigor, asi que el golpe se difiere a 2026 via subida de precios. Coste estructural nuevo, no un pico: presiona el margen justo donde el §10.1 marca el umbral mas fino."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Arrancan las pruebas de produccion de la nueva planta de doypacks de Memphis (Riviana).",
-          "impacto": "+",
-          "valoracion": "Capacidad en el segmento que mas crece. No mueve el PO: es CAPEX que aun no ha demostrado retorno, y deprime la conversion EBITDA→FCL antes de mejorarla."
-        }
-      ]
-    },
-    {
-      "periodo": "2025-Q4",
-      "fecha": "2026-02-25",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Margen EBITDA-A en RÉCORD (14,0 %) y deuda en 529,4 M€, pero las ventas caen −4,0 %, la peor lectura de la serie, y el beneficio crece +3,4 %, por debajo del +5 % que pide el §10.1.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 3013.6
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 92.3
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 420.7
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 14
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 14.5
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 214.9
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 13.4
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 529.4
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 23
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 134.9
-        }
-      ],
-      "periodoDisplay": "FY",
-      "hechos": [
-        {
-          "tipo": "Regulatorio",
-          "hecho": "Los aranceles de EE.UU. a la pasta seca suben del 1 % al 15 %, con un impacto negativo de 2,5 MEUR en Garofalo, y los de pasta fresca del 6,6 % al 15 %, con 1,6 MEUR de impacto neto para Bertagni. En arroz, la subida del Jazmine y del Basmati supone un impacto neto de 10 MUSD; tras negociar, el basmati baja al 25 % y se negocia el 18 %.",
-          "impacto": "-",
-          "valoracion": "Primera cuantificacion que da la propia compañia del daño arancelario. Permanente mientras no cambie la administracion: perdida de margen ESTRUCTURAL de la division de pasta, no un extraordinario."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "El Grupo declara que ha reducido la deuda bancaria y que mantiene el dividendo a sus accionistas.",
-          "impacto": "=",
-          "valoracion": "«Mantener» no es «crecer». Con el calendario de 2026 repitiendo 0,23 EUR por pago, el KPI «DPA crece todos los años» del §10.1 pasa a PLANO, que es la rama DEBILITA. No dispara el predictor b7 de B4 —no hay lenguaje de revisar ni reconsiderar— pero es el primer año en que ese KPI deja de reforzar."
-        },
-        {
-          "tipo": "Adquisición",
-          "hecho": "En 2026 el Grupo adquiere el 30 % restante de Bertagni 1882 SpA, alcanzando el 100 % del capital.",
-          "impacto": "+",
-          "valoracion": "Consolida al Grupo como segundo productor mundial de pasta fresca y elimina la salida de resultado a minoritarios. Contrapartida: consume caja del ejercicio siguiente justo cuando el §10.1 pide la deuda neta por debajo de 600 M€. Anunciado en el cierre de 2025 y ejecutado en 2026: el efecto se ve en el 1T26."
-        }
-      ]
-    },
-    {
-      "periodo": "2026-Q1",
-      "fecha": "2026-04-30",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Deuda en el MÍNIMO de la serie (459,9 M€, apalancamiento 19,3 %) y publicidad en el máximo relativo (3,45 % de las ventas). Pero las ventas caen −4,6 %, y por primera vez el margen CEDE interanualmente: 13,2 % frente al 14,2 % del 1T25.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 755.5
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 26.1
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 100
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 13.2
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 13.8
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 52.9
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 13
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 459.9
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 19.3
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 28
-        }
-      ],
-      "periodoDisplay": "1T",
-      "hechos": [
-        {
-          "tipo": "Regulatorio",
-          "hecho": "La decision del Tribunal Supremo de EE.UU. del 20 de febrero reduce los costes de importacion de arroces aromaticos y pastas y abre la puerta a la devolucion futura de aranceles ya pagados, del orden de 18 MM USD.",
-          "impacto": "+",
-          "valoracion": "Primera noticia arancelaria favorable de la serie. NO se descuenta en el PO: la devolucion es contingente y sin calendario. Se registra como opcion, no como flujo."
-        },
-        {
-          "tipo": "M&A",
-          "hecho": "Toma de control del 100 % de Bertagni tras adquirir el 30 % en manos de minoritarios.",
-          "impacto": "+",
-          "valoracion": "Mejora el beneficio atribuible por la via de los minoritarios, no por el negocio. Al leer el §10.3 hay que separarlo: parte de la subida del beneficio de 2026 es perimetro, no operativa."
-        },
-        {
-          "tipo": "Regulatorio",
-          "hecho": "Se intensifica la peticion de los agricultores españoles y europeos de aranceles y clausulas de salvaguardia frente a las importaciones de paises EBA; Ebro apoya publicamente la reclamacion.",
-          "impacto": "=",
-          "valoracion": "Continuidad de la doble posicion de 1S25. Sin decision de la UE, no altera la tesis."
-        }
-      ]
-    },
-    {
-      "periodo": "2026-Q2",
-      "fecha": "2026-07-29",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Beneficio +7,1 % y deuda en 472,4 M€. El dato a retener es el de la métrica operativa: el margen del ARROZ sube a 14,8 %, por ENCIMA del consolidado (13,7 %). El arroz va bien; lo que arrastra es la pasta. Tercer año consecutivo de caída de ventas — es lo que sostiene el veredicto ESPERAR del §9.4.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1476.3
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 47.1
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 202.9
-        },
-        {
-          "nombre": "Mg. EBITDA-A (%)",
-          "valor": 13.7
-        },
-        {
-          "nombre": "Mg. EBITDA-A Arroz (%)",
-          "valor": 14.8
-        },
-        {
-          "nombre": "Beneficio Neto (M€)",
-          "valor": 103.9
-        },
-        {
-          "nombre": "ROCE-A (%)",
-          "valor": 13.1
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 472.4
-        },
-        {
-          "nombre": "Apalancamiento DN (%)",
-          "valor": 20
-        },
-        {
-          "nombre": "CAPEX del periodo (M€)",
-          "valor": 61.1
-        }
-      ],
-      "periodoDisplay": "1S",
-      "hechos": [
-        {
-          "tipo": "Adquisición",
-          "hecho": "El 1 de julio se completa la compra de una planta de produccion en Saint Charles (Missouri), donde Bertagni instalara sus primeras lineas de pasta fresca rellena en EE.UU. Inversion inicial de 40 MEUR, con capacidad para triplicar la produccion.",
-          "impacto": "+",
-          "valoracion": "Es la respuesta ESTRUCTURAL a los dos problemas que hunden la pasta —arancel y dolar—: produciendo en EE.UU. desaparecen los dos. El hecho mas importante del semestre y el que mas puede mover la tesis, pero su efecto no llega al P&L en 2026. Hecho posterior al cierre (30-jun): afecta al 9M-2026 en adelante."
-        },
-        {
-          "tipo": "Regulatorio",
-          "hecho": "Garofalo consigue rebajar los aranceles antidumping al 7 %, pero recurre la decision al considerar que no hubo dumping; mientras no haya resolucion firme sigue pagandolos y la Administracion no devolvera los aranceles convencionales ya abonados.",
-          "impacto": "-",
-          "valoracion": "«Rebajado» se lee como buena noticia y no lo es: un 7 % indefinido es un coste permanente sobre la division que peor va. Cruza con el pre-mortem del §8.2 y es una de las patas del ambar."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Problemas de produccion derivados de la implantacion de SAP HANA en Garofalo, con efecto en las ventas de pasta en Italia y EE.UU.",
-          "impacto": "-",
-          "valoracion": "El unico de los tres lastres de la pasta que es TEMPORAL y esta bajo control de la compañia. Si en el 9M-2026 el margen de pasta no recupera, deja de poder atribuirse al ERP y pasa a ser deterioro competitivo. Ese es el contraste que hay que hacer el 28 de octubre."
-        },
-        {
-          "tipo": "Regulatorio",
-          "hecho": "La Union Europea no aprueba el incremento de aranceles ni las clausulas de salvaguardia a las importaciones de arroz solicitadas por el sector.",
-          "impacto": "=",
-          "valoracion": "Neutro para Ebro y negativo para el agricultor europeo: como industrial compra mas barato. Explica que el margen del arroz suba a 14,8 % mientras las ventas caen."
-        },
-        {
-          "tipo": "Regulatorio",
-          "hecho": "Riviana preve recuperar 13 MUSD pagados por aranceles anulados, a la espera de la nueva propuesta arancelaria.",
-          "impacto": "+",
-          "valoracion": "Contingente, sin calendario y sin reconocer. No entra en el PO; se vigila como catalizador del §9.1."
-        }
-      ]
+     "nombre": "Beneficio neto",
+     "valor": 52.8
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +25,9 %, EBITDA +1,3 %, beneficio neto -47,0 %, margen 10,0 % (-2,42 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1459.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 145.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 10.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 95.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 56.7
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 721.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -3,3 %, EBITDA -2,1 %, beneficio neto +5,8 %, margen 12,6 % (+0,15 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1752.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 221.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 152.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 155.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +22,3 %, EBITDA +1,2 %, beneficio neto -48,8 %, margen 10,2 % (-2,12 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2968.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 301.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 10.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 200.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 122.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 763.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-04-26",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +23,9 %, EBITDA +11,2 %, beneficio neto -21,4 %, margen 12,0 % (-1,37 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 726.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 87.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 62.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 41.5
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Otros",
+     "hecho": "Concentracion de toda la actividad de InHarvest en una sola planta para mejorar su productividad, tras la compra de sus activos.",
+     "impacto": "+",
+     "valoracion": "Primera senal de que la integracion se gestiona por eficiencia y no por volumen. Pequeña en importe, pero marca el patron que se repite toda la serie: Ebro compra y despues racionaliza."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "En marcha fuertes inversiones de nueva capacidad fabril en productos de microondas en Europa y Norteamerica, con entrega escalonada entre el 4T23 y el final de 2024.",
+     "impacto": "+",
+     "valoracion": "Es el CAPEX de crecimiento que va a deprimir la conversion EBITDA→FCL durante dos años —el KPI del §10.1 que pide ≥45 %— antes de mejorarla. Hay que leer el FCL bajo de 2023-2024 con esto delante."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-07-26",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,8 %, EBITDA +30,9 %, beneficio neto +64,1 %, margen 12,2 % (+2,24 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1558.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 190.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 140.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 93.1
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 779.0
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Otros",
+     "hecho": "Concluida la integracion de InHarvest en Riviana con el cierre de la planta de Woodland y la consolidacion de toda la actividad en Colusa.",
+     "impacto": "+",
+     "valoracion": "Ejecucion limpia y en plazo de lo anunciado el trimestre anterior. Es el tipo de evidencia que sostiene la nota de Management del §7."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "Se recupera un pago de 25,1 MEUR ligado a la plusvalia de la venta de las acciones de Panzani, adelantado en ejercicios anteriores.",
+     "impacto": "+",
+     "valoracion": "Caja no recurrente. No cambia la tesis; explica parte de la mejora de deuda del semestre sin que sea generacion del negocio."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-10-31",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +24,6 %, EBITDA +10,7 %, beneficio neto -43,9 %, margen 11,2 % (-1,40 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2183.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 245.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 169.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 87.1
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Desinversión",
+     "hecho": "Venta de la fabrica de Woodland, adquirida con los activos de InHarvest, con un ingreso de 10,6 MEUR.",
+     "impacto": "+",
+     "valoracion": "Cierra la racionalizacion iniciada en 1T23 y monetiza el activo sobrante. Coherente: no es una venta para tapar un agujero de caja, que es lo que vigila el predictor b5 de la checklist de dividendo."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "Plan inversor confirmado: doblar la capacidad de doypacks en Jerez y, en Riviana, duplicar la de vasitos y terminar su primera planta de doypacks, todo con horizonte 2024.",
+     "impacto": "+",
+     "valoracion": "El pico de CAPEX queda fechado: 2024. Es la promesa contra la que hay que medir el FCL de 2025 y 2026 —y el §10.1 pide >150 M€—."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2024-02-29",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,9 %, EBITDA +26,3 %, beneficio neto +53,2 %, margen 12,3 % (+2,19 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3084.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 381.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 278.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 187.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 573.0
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Dividendo",
+     "hecho": "Tras varios años con el dividendo ordinario sostenido, la compañia anuncia que propondra a la JGA un incremento del 15,8 %, hasta 0,66 EUR/accion.",
+     "impacto": "+",
+     "valoracion": "El hecho mas relevante del año para la tesis de renta: rompe cuatro ejercicios de DPA plano en 0,57 €. Activa la rama REFUERZA del KPI «DPA crece todos los años» del §10.1 — por primera y, visto lo visto, casi ultima vez en la serie."
+    },
+    {
+     "tipo": "Desinversión",
+     "hecho": "El 29 de diciembre de 2023 se vende el 100 % de Ebro Frost North America Inc. a Riviana Foods Inc. por 54.299 miles de euros, con un resultado positivo de 49.799 miles de euros antes de impuestos para Ebro Foods, S.A.; el 3 de enero de 2024 Ebro Frost North America se fusiona en Riviana.",
+     "impacto": "=",
+     "valoracion": "CUIDADO CON LEER ESTO COMO UNA VENTA: Riviana es filial al 100 % del propio Grupo. Es una reorganizacion INTRAGRUPO — no sale nada del perimetro consolidado y la plusvalia de 49,8 M€ solo existe en las cuentas individuales de la matriz. Quien la cruce con el resultado consolidado creera ver un extraordinario que no esta."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "Se inician reorganizaciones societarias en Benelux, Reino Unido y Canada para obtener ahorros y sinergias.",
+     "impacto": "+",
+     "valoracion": "Simplificacion de estructura sin coste anunciado. Consistente con la expansion de margen EBITDA-A que el §10.3 recoge de 2023 en adelante."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "Los cuatro prestamos por 350 MEUR firmados a finales de 2021, a vencimiento unico en diciembre de 2024 y con un tipo medio del 0,45 %, se reclasifican a corto plazo.",
+     "impacto": "-",
+     "valoracion": "Es la bomba de relojeria del coste financiero, y llega con un año de aviso: 350 M€ al 0,45 % hay que refinanciarlos en el pico de tipos. Explica por adelantado el desplome de la cobertura de intereses que se ve en 2024-2025."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-04-24",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +11,6 %, EBITDA +10,7 %, beneficio neto +5,5 %, margen 11,9 % (-0,10 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 810.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 96.3
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 71.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 43.8
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Otros",
+     "hecho": "Se completa la ampliacion de capacidad de vasitos de Memphis (Riviana), que dara precio mas competitivo desde el 2T24.",
+     "impacto": "+",
+     "valoracion": "Primera de las inversiones del ciclo que entra en produccion. El retorno hay que exigirlo en el margen, no en las ventas."
+    },
+    {
+     "tipo": "Guidance",
+     "hecho": "La compañia anuncia que durante el ejercicio finalizaran las obras de microondas en Norteamerica y Europa y de gnocchi en Francia, con un menor nivel de CAPEX a partir de 2025, y estima unos 30 MEUR de caja extraordinaria por ventas inmobiliarias.",
+     "impacto": "+",
+     "valoracion": "Compromiso explicito de bajada de CAPEX desde 2025. Medido despues: el CAPEX de 2025 fue 134,9 M€ frente a 155,3 en 2024, asi que cumplio —pero se quedo en el entorno de los 135-155 M€ de siempre, no bajo de escalon. La promesa se cumplio en direccion, no en magnitud."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-07-29",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,4 %, EBITDA +9,4 %, beneficio neto +16,9 %, margen 13,2 % (+0,96 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1580.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 208.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 156.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 109.0
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Dividendo",
+     "hecho": "La Junta General del 5 de junio de 2024 aprueba un dividendo de 0,66 EUR/accion con cargo al beneficio de 2023 y reservas, por 101.551 miles de euros, en tres pagos de 0,22 EUR.",
+     "impacto": "+",
+     "valoracion": "Confirma en Junta la subida anunciada en febrero. Con el payout resultante todavia en el entorno del 50 %, el reparto queda cubierto: el predictor H2 de la checklist B4 no se acerca al 100 %."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-10-30",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,7 %, EBITDA +16,1 %, beneficio neto +60,9 %, margen 12,3 % (+1,11 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2307.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 284.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 209.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 140.0
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Guidance",
+     "hecho": "La compañia da una prevision numerica de cierre de ejercicio: EBITDA-A de entre 402 y 407 MEUR para FY-2024.",
+     "impacto": "+",
+     "valoracion": "Ebro casi nunca da guia numerica —el §10.3 tiene la fila FY-2026 (GUIA) vacia por eso—, asi que este dato es doblemente util: cerro en 413,1 M€, por ENCIMA de su propio rango. Cuando esta compañia se moja, se queda corta. Es un punto a favor en la lectura del Management del §7."
+    },
+    {
+     "tipo": "Guidance",
+     "hecho": "La compañia advierte de que el circulante aumentara al cierre del ejercicio por el sobrecoste de los fletes y la necesidad de volver a aprovisionar arroz en barcos completos.",
+     "impacto": "-",
+     "valoracion": "Toca directamente el riesgo nº1 del §8.1 —el ciclo de circulante del arroz, con alarma en CCC > 190 dias dos trimestres seguidos—. Y es la propia compañia quien lo anuncia: no es una sorpresa, es un mecanismo conocido que se repite cada vez que los fletes suben."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2025-02-25",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,8 %, EBITDA +9,5 %, beneficio neto +11,2 %, margen 13,3 % (+0,94 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3140.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 417.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 309.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 208.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 591.0
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Gobierno",
+     "hecho": "El 27 de noviembre de 2024 Grupo Tradifin, S.L. y Hercalianz Investing Group, S.L. renuncian como consejeros para ser sustituidos por las personas fisicas que les representaban, don Felix Hernandez Callejas y doña Blanca Hernandez Rodriguez, que aceptan el cargo ese mismo dia. Ambas sociedades siguen siendo accionistas significativos.",
+     "impacto": "=",
+     "valoracion": "No cambia el control: las mismas personas, ahora a titulo personal. Lo relevante para el §7 es que aumenta la transparencia del consejo —desaparecen dos consejeros persona juridica— sin alterar el nucleo accionarial familiar."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "Al vencimiento de diciembre de 2024 se amortizan los 350 MEUR de prestamos: 175 con tesoreria propia y 175 con tres prestamos nuevos —50 MEUR a tres años al 2,40 % y 125 MEUR a un año a Euribor + 0,25 %—, mas 10 MEUR a dos años al 3 % firmados en julio.",
+     "impacto": "-",
+     "valoracion": "Aqui esta la explicacion de la caida de la cobertura de intereses de 32,6x (2016) a 17,4x (2025): la deuda pasa del 0,45 % al 2,4-3 %. Sigue siendo una cobertura holgadisima —el predictor b2 de B4 no se activa—, pero la trayectoria es la que es, y se debe a un hecho fechado, no a un deterioro del negocio."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "El ejercicio se cierra habiendo superado la DANA de Algemesi, el encarecimiento de los fletes, el retraso en la finalizacion de inversiones de CAPEX y la escasez de personal de mantenimiento en EE.UU. y el norte de Europa.",
+     "impacto": "-",
+     "valoracion": "Cuatro contratiempos operativos en un año y aun asi EBITDA-A record. Es la evidencia de resiliencia que el capitulo ② del dossier cita; tambien deja claro que el retraso del CAPEX empuja gasto hacia 2025."
+    },
+    {
+     "tipo": "Dividendo",
+     "hecho": "El Calendario Corporativo 2025 recoge tres pagos de dividendo ordinario de 0,23 EUR/accion, frente a los 0,22 de 2024.",
+     "impacto": "+",
+     "valoracion": "Segundo año consecutivo de subida (0,66 → 0,69, +4,5 %). Es la ultima subida de la serie: el calendario de 2026 repite 0,23, con lo que el KPI del §10.1 pasa a PLANO — la rama DEBILITA."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-04-30",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -0,4 %, EBITDA +13,9 %, beneficio neto +22,7 %, margen 13,6 % (+1,71 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. Verde: ventas −0,4 % y EBITDA +2,2 %, margen 13,9 % (+0,36 puntos).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 807.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 110.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 83.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 53.7
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Regulatorio",
+     "hecho": "La nueva administracion de EE.UU. anuncia aranceles a las importaciones de Tailandia (36 %), India (27 %) y Europa (20 %), lo que lleva al Grupo a acelerar entregas y a agilizar las importaciones de arroces fragantes y de productos microondas.",
+     "impacto": "-",
+     "valoracion": "Es el disparo de salida del ciclo arancelario que domina los seis trimestres siguientes. Y el mecanismo de daño no es el arancel en si: es que adelantar compras INFLA EL CIRCULANTE, que es el riesgo nº1 del §8.1. La cadena riesgo → evidencia se ve aqui entera."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "Los bajos precios del arroz aconsejan tomar posiciones largas de materia prima en varias geografias, incrementando el circulante.",
+     "impacto": "-",
+     "valoracion": "Decision deliberada de la direccion, no un accidente. Es defendible por margen —comprar barato— y es exactamente lo que tensa la deuda dos trimestres despues. La misma decision se lee bien en la cuenta de resultados y mal en el balance."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "Termina la ampliacion de capacidad de la fabrica de pasta fresca de Lyon y se prepara el lanzamiento de una pasta alta en proteinas bajo Garofalo.",
+     "impacto": "+",
+     "valoracion": "Sigue el patron: la inversion aterriza en las categorias premium, que son las que sostienen el margen. Sin efecto medible todavia."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-07-29",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -3,0 %, EBITDA +2,0 %, beneficio neto -10,9 %, margen 13,8 % (+0,67 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, caída de beneficio o margen. Ámbar: ventas −3,0 % por la bajada de precios al consumidor al caer la materia prima, y beneficio −10,9 % por diferencias negativas de cambio, intereses de la deuda y un mayor impuesto por una liquidación societaria; el EBITDA-A sube un 1,1 % y el margen +30 puntos básicos (documento: «2025-07-29 Ebro Foods, S.A. publica la presentación a analistas»). El informe no cuantifica la parte extraordinaria del impuesto, así que el color se queda.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1533.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 212.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 157.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 97.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 674.0
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Regulatorio",
+     "hecho": "Ebro se une a las asociaciones agrarias para solicitar a la Union Europea un endurecimiento de su posicion arancelaria en defensa de los agricultores europeos.",
+     "impacto": "=",
+     "valoracion": "Ebro juega a dos bandas y conviene decirlo: como industrial se beneficia del arroz asiatico barato, y a la vez pide protegerse de el. Si la UE le hiciera caso, subiria su coste de materia prima. Neutro, y una senal de que el interes del Grupo y el del sector no coinciden."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "La compañia declara que su implantacion industrial en EE.UU. la protege del riesgo arancelario en arroz, y anuncia para el segundo semestre lanzamientos de microondas y el inicio de las ventas de refrigerados de base arroz.",
+     "impacto": "+",
+     "valoracion": "Cierto para el arroz y falso para la pasta, que se fabrica en Italia: es precisamente la division que los aranceles destrozan en 2026. La proteccion es de media empresa, y la mitad desprotegida es la que se rompe."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-10-29",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,7 %, EBITDA +8,3 %, beneficio neto +20,8 %, margen 13,1 % (+0,80 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ventas +1,7 % y EBITDA +1,1 %, margen estable (13,3 %).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2347.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 308.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 229.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 169.0
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Regulatorio",
+     "hecho": "EE.UU. sube el arancel del arroz Jazmine importado de Tailandia del 1 % al 19 % y aplica a India un 25 % mas un 25 % de sancion por la compra de petroleo ruso; el arancel general a la UE pasa del 14,2 % al 15 %.",
+     "impacto": "-",
+     "valoracion": "Riviana entra con stocks maximizados antes de la entrada en vigor, asi que el golpe se difiere a 2026 via subida de precios. Coste estructural nuevo, no un pico: presiona el margen justo donde el §10.1 marca el umbral mas fino."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "Arrancan las pruebas de produccion de la nueva planta de doypacks de Memphis (Riviana).",
+     "impacto": "+",
+     "valoracion": "Capacidad en el segmento que mas crece. No mueve el PO: es CAPEX que aun no ha demostrado retorno, y deprime la conversion EBITDA→FCL antes de mejorarla."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2026-02-25",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -4,0 %, EBITDA +1,1 %, beneficio neto +3,4 %, margen 14,0 % (+0,71 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. Verde: ventas −4,0 %, EBITDA +1,1 %, beneficio +3,4 % y margen 14,0 % (+0,71 puntos).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3014.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 422.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 308.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 215.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 531.0
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Regulatorio",
+     "hecho": "Los aranceles de EE.UU. a la pasta seca suben del 1 % al 15 %, con un impacto negativo de 2,5 MEUR en Garofalo, y los de pasta fresca del 6,6 % al 15 %, con 1,6 MEUR de impacto neto para Bertagni. En arroz, la subida del Jazmine y del Basmati supone un impacto neto de 10 MUSD; tras negociar, el basmati baja al 25 % y se negocia el 18 %.",
+     "impacto": "-",
+     "valoracion": "Primera cuantificacion que da la propia compañia del daño arancelario. Permanente mientras no cambie la administracion: perdida de margen ESTRUCTURAL de la division de pasta, no un extraordinario."
+    },
+    {
+     "tipo": "Dividendo",
+     "hecho": "El Grupo declara que ha reducido la deuda bancaria y que mantiene el dividendo a sus accionistas.",
+     "impacto": "=",
+     "valoracion": "«Mantener» no es «crecer». Con el calendario de 2026 repitiendo 0,23 EUR por pago, el KPI «DPA crece todos los años» del §10.1 pasa a PLANO, que es la rama DEBILITA. No dispara el predictor b7 de B4 —no hay lenguaje de revisar ni reconsiderar— pero es el primer año en que ese KPI deja de reforzar."
+    },
+    {
+     "tipo": "Adquisición",
+     "hecho": "En 2026 el Grupo adquiere el 30 % restante de Bertagni 1882 SpA, alcanzando el 100 % del capital.",
+     "impacto": "+",
+     "valoracion": "Consolida al Grupo como segundo productor mundial de pasta fresca y elimina la salida de resultado a minoritarios. Contrapartida: consume caja del ejercicio siguiente justo cuando el §10.1 pide la deuda neta por debajo de 600 M€. Anunciado en el cierre de 2025 y ejecutado en 2026: el efecto se ve en el 1T26."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-04-30",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,8 %, EBITDA +2,2 %, beneficio neto -6,4 %, margen 14,2 % (+0,56 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. Verde: ventas −1,8 % y EBITDA +2,2 %, margen 14,2 % (+0,56 puntos).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 792.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 112.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 84.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 50.3
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Regulatorio",
+     "hecho": "La decision del Tribunal Supremo de EE.UU. del 20 de febrero reduce los costes de importacion de arroces aromaticos y pastas y abre la puerta a la devolucion futura de aranceles ya pagados, del orden de 18 MM USD.",
+     "impacto": "+",
+     "valoracion": "Primera noticia arancelaria favorable de la serie. NO se descuenta en el PO: la devolucion es contingente y sin calendario. Se registra como opcion, no como flujo."
+    },
+    {
+     "tipo": "M&A",
+     "hecho": "Toma de control del 100 % de Bertagni tras adquirir el 30 % en manos de minoritarios.",
+     "impacto": "+",
+     "valoracion": "Mejora el beneficio atribuible por la via de los minoritarios, no por el negocio. Al leer el §10.3 hay que separarlo: parte de la subida del beneficio de 2026 es perimetro, no operativa."
+    },
+    {
+     "tipo": "Regulatorio",
+     "hecho": "Se intensifica la peticion de los agricultores españoles y europeos de aranceles y clausulas de salvaguardia frente a las importaciones de paises EBA; Ebro apoya publicamente la reclamacion.",
+     "impacto": "=",
+     "valoracion": "Continuidad de la doble posicion de 1S25. Sin decision de la UE, no altera la tesis."
+    }
+   ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-07-29",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -3,7 %, EBITDA -5,3 %, beneficio neto +7,1 %, margen 13,6 % (-0,23 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja. Ámbar: ventas −3,7 % (34,7 M€ de efecto divisa en la consolidación) y EBITDA-A −4,7 %, de los que 5,5 M€ son dólar; el resto es negocio: problemas de producción por la implantación de SAP en Garofalo, más coste de transporte y menor margen de la pasta en EE.UU. (pasta: EBITDA-A −15,6 %). El beneficio sube un 7,1 % por menos gasto financiero e impuestos (documento: «2026-07-29 Ebro Foods, S.A. publica la presentación a analistas»). Parte es deterioro real: el color se queda.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1476.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 201.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 144.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 104.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 473.0
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Adquisición",
+     "hecho": "El 1 de julio se completa la compra de una planta de produccion en Saint Charles (Missouri), donde Bertagni instalara sus primeras lineas de pasta fresca rellena en EE.UU. Inversion inicial de 40 MEUR, con capacidad para triplicar la produccion.",
+     "impacto": "+",
+     "valoracion": "Es la respuesta ESTRUCTURAL a los dos problemas que hunden la pasta —arancel y dolar—: produciendo en EE.UU. desaparecen los dos. El hecho mas importante del semestre y el que mas puede mover la tesis, pero su efecto no llega al P&L en 2026. Hecho posterior al cierre (30-jun): afecta al 9M-2026 en adelante."
+    },
+    {
+     "tipo": "Regulatorio",
+     "hecho": "Garofalo consigue rebajar los aranceles antidumping al 7 %, pero recurre la decision al considerar que no hubo dumping; mientras no haya resolucion firme sigue pagandolos y la Administracion no devolvera los aranceles convencionales ya abonados.",
+     "impacto": "-",
+     "valoracion": "«Rebajado» se lee como buena noticia y no lo es: un 7 % indefinido es un coste permanente sobre la division que peor va. Cruza con el pre-mortem del §8.2 y es una de las patas del ambar."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "Problemas de produccion derivados de la implantacion de SAP HANA en Garofalo, con efecto en las ventas de pasta en Italia y EE.UU.",
+     "impacto": "-",
+     "valoracion": "El unico de los tres lastres de la pasta que es TEMPORAL y esta bajo control de la compañia. Si en el 9M-2026 el margen de pasta no recupera, deja de poder atribuirse al ERP y pasa a ser deterioro competitivo. Ese es el contraste que hay que hacer el 28 de octubre."
+    },
+    {
+     "tipo": "Regulatorio",
+     "hecho": "La Union Europea no aprueba el incremento de aranceles ni las clausulas de salvaguardia a las importaciones de arroz solicitadas por el sector.",
+     "impacto": "=",
+     "valoracion": "Neutro para Ebro y negativo para el agricultor europeo: como industrial compra mas barato. Explica que el margen del arroz suba a 14,8 % mientras las ventas caen."
+    },
+    {
+     "tipo": "Regulatorio",
+     "hecho": "Riviana preve recuperar 13 MUSD pagados por aranceles anulados, a la espera de la nueva propuesta arancelaria.",
+     "impacto": "+",
+     "valoracion": "Contingente, sin calendario y sin reconocer. No entra en el PO; se vigila como catalizador del §9.1."
+    }
+   ],
+   "origen": "metodo-v3"
+  }
+ ]
 }

@@ -1,769 +1,1172 @@
 {
-  "schemaVersion": 2,
-  "ticker": "MCM",
-  "empresa": "Miquel y Costas",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "MCM",
+ "empresa": "Miquel y Costas & Miquel, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +16,7 %, EBITDA +35,0 %, BDI +46,7 %, margen 30,3 % (+4,10 pp), ventas de tabaco +8,4 M€ frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 84.599
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 18.805
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 22.23
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 14.538
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 11.049
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 15.684
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 27.422
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 316.106
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": 0.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Cifra de negocios",
+     "valor": 78.4
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 167.688
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 40.721
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 24.28
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 31.926
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 24.264
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 33.847
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 28.927
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 316.941
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": 1.0
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBITDA",
+     "valor": 23.8
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 243.894
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 57.227
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 23.46
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 44.104
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 33.299
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 47.491
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 45.996
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 310.108
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": 3.6
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Margen EBITDA",
+     "valor": 30.3
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 309.319
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 74.905
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 24.22
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 56.553
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 42.714
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 62.699
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 53.675
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 301.106
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": 1.532
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": 0.8
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "BAI",
+     "valor": 19.5
     },
     {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas -2.4 %, EBITDA +14.8 %, Beneficio después de impuestos +18.1 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 26.1 % (banda del §10.1: verde ≥ 24.0, rojo < 22.0). La variación de las ventas del segmento tabaco sube 6.9 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 82.567
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 21.583
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 26.14
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 17.286
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 13.051
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 17.976
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 58.167
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 312.212
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": 6.9
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "BDI",
+     "valor": 14.9
     },
     {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas -2.1 %, EBITDA +8.2 %, Beneficio después de impuestos +10.5 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 26.8 % (banda del §10.1: verde ≥ 24.0, rojo < 22.0). ",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 164.138
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 44.059
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 26.84
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 35.381
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 26.819
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 36.762
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 53.813
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 321.686
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": 2.1
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "CFDI",
+     "valor": 19.3
     },
     {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas -1.9 %, EBITDA +7.7 %, Beneficio después de impuestos +11.7 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 25.8 % (banda del §10.1: verde ≥ 24.0, rojo < 22.0). La variación de las ventas del segmento tabaco cae 2.8 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 239.21
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 61.641
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 25.77
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 49.054
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 37.183
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 51.937
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 66.66
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 317.94
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": -2.8
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 52.5
     },
     {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas -0.0 %, EBITDA +6.7 %, Beneficio después de impuestos +14.0 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 25.9 % (banda del §10.1: verde ≥ 24.0, rojo < 22.0). La variación de las ventas del segmento tabaco sube 0.2 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 309.17
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 79.956
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 25.86
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 63.528
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 48.699
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 68.471
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 75.413
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 309.705
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": 0.342
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": 0.17
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Capital empleado",
+     "valor": 256.0
     },
     {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ventas +10.1 %, EBITDA -1.8 %, Beneficio después de impuestos -1.5 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 23.3 % (banda del §10.1: verde ≥ 24.0, rojo < 22.0). La variación de las ventas del segmento tabaco sube 7.8 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 90.893
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 21.2
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 23.32
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 16.921
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 12.86
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 17.826
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 75.668
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 323.417
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": 7.8
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 8.4
     },
     {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +2.6 %, EBITDA -7.8 %, Beneficio después de impuestos -9.2 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 24.1 % (banda del §10.1: verde ≥ 24.0, rojo < 22.0). ",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 168.455
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 40.627
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 24.12
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 32.056
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 24.363
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 34.363
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 62.258
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 335.91
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": 3.3
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +0.8 %, EBITDA -5.5 %, Beneficio después de impuestos -6.3 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 24.2 % (banda del §10.1: verde ≥ 24.0, rojo < 22.0). ",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 241.016
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 58.277
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 24.18
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 45.826
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 34.828
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 49.526
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 61.479
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 345.547
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": 4.5
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +1.5 %, EBITDA -5.8 %, Beneficio después de impuestos -7.4 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 24.0 % (banda del §10.1: verde ≥ 24.0, rojo < 22.0). La variación de las ventas del segmento tabaco sube 2.7 %, que es la señal única de la tesis.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 313.841
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 75.347
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 24.01
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 57.898
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 45.076
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 65.913
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 65.847
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 340.925
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": 5.2
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": 2.67
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "Los informes trimestrales de Miquel y Costas NO imprimen su fecha de publicación en la portada (las únicas fechas que traen son las de acuerdos de Junta y del consejo), así que se declara la fecha de cierre del periodo. Todos los periodos en base PUBLICADA EN SU DÍA: comprobados los comparativos informe a informe, ninguno está reexpresado.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ventas -13.5 %, EBITDA -14.9 %, Beneficio después de impuestos -22.5 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 22.9 % (banda del §10.1: verde ≥ 24.0, rojo < 22.0). ",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 78.62
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 18.04
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 22.95
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 13.065
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 9.962
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 15.633
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 60.001
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 356.253
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": -5.8
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": null
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "1S",
-      "fecha": "2026-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "El informe financiero semestral no imprime su fecha de publicación; el consejo lo firmó el 28-09-2026. Se declara la fecha de cierre del periodo, como en el resto de la serie.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ventas -7.4 %, EBITDA -13.7 %, Beneficio después de impuestos -23.1 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 22.5 % (banda del §10.1: verde ≥ 24.0, rojo < 22.0). La variación de las ventas del segmento tabaco es de −5,6 M€ (−5,8 M€ en el Q1): la señal única sigue a la baja. Según la empresa: menor volumen y peor mix en tabaco, caída de volúmenes en usos industriales, dólar débil, energía más cara (Ormuz) y paradas técnicas del Plan Inversor 2024-2026; anticipa que el segundo semestre seguirá por debajo de 2025.",
-      "metricas": [
-        {
-          "nombre": "Cifra de negocios (M€)",
-          "valor": 155.998
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 35.059
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 22.47
-        },
-        {
-          "nombre": "BAI (M€)",
-          "valor": 24.557
-        },
-        {
-          "nombre": "BDI (M€)",
-          "valor": 18.725
-        },
-        {
-          "nombre": "Cash-flow después de impuestos (M€)",
-          "valor": 30.234
-        },
-        {
-          "nombre": "Posición financiera neta (M€)",
-          "valor": 54.684
-        },
-        {
-          "nombre": "Capital empleado (M€)",
-          "valor": 357.429
-        },
-        {
-          "nombre": "Ventas tabaco · variación (M€)",
-          "valor": -5.6
-        },
-        {
-          "nombre": "Ventas tabaco · variación (%)",
-          "valor": null
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Guidance",
-          "hecho": "La empresa prevé que los resultados del segundo semestre sigan mostrando una evolución desfavorable frente a 2025 por el encarecimiento de la energía (tensiones en Ormuz) y no da estimación para el cierre del ejercicio.",
-          "impacto": "-",
-          "valoracion": "Confirma que el rojo no es un trimestre aislado: el riesgo dominante del §8.1 (energía) está activo. Es lo que tiene que juzgar la Nota de la S2."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "La empresa declara que su posición financiera le permite mantener la política de dividendos y el plan de inversiones.",
-          "impacto": "=",
-          "valoracion": "Caja neta de 54,7 M€ a junio: el dividendo no está en juego a corto plazo, aunque la caja neta baja 11,2 M€ en el semestre."
-        },
-        {
-          "tipo": "Recompra",
-          "hecho": "Reducción de capital de 5 M€ mediante amortización de 2.500.000 acciones propias, inscrita el 5-ago-2026 (37.500.000 acciones), y nuevo programa de recompra comunicado a la CNMV el 18-jun-2026.",
-          "impacto": "+",
-          "valoracion": "Ya recogido en el análisis del 25-sep (acciones en circulación 37,5 M)."
-        }
-      ],
-      "origen": "monitor-trimestral"
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 19.9
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2021-S1",
+   "fecha": "2021-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +13,3 %, EBITDA +22,0 %, BDI +27,2 %, margen 29,3 % (+2,09 pp), ventas de tabaco +11,0 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 158.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 46.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 29.3
+    },
+    {
+     "nombre": "BAI",
+     "valor": 37.7
+    },
+    {
+     "nombre": "BDI",
+     "valor": 28.9
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 37.9
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 58.2
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 254.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 9.7
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 11.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2021-9M",
+   "fecha": "2021-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +10,3 %, EBITDA +15,1 %, BDI +18,1 %, margen 28,6 % (+1,20 pp), ventas de tabaco +5,7 M€ frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 228.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 65.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.6
+    },
+    {
+     "nombre": "BAI",
+     "valor": 52.2
+    },
+    {
+     "nombre": "BDI",
+     "valor": 39.7
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 53.0
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 68.0
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 255.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 5.7
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 4.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2021",
+   "fecha": "2021-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +9,9 %, EBITDA +10,1 %, BDI +13,2 %, margen 27,9 % (+0,04 pp), ventas de tabaco +5,0 % frente al mismo periodo del año anterior. Verde: nada que señalar. Corrección del analista: El ámbar viene solo del dividendo por acción (−10 %), que es dinero pagado en el año según la CNMV: 2020 pagó 17,3 M€ y 2021 15,5 M€. Con el dividendo declarado con cargo a cada ejercicio (análisis de septiembre) la bajada es del 2,8 % en la base de 2021. Es calendario de pagos, no un recorte.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 301.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 84.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 27.9
+    },
+    {
+     "nombre": "BAI",
+     "valor": 67.1
+    },
+    {
+     "nombre": "BDI",
+     "valor": 50.8
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 68.5
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 61.4
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 261.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 8.8
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 5.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +8,6 %, EBITDA -37,8 %, BDI -47,2 %, margen 17,4 % (-12,96 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 85.1
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 14.8
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.4
+    },
+    {
+     "nombre": "BAI",
+     "valor": 10.3
+    },
+    {
+     "nombre": "BDI",
+     "valor": 7.9
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 12.4
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 56.8
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 270.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +10,7 %, EBITDA -31,4 %, BDI -39,2 %, margen 18,2 % (-11,16 pp), ventas de tabaco +2,2 % frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 175.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 31.8
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 18.2
+    },
+    {
+     "nombre": "BAI",
+     "valor": 23.1
+    },
+    {
+     "nombre": "BDI",
+     "valor": 17.5
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 26.6
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 40.6
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 286.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 2.1
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 2.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +13,8 %, EBITDA -33,3 %, BDI -41,0 %, margen 16,8 % (-11,82 pp), ventas de tabaco +8,0 M€ frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 259.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 43.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.8
+    },
+    {
+     "nombre": "BAI",
+     "valor": 30.4
+    },
+    {
+     "nombre": "BDI",
+     "valor": 23.4
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 36.7
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 47.2
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 284.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 8.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 5.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +11,9 %, EBITDA -27,9 %, BDI -37,7 %, margen 18,0 % (-9,92 pp), ventas de tabaco +4,7 % frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 337.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 60.7
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 18.0
+    },
+    {
+     "nombre": "BAI",
+     "valor": 41.1
+    },
+    {
+     "nombre": "BDI",
+     "valor": 31.6
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 50.3
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 16.9
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 313.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 8.7
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 4.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios -0,6 %, EBITDA +27,1 %, BDI +40,5 %, margen 22,2 % (+4,85 pp), ventas de tabaco +0,0 % frente al mismo periodo del año anterior. Verde: solo cifra de negocios a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 84.6
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 18.8
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 22.2
+    },
+    {
+     "nombre": "BAI",
+     "valor": 14.5
+    },
+    {
+     "nombre": "BDI",
+     "valor": 11.0
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 15.7
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 27.4
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 316.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 0.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios -4,2 %, EBITDA +28,0 %, BDI +38,3 %, margen 24,3 % (+6,12 pp), ventas de tabaco +1,0 % frente al mismo periodo del año anterior. Verde: solo cifra de negocios a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 168.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 40.7
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.3
+    },
+    {
+     "nombre": "BAI",
+     "valor": 31.9
+    },
+    {
+     "nombre": "BDI",
+     "valor": 24.3
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 33.8
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 28.9
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 317.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 1.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 1.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios -5,9 %, EBITDA +31,8 %, BDI +42,1 %, margen 23,5 % (+6,71 pp), ventas de tabaco +3,6 % frente al mismo periodo del año anterior. Verde: solo cifra de negocios a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 244.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 57.2
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.5
+    },
+    {
+     "nombre": "BAI",
+     "valor": 44.1
+    },
+    {
+     "nombre": "BDI",
+     "valor": 33.3
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 47.5
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 46.0
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 310.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 3.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios -8,3 %, EBITDA +23,5 %, BDI +35,0 %, margen 24,2 % (+6,22 pp), ventas de tabaco +0,8 % frente al mismo periodo del año anterior. Verde: solo cifra de negocios a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 309.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 74.9
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.2
+    },
+    {
+     "nombre": "BAI",
+     "valor": 56.6
+    },
+    {
+     "nombre": "BDI",
+     "valor": 42.7
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 62.7
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 53.7
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 301.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 0.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios -2,4 %, EBITDA +14,8 %, BDI +18,1 %, margen 26,1 % (+3,91 pp), ventas de tabaco +6,9 % frente al mismo periodo del año anterior. Verde: solo cifra de negocios a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 82.6
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 21.6
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 26.1
+    },
+    {
+     "nombre": "BAI",
+     "valor": 17.3
+    },
+    {
+     "nombre": "BDI",
+     "valor": 13.1
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 18.0
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 58.2
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 312.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 6.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios -2,1 %, EBITDA +8,2 %, BDI +10,5 %, margen 26,8 % (+2,56 pp), ventas de tabaco +2,1 % frente al mismo periodo del año anterior. Verde: solo cifra de negocios a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 164.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 44.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 26.8
+    },
+    {
+     "nombre": "BAI",
+     "valor": 35.4
+    },
+    {
+     "nombre": "BDI",
+     "valor": 26.8
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 36.8
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 53.8
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 322.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 2.1
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 2.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios -1,9 %, EBITDA +7,7 %, BDI +11,7 %, margen 25,8 % (+2,30 pp), ventas de tabaco -2,8 % frente al mismo periodo del año anterior. Ámbar por: cifra de negocios a la baja, ventas de tabaco por debajo del umbral.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 239.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 61.6
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 25.8
+    },
+    {
+     "nombre": "BAI",
+     "valor": 49.1
+    },
+    {
+     "nombre": "BDI",
+     "valor": 37.2
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 51.9
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 66.7
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 318.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": -2.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios -0,0 %, EBITDA +6,7 %, BDI +14,0 %, margen 25,9 % (+1,65 pp), ventas de tabaco +0,2 % frente al mismo periodo del año anterior. Verde: solo cifra de negocios a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 309.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 80.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 25.9
+    },
+    {
+     "nombre": "BAI",
+     "valor": 63.5
+    },
+    {
+     "nombre": "BDI",
+     "valor": 48.7
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 68.5
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 75.4
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 310.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 0.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +10,1 %, EBITDA -1,8 %, BDI -1,5 %, margen 23,3 % (-2,82 pp), ventas de tabaco +7,8 % frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 90.9
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 21.2
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.3
+    },
+    {
+     "nombre": "BAI",
+     "valor": 16.9
+    },
+    {
+     "nombre": "BDI",
+     "valor": 12.9
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 17.8
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 75.7
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 323.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 7.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +2,6 %, EBITDA -7,8 %, BDI -9,2 %, margen 24,1 % (-2,73 pp), ventas de tabaco +3,2 % frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 168.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 40.6
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.1
+    },
+    {
+     "nombre": "BAI",
+     "valor": 32.1
+    },
+    {
+     "nombre": "BDI",
+     "valor": 24.4
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 34.4
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 62.3
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 336.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 3.3
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 3.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +0,8 %, EBITDA -5,5 %, BDI -6,3 %, margen 24,2 % (-1,59 pp), ventas de tabaco +4,5 M€ frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 241.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 58.3
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.2
+    },
+    {
+     "nombre": "BAI",
+     "valor": 45.8
+    },
+    {
+     "nombre": "BDI",
+     "valor": 34.8
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 49.5
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 61.5
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 346.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 4.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios +1,5 %, EBITDA -5,8 %, BDI -7,4 %, margen 24,0 % (-1,85 pp), ventas de tabaco +2,7 % frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora. Rojo: margen EBITDA 24,0 % (−1,9 puntos) y ROIC 12,4 % (−2,4 puntos) por el capital del plan de inversiones; ventas +1,5 % con el tabaco +2,7 %. La S2 la revisó el método actual el 30-sep: REAFIRMAR.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 314.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 75.3
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.0
+    },
+    {
+     "nombre": "BAI",
+     "valor": 57.9
+    },
+    {
+     "nombre": "BDI",
+     "valor": 45.1
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 65.9
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 65.8
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 341.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": 5.2
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": 2.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios -13,5 %, EBITDA -14,9 %, BDI -22,5 %, margen 22,9 % (-0,38 pp), ventas de tabaco -5,8 M€ frente al mismo periodo del año anterior. Rojo por: cifra de negocios a la baja, EBITDA a la baja, caída de beneficio o margen, ventas de tabaco por debajo del umbral. Rojo (regla del 25-oct: beneficio −20 % o más con las ventas a la baja): cifra de negocios −13,5 %, EBITDA −14,9 %, BDI −22,5 %; ventas de tabaco −5,8 M€. El método actual también lo puso en rojo.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 78.6
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 18.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 22.9
+    },
+    {
+     "nombre": "BAI",
+     "valor": 13.1
+    },
+    {
+     "nombre": "BDI",
+     "valor": 10.0
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 15.6
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 60.0
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 356.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": -5.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios -7,4 %, EBITDA -13,7 %, BDI -23,1 %, margen 22,5 % (-1,64 pp), ventas de tabaco -5,3 % frente al mismo periodo del año anterior. Rojo por: cifra de negocios a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, ventas de tabaco por debajo del umbral. Rojo (regla del 25-oct: beneficio −20 % o más con las ventas a la baja): cifra de negocios −7,4 %, EBITDA −13,7 %, BDI −23,1 %, margen 22,5 % (−1,6 puntos); ventas de tabaco −5,3 % (CNMV), primer semestre de caída. Revisado en este análisis inicial: la tesis sigue en pie con tamaño reducido y la señal única a un semestre de saltar.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 156.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 35.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 22.5
+    },
+    {
+     "nombre": "BAI",
+     "valor": 24.6
+    },
+    {
+     "nombre": "BDI",
+     "valor": 18.7
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 30.2
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 54.7
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 357.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": -5.6
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (%)",
+     "valor": -5.3
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Guidance",
+     "hecho": "La empresa prevé que los resultados del segundo semestre sigan mostrando una evolución desfavorable frente a 2025 por el encarecimiento de la energía (tensiones en Ormuz) y no da estimación para el cierre del ejercicio.",
+     "impacto": "-",
+     "valoracion": "Confirma que el rojo no es un trimestre aislado: el riesgo dominante del §8.1 (energía) está activo. Es lo que tiene que juzgar la Nota de la S2."
+    },
+    {
+     "tipo": "Dividendo",
+     "hecho": "La empresa declara que su posición financiera le permite mantener la política de dividendos y el plan de inversiones.",
+     "impacto": "=",
+     "valoracion": "Caja neta de 54,7 M€ a junio: el dividendo no está en juego a corto plazo, aunque la caja neta baja 11,2 M€ en el semestre."
+    },
+    {
+     "tipo": "Recompra",
+     "hecho": "Reducción de capital de 5 M€ mediante amortización de 2.500.000 acciones propias, inscrita el 5-ago-2026 (37.500.000 acciones), y nuevo programa de recompra comunicado a la CNMV el 18-jun-2026.",
+     "impacto": "+",
+     "valoracion": "Ya recogido en el análisis del 25-sep (acciones en circulación 37,5 M)."
+    }
+   ],
+   "origen": "metodo-v3"
+  }
+ ]
 }

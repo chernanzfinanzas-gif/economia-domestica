@@ -1,129 +1,72 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "NTGY",
  "empresa": "Naturgy Energy Group, S.A.",
- "fecha": "2026-09-12",
+ "fecha": "2026-10-26",
+ "revisadoEl": "2026-10-26",
  "rating": "A",
- "score": 71.3,
- "decision": "COMPRAR",
- "metodoValoracion": "Síntesis ponderada de nueve métodos (DCF 55 % a tres escenarios + múltiplos históricos a 10 años 30 % + renta 15 % + activos 0 %) — arquetipo REGULADAS. PO oficial = síntesis §6.5 = 37,20 €/acc contra una cotización de 29,48 €, margen de seguridad +26,17 %, etiqueta BARATA. Los pesos se desvían de la banda del arquetipo y el desvío está declarado en el §6.0: los 15 puntos que la norma reserva a valor por activos se reparten a múltiplos y a renta porque Naturgy no publica NAV ni suma de partes, y el método retiró el EV/RAB al comprobar que el RAB no está en las cuentas anuales. El WACC del caso central (5,50 %) es el SUELO del arquetipo —el CAPM no lo alcanza en ninguno de los diez ejercicios— y queda por debajo del 6,8 % antes de impuestos que la propia Naturgy usa para descontar sus redes españolas, razón por la que el escenario pesimista descuenta al 6,50 %. El 71,4 % del valor del caso central está en el valor terminal: esta valoración es, en tres cuartas partes, una hipótesis sobre el año once en adelante.",
- "poBear": 30.14,
- "poBase": 37.2,
- "poBull": 40.58,
- "entMin": 30.14,
- "entMax": 32.34,
- "stop": 25.96,
- "dpaPrevisto": 1.77,
- "moat": "70,3 · MOAT MODERADO (escala del método: ANCHO ≥ 75 · MODERADO 60-74 · ESTRECHO 45-59). Es un foso de LICENCIA y de ESCALA, no de marca, y se puede señalar con el dedo: 138.247 km de red de gas y 158.557 de electricidad, 16,1 millones de puntos de suministro y el 70 % de los puntos de gas del país. Los cinco ejes, ponderados con la norma del arquetipo REGULADAS pedida a la librería y no tecleada: escala 85, intangibles 70, ventaja de costes 65, costes de cambio 40, y efecto de red declarado N/A —no puntuado a cero (F65)—. Ninguno llega a 100 por la misma razón, y es la tensión central de la tesis: quien concede la licencia es quien fija lo que se gana con ella, y la retribución de la red de gas 2027-2032 está sin escribir. El coste de cambio infinito de la red no lo pone una relación comercial: lo pone la ley, y por eso puntúa 40 y no 90.",
+ "score": 66.0,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 35 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 6 % · PER 6 % · P/VC 4 % · P/FCL 6 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl",
+ "poBear": 25.93,
+ "poBase": 32.05,
+ "poBull": 34.41,
+ "entMin": 25.93,
+ "entMax": 27.87,
+ "stop": 22.1,
+ "dpaPrevisto": 1.746,
+ "moat": "60,9 sobre 100 · MOAT MODERADO. La mitad regulada (redes de gas y electricidad en España y LatAm) es una barrera que las huellas del ROIC no recogen",
  "catalizadores": [
-  "Vuelta a los índices MSCI · YA CUMPLIDO (efectos del 25-nov-2025): objetivo declarado del Plan Estratégico 2025-2027 y ya materializado. Demanda pasiva estructural, que es re-rating del múltiplo y no mejora del flujo: de-rating positivo del 8 %, +3,58 €/acc. El free float pasó del 32,2 % al 44,3 % con la salida de CVC en mayo de 2026. LO QUE PUEDE IMPEDIRLO: la ponderación depende del free float y el free float ha subido por una razón reversible —la salida de un fondo y la colocación de autocartera—; un nuevo bloque estable lo devuelve donde estaba. Vigilado en el §10.4 por su nombre.",
-  "La CNMC cierra el marco del gas 2027-2032 sin recorte (antes del 1-ene-2027): es el riesgo nº 1 de la matriz resolviéndose por el lado bueno. El 29-jun-2026 la CNMC remitió al Consejo de Estado, por vía de urgencia, la propuesta de circular final con una tasa de retribución financiera del 6,67 % para la distribución de gas frente al 5,83 % vigente (+84 pb) y 1.192-1.194 M€ anuales (+2,3 %). De-rating positivo del 6 %, +2,68 €/acc. LO QUE PUEDE IMPEDIRLO: la propuesta remitida no es la circular publicada —el dictamen puede devolverla— y los factores de eficiencia y el volumen de RAB retribuible pueden comerse los 84 pb sin tocar la tasa. El marco se cierra para seis años: aquí un recorte no se corrige en la siguiente revisión.",
-  "El dividendo de 1,9 €/acción confirmado para 2027 (feb-2027, con los resultados de 2026): trayectoria declarada de 1,6 €/acc en 2024 a 1,9 en 2027, con suelos de 1,7 y 1,8. Son +18,75 % sobre el dividendo que usa hoy el modelo y la pata de renta pesa 15 sobre 100: +2,30 €/acc. LO QUE PUEDE IMPEDIRLO: la propia política escribe su condición —«sujeto al mantenimiento de un rating crediticio BBB»—, el §10.1 proyecta DN/EBITDA de 3,0x en 2027 con el CAPEX del plan encima, y el payout sobre FCL de 2025 ya fue del 121 %. Si el desapalancamiento no acompaña, la trayectoria del dividendo es lo primero que se puede aplazar sin romper nada de lo prometido.",
-  "Rotación de la cartera latinoamericana (0-24 meses): el plan escribe, para Gas y Electricidad en Latinoamérica, «gestión de la cartera maximizando la rentabilidad». Una desinversión del orden de 1.500 M€ aplicada a reducir deuda vale +2,87 €/acc, y reduce la exposición a los cinco reguladores y las cinco monedas del riesgo nº 4. LO QUE PUEDE IMPEDIRLO: el precio —una venta por debajo de libros deteriora en vez de crear, y el comprador descuenta el mismo riesgo regulatorio que el vendedor— y el destino del dinero: el +2,87 € supone que los 1.500 M€ van íntegros a deuda; si van al CAPEX del plan el efecto es prácticamente nulo. Y el activo vendido se lleva su EBITDA con él.",
-  "El EBITDA del plan se supera (feb-2027 y feb-2028): el Plan 2025-2027 compromete 5,3 k M€ medios anuales y 2025 cerró en 5.334 M€, cumpliendo ya en el primer año. Superarlo un 3 % son +160 M€, equivalentes a 0,82 puntos de margen sobre ingresos: +6,56 €/acc, el mayor impacto de los cinco y el único que depende sólo de la ejecución. LO QUE PUEDE IMPEDIRLO: el EBITDA de 2025 que sirve de base lleva dentro la Generación Térmica inflada por el apagón peninsular de abril de 2025, que no se repite por definición, así que el listón es más alto de lo que parece. Por debajo, la variable de verdad es el precio mayorista de la electricidad, que ni la compañía ni el plan controlan."
+  "Vuelta a los índices MSCI: Demanda pasiva estructural: re-rating del 8 %. (0-18 meses)",
+  "La CNMC cierra el marco del gas 2027-2032 sin recorte: Retira un descuento por incertidumbre: re-rating del 6 %. (antes de 2027)",
+  "El dividendo de 1,9 € por acción confirmado para 2027: +18,75 % sobre el DPA de hoy. (2027)",
+  "Rotación de la cartera latinoamericana: Una desinversión de unos 1.500 M€ a reducir deuda. Fuera del bull. (0-24 meses)",
+  "El EBITDA del plan se supera: Un 3 % por encima: +160 M€. Fuera del bull: depende solo de la ejecución. (2027)"
  ],
  "riesgos": [
-  "La retribución de la red de gas 2027-2032 está sin escribir (Regulatorio · probabilidad MEDIA · −3 a −8 %): el periodo regulatorio del gas en España es 2021-2026 y termina. La CNMC tiene en tramitación las circulares de 2027-2032 y el marco se cierra para seis años. Afecta al 14,2 % del EBITDA. Disparador: la publicación de la propuesta de circular, cuya audiencia pública es el primer documento que dice hacia dónde va.",
-  "El activo es la demanda de gas y la transición está escrita para reducirla (Estructural · probabilidad ALTA · −8 a −19 %): los 11,1 millones de puntos de suministro y los 138.247 km de red valen lo que valga el gas que pase por ellos durante las próximas décadas. La respuesta declarada son los gases renovables, y su escala está en el propio informe: 4,1 MW de biometano instalados y 23,8 GWh producidos. Disparador: caída de los puntos de suministro de gas en España dos ejercicios seguidos, o altas netas negativas.",
-  "El dividendo prometido sube un 19 % desde un punto en el que el flujo libre ya no lo cubre (Financiero · probabilidad MEDIA · −4 a −10 %): payout sobre FCL del 81,5 % (2023), 100,7 % (2024) y 121,2 % (2025), con cobertura de 1,23x, 0,99x y 0,82x. Sobre eso, el plan compromete subir el DPA de 1,6 a 1,9 €/acc y llevar la deuda neta de 12,2 a 15,9 k M€ con un EBITDA plano. Disparador: cobertura por debajo de 0,80x un ejercicio más, o la perspectiva del rating BBB a negativa.",
-  "Latinoamérica es el 45 % de la mitad regulada, y la propia Naturgy la descuenta hasta al 22,1 % (Político · probabilidad MEDIA · −7 a −17 %): las redes de Argentina, Brasil, Chile, México y Panamá aportaron 1.213 M€ de los 2.710 M€ de EBITDA de Redes en 2025, las cinco bajo modelo «Price Cap». Disparador: apertura de una revisión tarifaria integral en cualquiera de los cinco con propuesta de tasa por debajo de la vigente, o una devaluación superior al 20 % en doce meses.",
-  "Seis manos tenían el 77 % del capital y el que se va marca el precio (Societario · probabilidad ALTA · −4 a −8 %): a 31-dic-2025 Criteria Caixa 26,0 %, IFM 15,5 %, CVC 13,8 %, BlackRock/GIP 12,5 %, Alba 5,0 % y Sonatrach 4,1 %, más un 4,5 % de autocartera. El 27-may-2026 CVC colocó su 13,8 % a 28,55 €/acc en una acelerada y el free float subió al 44,3 %. Disparador: que Criteria cruce el 30 % —a partir de ahí la ley obliga a OPA por el 100 %— o el anuncio de otra colocación acelerada.",
-  "297.000 km de red y un operador de infraestructura crítica (Ciberseguridad · probabilidad BAJA-MEDIA · −5 a −14 %): 138.247 km de red de gas, 158.557 de electricidad, 16,1 millones de puntos de suministro y 18,7 GW de generación, con telemando. Es el punto ciego que el método obliga a mirar y que el parque entero tenía a cero. Disparador: notificación de un incidente al INCIBE-CERT o al regulador sectorial, o la aparición de Naturgy en el listado de víctimas de cualquier grupo de ransomware.",
-  "Un expediente sancionador contra su propia distribuidora por favorecer a su propia comercializadora, y el apagón sin provisionar (Societario · probabilidad MEDIA · −0,4 a −1,2 %): la CNMC tiene abierto y pendiente de resolución un expediente contra UFD Distribución Electricidad por presunto abuso de posición de dominio en el alquiler de contadores y trato diferencial a las comercializadoras. Disparador: la resolución del expediente, o su elevación a un procedimiento sobre separación de actividades.",
-  "El deterioro de los activos regulados latinoamericanos, y por qué este modelo no lo ve (Contable · probabilidad BAJA-MEDIA · −0,5 a −1 %): Naturgy publica las tasas de descuento de sus tests unidad por unidad y las de Latinoamérica van del 10,9 % al 22,1 %, con Argentina al 16,6 % en dólares. Una revisión tarifaria adversa o un salto de la tasa obliga a deteriorar. Disparador: que suba la tasa de descuento de cualquier unidad latinoamericana respecto al ejercicio anterior."
+  "La retribución de la red de gas 2027-2032 está sin escribir (Media): EBITDA de Gas España −10 % (−75,6 M€) y −25 % (−189 M€).",
+  "El activo es la demanda de gas y la transición la reduce (Alta): EBITDA de Gas España −20 % (−151 M€) con múltiplos −5 %; duro: −45 % (−340 M€) con múltiplos −12 %.",
+  "El dividendo prometido sube un 19 % desde un flujo que ya no lo cubre (Media): Dividendo −30 %; duro: −50 % con múltiplos −10 %. El juicio daba más (−15 a −30 %): en una acción comprada por su dividendo el recorte reprecia la tesis entera.",
+  "Latinoamérica es el 45 % de la mitad regulada (Media): EBITDA de redes LatAm −15 % (−182 M€) por tarifa y divisa; duro: −35 % (−425 M€).",
+  "Seis manos tenían el 77 % del capital (Alta): El sobrante de papel de IFM y BlackRock presiona: múltiplos −8 % y −18 %.",
+  "297.000 km de red: infraestructura crítica (Baja-Media): Interrupción del 2 % del volumen y 150 M€ de coste; duro: 5 %, 400 M€ y múltiplos −5 %.",
+  "Expediente contra su distribuidora por favorecer a su comercializadora (Media): Multa de 200 M€ y de 600 M€. El modelo apenas lo ve; el daño real tocaría la separación de actividades.",
+  "El deterioro de los activos regulados latinoamericanos (Baja-Media): Valor contable −20 % y −40 %. El modelo está casi ciego aquí: el P/VC pesa 4 sobre 100."
  ],
- "bull": "40,58 €/acc (1,09 × PO, +37,65 % sobre la cotización de 29,48 €). No se construye sumando impactos: se perturba el modelo UNA sola vez con los tres primeros catalizadores juntos —vuelta a los índices MSCI, cierre del marco del gas 2027-2032 sin recorte y confirmación del dividendo de 1,9 €/acc para 2027— y los dos de-ratings positivos se COMPONEN en vez de sumarse (1,08 × 1,06 = 1,1448), porque el modelo no es lineal. Los tres caben dentro del horizonte del Plan 2025-2027 y dos de los tres son objetivos que la propia compañía ha puesto por escrito. Con el primero ya cumplido desde noviembre de 2025 y el segundo remitido al Consejo de Estado en junio de 2026, este bull case no es un escenario remoto: es la continuación de lo que ya está pasando. Y aun así se queda a sólo un 9,1 % del precio objetivo, lo que confirma que esta tesis se gana en la valoración de partida y no en los catalizadores.",
- "bear": "30,14 €/acc (0,81 × PO, +2,24 % sobre la cotización). Es la cadena C del §8.2 —«Latinoamérica se cierra a la vez que el ciclo», la peor de las tres con un −26,61 %— y es la que ancla el stop de 25,96 €. El mecanismo: dos revisiones tarifarias integrales adversas en los cinco países del «Price Cap» a la vez que el ciclo, sobre unos activos que la propia Naturgy descuenta hasta al 22,1 % y que aportan 1.213 M€ de los 2.710 M€ de EBITDA de Redes. Lo que hace incómodo este bear no es su profundidad sino su suelo: a 30,14 € la acción todavía estaría por encima de la cotización de hoy, que es otra forma de decir que el mercado ya está descontando parte de esta cadena.",
- "resumen": "Empresa de calidad alta —rating A sobre 71,3 puntos— a un precio que sí deja margen, y ése es el rasgo que la separa de casi todo lo demás del universo. Una utility regulada con un foso de licencia y escala (moat 70,3, MODERADO) que reparte 1,77 €/acción y cotiza a 29,48 € contra un precio objetivo de 37,20: margen de seguridad +26,17 %, etiqueta BARATA, y las cuatro condiciones de compra del §9.4 se cumplen. Las tensiones que el veredicto lleva dentro, dichas sin adorno: el 71,4 % del valor del caso central está en el valor terminal, el payout sobre flujo de caja libre de 2025 fue del 121 % con un plan que sube el dividendo y la deuda a la vez, la retribución de la red de gas 2027-2032 está sin escribir y se cierra para seis años, y el EBITDA de 2025 lleva dentro una Generación Térmica inflada por el apagón de abril. El activo, a cambio, es lo que es: 297.000 km de red, 16,1 millones de puntos de suministro y el 70 % del gas del país.",
- "confianza": {
-  "score": 98,
-  "nivel": "A",
-  "motivos": [
-   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)"
-  ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-09-12"
- },
- "robustez": {
-  "nivel": "sensible",
-  "sobreviveDecision": false,
-  "etiquetaPrecioSensible": false,
-  "matizada": false,
-  "banda": {
-   "p10": 30.14,
-   "p50": 37.2,
-   "p90": 40.58
-  },
-  "sensibilidad": {
-   "sobre": "sintesis",
-   "regla": "F100",
-   "poMin": 32.02,
-   "poMax": 50.04,
-   "poBase": 37.2,
-   "cotizacion": 29.48,
-   "cotizacionBase": "actual",
-   "componente": "DCF Base",
-   "pesoPerturbado": 0.35,
-   "componentesIntactos": 8,
-   "dcf": {
-    "poMin": 26.33,
-    "poMax": 77.82,
-    "poBase": 41.1335703839732
-   },
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": 8.6,
-   "mdsMax": 69.7
-  },
-  "beta": {
-   "capm": 0.489,
-   "ref2": null,
-   "aviso": null
-  },
-  "motivos": [
-   "QUÉ SE HA PERTURBADO: solo «DCF Base» (35 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 65 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
-   "la cotización (29.48) queda por DEBAJO de toda la banda del precio objetivo de síntesis [32.02–50.04] → infravalorada en todo el rango",
-   "…pero la banda de margen de seguridad [+8.6 % … +69.7 %] CRUZA el umbral del 15 % de la tabla del §9.4: la DECISIÓN no es la misma en los dos extremos de la perturbación, así que es SENSIBLE [F621]. Que la cotización esté fuera de la banda del precio objetivo dice que la INFRA o SOBREvaloración aguanta; no dice que aguante el veredicto",
-   "para contraste, el DCF puro (§6.3) se mueve en [26.33–77.82] € alrededor de 41.13 €: es la sensibilidad del MODELO, no la del precio objetivo"
-  ],
-  "calculadoEl": "2026-09-12"
- },
+ "bull": "34,41 € — escenario optimista: el CAPEX de crecimiento de 2025 empieza a mover el EBITDA y la retribución del gas sale sin recorte",
+ "bear": "25,93 € — escenario pesimista: el EBITDA lleva diez años plano y el crecimiento autofinanciable es negativo",
+ "resumen": "ESPERAR con la cotización de 31,10 € (2026-10-23): precio objetivo 32,05 € (bear 25,93 · bull 34,41), margen +3,1 %. Banda de entrada 25,93–27,87 €, stop de tesis 22,10 €.",
  "dividendSafety": {
-  "score": 79,
-  "banda": "Seguro",
+  "score": 57,
+  "banda": "Vigilar",
+  "aplica": true,
+  "rama": "general",
   "componentes": {
-   "C1": 35,
+   "C1": 22,
    "C2": 7,
    "C3": 13,
-   "C4": 9,
+   "C4": 0,
    "C5": 15
   },
-  "shareholderYield": 1.16,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 2.62x / FCL 1.41x (3a OE 2.90x) → 35/35",
-   "C2 payout BN ord.: 83% (3a 76%) → 7/15",
-   "C3 balance: DN/EBITDA 2.31x, cob.int 4.5x → 13/20",
-   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
-   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+   "Vigilar: cobertura OE 1.37x · payout 83 % · 5 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-09-12"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 17.07
  },
  "forense": {
   "aplica": true,
+  "ejercicio": "2025",
   "piotroski": {
-   "score": 7,
-   "banda": "fuerte",
+   "score": 6,
+   "banda": "medio",
    "detalle": {
     "roa_pos": 1,
     "cfo_pos": 1,
@@ -131,21 +74,20 @@
     "accrual": 1,
     "lever_dn": 1,
     "liquid_up": 0,
-    "no_dilu": 1,
+    "no_dilu": 0,
     "margin_up": 0,
     "turn_up": 1
    },
-   "nota": "margen=EBIT (sin bruto)"
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
   },
   "altman": {
-   "z": 5.44,
-   "zona": "segura"
+   "z": 2.1,
+   "zona": "gris"
   },
   "beneish": {
-   "m": -2.92,
+   "m": -2.86,
    "senal": "sin indicios",
    "aproximado": [
-    "GMI",
     "SGAI"
    ]
   },
@@ -153,212 +95,37 @@
    "accruals": -6.3,
    "senal": "normal"
   },
-  "flags": [],
+  "flags": [
+   "Altman Z''=2.1 en zona gris"
+  ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-09-12"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -1.01,
-  "gIntrinseco": -1.13,
+  "gImplicito": 1.09,
+  "gIntrinseco": -0.88,
   "veredicto": "PLAUSIBLE",
-  "motivo": "El precio solo exige un -1.01% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
-  "calculadoEl": "2026-09-12",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
   "entradas": {
-   "fcl": 1791.2,
-   "wacc": 5.5,
+   "fcl": 1882.8347,
+   "wacc": 6.1564,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 969.614,
-   "deudaNeta": 12317,
+   "acciones": 963.1043,
+   "deudaNeta": 12394.648,
    "modo": "EV",
-   "precioBase": 29.48,
+   "precioBase": 31.1,
+   "gBase": 1.09,
+   "fechaBase": "2026-10-23",
+   "congeladoEl": "2026-10-26",
    "validado": true,
-   "desviacion": -0.004,
-   "gBase": -1.014,
-   "fechaBase": "2026-09-12",
-   "congeladoEl": "2026-09-13"
+   "desviacion": 0.0
   }
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "fuente": "Datos Financieros Naturgy.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 1,
-   "nombre": "LA MÁQUINA DE CUPÓN",
-   "lema": "rinde mucho, reinvierte poco",
-   "porSpread": false,
-   "roiicFragil": false,
-   "cortes": {
-    "reinversion": 20.0,
-    "roiic": 10.5,
-    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
-   }
-  },
-  "cifras": {
-   "reinversionMedia": 11.99,
-   "roiic5a": null,
-   "roiic": 25.25,
-   "roiicVentana": "3A",
-   "roicMedio": 6.69,
-   "spread": 5.7,
-   "wacc": 5.5,
-   "conversionMedia": 34.94,
-   "coberturaDividendo": 1.38,
-   "gIntrinseco": -1.13,
-   "capexCrecimiento10a": 3306.0,
-   "fcl10a": 16381.0,
-   "retribucion10a": 14633.9,
-   "retribucionSobreFcl": 89.3
-  },
-  "tension": {
-   "anios": [
-    2018,
-    2021,
-    2024,
-    2025
-   ],
-   "coberturaFcl": [
-    0.82,
-    null,
-    1.16,
-    1.38
-   ],
-   "coberturaOe": [
-    0.92,
-    null,
-    1.58,
-    1.7
-   ],
-   "payoutBn": [
-    null,
-    95.8,
-    81.6,
-    84.8
-   ],
-   "payoutFcl": [
-    121.2,
-    null,
-    86.4,
-    72.2
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "Una <b>utility integrada de gas y electricidad</b> con dos mitades de peso parecido: las redes de distribución reguladas en España y Latinoamérica, que dan algo más de la mitad del EBITDA, y los mercados de energía —aprovisionamiento de gas y GNL, generación y comercialización—, que dan el resto y ponen la volatilidad. Es intensiva en capital, con un CAPEX del <b>8,3 % de las ventas</b>, y convierte poco: <b>34,9 % de conversión media</b> del EBITDA en flujo libre, ningún año (0 de diez) por encima del umbral de la banda, y en 2021, con la crisis del gas, el flujo libre fue negativo.",
-     "La década ha sido de desmontar, no de construir: ventas de Italia, Colombia, Moldavia y las redes eléctricas de Chile, y un saneamiento de casi cinco mil millones en 2018 que castigó la generación convencional española. Sólo desde 2023 ha vuelto a comprar, y lo último que declara buscar es una red regulada."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>De la red, y sólo desde 2022.</b> El ROIC medio de la década, un 6,7 % contra un WACC del 5,5 %, esconde dos empresas: la de 2016-2021, con un ROIC medio del 4,0 % y un −5,9 % en el año del saneamiento, y la de 2022-2025, con un 10,8 % de media y un spread de <b>+5,70 pp</b> en 2025. Cuando el precio del gas se normalizó, las redes sostuvieron el resultado.",
-     "La inversión reciente ha rendido: el <b>ROIIC a tres años es del 25,2 %</b> —el libro no da un ROIIC a cinco años utilizable, así que la ventana es corta—, muy por encima del corte de WACC más cinco puntos. Pero el grueso de la caja no se ha reinvertido: la reinversión media es del <b>12,0 %</b> y, de 16.381 M€ de flujo libre en la década, <b>14.634 M€ —el 89 %— se han repartido</b>. Por eso está en la casilla del cupón."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "<b>La casilla la decide la década, y los tres últimos años no se le parecen.</b> Entre 2016 y 2022 la reinversión media fue del 5,3 %; en 2023-2025 ha sido del <b>27,7 %</b>, por encima del umbral de un compuesto, y es justamente la ventana en la que se mide el ROIIC. Además el libro cuenta como CAPEX de crecimiento 3.306 M€ en diez años, el 1,5 % de las ventas, bastante menos que el crecimiento que la propia compañía declara en sus informes: con la cifra de la empresa la reinversión sería mayor y la casilla podría ser otra. Es un dato a conciliar antes de apoyarse en él.",
-     "Y el cupón se paga ajustado. La cobertura con caja libre estuvo por debajo de la unidad en 2017 (0,99x) y 2018 (0,82x), bajó a 1,16x en 2024 y está en <b>1,38x</b> en 2025, con un payout del 84,8 % del beneficio. La retribución de 2025, 2.905 M€, es la mayor de la década y la deuda neta subió 116 M€ en el año. El plan 2025-2027 lo dice abiertamente: dividendos y recompras por encima del flujo libre, con la deuda neta subiendo hasta unos dieciséis mil millones en 2027."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra Naturgy compra <b>un cupón alto y creciente respaldado por una red regulada</b>, con una empresa que en sus dos peores sustos —2018 y 2020— no tocó el dividendo y que sólo lo recortó, en 2021, cuando decidió invertir. El riesgo no es que no pueda pagarlo, es que el suelo prometido hasta 2027 se financie con deuda en vez de con caja, en una compañía que además afronta el fin del GNL ruso de Yamal en 2027 y acaba de cambiar de accionistas de control.",
-     "<b>Qué vigilar cada trimestre, por ser familia 1:</b> la cobertura del dividendo con caja libre. Si baja de la unidad mientras la deuda neta sube como dice el plan, el cupón lo estará pagando el balance, y el propio suelo del dividendo está condicionado a mantener el rating BBB."
-    ]
-   }
-  ],
-  "vigilar": "La cobertura del dividendo con caja libre: el plan 2025-2027 sube el suelo del dividendo mientras deja subir la deuda neta; si la cobertura baja de la unidad, el cupón lo estará pagando el balance y el rating BBB al que está atado.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "Una empresa de redes reguladas que todavía cotiza como un conglomerado: la tesis es cobrar esa diferencia.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Sólida, pero el gearing empeora mientras la deuda baja, porque el patrimonio cae más.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Crea valor, pero encogiéndose: diferencial de +5,70 pp, el mejor de su década.",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 12,0 % del NOPAT de media; ROIIC a tres años del 25,2 % contra un corte del 10,5 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "La caja está y se reparte entera: el dividendo está cubierto 1,38x con caja libre.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "A · 71,3 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 37,20 € contra 29,48 €: margen de seguridad +26,2 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Moat moderado (70,3): un foso de licencia y de escala.",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "La transición energética está escrita para reducir la demanda de gas (probabilidad alta, −8 a −19 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "La vuelta a los índices MSCI, ya cumplida, y que la CNMC cierre el marco del gas 2027-2032 sin recorte.",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>COMPRAR</b> · banda de entrada 30,14 – 32,34 € · stop de tesis 25,96 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "La cobertura del dividendo con caja libre: el plan 2025-2027 sube el suelo del dividendo mientras deja subir la deuda neta; si la cobertura baja de la unidad, el cupón lo estará pagando el balance y el rating BBB al que está atado.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "1 dato secundario abierto.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 37,20 → 32,05 €; decisión COMPRAR → ESPERAR."
 }

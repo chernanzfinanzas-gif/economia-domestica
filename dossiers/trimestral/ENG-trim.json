@@ -1,936 +1,694 @@
 {
-  "schemaVersion": 2,
-  "ticker": "ENG",
-  "empresa": "Enagás",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "ENG",
+ "empresa": "Enagás, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2021-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2021-9M",
+   "fecha": "2021-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -13,1 %, EBITDA -7,9 %, margen 92,8 % (+5,24 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2023-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 220.6
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 173.6
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 95.9
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 54.6
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 3477.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 4.9
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 16.7
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.7
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": -7.0
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Ingresos",
+     "valor": 722.0
     },
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 450.4
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 372.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 216.4
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 134.6
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 247.7
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 108.8
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 3166.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 4.4
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 19.2
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.6
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": -4.6
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBITDA",
+     "valor": 670.0
     },
     {
-      "periodo": "2023-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2023-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 672.7
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 572.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 334.8
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 216.7
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 405.9
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 137.5
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 3406.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 4.8
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 17.1
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.6
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": -6.9
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Margen EBITDA",
+     "valor": 92.8
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 919.6
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 780.3
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 456.9
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 300.3
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 555.3
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 192.5
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 3347.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 4.3
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 18.7
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.6
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": -7.3
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2024-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos totales -0.0 %, EBITDA +2.7 %, BDI recurrente +19.6 % contra el mismo periodo del ejercicio anterior, con FFO / Deuda neta en 19.2 % (banda del §10.1: verde ≥ 15.0, rojo < 14.0). El ratio FFO sobre deuda neta sube un 15.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 220.5
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 178.3
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 92.9
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 65.3
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 163.3
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 40.9
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 3342.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 4.3
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 19.2
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.8
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": -4.0
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos totales -1.8 %, EBITDA +3.7 %, BDI recurrente +10.0 % contra el mismo periodo del ejercicio anterior, con FFO / Deuda neta en 20.2 % (banda del §10.1: verde ≥ 15.0, rojo < 14.0). El ratio FFO sobre deuda neta sube un 5.2 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 442.5
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 385.7
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 214.3
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 148.0
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 332.9
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 98.4
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 3164.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 4.1
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 20.2
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.8
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": -7.2
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2024-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos totales -1.1 %, EBITDA +0.1 %, BDI recurrente +7.8 % contra el mismo periodo del ejercicio anterior, con FFO / Deuda neta en 27.2 % (banda del §10.1: verde ≥ 15.0, rojo < 14.0). El ratio FFO sobre deuda neta sube un 59.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 665.2
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 572.8
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 323.8
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 233.5
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 508.3
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 124.6
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 2421.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 3.2
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 27.2
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.7
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": -8.6
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos totales -0.7 %, EBITDA -2.5 %, BDI recurrente +3.3 % contra el mismo periodo del ejercicio anterior, con FFO / Deuda neta en 28.7 % (banda del §10.1: verde ≥ 15.0, rojo < 14.0). El ratio FFO sobre deuda neta sube un 53.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).  ·  QUIEBRE DE PERÍMETRO: QUIEBRE DE BASE · El BDI reportado de 2023 vale 375,8 M€ en su propio informe y 342,5 M€ en la columna comparativa del informe de 2024: son dos bases, no un error de lectura. Es la misma razón por la que este monitor sigue el BDI RECURRENTE, que la empresa publica de forma homogénea desde 2024 y reexpresa hacia atrás en sus comparativos. Y el informe anual de 2024 es una PRESENTACIÓN y no trae tabla de ratios de apalancamiento: su deuda neta (2.404 M€), DN/EBITDA (3,3x), FFO/DN (28,7 %), coste de la deuda (2,6 %), FFO (688,8 M€) y",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 913.2
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 760.7
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 428.7
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 310.1
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 688.8
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 161.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 2404.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 3.3
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 28.7
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.6
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": -4.2
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2025-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos totales -4.7 %, EBITDA -8.1 %, BDI recurrente -0.2 % contra el mismo periodo del ejercicio anterior, con FFO / Deuda neta en 28.2 % (banda del §10.1: verde ≥ 15.0, rojo < 14.0). El ratio FFO sobre deuda neta sube un 46.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 210.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 163.9
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 86.3
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 65.2
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 140.3
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 41.3
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 2363.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 3.3
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 28.2
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.3
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": 3.4
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos totales +3.9 %, EBITDA -14.6 %, BDI recurrente -12.3 % contra el mismo periodo del ejercicio anterior, con FFO / Deuda neta en 28.3 % (banda del §10.1: verde ≥ 15.0, rojo < 14.0). El ratio FFO sobre deuda neta sube un 40.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 459.6
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 329.3
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 174.7
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 129.8
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 293.8
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 91.2
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 2299.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 3.3
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 28.3
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.2
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": 7.6
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2025-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos totales +6.9 %, EBITDA -11.7 %, BDI recurrente -11.4 % contra el mismo periodo del ejercicio anterior, con FFO / Deuda neta en 27.4 % (banda del §10.1: verde ≥ 15.0, rojo < 14.0). El ratio FFO sobre deuda neta sube un 0.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 711.2
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 505.9
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 275.2
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 206.9
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 463.0
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 117.3
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 2347.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 3.4
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 27.4
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.2
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": 6.6
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos totales +7.0 %, EBITDA -11.2 %, BDI recurrente -14.1 % contra el mismo periodo del ejercicio anterior, con FFO / Deuda neta en 25.7 % (banda del §10.1: verde ≥ 15.0, rojo < 14.0). El ratio FFO sobre deuda neta cae un 10.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 976.8
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 675.7
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 368.1
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 266.3
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 635.8
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 164.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 2475.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 3.6
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 25.7
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.1
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": 7.4
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q1",
-      "periodoDisplay": "1T",
-      "fecha": "2026-03-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos totales +8.2 %, EBITDA -9.9 %, BDI recurrente -12.7 % contra el mismo periodo del ejercicio anterior, con FFO / Deuda neta en 25.2 % (banda del §10.1: verde ≥ 15.0, rojo < 14.0). El ratio FFO sobre deuda neta cae un 10.6 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 227.4
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 147.6
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 71.9
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 56.9
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 122.2
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 37.6
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 2456.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 3.7
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 25.2
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.0
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": 4.2
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-06-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos totales +1.0 %, EBITDA -4.6 %, BDI recurrente -8.6 % contra el mismo periodo del ejercicio anterior, con FFO / Deuda neta en 27.4 % (banda del §10.1: verde ≥ 15.0, rojo < 14.0). El ratio FFO sobre deuda neta cae un 3.2 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 464.4
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 314.0
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 162.7
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 118.6
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 290.1
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 96.7
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 2305.0
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 3.4
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 27.4
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.0
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": 0.4
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q3",
-      "periodoDisplay": "9M",
-      "fecha": "2026-09-30",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos totales -2.0 %, EBITDA -2.9 %, BDI recurrente -5.4 % contra el mismo periodo del ejercicio anterior (caida que se estrecha frente al -4.6 % y -8.6 % de S1-2026), con FFO / Deuda neta en 20.5 % (banda del §10.1: verde >= 15.0, rojo < 14.0): sigue en verde pese a caer un 25.2 % interanual. La deuda neta sube a 2.979 M€ (+26.9 % vs 9M-2025) porque desde este trimestre incluye la financiacion de la inversion en Terega (footnote de la propia empresa) -inversion estrategica declarada, no deterioro operativo-, lo que arrastra el DN/EBITDA ajustado a 4.6x. BDI reportado 204.1 M€ (+112.6 pp vs 9M-2025 en la lectura literal, no comparable: el 9M-2025 tambien llevaba extraordinarios) incluye +8.3 M€ por la venta del 40% de Enagas Renovable; limpio de ese efecto, el BDI recurrente es el de 195.8 M€ ya usado arriba. Sin presentacion de resultados para este trimestre (la empresa no la publica en 9M); informe de resultados completo.",
-      "metricas": [
-        {
-          "nombre": "Ingresos totales (M€)",
-          "valor": 696.7
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 491.5
-        },
-        {
-          "nombre": "EBIT (M€)",
-          "valor": 263.9
-        },
-        {
-          "nombre": "BDI recurrente (M€)",
-          "valor": 195.8
-        },
-        {
-          "nombre": "FFO (M€)",
-          "valor": 439.0
-        },
-        {
-          "nombre": "Dividendos de participadas (M€)",
-          "valor": 127.1
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 2979
-        },
-        {
-          "nombre": "DN / EBITDA ajustado",
-          "valor": 4.6
-        },
-        {
-          "nombre": "FFO / Deuda neta (%)",
-          "valor": 20.5
-        },
-        {
-          "nombre": "Coste financiero de la deuda bruta (%)",
-          "valor": 2.1
-        },
-        {
-          "nombre": "Demanda de gas y exportaciones (% var.)",
-          "valor": 2.6
-        },
-        {
-          "nombre": "Disponibilidad de la red (%)",
-          "valor": 100.0
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Desinversión",
-          "hecho": "Venta del 40% de Enagás Renovable, con efecto positivo de +8,3 M€ (diferencia entre el BDI reportado de 204,1 M€ y el BDI recurrente de 195,8 M€ a 9M-2026).",
-          "impacto": "+",
-          "valoracion": "Extraordinario puntual y favorable; no cambia la tesis, que sigue apoyada en el BDI recurrente."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "La Deuda Neta a 30-sep-2026 (2.979 M€) incluye por primera vez la financiación de la inversión en Teréga, según declara la propia empresa en nota al pie de su informe.",
-          "impacto": "-",
-          "valoracion": "Explica la práctica totalidad de la subida del apalancamiento del trimestre; es una inversión estratégica declarada, no un deterioro del negocio regulado. A vigilar en el próximo trimestre si el ratio FFO/DN se sigue sosteniendo por encima del umbral verde del 15 %."
-        }
-      ],
-      "origen": "trimestral"
+     "nombre": "EBIT",
+     "valor": 439.0
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -2,8 %, EBITDA -14,0 %, margen 79,4 % (-10,38 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 234.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 186.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 79.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 105.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +0,4 %, EBITDA -15,2 %, beneficio neto -85,8 %, margen 77,3 % (-14,21 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 473.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 366.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 77.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 233.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 30.2
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 4398.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,0 %, EBITDA -9,7 %, margen 84,6 % (-8,13 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 715.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 605.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 84.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 368.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,9 %, EBITDA -12,3 %, beneficio neto -6,9 %, margen 77,6 % (-9,17 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 957.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 742.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 77.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 478.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 376.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3523.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -5,7 %, EBITDA -6,6 %, margen 78,7 % (-0,74 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 221.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 174.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 78.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 95.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -5,6 %, EBITDA -4,6 %, beneficio neto +485,8 %, margen 78,2 % (+0,85 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 446.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 349.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 78.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 216.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 177.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3473.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -5,9 %, EBITDA -5,5 %, margen 85,0 % (+0,39 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 673.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 572.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 85.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 335.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -5,2 %, EBITDA -1,6 %, beneficio neto -8,8 %, margen 80,5 % (+2,90 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 908.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 730.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 80.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 457.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 343.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3630.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -0,0 %, EBITDA +2,7 %, margen 80,9 % (+2,17 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 220.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 178.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 80.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 92.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,9 %, EBITDA +2,9 %, beneficio neto -245,8 %, margen 82,0 % (+3,80 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 438.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 359.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 82.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 214.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": -258.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3735.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,1 %, EBITDA +0,1 %, margen 86,1 % (+1,08 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 665.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 573.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 86.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 324.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -0,2 %, EBITDA -2,0 %, beneficio neto -187,4 %, margen 79,1 % (-1,41 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 906.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 716.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 79.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 429.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": -299.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2806.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -4,7 %, EBITDA -8,1 %, margen 78,0 % (-2,85 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −8,1 % por el impacto del marco regulatorio vigente en los ingresos regulados (ingresos regulados −5,7 %); el beneficio se queda plano (65,2 M€ frente a 65,3 M€) (documento: «2025-04-30 Resultados Primer Trimestre 2025»). Es la bajada de retribución ya conocida, no un extraordinario: el color se queda.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 210.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 164.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 78.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 86.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,4 %, EBITDA -11,5 %, beneficio neto +168,3 %, margen 70,1 % (-11,84 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −14,6 % según la empresa: marco regulatorio −28 M€ en ingresos y menos resultado de participadas (−21,6 %) por la salida de Tallgrass y Soto la Marina en 2024. El margen se ve más bajo porque los ingresos incluyen 49 M€ del sellado de Castor que se compensan con gastos. El «−168 %» del beneficio es un efecto de comparar con la pérdida de Tallgrass de 2024: el beneficio recurrente baja un 12,3 % (documento: «2025-07-22 Resultados Primer Semestre 2025»). La mayor parte es regulatoria: el color se queda.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 453.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 318.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 70.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 175.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 176.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2678.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,9 %, EBITDA -11,7 %, margen 71,1 % (-14,98 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −11,7 %, con el marco regulatorio restando unos 43 M€ de ingresos y Castor inflando ingresos y gastos (~89 M€) sin margen; beneficio recurrente −11,4 % (documento: «2025-10-21 Resultados tercer trimestre 2025»). Mismo motivo regulatorio: el color se queda.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 711.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 506.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 71.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 275.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,1 %, EBITDA -7,6 %, beneficio neto +213,3 %, margen 68,8 % (-10,21 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −11,2 % según la empresa (unos −57 M€ de ingresos por el marco regulatorio y la salida de Tallgrass y Soto la Marina, 16,6 M€ en participadas) y 125,9 M€ de ingresos de Castor sin margen que bajan el porcentaje. El beneficio pasa de −299 M€ a +339 M€ (el «−213 %» es efecto de la base negativa); el recurrente baja un 14,1 %, aunque supera el objetivo de 265 M€ (documento: «2026-02-17 Resultados anuales 2025»). El color se queda.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 960.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 661.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 68.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 368.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 339.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2696.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +8,2 %, EBITDA -9,9 %, margen 64,9 % (-13,10 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −9,9 % por el marco regulatorio (unos −15 M€ de ingresos); los ingresos suben +8,2 % solo por Castor (37 M€, compensados en gastos), lo que hunde el margen en porcentaje (documento: «2026-04-21 Resultados Primer Trimestre 2026»). El color se queda.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 227.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 148.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 64.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 71.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,8 %, EBITDA -5,1 %, beneficio neto -27,9 %, margen 67,8 % (-2,36 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −4,7 % (marco regulatorio −30 M€; participadas +7,8 %) y beneficio recurrente −8,6 %; el beneficio total cae un 27,9 % porque en 2025 había plusvalías de Soto la Marina y GSP (documento: «2026-07-22 Resultados primer semestre 2026»). La caída recurrente es regulatoria: el color se queda.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 445.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 301.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 67.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 163.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 127.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2721.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -2,0 %, EBITDA -2,8 %, margen 70,5 % (-0,59 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora. Rojo, pero la caída se modera: EBITDA −2,9 % (marco regulatorio −45,1 M€, compensado en parte por el buque Alisios, Axent y participadas +23,9 % con TAP y Teréga) y beneficio recurrente −5,4 %, en línea con el objetivo de 235 M€. El 18-sep se publicaron en el BOE las circulares del marco 2027-2032 (documento: «2026-10-20 Resultados tercer trimestre 2026»). El color se queda.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 697.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 492.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 70.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 264.0
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Desinversión",
+     "hecho": "Venta del 40% de Enagás Renovable, con efecto positivo de +8,3 M€ (diferencia entre el BDI reportado de 204,1 M€ y el BDI recurrente de 195,8 M€ a 9M-2026).",
+     "impacto": "+",
+     "valoracion": "Extraordinario puntual y favorable; no cambia la tesis, que sigue apoyada en el BDI recurrente."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "La Deuda Neta a 30-sep-2026 (2.979 M€) incluye por primera vez la financiación de la inversión en Teréga, según declara la propia empresa en nota al pie de su informe.",
+     "impacto": "-",
+     "valoracion": "Explica la práctica totalidad de la subida del apalancamiento del trimestre; es una inversión estratégica declarada, no un deterioro del negocio regulado. A vigilar en el próximo trimestre si el ratio FFO/DN se sigue sosteniendo por encima del umbral verde del 15 %."
+    }
+   ],
+   "origen": "metodo-v3"
+  }
+ ]
 }

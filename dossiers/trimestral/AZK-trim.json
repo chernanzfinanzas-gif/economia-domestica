@@ -1,378 +1,351 @@
 {
-  "schemaVersion": 2,
-  "ticker": "AZK",
-  "empresa": "Azkoyen",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "AZK",
+ "empresa": "Azkoyen, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-10-26",
+ "revisiones": [
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +18,0 %, EBITDA +30,5 %, beneficio neto +23,0 %, margen 15,6 % (+1,49 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
     {
-      "periodo": "2023-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2023-07-27",
-      "fechaOrigen": "cnmv",
-      "fechaOrigenNota": "La fecha de cada periodo es la del campo «Fecha de firma de este informe semestral por el organo de administracion correspondiente» del propio impreso de la CNMV, que es cuando el consejo formula y publica la declaracion. Los informes del 2o SEMESTRE no traen ese campo -comprobado en los tres de la ventana- y por eso llevan su propio `fechaOrigen: cierre` declarado periodo a periodo. Extraido de los siete informes semestrales que Azkoyen ha declarado a la CNMV entre el 1S-2023 y el 1S-2026, leyendo los CODIGOS del formulario oficial (1205 cifra de negocios, 1211 amortizacion, 1245 resultado de explotacion, 1300 resultado atribuido, 2221/2222/2223 segmentos) y no rotulos de texto. AZKOYEN PUBLICA SEMESTRAL: dos periodos al ano, no cuatro; las filas Q1 y 9M de la rejilla se quedan vacias porque esos informes NO EXISTEN, no porque falte el dato. El EBITDA no lo publica el formulario y se DERIVA como 1245 + |1211|; comprobado contra el libro, el FY-2025 asi derivado da 34,957 M EUR, que es el EBITDA OFICIAL del Capitulo I digito a digito. Guardas pasadas: cabecera del formulario contra el nombre del fichero (7/7), identidades contables (EBIT<=EBITDA, consolidado = atribuido + minoritarios, explotacion + financiero = BAI), monotonia del acumulado, suma de segmentos contra su propio total, y la que solo da este formulario: cada cifra sale DOS VECES -como acumulado de su informe y como comparable del informe siguiente- y los 25 cruces cuadran.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 99.56
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 17.408
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 17.48
-        },
-        {
-          "nombre": "Bº neto atribuible (M€)",
-          "valor": 8.857
-        },
-        {
-          "nombre": "Payment · ventas (M€)",
-          "valor": 31.81
-        },
-        {
-          "nombre": "Payment · BAI (M€)",
-          "valor": 7.602
-        },
-        {
-          "nombre": "Vending · ventas (M€)",
-          "valor": 38.073
-        },
-        {
-          "nombre": "Vending · BAI (M€)",
-          "valor": 4.152
-        },
-        {
-          "nombre": "Time & Security · ventas (M€)",
-          "valor": 29.677
-        },
-        {
-          "nombre": "Time & Security · BAI (M€)",
-          "valor": 0.327
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Ingresos",
+     "valor": 77.9
     },
     {
-      "periodo": "2023-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2023-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "El impreso del 2º SEMESTRE de la CNMV no trae el campo «Fecha de firma de este informe semestral», que sí trae el del 1er semestre. Comprobado en los tres informes anuales de la ventana (FY-2023, FY-2024 y FY-2025): ninguno imprime fecha de firma ni de portada. Se usa el cierre del periodo, que NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 192.469
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 31.935
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 16.59
-        },
-        {
-          "nombre": "Bº neto atribuible (M€)",
-          "valor": 17.335
-        },
-        {
-          "nombre": "Payment · ventas (M€)",
-          "valor": 62.693
-        },
-        {
-          "nombre": "Payment · BAI (M€)",
-          "valor": 14.615
-        },
-        {
-          "nombre": "Vending · ventas (M€)",
-          "valor": 69.668
-        },
-        {
-          "nombre": "Vending · BAI (M€)",
-          "valor": 6.767
-        },
-        {
-          "nombre": "Time & Security · ventas (M€)",
-          "valor": 60.108
-        },
-        {
-          "nombre": "Time & Security · BAI (M€)",
-          "valor": 1.533
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBITDA",
+     "valor": 12.2
     },
     {
-      "periodo": "2024-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2024-07-24",
-      "fechaOrigen": "cnmv",
-      "fechaOrigenNota": "La fecha de cada periodo es la del campo «Fecha de firma de este informe semestral por el organo de administracion correspondiente» del propio impreso de la CNMV, que es cuando el consejo formula y publica la declaracion. Los informes del 2o SEMESTRE no traen ese campo -comprobado en los tres de la ventana- y por eso llevan su propio `fechaOrigen: cierre` declarado periodo a periodo. Extraido de los siete informes semestrales que Azkoyen ha declarado a la CNMV entre el 1S-2023 y el 1S-2026, leyendo los CODIGOS del formulario oficial (1205 cifra de negocios, 1211 amortizacion, 1245 resultado de explotacion, 1300 resultado atribuido, 2221/2222/2223 segmentos) y no rotulos de texto. AZKOYEN PUBLICA SEMESTRAL: dos periodos al ano, no cuatro; las filas Q1 y 9M de la rejilla se quedan vacias porque esos informes NO EXISTEN, no porque falte el dato. El EBITDA no lo publica el formulario y se DERIVA como 1245 + |1211|; comprobado contra el libro, el FY-2025 asi derivado da 34,957 M EUR, que es el EBITDA OFICIAL del Capitulo I digito a digito. Guardas pasadas: cabecera del formulario contra el nombre del fichero (7/7), identidades contables (EBIT<=EBITDA, consolidado = atribuido + minoritarios, explotacion + financiero = BAI), monotonia del acumulado, suma de segmentos contra su propio total, y la que solo da este formulario: cada cifra sale DOS VECES -como acumulado de su informe y como comparable del informe siguiente- y los 25 cruces cuadran.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +0.9 %, EBITDA -3.4 %, Beneficio neto atribuible -4.5 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 16.7 % (banda del §10.1: verde ≥ 16.5, rojo < 15.0). Las ventas de Payment Technologies suben un 12.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 100.46
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 16.819
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 16.74
-        },
-        {
-          "nombre": "Bº neto atribuible (M€)",
-          "valor": 8.456
-        },
-        {
-          "nombre": "Payment · ventas (M€)",
-          "valor": 35.717
-        },
-        {
-          "nombre": "Payment · BAI (M€)",
-          "valor": 9.441
-        },
-        {
-          "nombre": "Vending · ventas (M€)",
-          "valor": 32.028
-        },
-        {
-          "nombre": "Vending · BAI (M€)",
-          "valor": 0.86
-        },
-        {
-          "nombre": "Time & Security · ventas (M€)",
-          "valor": 32.715
-        },
-        {
-          "nombre": "Time & Security · BAI (M€)",
-          "valor": 1.564
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Margen EBITDA",
+     "valor": 15.6
     },
     {
-      "periodo": "2024-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2024-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "El impreso del 2º SEMESTRE de la CNMV no trae el campo «Fecha de firma de este informe semestral», que sí trae el del 1er semestre. Comprobado en los tres informes anuales de la ventana (FY-2023, FY-2024 y FY-2025): ninguno imprime fecha de firma ni de portada. Se usa el cierre del periodo, que NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +3.4 %, EBITDA +10.0 %, Beneficio neto atribuible +7.3 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 17.6 % (banda del §10.1: verde ≥ 16.5, rojo < 15.0). Las ventas de Payment Technologies suben un 9.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 199.049
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 35.113
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 17.64
-        },
-        {
-          "nombre": "Bº neto atribuible (M€)",
-          "valor": 18.595
-        },
-        {
-          "nombre": "Payment · ventas (M€)",
-          "valor": 68.857
-        },
-        {
-          "nombre": "Payment · BAI (M€)",
-          "valor": 17.434
-        },
-        {
-          "nombre": "Vending · ventas (M€)",
-          "valor": 63.061
-        },
-        {
-          "nombre": "Vending · BAI (M€)",
-          "valor": 1.926
-        },
-        {
-          "nombre": "Time & Security · ventas (M€)",
-          "valor": 67.131
-        },
-        {
-          "nombre": "Time & Security · BAI (M€)",
-          "valor": 5.334
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "EBIT",
+     "valor": 9.2
     },
     {
-      "periodo": "2025-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2025-07-23",
-      "fechaOrigen": "cnmv",
-      "fechaOrigenNota": "La fecha de cada periodo es la del campo «Fecha de firma de este informe semestral por el organo de administracion correspondiente» del propio impreso de la CNMV, que es cuando el consejo formula y publica la declaracion. Los informes del 2o SEMESTRE no traen ese campo -comprobado en los tres de la ventana- y por eso llevan su propio `fechaOrigen: cierre` declarado periodo a periodo. Extraido de los siete informes semestrales que Azkoyen ha declarado a la CNMV entre el 1S-2023 y el 1S-2026, leyendo los CODIGOS del formulario oficial (1205 cifra de negocios, 1211 amortizacion, 1245 resultado de explotacion, 1300 resultado atribuido, 2221/2222/2223 segmentos) y no rotulos de texto. AZKOYEN PUBLICA SEMESTRAL: dos periodos al ano, no cuatro; las filas Q1 y 9M de la rejilla se quedan vacias porque esos informes NO EXISTEN, no porque falte el dato. El EBITDA no lo publica el formulario y se DERIVA como 1245 + |1211|; comprobado contra el libro, el FY-2025 asi derivado da 34,957 M EUR, que es el EBITDA OFICIAL del Capitulo I digito a digito. Guardas pasadas: cabecera del formulario contra el nombre del fichero (7/7), identidades contables (EBIT<=EBITDA, consolidado = atribuido + minoritarios, explotacion + financiero = BAI), monotonia del acumulado, suma de segmentos contra su propio total, y la que solo da este formulario: cada cifra sale DOS VECES -como acumulado de su informe y como comparable del informe siguiente- y los 25 cruces cuadran.",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +2.1 %, EBITDA +5.3 %, Beneficio neto atribuible +7.7 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 17.3 % (banda del §10.1: verde ≥ 16.5, rojo < 15.0). Las ventas de Payment Technologies suben un 4.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 102.534
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 17.716
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 17.28
-        },
-        {
-          "nombre": "Bº neto atribuible (M€)",
-          "valor": 9.105
-        },
-        {
-          "nombre": "Payment · ventas (M€)",
-          "valor": 37.161
-        },
-        {
-          "nombre": "Payment · BAI (M€)",
-          "valor": 10.329
-        },
-        {
-          "nombre": "Vending · ventas (M€)",
-          "valor": 30.455
-        },
-        {
-          "nombre": "Vending · BAI (M€)",
-          "valor": 0.835
-        },
-        {
-          "nombre": "Time & Security · ventas (M€)",
-          "valor": 34.918
-        },
-        {
-          "nombre": "Time & Security · BAI (M€)",
-          "valor": 1.145
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Beneficio neto",
+     "valor": 6.6
     },
     {
-      "periodo": "2025-Q4",
-      "periodoDisplay": "FY",
-      "fecha": "2025-12-31",
-      "fechaOrigen": "cierre",
-      "fechaOrigenNota": "El impreso del 2º SEMESTRE de la CNMV no trae el campo «Fecha de firma de este informe semestral», que sí trae el del 1er semestre. Comprobado en los tres informes anuales de la ventana (FY-2023, FY-2024 y FY-2025): ninguno imprime fecha de firma ni de portada. Se usa el cierre del periodo, que NO es una fecha de mercado y así hay que leerla.",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +6.0 %, EBITDA -0.4 %, Beneficio neto atribuible -6.8 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 16.6 % (banda del §10.1: verde ≥ 16.5, rojo < 15.0). Las ventas de Payment Technologies suben un 13.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 211.068
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 34.957
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 16.56
-        },
-        {
-          "nombre": "Bº neto atribuible (M€)",
-          "valor": 17.324
-        },
-        {
-          "nombre": "Payment · ventas (M€)",
-          "valor": 78.168
-        },
-        {
-          "nombre": "Payment · BAI (M€)",
-          "valor": 22.67
-        },
-        {
-          "nombre": "Vending · ventas (M€)",
-          "valor": 58.799
-        },
-        {
-          "nombre": "Vending · BAI (M€)",
-          "valor": -1.877
-        },
-        {
-          "nombre": "Time & Security · ventas (M€)",
-          "valor": 74.101
-        },
-        {
-          "nombre": "Time & Security · BAI (M€)",
-          "valor": 3.731
-        }
-      ],
-      "origen": "revolcado"
-    },
-    {
-      "periodo": "2026-Q2",
-      "periodoDisplay": "S1",
-      "fecha": "2026-07-28",
-      "fechaOrigen": "cnmv",
-      "fechaOrigenNota": "La fecha de cada periodo es la del campo «Fecha de firma de este informe semestral por el organo de administracion correspondiente» del propio impreso de la CNMV, que es cuando el consejo formula y publica la declaracion. Los informes del 2o SEMESTRE no traen ese campo -comprobado en los tres de la ventana- y por eso llevan su propio `fechaOrigen: cierre` declarado periodo a periodo. Extraido de los siete informes semestrales que Azkoyen ha declarado a la CNMV entre el 1S-2023 y el 1S-2026, leyendo los CODIGOS del formulario oficial (1205 cifra de negocios, 1211 amortizacion, 1245 resultado de explotacion, 1300 resultado atribuido, 2221/2222/2223 segmentos) y no rotulos de texto. AZKOYEN PUBLICA SEMESTRAL: dos periodos al ano, no cuatro; las filas Q1 y 9M de la rejilla se quedan vacias porque esos informes NO EXISTEN, no porque falte el dato. El EBITDA no lo publica el formulario y se DERIVA como 1245 + |1211|; comprobado contra el libro, el FY-2025 asi derivado da 34,957 M EUR, que es el EBITDA OFICIAL del Capitulo I digito a digito. Guardas pasadas: cabecera del formulario contra el nombre del fichero (7/7), identidades contables (EBIT<=EBITDA, consolidado = atribuido + minoritarios, explotacion + financiero = BAI), monotonia del acumulado, suma de segmentos contra su propio total, y la que solo da este formulario: cada cifra sale DOS VECES -como acumulado de su informe y como comparable del informe siguiente- y los 25 cruces cuadran.",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ventas +6.2 %, EBITDA -16.2 %, Beneficio neto atribuible -20.4 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 13.6 % (banda del §10.1: verde ≥ 16.5, rojo < 15.0). Las ventas de Payment Technologies suben un 20.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).  ·  QUIEBRE DE PERÍMETRO: Desde aquí la serie lleva dentro Primion AG, comprada en marzo de 2026 por 2,3 M€ (la tesorería que traía eran 1,2 M€). Es pequeña —no llega al 1 % de las ventas del semestre— y no explica la caída del margen, pero queda marcada para que nadie la use como explicación ni la ignore. El quiebre GRANDE de la década, Vendon y Ascaso en 2022, queda antes del arranque de esta rejilla.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 108.913
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 14.84
-        },
-        {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 13.63
-        },
-        {
-          "nombre": "Bº neto atribuible (M€)",
-          "valor": 7.25
-        },
-        {
-          "nombre": "Payment · ventas (M€)",
-          "valor": 44.706
-        },
-        {
-          "nombre": "Payment · BAI (M€)",
-          "valor": 12.461
-        },
-        {
-          "nombre": "Vending · ventas (M€)",
-          "valor": 27.568
-        },
-        {
-          "nombre": "Vending · BAI (M€)",
-          "valor": -1.527
-        },
-        {
-          "nombre": "Time & Security · ventas (M€)",
-          "valor": 36.639
-        },
-        {
-          "nombre": "Time & Security · BAI (M€)",
-          "valor": 0.128
-        }
-      ],
-      "origen": "revolcado"
+     "nombre": "Deuda neta",
+     "valor": -5.6
     }
-  ]
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +23,0 %, EBITDA +23,9 %, beneficio neto +15,4 %, margen 16,4 % (+0,12 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 171.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 28.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 20.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 14.9
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 41.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-07-27",
+   "fechaOrigen": "cnmv",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +27,9 %, EBITDA +43,2 %, beneficio neto +34,3 %, margen 17,5 % (+1,87 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 99.6
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 17.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 13.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 8.9
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 41.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +12,7 %, EBITDA +13,7 %, beneficio neto +16,2 %, margen 16,6 % (+0,16 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 192.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 31.9
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 23.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 17.3
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 32.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-07-24",
+   "fechaOrigen": "cnmv",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +0,9 %, EBITDA -3,4 %, beneficio neto -4,5 %, margen 16,7 % (-0,74 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 100.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 16.8
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 12.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 8.5
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 26.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,4 %, EBITDA +10,0 %, beneficio neto +7,3 %, margen 17,6 % (+1,05 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 199.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 35.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 25.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 18.6
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 10.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-07-23",
+   "fechaOrigen": "cnmv",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,1 %, EBITDA +5,3 %, beneficio neto +7,7 %, margen 17,3 % (+0,54 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ventas +2,1 %, EBITDA +5,3 %, beneficio +7,7 % y margen 17,3 % (+0,54 puntos).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 103.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 17.7
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 13.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 9.1
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 16.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,0 %, EBITDA -0,4 %, beneficio neto -6,8 %, margen 16,6 % (-1,08 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora. Ámbar: ventas +6,0 %, EBITDA −0,4 % y beneficio −6,8 %, con el margen −1,08 puntos (16,6 %). Solo cifras del IPP; no hay anuncio de resultados del ejercicio en los textos para explicar la caída del margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 211.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 35.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 25.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 17.3
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -0.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-07-28",
+   "fechaOrigen": "cnmv",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": false,
+   "resumen": "Ingresos +6,2 %, EBITDA -16,2 %, beneficio neto -20,4 %, margen 13,6 % (-3,65 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: ventas +6,2 % pero EBITDA −16,2 % y beneficio −20,4 %; el margen EBITDA cae a 13,6 % (−3,65 puntos), por debajo del 15 % que marca la señal del riesgo «la consolidación del sector comprime el margen». Solo tengo las cifras del IPP; no hay anuncio de resultados del semestre en los textos, así que no encuentro un motivo extraordinario y el color se queda.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 109.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 14.8
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 10.5
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 7.2
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 12.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
 }

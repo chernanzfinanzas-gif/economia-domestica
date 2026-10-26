@@ -1,128 +1,70 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "VID",
  "empresa": "Vidrala, S.A.",
- "fecha": "2026-08-24",
+ "fecha": "2026-10-26",
+ "revisadoEl": "2026-10-26",
  "rating": "AA",
- "score": 75.7,
- "decision": "COMPRAR",
- "metodoValoracion": "Síntesis ponderada de nueve métodos — DCF 45 % (pesimista 10 · base 25 · optimista 10) + múltiplos históricos de diez años 50 % (EV/EBITDA 15 · EV/EBIT 10 · PER 10 · P/BV 5 · P/FCL 10) + renta 5 % (dividend yield). Arquetipo INDUSTRIAL cíclica. PO oficial = el de esa síntesis (§6.5) = 106,42 €; el DCF base por sí solo daría 96,90 €.",
- "poBear": 85.29,
- "poBase": 106.42,
- "poBull": 123.57,
- "entMin": 85.29,
- "entMax": 92.54,
- "stop": 37.5,
- "dpaPrevisto": 1.6997,
- "moat": "MOAT ESTRECHO (48,1/100). El vidrio no viaja más de ~300 km, así que el foso es geográfico: escala eficiente 75 y ventaja de costes 60 —29,2 % de margen EBITDA contra 20,8 % de Verallia y 19,0 % de O-I—. Intangibles 25 y costes de cambio 35: el producto no admite marca. El efecto de red se declara N/A y su peso se reparte.",
+ "score": 76.1,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 25 % · DCF optimista 10 % · EV/EBITDA 15 % · EV/EBIT 10 % · PER 10 % · P/VC 5 % · P/FCL 10 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl",
+ "poBear": 73.97,
+ "poBase": 94.22,
+ "poBull": 114.08,
+ "entMin": 73.97,
+ "entMax": 81.93,
+ "stop": 30.86,
+ "dpaPrevisto": 1.4732,
+ "moat": "51,2 sobre 100 · MOAT ESTRECHO. El vidrio es un producto sin diferenciación; la ventaja es de costes y de proximidad al cliente",
  "catalizadores": [
-  "Fin del destocking y vuelta al crecimiento de volumen (S1-2026, +9 a +16 % del PO)",
-  "Vidroporto a plena capacidad (FY-2026, +2 a +5 %)",
-  "Normalización del CAPEX tras el ciclo inversor (FY-2026, +5 a +11 %)",
-  "Retribución: complementario y amortización de autocartera (AGM 2027, +1 a +3 %)"
+  "Fin del destocking y vuelta al crecimiento de volumen: La caída de 2025 fue sectorial: margen +2 pp y volumen +4 % en el extremo alto. (S1-2026)",
+  "Normalización del CAPEX tras el ciclo inversor: Cada punto de CAPEX que no se repite es caja: FCL +10 %. (FY-2026)",
+  "Vidroporto a plena capacidad: Brasil de 178 a más de 200 M€: ventas +1,5 %. Fuera del bull. (FY-2026)",
+  "Complementario y amortización de autocartera: Menos acciones: el modelo no lo deriva. (junta de 2027)"
  ],
  "riesgos": [
-  "Sobrecapacidad y guerra de precios en Europa — probabilidad ALTA, −20 a −44 % del PO",
-  "Coste de la energía (gas y electricidad) — media, −25 a −45 %",
-  "Sustitución del vidrio por lata, PET y cartón — media, −19 a −37 %",
-  "Concentración de clientes y renegociación de contratos — media, −11 a −25 %",
-  "Recesión y caída del consumo de bebida envasada — media, −18 a −34 %",
-  "Traslación de libra y real brasileño — media, −7 a −18 %",
-  "Descarbonización obligatoria del horno (ETS) — media, −5 a −18 %",
-  "Interrupción de sistemas o de suministro — media, −4 a −22 %"
+  "Sobrecapacidad y guerra de precios en el vidrio europeo (Alta): Margen EBITDA −4 pp; duro: −8 pp con múltiplos −10 %.",
+  "Coste de la energía (gas y electricidad) (Media): Un horno funde a 1.500 °C y no se apaga: margen −5 pp y −9 pp.",
+  "Sustitución del vidrio por lata, PET y cartón (Media): Margen −1 pp y volumen −10 %; duro: −2 pp y −20 %.",
+  "Concentración de clientes y renegociación anual de precios (Media): Margen −1 pp y volumen −4 %; duro: −3 pp y −8 %.",
+  "Descarbonización obligatoria del horno (Media): FCL −10 % por inversión; duro: margen −1 pp y FCL −25 %.",
+  "Recesión y caída del consumo de bebida envasada (Media): Margen −2 pp y volumen −6 %; duro: −3 pp, −12 % y múltiplos −8 %.",
+  "Traslación de libra y real brasileño (Media): Ventas −5,1 % y −12,8 %.",
+  "Interrupción de sistemas o de suministro crítico con daño al horno (Media): Margen −0,6 pp y volumen −1 %; duro: −2 pp, −5 % y FCL −10 %."
  ],
- "bull": "Fin del destocking en su extremo alto —margen +2 pp y volumen +4 %— con Vidroporto a plena capacidad dentro. Sin expansión de múltiplos: los del §6.5 ya son las medias de diez años.",
- "bear": "El riesgo dominante en su versión suave: sobrecapacidad y guerra de precios llevan el margen EBITDA del 29,2 % al 25,2 %, que seguiría siendo el mejor de los tres comparables. Es un mal año, no una catástrofe: 85,29 €, un 5,3 % por debajo de la cotización.",
- "resumen": "Vidrala es el fabricante de envase de vidrio más rentable de su sector europeo —29,2 % de margen EBITDA contra 20,8 % de Verallia y 19,0 % de O-I—, con el balance casi sin deuda (0,25x EBITDA), un ROIC del 14,6 % muy por encima de su coste de capital del 7,7 %, y cotiza un 18 % por debajo de lo que valen sus propios múltiplos de diez años. Se compra la rentabilidad de un negocio de escala regional en un mal año del ciclo, no una historia de crecimiento. Lo que hay que creerse es una sola cosa: que el margen aguanta — cuatro puntos de margen EBITDA se llevan el 19,9 % del precio objetivo.",
- "confianza": {
-  "score": 98,
-  "nivel": "A",
-  "motivos": [
-   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
-  ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-08-24"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "matizada": false,
-  "banda": {
-   "p10": 85.29,
-   "p50": 106.42,
-   "p90": 123.57
-  },
-  "sensibilidad": {
-   "sobre": "sintesis",
-   "regla": "F100",
-   "poMin": 101.78,
-   "poMax": 114.27,
-   "poBase": 106.42,
-   "cotizacion": 90.1,
-   "cotizacionBase": "cierre: Cotización cierre 2025",
-   "componente": "DCF Base",
-   "pesoPerturbado": 0.25,
-   "componentesIntactos": 8,
-   "dcf": {
-    "poMin": 78.34,
-    "poMax": 128.3,
-    "poBase": 96.9014639282105
-   },
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": 13.0,
-   "mdsMax": 26.8
-  },
-  "beta": {
-   "capm": 0.744,
-   "ref2": null,
-   "aviso": null
-  },
-  "motivos": [
-   "QUÉ SE HA PERTURBADO: solo «DCF Base» (25 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 75 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
-   "la cotización (90.10) queda por DEBAJO de toda la banda del precio objetivo de síntesis [101.78–114.27] → infravalorada en todo el rango; decisión de compra ROBUSTA",
-   "para contraste, el DCF puro (§6.3) se mueve en [78.34–128.30] € alrededor de 96.90 €: es la sensibilidad del MODELO, no la del precio objetivo",
-   "la robustez se juzga contra la BASE PUBLICADA («Cotización cierre 2025» = 90.10 €), no contra un precio de hoy: este libro no declara cotización actual [F129/F148]",
-   "ojo al leerlo junto a la banda de escenarios [85.29–123.57] €, que SÍ contiene la cotización: bear/base/bull son tres historias distintas sobre el negocio, y esto de aquí mide otra cosa —el mismo escenario base con otros supuestos de coste de capital y crecimiento—. No se contradicen"
-  ],
-  "calculadoEl": "2026-08-24"
- },
+ "bull": "114,08 € — escenario optimista: Vidroporto a plena carga y el precio acompaña a la energía",
+ "bear": "73,97 € — escenario pesimista: volumen plano, sin recuperar precio y con el capital más caro",
+ "resumen": "ESPERAR con la cotización de 91,20 € (2026-10-23): precio objetivo 94,22 € (bear 73,97 · bull 114,08), margen +3,3 %. Banda de entrada 73,97–81,93 €, stop de tesis 30,86 €.",
  "dividendSafety": {
-  "score": 89,
+  "score": 80,
   "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
   "componentes": {
    "C1": 35,
    "C2": 15,
-   "C3": 18,
-   "C4": 15,
+   "C3": 19,
+   "C4": 5,
    "C5": 6
   },
-  "shareholderYield": 1.68,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 4.84x / FCL 3.89x (3a OE 2.55x) → 35/35",
-   "C2 payout BN ord.: 25% (3a 36%) → 15/15",
-   "C3 balance parcial → 18/20",
-   "C4 trayectoria: 0 recorte(s) en 10a · DPA creciente → 15/15",
-   "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 6/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+   "Muy seguro: cobertura OE 3.16x · payout 36 % · 1 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja, recompras recortadas"
   ],
-  "calculadoEl": "2026-08-24"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 1.68
  },
  "forense": {
   "aplica": true,
+  "ejercicio": "2025",
   "piotroski": {
-   "score": 6,
+   "score": 5,
    "banda": "medio",
    "detalle": {
     "roa_pos": 1,
@@ -132,17 +74,17 @@
     "lever_dn": 1,
     "liquid_up": 1,
     "no_dilu": 0,
-    "margin_up": 1,
+    "margin_up": 0,
     "turn_up": 0
    },
-   "nota": "margen=bruto"
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
   },
   "altman": {
-   "z": 8.53,
+   "z": 5.28,
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.86,
+   "m": -2.82,
    "senal": "sin indicios",
    "aproximado": [
     "SGAI"
@@ -155,204 +97,32 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-08-24"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 3.05,
-  "gIntrinseco": 6.73,
+  "gImplicito": 4.0,
+  "gIntrinseco": 7.34,
   "veredicto": "PLAUSIBLE",
-  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-08-24",
+  "motivo": "PLAUSIBLE (≤ g intrínseco 7.3 %)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
   "entradas": {
-   "fcl": 174.53,
-   "wacc": 7.72,
+   "fcl": 165.9178,
+   "wacc": 7.6453,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 35.18,
-   "deudaNeta": 105.26,
+   "acciones": 35.1834,
+   "deudaNeta": 154.561,
    "modo": "EV",
-   "precioBase": 90.1,
+   "precioBase": 91.2,
+   "gBase": 4.0,
+   "fechaBase": "2026-10-23",
+   "congeladoEl": "2026-10-26",
    "validado": true,
-   "desviacion": 0.004,
-   "gBase": 3.054,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-08-24"
+   "desviacion": 0.0
   }
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "fuente": "Datos Financieros Vidrala.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 4,
-   "nombre": "LA QUE SE QUEDÓ SIN SITIO",
-   "lema": "ni reinvierte ni rinde",
-   "porSpread": false,
-   "roiicFragil": false,
-   "cortes": {
-    "reinversion": 20.0,
-    "roiic": 12.72,
-    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
-   }
-  },
-  "cifras": {
-   "reinversionMedia": 13.37,
-   "roiic5a": 12.22,
-   "roiic": 12.22,
-   "roiicVentana": "5A",
-   "roicMedio": 13.23,
-   "spread": 6.84,
-   "wacc": 7.72,
-   "conversionMedia": 44.37,
-   "coberturaDividendo": 3.37,
-   "gIntrinseco": 6.73,
-   "capexCrecimiento10a": 272.5,
-   "fcl10a": 1279.8,
-   "retribucion10a": 458.1,
-   "retribucionSobreFcl": 35.8
-  },
-  "tension": {
-   "anios": [
-    2016,
-    2022,
-    2023
-   ],
-   "coberturaFcl": [
-    5.36,
-    null,
-    2.64
-   ],
-   "coberturaOe": [
-    4.21,
-    0.84,
-    3.78
-   ],
-   "payoutBn": [
-    29.3,
-    24.4,
-    19.4
-   ],
-   "payoutFcl": [
-    18.7,
-    null,
-    37.9
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "Un fabricante de <b>envases de vidrio</b> para bebidas y alimentación: nueve plantas, veintiún hornos que funden las veinticuatro horas y un radio comercial corto, porque el vidrio no viaja. Eso hace del mercado un oligopolio por cuencas —primero o segundo en Iberia, primero en Reino Unido e Irlanda con Encirc, que además llena y distribuye— y convierte la energía en el coste que manda. La conversión media de EBITDA en caja libre es del 44,4 %, con 2 de los diez años por encima del 60 %.",
-     "Crece <b>comprando hornos</b>, no construyéndolos: Encirc en 2015, Santos Barosa en 2017, The Park y Vidroporto en 2023, Cristalerías Toro en Chile en 2025, y la venta de Italia en 2024. Y aun así la deuda neta es hoy una fracción de la de 2016: las compras se han pagado con caja propia."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>De un capital que rinde de verdad.</b> El ROIC ha subido del 9,4 % de 2016 al 14,6 % de 2025, con una media de 13,2 %, y el spread sobre el WACC ha sido positivo los diez años: +6,84 pp en 2025. El foso es la ventaja de coste en cada cuenca, y la integración de Encirc, que sube el coste de cambiar de proveedor.",
-     "Lo que no hace es reinvertir mucho dentro: la reinversión media es del 13,4 %, por debajo del 20 % que separa a quien reinvierte de quien reparte, y el crecimiento le viene de las compras, que no pasan por el CAPEX de crecimiento. El capital añadido en cinco años ha rendido bien, pero no lo bastante: <b>ROIIC del 12,22 %</b>, contra un corte del WACC del 7,72 % más cinco puntos. Se queda a medio punto. Por eso es familia 4: poca reinversión y un retorno incremental que no llega al listón del compuesto."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "La tensión es la energía. En 2022 el gas se disparó y el flujo libre se fue a −3,2 M€, con una conversión del −1,2 % y la cobertura del dividendo sobre owner earnings en 0,84x, la única por debajo de uno en diez años; recuperar el margen le costó tres ejercicios. En 2023 las compras de Brasil y Reino Unido se llevaron la caja neta: 305 M€ en el año. Y el apagón del 28 de abril de 2025 paró las plantas peninsulares y dañó hornos, con el impacto definitivo todavía sin cerrar.",
-     "Y dos cifras del libro que no se pueden leer tal cual: el <b>CAPEX sobre ventas de la década sale negativo</b>, algo imposible en un fabricante de vidrio, y 2016 arranca con una reinversión del −30,6 %. Quitando 2016, la reinversión media de 2017-2025 es del 18,3 %: sigue por debajo del corte, así que la casilla no depende del dato raro."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra Vidrala compra <b>un buen negocio al que se le acaba el sitio en casa</b>. Con el core maduro y la demanda europea floja, la caja libre tiene tres destinos: dividendo, recompra —ampliada al 3 % del capital en 2026— y compras en Sudamérica. En la década sólo repartió el 36 % del flujo libre, con una cobertura del dividendo de 3,37x en 2025; el resto pagó deuda y compras. Lo que decide es el tercer destino: si Brasil y Chile acaban rindiendo como el core, el ROIIC cruza el corte; si no, el capital sale de donde más rinde para ir a donde rinde menos.",
-     "<b>Qué vigilar cada trimestre, por ser familia 4:</b> el plan. Que la guía de 2026 —EBITDA por encima de 450 M€, beneficio creciendo más de un 5 %, flujo libre en torno a 200 M€— se cumpla, y a qué retorno entra el capital de Sudamérica. Si el ROIIC sube el medio punto que le falta, es un compuesto; si baja, el plan de crecimiento se habrá convertido en un plan de reparto."
-    ]
-   }
-  ],
-  "vigilar": "El plan: que se cumpla la guía de 2026 y que el capital enviado a Sudamérica rinda como el core; el ROIIC está a medio punto del corte.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "El fabricante de envase de vidrio más rentable de Europa: 29,2 % de margen EBITDA contra el 20,8 % de Verallia.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Sólida: 4 de 4 umbrales en verde, y no por poco (0,25 veces el EBITDA).",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Crea valor: diferencial positivo los diez años y ensanchándose.",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 4 · La que se quedó sin sitio: ni reinvierte ni rinde. Reinvierte el 13,4 % del NOPAT de media; ROIIC a cinco años del 12,2 % contra un corte del 12,7 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "La caja confirma: dividendo cubierto 3,37 veces, un solo año de flujo libre negativo en diez.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "AA · 75,7 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 106,42 € contra 90,10 €: margen de seguridad +18,1 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Moat estrecho (48,1): el vidrio no viaja más de ~300 km, así que el foso es geográfico.",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "Sobrecapacidad y guerra de precios en Europa (probabilidad alta, −20 a −44 %). Cuatro puntos de margen lo cambian todo.",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "El fin del desestocaje y la vuelta a crecer en volumen (+9 a +16 %), y Vidroporto a plena capacidad.",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>COMPRAR</b> · banda de entrada 85,29 – 92,54 € · stop de tesis 37,50 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "El plan: que se cumpla la guía de 2026 y que el capital enviado a Sudamérica rinda como el core; el ROIIC está a medio punto del corte.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "1 dato secundario abierto y la conciliación ampliada sin hacer; el libro trae el CAPEX con el signo al revés y no cuadra EBITDA − amortización = EBIT.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 106,42 → 94,22 €; decisión COMPRAR → ESPERAR."
 }

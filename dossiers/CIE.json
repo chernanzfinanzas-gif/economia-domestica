@@ -1,124 +1,67 @@
 {
  "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 25-oct-2026",
  "ticker": "CIE",
  "empresa": "CIE Automotive, S.A.",
- "fecha": "2026-08-25",
+ "fecha": "2026-10-26",
+ "revisadoEl": "2026-10-26",
  "rating": "A",
- "score": 73.6,
+ "score": 67.1,
  "decision": "COMPRAR",
- "metodoValoracion": "Síntesis ponderada de nueve métodos — industrial cíclica. 40 % DCF a tres escenarios, 55 % múltiplos históricos de diez años (EV/EBITDA, EV/EBIT, PER, P/BV, P/FCL) y 5 % renta. PO oficial = §6.5 = 37,45 €. El P/TBV no entra: el patrimonio tangible es negativo los diez ejercicios. El DCF base por sí solo daría 38,04 €.",
- "poBear": 28.14,
- "poBase": 37.45,
- "poBull": 46.24,
- "entMin": 28.14,
- "entMax": 32.57,
- "stop": 12.3,
- "dpaPrevisto": 1.18,
- "moat": "50,7 — ESTRECHO. Un solo pilar: la ventaja de costes (72/100). Intangibles 38, escala eficiente 32, costes de cambio 55; el efecto de red no existe en la categoría y va N/A con motivo. Margen EBIT del 13,72 % contra el 4,7-10,1 % de sus comparables europeos.",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 20 % · DCF optimista 10 % · EV/EBITDA 14 % · EV/EBIT 11 % · PER 13 % · P/VC 5 % · P/FCL 12 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
+ "poBear": 29.63,
+ "poBase": 37.7,
+ "poBull": 45.84,
+ "entMin": 29.63,
+ "entMax": 32.78,
+ "stop": 13.65,
+ "dpaPrevisto": 0.9207,
+ "moat": "54,6 sobre 100 · MOAT ESTRECHO. Un solo pilar, el coste: proveedor de componentes sin poder frente al fabricante",
  "catalizadores": [
-  "Guidance 2026-2027 cumplido con el margen intacto: +10,97 % → 41,56 €",
-  "Cierre parcial del de-rating del sector: +8,11 % → 40,49 €",
-  "Desapalancamiento hasta DFN/EBITDA < 0,70x a cierre de 2027: +3,64 % → 38,82 €",
-  "Subida del pay-out al 42 % (2026) y al 50 % (2027): +1,16 % → 37,89 €",
-  "Interés corporativo sobre el activo: no derivable, se paga sobre la cotización"
+  "Guidance 2026-2027 cumplido con el margen intacto: Crecer por encima del mercado: ingresos +4 % y margen +0,5 pp. (1S y 9M-2026)",
+  "Cierre parcial del de-rating del sector: EV/EBITDA de 7,85x (2016) a 5,98x (2025) con el EBITDA +83 %: múltiplos +15 %. (6-18 meses)",
+  "Desapalancamiento hasta 0,7x: Deuda neta −250 M€. (12-18 meses)",
+  "Subida del payout al 42 % y al 50 %: DPA +27,3 %. Catalizador de demanda, no de valor: fuera del bull. (Junta 2026)"
  ],
  "riesgos": [
-  "El ciclo: la demanda es la producción mundial de vehículos (−25 a −53 %)",
-  "Electrificación: cambia el contenido por vehículo (−21 a −50 %)",
-  "Concentración de clientes: los OEM pactan bajadas anuales de precio (−9 a −22 %)",
-  "M&A: la integración de las compras nuevas, con Aludec ya anunciada (−7 a −20 %)",
-  "Divisa: produce fuera del euro y consolida en euros (−8 a −16 %)",
-  "De-rating: el múltiplo se comprime con el negocio creciendo (−8 a −13 %)",
-  "Fondo de comercio: 1.764,6 M€, el 122 % del patrimonio atribuible (−2 a −11 %)"
+  "El ciclo: la demanda es la producción mundial de vehículos (Alta): Ingresos −8 % y margen −1,5 pp; duro, repetición de 2020: −20 % y −3 pp.",
+  "Electrificación: cambia el contenido por vehículo (Media): Ingresos −6 % y CAPEX +60 M€ al año; duro: −12 %, +120 M€ y margen −1 pp.",
+  "Concentración de clientes: los fabricantes tienen el poder (Alta): Margen EBITDA −1 pp y −2,5 pp.",
+  "La integración de las compras nuevas (Media): +500 M€ de deuda sin mejora operativa; duro: +800 M€ y margen −1 pp (compra de Aludec, unos 200 M€).",
+  "Produce fuera del euro y consolida en euros (Media): Ingresos −5 % y −10 % por traslación, con el margen quieto.",
+  "El múltiplo se comprime con el negocio creciendo (Media): Múltiplos −15 % y −25 %.",
+  "Fondo de comercio: el 122 % del patrimonio (Media): Deterioro del 30 %; duro: del 60 % con múltiplos −15 %. El modelo es casi ciego: solo el P/VC usa el valor contable."
  ],
- "bull": "46,24 €. Acumula los tres catalizadores que el modelo sabe medir —ingresos +4 %, margen EBITDA +0,5 pp, múltiplos +15 % y deuda neta −250 M€—. Exigente pero no heroico: pide que la compañía cumpla su propio guidance y que el sector recupere un tercio del múltiplo perdido en diez años.",
- "bear": "28,14 €. Se perturba el §6.5 con el riesgo dominante del §8.1 —el ciclo— en su extremo SUAVE: ingresos −8 % y margen EBITDA −1,5 pp. Un −24,9 % sobre el precio objetivo y un −13,6 % desde la entrada máxima. El precedente está en la propia serie: en 2020 el spread ROIC−WACC se quedó en +0,94 pp sin cruzar el cero.",
- "resumen": "CIE es un fabricante de componentes de automoción que gana el doble de margen EBIT que la mayoría de sus comparables europeos (13,72 % contra 4,7-10,1 %), cotiza a 25,85 € cuando la síntesis de nueve métodos dice 37,45, y el mercado le descuenta un crecimiento implícito del −3,7 %: ni siquiera la inflación. Se compra la brecha entre lo que el negocio produce y lo que el precio supone. El punto que hay que saber antes de comprar: la calidad y el precio cuelgan de LA MISMA variable —el margen EBITDA—, así que «moat presente» y «margen amplio» no son dos apoyos independientes sino una sola apuesta contada dos veces. Veredicto COMPRAR en firme, con sizing por debajo de lo que sugeriría un rating A.",
- "confianza": {
-  "score": 90,
-  "nivel": "A",
-  "motivos": [
-   "5 dato(s) secundario(s) en 'Pte. Revisión' (−10)"
-  ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-08-25"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "matizada": false,
-  "banda": {
-   "p10": 28.14,
-   "p50": 37.45,
-   "p90": 46.24
-  },
-  "sensibilidad": {
-   "sobre": "sintesis",
-   "regla": "F100",
-   "poMin": 36.19,
-   "poMax": 39.94,
-   "poBase": 37.45,
-   "cotizacion": 25.85,
-   "cotizacionBase": "actual",
-   "componente": "DCF Base",
-   "pesoPerturbado": 0.2,
-   "componentesIntactos": 8,
-   "dcf": {
-    "poMin": 31.7,
-    "poMax": 50.47,
-    "poBase": 38.0436974470045
-   },
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": 40.0,
-   "mdsMax": 54.5
-  },
-  "beta": {
-   "capm": 0.779,
-   "ref2": 1.2174,
-   "aviso": "beta CAPM 0.78 vs 2ª ref 1.22: divergencia 0.44 > 0.3 → revisar cuál usar en el WACC"
-  },
-  "motivos": [
-   "QUÉ SE HA PERTURBADO: solo «DCF Base» (20 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 80 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
-   "la cotización (25.85) queda por DEBAJO de toda la banda del precio objetivo de síntesis [36.19–39.94] → infravalorada en todo el rango; decisión de compra ROBUSTA",
-   "para contraste, el DCF puro (§6.3) se mueve en [31.70–50.47] € alrededor de 38.04 €: es la sensibilidad del MODELO, no la del precio objetivo",
-   "beta CAPM 0.78 vs 2ª ref 1.22: divergencia 0.44 > 0.3 → revisar cuál usar en el WACC"
-  ],
-  "calculadoEl": "2026-08-25"
- },
+ "bull": "45,84 € — escenario optimista: compras integradas y margen intacto",
+ "bear": "29,63 € — escenario pesimista: la producción mundial de vehículos no crece",
+ "resumen": "COMPRAR con la cotización de 25,45 € (2026-10-23): precio objetivo 37,70 € (bear 29,63 · bull 45,84), margen +48,1 %. Banda de entrada 29,63–32,78 €, stop de tesis 13,65 €.",
  "dividendSafety": {
-  "score": 91,
+  "score": 89,
   "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
   "componentes": {
    "C1": 35,
    "C2": 15,
-   "C3": 17,
+   "C3": 15,
    "C4": 9,
    "C5": 15
   },
-  "shareholderYield": 3.78,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 3.67x / FCL 3.56x (3a OE 3.44x) → 35/35",
-   "C2 payout BN ord.: 33% (3a 32%) → 15/15",
-   "C3 balance: DN/EBITDA 1.22x, cob.int 8.7x → 17/20",
-   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
-   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+   "Muy seguro: cobertura OE 3.55x · payout 33 % · 1 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-08-25"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
+  "shareholderYield": 4.21
  },
  "forense": {
   "aplica": true,
+  "ejercicio": "2025",
   "piotroski": {
    "score": 8,
    "banda": "fuerte",
@@ -133,11 +76,11 @@
     "margin_up": 1,
     "turn_up": 1
    },
-   "nota": "margen=bruto"
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
   },
   "altman": {
-   "z": 4.45,
-   "zona": "segura"
+   "z": 2.12,
+   "zona": "gris"
   },
   "beneish": {
    "m": -2.76,
@@ -150,207 +93,37 @@
    "accruals": -4.5,
    "senal": "normal"
   },
-  "flags": [],
+  "flags": [
+   "Altman Z''=2.12 en zona gris"
+  ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-08-25"
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -3.66,
-  "gIntrinseco": 1.33,
+  "gImplicito": -5.19,
+  "gIntrinseco": 2.44,
   "veredicto": "PLAUSIBLE",
-  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-08-25",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-10-26",
+  "origen": "metodo-v3",
   "entradas": {
-   "fcl": 322.72,
-   "wacc": 7.5,
+   "fcl": 336.7084,
+   "wacc": 6.8505,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 119.19,
-   "deudaNeta": 912.84,
+   "acciones": 119.0716,
+   "deudaNeta": 1172.878,
    "modo": "EV",
-   "precioBase": 25.85,
+   "precioBase": 25.45,
+   "gBase": -5.19,
+   "fechaBase": "2026-10-23",
+   "congeladoEl": "2026-10-26",
    "validado": true,
-   "desviacion": 0.002,
-   "gBase": -3.658,
-   "fechaBase": "2026-08-25",
-   "congeladoEl": "2026-08-25"
+   "desviacion": -0.0
   }
  },
- "lecturaNegocio": {
-  "fecha": "2026-09-25",
-  "fuente": "Datos Financieros CIE.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
-  "periodo": [
-   2016,
-   2025
-  ],
-  "casilla": {
-   "n": 1,
-   "nombre": "LA MÁQUINA DE CUPÓN",
-   "lema": "rinde mucho, reinvierte poco",
-   "porSpread": true,
-   "roiicFragil": false,
-   "cortes": {
-    "reinversion": 20.0,
-    "roiic": 12.5,
-    "regla": "ROIIC no significativo: por el spread ROIC − WACC (reinvierte poco: > 0 → 1; mucho: ≥ 5 → 2, 0-5 → 4, ≤ 0 → 3) · regla del 25-sep-2026"
-   }
-  },
-  "cifras": {
-   "reinversionMedia": 15.34,
-   "roiic5a": null,
-   "roiic": null,
-   "roiicVentana": null,
-   "roicMedio": 12.4,
-   "spread": 7.29,
-   "wacc": 7.5,
-   "conversionMedia": 46.82,
-   "coberturaDividendo": 3.48,
-   "gIntrinseco": 1.33,
-   "capexCrecimiento10a": 447.4,
-   "fcl10a": 2737.9,
-   "retribucion10a": 1463.2,
-   "retribucionSobreFcl": 53.4
-  },
-  "tension": {
-   "anios": [
-    2018,
-    2020,
-    2025
-   ],
-   "coberturaFcl": [
-    2.56,
-    3.72,
-    3.48
-   ],
-   "coberturaOe": [
-    3.1,
-    3.89,
-    3.52
-   ],
-   "payoutBn": [
-    20.1,
-    33.8,
-    33.4
-   ],
-   "payoutFcl": [
-    39.1,
-    26.9,
-    28.7
-   ]
-  },
-  "lectura": [
-   {
-    "titulo": "Qué clase de negocio es",
-    "parrafos": [
-     "<b>Un fabricante de componentes que creció comprando fábricas</b>, no construyéndolas: nace en 2002 de fusionar Egaña y Aforasa y se hace grande con compras —Golde y Aurangabad en 2019, la mayor tanda— que luego mete en un mismo modelo de gestión. Fabrica con cinco tecnologías (estampación, forja, aluminio, plástico y mecanizado), buena parte de lo que vende no depende del tipo de motor y ofrece al fabricante de coches resolver una plataforma entera con un solo proveedor.",
-     "Es industria de verdad, pero contenida: el CAPEX es el 6,2 % de las ventas y el de crecimiento, el 1,3 %. Convierte en flujo libre el <b>46,8 % del EBITDA</b> de media, con 0 de los diez años por encima del 60 %: más de la mitad del EBITDA no llega a caja libre."
-    ]
-   },
-   {
-    "titulo": "De dónde le viene la rentabilidad",
-    "parrafos": [
-     "<b>Del margen, no del volumen.</b> El ROIC ha estado por encima del WACC los diez años —12,4 % de media, 14,8 % en 2025, con un spread de <b>+7,29 pp</b>— y ni en 2020, con las ventas cayendo, cruzó el cero: el spread se quedó en +0,94 pp.",
-     "<b>Por qué la casilla sale del spread.</b> El ROIIC necesita que el capital invertido se mueva, y en CIE lleva cinco años casi plano; la serie cruza además la salida de las forjas alemanas en 2022. El libro lo marca «n.s.» a cinco y a tres años, y la casilla se lee con el spread: reinvierte poco —el 27,8 % del NOPAT en 2016-2019 y sólo el 7,0 % desde 2020, 0,9 % en 2025— y gana <b>+7,29 pp</b> por encima de su coste: <b>máquina de cupón</b>, con un crecimiento intrínseco del 1,33 %. Rinde bien lo que tiene; lo nuevo no lo construye, lo compra, y el retorno de lo comprado está sin medir."
-    ]
-   },
-   {
-    "titulo": "Dónde está la tensión",
-    "parrafos": [
-     "Las ventas llevan dos años planas —3.959 M€ en 2023, 3.958 en 2025— y lo bueno reciente viene del margen, que tiene techo. La respuesta no ha sido reinvertir en las plantas sino volver a comprar: en 2025 cerró Engrecon y Weidplas Brasil y anunció <b>Grupo Aludec, unos 200 M€ y diez plantas</b>, que no estaba en el balance con el que se hizo el análisis. Es el mayor esfuerzo comprador desde 2019, el año en que la deuda neta subió 574 M€ de golpe.",
-     "Desde 2021 se ha desapalancado a un ritmo de 136 M€ al año de media, con el dividendo en torno al 33,4 % del beneficio y cubierto <b>3,48x</b> por la caja libre de 2025. La guía sube ahora el payout al 42 % en 2026 y al 50 % en 2027 y promete a la vez bajar la deuda: más reparto, menos deuda y Aludec tienen que casar con unas ventas que no crecen."
-    ]
-   },
-   {
-    "titulo": "Implicación para el inversor",
-    "parrafos": [
-     "Quien compra CIE compra <b>un gestor industrial que rinde por encima de su coste de capital en cualquier punto del ciclo</b> y que crece a base de compras, con un núcleo estable de accionistas que elige la mayoría del consejo. La calidad del margen está probada; la de la asignación de capital se vuelve a examinar ahora, con Aludec.",
-     "<b>Qué vigilar cada trimestre:</b> la deuda neta contra el EBITDA. Cuando Aludec entre en el perímetro la deuda subirá por una compra conocida, no por sorpresa; lo que importa es que el EBITDA suba con ella. Si la deuda sube y el EBITDA no, el compromiso de apalancamiento de 2027 deja de ser creíble y la compra habrá salido del balance del accionista."
-    ]
-   }
-  ],
-  "vigilar": "La deuda neta contra el EBITDA: con Aludec la deuda va a subir; si el EBITDA no sube con ella, la compra se está pagando con el balance.",
-  "version": 3,
-  "preguntas": [
-   {
-    "n": 1,
-    "pregunta": "¿De qué vive?",
-    "respuesta": "Fabricante de componentes de automoción con el doble de margen EBIT que sus comparables europeos: 13,72 % contra 4,7-10,1 %.",
-    "origen": "escrita"
-   },
-   {
-    "n": 2,
-    "pregunta": "¿Aguanta el balance?",
-    "respuesta": "Sólida: cinco años seguidos desapalancándose con caja propia.",
-    "origen": "escrita"
-   },
-   {
-    "n": 3,
-    "pregunta": "¿Qué gana?",
-    "respuesta": "Crea valor: ROIC medio del 12,4 % en la década y, en 2025, +7,29 pp por encima de un WACC del 7,5 %.",
-    "origen": "escrita"
-   },
-   {
-    "n": 4,
-    "pregunta": "¿Qué hace con lo que gana?",
-    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 15,3 % del NOPAT de media; el ROIIC no es significativo y la casilla sale del spread (+7,29 pp).",
-    "origen": "automática"
-   },
-   {
-    "n": 5,
-    "pregunta": "¿Hay caja de verdad?",
-    "respuesta": "Dividendo muy seguro: cubierto 3,48 veces.",
-    "origen": "escrita"
-   },
-   {
-    "n": 6,
-    "pregunta": "¿Es buena empresa?",
-    "respuesta": "A · 73,6 sobre 100.",
-    "origen": "automática"
-   },
-   {
-    "n": 7,
-    "pregunta": "¿Está cara o barata?",
-    "respuesta": "Precio objetivo 37,45 € contra 25,85 €: margen de seguridad +44,9 %.",
-    "origen": "automática"
-   },
-   {
-    "n": 8,
-    "pregunta": "¿Qué la protege?",
-    "respuesta": "Moat estrecho (50,7), con un solo pilar: la ventaja de costes (72).",
-    "origen": "escrita"
-   },
-   {
-    "n": 9,
-    "pregunta": "¿Qué la puede romper?",
-    "respuesta": "El ciclo del automóvil: su demanda es la producción mundial de vehículos (−25 a −53 %). Y la electrificación cambia lo que va en cada coche.",
-    "origen": "escrita"
-   },
-   {
-    "n": 10,
-    "pregunta": "¿Qué la puede hacer subir?",
-    "respuesta": "Cumplir el guidance 2026-2027 con el margen intacto (+11 %).",
-    "origen": "escrita"
-   },
-   {
-    "n": 11,
-    "pregunta": "¿Qué hago?",
-    "respuesta": "<b>COMPRAR</b> · banda de entrada 28,14 – 32,57 € · stop de tesis 12,30 €.",
-    "origen": "automática"
-   },
-   {
-    "n": 12,
-    "pregunta": "¿Qué vigilo?",
-    "respuesta": "La deuda neta contra el EBITDA: con Aludec la deuda va a subir; si el EBITDA no sube con ella, la compra se está pagando con el balance.",
-    "origen": "automática"
-   },
-   {
-    "n": 13,
-    "pregunta": "¿Qué no sabemos?",
-    "respuesta": "5 datos secundarios abiertos; la retribución de 2018 incluye 405 M€ del reparto de Dominion en acciones.",
-    "origen": "escrita"
-   }
-  ]
- }
+ "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 37,45 → 37,70 €."
 }
