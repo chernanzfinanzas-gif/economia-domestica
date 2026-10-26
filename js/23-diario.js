@@ -490,9 +490,9 @@ function _di105Clave(tk, a){ return _diUp(tk)+'|'+(a.fecha||'')+'|'+_diUp(a.sena
 function diarioImportar105(){
   if(typeof revisionesCorpDe!=='function' || typeof _hallazgosEmp==='undefined' || !_hallazgosEmp)return 0;
   DB.diario=DB.diario||[];
-  var ya={};
-  DB.diario.forEach(function(e){ if(e && e.origen105) ya[e.origen105]=1; });
-  var n=0;
+  var ya={}, porClave={};
+  DB.diario.forEach(function(e){ if(e && e.origen105){ ya[e.origen105]=1; porClave[e.origen105]=e; } });
+  var n=0, nAck=0;
   Object.keys(_hallazgosEmp).forEach(function(tk){
     var filas=((_hallazgosEmp[tk]||{}).revisiones)||[];
     filas.forEach(function(a){
@@ -500,7 +500,19 @@ function diarioImportar105(){
       var dec=_diUp(a.decision).trim();
       if(!(DI_105_CAMBIAN[dec] || _di105ConNota(tk, a.senal) || a.origen==='metodo-v3'))return;
       var tipo=_diTipoProto(a.decision); if(!tipo)return;
-      var cl=_di105Clave(tk, a); if(ya[cl])return;
+      var cl=_di105Clave(tk, a);
+      if(ya[cl]){
+        /* [26-oct-2026] ARREGLO RETROACTIVO: una fila del v3 importada ANTES de que existiera
+           el auto-"Sigo igual" se quedo sin el, y avisaba para siempre de algo que la propia
+           decision ya tuvo en cuenta. Se completa aqui, una vez, sin tocar nada mas de la
+           entrada ya guardada (fecha, porque, ctx...). */
+        var _ex=porClave[cl];
+        if(_ex && a.origen==='metodo-v3' && !_ex.ack){
+          var _rotEx=diarioRoturas(_ex);
+          if(_rotEx.length){ _ex.ack={huella:_diHuella(_rotEx), niveles:_diNiveles(_rotEx), fecha:_diHoy()}; nAck++; }
+        }
+        return;
+      }
       ya[cl]=1; n++;
       var _nva={
         id:'d105'+Math.random().toString(36).slice(2,9),
@@ -526,7 +538,7 @@ function diarioImportar105(){
       DB.diario.push(_nva);
     });
   });
-  if(n && typeof scheduleSave==='function')scheduleSave();
+  if((n||nAck) && typeof scheduleSave==='function')scheduleSave();
   return n;
 }
 /* El §10.5 guarda «28-jul-2026»; el diario ordena por ISO. */
