@@ -237,7 +237,7 @@ function diarioRoturas(e){
          'po:'+H.poMax,_diPaso(((H.precio-H.poMax)/H.poMax)/_DI_PRECIO_PASO));
   if(H.trim){
     var trFecha=(H.trim.fecha||'');
-    if(trFecha>=(e.fecha||'')){                     /* solo lo publicado DESPUÉS de decidir */
+    if(trFecha>(e.fecha||'')){                     /* solo lo publicado DESPUÉS de decidir (mismo dia no cuenta: la decision ya pudo verlo) */
       if(H.trim.sem==='R') push(0,'trimestre','Semáforo trimestral <b>ROJO</b> en '+_diEsc(H.trim.periodo),'S2','trimestre:'+H.trim.periodo+':R',0);
       else if(H.trim.intacta===false) push(0,'trimestre','La revisión de '+_diEsc(H.trim.periodo)+' declara la <b>tesis tocada</b>','S2','trimestre:'+H.trim.periodo+':T',0);
     }
@@ -502,7 +502,7 @@ function diarioImportar105(){
       var tipo=_diTipoProto(a.decision); if(!tipo)return;
       var cl=_di105Clave(tk, a); if(ya[cl])return;
       ya[cl]=1; n++;
-      DB.diario.push({
+      var _nva={
         id:'d105'+Math.random().toString(36).slice(2,9),
         fecha:_di105Fecha(a.fecha), ticker:_diUp(tk), tipo:tipo,
         precio:_diNum((''+(a.cot||'')).replace(',','.'))||_diPrecio(tk),
@@ -514,7 +514,16 @@ function diarioImportar105(){
         invalidacion:'',
         trigs:[], ctx:_diCtx(tk), estado:'abierta',
         origen105:cl, senal105:(a.senal||'')
-      });
+      };
+      /* [26-oct-2026] Una decision del metodo v3 (REAFIRMAR con nota aprobada) ya evaluo el
+         estado de HOY -- el mismo semaforo/stop/rating que la trajo. Si al importarla ya sale
+         "rota" contra si misma, se da por vista sola (como un clic en «Sigo igual»): solo
+         avisara si a partir de ahora pasa algo NUEVO o empeora un tramo mas. */
+      if(a.origen==='metodo-v3'){
+        var _rotIni=diarioRoturas(_nva);
+        if(_rotIni.length) _nva.ack={huella:_diHuella(_rotIni), niveles:_diNiveles(_rotIni), fecha:_diHoy()};
+      }
+      DB.diario.push(_nva);
     });
   });
   if(n && typeof scheduleSave==='function')scheduleSave();
