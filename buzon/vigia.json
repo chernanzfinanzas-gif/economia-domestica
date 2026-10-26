@@ -1,11 +1,10 @@
 {
-  "generadoEl": "2026-10-19T15:11:06+02:00",
+  "generadoEl": "2026-10-26T13:59:10+01:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-10-19",
-  "resumenTexto": "📅 ESTA SEMANA (4): CIE Automotive, S.A. 22-10, Iberdrola, S.A. 22-10, Atresmedia 23-10, Vidrala, S.A. 25-10. 🔜 PRÓXIMOS 14 DÍAS: Línea Directa 27-10, Aena 29-10, Ebro Foods 29-10, Endesa 29-10, Redeia 29-10, Fluidra 30-10, Repsol 30-10, Acerinox 31-10, BBVA 31-10, Bankinter 31-10, CaixaBank 31-10, Enagás 31-10, Faes Farma 31-10, Gestamp 31-10, Inditex 31-10, Mapfre 31-10, Miquel y Costas 31-10, Merlin Properties 31-10, Naturgy 31-10, Prim 31-10, Renta 4 Banco 31-10, Rovi 31-10, Banco Santander 31-10, Unicaja 31-10, Viscofan 31-10. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
-  "vencidos": [],
-  "estaSemana": [
+  "fechaReferencia": "2026-10-26",
+  "resumenTexto": "⚠️ VENCIDOS (1): CIE Automotive, S.A. (9M, +4d). 📅 ESTA SEMANA (23): Vidrala, S.A. 25-10, Línea Directa 27-10, Aena 29-10, Ebro Foods 29-10, Endesa 29-10, Redeia 29-10, Fluidra 30-10, Repsol 30-10, Acerinox 31-10, BBVA 31-10, CaixaBank 31-10, Faes Farma 31-10, Gestamp 31-10, Inditex 31-10, Mapfre 31-10, Miquel y Costas 31-10, Merlin Properties 31-10, Naturgy 31-10, Prim 31-10, Renta 4 Banco 31-10, Rovi 31-10, Banco Santander 31-10, Unicaja 31-10. 🔜 PRÓXIMOS 14 DÍAS: Telefónica 04-11, Amadeus 07-11. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "vencidos": [
     {
       "ticker": "CIE",
       "empresa": "CIE Automotive, S.A.",
@@ -13,26 +12,11 @@
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-22",
       "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-20"
-    },
-    {
-      "ticker": "IBE",
-      "empresa": "Iberdrola, S.A.",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-22",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-22"
-    },
-    {
-      "ticker": "A3M",
-      "empresa": "Atresmedia",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-23",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-23"
-    },
+      "ultimaFecha": "2026-07-20",
+      "diasVencido": 4
+    }
+  ],
+  "estaSemana": [
     {
       "ticker": "VID",
       "empresa": "Vidrala, S.A.",
@@ -41,9 +25,7 @@
       "fechaEstimada": "2026-10-25",
       "ultimoPeriodo": "2026-Q2",
       "ultimaFecha": "2026-07-23"
-    }
-  ],
-  "proximos14d": [
+    },
     {
       "ticker": "LDA",
       "empresa": "Línea Directa",
@@ -126,26 +108,8 @@
       "ultimaFecha": "2026-07-30"
     },
     {
-      "ticker": "BKT",
-      "empresa": "Bankinter",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
-    },
-    {
       "ticker": "CABK",
       "empresa": "CaixaBank",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
-    },
-    {
-      "ticker": "ENG",
-      "empresa": "Enagás",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-31",
@@ -259,25 +223,36 @@
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
       "ultimaFecha": "2026-07-30"
-    },
+    }
+  ],
+  "proximos14d": [
     {
-      "ticker": "VIS",
-      "empresa": "Viscofan",
+      "ticker": "TEF",
+      "empresa": "Telefónica",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
+      "fechaEstimada": "2026-11-04",
       "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
+      "ultimaFecha": "2026-07-29"
+    },
+    {
+      "ticker": "AMS",
+      "empresa": "Amadeus",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-11-07",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-31"
     }
   ],
   "siguienteEvento": {
-    "ticker": "CIE",
-    "empresa": "CIE Automotive, S.A.",
+    "ticker": "LDA",
+    "empresa": "Línea Directa",
     "periodoEsperado": "2026-Q3",
     "periodoLabel": "9M",
-    "fechaEstimada": "2026-10-22",
+    "fechaEstimada": "2026-10-27",
     "ultimoPeriodo": "2026-Q2",
-    "ultimaFecha": "2026-07-20"
+    "ultimaFecha": "2026-07-27"
   },
   "sinDeterminar": [],
   "totalEmpresas": 35
