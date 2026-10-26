@@ -653,9 +653,9 @@
    "periodoV3": "2026-S1",
    "fecha": "2026-06-30",
    "fechaOrigen": "cierre",
-   "semaforoGlobal": "R",
+   "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +29,3 %, EBITDA +23,8 %, beneficio neto +8,7 %, margen 23,7 % (-1,04 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Rojo solo por persistencia: el margen baja otra vez (23,7 %, −1,04 puntos), pero las ventas suben +29,3 %, el EBITDA +23,8 % y el beneficio +8,7 %. Lo probable es que el margen lo baje la entrada de SIFI y Edol, de menor margen, pero no tengo el informe del S1-2026 para confirmarlo: el color se queda.",
+   "resumen": "Ingresos +29,3 %, EBITDA +23,8 %, beneficio neto +8,7 %, margen 23,7 % (-1,04 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: El margen baja por la entrada de SIFI y Edol, de menor margen, y 3,2 M€ de reestructuración de una vez; EBITDA +23,8 % (+28 % sin la reestructuración) y previsión 2026 mantenida (documento: «2026-07-30 Informe de negocio del primer semestre de 2026»). Ámbar, no rojo. Ventas +27,3 % (391,5 frente a 307,4 M€), EBITDA +23,8 % (90,8 M€) y beneficio +9,2 %. El margen baja por el perímetro: SIFI aporta más de 54 M€ y Edol 17 M€, negocios de menor margen, y los gastos de personal incluyen 3,2 M€ de reestructuración de una vez; sin ellos el EBITDA crecería un 28 %. La empresa mantiene la previsión de 2026: ingresos +17/+19 % y EBITDA +28/+31 %, con deuda por debajo de 2 veces EBITDA (documento: «2026-07-30 Informe de negocio del primer semestre de 2026»). Corrige la nota del 26-oct, que no encontró este informe.",
    "metricas": [
     {
      "nombre": "Ingresos",

@@ -1,7 +1,7 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "TEF",
  "empresa": "Telefónica, S.A.",
  "fecha": "2026-10-25",
@@ -36,7 +36,7 @@
  ],
  "bull": "6,28 € — escenario optimista: el plan de bajas rinde lo anunciado y la consolidación en Europa devuelve margen",
  "bear": "4,27 € — escenario pesimista: la competencia en precio en España y Alemania sigue comiendo ingresos y el ahorro de plantilla se va en precio",
- "resumen": "MANTENER con la cotización de 3,42 € (2026-10-23): precio objetivo 5,53 € (bear 4,27 · bull 6,28), margen +61,8 %. Banda de entrada 4,27–4,81 €, stop de tesis 3,57 €.",
+ "resumen": "MANTENER con la cotización de 3,20 € (2026-10-26): precio objetivo 5,53 € (bear 4,27 · bull 6,28), margen +72,7 %. Banda de entrada 4,27–4,81 €, stop de tesis 3,57 €.",
  "dividendSafety": {
   "score": 54,
   "banda": "Vigilar",
@@ -103,7 +103,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -5.32,
+  "gImplicito": -5.65,
   "gIntrinseco": -1.65,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
@@ -117,13 +117,12 @@
    "acciones": 5670.161,
    "deudaNeta": 33056.432,
    "modo": "EV",
-   "precioBase": 3.417,
-   "gBase": -5.32,
-   "fechaBase": "2026-10-23",
+   "precioBase": 3.2,
+   "gBase": -5.65,
+   "fechaBase": "2026-10-26",
    "congeladoEl": "2026-10-26",
    "validado": true,
    "desviacion": -0.0
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 4,05 → 5,53 €; rating BBB → BB."
+ }
 }

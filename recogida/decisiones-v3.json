@@ -1,0 +1,89 @@
+{
+ "schemaVersion": 1,
+ "origen": "metodo-v3",
+ "empresas": {
+  "ENG": [
+   {
+    "fecha": "26-oct-2026",
+    "fechaIso": "2026-10-26",
+    "senal": "S2",
+    "cot": 17.54,
+    "decision": "REAFIRMAR",
+    "motivo": "Rojo en 2026-9M por el marco regulatorio (−45,1 M€), con la caída moderándose (EBITDA −2,9 %); el BOE del 18-sep fija el marco 2027-2032. ESPERAR se mantiene (PO 17,74 €). Diagnóstico del pase con nota del método v3, aprobado el 26-oct-2026.",
+    "revision": "ENG revisión con nota",
+    "origen": "metodo-v3"
+   }
+  ],
+  "VIS": [
+   {
+    "fecha": "26-oct-2026",
+    "fechaIso": "2026-10-26",
+    "senal": "S2",
+    "cot": 55.2,
+    "decision": "REAFIRMAR",
+    "motivo": "Rojo en 2026-9M por persistencia: el 3T mejora (ventas +5,5 %) y, sin la divisa, el EBITDA comparable sube un 1,6 %; la empresa rebaja en 10-15 M€ el EBITDA del año por la energía. Puntual (divisa y energía). ESPERAR (cotiza sobre el PO de 53,13 €): mantener sin ampliar. Pase con nota del método v3, aprobado el 26-oct-2026.",
+    "revision": "VIS revisión con nota",
+    "origen": "metodo-v3"
+   }
+  ],
+  "AENA": [
+   {
+    "fecha": "26-oct-2026",
+    "fechaIso": "2026-10-26",
+    "senal": "S6",
+    "cot": 26.5,
+    "decision": "REAFIRMAR",
+    "motivo": "Dos ámbar seguidos por efecto contable: sin los ingresos IFRIC 12 ni el seguro de Luton de 2025, margen del 56,9 % (igual que en 2025) y EBITDA +8,3 %. Ruido, no tendencia. ESPERAR. Pase con nota del método v3, aprobado el 26-oct-2026.",
+    "revision": "AENA revisión con nota",
+    "origen": "metodo-v3"
+   }
+  ],
+  "FAE": [
+   {
+    "fecha": "26-oct-2026",
+    "fechaIso": "2026-10-26",
+    "senal": "S2",
+    "cot": 4.68,
+    "decision": "REAFIRMAR",
+    "motivo": "Rojo del S1-2026 corregido a ámbar con el informe de la empresa: el margen baja por la entrada de SIFI y Edol (de menor margen) y 3,2 M€ de reestructuración de una vez; EBITDA +23,8 % (+28 % sin ella) y previsión 2026 mantenida (EBITDA +28/+31 %). ESPERAR. Nota del semestre del método v3, aprobada el 26-oct-2026.",
+    "revision": "FAE nota del semestre",
+    "origen": "metodo-v3"
+   }
+  ],
+  "PRM": [
+   {
+    "fecha": "26-oct-2026",
+    "fechaIso": "2026-10-26",
+    "senal": "S2",
+    "cot": 12.45,
+    "decision": "REAFIRMAR",
+    "motivo": "Rojo del S1-2026 por los costes del plan de crecimiento (personal +6,9 %, amortizaciones +8 %) con ventas −1,0 %; el margen bruto, variable de la tesis, sigue en verde (51,3 %). Puntual en la tesis, a vigilar en costes: el 9M dirá si las compras devuelven el EBITDA a crecer. ESPERAR. Nota del semestre del método v3, aprobada el 26-oct-2026.",
+    "revision": "PRM nota del semestre",
+    "origen": "metodo-v3"
+   }
+  ],
+  "TEF": [
+   {
+    "fecha": "26-oct-2026",
+    "fechaIso": "2026-10-26",
+    "senal": "S1",
+    "cot": 3.198,
+    "decision": "REAFIRMAR",
+    "motivo": "Stop roto (3,198 € frente a 3,57 €) por la caída del 26-oct tras la victoria de Lula en Brasil (riesgo nº 2 y cadena C del pre-mortem), sobre una tesis ya tocada por Alemania. Anti-anclaje: no la compraría hoy (rating BB). Decisión: seguir fuera sin comprar; NO se baja el stop. Revisión con el 9M del 12-nov: si se confirma la caída del real o Alemania sigue peor, rehacer la valoración con el golpe de Brasil y rebajar el PO. Revisión extraordinaria del método v3.",
+    "revision": "TEF revisión extraordinaria S1",
+    "origen": "metodo-v3"
+   },
+   {
+    "fecha": "26-oct-2026",
+    "fechaIso": "2026-10-26",
+    "senal": "S2",
+    "cot": 3.198,
+    "decision": "REAFIRMAR",
+    "motivo": "Tesis tocada por Alemania (ingresos −8,6 % en el 1T y −11,1 % en el 2T; resultado neto ajustado del grupo −21 %). Se revisa junto con el S1 del 26-oct; siguiente revisión con el 9M del 12-nov. Revisión extraordinaria del método v3.",
+    "revision": "TEF revisión extraordinaria S1",
+    "origen": "metodo-v3"
+   }
+  ]
+ },
+ "actualizado": "2026-10-26"
+}

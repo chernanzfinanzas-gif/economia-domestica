@@ -1,0 +1,23 @@
+{
+ "schemaVersion": 1,
+ "generado": "2026-10-26T21:45",
+ "origen": "metodo-v3",
+ "revisiones_pendientes": [],
+ "n_pendientes": 0,
+ "ultima_subida": {
+  "cuando": "2026-10-26T21:45",
+  "ficheros": [
+   "dossiers/FAE.html",
+   "dossiers/FAE.json",
+   "dossiers/PRM.html",
+   "dossiers/PRM.json",
+   "dossiers/TEF.html",
+   "dossiers/TEF.json",
+   "dossiers/trimestral/FAE-trim.json",
+   "dossiers/trimestral/PRM-trim.json",
+   "dossiers/trimestral/TEF-trim.json"
+  ]
+ },
+ "rechazos": [],
+ "decisiones": "recogida/decisiones-v3.json"
+}

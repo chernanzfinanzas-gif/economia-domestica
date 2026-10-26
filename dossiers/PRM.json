@@ -1,7 +1,7 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "PRM",
  "empresa": "Prim, S.A.",
  "fecha": "2026-10-25",
@@ -35,7 +35,7 @@
  ],
  "bull": "12,07 € — escenario optimista: 2024-2025 son el giro: el flujo crece cerca del EBITDA",
  "bear": "9,49 € — escenario pesimista: la erosión de margen sigue y el circulante se come la amortización",
- "resumen": "ESPERAR con la cotización de 12,60 € (2026-10-23): precio objetivo 11,31 € (bear 9,49 · bull 12,07), margen −10,2 %. Banda de entrada 9,49–9,84 €, stop de tesis 7,31 €.",
+ "resumen": "ESPERAR con la cotización de 12,45 € (2026-10-26): precio objetivo 11,31 € (bear 9,49 · bull 12,07), margen −9,1 %. Banda de entrada 9,49–9,84 €, stop de tesis 7,31 €.",
  "dividendSafety": {
   "score": 40,
   "banda": "Vigilar",
@@ -101,7 +101,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 12.87,
+  "gImplicito": 12.69,
   "gIntrinseco": 6.1,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
@@ -115,13 +115,12 @@
    "acciones": 17.0235,
    "deudaNeta": -1.499,
    "modo": "EV",
-   "precioBase": 12.6,
-   "gBase": 14.61,
-   "fechaBase": "2026-10-23",
+   "precioBase": 12.45,
+   "gBase": 14.31,
+   "fechaBase": "2026-10-26",
    "congeladoEl": "2026-10-26",
    "validado": false,
-   "desviacion": 1.74
+   "desviacion": 1.62
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 10,83 → 11,31 €."
+ }
 }
