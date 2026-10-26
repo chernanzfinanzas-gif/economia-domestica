@@ -459,33 +459,85 @@ function _infSyncGrp(grp){
   var n=cks.filter(function(x){return x.checked;}).length;
   gc.checked=(n>0&&n===cks.length); gc.indeterminate=(n>0&&n<cks.length);
 }
+/* === Franja de estado del Panel (26-oct-2026) ===
+   Sustituye a los 4 botones manuales (cotizaciones/fundamentales/informe semanal/alertas):
+   los cuatro procesos ya corren solos (Actions + tareas programadas de los lunes).
+   La franja solo informa si llegaron a su hora; el enlace de lanzar a mano solo aparece
+   si algo falló. Fuentes: precios/_estado.json, hallazgos.json, recogida/estado-v3.json
+   (este último lo escribe el método v3 en cada subida; puede no existir aún). */
+function _estFetchJSON(url){ return fetch(url,{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}); }
+function _estFechaUTC(iso){ var m=(''+iso).match(/(\d{4})-(\d{2})-(\d{2})/); return m?new Date(Date.UTC(+m[1],+m[2]-1,+m[3])):null; }
+function _estDiasDesde(iso){ var d=_estFechaUTC(iso); return d?Math.floor((Date.now()-d.getTime())/86400000):null; }
+function _estFmtFecha(iso){ var d=_estFechaUTC(iso); if(!d)return null; var dias=['dom','lun','mar','mié','jue','vie','sáb']; return dias[d.getUTCDay()]+' '+d.getUTCDate(); }
+function _estFmtFechaCorta(iso){ var d=_estFechaUTC(iso); if(!d)return null; var meses=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic']; return d.getUTCDate()+'-'+meses[d.getUTCMonth()]; }
+function _estProximoLunes(iso){ var d=_estFechaUTC(iso)||new Date(); d=new Date(d.getTime()); do{ d.setUTCDate(d.getUTCDate()+1); }while(d.getUTCDay()!==1); return d.toISOString().slice(0,10); }
+function _estProximoPrimerLunes(iso){ var b=_estFechaUTC(iso)||new Date(); var d=new Date(Date.UTC(b.getUTCFullYear(),b.getUTCMonth()+1,1)); while(d.getUTCDay()!==1){ d.setUTCDate(d.getUTCDate()+1); } return d.toISOString().slice(0,10); }
 function renderInformeBlock(){
   var sec=document.getElementById('view-panel'); if(!sec) return;
-  if(document.getElementById('cotizPanelBtn')) return;
+  if(document.getElementById('panelEstadoStrip')) return;
   var _ref=document.getElementById('panelAvisos')||document.getElementById('panelPeriodo');
-  var _cbtn=document.createElement('div'); _cbtn.id='cotizPanelBtn'; _cbtn.style.cssText='display:flex;flex-wrap:wrap;gap:8px;margin:0';
-  // Botón «Informe semanal»: abre Claude (Cowork) en ESTE ordenador, chat nuevo con la carpeta del programa y la orden prerrellenada.
+  var _wrap=document.createElement('div'); _wrap.id='panelEstadoStrip'; _wrap.className='sub';
+  _wrap.style.cssText='font-size:12px;margin:0 0 12px;line-height:1.7';
+  _wrap.innerHTML='Cargando estado del sistema…';
+  if(_ref&&_ref.parentNode===sec)sec.insertBefore(_wrap,_ref); else sec.insertBefore(_wrap,sec.firstChild);
+
+  // Órdenes de respaldo para lanzar a mano (Claude en este ordenador): solo se enganchan si algo falló.
   var _khCarpeta='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude';
   var _infOrden='genera el informe semanal de cartera';
   var _infHref='claude://cowork/new?folder='+encodeURIComponent(_khCarpeta)+'&q='+encodeURIComponent(_infOrden)+'&prompt='+encodeURIComponent(_infOrden);
   var _appCarpeta='C:/Users/carlo/OneDrive/Economia Doméstica/Economía Doméstica';
   var _alOrden='revisa alertas y universo: busca noticias recientes de OPAs, concursos de acreedores, suspensiones de cotización, sanciones o litigios relevantes en las empresas de mi universo (tickers.json), y actualiza hallazgos.json (raiz del repo) via el helper kh_hallazgos: anade lo nuevo, sella la cobertura del pase universo en cada empresa revisada y marca como resueltas las que ya no apliquen. No reescribas el fichero entero: escribe empresa a empresa';
   var _alHref='claude://cowork/new?folder='+encodeURIComponent(_appCarpeta)+'&q='+encodeURIComponent(_alOrden)+'&prompt='+encodeURIComponent(_alOrden);
-  _cbtn.innerHTML='<a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml" target="_blank" rel="noopener" style="text-decoration:none;white-space:nowrap" title="Abre GitHub para actualizar las cotizaciones del repositorio">🔄 Actualizar cotizaciones</a>'
-    +'<a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/fundamentales.yml" target="_blank" rel="noopener" style="text-decoration:none;white-space:nowrap" title="Abre GitHub para actualizar los fundamentales del radar (Run workflow). Basta cada 3-12 meses.">📊 Actualizar fundamentales</a>'
-    +'<a class="btn" id="infSemanalBtn" href="'+_infHref+'" style="text-decoration:none;white-space:nowrap" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden «genera el informe semanal de cartera» se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">🧾 Informe semanal (Claude)</a>'
-    +'<a class="btn" id="alertasPanelBtn" href="'+_alHref+'" style="text-decoration:none;white-space:nowrap" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del repositorio. Al pulsar, la orden de revisión de alertas se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">⚠️ Revisar Alertas / Universo (Claude)</a>';
-  // Aviso: el precio intradia/cierre desde Excel NO se actualiza con estos botones (no va por el repo).
-  var _cwrap=document.createElement('div'); _cwrap.id='cotizPanelWrap'; _cwrap.style.cssText='margin:2px 0 12px';
-  var _cnota=document.createElement('div'); _cnota.className='sub'; _cnota.id='cotizPanelNota';
-  _cnota.style.cssText='font-size:12px;margin:0 0 6px;line-height:1.45';
-  _cnota.innerHTML='\u{1F4C8} Para actualizar <b>cotizaciones desde Excel</b>, ejecuta la herramienta <b>\u00AB05 - 01 - Precios desde Excel\u00BB</b> y luego c\u00E1rgalas en la app desde <b>Ajustes \u203A \u{1F4C8} Precios desde Excel</b>.';
-  _cwrap.appendChild(_cnota); _cwrap.appendChild(_cbtn);
-  if(_ref&&_ref.parentNode===sec)sec.insertBefore(_cwrap,_ref); else sec.insertBefore(_cwrap,sec.firstChild);
-  var _isb=document.getElementById('infSemanalBtn');
-  if(_isb) _isb.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal(_infOrden,{carpeta:'del método',tarea:'el informe semanal'}); });
-  var _alb=document.getElementById('alertasPanelBtn');
-  if(_alb) _alb.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal(_alOrden,{carpeta:'de Economía Doméstica',tarea:'la revisión de alertas'}); });
+
+  Promise.all([
+    _estFetchJSON('precios/_estado.json'),
+    _estFetchJSON('hallazgos.json'),
+    _estFetchJSON('recogida/estado-v3.json')
+  ]).then(function(r){
+    var pEstado=r[0], hall=r[1], v3=r[2];
+    var chips=[];
+
+    // 1 · Cotizaciones (Action cotizaciones.yml + cierre de Google + intradía)
+    var cFecha=pEstado&&pEstado.actualizado, cDias=_estDiasDesde(cFecha);
+    var cOk=(pEstado==null)?null:(cDias!=null&&cDias<=3);
+    chips.push({ ic:'📊', txt:'Cotizaciones: '+(cFecha?('cierre '+_estFmtFecha(cFecha)):'—'), ok:cOk });
+
+    // 2 · Revisiones pendientes (recogida/estado-v3.json)
+    if(v3){ chips.push({ ic:'📋', txt:'Revisiones pendientes: '+(v3.n_pendientes||0), ok:(v3.n_pendientes?null:true) }); }
+    else { chips.push({ ic:'📋', txt:'Revisiones pendientes: —', ok:null }); }
+
+    // 3 · Datos subidos (recogida/estado-v3.json)
+    if(v3){
+      var sub=v3.ultima_subida, hayRechazo=!!(v3.rechazos&&v3.rechazos.length);
+      var subTxt = hayRechazo?'rechazado, revisar':(sub&&sub.cuando?('hoy '+(''+sub.cuando).slice(11,16)):'sin subida aún');
+      chips.push({ ic:'⬆️', txt:'Datos subidos: '+subTxt, ok: hayRechazo?false:!!(sub&&sub.cuando) });
+    } else { chips.push({ ic:'⬆️', txt:'Datos subidos: —', ok:null }); }
+
+    // 4 · Informe semanal (hallazgos.generadoEl; tarea programada de los lunes, 4:30)
+    var semFecha=hall&&hall.generadoEl, semDias=_estDiasDesde(semFecha);
+    var semOk=(hall==null)?null:(semDias!=null&&semDias<=8);
+    chips.push({ ic:'🧾', txt:'Informe semanal: '+(semFecha?_estFmtFecha(semFecha):'—')+(semOk?'':(' (siguiente '+_estFmtFechaCorta(_estProximoLunes(semFecha))+')')),
+      ok:semOk, href:(semOk===false?_infHref:null), ordenPrep:_infOrden, tarea:'el informe semanal', carpeta:'del método' });
+
+    // 5 · Alertas / Universo (máxima cobertura.universo en hallazgos.json; primer lunes del mes, 1:30)
+    var uniFecha=null;
+    if(hall&&hall.empresas){ Object.keys(hall.empresas).forEach(function(k){ var c=hall.empresas[k]&&hall.empresas[k].cobertura; if(c&&c.universo&&(!uniFecha||c.universo>uniFecha)) uniFecha=c.universo; }); }
+    var uniDias=_estDiasDesde(uniFecha);
+    var uniOk=(hall==null)?null:(uniDias!=null&&uniDias<=135);
+    chips.push({ ic:'⚠️', txt:'Alertas: '+(uniFecha?_estFmtFecha(uniFecha):'—')+(uniOk?'':(' (siguiente '+_estFmtFechaCorta(_estProximoPrimerLunes(uniFecha))+')')),
+      ok:uniOk, href:(uniOk===false?_alHref:null), ordenPrep:_alOrden, tarea:'la revisión de alertas', carpeta:'de Economía Doméstica' });
+
+    _wrap.innerHTML = chips.map(function(c,i){
+      var color = c.ok===true?'#16a34a':(c.ok===false?'#dc2626':'#64748b');
+      var marca = c.ok===true?' ✓':(c.ok===false?' ⚠':'');
+      var inner = c.ic+' '+c.txt+marca;
+      return c.href ? ('<a href="'+c.href+'" data-estchip="'+i+'" style="color:'+color+';text-decoration:none;cursor:pointer" title="No llegó solo: lanzarlo a mano (Claude en este ordenador)">'+inner+'</a>') : ('<span style="color:'+color+'">'+inner+'</span>');
+    }).join(' &nbsp;·&nbsp; ');
+    [].slice.call(_wrap.querySelectorAll('[data-estchip]')).forEach(function(el){
+      var c=chips[+el.getAttribute('data-estchip')];
+      el.addEventListener('click', function(){ if(typeof _prepInfSemanal==='function') _prepInfSemanal(c.ordenPrep,{carpeta:c.carpeta,tarea:c.tarea}); });
+    });
+  });
 }
 function _hemEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function _hemFecha(n){ var m=(''+n).match(/(\d{4})-(\d{2})-(\d{2})/); return m?(m[1]+m[2]+m[3]):'00000000'; }
