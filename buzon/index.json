@@ -1,16 +1,16 @@
 {
-  "actualizado": "2026-10-19T15:11:06+02:00",
+  "actualizado": "2026-10-26T13:54:06+01:00",
   "ficheros": [
     {
       "clave": "agenda",
       "titulo": "Agenda confirmada (resultados y ex-dividend)",
       "archivo": "agenda.json",
-      "generadoEl": "2026-10-19T15:05:01+02:00",
+      "generadoEl": "2026-10-26T13:54:06+01:00",
       "destinoApp": [
         "calendario",
         "avisos"
       ],
-      "resumen": "25 resultados · 4 ex-dividend confirmados"
+      "resumen": "21 resultados · 6 ex-dividend confirmados"
     },
     {
       "clave": "radar",
