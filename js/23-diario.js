@@ -358,11 +358,14 @@ function _diInvalHTML(INV){
   INV=INV||diarioInvalidaciones();
   var pend=INV.pendientes, todas=INV.todas;
   if(!todas.length) return '<div class="di-nada">✅ Ninguna decisión abierta tiene su supuesto roto. La vigilancia mira rating, decisión, Score, RPD, stop, precio objetivo, semáforo trimestral y caducidad del dossier — más los disparadores que hayas escrito.</div>';
-  var cards=todas.map(function(x){
+  /* [26-oct-2026] Las ya revisadas («sigo igual») NO se pintan como tarjeta: ya se decidió sobre
+     ellas y repetir el aviso en rojo es ruido. Solo queda un apunte breve, por si quieres mirarlas. */
+  var revisadas=todas.filter(function(x){return x.ack;});
+  var cards=pend.map(function(x){
     var e=x.e, S=_DI_SEVCFG[x.rot[0].sev]||_DI_SEVCFG[2];
     var lis=x.rot.map(function(r){ var s=_DI_SEVCFG[r.sev]||_DI_SEVCFG[2];
       return '<li>'+s.ic+' '+r.txt+(r.sig?(' <span class="di-sig" data-diproto="'+r.sig+'|'+_diEsc(e.ticker)+'" title="Ver el procedimiento de la señal '+r.sig+'">'+r.sig+' 📋</span>'):'')+'</li>'; }).join('');
-    return '<div class="di-alert '+S.cls+(x.ack?' ackd':'')+'">'
+    return '<div class="di-alert '+S.cls+'">'
       +'<div class="di-ah"><span class="di-tk" data-ficha="'+_diEsc(e.ticker)+'">'+_diEsc(e.ticker)+'</span>'
       +'<span class="di-tipo '+_diTipoCfg(e.tipo).cls+'">'+_diEsc(e.tipo)+'</span>'
       +'<span class="di-sev">'+S.ic+' '+S.lbl+'</span>'
@@ -383,8 +386,10 @@ function _diInvalHTML(INV){
       +'</div></div>';
   }).join('');
   var tit=pend.length?('⚠️ '+pend.length+' empresa'+(pend.length>1?'s':'')+' con el supuesto roto sin revisar'):'✔ Supuestos rotos, todos revisados';
-  return '<div class="pos-blk'+(pend.length?' open':'')+'" data-diblk="inval"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">'+tit+'</span><span class="bsum">'+todas.length+' empresa(s) afectada(s)</span></div>'
-    +'<div class="pos-blk-b"><div class="blk-pad"><div class="muted" style="font-size:11.5px;margin-bottom:9px;line-height:1.5">Una ficha por empresa, de la más grave a la menos: se vigila su decisión <b>abierta más reciente</b>. Solo cuenta lo que <b>empeora</b> (las mejoras se anotan aparte). Nada se cierra solo: lee lo que escribiste, mira lo que ha cambiado y decide. <b>«Sigo igual»</b> archiva este estado y deja de avisar hasta que se rompa algo nuevo.</div>'+cards+'</div></div></div>';
+  var revLine=revisadas.length?('<div class="muted" style="font-size:11.5px;margin-top:'+(cards?'10px':'0')+'">✔ Ya revisadas, sin avisar salvo que empeore de verdad: '
+    +revisadas.map(function(x){return '<span data-ficha="'+_diEsc(x.e.ticker)+'" style="cursor:pointer;text-decoration:underline dotted">'+_diEsc(x.e.ticker)+'</span> ('+_diEsc(x.ack.fecha)+')';}).join(' · ')+'</div>'):'';
+  return '<div class="pos-blk'+(pend.length?' open':'')+'" data-diblk="inval"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">'+tit+'</span><span class="bsum">'+pend.length+' empresa(s) sin revisar</span></div>'
+    +'<div class="pos-blk-b"><div class="blk-pad"><div class="muted" style="font-size:11.5px;margin-bottom:9px;line-height:1.5">Una ficha por empresa, de la más grave a la menos: se vigila su decisión <b>abierta más reciente</b>. Solo cuenta lo que <b>empeora</b> (las mejoras se anotan aparte). Nada se cierra solo: lee lo que escribiste, mira lo que ha cambiado y decide. <b>«Sigo igual»</b> archiva este estado y deja de avisar hasta que se rompa algo nuevo.</div>'+cards+revLine+'</div></div></div>';
 }
 function _diChip(val,grp,lab,F){ var on=(F[grp]===val); return '<span class="di-chip'+(on?' on':'')+'" data-difilt="'+grp+'|'+_diEsc(val)+'">'+_diEsc(lab)+'</span>'; }
 
