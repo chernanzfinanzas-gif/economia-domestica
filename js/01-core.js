@@ -678,6 +678,16 @@ function cargarAlertasCorp(){
       return true;
     })
     .then(function(ok){
+      /* [26-oct-2026] Decisiones que Carlos ya aprobo en el metodo v3 (recogida/decisiones-v3.json).
+         Puede no existir todavia (primera subida real: 26-oct 21:45) o fallar la red: si no llega,
+         se sigue exactamente igual que hasta ahora. */
+      if(!ok) return ok;
+      return fetch('recogida/decisiones-v3.json',{cache:'no-store'})
+        .then(function(r){ return r.ok?r.json():null; })
+        .then(function(v3){ if(v3&&v3.empresas) _mergeDecisionesV3(v3.empresas); return ok; })
+        .catch(function(){ return ok; });
+    })
+    .then(function(ok){
       if(ok){
         /* [28-jul-2026] Con el puente ya cargado, Mis Decisiones se pone al dia con el §10.5
            sin preguntar. Es idempotente: cada apunte lleva su clave `origen105` y no se
@@ -762,6 +772,28 @@ function claveRev(fecha, senal){
   if(m){ var M=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
          f=(+m[3])+'-'+M[(+m[2])-1]+'-'+m[1]; }
   return f+'|'+(''+(senal||'')).trim().toUpperCase().replace(/\.$/,'');
+}
+/* [26-oct-2026] Funde las decisiones que Carlos aprueba en el metodo v3 con las mismas
+   `.revisiones` que ya lee el §10.5 (revisionesCorpDe), para que silencien el Panel y entren en
+   Mis Decisiones exactamente igual que un apunte del Excel, sin tocar ninguna otra pieza del
+   metodo. Si el Excel ya trae una fila con la misma senal y fecha, esa gana: no se duplica. */
+function _mergeDecisionesV3(emp){
+  _hallazgosEmp=_hallazgosEmp||{};
+  Object.keys(emp).forEach(function(tk){
+    tk=(''+tk).toUpperCase();
+    var filasV3=emp[tk]||[]; if(!filasV3.length) return;
+    _hallazgosEmp[tk]=_hallazgosEmp[tk]||{};
+    var existentes=(_hallazgosEmp[tk].revisiones||[]).slice();
+    var claves={}; existentes.forEach(function(r){ claves[claveRev(r.fecha,r.senal)]=1; });
+    filasV3.forEach(function(r){
+      if(!r||!r.senal||!r.decision) return;
+      var cl=claveRev(r.fecha,r.senal); if(claves[cl]) return;   /* gana el apunte del Excel */
+      claves[cl]=1;
+      existentes.push({ fecha:r.fecha, senal:r.senal, decision:r.decision, cot:r.cot,
+        motivo:(r.motivo||'')+' (método v3)' });
+    });
+    _hallazgosEmp[tk].revisiones=existentes;
+  });
 }
 function empresaCorpDe(t){ t=(t||'').toUpperCase(); return ((_hallazgosEmp||{})[t]||{}).empresa||t; }
 /* El puente guarda la razon social ("Aena, S.M.E., S.A."), pero la orden que va a Claude debe
