@@ -68,11 +68,41 @@ async function calibCargarPuente(){
     Object.keys(ix).forEach(t => ix[t].sort((a,b) => (a.fecha||'').localeCompare(b.fecha||'')));
     CALIB_PUENTE = ix;
     CALIB_PUENTE_META = {generadoEl:d.generadoEl, resumen:d.resumen||{}, sesgo:d.sesgo||null, espejo:d.espejo||null};
+    try{ _calibCongelarAntiguo(); }catch(e){}
     if(typeof renderPanelMetodo==='function') renderPanelMetodo();
   }catch(e){ /* sin puente se sigue igual que antes: no es una condicion */ }
 }
 document.addEventListener('DOMContentLoaded', calibCargarPuente);
 if(document.readyState!=='loading') calibCargarPuente();
+
+/* [26-oct-2026] PETICIÓN PRIORITARIA del foro Método v3 · congelar YA la línea base del método
+   ANTIGUO en DB.calibracion[TK].t0, para que nunca más se rellene en vivo desde DB.analisis
+   (que desde el salto es el v3). Usa el puente `calibracion.json` —generado el 13-oct-2026, ANTES
+   del salto— que ya trae cot0/poBase/entMax/stop/decision del método antiguo para cada empresa.
+   Solo escribe si no hay YA un t0 guardado con cot0 y poBase (nunca pisa lo que el operador haya
+   tocado a mano); una vez escrito queda fijo y no se repite. */
+function _calibCongelarAntiguo(){
+  try{
+    if(!CALIB_PUENTE || !Object.keys(CALIB_PUENTE).length) return;
+    let n=0;
+    Object.keys(CALIB_PUENTE).forEach(function(t){
+      const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t);
+      const fecha=a&&a.dossierFecha;
+      const pte=calibPuenteDe(t, fecha); if(!pte) return;
+      const reg=_calibReg(t, fecha);
+      if(reg && reg.t0 && reg.t0.cot0!=null && reg.t0.poBase!=null) return;   /* ya congelado */
+      const k=_calibClave(t, fecha);
+      DB.calibracion=DB.calibracion||{}; DB.calibracion[k]=DB.calibracion[k]||{};
+      DB.calibracion[k].t0={
+        cot0:_calibN(pte.cot0), poBase:_calibN(pte.poBase), entMax:_calibN(pte.entMax),
+        stop:_calibN(pte.stop), decision:(pte.decision||'').toString().toUpperCase()
+      };
+      n++;
+    });
+    if(n){ if(typeof scheduleSave==='function')scheduleSave();
+      console.log('[26-oct-2026] calibración: '+n+' línea(s) base del método antiguo congelada(s) en DB.calibracion[TK].t0'); }
+  }catch(e){}
+}
 
 /* La fila del puente que corresponde al t0 de esa empresa. Misma regla que
    `_calibT0Foto`: la ultima que no sea posterior a la fecha del dossier. */
