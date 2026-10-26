@@ -498,7 +498,7 @@ function diarioImportar105(){
     filas.forEach(function(a){
       if(!a || !a.senal || !a.decision)return;
       var dec=_diUp(a.decision).trim();
-      if(!(DI_105_CAMBIAN[dec] || _di105ConNota(tk, a.senal)))return;
+      if(!(DI_105_CAMBIAN[dec] || _di105ConNota(tk, a.senal) || a.origen==='metodo-v3'))return;
       var tipo=_diTipoProto(a.decision); if(!tipo)return;
       var cl=_di105Clave(tk, a); if(ya[cl])return;
       ya[cl]=1; n++;

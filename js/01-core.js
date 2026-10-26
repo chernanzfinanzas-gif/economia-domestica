@@ -790,7 +790,7 @@ function _mergeDecisionesV3(emp){
       var cl=claveRev(r.fecha,r.senal); if(claves[cl]) return;   /* gana el apunte del Excel */
       claves[cl]=1;
       existentes.push({ fecha:r.fecha, senal:r.senal, decision:r.decision, cot:r.cot,
-        motivo:(r.motivo||'')+' (método v3)' });
+        motivo:(r.motivo||'')+' (método v3)', origen:'metodo-v3' });
     });
     _hallazgosEmp[tk].revisiones=existentes;
   });
