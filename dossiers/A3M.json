@@ -1,14 +1,14 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "A3M",
  "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
  "fecha": "2026-10-25",
  "revisadoEl": "2026-10-26",
  "rating": "A",
  "score": 66.4,
- "decision": "COMPRAR",
+ "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 30 % · DCF optimista 10 % · EV/EBITDA 12 % · EV/EBIT 8 % · PER 10 % · P/VC 5 % · P/FCL 5 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl",
  "poBear": 5.37,
  "poBase": 7.11,
@@ -37,7 +37,7 @@
  ],
  "bull": "10,50 € — escenario optimista: el duopolio se convierte en precio",
  "bear": "5,37 € — escenario pesimista: la publicidad se va al vídeo digital y el duopolio deja de defender el precio",
- "resumen": "COMPRAR con la cotización de 5,82 € (2026-10-23): precio objetivo 7,11 € (bear 5,37 · bull 10,50), margen +22,1 %. Banda de entrada 5,37–6,18 €, stop de tesis 3,95 €.",
+ "resumen": "MANTENER con la cotización de 5,83 € (2026-10-26): precio objetivo 7,11 € (bear 5,37 · bull 10,50), margen +21,9 %. Banda de entrada 5,37–6,18 €, stop de tesis 3,95 €. Veto por dividendo frágil: seguridad del dividendo 30/100 en 2025 (por debajo de 40).",
  "dividendSafety": {
   "score": 30,
   "banda": "Frágil",
@@ -103,7 +103,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -8.15,
+  "gImplicito": -8.12,
   "gIntrinseco": 1.59,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
@@ -117,13 +117,12 @@
    "acciones": 225.7333,
    "deudaNeta": -45.431,
    "modo": "EV",
-   "precioBase": 5.82,
-   "gBase": -8.15,
-   "fechaBase": "2026-10-23",
+   "precioBase": 5.83,
+   "gBase": -8.12,
+   "fechaBase": "2026-10-26",
    "congeladoEl": "2026-10-26",
    "validado": true,
    "desviacion": -0.0
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 6,91 → 7,11 €; rating AA → A."
+ }
 }

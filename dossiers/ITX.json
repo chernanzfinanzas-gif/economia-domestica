@@ -1,7 +1,7 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "ITX",
  "empresa": "Industria de Diseño Textil, S.A.",
  "fecha": "2026-10-25",
@@ -37,7 +37,7 @@
  ],
  "bull": "57,62 € — escenario optimista: la reforma de tiendas y el online devuelven el crecimiento a la media de la década",
  "bear": "42,86 € — escenario pesimista: la desaceleración de la serie continúa: +35,9 %, +17,5 %, +10,4 %, +7,5 % y +3,2 % de 2021 a 2025",
- "resumen": "ESPERAR con la cotización de 56,74 € (2026-10-23): precio objetivo 49,71 € (bear 42,86 · bull 57,62), margen −12,4 %. Banda de entrada 42,86–43,23 €, stop de tesis 30,93 €.",
+ "resumen": "ESPERAR con la cotización de 57,24 € (2026-10-26): precio objetivo 49,71 € (bear 42,86 · bull 57,62), margen −13,2 %. Banda de entrada 42,86–43,23 €, stop de tesis 30,93 €.",
  "dividendSafety": {
   "score": 67,
   "banda": "Seguro",
@@ -103,7 +103,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 10.65,
+  "gImplicito": 10.79,
   "gIntrinseco": 13.05,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 13.1 %)",
@@ -117,13 +117,12 @@
    "acciones": 3110.045,
    "deudaNeta": -5246.639,
    "modo": "EV",
-   "precioBase": 56.74,
-   "gBase": 11.48,
-   "fechaBase": "2026-10-23",
+   "precioBase": 57.24,
+   "gBase": 11.69,
+   "fechaBase": "2026-10-26",
    "congeladoEl": "2026-10-26",
    "validado": false,
-   "desviacion": 0.82
+   "desviacion": 0.91
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 38,55 → 49,71 €."
+ }
 }
