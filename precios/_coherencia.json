@@ -126,17 +126,17 @@
   },
   {
    "ticker": "LDA",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 1.226,
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 1.23,
    "cierreAntIntradia": 1.22,
-   "difPct": 0.492
+   "difPct": 0.82
   },
   {
    "ticker": "MAP",
    "ultimaBarra": "2026-10-27",
-   "valorHistorico": 4.34,
+   "valorHistorico": 4.336,
    "cierreAntIntradia": 4.314,
-   "difPct": 0.603
+   "difPct": 0.51
   },
   {
    "ticker": "MCM",
@@ -162,16 +162,9 @@
   {
    "ticker": "PRM",
    "ultimaBarra": "2026-10-27",
-   "valorHistorico": 12.5,
+   "valorHistorico": 12.45,
    "cierreAntIntradia": 12.65,
-   "difPct": -1.186
-  },
-  {
-   "ticker": "R4",
-   "ultimaBarra": "2026-10-27",
-   "valorHistorico": 19.8,
-   "cierreAntIntradia": 20.0,
-   "difPct": -1.0
+   "difPct": -1.581
   },
   {
    "ticker": "REP",
@@ -190,16 +183,16 @@
   {
    "ticker": "SAN",
    "ultimaBarra": "2026-10-27",
-   "valorHistorico": 11.27,
+   "valorHistorico": 11.268,
    "cierreAntIntradia": 11.142,
-   "difPct": 1.149
+   "difPct": 1.131
   },
   {
    "ticker": "TEF",
    "ultimaBarra": "2026-10-27",
-   "valorHistorico": 3.26,
+   "valorHistorico": 3.257,
    "cierreAntIntradia": 3.183,
-   "difPct": 2.419
+   "difPct": 2.325
   },
   {
    "ticker": "UNI",
@@ -225,5 +218,5 @@
  ],
  "sinDato": [],
  "nota": "`cierreAnt` de intradia.json es el cierre de la sesion ANTERIOR segun Yahoo. Si no cuadra con la ultima barra de precios/, o falta una sesion o las dos fuentes no hablan del mismo dia. Las dos cosas hay que saberlas.",
- "resumen": "0 con sesion ausente, 31 con valores discrepantes, 0 sin fichero"
+ "resumen": "0 con sesion ausente, 30 con valores discrepantes, 0 sin fichero"
 }
