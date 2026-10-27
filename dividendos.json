@@ -231,9 +231,9 @@
 "pago": "2017-12-21",
 "bruto": 0.45,
 "neto": 0.3645,
-"tipo": "o",
-"ejercicio": "2017",
-"clase": "ordinario"
+"tipo": "extraordinario",
+"ejercicio": "2016",
+"clase": "puntual"
 }
 ]
 },
@@ -284,9 +284,9 @@
 "pago": "2019-06-20",
 "bruto": 0.25,
 "neto": 0.2025,
-"tipo": "o",
+"tipo": "extraordinario",
 "ejercicio": "2018",
-"clase": "ordinario"
+"clase": "puntual"
 },
 {
 "exDiv": "2019-12-16",
@@ -480,19 +480,20 @@
 {
 "exDiv": "2026-12-15",
 "pago": "2026-12-17",
-"bruto": 0.18,
+"bruto": 0.16,
 "neto": 0.1458,
 "tipo": null,
 "ejercicio": "2026",
 "clase": "ordinario"
-}
-],
-"extrasSinCasar": [
+},
 {
+"exDiv": "2026-12-15",
+"pago": "2026-12-17",
+"bruto": 0.67,
+"neto": 0.1458,
+"tipo": "extraordinario",
 "ejercicio": "2026",
-"importeExtra": 0.83,
-"clase": "puntual",
-"nota": "extra de datos/_dividendos_extra.json sin pago propio identificado en el calendario: mezclado dentro de otro pago, o aun no cobrado."
+"clase": "puntual"
 }
 ]
 },
@@ -825,7 +826,7 @@
 "bruto": 0.16,
 "neto": 0.1296,
 "tipo": "F",
-"ejercicio": "2019",
+"ejercicio": "2020",
 "clase": "ordinario"
 }
 ]
@@ -896,7 +897,7 @@
 "bruto": 0.05,
 "neto": 0.0405,
 "tipo": "F",
-"ejercicio": "2021",
+"ejercicio": "2022",
 "clase": "ordinario"
 }
 ]
@@ -1302,7 +1303,7 @@
 {
 "exDiv": "2019-07-03",
 "pago": "2019-07-05",
-"bruto": 0.2469,
+"bruto": 0.2,
 "neto": 0.2,
 "tipo": "scrip",
 "ejercicio": "2018",
@@ -1327,16 +1328,16 @@
 "bruto": 0.4,
 "neto": 0.324,
 "tipo": "12M",
-"ejercicio": "2020",
+"ejercicio": "2019",
 "clase": "ordinario"
 },
 {
 "exDiv": "2020-12-01",
 "pago": "2020-12-03",
-"bruto": 0.1235,
+"bruto": 0.1,
 "neto": 0.1,
 "tipo": "scrip",
-"ejercicio": "2020",
+"ejercicio": "2019",
 "clase": "ordinario"
 }
 ]
@@ -1494,7 +1495,7 @@
 "pago": "2026-01-23",
 "bruto": 0.31,
 "neto": 0.2511,
-"tipo": "F",
+"tipo": "I",
 "ejercicio": "2025",
 "clase": "ordinario"
 },
@@ -6499,6 +6500,17 @@
 "paga": true
 },
 {
+"ticker": "ATRY",
+"nombre": "Atrys Health",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): sin dato de si paga dividendo — pendiente de confirmar.",
+"anios": {},
+"paga": false
+},
+{
 "ticker": "AZK",
 "nombre": "Azkoyen, S.A.",
 "clasificacion": "Paga",
@@ -6657,11 +6669,20 @@
 {
 "exDiv": "2019-06-17",
 "pago": "2019-06-19",
-"bruto": 1.2168,
+"bruto": 0.1918,
 "neto": 0.985598,
 "tipo": "o",
 "ejercicio": "2018",
 "clase": "ordinario"
+},
+{
+"exDiv": "2019-06-17",
+"pago": "2019-06-19",
+"bruto": 1.025,
+"neto": 0.985598,
+"tipo": "extraordinario",
+"ejercicio": "2018",
+"clase": "puntual"
 }
 ]
 },
@@ -6694,7 +6715,7 @@
 "bruto": 0.2,
 "neto": 0.162,
 "tipo": "I",
-"ejercicio": "2020",
+"ejercicio": "2021",
 "clase": "ordinario"
 }
 ]
@@ -6713,11 +6734,20 @@
 {
 "exDiv": "2022-07-14",
 "pago": "2022-07-18",
-"bruto": 1.058,
+"bruto": 0.2367,
 "neto": 0.857,
 "tipo": "o",
 "ejercicio": "2021",
 "clase": "ordinario"
+},
+{
+"exDiv": "2022-07-14",
+"pago": "2022-07-18",
+"bruto": 0.8213,
+"neto": 0.857,
+"tipo": "extraordinario",
+"ejercicio": "2021",
+"clase": "puntual"
 }
 ]
 },
@@ -6814,7 +6844,7 @@
 "neto": 0.5216,
 "tipo": null,
 "ejercicio": "2025",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 }
 ]
 },
@@ -7055,7 +7085,7 @@
 "bruto": 0.0805,
 "neto": 0.0644,
 "tipo": "I",
-"ejercicio": "2014",
+"ejercicio": "2015",
 "clase": "ordinario"
 },
 {
@@ -7064,7 +7094,7 @@
 "bruto": 0.0805,
 "neto": 0.0644,
 "tipo": "scrip",
-"ejercicio": "2014",
+"ejercicio": "2015",
 "clase": "ordinario"
 }
 ]
@@ -7104,7 +7134,7 @@
 "bruto": 0.08,
 "neto": 0.0648,
 "tipo": "scrip",
-"ejercicio": "2015",
+"ejercicio": "2016",
 "clase": "ordinario"
 },
 {
@@ -7113,7 +7143,7 @@
 "bruto": 0.08,
 "neto": 0.0648,
 "tipo": "scrip",
-"ejercicio": "2015",
+"ejercicio": "2016",
 "clase": "ordinario"
 }
 ]
@@ -7256,7 +7286,7 @@
 {
 "exDiv": "2021-04-27",
 "pago": "2021-04-29",
-"bruto": 0.0728,
+"bruto": 0.059,
 "neto": 0.059,
 "tipo": "scrip",
 "ejercicio": "2020",
@@ -7714,7 +7744,7 @@
 "bruto": 0.0514,
 "neto": 0.041662,
 "tipo": "I",
-"ejercicio": "2015",
+"ejercicio": "2016",
 "clase": "ordinario"
 },
 {
@@ -7722,8 +7752,8 @@
 "pago": "2016-09-28",
 "bruto": 0.0514,
 "neto": 0.041662,
-"tipo": "F",
-"ejercicio": "2015",
+"tipo": "I",
+"ejercicio": "2016",
 "clase": "ordinario"
 },
 {
@@ -7812,7 +7842,7 @@
 "bruto": 0.0651,
 "neto": 0.052703,
 "tipo": "I",
-"ejercicio": "2017",
+"ejercicio": "2018",
 "clase": "ordinario"
 },
 {
@@ -7820,8 +7850,8 @@
 "pago": "2018-09-26",
 "bruto": 0.0637,
 "neto": 0.051613,
-"tipo": "F",
-"ejercicio": "2017",
+"tipo": "I",
+"ejercicio": "2018",
 "clase": "ordinario"
 },
 {
@@ -7922,7 +7952,7 @@
 "pago": "2021-03-01",
 "bruto": 0.0498,
 "neto": 0.040309,
-"tipo": "I",
+"tipo": "F",
 "ejercicio": "2020",
 "clase": "ordinario"
 },
@@ -7943,6 +7973,14 @@
 "tipo": "I",
 "ejercicio": "2021",
 "clase": "ordinario"
+},
+{
+"exDiv": "2021-04-29",
+"pago": "2021-04-29",
+"bruto": 1.317,
+"tipo": "extraordinario",
+"ejercicio": "2021",
+"clase": "puntual"
 }
 ]
 },
@@ -8150,7 +8188,7 @@
 "bruto": 0.3078,
 "neto": 0.2493,
 "tipo": null,
-"ejercicio": "2025",
+"ejercicio": "2026",
 "clase": "ordinario"
 },
 {
@@ -8431,7 +8469,7 @@
 "neto": 0.30132,
 "tipo": "extraordinario",
 "ejercicio": "2010",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 },
 {
 "exDiv": "2011-09-09",
@@ -8480,7 +8518,7 @@
 "neto": 0.29388,
 "tipo": "extraordinario",
 "ejercicio": "2011",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 },
 {
 "exDiv": "2012-09-07",
@@ -8529,7 +8567,7 @@
 "neto": 0.34218,
 "tipo": "extraordinario",
 "ejercicio": "2012",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 },
 {
 "exDiv": "2013-09-09",
@@ -9774,6 +9812,28 @@
 "paga": true
 },
 {
+"ticker": "CASH",
+"nombre": "Prosegur Cash",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 6.1% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,0255 €; 2024: 0,0398 €; 2025: 0,0408 €.",
+"anios": {},
+"paga": true
+},
+{
+"ticker": "CBAV",
+"nombre": "Clínica Baviera",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.0% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,7996 €; 2024: 1,538 €; 2025: 1,5698 €.",
+"anios": {},
+"paga": true
+},
+{
 "ticker": "CCEP",
 "nombre": "COCA-COLA EUROPACIFIC PARTNERS PLC",
 "clasificacion": "Paga",
@@ -10840,11 +10900,19 @@
 {
 "exDiv": "2018-06-29",
 "pago": "2018-07-03",
-"bruto": 0.0497,
+"bruto": 0.28,
 "neto": 0.040226,
 "tipo": "F",
 "ejercicio": "2017",
 "clase": "ordinario"
+},
+{
+"exDiv": "2018-07-03",
+"pago": "2018-07-03",
+"bruto": 3.14,
+"tipo": "extraordinario",
+"ejercicio": "2018",
+"clase": "puntual"
 }
 ]
 },
@@ -11764,6 +11832,17 @@
 "paga": true
 },
 {
+"ticker": "CMO",
+"nombre": "Cementos Molins",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.1% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,75 €; 2024: 1,07 €; 2025: 1,11 €.",
+"anios": {},
+"paga": true
+},
+{
 "ticker": "COL",
 "nombre": "Colonial SFL, SOCIMI, S.A.",
 "clasificacion": "Paga",
@@ -12306,6 +12385,17 @@
 "paga": false
 },
 {
+"ticker": "DESA",
+"nombre": "Desarrollos Especiales de Sistemas de Anclaje",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 4.9% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,8389 €; 2024: 1,1186 €; 2025: 1,1186 €.",
+"anios": {},
+"paga": true
+},
+{
 "ticker": "DIA",
 "nombre": "Distribuidora Internacional de Alimentación, S.A.",
 "clasificacion": "No Paga",
@@ -12592,6 +12682,28 @@
 "paga": false
 },
 {
+"ticker": "DOM",
+"nombre": "Global Dominion",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 5.8% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,0998 €; 2024: 0,1269 €; 2025: 0,1616 €.",
+"anios": {},
+"paga": true
+},
+{
+"ticker": "EAT",
+"nombre": "AmRest",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.1% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DUDA del método: ese dividendo puede ser de una filial a sus minoritarios, no un reparto a los accionistas de AmRest — pendiente de confirmar antes de darlo por bueno. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0 €; 2024: 0,0691 €; 2025: 0,0682 €.",
+"anios": {},
+"paga": true
+},
+{
 "ticker": "EBRO",
 "nombre": "Ebro Foods, S.A",
 "clasificacion": "Paga",
@@ -12716,7 +12828,7 @@
 "neto": 0.034605,
 "tipo": "especial",
 "ejercicio": "2012",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 },
 {
 "exDiv": "2013-05-10",
@@ -13050,7 +13162,7 @@
 "neto": 1.5714,
 "tipo": "especial",
 "ejercicio": "2020",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 }
 ]
 },
@@ -13099,7 +13211,7 @@
 "neto": 0.4617,
 "tipo": "especial",
 "ejercicio": "2021",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 }
 ]
 },
@@ -13831,6 +13943,17 @@
 "paga": true
 },
 {
+"ticker": "EDR",
+"nombre": "eDreams Odigeo",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): no paga dividendo (cuentas 2025).",
+"anios": {},
+"paga": false
+},
+{
 "ticker": "ELE",
 "nombre": "Endesa, Sociedad Anónima",
 "clasificacion": "Paga",
@@ -13931,7 +14054,7 @@
 "neto": 10.89805,
 "tipo": "extraordinario",
 "ejercicio": "2014",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 }
 ]
 },
@@ -15725,7 +15848,7 @@
 "neto": 5.164846,
 "tipo": "extraordinario",
 "ejercicio": "2024",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 }
 ]
 },
@@ -15747,7 +15870,7 @@
 "neto": 2.534071,
 "tipo": "extraordinario",
 "ejercicio": "2024",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 },
 {
 "exDiv": "2025-12-15",
@@ -15776,7 +15899,7 @@
 "pago": "2026-06-10",
 "bruto": 0.428,
 "neto": 0.3467,
-"tipo": null,
+"tipo": "F",
 "ejercicio": "2025",
 "clase": "ordinario"
 }
@@ -16417,7 +16540,7 @@
 {
 "exDiv": "2023-04-12",
 "pago": "2023-04-19",
-"bruto": 0.1457,
+"bruto": 0.118,
 "neto": 0.118,
 "tipo": "o",
 "ejercicio": "2022",
@@ -17092,7 +17215,7 @@
 "bruto": 0.2,
 "neto": 0.162,
 "tipo": "scrip",
-"ejercicio": "2021",
+"ejercicio": "2020",
 "clase": "ordinario"
 }
 ]
@@ -17123,7 +17246,7 @@
 "bruto": 0.42,
 "neto": 0.3402,
 "tipo": "scrip",
-"ejercicio": "2022",
+"ejercicio": "2021",
 "clase": "ordinario"
 }
 ]
@@ -17154,7 +17277,7 @@
 "bruto": 0.35,
 "neto": 0.2835,
 "tipo": "scrip",
-"ejercicio": "2023",
+"ejercicio": "2022",
 "clase": "ordinario"
 }
 ]
@@ -17175,7 +17298,7 @@
 "pago": "2024-07-03",
 "bruto": 0.3,
 "neto": 0.243,
-"tipo": "I",
+"tipo": "F",
 "ejercicio": "2023",
 "clase": "ordinario"
 },
@@ -17185,7 +17308,7 @@
 "bruto": 0.25,
 "neto": 0.2025,
 "tipo": "F",
-"ejercicio": "2024",
+"ejercicio": "2023",
 "clase": "ordinario"
 }
 ]
@@ -17206,7 +17329,7 @@
 "pago": "2025-07-02",
 "bruto": 0.3,
 "neto": 0.243,
-"tipo": "I",
+"tipo": "F",
 "ejercicio": "2024",
 "clase": "ordinario"
 },
@@ -17216,7 +17339,7 @@
 "bruto": 0.3,
 "neto": 0.243,
 "tipo": "F",
-"ejercicio": "2025",
+"ejercicio": "2024",
 "clase": "ordinario"
 }
 ]
@@ -17237,7 +17360,7 @@
 "pago": "2026-07-14",
 "bruto": 0.32,
 "neto": 0.2592,
-"tipo": null,
+"tipo": "F",
 "ejercicio": "2025",
 "clase": "ordinario"
 },
@@ -17247,7 +17370,7 @@
 "bruto": 0.33,
 "neto": 0.2673,
 "tipo": null,
-"ejercicio": "2026",
+"ejercicio": "2025",
 "clase": "ordinario"
 }
 ]
@@ -17802,6 +17925,17 @@
 }
 },
 "paga": true
+},
+{
+"ticker": "GAM",
+"nombre": "GAM",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): no paga dividendo (cuentas 2025).",
+"anios": {},
+"paga": false
 },
 {
 "ticker": "GEST",
@@ -19562,7 +19696,7 @@
 "neto": 0.7555,
 "tipo": "reducción capital",
 "ejercicio": "2025",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 },
 {
 "exDiv": "2026-06-04",
@@ -19789,7 +19923,7 @@
 "neto": 0.48365,
 "tipo": "extraordinario",
 "ejercicio": "2018",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 },
 {
 "exDiv": "2019-11-28",
@@ -20337,7 +20471,8 @@
 "pago": "2023-05-02",
 "bruto": 0.005,
 "neto": 0.00405,
-"tipo": "prima junta"
+"tipo": "prima junta",
+"ejercicio": "2023"
 },
 {
 "exDiv": "2023-07-07",
@@ -20375,7 +20510,8 @@
 "pago": "2024-05-20",
 "bruto": 0.01,
 "neto": 0.0081,
-"tipo": "prima junta"
+"tipo": "prima junta",
+"ejercicio": "2024"
 },
 {
 "exDiv": "2024-07-04",
@@ -20413,7 +20549,8 @@
 "pago": "2025-06-02",
 "bruto": 0.005,
 "neto": 0.00405,
-"tipo": "prima junta"
+"tipo": "prima junta",
+"ejercicio": "2025"
 },
 {
 "exDiv": "2025-07-04",
@@ -21175,6 +21312,28 @@
 "paga": true
 },
 {
+"ticker": "IMC",
+"nombre": "Inmocemento",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): no paga dividendo (cuentas 2025).",
+"anios": {},
+"paga": false
+},
+{
+"ticker": "ISUR",
+"nombre": "Inmobiliaria del Sur",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.3% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,32 €; 2024: 0,29 €; 2025: 0,55 €.",
+"anios": {},
+"paga": true
+},
+{
 "ticker": "ITX",
 "nombre": "Industria de Diseño Textil, S.A.",
 "clasificacion": "Paga",
@@ -21686,6 +21845,17 @@
 "paga": true
 },
 {
+"ticker": "IZER",
+"nombre": "Izertis",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): no paga dividendo (cuentas 2025).",
+"anios": {},
+"paga": false
+},
+{
 "ticker": "LDA",
 "nombre": "Línea Directa Aseguradora S.A. Compañía de Seguros y Reaseguros",
 "clasificacion": "Paga",
@@ -21831,7 +22001,7 @@
 "bruto": 0.0245,
 "neto": 0.019832,
 "tipo": "I",
-"ejercicio": "2020",
+"ejercicio": "2021",
 "clase": "ordinario"
 },
 {
@@ -21942,7 +22112,7 @@
 "bruto": 0.0138,
 "neto": 0.011164,
 "tipo": "I",
-"ejercicio": "2023",
+"ejercicio": "2024",
 "clase": "ordinario"
 },
 {
@@ -22022,7 +22192,7 @@
 "bruto": 0.016548,
 "neto": 0.0134,
 "tipo": null,
-"ejercicio": "2025",
+"ejercicio": "2026",
 "clase": "ordinario"
 },
 {
@@ -22031,7 +22201,7 @@
 "bruto": 0.016549,
 "neto": 0.0134,
 "tipo": null,
-"ejercicio": "2025",
+"ejercicio": "2026",
 "clase": "ordinario"
 }
 ]
@@ -22385,6 +22555,17 @@
 "pagos": []
 }
 },
+"paga": true
+},
+{
+"ticker": "LIB",
+"nombre": "Libertas 7",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 1.4% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,0337 €; 2024: 0,0386 €; 2025: 0,0435 €.",
+"anios": {},
 "paga": true
 },
 {
@@ -24617,7 +24798,7 @@
 "bruto": 0.11,
 "neto": 0.0891,
 "tipo": null,
-"ejercicio": "2025",
+"ejercicio": "2026",
 "clase": "ordinario"
 },
 {
@@ -24645,6 +24826,17 @@
 }
 },
 "paga": true
+},
+{
+"ticker": "MDF",
+"nombre": "Duro Felguera",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): no paga dividendo (cuentas 2025).",
+"anios": {},
+"paga": false
 },
 {
 "ticker": "MEL",
@@ -25270,18 +25462,18 @@
 {
 "exDiv": "2022-08-04",
 "pago": "2022-08-18",
-"bruto": 0.6075,
+"bruto": 0.75,
 "neto": null,
 "tipo": "extraordinario",
-"ejercicio": "2021",
-"clase": "extraordinario puntual"
+"ejercicio": "2022",
+"clase": "puntual"
 },
 {
 "exDiv": "2022-11-18",
 "pago": "2022-12-02",
 "bruto": 0.2,
 "neto": 0.162,
-"tipo": "F",
+"tipo": "I",
 "ejercicio": "2022",
 "clase": "ordinario"
 }
@@ -25303,7 +25495,7 @@
 "pago": "2023-05-22",
 "bruto": 0.242,
 "neto": 0.19602,
-"tipo": "I",
+"tipo": "F",
 "ejercicio": "2022",
 "clase": "ordinario"
 },
@@ -25312,7 +25504,7 @@
 "pago": "2023-12-12",
 "bruto": 0.2,
 "neto": 0.162,
-"tipo": "F",
+"tipo": "I",
 "ejercicio": "2023",
 "clase": "ordinario"
 }
@@ -25334,7 +25526,7 @@
 "pago": "2024-06-04",
 "bruto": 0.238427,
 "neto": null,
-"tipo": "o",
+"tipo": "F",
 "ejercicio": "2023",
 "clase": "ordinario"
 },
@@ -25365,7 +25557,7 @@
 "pago": "2025-05-26",
 "bruto": 0.21637,
 "neto": null,
-"tipo": "o",
+"tipo": "F",
 "ejercicio": "2024",
 "clase": "ordinario"
 },
@@ -25396,7 +25588,7 @@
 "pago": "2026-05-25",
 "bruto": 0.217161,
 "neto": 0.1759,
-"tipo": null,
+"tipo": "F",
 "ejercicio": "2025",
 "clase": "ordinario"
 },
@@ -25405,7 +25597,7 @@
 "pago": "2026-11-27",
 "bruto": 0.2,
 "neto": 0.162,
-"tipo": null,
+"tipo": "I",
 "ejercicio": "2026",
 "clase": "ordinario"
 }
@@ -25425,6 +25617,17 @@
 }
 },
 "paga": true
+},
+{
+"ticker": "MTB",
+"nombre": "Montebalito",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): no paga dividendo (cuentas 2025).",
+"anios": {},
+"paga": false
 },
 {
 "ticker": "MTS",
@@ -26871,7 +27074,7 @@
 "bruto": 0.31,
 "neto": 0.2511,
 "tipo": "I",
-"ejercicio": "2019",
+"ejercicio": "2020",
 "clase": "ordinario"
 },
 {
@@ -27111,7 +27314,7 @@
 "bruto": 0.6,
 "neto": 0.486,
 "tipo": null,
-"ejercicio": "2025",
+"ejercicio": "2026",
 "clase": "ordinario"
 },
 {
@@ -27138,6 +27341,17 @@
 "pagos": []
 }
 },
+"paga": true
+},
+{
+"ticker": "NTH",
+"nombre": "Naturhouse",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 8.9% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,15 €; 2024: 0,1 €; 2025: 0,2 €.",
+"anios": {},
 "paga": true
 },
 {
@@ -28963,6 +29177,14 @@
 "tipo": "F",
 "ejercicio": "2021",
 "clase": "ordinario"
+},
+{
+"exDiv": "2022-12-29",
+"pago": "2022-12-29",
+"bruto": 0.11,
+"tipo": "I",
+"ejercicio": "2022",
+"clase": "ordinario"
 }
 ]
 },
@@ -29665,7 +29887,7 @@
 "neto": 0.081212,
 "tipo": "extraordinario",
 "ejercicio": "2016",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 }
 ]
 },
@@ -29723,7 +29945,7 @@
 "neto": 0.367505,
 "tipo": "extraordinario",
 "ejercicio": "2017",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 }
 ]
 },
@@ -30715,8 +30937,8 @@
 "pago": "2016-11-04",
 "bruto": 0.1025,
 "neto": 0.083025,
-"tipo": "F",
-"ejercicio": "2015",
+"tipo": "I",
+"ejercicio": "2016",
 "clase": "ordinario"
 }
 ]
@@ -30851,7 +31073,7 @@
 "pago": "2021-12-30",
 "bruto": 0.3,
 "neto": 0.243,
-"tipo": "F",
+"tipo": "I",
 "ejercicio": "2021",
 "clase": "ordinario"
 }
@@ -30873,7 +31095,7 @@
 "pago": "2022-04-07",
 "bruto": 0.11,
 "neto": 0.0891,
-"tipo": "I",
+"tipo": "F",
 "ejercicio": "2021",
 "clase": "ordinario"
 },
@@ -30882,8 +31104,8 @@
 "pago": "2022-11-07",
 "bruto": 0.25,
 "neto": 0.2025,
-"tipo": "F",
-"ejercicio": "2021",
+"tipo": "I",
+"ejercicio": "2022",
 "clase": "ordinario"
 }
 ]
@@ -30904,7 +31126,7 @@
 "pago": "2023-04-11",
 "bruto": 0.05,
 "neto": 0.0405,
-"tipo": "I",
+"tipo": "F",
 "ejercicio": "2022",
 "clase": "ordinario"
 },
@@ -31002,11 +31224,11 @@
 "clase": "ordinario"
 },
 {
-"exDiv": "2026-10-28",
-"pago": "2026-11-04",
-"bruto": 0.36,
+"exDiv": "2026-10-29",
+"pago": "2026-11-05",
+"bruto": 0.7,
 "neto": 0.2916,
-"tipo": null,
+"tipo": "I",
 "ejercicio": "2026",
 "clase": "ordinario"
 }
@@ -31951,7 +32173,7 @@
 "neto": 1.0,
 "tipo": "especial",
 "ejercicio": "2013",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 },
 {
 "exDiv": "2014-06-19",
@@ -33453,7 +33675,7 @@
 "bruto": 0.1751,
 "neto": 0.141831,
 "tipo": "12M",
-"ejercicio": "2020",
+"ejercicio": "2019",
 "clase": "ordinario"
 }
 ]
@@ -34014,7 +34236,7 @@
 "neto": 0.405,
 "tipo": "extraordinario",
 "ejercicio": "2025",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 }
 ]
 },
@@ -34303,8 +34525,8 @@
 "pago": "2016-08-01",
 "bruto": 0.0527,
 "neto": 0.042694,
-"tipo": "scrip",
-"ejercicio": "2015",
+"tipo": "I",
+"ejercicio": "2016",
 "clase": "ordinario"
 },
 {
@@ -34473,7 +34695,7 @@
 "bruto": 0.1,
 "neto": 0.1,
 "tipo": "scrip",
-"ejercicio": "2020",
+"ejercicio": "2019",
 "clase": "ordinario"
 }
 ]
@@ -34492,7 +34714,7 @@
 {
 "exDiv": "2021-04-30",
 "pago": "2021-05-04",
-"bruto": 0.034,
+"bruto": 0.0275,
 "neto": 0.0275,
 "tipo": "o",
 "ejercicio": "2020",
@@ -35626,6 +35848,28 @@
 "paga": false
 },
 {
+"ticker": "SOL",
+"nombre": "Soltec",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): no paga dividendo (cuentas 2025).",
+"anios": {},
+"paga": false
+},
+{
+"ticker": "SQRL",
+"nombre": "Squirrel Media",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): no paga dividendo (cuentas 2025).",
+"anios": {},
+"paga": false
+},
+{
 "ticker": "TEF",
 "nombre": "Telefónica, S.A.",
 "clasificacion": "Paga",
@@ -35818,7 +36062,7 @@
 "pago": "2017-06-16",
 "bruto": 0.2,
 "neto": 0.162,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2016",
 "clase": "ordinario"
 },
@@ -35827,7 +36071,7 @@
 "pago": "2017-12-14",
 "bruto": 0.2,
 "neto": 0.162,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2017",
 "clase": "ordinario"
 }
@@ -35849,7 +36093,7 @@
 "pago": "2018-06-15",
 "bruto": 0.2,
 "neto": 0.162,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2017",
 "clase": "ordinario"
 },
@@ -35858,7 +36102,7 @@
 "pago": "2018-12-20",
 "bruto": 0.2,
 "neto": 0.162,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2018",
 "clase": "ordinario"
 }
@@ -35880,7 +36124,7 @@
 "pago": "2019-06-20",
 "bruto": 0.2,
 "neto": 0.162,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2018",
 "clase": "ordinario"
 },
@@ -35889,7 +36133,7 @@
 "pago": "2019-12-19",
 "bruto": 0.2,
 "neto": 0.162,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2019",
 "clase": "ordinario"
 }
@@ -35973,7 +36217,7 @@
 "pago": "2022-06-09",
 "bruto": 0.148,
 "neto": 0.11988,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2021",
 "clase": "ordinario"
 },
@@ -35982,7 +36226,7 @@
 "pago": "2022-12-15",
 "bruto": 0.15,
 "neto": 0.1215,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2022",
 "clase": "ordinario"
 }
@@ -36004,7 +36248,7 @@
 "pago": "2023-06-15",
 "bruto": 0.15,
 "neto": 0.1215,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2022",
 "clase": "ordinario"
 },
@@ -36013,7 +36257,7 @@
 "pago": "2023-12-14",
 "bruto": 0.15,
 "neto": 0.1215,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2023",
 "clase": "ordinario"
 }
@@ -36035,7 +36279,7 @@
 "pago": "2024-06-20",
 "bruto": 0.15,
 "neto": 0.1215,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2023",
 "clase": "ordinario"
 },
@@ -36044,7 +36288,7 @@
 "pago": "2024-12-19",
 "bruto": 0.15,
 "neto": 0.1215,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2024",
 "clase": "ordinario"
 }
@@ -36066,7 +36310,7 @@
 "pago": "2025-06-19",
 "bruto": 0.15,
 "neto": 0.1215,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2024",
 "clase": "ordinario"
 },
@@ -36075,7 +36319,7 @@
 "pago": "2025-12-18",
 "bruto": 0.15,
 "neto": 0.1215,
-"tipo": "scrip",
+"tipo": "o",
 "ejercicio": "2025",
 "clase": "ordinario"
 }
@@ -36100,15 +36344,6 @@
 "tipo": null,
 "ejercicio": "2025",
 "clase": "ordinario"
-},
-{
-"exDiv": "2026-12-16",
-"pago": "2026-12-18",
-"bruto": 0.15,
-"neto": 0.1215,
-"tipo": null,
-"ejercicio": "2026",
-"clase": "ordinario"
 }
 ]
 },
@@ -36122,7 +36357,16 @@
 "junta": "2027-03-26",
 "presentacionResultados": "2027-02-24",
 "primaAsistencia": null,
-"pagos": []
+"pagos": [
+{
+"exDiv": "2027-06-15",
+"pago": "2027-06-15",
+"bruto": 0.15,
+"tipo": "F",
+"ejercicio": "2026",
+"clase": "ordinario"
+}
+]
 }
 },
 "paga": true
@@ -37008,6 +37252,17 @@
 "paga": true
 },
 {
+"ticker": "TSK",
+"nombre": "TSK",
+"clasificacion": "",
+"moneda": "EUR",
+"domicilioFiscal": null,
+"origen": null,
+"nota": "Alta 27-oct-2026 (método v3): sin dato de si paga dividendo — pendiente de confirmar.",
+"anios": {},
+"paga": false
+},
+{
 "ticker": "TUB",
 "nombre": "TUBACEX S.A.",
 "clasificacion": "Paga",
@@ -37876,8 +38131,8 @@
 "pago": "2026-09-25",
 "bruto": 0.0656,
 "neto": 0.0531,
-"tipo": null,
-"ejercicio": "2025",
+"tipo": "I",
+"ejercicio": "2026",
 "clase": "ordinario"
 }
 ]
@@ -38336,7 +38591,7 @@
 "neto": 2.938776,
 "tipo": "especial",
 "ejercicio": "2023",
-"clase": "extraordinario puntual"
+"clase": "puntual"
 },
 {
 "exDiv": "2024-07-11",
@@ -38677,9 +38932,9 @@
 "pago": "2018-03-22",
 "bruto": 0.13,
 "neto": 0.1053,
-"tipo": "prima",
-"ejercicio": "2017",
-"clase": "ordinario"
+"tipo": "extraordinario",
+"ejercicio": "2018",
+"clase": "puntual"
 },
 {
 "exDiv": "2018-06-05",
@@ -38757,7 +39012,7 @@
 "pago": "2020-12-22",
 "bruto": 1.4,
 "neto": 1.134,
-"tipo": "prima/I",
+"tipo": "I",
 "ejercicio": "2020",
 "clase": "ordinario"
 }
@@ -38788,7 +39043,7 @@
 "pago": "2021-12-22",
 "bruto": 1.4,
 "neto": 1.134,
-"tipo": "prima/I",
+"tipo": "I",
 "ejercicio": "2021",
 "clase": "ordinario"
 }
@@ -38819,7 +39074,7 @@
 "pago": "2022-12-22",
 "bruto": 1.4,
 "neto": 1.134,
-"tipo": "prima/I",
+"tipo": "I",
 "ejercicio": "2022",
 "clase": "ordinario"
 }
@@ -38850,17 +39105,9 @@
 "pago": "2023-12-20",
 "bruto": 1.4,
 "neto": 1.134,
-"tipo": "prima/I",
+"tipo": "I",
 "ejercicio": "2023",
 "clase": "ordinario"
-}
-],
-"extrasSinCasar": [
-{
-"ejercicio": "2023",
-"importeExtra": 1.0,
-"clase": "recurrente",
-"nota": "extra de datos/_dividendos_extra.json sin pago propio identificado en el calendario: mezclado dentro de otro pago, o aun no cobrado."
 }
 ]
 },
@@ -38878,11 +39125,20 @@
 {
 "exDiv": "2024-05-28",
 "pago": "2024-06-24",
-"bruto": 1.596,
+"bruto": 0.596,
 "neto": 1.29276,
 "tipo": "o",
 "ejercicio": "2023",
 "clase": "ordinario"
+},
+{
+"exDiv": "2024-05-28",
+"pago": "2024-06-24",
+"bruto": 1.0,
+"neto": 1.29276,
+"tipo": "o",
+"ejercicio": "2023",
+"clase": "recurrente"
 },
 {
 "exDiv": "2024-11-22",
@@ -38892,14 +39148,6 @@
 "tipo": "o",
 "ejercicio": "2024",
 "clase": "ordinario"
-}
-],
-"extrasSinCasar": [
-{
-"ejercicio": "2024",
-"importeExtra": 1.0,
-"clase": "recurrente",
-"nota": "extra de datos/_dividendos_extra.json sin pago propio identificado en el calendario: mezclado dentro de otro pago, o aun no cobrado."
 }
 ]
 },
@@ -38917,11 +39165,20 @@
 {
 "exDiv": "2025-05-15",
 "pago": "2025-05-29",
-"bruto": 1.688,
+"bruto": 0.688,
 "neto": 1.36728,
 "tipo": "o",
 "ejercicio": "2024",
 "clase": "ordinario"
+},
+{
+"exDiv": "2025-05-15",
+"pago": "2025-05-29",
+"bruto": 1.0,
+"neto": 1.36728,
+"tipo": "o",
+"ejercicio": "2024",
+"clase": "recurrente"
 },
 {
 "exDiv": "2025-11-20",
@@ -38931,14 +39188,6 @@
 "tipo": "o",
 "ejercicio": "2025",
 "clase": "ordinario"
-}
-],
-"extrasSinCasar": [
-{
-"ejercicio": "2025",
-"importeExtra": 1.0,
-"clase": "recurrente",
-"nota": "extra de datos/_dividendos_extra.json sin pago propio identificado en el calendario: mezclado dentro de otro pago, o aun no cobrado."
 }
 ]
 },
@@ -38956,16 +39205,25 @@
 {
 "exDiv": "2026-05-15",
 "pago": "2026-06-11",
-"bruto": 1.757,
+"bruto": 0.799,
 "neto": 1.4232,
 "tipo": null,
 "ejercicio": "2025",
 "clase": "ordinario"
 },
 {
+"exDiv": "2026-05-15",
+"pago": "2026-06-11",
+"bruto": 1.0,
+"neto": 1.4232,
+"tipo": null,
+"ejercicio": "2025",
+"clase": "recurrente"
+},
+{
 "exDiv": "2026-11-20",
 "pago": "2026-12-17",
-"bruto": 1.483,
+"bruto": 1.4,
 "neto": 1.2012,
 "tipo": null,
 "ejercicio": "2026",

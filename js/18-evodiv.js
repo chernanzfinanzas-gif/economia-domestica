@@ -257,11 +257,17 @@ function _evoOverride(t,year){
 /* [26-sep-2026 · decisión de Carlos, caso Atresmedia/Fever] Un pago marcado «extraordinario» o
    «especial» en Evolución del Dividendo cuenta en SU año (el total real no se toca) pero NO es base
    de la previsión: el año siguiente se proyecta sobre el dividendo RECURRENTE. Antes 2027 salía de
-   1,04 € × (1+g) cuando lo recurrente de 2026 son 0,39 €. */
+   1,04 € × (1+g) cuando lo recurrente de 2026 son 0,39 €.
+   [27-oct-2026] Además del tipo, cada pago trae ahora su propia 'clase' (ordinario/recurrente/
+   puntual) — más fina que el tipo, porque un mismo cobro puede venir partido en varias 'clase'
+   tras las correcciones del método v3 (dividendos-correcciones.json). Lo 'puntual' tampoco cuenta
+   como base de la previsión, igual que lo marcado extraordinario/especial por tipo. */
 var _EVO_NO_RECURRENTE={'extraordinario':1,'especial':1};
 function evoDpaRecurrente(t, year){
   var a=evoAnioM(t,year); if(!a||a.dpaBruto==null) return null;
-  var ex=0; ((a.pagos)||[]).forEach(function(p){ if(_EVO_NO_RECURRENTE[(''+(p.tipo||'')).toLowerCase()]) ex+=num(p.bruto); });
+  var ex=0; ((a.pagos)||[]).forEach(function(p){
+    if(_EVO_NO_RECURRENTE[(''+(p.tipo||'')).toLowerCase()] || (''+(p.clase||'')).toLowerCase()==='puntual') ex+=num(p.bruto);
+  });
   return _evoRound(Math.max(0, num(a.dpaBruto)-ex),4);
 }
 /* Base para proyectar el año y+1: override (futuro) → recurrente del dato real → proyección. */
