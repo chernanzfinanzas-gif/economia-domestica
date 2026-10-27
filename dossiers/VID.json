@@ -1,22 +1,22 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "VID",
  "empresa": "Vidrala, S.A.",
- "fecha": "2026-10-26",
+ "fecha": "2026-10-27",
  "revisadoEl": "2026-10-26",
  "rating": "AA",
  "score": 76.1,
- "decision": "ESPERAR",
+ "decision": "COMPRAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 25 % · DCF optimista 10 % · EV/EBITDA 15 % · EV/EBIT 10 % · PER 10 % · P/VC 5 % · P/FCL 10 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl",
- "poBear": 73.97,
- "poBase": 94.22,
- "poBull": 114.08,
- "entMin": 73.97,
- "entMax": 81.93,
- "stop": 30.86,
- "dpaPrevisto": 1.4732,
+ "poBear": 85.74,
+ "poBase": 107.87,
+ "poBull": 129.44,
+ "entMin": 85.74,
+ "entMax": 93.8,
+ "stop": 36.83,
+ "dpaPrevisto": 1.7505,
  "moat": "51,2 sobre 100 · MOAT ESTRECHO. El vidrio es un producto sin diferenciación; la ventaja es de costes y de proximidad al cliente",
  "catalizadores": [
   "Fin del destocking y vuelta al crecimiento de volumen: La caída de 2025 fue sectorial: margen +2 pp y volumen +4 % en el extremo alto. (S1-2026)",
@@ -34,11 +34,11 @@
   "Traslación de libra y real brasileño (Media): Ventas −5,1 % y −12,8 %.",
   "Interrupción de sistemas o de suministro crítico con daño al horno (Media): Margen −0,6 pp y volumen −1 %; duro: −2 pp, −5 % y FCL −10 %."
  ],
- "bull": "114,08 € — escenario optimista: Vidroporto a plena carga y el precio acompaña a la energía",
- "bear": "73,97 € — escenario pesimista: volumen plano, sin recuperar precio y con el capital más caro",
- "resumen": "ESPERAR con la cotización de 91,20 € (2026-10-23): precio objetivo 94,22 € (bear 73,97 · bull 114,08), margen +3,3 %. Banda de entrada 73,97–81,93 €, stop de tesis 30,86 €.",
+ "bull": "129,44 € — escenario optimista: Vidroporto a plena carga y el precio acompaña a la energía",
+ "bear": "85,74 € — escenario pesimista: volumen plano, sin recuperar precio y con el capital más caro",
+ "resumen": "COMPRAR, por muy poco. A 91,20 € (23-oct) el margen es del +18 %: pasa el 15 % que pide COMPRAR y cotiza dentro de la banda de entrada (85,74-93,80 €), con 2,60 € de sobra. Las otras tres condiciones se cumplen: pérdida al bear desde la entrada máxima del 8,6 %, rating AA (76,1) y moat 51,2. La robustez no lo veta: con el WACC +1 y el terminal −0,5 el margen sigue positivo (+8 %). El cambio desde MANTENER no viene del negocio: sale de corregir las ampliaciones liberadas en los múltiplos (27-oct), que suben el precio objetivo de 96,78 a 107,87 €. Por eso conviene comprar con calma, no de golpe: por encima de 93,80 € vuelve a MANTENER.",
  "dividendSafety": {
-  "score": 80,
+  "score": 90,
   "banda": "Muy seguro",
   "aplica": true,
   "rama": "general",
@@ -46,7 +46,7 @@
    "C1": 35,
    "C2": 15,
    "C3": 19,
-   "C4": 5,
+   "C4": 15,
    "C5": 6
   },
   "topeDuro": {
@@ -54,11 +54,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Muy seguro: cobertura OE 3.16x · payout 36 % · 1 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja, recompras recortadas"
+   "Muy seguro: cobertura OE 4.00x · payout 29 % · 0 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja, recompras recortadas"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 1.68
+  "shareholderYield": 1.98
  },
  "forense": {
   "aplica": true,
@@ -97,16 +97,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 4.0,
+  "gImplicito": 3.81,
   "gIntrinseco": 7.34,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 7.3 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 165.9178,
@@ -116,13 +116,12 @@
    "acciones": 35.1834,
    "deudaNeta": 154.561,
    "modo": "EV",
-   "precioBase": 91.2,
-   "gBase": 4.0,
-   "fechaBase": "2026-10-23",
-   "congeladoEl": "2026-10-26",
+   "precioBase": 90.0,
+   "gBase": 3.81,
+   "fechaBase": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": 0.0
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 106,42 → 94,22 €; decisión COMPRAR → ESPERAR."
+ }
 }
