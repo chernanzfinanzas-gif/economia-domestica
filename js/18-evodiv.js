@@ -60,11 +60,23 @@ function _evoHoy(){ try{ var d=new Date(); return d.getFullYear()+'-'+String(d.g
 function _evoFit(){ var h=document.getElementById('evoApp'); if(!h||!h.getBoundingClientRect)return; if(window.innerWidth<=960){ h.style.display=''; h.style.height=''; return; } var top=h.getBoundingClientRect().top; var v=window.innerHeight-top-4; if(v>170){ h.style.display='flex'; h.style.flexDirection='column'; h.style.height=v+'px'; } else { h.style.display=''; h.style.height=''; } }
 /* MIGRACIÓN Excel → app (una sola vez): registra dividendos.json en DB.divData para
    trabajar 100% en la app y poder replicar/exportar. No pisa ediciones existentes. */
+/* 27-oct-2026 · firma de un año "de origen Excel" para saber si dividendos.json trae algo nuevo
+   que aún no ha llegado a tu copia local (antes, una vez migrada una empresa, una corrección
+   posterior en dividendos.json dejaba de verse para siempre en la app). */
+function _evoPagoSig(p){ return (p.exDiv||'')+'|'+(p.pago||'')+'|'+_evoRound(p.bruto,4)+'|'+(p.tipo||'')+'|'+(p.clase||''); }
+function _evoAnioSig(a){
+  var camposNum=['dpaBruto','dpaNeto','nPagos','racha','primaAsistencia','deltaPct'];
+  var camposTxt=['junta','presentacionResultados','naturaleza'];
+  var pagos=(a.pagos||[]).map(_evoPagoSig).sort().join(';');
+  var nums=camposNum.map(function(f){ return a[f]==null?'':_evoRound(a[f],4); }).join('|');
+  var txts=camposTxt.map(function(f){ return a[f]||''; }).join('|');
+  return pagos+'§'+nums+'§'+txts;
+}
 function _evoMigrar(){
-  if(DB.divDataMigrado) return false;
   var src=(_evoData&&_evoData.empresas)||[];
   if(!src.length) return false;   /* si aún no cargó, reintenta en el próximo render */
   DB.divData=DB.divData||{};
+  var tocado=false;
   src.forEach(function(e){
     var T=(e.ticker||'').toUpperCase(); if(!T) return;
     var d=DB.divData[T]=DB.divData[T]||{};
@@ -73,18 +85,28 @@ function _evoMigrar(){
     if(d.origenExcel==null) d.origenExcel=true;
     d.anios=d.anios||{};
     Object.keys(e.anios||{}).forEach(function(y){
-      if(d.anios[y]) return;   /* no pisar lo que ya has editado */
       var ay=e.anios[y]||{}; var ny={};
       ['dpaBruto','dpaNeto','junta','presentacionResultados','naturaleza','nPagos','racha','primaAsistencia','deltaPct'].forEach(function(f){ if(ay[f]!=null) ny[f]=ay[f]; });
-      ny.pagos=(ay.pagos||[]).map(function(p){ return {exDiv:p.exDiv||'',pago:p.pago||'',bruto:num(p.bruto),neto:num(p.neto),tipo:p.tipo||'',previsto:!!p.previsto}; });
-      ny.totalPrevisto=false;   /* lo del Excel es histórico/confirmado */
+      ny.pagos=(ay.pagos||[]).map(function(p){ return {exDiv:p.exDiv||'',pago:p.pago||'',bruto:num(p.bruto),neto:num(p.neto),tipo:p.tipo||'',clase:p.clase||'',previsto:!!p.previsto}; });
+      var existente=d.anios[y];
+      if(existente){
+        /* si tú lo tocaste a mano (origenExcel ya no es true), no se pisa nunca */
+        if(existente.origenExcel!==true) return;
+        /* si es igual que lo que ya tienes, no hay nada que refrescar */
+        if(_evoAnioSig(ny)===_evoAnioSig(existente)) return;
+        /* conserva lo que solo existe como anotación tuya sobre el total (no viene del Excel) */
+        if(existente.totalPrevisto!=null) ny.totalPrevisto=existente.totalPrevisto;
+        if(existente.notaTotal!=null) ny.notaTotal=existente.notaTotal;
+      }
+      if(ny.totalPrevisto==null) ny.totalPrevisto=false;   /* lo del Excel es histórico/confirmado */
       ny.origenExcel=true;
       d.anios[y]=ny;
+      tocado=true;
     });
   });
   DB.divDataMigrado=1;
-  if(typeof scheduleSave==='function') scheduleSave();
-  return true;
+  if(tocado&&typeof scheduleSave==='function') scheduleSave();
+  return tocado;
 }
 /* Suma de pagos (bruto/neto) y de los confirmados (con fechas y no previstos). */
 function _evoSumaPagos(a){
@@ -257,17 +279,11 @@ function _evoOverride(t,year){
 /* [26-sep-2026 · decisión de Carlos, caso Atresmedia/Fever] Un pago marcado «extraordinario» o
    «especial» en Evolución del Dividendo cuenta en SU año (el total real no se toca) pero NO es base
    de la previsión: el año siguiente se proyecta sobre el dividendo RECURRENTE. Antes 2027 salía de
-   1,04 € × (1+g) cuando lo recurrente de 2026 son 0,39 €.
-   [27-oct-2026] Además del tipo, cada pago trae ahora su propia 'clase' (ordinario/recurrente/
-   puntual) — más fina que el tipo, porque un mismo cobro puede venir partido en varias 'clase'
-   tras las correcciones del método v3 (dividendos-correcciones.json). Lo 'puntual' tampoco cuenta
-   como base de la previsión, igual que lo marcado extraordinario/especial por tipo. */
+   1,04 € × (1+g) cuando lo recurrente de 2026 son 0,39 €. */
 var _EVO_NO_RECURRENTE={'extraordinario':1,'especial':1};
 function evoDpaRecurrente(t, year){
   var a=evoAnioM(t,year); if(!a||a.dpaBruto==null) return null;
-  var ex=0; ((a.pagos)||[]).forEach(function(p){
-    if(_EVO_NO_RECURRENTE[(''+(p.tipo||'')).toLowerCase()] || (''+(p.clase||'')).toLowerCase()==='puntual') ex+=num(p.bruto);
-  });
+  var ex=0; ((a.pagos)||[]).forEach(function(p){ if(_EVO_NO_RECURRENTE[(''+(p.tipo||'')).toLowerCase()]) ex+=num(p.bruto); });
   return _evoRound(Math.max(0, num(a.dpaBruto)-ex),4);
 }
 /* Base para proyectar el año y+1: override (futuro) → recurrente del dato real → proyección. */
