@@ -1,11 +1,21 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-27T10:17",
+ "generado": "2026-10-27T10:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "TEF juicios escritos",
+   "ticker": "TEF",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T09:44",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Telefónica (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  }
+ ],
+ "n_pendientes": 1,
  "ultima_subida": {
-  "cuando": "2026-10-27T10:17",
+  "cuando": "2026-10-27T10:18",
   "ficheros": [
    "dossiers/A3M.html",
    "dossiers/ACS.html",
