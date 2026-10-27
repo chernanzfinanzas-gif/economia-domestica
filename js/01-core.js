@@ -2146,6 +2146,29 @@ function rpdDeclarada(t,precio){
   return (p>0&&d!=null&&d>0)?(d/p*100):null;
 }
 
+/* [27-oct-2026] Dividendo por EJERCICIO (no por año de cobro) — petición del foro Método v3.
+   La contabilidad sigue yendo por fecha de cobro (anios[YYYY] de dividendos.json, sin tocar);
+   esto es solo para el análisis. Cada pago trae ya 'ejercicio' y 'clase' (ordinario /
+   extraordinario recurrente / extraordinario puntual), calculados al generar el fichero
+   (exportar_dividendos_json.py). Si un pago no los trae (fichero viejo, sin regenerar), no se
+   agrupa — nunca se inventa el dato. */
+function dividendosPorEjercicio(ticker){
+  var t=(ticker||'').toUpperCase();
+  var emp=((DB.dividendos&&DB.dividendos.empresas)||[]).find(function(e){ return (e.ticker||'').toUpperCase()===t; });
+  var R={};
+  if(!emp) return R;
+  Object.keys(emp.anios||{}).forEach(function(y){
+    (emp.anios[y].pagos||[]).forEach(function(p){
+      if(!p.ejercicio) return;
+      var r=R[p.ejercicio]=R[p.ejercicio]||{ordinario:0, extraordinario:0, n:0};
+      var b=num(p.bruto)||0;
+      if((p.clase||'').indexOf('extraordinario')===0) r.extraordinario+=b; else r.ordinario+=b;
+      r.n++;
+    });
+  });
+  return R;
+}
+
 /* ---- Consolidación de dividendos: divAccion se deriva de dividendos.json (Evolución del Dividendo) ---- */
 function syncDivAccionDeDividendos(){
   if(typeof evoDpaProyectado!=='function') return 0;
