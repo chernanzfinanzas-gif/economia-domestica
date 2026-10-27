@@ -4,19 +4,19 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "FAE",
  "empresa": "Faes Farma, S.A.",
- "fecha": "2026-10-26",
+ "fecha": "2026-10-27",
  "revisadoEl": "2026-10-26",
  "rating": "AA",
  "score": 79.4,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 10 % · EV/EBIT 9 % · PER 12 % · P/VC 6 % · P/FCL 8 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl",
- "poBear": 2.01,
- "poBase": 2.91,
- "poBull": 5.66,
- "entMin": 2.01,
- "entMax": 2.53,
- "stop": 1.93,
- "dpaPrevisto": 0.1762,
+ "poBear": 1.81,
+ "poBase": 2.71,
+ "poBull": 5.44,
+ "entMin": 1.81,
+ "entMax": 2.36,
+ "stop": 1.75,
+ "dpaPrevisto": 0.128,
  "moat": "54,2 sobre 100 · MOAT ESTRECHO. Las licencias y la bilastina caducan: las huellas de la década miran una franquicia que se repone a medias",
  "catalizadores": [
   "El Plan Estratégico 2025-2030 empieza a verse en las cuentas: Guía de 2026 cumplida: EBITDA +33 M€. (2026)",
@@ -35,19 +35,19 @@
   "Nutrición y salud animal, y la peste porcina africana (Baja-Media): El segmento es el 13 % de los ingresos: −20 % y −40 %.",
   "Ciberseguridad, que la empresa declara como riesgo principal (Baja-Media): Ingresos −3 % y 5 M€ de coste; parada larga: −8 % y 15 M€."
  ],
- "bull": "5,66 € — escenario optimista: SIFI y Edol alcanzan el margen del grupo y la planta de Derio devuelve",
- "bear": "2,01 € — escenario pesimista: el ciclo de patentes se come la franquicia y la integración no rinde",
- "resumen": "ESPERAR con la cotización de 4,68 € (2026-10-26): precio objetivo 2,91 € (bear 2,01 · bull 5,66), margen −37,7 %. Banda de entrada 2,01–2,53 €, stop de tesis 1,93 €.",
+ "bull": "5,44 € — escenario optimista: SIFI y Edol alcanzan el margen del grupo y la planta de Derio devuelve",
+ "bear": "1,81 € — escenario pesimista: el ciclo de patentes se come la franquicia y la integración no rinde",
+ "resumen": "Buena empresa, precio muy alto. A 4,68 € (26-oct) la cotización está un 61 % por encima del precio objetivo (2,71 €) y un 85 % por encima del techo de la banda (1,81-2,36 €). La calidad cumple (AA, moat 54), pero el margen es del −37,7 %. Lo que cambiaría la decisión es que SIFI, Edol y Derio rindan y suban el flujo, no la cotización. La señal S3 (cotización por encima del PO) obliga a revisar el PO, no a vender.",
  "dividendSafety": {
-  "score": 57,
-  "banda": "Vigilar",
+  "score": 62,
+  "banda": "Seguro",
   "aplica": true,
   "rama": "general",
   "componentes": {
-   "C1": 22,
-   "C2": 10,
+   "C1": 27,
+   "C2": 13,
    "C3": 16,
-   "C4": 3,
+   "C4": 0,
    "C5": 6
   },
   "topeDuro": {
@@ -55,11 +55,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Vigilar: cobertura OE 1.45x · payout 70 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja, beneficio a la baja"
+   "Seguro: cobertura OE 1.93x · payout 52 % · 3 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja, beneficio a la baja"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 3.41
+  "shareholderYield": 2.48
  },
  "forense": {
   "aplica": true,
@@ -100,16 +100,16 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 18.75,
+  "gImplicito": 18.76,
   "gIntrinseco": 11.52,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 32.196,
@@ -119,12 +119,12 @@
    "acciones": 316.22,
    "deudaNeta": 315.98,
    "modo": "EV",
-   "precioBase": 4.68,
-   "gBase": 24.42,
+   "precioBase": 4.685,
+   "gBase": 24.44,
    "fechaBase": "2026-10-26",
-   "congeladoEl": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": false,
-   "desviacion": 5.67
+   "desviacion": 5.68
   }
  }
 }

@@ -1,7 +1,7 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "LDA",
  "empresa": "Linea Directa Aseguradora, S.A.",
  "fecha": "2026-10-25",
@@ -49,7 +49,7 @@
   "motivos": [
    "Muy seguro · payout 52 % → 24/30 · Solvencia II 183 % → 25/25 · ratio combinado 92.6 % → 20/20 · 2 recorte(s) en 6 años → 3/15 · predictores: ninguno → 10/10"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "shareholderYield": null
  },
@@ -57,7 +57,7 @@
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -66,9 +66,8 @@
   "gIntrinseco": null,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (exige un RoTE de 31.8 %, más de 3 pp por encima del último, 24.5 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "roteImplicito": 31.84
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 0,94 → 0,85 €."
+ }
 }

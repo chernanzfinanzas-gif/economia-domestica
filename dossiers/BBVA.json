@@ -1,7 +1,7 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "BBVA",
  "empresa": "Banco Bilbao Vizcaya Argentaria, S.A.",
  "fecha": "2026-10-25",
@@ -49,7 +49,7 @@
   "motivos": [
    "Seguro · payout del dividendo 52 % → 24/30 · CET1 12.7 % → 20/25 · RoTE 19.3 % → 20/20 · 2 recorte(s) en 10 años → 3/15 · predictores: ninguno → 10/10"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "shareholderYield": 6.31
  },
@@ -57,18 +57,17 @@
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 8.78,
+  "gImplicito": 8.89,
   "gIntrinseco": null,
   "veredicto": "HEROICO",
-  "motivo": "IMPROBABLE (exige un RoTE de 24.3 %, más de 3 pp por encima del último, 19.3 %)",
-  "calculadoEl": "2026-10-26",
+  "motivo": "IMPROBABLE (exige un RoTE de 24.8 %, más de 3 pp por encima del último, 19.3 %)",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "roteImplicito": 24.31
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 14,46 → 14,60 €; rating AA → A."
+  "roteImplicito": 24.81
+ }
 }

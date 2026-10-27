@@ -1,21 +1,21 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "ACX",
  "empresa": "Acerinox, S.A.",
- "fecha": "2026-10-26",
+ "fecha": "2026-10-27",
  "revisadoEl": "2026-10-26",
  "rating": "BB",
  "score": 45.0,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 16 % · DCF optimista 8 % · EV/EBITDA 31 % · P/VC 25 % · rentabilidad por dividendo 12 % · flujo base del DCF: fcl",
- "poBear": 10.1,
- "poBase": 12.51,
- "poBull": 16.43,
- "entMin": 10.1,
- "entMax": 10.88,
- "stop": 7.31,
+ "poBear": 9.88,
+ "poBase": 12.29,
+ "poBull": 16.22,
+ "entMin": 9.88,
+ "entMax": 10.69,
+ "stop": 7.14,
  "dpaPrevisto": 0.62,
  "moat": "48,0 sobre 100 · MOAT ESTRECHO. Coste y escala en el suelo del ciclo: el ROIC no lo ve",
  "catalizadores": [
@@ -32,29 +32,29 @@
   "El mercado deja de pagar la recuperación (Media): Múltiplos −10 % y −20 %.",
   "El dólar se debilita (Media): Golpe de volumen en euros con el margen constante: ventas −5 % y −10 % (aproximación: el reparto exacto por divisa no se ha medido)."
  ],
- "bull": "16,43 € — escenario optimista: el ciclo vuelve a la parte alta (2021-2022) y NAS y Haynes rinden",
- "bear": "10,10 € — escenario pesimista: el inoxidable sigue en el suelo y NAS no se traduce en más caja",
- "resumen": "ESPERAR con la cotización de 16,64 € (2026-10-23): precio objetivo 12,51 € (bear 10,10 · bull 16,43), margen −24,8 %. Banda de entrada 10,10–10,88 €, stop de tesis 7,31 €.",
+ "bull": "16,22 € — escenario optimista: el ciclo vuelve a la parte alta (2021-2022) y NAS y Haynes rinden",
+ "bear": "9,88 € — escenario pesimista: el inoxidable sigue en el suelo y NAS no se traduce en más caja",
+ "resumen": "Cíclica en el suelo a un precio de recuperación. A 16,64 € (23-oct) el margen sobre el precio objetivo (12,29 €) es del −26,1 % y la cotización está un 56 % por encima del techo de la banda de entrada (9,88-10,69 €). Fallan dos de las cuatro condiciones: el margen y el rating (BB, 45). Con BB no puede ser COMPRAR aunque baje la cotización; pasaría a MANTENER por debajo de 11,70 € (margen del 5 %). Hay una señal S3 abierta: la cotización supera el PO bull (16,22 €).",
  "dividendSafety": {
-  "score": 23,
-  "banda": "Frágil",
+  "score": 11,
+  "banda": "Recorte probable",
   "aplica": true,
   "rama": "general",
   "componentes": {
    "C1": 0,
    "C2": 0,
    "C3": 5,
-   "C4": 15,
+   "C4": 3,
    "C5": 3
   },
   "topeDuro": {
    "activo": true,
-   "motivo": "Frágil: cobertura OE -0.38x · payout 111 % · 0 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
+   "motivo": "Recorte probable: cobertura OE -0.38x · payout 111 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
   },
   "motivos": [
-   "Frágil: cobertura OE -0.38x · payout 111 % · 0 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
+   "Recorte probable: cobertura OE -0.38x · payout 111 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "shareholderYield": 4.92
  },
@@ -95,16 +95,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 2.44,
+  "gImplicito": 2.6,
   "gIntrinseco": 1.74,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 258.4021,
@@ -114,13 +114,12 @@
    "acciones": 249.336,
    "deudaNeta": 1283.828,
    "modo": "EV",
-   "precioBase": 16.64,
-   "gBase": 2.44,
-   "fechaBase": "2026-10-23",
-   "congeladoEl": "2026-10-26",
+   "precioBase": 16.88,
+   "gBase": 2.6,
+   "fechaBase": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": -0.0
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 12,44 → 12,51 €; rating BBB → BB."
+ }
 }

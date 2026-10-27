@@ -4,19 +4,19 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "PRM",
  "empresa": "Prim, S.A.",
- "fecha": "2026-10-25",
+ "fecha": "2026-10-27",
  "revisadoEl": "2026-10-26",
  "rating": "A",
  "score": 66.3,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 12 % · DCF base 26 % · DCF optimista 12 % · EV/EBITDA 10 % · EV/EBIT 8 % · PER 10 % · P/VC 6 % · P/FCL 6 % · rentabilidad por dividendo 10 % · flujo base del DCF: owner earnings",
- "poBear": 9.49,
- "poBase": 11.31,
- "poBull": 12.07,
- "entMin": 9.49,
- "entMax": 9.84,
- "stop": 7.31,
- "dpaPrevisto": 0.4688,
+ "poBear": 9.56,
+ "poBase": 11.39,
+ "poBull": 12.15,
+ "entMin": 9.56,
+ "entMax": 9.9,
+ "stop": 7.34,
+ "dpaPrevisto": 0.48,
  "moat": "45,0 sobre 100 · MOAT ESTRECHO. Distribuidor: el ROIC alto viene del modelo de poco capital, no de una barrera",
  "catalizadores": [
   "La conversión de caja de 2024-2025 se confirma en 2026: El DCF descuenta los owner earnings medios de diez años, que llevan dentro la absorción de circulante de 2022-2023. Si 2026 confirma el régimen de 2024-2025, la base pasa a la del post-ciclo. No es un golpe del modelo, es un cambio de la base del flujo: octubre lo midió aparte (17,51 €, +61,8 %). (feb-2027)",
@@ -33,9 +33,9 @@
   "Deterioro del fondo de comercio y de los intangibles de las compras (Baja): Fondo de comercio de 8,4 M€ (6,1 % del patrimonio). El modelo casi no mira el balance: el impacto pequeño mide esa ceguera, no la pequeñez del riesgo.",
   "Parón de sistemas o brecha de datos de salud (Baja): Logística con entrega comprometida en pliego y datos de salud. Seis semanas de parón: ingresos del año −5 % y 2 M€ de recuperación; la mitad del episodio como golpe suave."
  ],
- "bull": "12,07 € — escenario optimista: 2024-2025 son el giro: el flujo crece cerca del EBITDA",
- "bear": "9,49 € — escenario pesimista: la erosión de margen sigue y el circulante se come la amortización",
- "resumen": "ESPERAR con la cotización de 12,45 € (2026-10-26): precio objetivo 11,31 € (bear 9,49 · bull 12,07), margen −9,1 %. Banda de entrada 9,49–9,84 €, stop de tesis 7,31 €.",
+ "bull": "12,15 € — escenario optimista: 2024-2025 son el giro: el flujo crece cerca del EBITDA",
+ "bear": "9,56 € — escenario pesimista: la erosión de margen sigue y el circulante se come la amortización",
+ "resumen": "ESPERAR: a 12,45 € el 26-oct, la cotización está un 9 % por encima del PO (11,39 €) y un 26 % por encima del techo de la banda (9,90 €). Tres de las cuatro condiciones de compra se cumplen (pérdida al bear, rating A y moat 45); falla el margen. Pasaría a MANTENER por debajo de 10,84 € y a COMPRAR por debajo de 9,90 €. El veredicto no depende del supuesto: con WACC ±1 y terminal ±0,5 el PO va de 10,65 a 12,70 €, y ESPERAR se mantiene en todo el rango. La señal S3 está abierta porque la cotización ha pasado el PO bull (12,15 €): obliga a revisar la tesis, no a vender.",
  "dividendSafety": {
   "score": 40,
   "banda": "Vigilar",
@@ -43,21 +43,21 @@
   "rama": "general",
   "componentes": {
    "C1": 0,
-   "C2": 13,
+   "C2": 10,
    "C3": 20,
    "C4": 0,
    "C5": 15
   },
   "topeDuro": {
    "activo": true,
-   "motivo": "Vigilar: cobertura OE 0.39x · payout 54 % · 3 recorte(s) del DPA · TOPE en 40 (no se cubre con caja o payout 3 años > 100 %)"
+   "motivo": "Vigilar: cobertura OE 0.36x · payout 58 % · 3 recorte(s) del DPA · TOPE en 40 (no se cubre con caja o payout 3 años > 100 %)"
   },
   "motivos": [
-   "Vigilar: cobertura OE 0.39x · payout 54 % · 3 recorte(s) del DPA · TOPE en 40 (no se cubre con caja o payout 3 años > 100 %)"
+   "Vigilar: cobertura OE 0.36x · payout 58 % · 3 recorte(s) del DPA · TOPE en 40 (no se cubre con caja o payout 3 años > 100 %)"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 3.74
+  "shareholderYield": 3.83
  },
  "forense": {
   "aplica": true,
@@ -96,7 +96,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -105,7 +105,7 @@
   "gIntrinseco": 6.1,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 5.6307,
@@ -118,7 +118,7 @@
    "precioBase": 12.45,
    "gBase": 14.31,
    "fechaBase": "2026-10-26",
-   "congeladoEl": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": false,
    "desviacion": 1.62
   }

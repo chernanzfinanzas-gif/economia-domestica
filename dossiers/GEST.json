@@ -1,22 +1,22 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "GEST",
  "empresa": "Gestamp Automoción, S.A.",
- "fecha": "2026-10-26",
- "revisadoEl": "2026-10-25",
+ "fecha": "2026-10-27",
+ "revisadoEl": "2026-10-27",
  "rating": "BBB",
  "score": 54.0,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 5 % · DCF base 15 % · DCF optimista 5 % · EV/EBITDA 14 % · EV/EBIT 14 % · PER 18 % · P/VC 10 % · P/FCL 14 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
- "poBear": 3.81,
- "poBase": 4.21,
- "poBull": 6.17,
- "entMin": 3.22,
- "entMax": 3.66,
- "stop": 1.67,
- "dpaPrevisto": 0.0892,
+ "poBear": 3.89,
+ "poBase": 4.29,
+ "poBull": 6.27,
+ "entMin": 3.29,
+ "entMax": 3.73,
+ "stop": 1.46,
+ "dpaPrevisto": 0.0803,
  "moat": "47,4 sobre 100 · MOAT ESTRECHO. Pierde cuota y el precio de la pieza lo fija el cliente",
  "catalizadores": [
   "Plan Phoenix: Norteamérica a doble dígito: La empresa quiere el margen EBITDA de Norteamérica en doble dígito a final de 2026 (8,1 % en 2025; 8,8 % en el segundo trimestre de 2026). Del 8,1 % al 10 % sobre 2.241 M€ de ventas son 42,6 M€ más de EBITDA. (feb-2027 (resultados de 2026))",
@@ -34,9 +34,9 @@
   "Deuda que no está en la deuda neta (Media): Factoring sin recurso de 740,5 M€ en 2025 (memoria, análisis de septiembre): financia el circulante y no cuenta como deuda. Si el factoring se cierra, la deuda sube lo mismo.",
   "Control familiar y operaciones vinculadas (Baja-Media): Acek (familia Riberas) controla el 62,5 % y el capital flotante es el 23,8 %; hay operaciones con sociedades del accionista de control (Andrómeda, inmobiliarias). El mercado puede aplicar un descuento de gobierno."
  ],
- "bull": "6,17 € — escenario optimista: ",
- "bear": "3,81 € — escenario pesimista: ",
- "resumen": "Falla la calidad, no el precio. A 2,815 € el margen de seguridad es del 50 % (pide 15 %), el bear (3,81 €) queda incluso por encima del techo de la banda y el moat (47,4) pasa por poco. Pero el rating es BBB y el método no deja COMPRAR por debajo de A. Lo mismo que en septiembre (MANTENER, con BBB y sin moat). Pasaría a COMPRAR solo si el rating sube a A, y eso exige mejorar la rentabilidad o el balance. Si se tiene, con tamaño pequeño: un punto de margen mueve el precio objetivo un 28 %.",
+ "bull": "6,27 € — escenario optimista: Gestamp recupera el ritmo de su década (EBITDA +5,0 % anual) con el coche eléctrico y la estampación en caliente (libro de octubre)",
+ "bear": "3,89 € — escenario pesimista: La producción de coches en Europa sigue cayendo y Gestamp repite 2024-2025 (ventas −2,2 % y −5,4 %): flujo plano cinco años y al 1 % otros cinco; perpetuidad al 1 % (libro de octubre, firmado el 2-oct-2026)",
+ "resumen": "Falla la calidad, no el precio. A 2,815 € (23-oct) el margen de seguridad es de alrededor del 53 % (pide 15 %). El bear (3,89 €) queda incluso por encima del techo de la banda, y el moat (47,4) pasa por poco. Pero el rating es BBB y el método no deja COMPRAR por debajo de A. Es lo mismo que en septiembre (MANTENER, con BBB y sin moat). Pasaría a COMPRAR solo si el rating sube a A, y eso exige mejorar la rentabilidad o el balance. Si se tiene, con tamaño pequeño: un punto de margen mueve el precio objetivo un 38 %.",
  "dividendSafety": {
   "score": 70,
   "banda": "Seguro",
@@ -54,11 +54,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Seguro: cobertura OE 4.17x · payout 34 % · 5 recorte(s) del DPA · señales: cobertura de intereses cayendo (<4x), beneficio a la baja"
+   "Seguro: cobertura OE 4.46x · payout 30 % · 4 recorte(s) del DPA · señales: cobertura de intereses cayendo (<4x), beneficio a la baja"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 3.6
+  "shareholderYield": 3.31
  },
  "forense": {
   "aplica": true,
@@ -99,16 +99,16 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 3.9,
+  "gImplicito": 4.02,
   "gIntrinseco": 2.52,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 151.3629,
@@ -118,13 +118,12 @@
    "acciones": 575.514,
    "deudaNeta": 2251.897,
    "modo": "EV",
-   "precioBase": 2.815,
-   "gBase": 3.9,
-   "fechaBase": "2026-10-23",
-   "congeladoEl": "2026-10-26",
+   "precioBase": 2.875,
+   "gBase": 4.02,
+   "fechaBase": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": 0.0
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 5,65 → 4,21 €."
+ }
 }

@@ -1,22 +1,22 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "ART",
  "empresa": "Arteche Lantegi Elkartea, S.A.",
- "fecha": "2026-10-26",
+ "fecha": "2026-10-27",
  "revisadoEl": "2026-10-26",
  "rating": "A",
  "score": 74.4,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 20 % · DCF optimista 10 % · EV/EBITDA 18 % · EV/EBIT 14 % · PER 18 % · P/VC 5 % · rentabilidad por dividendo 5 % · flujo base del DCF: owner earnings",
- "poBear": 10.49,
- "poBase": 12.87,
- "poBull": 22.1,
- "entMin": 10.49,
- "entMax": 11.19,
- "stop": 7.15,
- "dpaPrevisto": 0.1652,
+ "poBear": 10.83,
+ "poBase": 13.2,
+ "poBull": 22.43,
+ "entMin": 10.83,
+ "entMax": 11.48,
+ "stop": 7.39,
+ "dpaPrevisto": 0.39,
  "moat": "52,2 sobre 100 · MOAT ESTRECHO. Especialista en medida y protección de red con homologaciones de las eléctricas",
  "catalizadores": [
   "Cumple la guía de 2026: Punto medio de la guía: EBITDA +15,8 M€ sobre los 80,5 de 2025. (feb-2027)",
@@ -33,17 +33,17 @@
   "La mayor compra de su historia (Baja-Media): Deterioro del 10 % y del 25 % del patrimonio. El modelo apenas lo ve: el daño real estaría en margen y caja.",
   "Control concentrado y poco capital flotante (Baja): Descuento por liquidez y control: múltiplos −5 % y −10 %."
  ],
- "bull": "22,10 € — escenario optimista: la inversión en redes y electrificación dura toda la década",
- "bear": "10,49 € — escenario pesimista: el ciclo de inversión en redes se frena y Arteche vuelve a crecer como antes de 2022",
- "resumen": "ESPERAR con la cotización de 30,10 € (2026-10-23): precio objetivo 12,87 € (bear 10,49 · bull 22,10), margen −57,2 %. Banda de entrada 10,49–11,19 €, stop de tesis 7,15 €.",
+ "bull": "22,43 € — escenario optimista: la inversión en redes y electrificación dura toda la década",
+ "bear": "10,83 € — escenario pesimista: el ciclo de inversión en redes se frena y Arteche vuelve a crecer como antes de 2022",
+ "resumen": "Buena empresa a un precio que ya descuenta mucho más que la guía. A 30,10 € (23-oct) el margen sobre el precio objetivo (13,20 €) es del −56,1 % y la cotización está un 162 % por encima del techo de la banda de entrada (10,83-11,48 €). Solo falla una de las cuatro condiciones, el margen: calidad A, moat 52,2 y pérdida al bear pequeña. Pasaría a MANTENER por debajo de 12,57 € y a COMPRAR por debajo de 11,48 €. Hay una señal S3 abierta: la cotización supera incluso el PO bull (22,43 €).",
  "dividendSafety": {
-  "score": 92,
+  "score": 86,
   "banda": "Muy seguro",
   "aplica": true,
   "rama": "general",
   "componentes": {
-   "C1": 35,
-   "C2": 15,
+   "C1": 31,
+   "C2": 13,
    "C3": 18,
    "C4": 9,
    "C5": 15
@@ -53,11 +53,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Muy seguro: cobertura OE 4.96x · payout 22 % · 1 recorte(s) del DPA"
+   "Muy seguro: cobertura OE 2.10x · payout 49 % · 1 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 0.74
+  "shareholderYield": 1.74
  },
  "forense": {
   "aplica": true,
@@ -96,16 +96,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 26.09,
+  "gImplicito": 26.24,
   "gIntrinseco": 21.18,
   "veredicto": "EXIGENTE",
   "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 21.2 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 20.1074,
@@ -115,13 +115,12 @@
    "acciones": 57.09,
    "deudaNeta": 81.961,
    "modo": "EV",
-   "precioBase": 30.1,
+   "precioBase": 30.4,
    "gBase": 30.0,
-   "fechaBase": "2026-10-23",
-   "congeladoEl": "2026-10-26",
+   "fechaBase": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": false,
-   "desviacion": 3.91
+   "desviacion": 3.76
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 13,68 → 12,87 €."
+ }
 }

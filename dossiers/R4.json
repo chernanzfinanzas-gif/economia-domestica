@@ -1,7 +1,7 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "R4",
  "empresa": "Renta 4 Banco, S.A.",
  "fecha": "2026-10-25",
@@ -48,7 +48,7 @@
   "motivos": [
    "Seguro · payout del dividendo 67 % → 16/30 · CET1 16.3 % → 25/25 · RoTE 32.0 % → 20/20 · 3 recorte(s) en 10 años → 0/15 · predictores: CET1 a la baja → 7/10"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "shareholderYield": 3.47
  },
@@ -56,18 +56,17 @@
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 7.02,
+  "gImplicito": 7.1,
   "gIntrinseco": null,
   "veredicto": "HEROICO",
-  "motivo": "IMPROBABLE (exige un RoTE de 45.5 %, más de 3 pp por encima del último, 32.0 %)",
-  "calculadoEl": "2026-10-26",
+  "motivo": "IMPROBABLE (exige un RoTE de 46.5 %, más de 3 pp por encima del último, 32.0 %)",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "roteImplicito": 45.45
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 15,90 → 15,12 €."
+  "roteImplicito": 46.45
+ }
 }

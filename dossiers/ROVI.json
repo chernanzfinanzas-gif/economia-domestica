@@ -1,22 +1,22 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "ROVI",
  "empresa": "Laboratorios Farmacéuticos Rovi, S.A.",
- "fecha": "2026-10-25",
+ "fecha": "2026-10-27",
  "revisadoEl": "2026-10-26",
  "rating": "A",
  "score": 73.5,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 12 % · DCF base 26 % · DCF optimista 12 % · EV/EBITDA 14 % · EV/EBIT 11 % · PER 12 % · P/VC 8 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl",
- "poBear": 50.15,
- "poBase": 61.66,
- "poBull": 69.6,
- "entMin": 50.15,
- "entMax": 53.62,
- "stop": 41.5,
- "dpaPrevisto": 0.9381,
+ "poBear": 49.8,
+ "poBase": 61.31,
+ "poBull": 69.25,
+ "entMin": 49.8,
+ "entMax": 53.31,
+ "stop": 41.2,
+ "dpaPrevisto": 0.9594,
  "moat": "58,9 sobre 100 · MOAT ESTRECHO. Las huellas coinciden con el libro",
  "catalizadores": [
   "Arranca el contrato de jeringas con una farmacéutica global: CDMO +20 % (+53,9 M€) con el margen intacto. (12-24 meses)",
@@ -33,9 +33,9 @@
   "Okedi y la tecnología ISM no llegan a sus objetivos (Baja-Media): Un punto y dos puntos menos de crecimiento en el caso base; en el v3 va al crecimiento terminal, calibrado a la caída que daba el libro (−2,9 % y −5,6 %).",
   "Control familiar y operaciones vinculadas (Baja): Descuento por control del 5 % y del 10 %."
  ],
- "bull": "69,60 € — escenario optimista: las especialidades mantienen su ritmo y la fabricación a terceros deja de caer",
- "bear": "50,15 € — escenario pesimista: la fabricación a terceros sigue cayendo y las especialidades solo la compensan",
- "resumen": "ESPERAR con la cotización de 60,15 € (2026-10-23): precio objetivo 61,66 € (bear 50,15 · bull 69,60), margen +2,5 %. Banda de entrada 50,15–53,62 €, stop de tesis 41,50 €.",
+ "bull": "69,25 € — escenario optimista: las especialidades mantienen su ritmo y la fabricación a terceros deja de caer",
+ "bear": "49,80 € — escenario pesimista: la fabricación a terceros sigue cayendo y las especialidades solo la compensan",
+ "resumen": "ESPERAR: a 60,15 € (cotización del 23-oct), el margen sobre el PO (61,31 €) es del +1,9 % y la cotización está un 13 % por encima del techo de la banda (53,31 €). Se cumplen tres de las cuatro condiciones (pérdida al bear, rating A, moat 58,9); falla el margen. Pasaría a MANTENER por debajo de 58,39 € y a COMPRAR por debajo de 53,31 €. El veredicto depende del supuesto: con WACC ±1 y terminal ±0,5 el PO va de 56,55 a 70,40 €, y en el extremo alto sería MANTENER. El dossier de octubre decía MANTENER; el cambio es de precio (de 57,40 € a 60,15 €), no de empresa.",
  "dividendSafety": {
   "score": 81,
   "banda": "Muy seguro",
@@ -53,11 +53,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Muy seguro: cobertura OE 2.12x · payout 40 % · 4 recorte(s) del DPA"
+   "Muy seguro: cobertura OE 2.42x · payout 35 % · 4 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 3.17
+  "shareholderYield": 3.2
  },
  "forense": {
   "aplica": true,
@@ -96,16 +96,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 9.4,
+  "gImplicito": 9.7,
   "gIntrinseco": 7.76,
   "veredicto": "EXIGENTE",
   "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 7.8 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 103.2578,
@@ -115,13 +115,12 @@
    "acciones": 51.0698,
    "deudaNeta": 23.845,
    "modo": "EV",
-   "precioBase": 60.15,
-   "gBase": 9.4,
-   "fechaBase": "2026-10-23",
-   "congeladoEl": "2026-10-26",
+   "precioBase": 61.4,
+   "gBase": 9.7,
+   "fechaBase": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": -0.0
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 60,47 → 61,66 €; decisión MANTENER → ESPERAR."
+ }
 }

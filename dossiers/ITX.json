@@ -4,19 +4,19 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "ITX",
  "empresa": "Industria de Diseño Textil, S.A.",
- "fecha": "2026-10-25",
+ "fecha": "2026-10-27",
  "revisadoEl": "2026-10-26",
  "rating": "AA",
  "score": 82.1,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 30 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 8 % · PER 10 % · P/VC 6 % · P/FCL 8 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl recurrente",
- "poBear": 42.86,
- "poBase": 49.71,
- "poBull": 57.62,
- "entMin": 42.86,
- "entMax": 43.23,
- "stop": 30.93,
- "dpaPrevisto": 1.6834,
+ "poBear": 41.86,
+ "poBase": 48.71,
+ "poBull": 56.52,
+ "entMin": 41.86,
+ "entMax": 42.36,
+ "stop": 30.19,
+ "dpaPrevisto": 1.75,
  "moat": "66,3 sobre 100 · MOAT MODERADO. Es moda: la ventaja de la proximidad y la logística se vuelve a jugar cada temporada",
  "catalizadores": [
   "El crecimiento del primer semestre se sostiene en el ejercicio: Ingresos y beneficio +9 %. (mar-2027)",
@@ -35,17 +35,17 @@
   "Vende en más de 200 mercados y reporta en euros (Alta): Volumen −2 % y −4 % por traslación. Comparte canal con el riesgo 2.",
   "Parada prolongada de sistemas en un negocio que ya es un cuarto digital (Baja): Margen −0,5 pp y −1 pp como aproximación de una campaña perdida y la remediación."
  ],
- "bull": "57,62 € — escenario optimista: la reforma de tiendas y el online devuelven el crecimiento a la media de la década",
- "bear": "42,86 € — escenario pesimista: la desaceleración de la serie continúa: +35,9 %, +17,5 %, +10,4 %, +7,5 % y +3,2 % de 2021 a 2025",
- "resumen": "ESPERAR con la cotización de 57,24 € (2026-10-26): precio objetivo 49,71 € (bear 42,86 · bull 57,62), margen −13,2 %. Banda de entrada 42,86–43,23 €, stop de tesis 30,93 €.",
+ "bull": "56,52 € — escenario optimista: la reforma de tiendas y el online devuelven el crecimiento a la media de la década",
+ "bear": "41,86 € — escenario pesimista: la desaceleración de la serie continúa: +35,9 %, +17,5 %, +10,4 %, +7,5 % y +3,2 % de 2021 a 2025",
+ "resumen": "La mejor empresa del universo a un precio por encima de su valor. A 57,24 € (26-oct) el margen es del −14,9 %; las otras tres condiciones se cumplen (bear a −1,2 % desde la entrada máxima, rating AA y moat 66,3). Pasa a MANTENER por debajo de unos 46,39 € (PO/1,05) y a COMPRAR por debajo de 42,36 €. Hay una señal S3 abierta, ahora más fuerte: la cotización supera incluso el PO bull (56,52 €), y el método lo lee como salida parcial razonable y revisión del precio objetivo, no como venta total. Antes, revisar el WACC del Bloque 6.",
  "dividendSafety": {
-  "score": 67,
+  "score": 64,
   "banda": "Seguro",
   "aplica": true,
   "rama": "general",
   "componentes": {
    "C1": 16,
-   "C2": 7,
+   "C2": 4,
    "C3": 20,
    "C4": 9,
    "C5": 15
@@ -55,11 +55,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Seguro: cobertura OE 1.30x · payout 84 % · 1 recorte(s) del DPA"
+   "Seguro: cobertura OE 1.22x · payout 89 % · 1 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 3.06
+  "shareholderYield": 3.18
  },
  "forense": {
   "aplica": true,
@@ -98,7 +98,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -107,7 +107,7 @@
   "gIntrinseco": 13.05,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 13.1 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 4732.5256,
@@ -120,7 +120,7 @@
    "precioBase": 57.24,
    "gBase": 11.69,
    "fechaBase": "2026-10-26",
-   "congeladoEl": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": false,
    "desviacion": 0.91
   }

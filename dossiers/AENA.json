@@ -1,22 +1,22 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "AENA",
  "empresa": "Aena, S.M.E., S.A.",
- "fecha": "2026-10-26",
+ "fecha": "2026-10-27",
  "revisadoEl": "2026-10-26",
  "rating": "A",
  "score": 73.0,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 12 % · DCF base 36 % · DCF optimista 12 % · EV/EBITDA 8 % · EV/EBIT 6 % · PER 6 % · P/VC 3 % · P/FCL 2 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl",
- "poBear": 14.57,
- "poBase": 17.63,
- "poBull": 22.42,
- "entMin": 14.57,
- "entMax": 15.33,
- "stop": 9.41,
- "dpaPrevisto": 0.976,
+ "poBear": 13.31,
+ "poBase": 16.37,
+ "poBull": 21.01,
+ "entMin": 13.31,
+ "entMax": 14.24,
+ "stop": 8.84,
+ "dpaPrevisto": 1.09,
  "moat": "70,5 sobre 100 · MOAT MODERADO. Monopolio legal de la red española: el regulador limita el exceso de retorno",
  "catalizadores": [
   "El tráfico crece el 3 % guiado y Leeds Bradford consolida: +4,12 % de volumen entre los dos. (0-12 meses)",
@@ -34,17 +34,17 @@
   "El 51 % del Estado decide por el minoritario (Baja): Descuento por controlada estatal: múltiplos −5 % y −12 %.",
   "Parada prolongada de sistemas críticos (Baja-Media): Pérdida de volumen del ejercicio: −3 % y −8 %."
  ],
- "bull": "22,42 € — escenario optimista: tráfico por encima de la tendencia e ingresos comerciales",
- "bear": "14,57 € — escenario pesimista: el DORA III sale peor: tarifa casi congelada con la mayor inversión de su historia",
- "resumen": "ESPERAR con la cotización de 26,50 € (2026-10-23): precio objetivo 17,63 € (bear 14,57 · bull 22,42), margen −33,5 %. Banda de entrada 14,57–15,33 €, stop de tesis 9,41 €.",
+ "bull": "21,01 € — escenario optimista: tráfico por encima de la tendencia e ingresos comerciales",
+ "bear": "13,31 € — escenario pesimista: el DORA III sale peor: tarifa casi congelada con la mayor inversión de su historia",
+ "resumen": "Un negocio excelente a un precio que la tesis no autoriza pagar. A 26,50 € (23-oct) el margen sobre el precio objetivo (16,37 €) es del −38,2 % y la cotización está un 86 % por encima del techo de la banda de entrada (13,31-14,24 €). Solo falla una de las cuatro condiciones, el margen: calidad A, moat 70,5 y pérdida al bear pequeña. Pasaría a MANTENER por debajo de 15,59 € y a COMPRAR por debajo de 14,24 €. Hay una señal S3 abierta: la cotización supera el PO bull (21,01 €).",
  "dividendSafety": {
-  "score": 68,
-  "banda": "Seguro",
+  "score": 59,
+  "banda": "Vigilar",
   "aplica": true,
   "rama": "general",
   "componentes": {
-   "C1": 22,
-   "C2": 10,
+   "C1": 16,
+   "C2": 7,
    "C3": 18,
    "C4": 3,
    "C5": 15
@@ -54,11 +54,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Seguro: cobertura OE 1.42x · payout 69 % · 2 recorte(s) del DPA"
+   "Vigilar: cobertura OE 1.27x · payout 77 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 4.1
+  "shareholderYield": 4.58
  },
  "forense": {
   "aplica": true,
@@ -97,16 +97,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 14.64,
+  "gImplicito": 14.7,
   "gIntrinseco": 3.78,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1102.8987,
@@ -116,12 +116,12 @@
    "acciones": 1500.0,
    "deudaNeta": 5509.027,
    "modo": "EV",
-   "precioBase": 26.5,
-   "gBase": 17.32,
-   "fechaBase": "2026-10-23",
-   "congeladoEl": "2026-10-26",
+   "precioBase": 26.62,
+   "gBase": 17.42,
+   "fechaBase": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": false,
-   "desviacion": 2.69
+   "desviacion": 2.73
   }
  }
 }

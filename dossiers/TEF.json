@@ -16,7 +16,7 @@
  "entMin": 4.27,
  "entMax": 4.81,
  "stop": 3.57,
- "dpaPrevisto": 0.2981,
+ "dpaPrevisto": 0.3,
  "moat": "44,0 sobre 100 · SIN MOAT CLARO. Escala, red propia y espectro: barreras de entrada que las huellas del ROIC no recogen",
  "catalizadores": [
   "El dividendo se recorta a la mitad y la caja se queda dentro: De 0,30 a 0,15 € por acción: 850 M€ a reducir deuda un año. (2026)",
@@ -36,7 +36,7 @@
  ],
  "bull": "6,28 € — escenario optimista: el plan de bajas rinde lo anunciado y la consolidación en Europa devuelve margen",
  "bear": "4,27 € — escenario pesimista: la competencia en precio en España y Alemania sigue comiendo ingresos y el ahorro de plantilla se va en precio",
- "resumen": "MANTENER con la cotización de 3,20 € (2026-10-26): precio objetivo 5,53 € (bear 4,27 · bull 6,28), margen +72,7 %. Banda de entrada 4,27–4,81 €, stop de tesis 3,57 €.",
+ "resumen": "Barata, pero no es una compra. A 3,20 € (26-oct) la cotización está un 25 % por debajo del suelo de la banda de entrada (4,27-4,81 €) y el margen es del +72,7 %. Fallan dos de las cuatro condiciones: el rating es BB (48,1) y el moat se queda en 44, a un punto. Mientras la calidad no vuelva a A y el moat a 45, el veredicto es MANTENER aunque baje la cotización. Además la cotización ya está por debajo del stop de tesis (3,57 €): señal S1 revisada el 26-oct, sin comprar. Si se tiene, posición pequeña.",
  "dividendSafety": {
   "score": 54,
   "banda": "Vigilar",
@@ -53,11 +53,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Vigilar: cobertura OE 2.55x · 3 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja · sin C2 (renormalizado)"
+   "Vigilar: cobertura OE 2.53x · 3 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja · sin C2 (renormalizado)"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 8.53
+  "shareholderYield": 8.59
  },
  "forense": {
   "aplica": true,
@@ -98,7 +98,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -107,7 +107,7 @@
   "gIntrinseco": -1.65,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 3547.6667,
@@ -117,10 +117,10 @@
    "acciones": 5670.161,
    "deudaNeta": 33056.432,
    "modo": "EV",
-   "precioBase": 3.2,
+   "precioBase": 3.198,
    "gBase": -5.65,
    "fechaBase": "2026-10-26",
-   "congeladoEl": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": -0.0
   }

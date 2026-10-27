@@ -1,22 +1,22 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "IBE",
  "empresa": "Iberdrola, S.A.",
- "fecha": "2026-10-26",
- "revisadoEl": "2026-10-25",
+ "fecha": "2026-10-27",
+ "revisadoEl": "2026-10-27",
  "rating": "BBB",
  "score": 62.0,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 11 % · DCF base 33 % · DCF optimista 11 % · EV/EBITDA 6 % · EV/EBIT 6 % · PER 8 % · P/VC 4 % · P/FCL 6 % · rentabilidad por dividendo 15 % · flujo base del DCF: owner earnings",
- "poBear": 17.05,
- "poBase": 18.3,
- "poBull": 20.96,
- "entMin": 14.31,
- "entMax": 15.91,
- "stop": 13.01,
- "dpaPrevisto": 0.645,
+ "poBear": 18.53,
+ "poBase": 19.87,
+ "poBull": 22.71,
+ "entMin": 15.71,
+ "entMax": 17.28,
+ "stop": 14.28,
+ "dpaPrevisto": 0.6802,
  "moat": "45,4 sobre 100 · MOAT ESTRECHO. La concesión de redes no se ve en el exceso de retorno",
  "catalizadores": [
   "La nueva tasa regulada sube: La tasa española del 5,58 % cubría 2020-2025; el periodo nuevo se fija ahora. Cada 50 puntos básicos más sobre la base española (9.352 M€) son 47 M€ de EBITDA; en el conjunto de reguladores, 255 M€. (0-12 meses)",
@@ -33,17 +33,17 @@
   "Ciberataque a infraestructura crítica (Baja-Media): Opera redes eléctricas en cuatro países y su informe integrado lista la ciberseguridad entre los riesgos relevantes. Se mide como un año de EBITDA perdido en parte y un descuento del mercado.",
   "Litigios fiscales y regulatorios (Baja-Media): ScottishPower contra la agencia fiscal británica (HMRC), con vista en el Tribunal Supremo el 18-may-2026 según el análisis de septiembre, y litigios en Brasil. Se mide como un pago."
  ],
- "bull": "20,96 € — escenario optimista: ",
- "bear": "17,05 € — escenario pesimista: ",
- "resumen": "Lo mismo que en septiembre: ESPERAR. A 21,90 € el margen de seguridad es negativo (−16,4 %): la cotización está por encima del precio objetivo (18,30 €) y también del bull (20,96 €). Además el rating es BBB por centésimas (62,0; A empieza en 62), así que aunque bajara hoy no sería COMPRAR sino, como mucho, MANTENER. Pero el veredicto depende del supuesto: con el WACC un punto más bajo y el crecimiento terminal medio punto más alto, el precio objetivo sube a 27,67 € y pasaría a MANTENER. Para una tesis de renta, el dividendo es seguro (79).",
+ "bull": "22,71 € — escenario optimista: El plan 2025-2028 (unos 58.000 M€ de inversión bruta, dos tercios en redes) rinde lo anunciado (libro de octubre)",
+ "bear": "18,53 € — escenario pesimista: La revisión regulatoria sale mal y el coste de la deuda no cede; terminal recortado al 1 % (libro de octubre)",
+ "resumen": "Lo mismo que en septiembre: ESPERAR. A 21,90 € (23-oct) la cotización está por encima del precio objetivo (19,94 €) y casi en el bull (22,79 €). El rating es BBB por centésimas (62,0; A empieza en 62), así que aunque bajara no sería COMPRAR sino, como mucho, MANTENER. El veredicto depende del supuesto: con el WACC un punto más bajo y el terminal medio punto más alto, el precio objetivo sube a 34,46 € y pasaría a MANTENER. Para una tesis de renta, el dividendo es seguro (76).",
  "dividendSafety": {
-  "score": 79,
+  "score": 76,
   "banda": "Seguro",
   "aplica": true,
   "rama": "general",
   "componentes": {
    "C1": 31,
-   "C2": 10,
+   "C2": 7,
    "C3": 8,
    "C4": 15,
    "C5": 15
@@ -53,11 +53,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Seguro: cobertura OE 2.22x · payout 69 % · 0 recorte(s) del DPA"
+   "Seguro: cobertura OE 2.10x · payout 73 % · 0 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 5.94
+  "shareholderYield": 6.13
  },
  "forense": {
   "aplica": true,
@@ -98,16 +98,16 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 3.65,
+  "gImplicito": 3.68,
   "gIntrinseco": 6.63,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 6.6 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 7633.421,
@@ -117,13 +117,12 @@
    "acciones": 6681.228,
    "deudaNeta": 64228.098,
    "modo": "EV",
-   "precioBase": 21.9,
-   "gBase": 3.65,
-   "fechaBase": "2026-10-23",
-   "congeladoEl": "2026-10-26",
+   "precioBase": 21.97,
+   "gBase": 3.68,
+   "fechaBase": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": 0.0
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 17,66 → 18,30 €."
+ }
 }

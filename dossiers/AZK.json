@@ -16,7 +16,7 @@
  "entMin": 8.08,
  "entMax": 9.12,
  "stop": 7.37,
- "dpaPrevisto": 0.3843,
+ "dpaPrevisto": 0.356,
  "moat": "50,2 sobre 100 · MOAT ESTRECHO. Homologaciones en nichos pequeños, no escala",
  "catalizadores": [
   "El mix sigue rotando hacia medios de pago y validación: +1 pp de margen. (12-24 meses)",
@@ -34,9 +34,9 @@
  ],
  "bull": "12,78 € — escenario optimista: el mix sigue rotando hacia medios de pago; el WACC no baja del suelo del arquetipo",
  "bear": "8,08 € — escenario pesimista: el vending se frena; WACC al 8,85 %, la tasa que la propia Azkoyen aplica a su fondo de comercio",
- "resumen": "ESPERAR con la cotización de 10,15 € (2026-10-26): precio objetivo 10,49 € (bear 8,08 · bull 12,78), margen +3,3 %. Banda de entrada 8,08–9,12 €, stop de tesis 7,37 €.",
+ "resumen": "ESPERAR: a 10,15 € el 26-oct, el margen sobre el PO (10,49 €) es solo del +3 %, y la cotización está un 11 % por encima del techo de la banda (9,12 €). Se cumplen tres de las cuatro condiciones (pérdida al bear, rating AA y moat 50,2); falla el margen. Pasaría a MANTENER por debajo de 9,99 € y a COMPRAR por debajo de 9,12 €. El veredicto sí depende del supuesto: con WACC ±1 y terminal ±0,5 el PO va de 9,55 a 12,06 €, y en el extremo alto sería MANTENER o COMPRAR. Mientras viva la OPA de exclusión a 10,00 €, la cotización está intervenida y la banda es teórica.",
  "dividendSafety": {
-  "score": 79,
+  "score": 76,
   "banda": "Seguro",
   "aplica": true,
   "rama": "general",
@@ -44,7 +44,7 @@
    "C1": 31,
    "C2": 13,
    "C3": 20,
-   "C4": 3,
+   "C4": 0,
    "C5": 12
   },
   "topeDuro": {
@@ -52,11 +52,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Seguro: cobertura OE 2.46x · payout 54 % · 2 recorte(s) del DPA · señales: beneficio a la baja"
+   "Seguro: cobertura OE 2.43x · payout 50 % · 3 recorte(s) del DPA · señales: beneficio a la baja"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 4.44
+  "shareholderYield": 4.11
  },
  "forense": {
   "aplica": true,
@@ -95,7 +95,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -104,7 +104,7 @@
   "gIntrinseco": 4.02,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 16.6294,
@@ -117,7 +117,7 @@
    "precioBase": 10.15,
    "gBase": -0.94,
    "fechaBase": "2026-10-26",
-   "congeladoEl": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": 0.0
   }

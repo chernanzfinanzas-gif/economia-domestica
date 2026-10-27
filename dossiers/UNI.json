@@ -1,7 +1,7 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "UNI",
  "empresa": "Unicaja Banco, S.A.",
  "fecha": "2026-10-25",
@@ -49,7 +49,7 @@
   "motivos": [
    "Vigilar · payout del dividendo 72 % → 8/30 · CET1 15.9 % → 25/25 · RoTE 9.8 % → 10/20 · 1 recorte(s) en 10 años → 9/15 · predictores: payout alto → 7/10"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "shareholderYield": 8.87
  },
@@ -57,18 +57,17 @@
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 12.78,
+  "gImplicito": 12.49,
   "gIntrinseco": null,
   "veredicto": "EXIGENTE",
-  "motivo": "EXIGENTE (exige un RoTE de 12.0 %, hasta 3 pp por encima del último, 9.8 %)",
-  "calculadoEl": "2026-10-26",
+  "motivo": "EXIGENTE (exige un RoTE de 12.3 %, hasta 3 pp por encima del último, 9.8 %)",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "roteImplicito": 12.04
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 2,55 → 2,65 €."
+  "roteImplicito": 12.28
+ }
 }

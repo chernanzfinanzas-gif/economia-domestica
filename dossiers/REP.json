@@ -1,22 +1,22 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "REP",
  "empresa": "Repsol, S.A.",
- "fecha": "2026-10-25",
+ "fecha": "2026-10-27",
  "revisadoEl": "2026-10-26",
  "rating": "BBB",
  "score": 57.9,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 6 % · DCF base 17 % · DCF optimista 6 % · EV/EBITDA 33 % · P/VC 33 % · rentabilidad por dividendo 6 % · flujo base del DCF: fcl",
- "poBear": 12.06,
- "poBase": 16.92,
- "poBull": 27.17,
- "entMin": 12.06,
- "entMax": 14.71,
- "stop": 5.06,
- "dpaPrevisto": 0.9165,
+ "poBear": 12.12,
+ "poBase": 16.97,
+ "poBull": 27.23,
+ "entMin": 12.12,
+ "entMax": 14.76,
+ "stop": 5.12,
+ "dpaPrevisto": 1.051,
  "moat": "39,0 sobre 100 · SIN MOAT CLARO. La escala eficiente del refino y la red de estaciones ibérica",
  "catalizadores": [
   "Normalización del diferencial de refino: La mitad del camino entre el margen de 2025 (10,99 %) y la mediana de la década (17,33 %): +3,17 pp. (cíclico)",
@@ -31,19 +31,19 @@
   "Recorte o supresión del dividendo (Baja-Media): Supresión entera; el impacto es contenido porque la renta solo pondera 5. El libro daba un solo golpe por riesgo: es el duro; el suave es el 75 %.",
   "Sanción de competencia y litigio climático (Media): La multa es inmaterial; se mide la pérdida de canal: volumen −10 % como aproximación. El libro daba un solo golpe por riesgo: es el duro; el suave es el 75 %."
  ],
- "bull": "27,17 € — escenario optimista: el ciclo acompaña y el coste de capital cede un punto",
- "bear": "12,06 € — escenario pesimista: el ciclo no acompaña: el FCL normalizado no crece en diez años",
- "resumen": "ESPERAR con la cotización de 29,46 € (2026-10-23): precio objetivo 16,92 € (bear 12,06 · bull 27,17), margen −42,6 %. Banda de entrada 12,06–14,71 €, stop de tesis 5,06 €.",
+ "bull": "27,23 € — escenario optimista: el ciclo acompaña y el coste de capital cede un punto",
+ "bear": "12,12 € — escenario pesimista: el ciclo no acompaña: el FCL normalizado no crece en diez años",
+ "resumen": "ESPERAR, y no por poco. A 29,46 € (23-oct) la cotización está un 74 % por encima del precio objetivo (16,97 €) y dobla el techo de la banda de entrada (12,12-14,76 €). Fallan tres de las cuatro condiciones: el margen, el rating (BBB, 57,9) y el moat (39). Solo se cumple la pérdida al bear (−18 %). Aunque el precio bajara a la banda, sin moat ni rating A no sería una compra. La señal S3 está abierta: la cotización ya supera el PO bull (27,23 €).",
  "dividendSafety": {
-  "score": 68,
+  "score": 67,
   "banda": "Seguro",
   "aplica": true,
   "rama": "general",
   "componentes": {
-   "C1": 31,
+   "C1": 27,
    "C2": 10,
    "C3": 15,
-   "C4": 0,
+   "C4": 3,
    "C5": 12
   },
   "topeDuro": {
@@ -51,11 +51,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Seguro: cobertura OE 2.16x · payout 57 % · 3 recorte(s) del DPA · señales: DN/EBITDA al alza"
+   "Seguro: cobertura OE 1.88x · payout 65 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 9.65
+  "shareholderYield": 10.49
  },
  "forense": {
   "aplica": true,
@@ -94,7 +94,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -103,7 +103,7 @@
   "gIntrinseco": 2.47,
   "veredicto": "EXIGENTE",
   "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 2.5 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1682.4,
@@ -113,13 +113,12 @@
    "acciones": 1172.2222,
    "deudaNeta": 9983.0,
    "modo": "EV",
-   "precioBase": 29.46,
+   "precioBase": 29.45,
    "gBase": 3.38,
-   "fechaBase": "2026-10-23",
-   "congeladoEl": "2026-10-26",
+   "fechaBase": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": -0.0
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 20,52 → 16,92 €."
+ }
 }

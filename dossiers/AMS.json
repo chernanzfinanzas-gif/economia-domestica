@@ -1,22 +1,22 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "AMS",
  "empresa": "Amadeus IT Group, S.A.",
- "fecha": "2026-10-25",
+ "fecha": "2026-10-27",
  "revisadoEl": "2026-10-26",
  "rating": "A",
  "score": 74.1,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 15 % · DCF base 35 % · DCF optimista 15 % · PER 5 % · EV/EBITDA 10 % · EV/EBIT 5 % · P/VC 5 % · P/FCL 5 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
- "poBear": 39.88,
- "poBase": 49.06,
- "poBull": 56.28,
- "entMin": 39.88,
- "entMax": 42.66,
- "stop": 21.41,
- "dpaPrevisto": 1.3999,
+ "poBear": 40.01,
+ "poBase": 49.19,
+ "poBull": 56.43,
+ "entMin": 40.01,
+ "entMax": 42.78,
+ "stop": 20.34,
+ "dpaPrevisto": 1.54,
  "moat": "73,8 sobre 100 · MOAT MODERADO. Costes de cambio y escala de una red de dos lados que el covid tapa en la serie",
  "catalizadores": [
   "Re-rating hacia sus propios múltiplos históricos: La acción ha caído con los fundamentales al alza: múltiplos +15 %. (6-18 meses)",
@@ -33,19 +33,19 @@
   "Fallo grave o brecha de seguridad en los sistemas críticos (Baja-Media): Efecto de un trimestre, sin pérdida permanente de clientes: volumen −5 % y −10 %.",
   "Exposición a divisa (Media): Factura en varias monedas y reporta en euros: margen −1 pp y −2 pp."
  ],
- "bull": "56,28 € — escenario optimista: el volumen recupera y Hospitality acelera",
- "bear": "39,88 € — escenario pesimista: el tráfico crece por debajo de la tendencia y NDC resta volumen",
- "resumen": "ESPERAR con la cotización de 56,60 € (2026-10-23): precio objetivo 49,06 € (bear 39,88 · bull 56,28), margen −13,3 %. Banda de entrada 39,88–42,66 €, stop de tesis 21,41 €.",
+ "bull": "56,43 € — escenario optimista: el volumen recupera y Hospitality acelera",
+ "bear": "40,01 € — escenario pesimista: el tráfico crece por debajo de la tendencia y NDC resta volumen",
+ "resumen": "Buena empresa con un precio objetivo por debajo de la cotización. A 56,60 € (23-oct) el margen es del −13,1 %. Tres de las cuatro condiciones de COMPRAR se cumplen (bear a −6,5 % desde la entrada máxima, rating A y moat 73,8); falla el margen. Pasa a MANTENER por debajo de unos 46,85 € (PO/1,05) y a COMPRAR por debajo de 42,78 €. El dossier de octubre decía COMPRAR con 63,62 € de precio objetivo: el cambio sale sobre todo del flujo base del DCF, que lleva el covid dentro. Hay una señal S3 abierta.",
  "dividendSafety": {
-  "score": 80,
-  "banda": "Muy seguro",
+  "score": 77,
+  "banda": "Seguro",
   "aplica": true,
   "rama": "general",
   "componentes": {
    "C1": 31,
    "C2": 13,
    "C3": 18,
-   "C4": 3,
+   "C4": 0,
    "C5": 15
   },
   "topeDuro": {
@@ -53,11 +53,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Muy seguro: cobertura OE 2.22x · payout 46 % · 2 recorte(s) del DPA"
+   "Seguro: cobertura OE 2.02x · payout 51 % · 3 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 7.06
+  "shareholderYield": 7.29
  },
  "forense": {
   "aplica": true,
@@ -96,16 +96,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 11.6,
+  "gImplicito": 11.62,
   "gIntrinseco": -2.04,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 887.32,
@@ -115,13 +115,12 @@
    "acciones": 439.375,
    "deudaNeta": 2535.2,
    "modo": "EV",
-   "precioBase": 56.6,
-   "gBase": 12.01,
-   "fechaBase": "2026-10-23",
-   "congeladoEl": "2026-10-26",
+   "precioBase": 56.7,
+   "gBase": 12.05,
+   "fechaBase": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": false,
-   "desviacion": 0.41
+   "desviacion": 0.43
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 63,62 → 49,06 €; decisión COMPRAR → ESPERAR; rating AA → A."
+ }
 }

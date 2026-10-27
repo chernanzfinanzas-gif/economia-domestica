@@ -1,22 +1,22 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "LOG",
  "empresa": "Logista Integral, S.A.",
- "fecha": "2026-10-25",
- "revisadoEl": "2026-10-25",
+ "fecha": "2026-10-27",
+ "revisadoEl": "2026-10-27",
  "rating": "AA",
  "score": 86.9,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 30 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 8 % · PER 10 % · P/VC 6 % · P/FCL 8 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl recurrente",
- "poBear": 29.14,
- "poBase": 36.36,
- "poBull": 40.39,
- "entMin": 29.14,
- "entMax": 31.61,
- "stop": 25.99,
- "dpaPrevisto": 2.09,
+ "poBear": 29.04,
+ "poBase": 36.25,
+ "poBull": 40.27,
+ "entMin": 29.04,
+ "entMax": 31.52,
+ "stop": 25.91,
+ "dpaPrevisto": 2.01,
  "moat": "78,2 sobre 100 · MOAT ANCHO. Transporte sin moat y plan de Francia a la baja",
  "catalizadores": [
   "Cumple el guidance de 2026: La empresa guía un EBIT ajustado creciendo a un dígito medio sin inventarios ni compras: +5 % sobre 378 M€ son unos 19 M€ más. (nov-2026 (cierre del ejercicio))",
@@ -35,11 +35,11 @@
   "Compras que no rinden (Media): Unos 200 M€ en compras de transporte desde 2022; la empresa dice que El Mosca y Carbó van por debajo. El incentivo del equipo no mide el retorno del capital.",
   "Ciberataque o caída prolongada de sistemas (Baja-Media): La empresa lo declara su primer riesgo operacional: reparto diario con depósito fiscal y cobro a pocos días, todo por sistemas. El modelo valora flujos perpetuos, así que el golpe supone daño sostenido y exagera un incidente puntual."
  ],
- "bull": "40,39 € — escenario optimista: La diversificación (transporte, farma) sustituye el volumen de tabaco que se pierde y el grupo sigue comprando con la caja que genera.",
- "bear": "29,14 € — escenario pesimista: El volumen de tabaco en Europa cae de forma estructural y el precio deja de compensarlo; los intereses del crédito a Imperial se encogen con la bajada de tipos. Sin crecimiento real ni terminal.",
+ "bull": "40,27 € — escenario optimista: La diversificación (transporte, farma) sustituye el volumen de tabaco que se pierde y el grupo sigue comprando con la caja que genera.",
+ "bear": "29,04 € — escenario pesimista: El volumen de tabaco en Europa cae de forma estructural y el precio deja de compensarlo; los intereses del crédito a Imperial se encogen con la bajada de tipos. Sin crecimiento real ni terminal.",
  "resumen": "Buena empresa a precio alto. Con la cotización del 23-oct (37,02 €) está por encima del precio objetivo (36,36 €; margen −1,8 %) y COMPRAR exige el 15 %: la banda de compra está entre 29,14 y 31,61 €. Las otras condiciones se cumplen (rating AA, moat 78), aunque desde el techo de la banda el bear resta un 7,8 %. Stop de tesis 25,99 €. Frente al juicio de la mañana del 25-oct (MANTENER, PO 40,84 €), el precio objetivo baja por la regla general de restar el pago de alquileres del flujo y del EBITDA: cambia el método, no el negocio.",
  "dividendSafety": {
-  "score": 73,
+  "score": 63,
   "banda": "Seguro",
   "aplica": true,
   "rama": "general",
@@ -47,7 +47,7 @@
    "C1": 22,
    "C2": 4,
    "C3": 20,
-   "C4": 15,
+   "C4": 5,
    "C5": 12
   },
   "topeDuro": {
@@ -55,11 +55,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Seguro: cobertura OE 1.44x · payout 98 % · 0 recorte(s) del DPA · señales: beneficio a la baja"
+   "Seguro: cobertura OE 1.50x · payout 94 % · 1 recorte(s) del DPA · señales: beneficio a la baja"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 7.32
+  "shareholderYield": 7.04
  },
  "forense": {
   "aplica": true,
@@ -98,16 +98,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -0.92,
+  "gImplicito": -0.9,
   "gIntrinseco": 5.46,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 305.6944,
@@ -117,13 +117,12 @@
    "acciones": 132.0265,
    "deudaNeta": 99.886,
    "modo": "EV",
-   "precioBase": 37.02,
-   "gBase": -0.92,
-   "fechaBase": "2026-10-23",
-   "congeladoEl": "2026-10-26",
+   "precioBase": 37.08,
+   "gBase": -0.9,
+   "fechaBase": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": true,
-   "desviacion": 0.0
+   "desviacion": -0.0
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 40,16 → 36,36 €; decisión COMPRAR → ESPERAR."
+ }
 }

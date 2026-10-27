@@ -1,22 +1,22 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "RED",
  "empresa": "Redeia Corporación, S.A.",
- "fecha": "2026-10-26",
+ "fecha": "2026-10-27",
  "revisadoEl": "2026-10-26",
  "rating": "BBB",
  "score": 55.7,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 36 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 7 % · PER 8 % · P/VC 4 % · rentabilidad por dividendo 15 % · flujo base del DCF: owner earnings",
- "poBear": 15.78,
- "poBase": 18.77,
- "poBull": 23.42,
- "entMin": 15.78,
- "entMax": 16.32,
- "stop": 12.47,
- "dpaPrevisto": 0.9631,
+ "poBear": 15.38,
+ "poBase": 18.37,
+ "poBull": 22.98,
+ "entMin": 15.38,
+ "entMax": 15.97,
+ "stop": 12.09,
+ "dpaPrevisto": 0.8,
  "moat": "66,5 sobre 100 · MOAT MODERADO. Monopolio legal del transporte y la operación del sistema eléctrico",
  "catalizadores": [
   "La tasa del 6,58 % entra en la base de ingresos: Circular 9/2025: +5,36 % de ingresos. (2026)",
@@ -32,31 +32,31 @@
   "El Estado es el primer accionista y además fija el precio (Media): Múltiplos −10 % y −20 %.",
   "El operador del sistema eléctrico es infraestructura crítica (Baja-Media): CAPEX +20 M€ al año e ingresos −1 %; duro: +40 M€, −3 % y múltiplos −10 %."
  ],
- "bull": "23,42 € — escenario optimista: la tasa de 2026-2031 se confirma al alza y la base se remunera al ritmo al que crece",
- "bear": "15,78 € — escenario pesimista: la CNMC no reconoce más retribución y el CAPEX en curso engorda la base sin devolver",
- "resumen": "MANTENER con la cotización de 14,83 € (2026-10-23): precio objetivo 18,77 € (bear 15,78 · bull 23,42), margen +26,6 %. Banda de entrada 15,78–16,32 €, stop de tesis 12,47 €.",
+ "bull": "22,98 € — escenario optimista: la tasa de 2026-2031 se confirma al alza y la base se remunera al ritmo al que crece",
+ "bear": "15,38 € — escenario pesimista: la CNMC no reconoce más retribución y el CAPEX en curso engorda la base sin devolver",
+ "resumen": "MANTENER. A 14,83 € (23-oct) el margen es del +23,9 % y la cotización está un 4 % por debajo del suelo de la banda de entrada (15,38-15,97 €). Cumple tres de las cuatro condiciones: margen, pérdida al bear (−3,7 %) y moat (66,5). Falla el rating: BBB (55,7). Para COMPRAR haría falta subir a A; el escalón BBB no aplica porque no hay un PO mínimo escrito. El veredicto depende del supuesto: con el WACC un punto más alto y el terminal medio punto más bajo, el precio objetivo baja a 13,62 € y el margen se vuelve negativo.",
  "dividendSafety": {
-  "score": 38,
-  "banda": "Frágil",
+  "score": 48,
+  "banda": "Vigilar",
   "aplica": true,
   "rama": "general",
   "componentes": {
-   "C1": 10,
-   "C2": 0,
+   "C1": 16,
+   "C2": 4,
    "C3": 10,
    "C4": 3,
    "C5": 15
   },
   "topeDuro": {
-   "activo": true,
-   "motivo": "Frágil: cobertura OE 1.04x · payout 107 % · 2 recorte(s) del DPA"
+   "activo": false,
+   "motivo": ""
   },
   "motivos": [
-   "Frágil: cobertura OE 1.04x · payout 107 % · 2 recorte(s) del DPA"
+   "Vigilar: cobertura OE 1.25x · payout 91 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 6.35
+  "shareholderYield": 5.27
  },
  "forense": {
   "aplica": true,
@@ -97,16 +97,16 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -1.56,
+  "gImplicito": -1.46,
   "gIntrinseco": 1.86,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 663.03,
@@ -116,13 +116,12 @@
    "acciones": 561.8256,
    "deudaNeta": 6217.439,
    "modo": "EV",
-   "precioBase": 14.83,
-   "gBase": -1.56,
-   "fechaBase": "2026-10-23",
-   "congeladoEl": "2026-10-26",
+   "precioBase": 15.02,
+   "gBase": -1.46,
+   "fechaBase": "2026-10-26",
+   "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": -0.0
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 18,35 → 18,77 €."
+ }
 }
