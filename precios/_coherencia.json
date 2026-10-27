@@ -1,222 +1,229 @@
 {
  "schemaVersion": 1,
- "actualizado": "2026-10-26",
+ "actualizado": "2026-10-27",
  "ok": true,
- "sesionIntradia": "2026-10-26",
+ "sesionIntradia": "2026-10-27",
  "faltaSesion": [],
  "discrepan": [
   {
    "ticker": "A3M",
-   "ultimaBarra": "2026-10-26",
+   "ultimaBarra": "2026-10-27",
    "valorHistorico": 5.83,
    "cierreAntIntradia": 5.85,
    "difPct": -0.342
   },
   {
    "ticker": "ACS",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 90.15,
-   "cierreAntIntradia": 87.45,
-   "difPct": 3.087
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 91.8,
+   "cierreAntIntradia": 90.3,
+   "difPct": 1.661
   },
   {
    "ticker": "ACX",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 16.88,
-   "cierreAntIntradia": 16.55,
-   "difPct": 1.994
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 17.1,
+   "cierreAntIntradia": 16.83,
+   "difPct": 1.604
   },
   {
    "ticker": "AENA",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 26.62,
-   "cierreAntIntradia": 26.44,
-   "difPct": 0.681
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 27.0,
+   "cierreAntIntradia": 26.54,
+   "difPct": 1.733
   },
   {
    "ticker": "AMS",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 56.7,
-   "cierreAntIntradia": 56.24,
-   "difPct": 0.818
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 57.34,
+   "cierreAntIntradia": 57.08,
+   "difPct": 0.456
   },
   {
    "ticker": "ART",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 30.4,
-   "cierreAntIntradia": 30.2,
-   "difPct": 0.662
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 31.5,
+   "cierreAntIntradia": 30.5,
+   "difPct": 3.279
   },
   {
    "ticker": "AZK",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 10.15,
-   "cierreAntIntradia": 10.05,
-   "difPct": 0.995
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 10.25,
+   "cierreAntIntradia": 10.15,
+   "difPct": 0.985
   },
   {
    "ticker": "BBVA",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 22.73,
-   "cierreAntIntradia": 22.12,
-   "difPct": 2.758
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 22.7,
+   "cierreAntIntradia": 22.77,
+   "difPct": -0.307
   },
   {
    "ticker": "BKT",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 14.095,
-   "cierreAntIntradia": 14.005,
-   "difPct": 0.643
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 14.34,
+   "cierreAntIntradia": 14.135,
+   "difPct": 1.45
   },
   {
    "ticker": "CABK",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 11.455,
-   "cierreAntIntradia": 11.225,
-   "difPct": 2.049
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 11.52,
+   "cierreAntIntradia": 11.46,
+   "difPct": 0.524
   },
   {
    "ticker": "CIE",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 25.9,
-   "cierreAntIntradia": 25.4,
-   "difPct": 1.969
-  },
-  {
-   "ticker": "EBRO",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 18.22,
-   "cierreAntIntradia": 18.44,
-   "difPct": -1.193
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 25.45,
+   "cierreAntIntradia": 25.85,
+   "difPct": -1.547
   },
   {
    "ticker": "ELE",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 43.85,
-   "cierreAntIntradia": 43.49,
-   "difPct": 0.828
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 44.18,
+   "cierreAntIntradia": 43.82,
+   "difPct": 0.822
+  },
+  {
+   "ticker": "ENG",
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 17.63,
+   "cierreAntIntradia": 17.47,
+   "difPct": 0.916
   },
   {
    "ticker": "FAE",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 4.685,
-   "cierreAntIntradia": 4.66,
-   "difPct": 0.536
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 4.74,
+   "cierreAntIntradia": 4.71,
+   "difPct": 0.637
+  },
+  {
+   "ticker": "FDR",
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 18.57,
+   "cierreAntIntradia": 18.05,
+   "difPct": 2.881
   },
   {
    "ticker": "GEST",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 2.875,
-   "cierreAntIntradia": 2.825,
-   "difPct": 1.77
-  },
-  {
-   "ticker": "IBE",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 21.97,
-   "cierreAntIntradia": 21.9,
-   "difPct": 0.32
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 2.86,
+   "cierreAntIntradia": 2.885,
+   "difPct": -0.867
   },
   {
    "ticker": "ITX",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 57.24,
-   "cierreAntIntradia": 56.48,
-   "difPct": 1.346
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 57.0,
+   "cierreAntIntradia": 57.24,
+   "difPct": -0.419
   },
   {
    "ticker": "LDA",
    "ultimaBarra": "2026-10-26",
    "valorHistorico": 1.226,
-   "cierreAntIntradia": 1.222,
-   "difPct": 0.327
+   "cierreAntIntradia": 1.22,
+   "difPct": 0.492
   },
   {
    "ticker": "MAP",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 4.31,
-   "cierreAntIntradia": 4.384,
-   "difPct": -1.688
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 4.34,
+   "cierreAntIntradia": 4.314,
+   "difPct": 0.603
   },
   {
    "ticker": "MCM",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 9.9,
-   "cierreAntIntradia": 9.84,
-   "difPct": 0.61
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 10.2,
+   "cierreAntIntradia": 9.9,
+   "difPct": 3.03
+  },
+  {
+   "ticker": "MRL",
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 11.52,
+   "cierreAntIntradia": 11.3,
+   "difPct": 1.947
   },
   {
    "ticker": "NTGY",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 30.54,
-   "cierreAntIntradia": 31.04,
-   "difPct": -1.611
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 30.44,
+   "cierreAntIntradia": 30.6,
+   "difPct": -0.523
+  },
+  {
+   "ticker": "PRM",
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 12.5,
+   "cierreAntIntradia": 12.65,
+   "difPct": -1.186
   },
   {
    "ticker": "R4",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 20.0,
-   "cierreAntIntradia": 19.55,
-   "difPct": 2.302
-  },
-  {
-   "ticker": "RED",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 15.02,
-   "cierreAntIntradia": 14.79,
-   "difPct": 1.555
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 19.8,
+   "cierreAntIntradia": 20.0,
+   "difPct": -1.0
   },
   {
    "ticker": "REP",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 29.45,
-   "cierreAntIntradia": 29.6,
-   "difPct": -0.507
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 28.48,
+   "cierreAntIntradia": 29.38,
+   "difPct": -3.063
   },
   {
    "ticker": "ROVI",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 61.4,
-   "cierreAntIntradia": 60.2,
-   "difPct": 1.993
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 61.95,
+   "cierreAntIntradia": 61.35,
+   "difPct": 0.978
   },
   {
    "ticker": "SAN",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 11.154,
-   "cierreAntIntradia": 11.47,
-   "difPct": -2.755
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 11.27,
+   "cierreAntIntradia": 11.142,
+   "difPct": 1.149
   },
   {
    "ticker": "TEF",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 3.198,
-   "cierreAntIntradia": 3.424,
-   "difPct": -6.6
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 3.26,
+   "cierreAntIntradia": 3.183,
+   "difPct": 2.419
   },
   {
    "ticker": "UNI",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 3.17,
-   "cierreAntIntradia": 3.098,
-   "difPct": 2.324
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 3.21,
+   "cierreAntIntradia": 3.172,
+   "difPct": 1.198
   },
   {
    "ticker": "VID",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 90.0,
-   "cierreAntIntradia": 90.9,
-   "difPct": -0.99
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 91.4,
+   "cierreAntIntradia": 90.2,
+   "difPct": 1.33
   },
   {
    "ticker": "VIS",
-   "ultimaBarra": "2026-10-26",
-   "valorHistorico": 54.3,
-   "cierreAntIntradia": 55.3,
-   "difPct": -1.808
+   "ultimaBarra": "2026-10-27",
+   "valorHistorico": 54.0,
+   "cierreAntIntradia": 54.6,
+   "difPct": -1.099
   }
  ],
  "sinDato": [],
  "nota": "`cierreAnt` de intradia.json es el cierre de la sesion ANTERIOR segun Yahoo. Si no cuadra con la ultima barra de precios/, o falta una sesion o las dos fuentes no hablan del mismo dia. Las dos cosas hay que saberlas.",
- "resumen": "0 con sesion ausente, 30 con valores discrepantes, 0 sin fichero"
+ "resumen": "0 con sesion ausente, 31 con valores discrepantes, 0 sin fichero"
 }
