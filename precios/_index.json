@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-10-26",
+"actualizado": "2026-10-27",
 "ventana_dias": 10,
-"ventana_desde": "2026-10-16",
+"ventana_desde": "2026-10-17",
 "tickers": [
 {
 "ticker": "A3M",
@@ -922,134 +922,7 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "ADZ",
-"fecha": "2026-10-26",
-"anterior": 6.75,
-"nuevo": 7.0
-},
-{
-"ticker": "AIR",
-"fecha": "2026-10-26",
-"anterior": 194.92,
-"nuevo": 193.7
-},
-{
-"ticker": "APAM",
-"fecha": "2026-10-26",
-"anterior": 35.42,
-"nuevo": 35.24
-},
-{
-"ticker": "ARM",
-"fecha": "2026-10-26",
-"anterior": 11.1,
-"nuevo": 11.4
-},
-{
-"ticker": "BKT",
-"fecha": "2026-10-26",
-"anterior": 14.1,
-"nuevo": 14.095
-},
-{
-"ticker": "CABK",
-"fecha": "2026-10-26",
-"anterior": 11.46,
-"nuevo": 11.455
-},
-{
-"ticker": "CCEP",
-"fecha": "2026-10-26",
-"anterior": 100.8,
-"nuevo": 99.4
-},
-{
-"ticker": "ENC",
-"fecha": "2026-10-26",
-"anterior": 2.21,
-"nuevo": 2.212
-},
-{
-"ticker": "FAE",
-"fecha": "2026-10-26",
-"anterior": 4.68,
-"nuevo": 4.685
-},
-{
-"ticker": "GEST",
-"fecha": "2026-10-26",
-"anterior": 2.88,
-"nuevo": 2.875
-},
-{
-"ticker": "IAG",
-"fecha": "2026-10-26",
-"anterior": 4.91,
-"nuevo": 4.908
-},
-{
-"ticker": "IBG",
-"fecha": "2026-10-26",
-"anterior": 16.45,
-"nuevo": 16.6
-},
-{
-"ticker": "MAKS",
-"fecha": "2026-10-26",
-"anterior": 6.05,
-"nuevo": 6.0
-},
-{
-"ticker": "MCM",
-"fecha": "2026-10-26",
-"anterior": 9.92,
-"nuevo": 9.9
-},
-{
-"ticker": "NEA",
-"fecha": "2026-10-26",
-"anterior": 9.8,
-"nuevo": 9.9
-},
-{
-"ticker": "R4",
-"fecha": "2026-10-26",
-"anterior": 19.7,
-"nuevo": 20.0
-},
-{
-"ticker": "RJF",
-"fecha": "2026-10-26",
-"anterior": 2.61,
-"nuevo": 2.55
-},
-{
-"ticker": "SAB",
-"fecha": "2026-10-26",
-"anterior": 3.52,
-"nuevo": 3.515
-},
-{
-"ticker": "SAN",
-"fecha": "2026-10-26",
-"anterior": 11.15,
-"nuevo": 11.154
-},
-{
-"ticker": "SCYR",
-"fecha": "2026-10-26",
-"anterior": 3.99,
-"nuevo": 3.986
-},
-{
-"ticker": "TEF",
-"fecha": "2026-10-26",
-"anterior": 3.2,
-"nuevo": 3.198
-}
-],
+"corregidos": [],
 "revisar": [],
 "eventos": []
 }
