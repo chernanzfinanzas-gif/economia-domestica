@@ -38,14 +38,14 @@
  "bear": "4,24 € — escenario pesimista: la competencia en precio en España y Alemania sigue comiendo ingresos y el ahorro de plantilla se va en precio",
  "resumen": "Barata, pero no es una compra. A 3,20 € (26-oct) la cotización está un 25 % por debajo del suelo de la banda de entrada (4,24-4,78 €) y el margen es del +72,7 %. Fallan dos de las cuatro condiciones: el rating es BB (48,1) y el moat se queda en 44, a un punto. Mientras la calidad no vuelva a A y el moat a 45, el veredicto es MANTENER aunque baje la cotización. Además la cotización ya está por debajo del stop de tesis (3,55 €): señal S1 revisada el 26-oct, sin comprar. Si se tiene, posición pequeña.",
  "dividendSafety": {
-  "score": 54,
+  "score": 58,
   "banda": "Vigilar",
   "aplica": true,
   "rama": "general",
   "componentes": {
    "C1": 35,
    "C3": 8,
-   "C4": 0,
+   "C4": 3,
    "C5": 3
   },
   "topeDuro": {
@@ -53,7 +53,7 @@
    "motivo": ""
   },
   "motivos": [
-   "Vigilar: cobertura OE 2.53x · 3 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja · sin C2 (renormalizado)"
+   "Vigilar: cobertura OE 2.53x · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja · sin C2 (renormalizado)"
   ],
   "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",

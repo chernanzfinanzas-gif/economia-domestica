@@ -10,12 +10,12 @@
  "score": 57.9,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 6 % · DCF base 17 % · DCF optimista 6 % · EV/EBITDA 33 % · P/VC 33 % · rentabilidad por dividendo 6 % · flujo base del DCF: fcl",
- "poBear": 11.66,
- "poBase": 16.46,
- "poBull": 26.62,
- "entMin": 11.66,
- "entMax": 14.31,
- "stop": 4.75,
+ "poBear": 11.69,
+ "poBase": 16.49,
+ "poBull": 26.65,
+ "entMin": 11.69,
+ "entMax": 14.34,
+ "stop": 4.78,
  "dpaPrevisto": 1.051,
  "moat": "39,0 sobre 100 · SIN MOAT CLARO. La escala eficiente del refino y la red de estaciones ibérica",
  "catalizadores": [
@@ -31,11 +31,11 @@
   "Recorte o supresión del dividendo (Baja-Media): Supresión entera; el impacto es contenido porque la renta solo pondera 5. El libro daba un solo golpe por riesgo: es el duro; el suave es el 75 %.",
   "Sanción de competencia y litigio climático (Media): La multa es inmaterial; se mide la pérdida de canal: volumen −10 % como aproximación. El libro daba un solo golpe por riesgo: es el duro; el suave es el 75 %."
  ],
- "bull": "26,62 € — escenario optimista: el ciclo acompaña y el coste de capital cede un punto",
- "bear": "11,66 € — escenario pesimista: el ciclo no acompaña: el FCL normalizado no crece en diez años",
- "resumen": "ESPERAR, y no por poco. A 29,46 € (23-oct) la cotización está un 74 % por encima del precio objetivo (16,46 €) y dobla el techo de la banda de entrada (11,66-14,31 €). Fallan tres de las cuatro condiciones: el margen, el rating (BBB, 57,9) y el moat (39). Solo se cumple la pérdida al bear (−19 %). Aunque el precio bajara a la banda, sin moat ni rating A no sería una compra. La señal S3 está abierta: la cotización ya supera el PO bull (26,62 €).",
+ "bull": "26,65 € — escenario optimista: el ciclo acompaña y el coste de capital cede un punto",
+ "bear": "11,69 € — escenario pesimista: el ciclo no acompaña: el FCL normalizado no crece en diez años",
+ "resumen": "ESPERAR, y no por poco. A 29,46 € (23-oct) la cotización está un 74 % por encima del precio objetivo (16,49 €) y dobla el techo de la banda de entrada (11,69-14,34 €). Fallan tres de las cuatro condiciones: el margen, el rating (BBB, 57,9) y el moat (39). Solo se cumple la pérdida al bear (−19 %). Aunque el precio bajara a la banda, sin moat ni rating A no sería una compra. La señal S3 está abierta: la cotización ya supera el PO bull (26,65 €).",
  "dividendSafety": {
-  "score": 67,
+  "score": 73,
   "banda": "Seguro",
   "aplica": true,
   "rama": "general",
@@ -43,7 +43,7 @@
    "C1": 27,
    "C2": 10,
    "C3": 15,
-   "C4": 3,
+   "C4": 9,
    "C5": 12
   },
   "topeDuro": {
@@ -51,7 +51,7 @@
    "motivo": ""
   },
   "motivos": [
-   "Seguro: cobertura OE 1.88x · payout 65 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza"
+   "Seguro: cobertura OE 1.88x · payout 65 % · 1 recorte(s) del DPA · señales: DN/EBITDA al alza"
   ],
   "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",

@@ -1,28 +1,21 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-27T16:45",
+ "generado": "2026-10-27T17:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-10-27T16:45",
+  "cuando": "2026-10-27T17:45",
   "ficheros": [
-   "dossiers/ACS.json",
-   "dossiers/BKT.json",
-   "dossiers/CIE.json",
-   "dossiers/FAE.json",
    "dossiers/NTGY.json",
    "dossiers/REP.json",
+   "dossiers/SAN.json",
    "dossiers/TEF.json",
-   "dossiers/VID.json",
    "dossiers/v3/ACS.html",
-   "dossiers/v3/BKT.html",
-   "dossiers/v3/CIE.html",
-   "dossiers/v3/FAE.html",
    "dossiers/v3/NTGY.html",
    "dossiers/v3/REP.html",
-   "dossiers/v3/TEF.html",
-   "dossiers/v3/VID.html"
+   "dossiers/v3/SAN.html",
+   "dossiers/v3/TEF.html"
   ]
  },
  "rechazos": [],
