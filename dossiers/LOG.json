@@ -37,7 +37,7 @@
  ],
  "bull": "40,27 € — escenario optimista: La diversificación (transporte, farma) sustituye el volumen de tabaco que se pierde y el grupo sigue comprando con la caja que genera.",
  "bear": "29,04 € — escenario pesimista: El volumen de tabaco en Europa cae de forma estructural y el precio deja de compensarlo; los intereses del crédito a Imperial se encogen con la bajada de tipos. Sin crecimiento real ni terminal.",
- "resumen": "Buena empresa a precio alto. Con la cotización del 23-oct (37,02 €) está por encima del precio objetivo (36,36 €; margen −1,8 %) y COMPRAR exige el 15 %: la banda de compra está entre 29,14 y 31,61 €. Las otras condiciones se cumplen (rating AA, moat 78), aunque desde el techo de la banda el bear resta un 7,8 %. Stop de tesis 25,99 €. Frente al juicio de la mañana del 25-oct (MANTENER, PO 40,84 €), el precio objetivo baja por la regla general de restar el pago de alquileres del flujo y del EBITDA: cambia el método, no el negocio.",
+ "resumen": "Buena empresa a precio alto. Con la cotización del 23-oct (37,02 €) está por encima del precio objetivo (36,25 €; margen −2,1 %) y COMPRAR exige el 15 %: la banda de compra está entre 29,04 y 31,52 €. Las otras condiciones se cumplen (rating AA, moat 78), aunque desde el techo de la banda el bear resta un 7,9 %. Stop de tesis 25,91 €. Frente al juicio de la mañana del 25-oct (MANTENER, PO 40,84 €), el precio objetivo baja por la regla general de restar el pago de alquileres del flujo y del EBITDA: cambia el método, no el negocio.",
  "dividendSafety": {
   "score": 63,
   "banda": "Seguro",
@@ -119,7 +119,7 @@
    "modo": "EV",
    "precioBase": 37.08,
    "gBase": -0.9,
-   "fechaBase": "2026-10-26",
+   "fechaBase": "2026-10-27",
    "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": -0.0

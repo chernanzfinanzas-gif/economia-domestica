@@ -814,6 +814,60 @@
    ],
    "hechos": [],
    "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +21,0 %, margen de explotación +43,3 %, beneficio atribuido +48,0 %, margen 40,0 % (+6,23 pp) frente al mismo periodo del año anterior. ROE publicado a 12 meses (la cara trimestral de la señal única): 34,1 %. Verde: nada que señalar. Corrección del analista: Semáforo automático VERDE con las cifras de la «Nota de Resultados 3er trimestre 2026»: margen bruto 156,4 M€ (+21,0 %), margen de intereses 27,4 M€ (+37,0 %), margen de explotación 62,5 M€ (+43,3 %), beneficio +48,0 % y ROE 34,1 %. 9M-2026: beneficio atribuido 45,4 M€ (+48,0 %), margen bruto 156,4 M€ (+21,0 %), margen de intereses 27,4 M€ (+37,0 %) y comisiones netas 118,1 M€ (+20,1 %), con gastos solo +9,6 % (eficiencia del 72,2 % al 63,7 %); margen de explotación 40,6 % (+7,0 pp); ROE a 12 meses 34,1 % (+8,7 pp, muy por encima del umbral de 18,8) y CET1 17,03 %. La causa, según la «Nota de Resultados 3er trimestre 2026», es el crecimiento del patrimonio de clientes (48.197 M€, +17,0 %; red propia +19,0 % con 1.554 M€ de captación neta) y el apalancamiento operativo; el tercer trimestre aislado se modera (margen bruto +7,9 %, comisiones brutas +4,4 %, beneficio +28,7 % «sobre una base de comparación exigente»), y eso es lo que hay que mirar en el cierre anual. El pase no extrajo de la nota el margen bruto, el margen de intereses ni el margen de explotación; se completaron a mano de la nota (156,4, 27,4 y 62,5 M€) y el semáforo automático da VERDE. La tesis no se toca y no se abre ninguna señal S1/S2/S6; sigue abierta la S3 (cotización 19,8 € por encima del PO bull de 16,02 €), que pide revisar el PO, no actuar por el trimestre. Lectura: aprobar con el verde.",
+   "metricas": [
+    {
+     "nombre": "Comisiones netas",
+     "valor": 118.0
+    },
+    {
+     "nombre": "M. intereses",
+     "valor": 27.4
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 156.0
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 93.9
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 45.4
+    },
+    {
+     "nombre": "ROE",
+     "valor": 34.1
+    },
+    {
+     "nombre": "CET1",
+     "valor": 17.03
+    },
+    {
+     "nombre": "Clientes red propia",
+     "valor": 153614.0
+    },
+    {
+     "nombre": "Activos red propia",
+     "valor": 29861.0
+    },
+    {
+     "nombre": "Activos totales",
+     "valor": 48197.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
   }
  ]
 }

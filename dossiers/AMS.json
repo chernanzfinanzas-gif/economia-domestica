@@ -37,15 +37,15 @@
  "bear": "40,01 € — escenario pesimista: el tráfico crece por debajo de la tendencia y NDC resta volumen",
  "resumen": "Buena empresa con un precio objetivo por debajo de la cotización. A 56,60 € (23-oct) el margen es del −13,1 %. Tres de las cuatro condiciones de COMPRAR se cumplen (bear a −6,5 % desde la entrada máxima, rating A y moat 73,8); falla el margen. Pasa a MANTENER por debajo de unos 46,85 € (PO/1,05) y a COMPRAR por debajo de 42,78 €. El dossier de octubre decía COMPRAR con 63,62 € de precio objetivo: el cambio sale sobre todo del flujo base del DCF, que lleva el covid dentro. Hay una señal S3 abierta.",
  "dividendSafety": {
-  "score": 77,
-  "banda": "Seguro",
+  "score": 80,
+  "banda": "Muy seguro",
   "aplica": true,
   "rama": "general",
   "componentes": {
    "C1": 31,
    "C2": 13,
    "C3": 18,
-   "C4": 0,
+   "C4": 3,
    "C5": 15
   },
   "topeDuro": {
@@ -53,7 +53,7 @@
    "motivo": ""
   },
   "motivos": [
-   "Seguro: cobertura OE 2.02x · payout 51 % · 3 recorte(s) del DPA"
+   "Muy seguro: cobertura OE 2.02x · payout 51 % · 2 recorte(s) del DPA"
   ],
   "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
@@ -101,7 +101,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 11.62,
+  "gImplicito": 11.78,
   "gIntrinseco": -2.04,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
@@ -115,12 +115,12 @@
    "acciones": 439.375,
    "deudaNeta": 2535.2,
    "modo": "EV",
-   "precioBase": 56.7,
-   "gBase": 12.05,
-   "fechaBase": "2026-10-26",
+   "precioBase": 57.34,
+   "gBase": 12.3,
+   "fechaBase": "2026-10-27",
    "congeladoEl": "2026-10-27",
    "validado": false,
-   "desviacion": 0.43
+   "desviacion": 0.52
   }
  }
 }

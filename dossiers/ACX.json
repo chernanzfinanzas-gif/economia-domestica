@@ -11,7 +11,7 @@
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 16 % · DCF optimista 8 % · EV/EBITDA 31 % · P/VC 25 % · rentabilidad por dividendo 12 % · flujo base del DCF: fcl",
  "poBear": 10.04,
- "poBase": 12.46,
+ "poBase": 12.45,
  "poBull": 16.38,
  "entMin": 10.04,
  "entMax": 10.83,
@@ -34,25 +34,25 @@
  ],
  "bull": "16,38 € — escenario optimista: el ciclo vuelve a la parte alta (2021-2022) y NAS y Haynes rinden",
  "bear": "10,04 € — escenario pesimista: el inoxidable sigue en el suelo y NAS no se traduce en más caja",
- "resumen": "Cíclica en el suelo a un precio de recuperación. A 16,64 € (23-oct) el margen sobre el precio objetivo (12,46 €) es del −26,1 % y la cotización está un 56 % por encima del techo de la banda de entrada (10,04-10,83 €). Fallan dos de las cuatro condiciones: el margen y el rating (BB, 45). Con BB no puede ser COMPRAR aunque baje la cotización; pasaría a MANTENER por debajo de 11,70 € (margen del 5 %). Hay una señal S3 abierta: la cotización supera el PO bull (16,38 €).",
+ "resumen": "ESPERAR con la cotización de 17,10 € (2026-10-27): precio objetivo 12,45 € (bear 10,04 · bull 16,38), margen −27,2 %. Banda de entrada 10,04–10,83 €, stop de tesis 7,27 €.",
  "dividendSafety": {
-  "score": 23,
-  "banda": "Frágil",
+  "score": 11,
+  "banda": "Recorte probable",
   "aplica": true,
   "rama": "general",
   "componentes": {
    "C1": 0,
    "C2": 0,
    "C3": 5,
-   "C4": 15,
+   "C4": 3,
    "C5": 3
   },
   "topeDuro": {
    "activo": true,
-   "motivo": "Frágil: cobertura OE -0.38x · payout 111 % · 0 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
+   "motivo": "Recorte probable: cobertura OE -0.38x · payout 111 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
   },
   "motivos": [
-   "Frágil: cobertura OE -0.38x · payout 111 % · 0 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
+   "Recorte probable: cobertura OE -0.38x · payout 111 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
   ],
   "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",

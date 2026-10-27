@@ -35,7 +35,7 @@
  ],
  "bull": "22,71 € — escenario optimista: El plan 2025-2028 (unos 58.000 M€ de inversión bruta, dos tercios en redes) rinde lo anunciado (libro de octubre)",
  "bear": "18,53 € — escenario pesimista: La revisión regulatoria sale mal y el coste de la deuda no cede; terminal recortado al 1 % (libro de octubre)",
- "resumen": "Lo mismo que en septiembre: ESPERAR. A 21,90 € (23-oct) la cotización está por encima del precio objetivo (19,94 €) y casi en el bull (22,79 €). El rating es BBB por centésimas (62,0; A empieza en 62), así que aunque bajara no sería COMPRAR sino, como mucho, MANTENER. El veredicto depende del supuesto: con el WACC un punto más bajo y el terminal medio punto más alto, el precio objetivo sube a 34,46 € y pasaría a MANTENER. Para una tesis de renta, el dividendo es seguro (76).",
+ "resumen": "Lo mismo que en septiembre: ESPERAR. A 21,90 € (23-oct) la cotización está por encima del precio objetivo (19,87 €) y casi en el bull (22,71 €). El rating es BBB por centésimas (62,0; A empieza en 62), así que aunque bajara no sería COMPRAR sino, como mucho, MANTENER. El veredicto depende del supuesto: con el WACC un punto más bajo y el terminal medio punto más alto, el precio objetivo sube a 34,38 € y pasaría a MANTENER. Para una tesis de renta, el dividendo es seguro (76).",
  "dividendSafety": {
   "score": 76,
   "banda": "Seguro",
@@ -119,7 +119,7 @@
    "modo": "EV",
    "precioBase": 21.97,
    "gBase": 3.68,
-   "fechaBase": "2026-10-26",
+   "fechaBase": "2026-10-27",
    "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": 0.0
