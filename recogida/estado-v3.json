@@ -1,19 +1,325 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-27T10:45",
+ "generado": "2026-10-27T11:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
+  {
+   "carpeta": "A3M juicios escritos",
+   "ticker": "A3M",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:14",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Atresmedia (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "ACS juicios escritos",
+   "ticker": "ACS",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:05",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de ACS (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "ACX juicios escritos",
+   "ticker": "ACX",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:08",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Acerinox (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "AENA juicios escritos",
+   "ticker": "AENA",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:12",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Aena (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "AMS juicios escritos",
+   "ticker": "AMS",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:14",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Amadeus (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "ART juicios escritos",
+   "ticker": "ART",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:15",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Arteche (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "AZK juicios escritos",
+   "ticker": "AZK",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:08",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Azkoyen (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "BBVA juicios escritos",
+   "ticker": "BBVA",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:16",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de BBVA (1 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "BKT juicios escritos",
+   "ticker": "BKT",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:16",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Bankinter (1 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "CABK juicios escritos",
+   "ticker": "CABK",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:16",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de CaixaBank (1 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "CIE juicios escritos",
+   "ticker": "CIE",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:19",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de CIE (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "EBRO juicios escritos",
+   "ticker": "EBRO",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:19",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Ebro Foods (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "ELE juicios escritos",
+   "ticker": "ELE",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:20",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Endesa (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "ENG juicios escritos",
+   "ticker": "ENG",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:17",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Enagas (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "FAE juicios escritos",
+   "ticker": "FAE",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:15",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Faes Farma (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "FDR juicios escritos",
+   "ticker": "FDR",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:15",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Fluidra (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "GEST juicios escritos",
+   "ticker": "GEST",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:24",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Gestamp (4 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "IBE juicios escritos",
+   "ticker": "IBE",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:24",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Iberdrola (4 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "ITX juicios escritos",
+   "ticker": "ITX",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:20",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Inditex (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "LDA juicios escritos",
+   "ticker": "LDA",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:16",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Línea Directa (1 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "LOG juicios escritos",
+   "ticker": "LOG",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:15",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Logista (3 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "MAP juicios escritos",
+   "ticker": "MAP",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:17",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Mapfre (1 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "MCM juicios escritos",
+   "ticker": "MCM",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:24",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Miquel y Costas (4 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "MRL juicios escritos",
+   "ticker": "MRL",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:17",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Merlin Properties (2 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "NTGY juicios escritos",
+   "ticker": "NTGY",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:10",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Naturgy (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "PRM juicios escritos",
+   "ticker": "PRM",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:05",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Prim (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "R4 juicios escritos",
+   "ticker": "R4",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:17",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Renta 4 Banco (1 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "RED juicios escritos",
+   "ticker": "RED",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:10",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Redeia (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "REP juicios escritos",
+   "ticker": "REP",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:15",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Repsol (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "ROVI juicios escritos",
+   "ticker": "ROVI",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:17",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Rovi (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "SAN juicios escritos",
+   "ticker": "SAN",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:17",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Santander (1 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
   {
    "carpeta": "TEF juicios escritos",
    "ticker": "TEF",
    "periodos": [],
    "tipo": "juicios",
-   "creada": "2026-10-27T09:44",
+   "creada": "2026-10-27T10:15",
    "semaforo": null,
    "frase": "se completan los juicios razonados de Telefónica (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "UNI juicios escritos",
+   "ticker": "UNI",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:16",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Unicaja (2 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "VID juicios escritos",
+   "ticker": "VID",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:10",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Vidrala (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
+  },
+  {
+   "carpeta": "VIS juicios escritos",
+   "ticker": "VIS",
+   "periodos": [],
+   "tipo": "juicios",
+   "creada": "2026-10-27T10:19",
+   "semaforo": null,
+   "frase": "se completan los juicios razonados de Viscofan (8 bloques). Las cifras y la decisión no cambian; se añade la explicación de cada bloque."
   }
  ],
- "n_pendientes": 1,
+ "n_pendientes": 35,
  "ultima_subida": {
   "cuando": "2026-10-27T10:18",
   "ficheros": [
