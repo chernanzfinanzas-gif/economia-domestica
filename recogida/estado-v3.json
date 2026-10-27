@@ -1,130 +1,39 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-27T18:45",
+ "generado": "2026-10-27T19:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [
-  {
-   "carpeta": "A3M juicios escritos",
-   "ticker": "A3M",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T17:41",
-   "semaforo": null,
-   "frase": "recálculo del 27-oct por las correcciones de ejercicio y clase de los pagos de dividendo (comprobadas en documentos de la empresa; lista en datos/_correcciones_pagos.json). Precio objetivo 6.85 → 6.90 €; decisión MANTENER (no cambia). Los j"
-  },
-  {
-   "carpeta": "ACS juicios escritos",
-   "ticker": "ACS",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T17:38",
-   "semaforo": null,
-   "frase": "recálculo del 27-oct por las correcciones de ejercicio y clase de los pagos de dividendo (comprobadas en documentos de la empresa; lista en datos/_correcciones_pagos.json). Precio objetivo 68.79 → 68.77 €; decisión ESPERAR (no cambia). Los "
-  },
-  {
-   "carpeta": "ACX juicios escritos",
-   "ticker": "ACX",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T17:39",
-   "semaforo": null,
-   "frase": "recálculo del 27-oct por las correcciones de ejercicio y clase de los pagos de dividendo (comprobadas en documentos de la empresa; lista en datos/_correcciones_pagos.json). Precio objetivo 12.29 → 12.43 €; decisión ESPERAR (no cambia). Los "
-  },
-  {
-   "carpeta": "AENA juicios escritos",
-   "ticker": "AENA",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T17:42",
-   "semaforo": null,
-   "frase": "recálculo del 27-oct por las correcciones de ejercicio y clase de los pagos de dividendo (comprobadas en documentos de la empresa; lista en datos/_correcciones_pagos.json). Precio objetivo 16.37 → 16.34 €; decisión ESPERAR (no cambia). Los "
-  },
-  {
-   "carpeta": "AZK juicios escritos",
-   "ticker": "AZK",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T17:39",
-   "semaforo": null,
-   "frase": "recálculo del 27-oct por las correcciones de ejercicio y clase de los pagos de dividendo (comprobadas en documentos de la empresa; lista en datos/_correcciones_pagos.json). Precio objetivo 10.49 → 10.49 €; decisión ESPERAR (no cambia). Los "
-  },
-  {
-   "carpeta": "BKT juicios escritos",
-   "ticker": "BKT",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T17:40",
-   "semaforo": null,
-   "frase": "recálculo del 27-oct por las correcciones de ejercicio y clase de los pagos de dividendo (comprobadas en documentos de la empresa; lista en datos/_correcciones_pagos.json). Precio objetivo 12.06 → 11.89 €; decisión ESPERAR (no cambia). Los "
-  },
-  {
-   "carpeta": "FDR juicios escritos",
-   "ticker": "FDR",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T17:41",
-   "semaforo": null,
-   "frase": "recálculo del 27-oct por las correcciones de ejercicio y clase de los pagos de dividendo (comprobadas en documentos de la empresa; lista en datos/_correcciones_pagos.json). Precio objetivo 23.22 → 23.05 €; decisión MANTENER (no cambia). Los"
-  },
-  {
-   "carpeta": "ITX juicios escritos",
-   "ticker": "ITX",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T16:49",
-   "semaforo": null,
-   "frase": "se separa el dividendo extraordinario de Inditex (recurrente, 2017-2026) del ordinario, con las cifras de sus comunicados e informes. El dividendo total no cambia; el ordinario sí (la peor caída pasa de −60 % a −47 %, en el covid). Precio o"
-  },
-  {
-   "carpeta": "NTGY juicios escritos",
-   "ticker": "NTGY",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T17:39",
-   "semaforo": null,
-   "frase": "recálculo del 27-oct por las correcciones de ejercicio y clase de los pagos de dividendo (comprobadas en documentos de la empresa; lista en datos/_correcciones_pagos.json). Precio objetivo 31.17 → 31.15 €; decisión ESPERAR (no cambia). Los "
-  },
-  {
-   "carpeta": "PRM juicios escritos",
-   "ticker": "PRM",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T17:41",
-   "semaforo": null,
-   "frase": "recálculo del 27-oct por las correcciones de ejercicio y clase de los pagos de dividendo (comprobadas en documentos de la empresa; lista en datos/_correcciones_pagos.json). Precio objetivo 11.39 → 11.36 €; decisión ESPERAR (no cambia). Los "
-  },
-  {
-   "carpeta": "ROVI juicios escritos",
-   "ticker": "ROVI",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T17:38",
-   "semaforo": null,
-   "frase": "recálculo del 27-oct por las correcciones de ejercicio y clase de los pagos de dividendo (comprobadas en documentos de la empresa; lista en datos/_correcciones_pagos.json). Precio objetivo 61.31 → 61.32 €; decisión ESPERAR (no cambia). Los "
-  },
-  {
-   "carpeta": "VIS juicios escritos",
-   "ticker": "VIS",
-   "periodos": [],
-   "tipo": "juicios",
-   "creada": "2026-10-27T17:38",
-   "semaforo": null,
-   "frase": "recálculo del 27-oct por las correcciones de ejercicio y clase de los pagos de dividendo (comprobadas en documentos de la empresa; lista en datos/_correcciones_pagos.json). Precio objetivo 52.91 → 52.96 €; decisión ESPERAR (no cambia). Los "
-  }
- ],
- "n_pendientes": 12,
+ "revisiones_pendientes": [],
+ "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-10-27T17:45",
+  "cuando": "2026-10-27T19:45",
   "ficheros": [
+   "dossiers/A3M.json",
+   "dossiers/ACS.json",
+   "dossiers/ACX.json",
+   "dossiers/AENA.json",
+   "dossiers/AZK.json",
+   "dossiers/BKT.json",
+   "dossiers/CIE.json",
+   "dossiers/FAE.json",
+   "dossiers/FDR.json",
    "dossiers/NTGY.json",
-   "dossiers/REP.json",
-   "dossiers/SAN.json",
-   "dossiers/TEF.json",
+   "dossiers/PRM.json",
+   "dossiers/ROVI.json",
+   "dossiers/VIS.json",
+   "dossiers/trimestral/A3M-trim.json",
+   "dossiers/v3/A3M.html",
    "dossiers/v3/ACS.html",
+   "dossiers/v3/ACX.html",
+   "dossiers/v3/AENA.html",
+   "dossiers/v3/AZK.html",
+   "dossiers/v3/CIE.html",
+   "dossiers/v3/FAE.html",
+   "dossiers/v3/FDR.html",
+   "dossiers/v3/ITX.html",
    "dossiers/v3/NTGY.html",
-   "dossiers/v3/REP.html",
-   "dossiers/v3/SAN.html",
-   "dossiers/v3/TEF.html"
+   "dossiers/v3/PRM.html",
+   "dossiers/v3/ROVI.html",
+   "dossiers/v3/VIS.html"
   ]
  },
  "rechazos": [],

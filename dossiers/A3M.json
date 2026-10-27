@@ -4,19 +4,19 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "A3M",
  "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
- "fecha": "2026-10-25",
- "revisadoEl": "2026-10-26",
- "rating": "A",
- "score": 66.4,
+ "fecha": "2026-10-27",
+ "revisadoEl": "2026-10-27",
+ "rating": "AA",
+ "score": 79.0,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 30 % · DCF optimista 10 % · EV/EBITDA 12 % · EV/EBIT 8 % · PER 10 % · P/VC 5 % · P/FCL 5 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl",
- "poBear": 5.37,
- "poBase": 7.11,
- "poBull": 10.5,
- "entMin": 5.37,
- "entMax": 6.18,
- "stop": 3.95,
- "dpaPrevisto": 0.6484,
+ "poBear": 5.17,
+ "poBase": 6.9,
+ "poBull": 9.96,
+ "entMin": 5.17,
+ "entMax": 6.0,
+ "stop": 3.71,
+ "dpaPrevisto": 0.39,
  "moat": "54,9 sobre 100 · MOAT ESTRECHO. El duopolio protege el soporte, no el mercado publicitario",
  "catalizadores": [
   "Fever ya está vendido: Vendido el 5 % de Fever por 227 M€ (23-sep-2026); dividendo a cuenta de 0,83 € (187,3 M€) el 16-dic-2026. Al modelo solo se le da lo que queda dentro: 39,7 M€ menos de deuda neta. (18-nov / 16-dic-2026)",
@@ -35,16 +35,16 @@
   "El dividendo se corta del todo (Baja-Media): DPA −50 % y −100 %. El daño es a la renta del accionista, no a la valoración (la pata de renta pesa 10).",
   "Parada prolongada de la emisión o de los sistemas de venta (Baja-Media): Ingresos −2 % y 10 M€ de remediación; duro: −5 % y 20 M€."
  ],
- "bull": "10,50 € — escenario optimista: el duopolio se convierte en precio",
- "bear": "5,37 € — escenario pesimista: la publicidad se va al vídeo digital y el duopolio deja de defender el precio",
- "resumen": "MANTENER con la cotización de 5,83 € (2026-10-26): precio objetivo 7,11 € (bear 5,37 · bull 10,50), margen +21,9 %. Banda de entrada 5,37–6,18 €, stop de tesis 3,95 €. Veto por dividendo frágil: seguridad del dividendo 30/100 en 2025 (por debajo de 40).",
+ "bull": "9,96 € — escenario optimista: el duopolio se convierte en precio",
+ "bear": "5,17 € — escenario pesimista: la publicidad se va al vídeo digital y el duopolio deja de defender el precio",
+ "resumen": "MANTENER con la cotización de 5,83 € (2026-10-27): precio objetivo 6,90 € (bear 5,17 · bull 9,96), margen +18,4 %. Banda de entrada 5,17–6,00 €, stop de tesis 3,71 €. Veto por dividendo frágil: seguridad del dividendo 38/100 en 2025 (por debajo de 40).",
  "dividendSafety": {
-  "score": 30,
+  "score": 38,
   "banda": "Frágil",
   "aplica": true,
   "rama": "general",
   "componentes": {
-   "C1": 2,
+   "C1": 10,
    "C2": 0,
    "C3": 19,
    "C4": 0,
@@ -55,11 +55,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Frágil: cobertura OE 0.62x · payout 236 % · 4 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja"
+   "Frágil: cobertura OE 1.03x · payout 142 % · 4 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja"
   ],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 13.45
+  "shareholderYield": 8.15
  },
  "forense": {
   "aplica": true,
@@ -98,7 +98,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -107,7 +107,7 @@
   "gIntrinseco": 1.59,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-10-26",
+  "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 133.8328,
@@ -119,8 +119,8 @@
    "modo": "EV",
    "precioBase": 5.83,
    "gBase": -8.12,
-   "fechaBase": "2026-10-26",
-   "congeladoEl": "2026-10-26",
+   "fechaBase": "2026-10-27",
+   "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": -0.0
   }

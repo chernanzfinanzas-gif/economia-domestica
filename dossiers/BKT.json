@@ -10,12 +10,12 @@
  "score": 73.0,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): ptbv_pesimista 8 % · ptbv_base 26 % · ptbv_optimista 8 % · m_ptbv 11 % · m_per 7 % · m_pvc 5 % · m_rpd 35 % · flujo base del DCF: P/TBV justificado (banca)",
- "poBear": 10.54,
- "poBase": 12.06,
- "poBull": 14.1,
- "entMin": 8.18,
- "entMax": 10.48,
- "stop": 7.43,
+ "poBear": 10.37,
+ "poBase": 11.89,
+ "poBull": 13.94,
+ "entMin": 8.07,
+ "entMax": 10.34,
+ "stop": 7.34,
  "dpaPrevisto": 0.6015,
  "moat": "64,7 sobre 100 · MOAT MODERADO. Sin ajuste",
  "catalizadores": [
@@ -32,11 +32,11 @@
   "Vuelve el impuesto a la banca (Media): 95 M€ en 2024 y cero en 2025: si vuelve, no es deducible (134 M€ antes de impuestos de equivalente); el doble en el extremo duro.",
   "Interrupción prolongada de los sistemas de un banco digital (Baja): 8,3 M€ de margen bruto al día: se pierden 5 o 20 días."
  ],
- "bull": "14,10 € — escenario optimista: el pico se queda: media del RoTE publicado de 2023-2025",
- "bear": "10,54 € — escenario pesimista: media del RoTE de 2016-2019, los cuatro años de tipo cero",
- "resumen": "ESPERAR. A 14,01 € cotiza un 9 % por encima del bull (12,87 €) y un 49 % por encima del techo de compra (9,43 €). Es el más barato de los seis respecto a lo que vale y con el dividendo muy seguro (83), pero sigue sin margen.",
+ "bull": "13,94 € — escenario optimista: el pico se queda: media del RoTE publicado de 2023-2025",
+ "bear": "10,37 € — escenario pesimista: media del RoTE de 2016-2019, los cuatro años de tipo cero",
+ "resumen": "ESPERAR. A 14,01 € cotiza un 9 % por encima del bull (12,87 €) y un 49 % por encima del techo de compra (9,43 €). Es el más barato de los seis respecto a lo que vale y con el dividendo muy seguro (89), pero sigue sin margen.",
  "dividendSafety": {
-  "score": 83,
+  "score": 89,
   "banda": "Muy seguro",
   "aplica": true,
   "rama": "banca",
@@ -46,7 +46,7 @@
    "motivo": ""
   },
   "motivos": [
-   "Muy seguro · payout del dividendo 50 % → 30/30 · CET1 12.7 % → 20/25 · RoTE 20.0 % → 20/20 · 2 recorte(s) en 10 años → 3/15 · predictores: ninguno → 10/10"
+   "Muy seguro · payout del dividendo 50 % → 30/30 · CET1 12.7 % → 20/25 · RoTE 20.0 % → 20/20 · 1 recorte(s) en 10 años → 9/15 · predictores: ninguno → 10/10"
   ],
   "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",

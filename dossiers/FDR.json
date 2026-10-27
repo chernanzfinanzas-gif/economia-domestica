@@ -5,18 +5,18 @@
  "ticker": "FDR",
  "empresa": "Fluidra, S.A.",
  "fecha": "2026-10-27",
- "revisadoEl": "2026-10-26",
+ "revisadoEl": "2026-10-27",
  "rating": "BBB",
  "score": 53.8,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 20 % · DCF optimista 10 % · EV/EBITDA 12 % · EV/EBIT 12 % · PER 10 % · P/VC 4 % · P/FCL 12 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl",
- "poBear": 17.25,
- "poBase": 23.22,
- "poBull": 32.41,
- "entMin": 17.25,
- "entMax": 19.6,
- "stop": 13.22,
- "dpaPrevisto": 0.62,
+ "poBear": 17.11,
+ "poBase": 23.05,
+ "poBull": 32.22,
+ "entMin": 17.11,
+ "entMax": 19.44,
+ "stop": 13.1,
+ "dpaPrevisto": 0.65,
  "moat": "52,2 sobre 100 · MOAT ESTRECHO. Líder mundial de equipamiento de piscina con red de distribución y marca, que las huellas del ROIC no recogen",
  "catalizadores": [
   "La guía de 2026 se cumple: Punto medio: ventas +5 % y margen +0,9 pp. En 2025 el BPA ajustado quedó por debajo del rango. (2026)",
@@ -33,9 +33,9 @@
   "El mercado deja de pagar los múltiplos de la década (Media): Múltiplos −15 % y −25 %.",
   "Caída de sistemas en plena temporada (Baja): Ventas −2 % y −5 %."
  ],
- "bull": "32,41 € — escenario optimista: orgánico del 6 % como en 2025, sin bajar el WACC del suelo",
- "bear": "17,25 € — escenario pesimista: el WACC que la propia Fluidra usa en sus pruebas de deterioro, con poco crecimiento",
- "resumen": "Buen precio, calidad justa. La cotización (18,10 €, 23-oct) está dentro de la banda de entrada (17,36-19,73 €) con un margen del +29 %. Tres de las cuatro condiciones de compra se cumplen. Falla el rating: BBB (53,8) cuando se exige A. El dossier de septiembre decía COMPRAR con rating A. Ahora el método no deja comprar hasta que la calidad suba, y parte de esa nota se debe a la amortización sin depurar (Bloque 5). El veredicto no depende del supuesto: con WACC ±1 y terminal ±0,5 el margen va del +18 % al +47 %.",
+ "bull": "32,22 € — escenario optimista: orgánico del 6 % como en 2025, sin bajar el WACC del suelo",
+ "bear": "17,11 € — escenario pesimista: el WACC que la propia Fluidra usa en sus pruebas de deterioro, con poco crecimiento",
+ "resumen": "Buen precio, calidad justa. La cotización (18,10 €, 23-oct) está dentro de la banda de entrada (17,11-19,44 €) con un margen del +27 %. Tres de las cuatro condiciones de compra se cumplen. Falla el rating: BBB (53,8) cuando se exige A. El dossier de septiembre decía COMPRAR con rating A. Ahora el método no deja comprar hasta que la calidad suba, y parte de esa nota se debe a la amortización sin depurar (Bloque 5). El veredicto no depende del supuesto: con WACC ±1 y terminal ±0,5 el margen va del +17 % al +46 %.",
  "dividendSafety": {
   "score": 51,
   "banda": "Vigilar",
@@ -53,11 +53,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Vigilar: cobertura OE 1.26x · payout 81 % · 3 recorte(s) del DPA"
+   "Vigilar: cobertura OE 1.27x · payout 80 % · 3 recorte(s) del DPA"
   ],
   "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 5.14
+  "shareholderYield": 5.27
  },
  "forense": {
   "aplica": true,

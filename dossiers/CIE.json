@@ -10,12 +10,12 @@
  "score": 67.1,
  "decision": "COMPRAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 20 % · DCF optimista 10 % · EV/EBITDA 14 % · EV/EBIT 11 % · PER 13 % · P/VC 5 % · P/FCL 12 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
- "poBear": 29.61,
- "poBase": 37.68,
- "poBull": 45.82,
- "entMin": 29.61,
- "entMax": 32.77,
- "stop": 13.63,
+ "poBear": 29.95,
+ "poBase": 38.11,
+ "poBull": 46.35,
+ "entMin": 29.95,
+ "entMax": 33.14,
+ "stop": 13.79,
  "dpaPrevisto": 0.94,
  "moat": "54,6 sobre 100 · MOAT ESTRECHO. Un solo pilar, el coste: proveedor de componentes sin poder frente al fabricante",
  "catalizadores": [
@@ -33,11 +33,11 @@
   "El múltiplo se comprime con el negocio creciendo (Media): Múltiplos −15 % y −25 %.",
   "Fondo de comercio: el 122 % del patrimonio (Media): Deterioro del 30 %; duro: del 60 % con múltiplos −15 %. El modelo es casi ciego: solo el P/VC usa el valor contable."
  ],
- "bull": "45,82 € — escenario optimista: compras integradas y margen intacto",
- "bear": "29,61 € — escenario pesimista: la producción mundial de vehículos no crece",
- "resumen": "Se cumplen las cuatro condiciones. A 25,45 € (23-oct) la cotización está un 14 % por debajo del suelo de la banda de entrada (29,61-32,77 €) y el margen es del +47,9 %; calidad A (67,1), moat 54,6 y pérdida al bear desde la entrada máxima de solo un 9,7 %. Dejaría de ser COMPRAR por encima de 32,77 € (PO/1,15). Por ser una cíclica con un riesgo de cola grande (la peor cadena resta un 61 % al PO), la posición conviene de tamaño normal, no grande.",
+ "bull": "46,35 € — escenario optimista: compras integradas y margen intacto",
+ "bear": "29,95 € — escenario pesimista: la producción mundial de vehículos no crece",
+ "resumen": "Se cumplen las cuatro condiciones. A 25,45 € (23-oct) la cotización está un 14 % por debajo del suelo de la banda de entrada (29,95-33,14 €) y el margen es del +47,9 %; calidad A (67,1), moat 54,6 y pérdida al bear desde la entrada máxima de solo un 9,6 %. Dejaría de ser COMPRAR por encima de 33,14 € (PO/1,15). Por ser una cíclica con un riesgo de cola grande (la peor cadena resta un 61 % al PO), la posición conviene de tamaño normal, no grande.",
  "dividendSafety": {
-  "score": 83,
+  "score": 89,
   "banda": "Muy seguro",
   "aplica": true,
   "rama": "general",
@@ -45,7 +45,7 @@
    "C1": 35,
    "C2": 15,
    "C3": 15,
-   "C4": 3,
+   "C4": 9,
    "C5": 15
   },
   "topeDuro": {
@@ -53,7 +53,7 @@
    "motivo": ""
   },
   "motivos": [
-   "Muy seguro: cobertura OE 3.44x · payout 34 % · 2 recorte(s) del DPA"
+   "Muy seguro: cobertura OE 3.44x · payout 34 % · 1 recorte(s) del DPA"
   ],
   "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
@@ -103,7 +103,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -5.01,
+  "gImplicito": -5.19,
   "gIntrinseco": 2.44,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
@@ -117,9 +117,9 @@
    "acciones": 119.0716,
    "deudaNeta": 1172.878,
    "modo": "EV",
-   "precioBase": 25.9,
-   "gBase": -5.01,
-   "fechaBase": "2026-10-26",
+   "precioBase": 25.45,
+   "gBase": -5.19,
+   "fechaBase": "2026-10-27",
    "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": -0.0

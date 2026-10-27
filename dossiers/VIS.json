@@ -5,18 +5,18 @@
  "ticker": "VIS",
  "empresa": "Viscofan, S.A.",
  "fecha": "2026-10-27",
- "revisadoEl": "2026-10-26",
+ "revisadoEl": "2026-10-27",
  "rating": "AA",
  "score": 76.9,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 11 % · DCF base 32 % · DCF optimista 11 % · EV/EBITDA 8 % · EV/EBIT 6 % · PER 9 % · P/VC 6 % · P/FCL 6 % · rentabilidad por dividendo 11 % · flujo base del DCF: fcl",
- "poBear": 40.99,
- "poBase": 52.91,
- "poBull": 64.07,
- "entMin": 40.99,
- "entMax": 46.01,
- "stop": 29.01,
- "dpaPrevisto": 3.24,
+ "poBear": 41.14,
+ "poBase": 53.06,
+ "poBull": 64.24,
+ "entMin": 41.14,
+ "entMax": 46.14,
+ "stop": 29.08,
+ "dpaPrevisto": 3.282,
  "moat": "74,0 sobre 100 · MOAT MODERADO. Líder mundial de envolturas con cuatro tecnologías, pero el precio de la envoltura ya cede",
  "catalizadores": [
   "Recuperación del mix de precio: Precio +1 % con el volumen quieto. (2S-2026 y 2027)",
@@ -33,19 +33,19 @@
   "Reparto por encima de la caja libre (Media): Dividendo a la mitad y suprimido.",
   "De-rating del múltiplo (Media): Múltiplos −15 % y −25 %."
  ],
- "bull": "64,07 € — escenario optimista: Beat'30 entrega volumen y el precio se recupera",
- "bear": "40,99 € — escenario pesimista: el mix de precio sigue negativo y Beat'30 no entrega volumen",
- "resumen": "ESPERAR, y es solo por precio. Cumple tres de las cuatro condiciones: pérdida al bear (−10,9 %), rating AA (76,9) y moat (74). Falla el margen: a 55,20 € (23-oct) cotiza un 4 % por encima del precio objetivo (52,91 €). Pasaría a MANTENER por debajo de 50,39 € (margen del 5 %) y a COMPRAR por debajo de 46,01 €, el techo de la banda. El veredicto depende del supuesto: con el WACC un punto más bajo y el terminal medio punto más alto, el precio objetivo sube a 61,48 € y el veredicto pasaría a MANTENER.",
+ "bull": "64,24 € — escenario optimista: Beat'30 entrega volumen y el precio se recupera",
+ "bear": "41,14 € — escenario pesimista: el mix de precio sigue negativo y Beat'30 no entrega volumen",
+ "resumen": "ESPERAR, y es solo por precio. Cumple tres de las cuatro condiciones: pérdida al bear (−10,8 %), rating AA (76,9) y moat (74). Falla el margen: a 55,20 € (23-oct) cotiza un 4 % por encima del precio objetivo (53,06 €). Pasaría a MANTENER por debajo de 50,53 € (margen del 5 %) y a COMPRAR por debajo de 46,14 €, el techo de la banda. El veredicto depende del supuesto: con el WACC un punto más bajo y el terminal medio punto más alto, el precio objetivo sube a 61,63 € y el veredicto pasaría a MANTENER.",
  "dividendSafety": {
-  "score": 55,
-  "banda": "Vigilar",
+  "score": 61,
+  "banda": "Seguro",
   "aplica": true,
   "rama": "general",
   "componentes": {
    "C1": 10,
    "C2": 4,
    "C3": 20,
-   "C4": 9,
+   "C4": 15,
    "C5": 12
   },
   "topeDuro": {
@@ -53,11 +53,11 @@
    "motivo": ""
   },
   "motivos": [
-   "Vigilar: cobertura OE 1.08x · payout 94 % · 1 recorte(s) del DPA · señales: DN/EBITDA al alza"
+   "Seguro: cobertura OE 1.07x · payout 94 % · 0 recorte(s) del DPA · señales: DN/EBITDA al alza"
   ],
   "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
-  "shareholderYield": 9.92
+  "shareholderYield": 10.0
  },
  "forense": {
   "aplica": true,
@@ -101,7 +101,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 8.62,
+  "gImplicito": 8.55,
   "gIntrinseco": 7.43,
   "veredicto": "EXIGENTE",
   "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 7.4 %)",
@@ -115,9 +115,9 @@
    "acciones": 45.6906,
    "deudaNeta": 253.528,
    "modo": "EV",
-   "precioBase": 54.3,
-   "gBase": 8.62,
-   "fechaBase": "2026-10-26",
+   "precioBase": 54.0,
+   "gBase": 8.55,
+   "fechaBase": "2026-10-27",
    "congeladoEl": "2026-10-27",
    "validado": true,
    "desviacion": 0.0

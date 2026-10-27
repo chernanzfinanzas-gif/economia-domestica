@@ -11,8 +11,8 @@
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 10 % · EV/EBIT 9 % · PER 12 % · P/VC 6 % · P/FCL 8 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl",
  "poBear": 1.87,
- "poBase": 2.78,
- "poBull": 5.54,
+ "poBase": 2.79,
+ "poBull": 5.55,
  "entMin": 1.87,
  "entMax": 2.42,
  "stop": 1.81,
@@ -35,11 +35,11 @@
   "Nutrición y salud animal, y la peste porcina africana (Baja-Media): El segmento es el 13 % de los ingresos: −20 % y −40 %.",
   "Ciberseguridad, que la empresa declara como riesgo principal (Baja-Media): Ingresos −3 % y 5 M€ de coste; parada larga: −8 % y 15 M€."
  ],
- "bull": "5,54 € — escenario optimista: SIFI y Edol alcanzan el margen del grupo y la planta de Derio devuelve",
+ "bull": "5,55 € — escenario optimista: SIFI y Edol alcanzan el margen del grupo y la planta de Derio devuelve",
  "bear": "1,87 € — escenario pesimista: el ciclo de patentes se come la franquicia y la integración no rinde",
- "resumen": "Buena empresa, precio muy alto. A 4,68 € (26-oct) la cotización está un 61 % por encima del precio objetivo (2,78 €) y un 85 % por encima del techo de la banda (1,87-2,42 €). La calidad cumple (AA, moat 54), pero el margen es del −37,7 %. Lo que cambiaría la decisión es que SIFI, Edol y Derio rindan y suban el flujo, no la cotización. La señal S3 (cotización por encima del PO) obliga a revisar el PO, no a vender.",
+ "resumen": "Buena empresa, precio muy alto. A 4,68 € (26-oct) la cotización está un 61 % por encima del precio objetivo (2,79 €) y un 85 % por encima del techo de la banda (1,87-2,42 €). La calidad cumple (AA, moat 54), pero el margen es del −37,7 %. Lo que cambiaría la decisión es que SIFI, Edol y Derio rindan y suban el flujo, no la cotización. La señal S3 (cotización por encima del PO) obliga a revisar el PO, no a vender.",
  "dividendSafety": {
-  "score": 62,
+  "score": 65,
   "banda": "Seguro",
   "aplica": true,
   "rama": "general",
@@ -47,7 +47,7 @@
    "C1": 27,
    "C2": 13,
    "C3": 16,
-   "C4": 0,
+   "C4": 3,
    "C5": 6
   },
   "topeDuro": {
@@ -55,7 +55,7 @@
    "motivo": ""
   },
   "motivos": [
-   "Seguro: cobertura OE 1.93x · payout 52 % · 3 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja, beneficio a la baja"
+   "Seguro: cobertura OE 1.93x · payout 52 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja, beneficio a la baja"
   ],
   "calculadoEl": "2026-10-27",
   "origen": "metodo-v3",
@@ -105,7 +105,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 18.76,
+  "gImplicito": 18.91,
   "gIntrinseco": 11.52,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
@@ -119,12 +119,12 @@
    "acciones": 316.22,
    "deudaNeta": 315.98,
    "modo": "EV",
-   "precioBase": 4.685,
-   "gBase": 24.44,
-   "fechaBase": "2026-10-26",
+   "precioBase": 4.74,
+   "gBase": 24.69,
+   "fechaBase": "2026-10-27",
    "congeladoEl": "2026-10-27",
    "validado": false,
-   "desviacion": 5.68
+   "desviacion": 5.78
   }
  }
 }
