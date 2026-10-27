@@ -155,9 +155,26 @@ var _EVO_TIPO_INFO={
   '':                {label:'Sin clasificar',      def:'sin tipo asignado', bg:'#f1f5f9', fg:'#94a3b8'}
 };
 function _evoTipoInfo(code){ var k=(code==null?'':(''+code)).trim(); if(_EVO_TIPO_INFO[k]) return _EVO_TIPO_INFO[k]; var lk=k.toLowerCase(); if(_EVO_TIPO_INFO[lk]) return _EVO_TIPO_INFO[lk]; return {label:(k||'—'), def:'', bg:'#f1f5f9', fg:'#475569'}; }
-function _evoTipoBadge(tipo,previsto){
-  var raw=(tipo==null||tipo==='')?'—':(''+tipo); var inf=_evoTipoInfo(tipo);
-  var tip=inf.label+(inf.def?(' — '+inf.def):'');
+/* 27-oct-2026 · Carlos: la etiqueta visible debe ser ordinario / extraordinario recurrente /
+   extraordinario no recurrente / prima asistencia — nunca el código crudo (I, F, o, —). Si el pago
+   ya tiene "clase" (ordinario/recurrente/puntual, que es lo que trae el método), se usa esa; si no
+   (dato antiguo sin tocar), se cae al código de "tipo" de siempre, por compatibilidad. */
+var _EVO_CLASE_INFO={
+  'ordinario':  {label:'Ordinario',                     def:'pago ordinario recurrente', bg:'#e2e8f0', fg:'#334155'},
+  'recurrente': {label:'Extraordinario recurrente',      def:'pago extra que se repite ejercicio tras ejercicio', bg:'#fef3c7', fg:'#92400e'},
+  'puntual':    {label:'Extraordinario puntual',         def:'venta de un activo o caja acumulada: fuera del dividendo recurrente', bg:'#fee2e2', fg:'#9f1239'}
+};
+function _evoTipoBadge(tipo,previsto,clase){
+  var ci=clase?_EVO_CLASE_INFO[(''+clase).toLowerCase()]:null;
+  var raw, inf, tip;
+  if(ci){ raw=ci.label; inf=ci; tip=ci.label+(ci.def?(' — '+ci.def):''); }
+  else {
+    /* dato de prima de asistencia u otro "tipo" especial sin clase: se mantiene el nombre completo si ya es legible */
+    var esTexto=(tipo!=null&&tipo!==''&&(''+tipo).length>2);
+    inf=_evoTipoInfo(tipo);
+    raw=esTexto?inf.label:((tipo==null||tipo==='')?'—':(''+tipo));
+    tip=inf.label+(inf.def?(' — '+inf.def):'');
+  }
   var h='<span title="'+_evoEsc(tip)+'" style="font-size:9px;font-weight:700;background:'+inf.bg+';color:'+inf.fg+';padding:1px 6px;border-radius:6px;cursor:help">'+_evoEsc(raw)+'</span>';
   if(previsto) h+=' <span title="Pago previsto, aún sin confirmar" style="font-size:9px;font-weight:700;background:#fff7ed;color:#c2410c;padding:1px 5px;border-radius:6px;cursor:help">previsto</span>';
   return h;
@@ -717,7 +734,7 @@ function _evoEditHTML(r){
     +'<td><input type="date" data-dp="'+esc(t)+'|'+Y+'|'+i+'|pago" value="'+esc((p.pago||'').slice(0,10))+'" style="'+inpS+'"></td>'
     +'<td><input type="number" step="0.0001" data-dp="'+esc(t)+'|'+Y+'|'+i+'|bruto" value="'+esc(p.bruto==null?'':p.bruto)+'" style="'+inpS+';text-align:right"></td>'
     +'<td><input type="number" step="0.0001" data-dp="'+esc(t)+'|'+Y+'|'+i+'|neto" value="'+esc(p.neto==null?'':p.neto)+'" style="'+inpS+';text-align:right"></td>'
-    +'<td><select data-dp="'+esc(t)+'|'+Y+'|'+i+'|tipo" style="'+inpS+'">'+_evoTipoOpts(p.tipo)+'</select><div style="margin-top:2px">'+_evoTipoBadge(p.tipo,p.previsto)+'</div></td>'
+    +'<td><select data-dp="'+esc(t)+'|'+Y+'|'+i+'|tipo" style="'+inpS+'">'+_evoTipoOpts(p.tipo)+'</select><div style="margin-top:2px">'+_evoTipoBadge(p.tipo,p.previsto,p.clase)+'</div></td>'
     +'<td style="text-align:center"><input type="checkbox" data-dpb="'+esc(t)+'|'+Y+'|'+i+'|previsto"'+(p.previsto?' checked':'')+' title="Pago previsto (sin confirmar)"></td>'
     +'<td><button class="btn sm" data-dpdel="'+esc(t)+'|'+Y+'|'+i+'" title="Borrar pago" style="color:#dc2626">✕</button></td>'
     +'</tr>'; }).join('');
@@ -756,7 +773,7 @@ function _evoDetalleHTML(r){
     pagosHTML='<table style="width:auto;font-size:12px"><thead><tr>'
       +'<th>#</th><th>Ex-dividendo</th><th>Pago</th><th class="num">Bruto (€)</th><th class="num">Neto (€)</th><th>Tipo</th></tr></thead><tbody>'
       +pagos.map(function(p,i){ return '<tr><td>'+(i+1)+'</td><td>'+_evoFecha(p.exDiv)+'</td><td>'+_evoFecha(p.pago)+'</td>'
-        +'<td class="num">'+_evoPf(p.bruto,4)+'</td><td class="num">'+_evoPf(p.neto,4)+'</td><td>'+_evoTipoBadge(p.tipo,p.previsto)+'</td></tr>'; }).join('')
+        +'<td class="num">'+_evoPf(p.bruto,4)+'</td><td class="num">'+_evoPf(p.neto,4)+'</td><td>'+_evoTipoBadge(p.tipo,p.previsto,p.clase)+'</td></tr>'; }).join('')
       +'</tbody></table>';
   }
   return editBtn+notaHTML+metaHTML+_evoControlHTML(a)+pagosHTML;

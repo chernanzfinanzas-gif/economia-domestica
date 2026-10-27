@@ -458,9 +458,9 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.39,
-"dpaNeto": 0.3159,
-"nPagos": 2,
+"dpaBruto": 1.04,
+"dpaNeto": 0.8424,
+"nPagos": 3,
 "deltaPct": -0.4,
 "racha": 6,
 "naturaleza": "efectivo",
@@ -481,7 +481,7 @@
 "exDiv": "2026-12-15",
 "pago": "2026-12-17",
 "bruto": 0.16,
-"neto": 0.1458,
+"neto": 0.1296,
 "tipo": null,
 "ejercicio": "2026",
 "clase": "ordinario"
@@ -490,7 +490,7 @@
 "exDiv": "2026-12-15",
 "pago": "2026-12-17",
 "bruto": 0.67,
-"neto": 0.1458,
+"neto": 0.5427,
 "tipo": "extraordinario",
 "ejercicio": "2026",
 "clase": "puntual"
@@ -1312,7 +1312,7 @@
 ]
 },
 "2020": {
-"dpaBruto": 0.6,
+"dpaBruto": 0.5,
 "dpaNeto": 0.424,
 "nPagos": 2,
 "deltaPct": 0.2,
@@ -6656,9 +6656,9 @@
 ]
 },
 "2019": {
-"dpaBruto": 1.217,
+"dpaBruto": 1.2168,
 "dpaNeto": 0.9856,
-"nPagos": 1,
+"nPagos": 2,
 "deltaPct": 6.801282,
 "racha": 5,
 "naturaleza": "efectivo",
@@ -6670,7 +6670,7 @@
 "exDiv": "2019-06-17",
 "pago": "2019-06-19",
 "bruto": 0.1918,
-"neto": 0.985598,
+"neto": 0.1554,
 "tipo": "o",
 "ejercicio": "2018",
 "clase": "ordinario"
@@ -6679,7 +6679,7 @@
 "exDiv": "2019-06-17",
 "pago": "2019-06-19",
 "bruto": 1.025,
-"neto": 0.985598,
+"neto": 0.8302,
 "tipo": "extraordinario",
 "ejercicio": "2018",
 "clase": "puntual"
@@ -6721,9 +6721,9 @@
 ]
 },
 "2022": {
-"dpaBruto": 1.056,
+"dpaBruto": 1.058,
 "dpaNeto": 0.857,
-"nPagos": 1,
+"nPagos": 2,
 "deltaPct": 4.28,
 "racha": 2,
 "naturaleza": "efectivo",
@@ -6735,7 +6735,7 @@
 "exDiv": "2022-07-14",
 "pago": "2022-07-18",
 "bruto": 0.2367,
-"neto": 0.857,
+"neto": 0.1917,
 "tipo": "o",
 "ejercicio": "2021",
 "clase": "ordinario"
@@ -6744,7 +6744,7 @@
 "exDiv": "2022-07-14",
 "pago": "2022-07-18",
 "bruto": 0.8213,
-"neto": 0.857,
+"neto": 0.6653,
 "tipo": "extraordinario",
 "ejercicio": "2021",
 "clase": "puntual"
@@ -7937,9 +7937,9 @@
 ]
 },
 "2021": {
-"dpaBruto": 0.2346,
+"dpaBruto": 1.5516,
 "dpaNeto": 0.19,
-"nPagos": 3,
+"nPagos": 4,
 "deltaPct": 1.403689,
 "racha": 11,
 "naturaleza": "efectivo",
@@ -9818,7 +9818,7 @@
 "moneda": "EUR",
 "domicilioFiscal": null,
 "origen": null,
-"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 6.1% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,0255 €; 2024: 0,0398 €; 2025: 0,0408 €.",
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 6.1% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'.",
 "anios": {},
 "paga": true
 },
@@ -9829,7 +9829,7 @@
 "moneda": "EUR",
 "domicilioFiscal": null,
 "origen": null,
-"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.0% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,7996 €; 2024: 1,538 €; 2025: 1,5698 €.",
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.0% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'.",
 "anios": {},
 "paga": true
 },
@@ -10878,9 +10878,9 @@
 ]
 },
 "2018": {
-"dpaBruto": 0.56,
+"dpaBruto": 3.7,
 "dpaNeto": 0.267,
-"nPagos": 2,
+"nPagos": 3,
 "deltaPct": 0.365854,
 "racha": 7,
 "naturaleza": "efectivo",
@@ -11838,7 +11838,7 @@
 "moneda": "EUR",
 "domicilioFiscal": null,
 "origen": null,
-"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.1% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,75 €; 2024: 1,07 €; 2025: 1,11 €.",
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.1% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'.",
 "anios": {},
 "paga": true
 },
@@ -12391,7 +12391,7 @@
 "moneda": "EUR",
 "domicilioFiscal": null,
 "origen": null,
-"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 4.9% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,8389 €; 2024: 1,1186 €; 2025: 1,1186 €.",
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 4.9% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'.",
 "anios": {},
 "paga": true
 },
@@ -12688,7 +12688,7 @@
 "moneda": "EUR",
 "domicilioFiscal": null,
 "origen": null,
-"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 5.8% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,0998 €; 2024: 0,1269 €; 2025: 0,1616 €.",
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 5.8% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'.",
 "anios": {},
 "paga": true
 },
@@ -12699,7 +12699,7 @@
 "moneda": "EUR",
 "domicilioFiscal": null,
 "origen": null,
-"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.1% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DUDA del método: ese dividendo puede ser de una filial a sus minoritarios, no un reparto a los accionistas de AmRest — pendiente de confirmar antes de darlo por bueno. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0 €; 2024: 0,0691 €; 2025: 0,0682 €.",
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.1% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DUDA del método: ese dividendo puede ser de una filial a sus minoritarios, no un reparto a los accionistas de AmRest — pendiente de confirmar antes de darlo por bueno.",
 "anios": {},
 "paga": true
 },
@@ -21329,7 +21329,7 @@
 "moneda": "EUR",
 "domicilioFiscal": null,
 "origen": null,
-"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.3% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,32 €; 2024: 0,29 €; 2025: 0,55 €.",
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 3.3% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'.",
 "anios": {},
 "paga": true
 },
@@ -22564,7 +22564,7 @@
 "moneda": "EUR",
 "domicilioFiscal": null,
 "origen": null,
-"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 1.4% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,0337 €; 2024: 0,0386 €; 2025: 0,0435 €.",
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 1.4% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'.",
 "anios": {},
 "paga": true
 },
@@ -25440,8 +25440,8 @@
 ]
 },
 "2022": {
-"dpaBruto": 1.2,
-"dpaNeto": 1.0153,
+"dpaBruto": 1.1958,
+"dpaNeto": 0.7695,
 "nPagos": 3,
 "deltaPct": 1.666667,
 "racha": 8,
@@ -25463,7 +25463,7 @@
 "exDiv": "2022-08-04",
 "pago": "2022-08-18",
 "bruto": 0.75,
-"neto": null,
+"neto": 0.6075,
 "tipo": "extraordinario",
 "ejercicio": "2022",
 "clase": "puntual"
@@ -27350,7 +27350,7 @@
 "moneda": "EUR",
 "domicilioFiscal": null,
 "origen": null,
-"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 8.9% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'. DPA ANUAL APROXIMADO (cuentas CNMV, dividendo total pagado / acciones; SIN fecha de pago exacta, no es un calendario de pagos): 2023: 0,15 €; 2024: 0,1 €; 2025: 0,2 €.",
+"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 8.9% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'.",
 "anios": {},
 "paga": true
 },
@@ -29150,9 +29150,9 @@
 ]
 },
 "2022": {
-"dpaBruto": 0.508,
+"dpaBruto": 0.5082,
 "dpaNeto": 0.3225,
-"nPagos": 2,
+"nPagos": 3,
 "deltaPct": 0.63871,
 "racha": 12,
 "naturaleza": "efectivo",
@@ -31204,7 +31204,7 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.61,
+"dpaBruto": 0.95,
 "dpaNeto": 0.4941,
 "nPagos": 2,
 "deltaPct": 0.0,
@@ -36348,9 +36348,9 @@
 ]
 },
 "2027": {
-"dpaBruto": 0.0,
-"dpaNeto": 0.0,
-"nPagos": 0,
+"dpaBruto": 0.15,
+"dpaNeto": 0,
+"nPagos": 1,
 "deltaPct": null,
 "racha": 0,
 "naturaleza": "-",
@@ -39113,8 +39113,8 @@
 },
 "2024": {
 "dpaBruto": 3.033,
-"dpaNeto": 2.4567,
-"nPagos": 2,
+"dpaNeto": 2.4568,
+"nPagos": 3,
 "deltaPct": 0.563402,
 "racha": 14,
 "naturaleza": "efectivo",
@@ -39126,7 +39126,7 @@
 "exDiv": "2024-05-28",
 "pago": "2024-06-24",
 "bruto": 0.596,
-"neto": 1.29276,
+"neto": 0.4828,
 "tipo": "o",
 "ejercicio": "2023",
 "clase": "ordinario"
@@ -39135,7 +39135,7 @@
 "exDiv": "2024-05-28",
 "pago": "2024-06-24",
 "bruto": 1.0,
-"neto": 1.29276,
+"neto": 0.81,
 "tipo": "o",
 "ejercicio": "2023",
 "clase": "recurrente"
@@ -39152,9 +39152,9 @@
 ]
 },
 "2025": {
-"dpaBruto": 3.125,
+"dpaBruto": 3.171,
 "dpaNeto": 2.5685,
-"nPagos": 2,
+"nPagos": 3,
 "deltaPct": 0.030333,
 "racha": 15,
 "naturaleza": "efectivo",
@@ -39166,7 +39166,7 @@
 "exDiv": "2025-05-15",
 "pago": "2025-05-29",
 "bruto": 0.688,
-"neto": 1.36728,
+"neto": 0.5573,
 "tipo": "o",
 "ejercicio": "2024",
 "clase": "ordinario"
@@ -39175,7 +39175,7 @@
 "exDiv": "2025-05-15",
 "pago": "2025-05-29",
 "bruto": 1.0,
-"neto": 1.36728,
+"neto": 0.81,
 "tipo": "o",
 "ejercicio": "2024",
 "clase": "recurrente"
@@ -39192,9 +39192,9 @@
 ]
 },
 "2026": {
-"dpaBruto": 3.25,
-"dpaNeto": 2.6244,
-"nPagos": 2,
+"dpaBruto": 3.199,
+"dpaNeto": 2.6584,
+"nPagos": 3,
 "deltaPct": 0.04,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -39206,7 +39206,7 @@
 "exDiv": "2026-05-15",
 "pago": "2026-06-11",
 "bruto": 0.799,
-"neto": 1.4232,
+"neto": 0.6472,
 "tipo": null,
 "ejercicio": "2025",
 "clase": "ordinario"
@@ -39215,7 +39215,7 @@
 "exDiv": "2026-05-15",
 "pago": "2026-06-11",
 "bruto": 1.0,
-"neto": 1.4232,
+"neto": 0.81,
 "tipo": null,
 "ejercicio": "2025",
 "clase": "recurrente"
