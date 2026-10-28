@@ -3,7 +3,7 @@
  "ticker": "MAP",
  "empresa": "Mapfre, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-27",
+ "generado": "2026-10-28",
  "revisiones": [
   {
    "periodo": "2022-Q4",
@@ -778,6 +778,60 @@
     {
      "nombre": "Fondos propios",
      "valor": 9592.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas +2,0 %, resultado neto +11,5 %, margen 6,5 % (-0,90 pp) frente al mismo periodo del año anterior. Ratio combinado No Vida (la señal única de la tesis): 93,5 %. Ámbar por: el margen empeora, ratio combinado No Vida (la señal única de la tesis) por encima del umbral. Qué ha pasado. Beneficio de 924,3 M€ (+11,5 %), primas de 22.826,7 M€ (+2,0 %; +0,7 % a tipos constantes) y ROE del 12,8 % (+0,4 pp). El ratio combinado de No Vida, la señal única de la tesis, sube al 93,5 % (+0,9 pp). El consejo aprueba un dividendo a cuenta de 0,080 € (+13,6 % frente a los 0,0704 € de 2025), ex 24-nov y pago 26-nov.\n\nPor qué. El combinado empeora por catástrofes: el terremoto de Colombia de agosto cuesta 83 M€ netos, más las tormentas de febrero en la Península y el terremoto de Venezuela; y Salud y Accidentes sube al 100,0 % (+3,2 pp) por los costes de siniestros en México. Autos, el riesgo de la tesis, mejora al 99,0 % (−0,6 pp). El beneficio crece por Iberia (413 M€, +19 %), Norteamérica y plusvalías financieras (documento: «2026-10-27 Informe de actividad 9M 2026 MAP (web)»).\n\nSemáforo. Ámbar bien puesto: el combinado está por encima de 92 y empeora. La causa principal es puntual (catástrofes), así que no abre señal.\n\nQué vigilar. Autos por debajo del 100 % al cierre y Salud en México. Safety Insurance: cierre previsto en el 1T 2027. La cotización (4,34 €) está por encima del PO bull de 3,88 € (S3).\n\nLectura. Aprobar en ámbar.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 22827.0
+    },
+    {
+     "nombre": "Primas Autos",
+     "valor": 5045.0
+    },
+    {
+     "nombre": "Primas Salud y Acc.",
+     "valor": 2080.0
+    },
+    {
+     "nombre": "Primas Vida Riesgo",
+     "valor": 2168.0
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 93.5
+    },
+    {
+     "nombre": "Siniestralidad",
+     "valor": 65.6
+    },
+    {
+     "nombre": "Gastos",
+     "valor": 27.9
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 924.0
+    },
+    {
+     "nombre": "ROE",
+     "valor": 12.8
+    },
+    {
+     "nombre": "Fondos propios",
+     "valor": 9445.0
     }
    ],
    "hechos": [],

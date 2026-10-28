@@ -3,7 +3,7 @@
  "ticker": "AENA",
  "empresa": "Aena, S.M.E., S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-27",
+ "generado": "2026-10-28",
  "revisiones": [
   {
    "periodo": "2021-Q3",
@@ -550,6 +550,36 @@
     {
      "nombre": "Deuda neta",
      "valor": 6724.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,4 %, EBITDA +6,8 %, beneficio neto +12,4 %, margen 58,3 % (-1,96 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: Efecto contable y extraordinario del año anterior: sin los ingresos de construcción IFRIC 12 ni el seguro de Luton de 2025, margen del 60,3 % frente al 60,9 % y EBITDA +8,4 % (documento: «2026-10-28 Presentación de Resultados e Informe de Gestión 9M 2026»). Qué ha pasado. Beneficio neto de 1.774,7 M€ (+12,4 %), ingresos de 5.283,9 M€ (+10,4 %) y EBITDA de 3.077,9 M€ (+6,8 %), con un margen del 58,3 % frente al 60,2 %. Tráfico en España de 257,2 millones de pasajeros (+4,1 %). Deuda neta de 5.845 M€, 1,47 veces el EBITDA.\n\nPor qué. El margen baja por dos efectos que no son del negocio, los mismos del 1T y del 1S: los ingresos de construcción de las concesiones de Brasil (IFRIC 12), que entran sin margen, y las indemnizaciones del seguro por el parking de Luton cobradas en 2025. Sin ellos el margen es del 60,3 % frente al 60,9 % y el EBITDA sube un 8,4 %. El OPEX crece un 13,4 % (11,2 % sin IFRIC 12) por personal (+12,3 %) y la entrada de Leeds Bradford y Newcastle (documento: «2026-10-28 Presentación de Resultados e Informe de Gestión 9M 2026»).\n\nSemáforo. El rojo automático sale solo del margen contable. Propongo ÁMBAR, como en el 1T y el 1S: el negocio de fondo crece, pero el margen comparable cede 0,6 puntos.\n\nQué vigilar. El DORA III (2027-2031) fija una subida de tarifas de solo el +0,33 % anual con 12.888 M€ de inversión: es el riesgo regulatorio de la tesis y presiona la rentabilidad futura. Galeão: pagados 257,2 M€ y el resto en el 4T. La cotización está por encima del PO bull (S3).\n\nLectura. Aprobar con ámbar. S2 → REAFIRMAR: el rojo es contable, no estructural.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5284.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 3078.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 58.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1775.0
     }
    ],
    "hechos": [],

@@ -3,7 +3,7 @@
  "ticker": "LDA",
  "empresa": "Linea Directa Aseguradora, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-27",
+ "generado": "2026-10-28",
  "revisiones": [
   {
    "periodo": "2022-Q4",
@@ -773,6 +773,60 @@
     {
      "nombre": "Asegurados Motor (miles)",
      "valor": 2848.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primas emitidas +8,9 %, resultado técnico +45,6 %, resultado neto +34,8 %, margen 8,7 % (+2,10 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 8,7 pp. Verde: nada que señalar. Qué ha pasado. Beneficio de 80,4 M€ (+34,8 %), primas de 919 M€ (+8,9 %, frente al +5,6 % del sector No Vida) y 3,9 millones de clientes (+6,9 %). El ratio combinado de Motor, la señal única de la tesis, baja al 91,3 % (−2,1 pp; 91,5 % en el 3T aislado): margen técnico de 8,7 puntos.\n\nPor qué. Bajan a la vez la siniestralidad de Motor (73,3 %, −1,0 pp) y los gastos (18,0 %, −1,1 pp), con primas de Motor +9,5 %. Hogar sigue por debajo del 90 % (86,8 %) y Salud mejora (104,3 %, −5,0 pp). RoAE del 25,6 % y solvencia del 191,5 % (documentos: «2026-10-28 La Sociedad remite la nota de prensa sobre los resultados a septiembre» y la presentación del mismo día).\n\nSemáforo. Verde bien puesto.\n\nQué vigilar. Que el combinado de Motor se mantenga por debajo del 93 % con la inflación de costes de reparación; el 3T (91,5 %) apenas empeora. La cotización está por encima del PO bull (S3).\n\nLectura. Aprobar en verde.",
+   "metricas": [
+    {
+     "nombre": "Primas",
+     "valor": 919.0
+    },
+    {
+     "nombre": "Resultado técnico",
+     "valor": 74.3
+    },
+    {
+     "nombre": "Rdo. inversiones",
+     "valor": 34.5
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 80.4
+    },
+    {
+     "nombre": "Combinado",
+     "valor": 91.3
+    },
+    {
+     "nombre": "Margen técn. Motor",
+     "valor": 8.7
+    },
+    {
+     "nombre": "Combinado Salud",
+     "valor": 124.1
+    },
+    {
+     "nombre": "Solvencia II",
+     "valor": 191.5
+    },
+    {
+     "nombre": "Asegurados (miles)",
+     "valor": 3905.0
+    },
+    {
+     "nombre": "Asegurados Motor (miles)",
+     "valor": 2891.0
     }
    ],
    "hechos": [],

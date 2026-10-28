@@ -3,7 +3,7 @@
  "ticker": "RED",
  "empresa": "Redeia Corporación, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-27",
+ "generado": "2026-10-28",
  "revisiones": [
   {
    "periodo": "2021-Q1",
@@ -595,55 +595,36 @@
   {
    "periodo": "2025-Q3",
    "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
    "fecha": "2025-10-29",
    "fechaOrigen": "portada",
-   "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-   "semaforoGlobal": "A",
+   "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de negocio +2.5 %, EBITDA +3.0 %, beneficio atribuido -4.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 78.1 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). La inversión del TSO en España sube un 51.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+   "resumen": "Ingresos +2,5 %, EBITDA +3,0 %, beneficio neto +3,8 %, margen 78,1 % (+0,41 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Cifra de negocio (M€)",
-     "valor": 1218.1
+     "nombre": "Ingresos",
+     "valor": 1218.0
     },
     {
-     "nombre": "EBITDA (M€)",
-     "valor": 950.9
+     "nombre": "EBITDA",
+     "valor": 951.0
     },
     {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 78.06
+     "nombre": "Margen EBITDA",
+     "valor": 78.1
     },
     {
-     "nombre": "EBIT (M€)",
-     "valor": 615.6
+     "nombre": "EBIT",
+     "valor": 616.0
     },
     {
-     "nombre": "Beneficio atribuido (M€)",
-     "valor": 389.8
-    },
-    {
-     "nombre": "FFO (M€)",
-     "valor": 713.2
-    },
-    {
-     "nombre": "Inversiones (M€)",
-     "valor": 967.5
-    },
-    {
-     "nombre": "Deuda financiera neta (M€)",
-     "valor": 6083.4
-    },
-    {
-     "nombre": "Inversión del TSO en España (M€)",
-     "valor": 915.0
-    },
-    {
-     "nombre": "Disponibilidad de la red (%)",
-     "valor": 98.63
+     "nombre": "Beneficio neto",
+     "valor": 616.0
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2025-Q4",
@@ -750,6 +731,40 @@
     {
      "nombre": "Deuda neta",
      "valor": 5887.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,8 %, EBITDA +5,3 %, beneficio neto +1,9 %, margen 76,3 % (-1,80 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: El margen cede 1,8 pp por gastos de crecimiento (personal +10 % para el TSO y obra del Salto de Chira) y la caída de Fibra óptica, pero el EBITDA nacional crece un 9,4 % y el beneficio atribuido un 5,3 % (410,3 M€) (documento: «2026-10-28 Comunicación resultados 9M26»). Qué ha pasado. Cifra de negocio de 1.312,9 M€ (+7,8 %), EBITDA de 1.001,4 M€ (+5,3 %) y beneficio atribuido de 410,3 M€ (+5,3 %). El margen EBITDA baja al 76,3 % (−1,8 pp). El consejo aprueba un dividendo a cuenta de 0,204 € (pago el 7-ene-2027), en línea con la política del plan 2026-2029 (+2 % anual hasta 0,87 € en 2029).\n\nPor qué. Los gastos operativos suben un 10,0 %: personal (+10 %, más plantilla para las inversiones del operador del sistema) y obra civil del Salto de Chira. Además, Fibra óptica cae (ingresos −6,9 %, EBITDA 77,0 M€ frente a 86,4) e Internacional resta 7,7 M€. El negocio nacional regulado crece: EBITDA +9,4 % (documento: «2026-10-28 Comunicación resultados 9M26»). Ojo: el «beneficio neto +1,9 %» del pase es el EBIT, no el beneficio; el lector lo confunde (también en 2025-9M).\n\nSemáforo. El rojo automático sale solo del margen. Propongo ÁMBAR: el margen cede por costes de crecimiento y por Fibra, pero el beneficio sube un 5,3 %.\n\nQué vigilar. Devolución pendiente al sistema de unos 553 M€ por las tarifas provisionales de 2024-2026, la planificación de la red 2025-2030 y que Fibra óptica deje de caer.\n\nLectura. Aprobar con ámbar y arreglar el lector (beneficio = resultado atribuido). S2 → REAFIRMAR.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1313.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1001.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 76.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 627.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 627.0
     }
    ],
    "hechos": [],

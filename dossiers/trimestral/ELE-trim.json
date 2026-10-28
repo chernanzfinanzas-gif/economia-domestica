@@ -3,7 +3,7 @@
  "ticker": "ELE",
  "empresa": "Endesa, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-27",
+ "generado": "2026-10-28",
  "revisiones": [
   {
    "periodo": "2022-Q2",
@@ -361,7 +361,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +6,3 %, EBITDA +32,6 %, beneficio neto +99,7 %, margen 24,3 % (+4,81 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +6,3 %, EBITDA +32,6 %, beneficio neto +99,7 %, margen 24,3 % (+4,80 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -433,7 +433,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +1,2 %, EBITDA +8,8 %, margen 26,5 % (+1,87 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +1,2 %, EBITDA +8,8 %, beneficio neto +21,9 %, margen 26,5 % (+1,87 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -446,6 +446,14 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 26.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 2545.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1711.0
     }
    ],
    "hechos": [],
@@ -556,6 +564,40 @@
     {
      "nombre": "Deuda neta",
      "valor": 10901.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,0 %, EBITDA +8,4 %, beneficio neto +14,7 %, margen 26,3 % (-0,16 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Qué ha pasado. EBITDA de unos 4.600 M€ (+8 %; +13 % sin la provisión de plantilla de 202 M€), resultado neto +14,7 % y resultado ordinario neto de 2.125 M€ (+22 %). Ingresos +9,0 % y margen EBITDA del 26,3 %, prácticamente igual (−0,16 pp).\n\nPor qué. Tira Redes, con más inversión y mejor visibilidad regulatoria (límites de capex 2027-2030 al alza), y aguanta el negocio integrado con precios del pool más altos (74 €/MWh, +17 %). La deuda neta sube a 11.187 M€ (1,8x el EBITDA, igual que en 2025) por la recompra (872 M€) y el dividendo; el capex bruto crece un 19 % (documento: «2026-10-28 Presentación de Resultados 3T 2026»).\n\nSemáforo. Verde bien puesto.\n\nQué vigilar. Mantienen la guía de resultado ordinario neto de más de 2.400 M€ para 2026. Pendientes las subastas del mercado de capacidad y la regulación de centros de datos. La cotización sigue por encima del PO bull (S3).\n\nLectura. Aprobar en verde.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 17389.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4577.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 26.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 2848.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1962.0
     }
    ],
    "hechos": [],

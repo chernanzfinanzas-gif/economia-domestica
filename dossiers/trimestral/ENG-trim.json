@@ -3,7 +3,7 @@
  "ticker": "ENG",
  "empresa": "Enagás, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-27",
+ "generado": "2026-10-28",
  "revisiones": [
   {
    "periodo": "2021-Q3",
@@ -655,7 +655,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -2,0 %, EBITDA -2,8 %, margen 70,5 % (-0,59 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora. Rojo, pero la caída se modera: EBITDA −2,9 % (marco regulatorio −45,1 M€, compensado en parte por el buque Alisios, Axent y participadas +23,9 % con TAP y Teréga) y beneficio recurrente −5,4 %, en línea con el objetivo de 235 M€. El 18-sep se publicaron en el BOE las circulares del marco 2027-2032 (documento: «2026-10-20 Resultados tercer trimestre 2026»). El color se queda.",
+   "resumen": "Ingresos -2,0 %, EBITDA -2,8 %, margen 70,5 % (-0,59 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora. **Qué ha pasado.** Ingresos 696,7 M€ (−2,0 %), EBITDA 491,5 M€ (−2,9 %), margen 70,5 % (−0,6 pp) y EBIT 263,9 M€ (−4,1 %). Beneficio recurrente 195,8 M€ (−5,4 %); el total, 204,1 M€ frente a 262,8 (−22,3 %). Lleva el 79 % de la guía de EBITDA (~620 M€) y el 83 % de la de beneficio recurrente (~235 M€). Deuda neta 2.979 M€ (2.475 en diciembre).\n\n**Por qué.** Recurrente: el marco regulatorio resta 45,1 M€ de ingresos; compensan en parte el buque Alisios (+5,4), Axent (+5,9) y las participadas (145,8 M€, +28,1) por «la ampliación de capacidad de TAP y la adquisición del 31,5% de Teréga». Puntual: 2025 llevaba ventas de activos y la plusvalía de GSP (+41,2 M€); 2026 suma «el efecto positivo de la venta del 40% de Enagás Renovable». La deuda sube por los 573 M€ de Teréga (perímetro).\n\n**Semáforo.** Rojo bien puesto: séptimo periodo seguido, aunque la caída se modera (EBITDA −2,9 % frente a −11,7 % en el 9M-2025). S2 ya revisada (REAFIRMAR, 26-oct); no abre ni cierra señales.\n\n**Qué vigilar.** (1) Deuda: unas 4,6x el EBITDA de doce meses (2.979 / ≈646,6), por encima del verde del método (≤ 4,5x; rojo > 6x); FFO/DN 20,5 %, con su suelo en 15 %. (2) Dividendo: 1,00 € × 261,99 M de acciones ≈ 262 M€ frente a ~235 M€ de beneficio recurrente, payout ≈ 111 %, por encima del límite duro (100 %). (3) Marco 2027-2032 publicado en el BOE (18-sep); el informe no cifra su efecto. No saltan las alarmas de riesgos: coste de la deuda 2,1 % (alarma > 4 %), demanda total +2,6 %.\n\n**Lectura.** Aprobar en rojo. La tesis (ESPERAR, PO 17,81 €) no cambia; con el cierre anual, revisar payout y deuda.",
    "metricas": [
     {
      "nombre": "Ingresos",

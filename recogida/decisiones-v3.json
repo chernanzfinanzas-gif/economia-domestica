@@ -36,6 +36,16 @@
     "motivo": "Dos ámbar seguidos por efecto contable: sin los ingresos IFRIC 12 ni el seguro de Luton de 2025, margen del 56,9 % (igual que en 2025) y EBITDA +8,3 %. Ruido, no tendencia. ESPERAR. Pase con nota del método v3, aprobado el 26-oct-2026.",
     "revision": "AENA revisión con nota",
     "origen": "metodo-v3"
+   },
+   {
+    "fecha": "28-oct-2026",
+    "fechaIso": "2026-10-28",
+    "senal": "S2",
+    "cot": 27.0,
+    "decision": "REAFIRMAR",
+    "motivo": "Puntual y contable, no estructural: el rojo del 9M sale del margen (58,3 % frente a 60,2 %), arrastrado por los ingresos de construcción IFRIC 12 sin margen y el seguro de Luton cobrado en 2025; sin ellos el margen es 60,3 % frente a 60,9 % y el EBITDA sube un 8,4 %, con beneficio +12,4 % (documento: «2026-10-28 Presentación de Resultados e Informe de Gestión 9M 2026»). Se vigila el impacto en rentabilidad del DORA III (+0,33 % anual de tarifa con 12.888 M€ de inversión). Propuesta del pase de novedades del método v3.",
+    "revision": "AENA 2026-9M",
+    "origen": "metodo-v3"
    }
   ],
   "FAE": [
@@ -107,7 +117,19 @@
     "revision": "A3M veto por dividendo",
     "origen": "metodo-v3"
    }
+  ],
+  "RED": [
+   {
+    "fecha": "28-oct-2026",
+    "fechaIso": "2026-10-28",
+    "senal": "S2",
+    "cot": 15.05,
+    "decision": "REAFIRMAR",
+    "motivo": "Puntual, no estructural: el rojo del 9M sale solo del margen EBITDA (76,3 %, −1,8 pp), por gastos operativos +10 % (plantilla para las inversiones del TSO y obra civil del Salto de Chira) y la caída de Fibra óptica; el EBITDA nacional sube un 9,4 % y el beneficio atribuido un 5,3 %, con el dividendo a cuenta en línea con la política (documento: «2026-10-28 Comunicación resultados 9M26»). Se vigila la devolución pendiente de unos 553 M€ y la evolución de Fibra. Propuesta del pase de novedades del método v3.",
+    "revision": "RED 2026-9M",
+    "origen": "metodo-v3"
+   }
   ]
  },
- "actualizado": "2026-10-26"
+ "actualizado": "2026-10-28"
 }
