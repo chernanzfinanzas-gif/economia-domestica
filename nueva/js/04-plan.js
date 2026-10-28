@@ -1316,7 +1316,7 @@ function renderPanelDash(){
       if(window._khDatosListos!==false && avisos.length>5) Object.keys(_vis).forEach(k=>{ if(!act.has(k) && +_vis[k]<lim){ delete _vis[k]; _visCambio=true; } }); }
     if(_visCambio && typeof scheduleSave==='function') scheduleSave();
     const F=window._avFiltro=window._avFiltro||{tipo:'',showSeen:false};
-    const _nVistos=avisos.filter(x=>_vis[x.key]).length;
+    const _nVistos=avisos.filter(x=>_vis[x.key]).length; try{ window._nAv={lista:avisos.slice(),vis:_vis}; }catch(e){}
     let show=avisos.filter(x=> F.showSeen || !_vis[x.key]);
     if(F.tipo) show=show.filter(x=>x.tipo===F.tipo);
     const hayCrit=show.some(x=>x.cls==='r'&&!_vis[x.key]);
