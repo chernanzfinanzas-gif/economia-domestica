@@ -246,3 +246,20 @@ body.n-noscroll{overflow:hidden}
 .n-ag .f{font-variant-numeric:tabular-nums} .n-ag .tp{color:#FFF;font-size:10.5px;font-weight:800;letter-spacing:.04em;border-radius:6px;padding:3px 8px;text-align:center} .n-ag .tx b{cursor:pointer} .n-ag em{font-style:normal;color:#15803D;font-weight:600}
 @media (max-width:560px){.n-ag{grid-template-columns:52px 1fr}.n-ag .tp{grid-column:2;justify-self:start}.n-ag .tx{grid-column:1/-1}}
 /* Panel: lo de debajo de Salud financiera se quita (Carlos, 20:52: esos KPI irán después en su sitio) */ #view-panel #panelPresu,#view-panel #panelDash{display:none!important}
+/* ===== 28-oct 21:46 · fuera los fondos de colores de los bloques antiguos (Carlos: «muchos diseños antiguos con muchos colores») ===== */
+.pos-blk,.mos-blk,.p7blk,.rz-blk{background:#FFF!important;border:1px solid #E5E9EF!important;border-radius:14px!important;box-shadow:0 1px 3px rgba(20,34,49,.05)!important;overflow:hidden}
+.pos-blk>.pos-blk-h,.mos-blk>.mos-blk-h,.p7blk>.p7blk-h,.rz-blk>.rz-blk-h{background:#FFF!important;color:#142231!important}
+.pos-blk>.pos-blk-h .bt,.pos-blk>.pos-blk-h b{color:#142231!important}
+.pos-blk>.pos-blk-h .bsum{background:none!important;color:#5B6B7C!important;padding:0!important;font-weight:500!important;border:0!important}
+.pos-blk.open>.pos-blk-h{border-bottom:1px solid #EEF1F5}
+/* Lotes y Ranking dentro de Cartera */
+.n-blk{margin-top:14px} .n-blk>.pos-blk-h{display:flex;align-items:center;gap:10px;padding:13px 16px;cursor:pointer;border-left:4px solid #2563EB} .n-blk>.pos-blk-h .bt{font-weight:800;font-size:15.5px} .n-blk>.pos-blk-h .bsum{margin-left:auto;font-size:12px;text-align:right}
+#nRank>.pos-blk-h{border-left-color:#D97706}
+.n-blk>.pos-blk-b{display:none;padding:14px 16px} .n-blk.open>.pos-blk-b{display:block} .n-blk.open>.pos-blk-h .arw{transform:rotate(90deg)} .n-blk .arw{color:#94A3B8;transition:transform .15s}
+#nRank [data-rankblk="tabla"]>.pos-blk-h{display:none!important} #nRank [data-rankblk="tabla"]>.pos-blk-b{display:block!important} #nRank [data-rankblk="tabla"]{border:0!important;box-shadow:none!important}
+/* ===== Presupuesto ===== */
+.pres-hero{background:linear-gradient(100deg,#1B3260 0%,#1F4A9A 50%,#2563EB 100%)!important;box-shadow:0 10px 26px rgba(21,50,90,.22)!important}
+#nPresK{margin:0 0 14px} #nPresK>div{display:flex} #nPresK>div>.n-w{flex:1} #nPresK>[data-npk]{cursor:pointer}
+/* subpestañas (Presupuesto/Desglose, Hemeroteca…) al estilo nuevo */
+.subtabs button{background:#FFF!important;border:1px solid #DDE3EA!important;color:#5B6B7C!important;border-radius:10px!important;box-shadow:none!important;font-weight:600!important}
+.subtabs button.active{background:#1F4A9A!important;border-color:#1F4A9A!important;color:#FFF!important}

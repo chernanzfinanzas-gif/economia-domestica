@@ -6,8 +6,11 @@
      (la tarta va a Gráficas y «Aportado vs valor» ya está en Rentabilidad). */
 (function(){
   if(typeof renderInv!=='function') return;
-  function sec(id,ic,t,sub){ var d=document.createElement('div'); d.id=id; d.className='n-sec';
-    d.innerHTML='<div class="n-sec-h"><span class="n-sec-ic">'+ic+'</span><div><b>'+t+'</b><span>'+sub+'</span></div></div><div class="n-sec-b"></div>'; return d; }
+  /* 28-oct 21:46 (Carlos): Lotes y Ranking como bloques plegables, como los demás */
+  window._nCartOpen=window._nCartOpen||{nLotes:false,nRank:false};
+  function sec(id,ic,t,sub){ var d=document.createElement('div'); d.id=id; d.className='pos-blk n-blk'+(window._nCartOpen[id]?' open':'');
+    d.innerHTML='<div class="pos-blk-h" data-nblk="'+id+'"><span class="arw">▶</span><span class="bt">'+ic+' '+t+'</span><span class="bsum">'+sub+'</span></div><div class="pos-blk-b n-sec-b"></div>'; return d; }
+  document.addEventListener('click',function(e){ var h=e.target.closest&&e.target.closest('[data-nblk]'); if(!h) return; e.stopPropagation(); var b=h.parentElement; b.classList.toggle('open'); window._nCartOpen[b.id]=b.classList.contains('open'); },true);
   function montar(){
     var v=document.getElementById('view-inversiones'); if(!v||document.getElementById('nLotes')) return;
     var anchor=document.getElementById('invLotes'); if(!anchor) return;
