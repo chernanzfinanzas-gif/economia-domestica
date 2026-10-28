@@ -11,6 +11,30 @@
     var ab=ch.slice(desde).filter(function(m){return _reembEsAdel(m);});
     return {saldo:run, n:ab.length, antiguo:ab.length?ab[0].fecha:null};
   }
+
+  function _iso(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function _nPerModo(de,ha){
+    if(!de&&!ha) return 'todo';
+    if(de&&ha&&de.slice(5)==='01-01'&&ha.slice(5)==='12-31'&&de.slice(0,4)===ha.slice(0,4)) return 'anio';
+    if(de&&ha&&de.slice(8)==='01'&&de.slice(0,7)===ha.slice(0,7)){ var f=new Date(+de.slice(0,4),+de.slice(5,7),0); if(_iso(f)===ha) return 'mes'; }
+    return 'otro';
+  }
+  function _nPerPoner(modo,ref){
+    var d=document.getElementById('fltDesde'), h=document.getElementById('fltHasta'); if(!d||!h) return;
+    var r=ref||new Date();
+    if(modo==='mes'){ d.value=_iso(new Date(r.getFullYear(),r.getMonth(),1)); h.value=_iso(new Date(r.getFullYear(),r.getMonth()+1,0)); }
+    else if(modo==='anio'){ d.value=r.getFullYear()+'-01-01'; h.value=r.getFullYear()+'-12-31'; }
+    else { d.value=''; h.value=''; }
+    renderMovs();
+  }
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest&&ev.target.closest('#movCards [data-nper] button'); if(!b) return; ev.stopPropagation();
+    var de=(document.getElementById('fltDesde')||{}).value||'', ha=(document.getElementById('fltHasta')||{}).value||'', md=_nPerModo(de,ha);
+    if(b.dataset.pm){ var ref=de?new Date(de+'T00:00:00'):new Date(); if(b.dataset.pm==='mes'&&md==='anio') ref=new Date(); _nPerPoner(b.dataset.pm, b.dataset.pm==='todo'?null:ref); return; }
+    var k=+b.dataset.ps, r=new Date(de+'T00:00:00');
+    if(md==='mes') _nPerPoner('mes',new Date(r.getFullYear(),r.getMonth()+k,1));
+    else if(md==='anio') _nPerPoner('anio',new Date(r.getFullYear()+k,0,1));
+  },true);
   function nMovKpis(){
     var el=document.getElementById('movCards'); if(!el) return;
     /* arriba del todo, como en el boceto (antes vivía dentro del bloque de la lista) */
@@ -23,7 +47,7 @@
     var pOK=nTot?Math.round(nOK/nTot*100):0;
     /* periodo: el de los filtros de fecha */
     var de=(document.getElementById('fltDesde')||{}).value||'', ha=(document.getElementById('fltHasta')||{}).value||'';
-    var per= de&&ha&&de.slice(0,7)===ha.slice(0,7) ? new Date(de+'T00:00:00').toLocaleDateString('es-ES',{month:'long',year:'numeric'})
+    var per= _nPerModo(de,ha)==='anio' ? de.slice(0,4) : de&&ha&&de.slice(0,7)===ha.slice(0,7) ? new Date(de+'T00:00:00').toLocaleDateString('es-ES',{month:'long',year:'numeric'})
            : (de||ha) ? ((de?d2(de):'…')+' – '+(ha?d2(ha):'hoy')) : 'todo el histórico';
     /* reembolsables */
     var r=reembEstado(), rd=diasDesde(r.antiguo);
@@ -43,8 +67,11 @@
       s:'<b>'+pOK+' %</b> cuadra con el extracto · '+(nTot-nOK)+' por comprobar'+(nW?(' · '+nW+' discrepancia'+(nW===1?'':'s')):'')+
         '<span style="display:block;height:6px;border-radius:99px;background:#EEF1F5;margin-top:6px;overflow:hidden"><i style="display:block;height:100%;width:'+pOK+'%;background:#2563EB"></i></span>',
       p:((typeof movSoloSin!=='undefined'&&movSoloSin)?'mostrando solo sin comprobar · pulsa para verlos todos':'pulsa para ver solo los sin comprobar')});
-    var kN=nKpi({c:neto>=0?'#16A34A':'#DC2626',bg:neto>=0?'#DCFCE7':'#FEE2E2',ic:'⚖️',t:'Resultado del periodo',pill:per,
-      v:(neto>=0?'+':'')+fmt(neto),vCls:neto>=0?'n-pos':'n-neg',s:'ingresos <b>'+fmt(ing)+'</b> · gastos <b>'+fmt(gas)+'</b>',p:'sigue a los filtros: cambia fechas o categoría y se recalcula'});
+    per=per.charAt(0).toUpperCase()+per.slice(1); var md=_nPerModo(de,ha);
+    var perSel='<div class="n-per" data-nper="1"><div class="n-seg">'+['mes','anio','todo'].map(function(m){return '<button data-pm="'+m+'"'+(md===m?' class="on"':'')+'>'+({mes:'Mes',anio:'Año',todo:'Todo'})[m]+'</button>';}).join('')+'</div>'+
+      (md==='mes'||md==='anio'?'<div class="n-step"><button data-ps="-1">‹</button><b>'+per+'</b><button data-ps="1">›</button></div>':'')+'</div>';
+    var kN=nKpi({c:neto>=0?'#16A34A':'#DC2626',bg:neto>=0?'#DCFCE7':'#FEE2E2',ic:'⚖️',t:'Resultado del periodo',
+      v:(neto>=0?'+':'')+fmt(neto),vCls:neto>=0?'n-pos':'n-neg',s:'ingresos <b>'+fmt(ing)+'</b> · gastos <b>'+fmt(gas)+'</b>',p:perSel+'también sigue a los filtros de categoría, comercio y texto'});
     el.className='n-ctrl n-mov';
     el.innerHTML='<div data-nk="r">'+kR+'</div><div data-nk="f">'+kF+'</div><div data-nk="c" id="movConcK">'+kC+'</div><div>'+kN+'</div>';
   }

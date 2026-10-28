@@ -156,11 +156,11 @@ if($('#catNivelSeg'))$('#catNivelSeg').addEventListener('click',function(e){ con
 
 /* ============ Eventos ============ */
 const GROUPS={
-  panel:[['panel','Panel'],['micartera','Mi cartera hoy']],
+  panel:[['panel','Panel']],
   embudo:[['embudo','Kanban']],
   fin:[['movimientos','Movimientos'],['presupuesto','Presupuesto'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['caja','Caja bróker']],
   plan:[['independencia','Independencia'],['pignorado','Capital pignorado'],['fiscalidad','Fiscalidad'],['simulador','Simulador'],['proxcompra','Próxima compra']],
-  cartera:[['inversiones','Cartera'],['posiciones','Lotes'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del dividendo'],['divfut','Actualizar dividendos'],['asignacion','Asignación'],['riesgo','Riesgo']],
+  cartera:[['inversiones','Cartera'],['rentabilidad','Rentabilidad'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del dividendo'],['divfut','Actualizar dividendos'],['asignacion','Asignación'],['riesgo','Riesgo']],
   empresas:[['radar','Radar Op.'],['universo','Universo'],['divisa','¿Invertir en euros?'],['vision','Visión de conjunto'],['analisis','Análisis'],['tesisinv','Ficha de Tesis'],['monitor','Monitor'],['hechos','Diario de Hechos'],['coyuntura','Coyuntura']],
   sistema:[['cobertura','Cobertura'],['informes','Informes'],['graficas','Gráficas'],['diario','Mis Decisiones'],['estado','Estado y calibración'],['backtest','Backtest'],['hemero','Hemeroteca']]
 };
