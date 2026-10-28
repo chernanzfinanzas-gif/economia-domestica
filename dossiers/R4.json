@@ -61,12 +61,12 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 7.1,
+  "gImplicito": 7.09,
   "gIntrinseco": null,
   "veredicto": "HEROICO",
-  "motivo": "IMPROBABLE (exige un RoTE de 46.5 %, más de 3 pp por encima del último, 32.0 %)",
+  "motivo": "IMPROBABLE (exige un RoTE de 46.2 %, más de 3 pp por encima del último, 32.0 %)",
   "calculadoEl": "2026-10-28",
   "origen": "metodo-v3",
-  "roteImplicito": 46.45
+  "roteImplicito": 46.23
  }
 }

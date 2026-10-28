@@ -37,7 +37,7 @@
  ],
  "bull": "9,96 € — escenario optimista: el duopolio se convierte en precio",
  "bear": "5,17 € — escenario pesimista: la publicidad se va al vídeo digital y el duopolio deja de defender el precio",
- "resumen": "MANTENER con la cotización de 5,83 € (2026-10-27): precio objetivo 6,90 € (bear 5,17 · bull 9,96), margen +18,4 %. Banda de entrada 5,17–6,00 €, stop de tesis 3,71 €. Veto por dividendo frágil: seguridad del dividendo 38/100 en 2025 (por debajo de 40).",
+ "resumen": "MANTENER con la cotización de 5,75 € (2026-10-28): precio objetivo 6,90 € (bear 5,17 · bull 9,96), margen +20,1 %. Banda de entrada 5,17–6,00 €, stop de tesis 3,71 €. Veto por dividendo frágil: seguridad del dividendo 38/100 en 2025 (por debajo de 40).",
  "dividendSafety": {
   "score": 38,
   "banda": "Frágil",
@@ -103,7 +103,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -8.12,
+  "gImplicito": -8.33,
   "gIntrinseco": 1.59,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
@@ -117,9 +117,9 @@
    "acciones": 225.7333,
    "deudaNeta": -45.431,
    "modo": "EV",
-   "precioBase": 5.83,
-   "gBase": -8.12,
-   "fechaBase": "2026-10-27",
+   "precioBase": 5.75,
+   "gBase": -8.33,
+   "fechaBase": "2026-10-28",
    "congeladoEl": "2026-10-28",
    "validado": true,
    "desviacion": -0.0

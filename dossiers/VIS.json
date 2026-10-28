@@ -101,7 +101,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 8.55,
+  "gImplicito": 8.52,
   "gIntrinseco": 7.43,
   "veredicto": "EXIGENTE",
   "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 7.4 %)",
@@ -115,9 +115,9 @@
    "acciones": 45.6906,
    "deudaNeta": 253.528,
    "modo": "EV",
-   "precioBase": 54.0,
-   "gBase": 8.55,
-   "fechaBase": "2026-10-27",
+   "precioBase": 53.9,
+   "gBase": 8.52,
+   "fechaBase": "2026-10-28",
    "congeladoEl": "2026-10-28",
    "validado": true,
    "desviacion": 0.0

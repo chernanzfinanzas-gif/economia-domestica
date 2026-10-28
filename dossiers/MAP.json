@@ -64,12 +64,12 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -0.62,
+  "gImplicito": -1.41,
   "gIntrinseco": null,
   "veredicto": "PLAUSIBLE",
-  "motivo": "PLAUSIBLE (exige un RoTE de 13.7 %, no más que el último, 16.0 %)",
+  "motivo": "PLAUSIBLE (exige un RoTE de 13.2 %, no más que el último, 16.0 %)",
   "calculadoEl": "2026-10-28",
   "origen": "metodo-v3",
-  "roteImplicito": 13.69
+  "roteImplicito": 13.24
  }
 }

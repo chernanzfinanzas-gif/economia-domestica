@@ -104,7 +104,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 11.07,
+  "gImplicito": 10.8,
   "gIntrinseco": 7.09,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
@@ -118,12 +118,12 @@
    "acciones": 1046.6667,
    "deudaNeta": 10396.0,
    "modo": "EV",
-   "precioBase": 44.18,
-   "gBase": 12.53,
-   "fechaBase": "2026-10-27",
+   "precioBase": 43.19,
+   "gBase": 12.09,
+   "fechaBase": "2026-10-28",
    "congeladoEl": "2026-10-28",
    "validado": false,
-   "desviacion": 1.46
+   "desviacion": 1.29
   }
  }
 }

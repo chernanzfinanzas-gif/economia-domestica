@@ -3,7 +3,7 @@
  "ticker": "BKT",
  "empresa": "Bankinter, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-27",
+ "generado": "2026-10-28",
  "revisiones": [
   {
    "periodo": "2023-Q1",
@@ -760,53 +760,56 @@
   {
    "periodo": "2026-Q3",
    "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
    "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "NIM (señal única) ESTIMADO en 1.78% -calculado anualizando el margen de intereses (1.762 M€ x 12/9) sobre el activo TOTAL de cierre (132.149 M€, Nota de prensa), no sobre el activo total MEDIO que usa el resto de la serie: los dos documentos de este trimestre (presentación 9M26 + nota de prensa) no publican el ATM. Aun así queda muy por encima del umbral verde del 1,60% del §10.1; pedir a Investing/la empresa el informe con el ATM para confirmar la cifra exacta en el próximo trimestre. RoTE 20,4% (verde >= 15,7), eficiencia 34,8% (verde <= 38,8, mejora frente al año anterior), morosidad 1,84% (verde <= 2,26, -21pb interanual), cobertura 66,8%, CET1 13,2% (muy por encima del mínimo BCE del 8,6%). Beneficio neto 901 M€ (+11% interanual), margen de intereses en niveles récord (+5,7%) y margen bruto +6,5%. Inversión crediticia ~87.000 M€, practicamente plana frente a S1-2026 (volúmenes con clientes totales +7,1% hasta 250.142 M€, por recursos minoristas y AUMs).",
+   "resumen": "Margen bruto +6,5 %, resultado de explotación +8,8 %, resultado atribuido +11,0 %, margen 65,2 % (+1,41 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 20,4 %. Verde: nada que señalar. **Qué ha pasado** — 9M-2026 frente al 9M-2025: margen de intereses 1.762 M€ (+5,7 %), margen bruto 2.397 M€ (+6,5 %), resultado de explotación 1.564 M€ (+8,8 %) y resultado atribuido 901 M€ (+11,0 %). RoTE 20,4 % (+1,1 pp), eficiencia 34,8 % (−1,4 pp), morosidad 1,84 % (−0,21 pp), CET1 13,18 % (+0,24 pp) e inversión crediticia 87.134 M€ (+5,6 %). Dividendo por acción desde enero 0,32 €.\n\n**Por qué** — Recurrente: «mayores volúmenes de negocio y una buena gestión de los diferenciales» en el margen de intereses, comisiones netas +12,9 % (gestión de activos, intermediación, transaccional) y costes +2,3 %, por debajo de los ingresos; Portugal (beneficio antes de impuestos +13 %) e Irlanda (+21 %) crecen más que España (+10 %). Puntual: parte de las comisiones son «ingresos extraordinarios» de inversión alternativa cobrados en el 2T; por eso las comisiones del 3T caen un 11 % frente al 2T (+7 % frente al 3T-2025) (Información Consolidada 9M 2026).\n\n**Semáforo** — VERDE bien puesto: todas las variables mejoran y el RoTE queda muy por encima del 15,7 % de la tesis. No abre ninguna señal; la S5 se cierra al aprobar y sigue abierta la S3 (cotización por encima del PO bull).\n\n**Qué vigilar** — La cobertura de la morosidad baja al 66,83 % (69,71 % hace un año, 69,15 % en el 1S), a 1,8 pp de la alarma del 65 %, con fallidos de 257 M€ (+51 %). El coste de los recursos mayoristas sube al 2,67 % en el 3T (2,37 % en el 2T) con la subida de tipos; coste del riesgo estable en 0,33 % (alarma 0,5 %). NIM 1,78 %, lejos del 1,6 %.\n\n**Lectura** — Aprobar en verde. No toca la tesis.",
    "metricas": [
     {
-     "nombre": "M. Intereses (M€)",
+     "nombre": "M. intereses",
      "valor": 1762.0
     },
     {
-     "nombre": "M. Bruto (M€)",
+     "nombre": "M. bruto",
      "valor": 2397.0
     },
     {
-     "nombre": "BNA (M€)",
+     "nombre": "Resultado atribuido",
      "valor": 901.0
     },
     {
-     "nombre": "RoTE (%)",
-     "valor": 20.4
+     "nombre": "RoTE",
+     "valor": 20.43
     },
     {
-     "nombre": "NIM (%)",
+     "nombre": "NIM",
      "valor": 1.78
     },
     {
-     "nombre": "Eficiencia (%)",
-     "valor": 34.8
+     "nombre": "Eficiencia",
+     "valor": 34.78
     },
     {
-     "nombre": "Morosidad (%)",
+     "nombre": "Morosidad",
      "valor": 1.84
     },
     {
-     "nombre": "Cobertura (%)",
-     "valor": 66.8
+     "nombre": "Cobertura",
+     "valor": 66.83
     },
     {
-     "nombre": "CET1 (%)",
-     "valor": 13.2
+     "nombre": "CET1",
+     "valor": 13.18
     },
     {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 87000.0
+     "nombre": "Inversión crediticia",
+     "valor": 87134.0
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   }
  ]
 }

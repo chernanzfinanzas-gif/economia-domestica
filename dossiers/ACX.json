@@ -34,7 +34,7 @@
  ],
  "bull": "16,38 € — escenario optimista: el ciclo vuelve a la parte alta (2021-2022) y NAS y Haynes rinden",
  "bear": "10,04 € — escenario pesimista: el inoxidable sigue en el suelo y NAS no se traduce en más caja",
- "resumen": "ESPERAR con la cotización de 17,10 € (2026-10-27): precio objetivo 12,45 € (bear 10,04 · bull 16,38), margen −27,2 %. Banda de entrada 10,04–10,83 €, stop de tesis 7,27 €.",
+ "resumen": "ESPERAR con la cotización de 16,84 € (2026-10-28): precio objetivo 12,45 € (bear 10,04 · bull 16,38), margen −26,0 %. Banda de entrada 10,04–10,83 €, stop de tesis 7,27 €.",
  "dividendSafety": {
   "score": 11,
   "banda": "Recorte probable",
@@ -54,7 +54,7 @@
   "motivos": [
    "Recorte probable: cobertura OE -0.38x · payout 111 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
   ],
-  "calculadoEl": "2026-10-27",
+  "calculadoEl": "2026-10-28",
   "origen": "metodo-v3",
   "shareholderYield": 4.92
  },
@@ -95,16 +95,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-27",
+  "calculadoEl": "2026-10-28",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 2.74,
+  "gImplicito": 2.57,
   "gIntrinseco": 1.74,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-27",
+  "calculadoEl": "2026-10-28",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 258.4021,
@@ -114,10 +114,10 @@
    "acciones": 249.336,
    "deudaNeta": 1283.828,
    "modo": "EV",
-   "precioBase": 17.1,
-   "gBase": 2.74,
-   "fechaBase": "2026-10-27",
-   "congeladoEl": "2026-10-27",
+   "precioBase": 16.84,
+   "gBase": 2.57,
+   "fechaBase": "2026-10-28",
+   "congeladoEl": "2026-10-28",
    "validado": true,
    "desviacion": -0.0
   }

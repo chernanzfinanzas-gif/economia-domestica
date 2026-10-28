@@ -3,7 +3,7 @@
  "ticker": "CIE",
  "empresa": "CIE Automotive, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-27",
+ "generado": "2026-10-28",
  "revisiones": [
   {
    "periodo": "2022-Q2",
@@ -643,6 +643,40 @@
      "valoracion": "Un guidance mantenido con la producción mundial cayendo un 1,0 % es información: el §10.4 vigila la revisión a la baja como red flag, y no se ha producido. La outperformance de +10,3 pp respalda que el compromiso de crecimiento es alcanzable."
     }
    ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,6 %, EBITDA +5,8 %, beneficio neto +3,2 %, margen 19,0 % (+0,04 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Qué ha pasado. CIE cierra los nueve primeros meses con ventas récord de 3.140,9 M€ (+5,6 %), EBITDA de 596,5 M€ (+5,8 %; margen 19,0 %, +0,04 puntos), EBIT de 444,6 M€ (+6,1 %; margen 14,2 %) y beneficio neto de 274,8 M€ (+3,2 %). La compañía dice haber crecido 8 puntos por encima del mercado y generado más de 400 M€ de caja operativa (nota de prensa del 28-oct).\n\nPor qué. Sigue ganando cuota en un mercado de automoción flojo y mantiene el margen en máximos. El beneficio crece menos que el EBITDA (+3,2 % frente a +5,8 %); los documentos de hoy no desglosan la diferencia (financieros, impuestos o minoritarios), así que no la atribuyo.\n\nSemáforo. VERDE, bien puesto: ventas, EBITDA y beneficio suben y el margen se mantiene en el 19 %.\n\nQué vigilar. (1) Nueva política de remuneración (presentación del 26-oct): pay-out del 42 % en 2026 y del 50 % en 2027, frente al 33 % de siempre; con el BPA de 2025 serían unos 1,18 € por acción en 2026 y 1,41 € en 2027. Hay que llevarlo a la proyección del dividendo, que hoy usa el 33 %. (2) Compromisos de la guía 2026-2027: deuda financiera neta/EBITDA por debajo de 0,7x a cierre de 2027 y más de 1.000 M€ de flujo de caja operativo acumulado; comprobarlo con el cierre anual. (3) La deuda neta del 9M no viene en los documentos de hoy.\n\nLectura. Aprobar en verde; la tesis sigue intacta. Al aprobar, actualizar la proyección del dividendo a 42 %/50 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3141.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 596.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 445.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 275.0
+    }
+   ],
+   "hechos": [],
    "origen": "metodo-v3"
   }
  ]
