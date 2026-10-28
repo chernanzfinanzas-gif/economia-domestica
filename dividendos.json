@@ -23974,10 +23974,10 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.1815,
-"dpaNeto": 0.1458,
+"dpaBruto": 0.19,
+"dpaNeto": 0.1539,
 "nPagos": 2,
-"deltaPct": 0.086176,
+"deltaPct": 0.137044,
 "racha": 16,
 "naturaleza": "efectivo",
 "junta": "2026-03-13",
@@ -23994,10 +23994,10 @@
 "clase": "ordinario"
 },
 {
-"exDiv": "2026-11-28",
-"pago": "2026-11-30",
-"bruto": 0.07,
-"neto": 0.0567,
+"exDiv": "2026-11-24",
+"pago": "2026-11-26",
+"bruto": 0.08,
+"neto": 0.0648,
 "tipo": null,
 "ejercicio": "2026",
 "clase": "ordinario"
