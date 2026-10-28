@@ -102,6 +102,13 @@
         '<div class="k n-k5"><div class="l">Por cobrar hasta dic.</div><div class="v">'+E(pend)+'</div><div class="p">'+(tp.slice(0,2).map(function(a){return a[0]+' '+E(a[1])+(a[2]?' ('+f2(a[2])+')':'');}).join(' + ')+(tp.length>2?' + …':'')||'nada previsto este año')+'</div></div>');
     }
     k.classList.add('n-k5grid');
+    /* 28-oct (Carlos): los dos máximos en dos columnas de una línea, sin el texto explicativo (queda al pasar el ratón) */
+    var mx=mcb.querySelector('.mc-max'); if(mx&&!mx.querySelector('.n-max1')){
+      var notas=[].map.call(mx.querySelectorAll('.mc-max-pie,.mc-max-ojo'),function(x){ return x.textContent.trim(); }).join(' · ');
+      [].forEach.call(mx.querySelectorAll('.mc-max-pie,.mc-max-ojo'),function(x){ x.remove(); });
+      var it=mx.querySelector('.mc-max-intra'); var c1=document.createElement('span'); c1.className='n-max1';
+      [].slice.call(mx.childNodes).forEach(function(nd){ if(nd!==it) c1.appendChild(nd); });
+      mx.insertBefore(c1,mx.firstChild); mx.classList.add('n-max2'); mx.title=notas; }
     /* franja del dividendo en cada posición (primera lista: tus posiciones) */
     var lista=mcb.querySelector('.mc-list'); if(!lista) return;
     [].forEach.call(lista.querySelectorAll('.mc-row'),function(r){ if(r.querySelector('.n-divf')) return; var tk=r.querySelector('.mc-tk'); if(!tk) return; var d=D[(tk.getAttribute('data-ficha')||'').toUpperCase()]; if(!d) return;

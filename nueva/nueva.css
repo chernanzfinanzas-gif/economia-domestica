@@ -361,3 +361,7 @@ body.n-noscroll{overflow:hidden}
  .n-av .n-avbt{justify-self:start}
  .n-cer{grid-template-columns:84px 1fr auto}.n-cern{min-width:0}}
 /* 28-oct (Carlos 23:28): fuera el «Info — pasos previos» */ .infobox{display:none!important}
+/* Panel · los dos máximos en dos columnas (28-oct) */
+#view-panel .mc-max.n-max2{display:grid!important;grid-template-columns:1fr 1fr;gap:6px 24px;align-items:baseline;padding:9px 14px!important;font-size:12.5px!important}
+#view-panel .mc-max.n-max2 .mc-max-intra{display:block;margin:0!important;padding:0!important;border:0!important}
+@media (max-width:640px){#view-panel .mc-max.n-max2{grid-template-columns:1fr}}
