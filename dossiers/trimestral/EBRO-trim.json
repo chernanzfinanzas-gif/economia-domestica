@@ -11,29 +11,29 @@
    "periodoV3": "2022-3M",
    "fecha": "2022-03-31",
    "fechaOrigen": "cierre",
-   "semaforoGlobal": "V",
+   "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -8,9 %, EBITDA +0,0 %, beneficio neto +10,6 %, margen 13,4 % (+1,19 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "resumen": "Ingresos +23,9 %, EBITDA +11,2 %, beneficio neto -21,4 %, margen 12,0 % (-1,37 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 586.0
+     "valor": 726.0
     },
     {
      "nombre": "EBITDA",
-     "valor": 78.3
+     "valor": 87.0
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 13.4
+     "valor": 12.0
     },
     {
      "nombre": "EBIT",
-     "valor": 55.3
+     "valor": 62.4
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 52.8
+     "valor": 41.5
     }
    ],
    "hechos": [],
@@ -83,29 +83,29 @@
    "periodoV3": "2022-9M",
    "fecha": "2022-09-30",
    "fechaOrigen": "cierre",
-   "semaforoGlobal": "A",
+   "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -3,3 %, EBITDA -2,1 %, beneficio neto +5,8 %, margen 12,6 % (+0,15 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "resumen": "Ingresos +24,6 %, EBITDA +10,7 %, beneficio neto -43,9 %, margen 11,2 % (-1,40 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 1752.0
+     "valor": 2183.0
     },
     {
      "nombre": "EBITDA",
-     "valor": 221.0
+     "valor": 245.0
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 12.6
+     "valor": 11.2
     },
     {
      "nombre": "EBIT",
-     "valor": 152.0
+     "valor": 169.0
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 155.0
+     "valor": 87.1
     }
    ],
    "hechos": [],
@@ -155,29 +155,29 @@
    "periodoV3": "2023-3M",
    "fecha": "2023-04-26",
    "fechaOrigen": "publicacion",
-   "semaforoGlobal": "R",
+   "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +23,9 %, EBITDA +11,2 %, beneficio neto -21,4 %, margen 12,0 % (-1,37 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos +11,6 %, EBITDA +10,7 %, beneficio neto +5,5 %, margen 11,9 % (-0,10 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 726.0
+     "valor": 810.0
     },
     {
      "nombre": "EBITDA",
-     "valor": 87.0
+     "valor": 96.3
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 12.0
+     "valor": 11.9
     },
     {
      "nombre": "EBIT",
-     "valor": 62.4
+     "valor": 71.7
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 41.5
+     "valor": 43.8
     }
    ],
    "hechos": [
@@ -253,29 +253,29 @@
    "periodoV3": "2023-9M",
    "fecha": "2023-10-31",
    "fechaOrigen": "publicacion",
-   "semaforoGlobal": "A",
+   "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +24,6 %, EBITDA +10,7 %, beneficio neto -43,9 %, margen 11,2 % (-1,40 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos +5,7 %, EBITDA +16,1 %, beneficio neto +60,9 %, margen 12,3 % (+1,11 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 2183.0
+     "valor": 2307.0
     },
     {
      "nombre": "EBITDA",
-     "valor": 245.0
+     "valor": 284.0
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 11.2
+     "valor": 12.3
     },
     {
      "nombre": "EBIT",
-     "valor": 169.0
+     "valor": 209.0
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 87.1
+     "valor": 140.0
     }
    ],
    "hechos": [
@@ -365,27 +365,27 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +11,6 %, EBITDA +10,7 %, beneficio neto +5,5 %, margen 11,9 % (-0,10 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos -0,4 %, EBITDA +13,9 %, beneficio neto +22,7 %, margen 13,6 % (+1,71 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 810.0
+     "valor": 807.0
     },
     {
      "nombre": "EBITDA",
-     "valor": 96.3
+     "valor": 110.0
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 11.9
+     "valor": 13.6
     },
     {
      "nombre": "EBIT",
-     "valor": 71.7
+     "valor": 83.7
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 43.8
+     "valor": 53.7
     }
    ],
    "hechos": [
@@ -453,27 +453,27 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +5,7 %, EBITDA +16,1 %, beneficio neto +60,9 %, margen 12,3 % (+1,11 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +1,7 %, EBITDA +8,3 %, beneficio neto +20,8 %, margen 13,1 % (+0,80 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 2307.0
+     "valor": 2347.0
     },
     {
      "nombre": "EBITDA",
-     "valor": 284.0
+     "valor": 308.0
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 12.3
+     "valor": 13.1
     },
     {
      "nombre": "EBIT",
-     "valor": 209.0
+     "valor": 229.0
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 140.0
+     "valor": 169.0
     }
    ],
    "hechos": [
@@ -563,27 +563,27 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -0,4 %, EBITDA +13,9 %, beneficio neto +22,7 %, margen 13,6 % (+1,71 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. Verde: ventas −0,4 % y EBITDA +2,2 %, margen 13,9 % (+0,36 puntos).",
+   "resumen": "Ingresos -1,8 %, EBITDA +2,2 %, beneficio neto -6,4 %, margen 14,2 % (+0,56 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. Verde (cifras corregidas el 28-oct-2026): ventas −1,8 %, EBITDA +2,2 %, beneficio −6,4 % y margen 14,2 % (+0,56 puntos).",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 807.0
+     "valor": 792.0
     },
     {
      "nombre": "EBITDA",
-     "valor": 110.0
+     "valor": 112.0
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 13.6
+     "valor": 14.2
     },
     {
      "nombre": "EBIT",
-     "valor": 83.7
+     "valor": 84.8
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 53.7
+     "valor": 50.3
     }
    ],
    "hechos": [
@@ -667,27 +667,27 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +1,7 %, EBITDA +8,3 %, beneficio neto +20,8 %, margen 13,1 % (+0,80 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ventas +1,7 % y EBITDA +1,1 %, margen estable (13,3 %).",
+   "resumen": "Ingresos -3,0 %, EBITDA +1,1 %, beneficio neto -8,8 %, margen 13,7 % (+0,56 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. Verde (cifras corregidas el 28-oct-2026): ventas −3,0 %, EBITDA +1,1 %, beneficio −8,8 % y margen 13,7 % (+0,56 puntos).",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 2347.0
+     "valor": 2276.0
     },
     {
      "nombre": "EBITDA",
-     "valor": 308.0
+     "valor": 311.0
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 13.1
+     "valor": 13.7
     },
     {
      "nombre": "EBIT",
-     "valor": 229.0
+     "valor": 228.0
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 169.0
+     "valor": 154.0
     }
    ],
    "hechos": [
@@ -769,29 +769,29 @@
    "periodoV3": "2026-3M",
    "fecha": "2026-04-30",
    "fechaOrigen": "publicacion",
-   "semaforoGlobal": "V",
+   "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -1,8 %, EBITDA +2,2 %, beneficio neto -6,4 %, margen 14,2 % (+0,56 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. Verde: ventas −1,8 % y EBITDA +2,2 %, margen 14,2 % (+0,56 puntos).",
+   "resumen": "Ingresos -4,6 %, EBITDA -10,8 %, beneficio neto +5,3 %, margen 13,2 % (-0,91 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja, el margen empeora. Ámbar (cifras corregidas el 28-oct-2026: antes se leyó la columna de 2025): ventas −4,6 %, EBITDA −10,8 %, beneficio +5,3 % y margen 13,2 % (−0,91 puntos). Las causas no se han releído en esta revisión.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 792.0
+     "valor": 755.0
     },
     {
      "nombre": "EBITDA",
-     "valor": 112.0
+     "valor": 100.0
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 14.2
+     "valor": 13.2
     },
     {
      "nombre": "EBIT",
-     "valor": 84.8
+     "valor": 72.3
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 50.3
+     "valor": 52.9
     }
    ],
    "hechos": [
@@ -883,6 +883,40 @@
      "valoracion": "Contingente, sin calendario y sin reconocer. No entra en el PO; se vigila como catalizador del §9.1."
     }
    ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -2,3 %, EBITDA -1,4 %, beneficio neto -2,7 %, margen 13,8 % (+0,12 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja. Ámbar: ventas −2,3 % y EBITDA-A −1,4 % (4,9 M€ son dólar; sin él, plano), margen 13,8 % (+0,12 puntos). El arroz sube (EBITDA-A +2,4 %) y la pasta cae (−15,0 %) por aranceles, dólar, transporte, energía y Garofalo. El beneficio baja un 2,7 % porque 2025 llevaba 12 M€ de plusvalía extraordinaria (documento: «2026-10-28 Ebro Foods, S.A. publica la presentación a analistas»). En la pasta hay deterioro real: el color se queda.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2224.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 307.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 221.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 150.0
+    }
+   ],
+   "hechos": [],
    "origen": "metodo-v3"
   }
  ]
