@@ -336,7 +336,7 @@ body.n-noscroll{overflow:hidden}
 .n-pcf{font-size:10.5px;color:#94A3B8}
 #view-panel #nP_pre #panelPeriodo{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0 0 10px!important}
 #view-panel .n-pblk>.pos-blk-h .bsum{margin-left:0!important;flex:0 1 auto}
-#view-panel .panel-hero{display:none!important}
+#view-panel .panel-hero{margin-bottom:6px}
 #view-panel #panelEstadoStrip{margin:6px 0 12px!important}
 .n-avtx{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .n-avtx br{display:none}
@@ -360,3 +360,4 @@ body.n-noscroll{overflow:hidden}
 @media (max-width:640px){.n-pcg{gap:10px}.n-pc{padding:10px 10px 6px}.n-pcv{font-size:19px}.n-pch{font-size:10.5px}.n-pch em{display:none}.n-ring{flex-direction:column;align-items:flex-start}
  .n-av .n-avbt{justify-self:start}
  .n-cer{grid-template-columns:84px 1fr auto}.n-cern{min-width:0}}
+/* 28-oct (Carlos 23:28): fuera el «Info — pasos previos» */ .infobox{display:none!important}
