@@ -1,0 +1,266 @@
+/* ============================================================
+   14-papelera.js — Deshacer (toast) + Papelera
+   · Toda acción destructiva de un registro llama a undoableDelete(...).
+   · Se muestra un toast «Deshacer» (5 s) y el elemento queda en DB.papelera
+     (últimos TRASH_MAX, TRASH_DAYS días) para restaurarlo desde la Papelera.
+   · La restauración es "data-driven" por tipo (TRASH_RESTORE): así persiste
+     entre recargas sin depender de closures.
+   ============================================================ */
+var TRASH_MAX = 80;     /* máximo de elementos retenidos */
+var TRASH_DAYS = 30;    /* antigüedad máxima en días */
+
+function _papEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function _papSave(){ if(typeof scheduleSave==='function')scheduleSave(); else if(typeof saveNow==='function')saveNow(); }
+
+/* --- Toast --- */
+function _toastHost(){ var h=document.getElementById('toastHost'); if(!h){ h=document.createElement('div'); h.id='toastHost'; h.style.cssText='position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:99999;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none'; document.body.appendChild(h); } return h; }
+function showToast(msg, actionLabel, actionFn, ms){
+  var h=_toastHost();
+  var t=document.createElement('div');
+  t.style.cssText='pointer-events:auto;background:#1f2937;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 6px 22px rgba(0,0,0,.28);font-size:13px;display:flex;align-items:center;gap:14px;max-width:92vw';
+  var span=document.createElement('span'); span.innerHTML=msg; t.appendChild(span);
+  if(actionLabel&&actionFn){ var b=document.createElement('button'); b.textContent=actionLabel; b.style.cssText='background:transparent;border:0;color:#93c5fd;font-weight:700;cursor:pointer;font-size:13px;padding:2px 4px'; b.addEventListener('click',function(){ try{actionFn();}catch(e){} if(t.parentNode)t.remove(); }); t.appendChild(b); }
+  var x=document.createElement('button'); x.textContent='✕'; x.title='Cerrar'; x.style.cssText='background:transparent;border:0;color:#9ca3af;cursor:pointer;font-size:12px'; x.addEventListener('click',function(){ if(t.parentNode)t.remove(); }); t.appendChild(x);
+  h.appendChild(t);
+  var life=ms||5000;
+  setTimeout(function(){ if(t.parentNode){ t.style.transition='opacity .3s'; t.style.opacity='0'; setTimeout(function(){ if(t.parentNode)t.remove(); },300); } }, life);
+  return t;
+}
+
+/* --- Restauradores por tipo: reciben el payload, mutan DB y devuelven render fns a llamar --- */
+var TRASH_RESTORE={
+  operacion:          function(p){ DB.operaciones=DB.operaciones||[]; DB.operaciones.push(p.item); return ['renderAll','renderInvOps']; },
+  operaciones_ticker: function(p){ DB.operaciones=(DB.operaciones||[]).concat(p.items||[]); return ['renderAll','renderInvOps']; },
+  movimiento:         function(p){ DB.movimientos=DB.movimientos||[]; DB.movimientos.push(p.item); return ['renderAll']; },
+  analisis:           function(p){ DB.analisis=DB.analisis||[]; DB.analisis.push(p.item); return ['renderAll']; },
+  cerrada:            function(p){ DB.cerradas=DB.cerradas||[]; DB.cerradas.push(p.item); return ['renderInv','renderDividendos']; },
+  amalia:             function(p){ DB.amalia=DB.amalia||[]; DB.amalia.push(p.item); return ['renderAmalia']; },
+  patrimonio:         function(p){ DB.patrimonio=DB.patrimonio||[]; DB.patrimonio.push(p.item); return ['renderPat']; },
+  easy:               function(p){ DB.easy=DB.easy||[]; DB.easy.push(p.item); return ['renderFondoR4']; },
+  universo:           function(p){ DB.universo=DB.universo||{}; DB.universo[p.t]=p.item; return ['renderUniverso']; },
+  combustible:        function(p){ DB.combustible=DB.combustible||[]; DB.combustible.push(p.item); return ['renderMazinger']; },
+  protocolo:          function(p){ DB.protocolo=DB.protocolo||{}; DB.protocolo[p.t]=DB.protocolo[p.t]||[]; DB.protocolo[p.t].push(p.item); return ['renderPanelDash']; },
+  /* [25-ago-2026] Baja de una empresa del plan de Diversificación: además de la fila se llevaba su
+     categoría y los importes fijados a mano por año. Se restauran las tres cosas juntas. */
+  plan_empresa:       function(p){ DB.planLote=DB.planLote||[];
+                                   if(DB.planLote.map(function(x){return (x||'').toUpperCase();}).indexOf(p.t)<0)DB.planLote.push(p.t);
+                                   if(p.tipo){ DB.planTipo=DB.planTipo||{}; DB.planTipo[p.t]=p.tipo; }
+                                   if(p.compras&&Object.keys(p.compras).length){ DB.planCompras=DB.planCompras||{}; DB.planCompras[p.t]=p.compras; }
+                                   if(p.sim&&Object.keys(p.sim).length){ DB.simShares=DB.simShares||{}; DB.simShares[p.t]=p.sim; }
+                                   try{ if(typeof _planRepartoInval==='function')_planRepartoInval(); }catch(e){}
+                                   return ['renderPlanLote','renderSimulador']; },
+  /* [25-ago-2026] Borrar una cuenta arrastraba su línea de TODOS los registros de patrimonio (7 años
+     de histórico) sin vuelta atrás. Se restaura la cuenta en su posición y cada línea en SU registro. */
+  cuenta:             function(p){ DB.cuentas=DB.cuentas||[];
+                                   if(!DB.cuentas.some(function(x){return x.id===p.cuenta.id;})){
+                                     if(p.idx>=0&&p.idx<=DB.cuentas.length)DB.cuentas.splice(p.idx,0,p.cuenta); else DB.cuentas.push(p.cuenta); }
+                                   (p.lineas||[]).forEach(function(e){
+                                     var s=(DB.patrimonio||[]).find(function(x){return x.id===e.snap;})
+                                        || (DB.patrimonio||[]).find(function(x){return x.fecha===e.fecha;});
+                                     if(!s)return; s.lineas=s.lineas||[];
+                                     if(!s.lineas.some(function(l){return l.cuentaId===e.linea.cuentaId;})) s.lineas.push(e.linea); });
+                                   return ['renderPat']; },
+  /* [26-ago-2026] Cuatro borrados que no tenían red — y el de lote de protocolo, que sí la tenía en su
+     versión individual pero no en la masiva. Todos guardan el índice o el array completo para que
+     restaurar devuelva también la POSICIÓN, no solo el dato. */
+  diario:             function(p){ DB.diario=DB.diario||[];
+                                   if(p.idx>=0&&p.idx<=DB.diario.length)DB.diario.splice(p.idx,0,p.item); else DB.diario.push(p.item);
+                                   return ['renderDiario','renderPanelDash']; },
+  todo:               function(p){ DB.todos=DB.todos||[];
+                                   if(p.idx>=0&&p.idx<=DB.todos.length)DB.todos.splice(p.idx,0,p.item); else DB.todos.push(p.item);
+                                   return ['renderMonitor','renderPanel']; },
+  todos_hechos:       function(p){ DB.todos=(DB.todos||[]).concat(p.items||[]); return ['renderMonitor','renderPanel']; },
+  /* Archivar una posición cerrada movía las operaciones a DB.cerradas con menos campos y no había
+     «desarchivar». Se guardan las operaciones ORIGINALES: deshacer devuelve la posición tal cual. */
+  archivado:          function(p){ DB.cerradas=(DB.cerradas||[]).filter(function(c){return c.id!==p.cid;});
+                                   DB.operaciones=(DB.operaciones||[]).concat(p.ops||[]);
+                                   return ['renderInv','renderInvOps','renderDividendos','renderAll']; },
+  protocolo_lote:     function(p){ DB.protocolo=DB.protocolo||{}; DB.protocolo[p.t]=p.antes||[]; return ['renderPanelDash']; },
+  /* Resto huérfano de DB.valores (un ticker mal escrito de los prompts antiguos). */
+  valor_huerfano:     function(p){ DB.valores=DB.valores||{}; DB.valores[p.t]=p.item;
+                                   /* [27-sep-2026] divPorAccion retirado: ya no se restaura */
+                                   if(typeof renderPapelera==='function')renderPapelera();
+                                   return []; },
+  meta:               function(p){ DB.metas=DB.metas||[]; if(p.idx>=0&&p.idx<=DB.metas.length)DB.metas.splice(p.idx,0,p.item); else DB.metas.push(p.item); return ['renderMetas','renderPanel']; },
+  asignClase:         function(p){ DB.asignacion=DB.asignacion||[]; if(p.idx>=0&&p.idx<=DB.asignacion.length)DB.asignacion.splice(p.idx,0,p.item); else DB.asignacion.push(p.item); return ['renderAsignacion','renderPanel']; },
+  asignFoto:          function(p){ DB.asignacionFotos=DB.asignacionFotos||[]; if(p.idx>=0&&p.idx<=DB.asignacionFotos.length)DB.asignacionFotos.splice(p.idx,0,p.item); else DB.asignacionFotos.push(p.item); return ['renderAsignFotos']; },
+  dividendo:          function(p){ if(p.cerrada){ var c=(DB.cerradas||[]).find(function(x){return (x.ticker||'').toUpperCase()===(p.t||'').toUpperCase();}); if(c){ c.divs=c.divs||[]; c.divs.push(p.item); return ['renderDividendos']; } }   /* [27-sep] vuelve a la posición cerrada */
+    DB.dividendos=DB.dividendos||{}; DB.dividendos[p.t]=DB.dividendos[p.t]||[]; DB.dividendos[p.t].push(p.item); return ['renderDividendos']; },
+  /* [A10 · 26-jul-2026] Borrar una partida —o un capítulo entero— arrastraba sus presupuestos de
+     TODOS los años en silencio y sin vuelta atrás: era el único borrado del hogar sin red. */
+  /* [C1 · 27-jul-2026] Al restaurar se repinta también el Presupuesto y su desglose: renderAll es
+     selectivo (solo repinta la vista activa), y la restauración se hace desde el modal de la
+     Papelera, que puede estar abierto sobre cualquier vista. Sin esto, la partida volvía a DB pero
+     no reaparecía en pantalla hasta cambiar de pestaña. */
+  categoria:          function(p){ DB.categorias=DB.categorias||[]; if(p.item)DB.categorias.push(p.item);
+                                   DB.presupuesto=(DB.presupuesto||[]).concat(p.pres||[]);
+                                   return ['fillCatSelects','fillGrupoList','renderPres','renderPresDesglose','renderAll']; },
+  capitulo:           function(p){ DB.categorias=(DB.categorias||[]).concat(p.items||[]);
+                                   DB.presupuesto=(DB.presupuesto||[]).concat(p.pres||[]);
+                                   if(p.extra){ DB.config=DB.config||{}; DB.config.capitulosExtra=DB.config.capitulosExtra||[];
+                                     if(DB.config.capitulosExtra.indexOf(p.extra)<0) DB.config.capitulosExtra.push(p.extra); }
+                                   return ['fillCatSelects','fillGrupoList','renderPres','renderPresDesglose','renderAll']; }
+};
+
+function _runRenders(names){
+  (names||[]).forEach(function(n){ try{ if(typeof window[n]==='function')window[n](); }catch(e){} });
+  /* refresca la ficha abierta, si la hay (protocolo/dividendos se ven ahí) */
+  try{ if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); }catch(e){}
+}
+function _trashPurge(){ DB.papelera=DB.papelera||[]; var cut=Date.now()-TRASH_DAYS*86400000; DB.papelera=DB.papelera.filter(function(e){ return e&&e.when>=cut; }); if(DB.papelera.length>TRASH_MAX)DB.papelera=DB.papelera.slice(0,TRASH_MAX); }
+
+/* --- API principal: borra con posibilidad de deshacer --- */
+function undoableDelete(kind, label, payload, removeFn, renderNames){
+  if(typeof removeFn==='function')removeFn();
+  DB.papelera=DB.papelera||[];
+  var id='tr'+Math.random().toString(36).slice(2,9);
+  DB.papelera.unshift({ id:id, kind:kind, label:label, when:Date.now(), payload:payload });
+  _trashPurge();
+  _runRenders(renderNames);
+  _papSave();
+  if(typeof renderPapelera==='function')renderPapelera();
+  showToast('🗑️ '+_papEsc(label)+' — eliminado', 'Deshacer', function(){ restoreTrash(id); });
+  return id;
+}
+
+function restoreTrash(id){
+  DB.papelera=DB.papelera||[];
+  var i=-1; for(var k=0;k<DB.papelera.length;k++){ if(DB.papelera[k].id===id){ i=k; break; } }
+  if(i<0)return false;
+  var e=DB.papelera[i];
+  var fn=TRASH_RESTORE[e.kind];
+  if(!fn){ showToast('No se puede restaurar «'+_papEsc(e.label)+'»', null, null, 3000); return false; }
+  var renders=[]; try{ renders=fn(e.payload)||[]; }catch(err){ showToast('Error al restaurar', null, null, 3000); return false; }
+  DB.papelera.splice(i,1);
+  _runRenders(renders);
+  _papSave();
+  if(typeof renderPapelera==='function')renderPapelera();
+  showToast('✓ Restaurado: '+_papEsc(e.label), null, null, 2500);
+  return true;
+}
+
+/* --- Papelera (modal) --- */
+function openPapelera(){
+  _trashPurge();
+  var ov=document.getElementById('papeleraOverlay');
+  if(!ov){ ov=document.createElement('div'); ov.id='papeleraOverlay'; ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99990;display:flex;align-items:center;justify-content:center;padding:16px'; ov.addEventListener('click',function(ev){ if(ev.target===ov)ov.remove(); }); document.body.appendChild(ov); }
+  ov.innerHTML='<div style="background:#fff;border-radius:14px;max-width:580px;width:100%;max-height:82vh;overflow:auto;padding:18px 20px;box-shadow:0 14px 44px rgba(0,0,0,.32)"><div id="papeleraBody"></div></div>';
+  renderPapelera();
+}
+/* ===== RESTOS EN DB.valores (26-ago-2026) =====
+   Los prompts de alta antiguos aceptaban cualquier texto como ticker. Lo que quedó son claves que no
+   corresponden a ninguna empresa que la app conozca: en los datos de Carlos, `IBERDROLA, S.A.` (de
+   teclear el nombre donde iba el ticker) y `APAM.AS` (el mismo Aperam con el sufijo de Yahoo, con OTRO
+   precio y OTRO dividendo que el de APAM). Hoy son inertes, pero son dos verdades para una empresa.
+   Se listan, no se borran solos: IBEX/IBEXTR son referencias legítimas y puede haber altas manuales
+   deliberadas. Cada baja va por la Papelera. */
+var _PAP_BENCH={IBEX:1,IBEXTR:1,SP500:1,EUROSTOXX:1};
+function papValoresHuerfanos(){
+  var val=DB.valores||{}; var vivos={};
+  var up=function(t){return (t||'').toUpperCase();};
+  (DB.analisis||[]).forEach(function(a){ vivos[up(a.ticker)]=1; });
+  (DB.operaciones||[]).forEach(function(o){ vivos[up(o.ticker)]=1; });
+  (DB.cerradas||[]).forEach(function(c){ vivos[up(c.ticker)]=1; });
+  (DB.planLote||[]).forEach(function(t){ vivos[up(t)]=1; });
+  ['planTipo','planCompras','simShares','eventos','monitor','dividendos','protocolo','universo','divPorAccion'].forEach(function(k){
+    Object.keys(DB[k]||{}).forEach(function(t){ if(k!=='divPorAccion')vivos[up(t)]=1; });
+  });
+  var out=[];
+  Object.keys(val).forEach(function(t){
+    var T=up(t); if(vivos[T]||_PAP_BENCH[T])return;
+    var v=val[t]||{}; var campos=Object.keys(v);
+    out.push({t:t, campos:campos, precio:(typeof num==='function'?num(v.precioActual):parseFloat(v.precioActual)||0),
+              nombre:v.nombre||'', dpa:((DB.divPorAccion||{})[t]||null)});
+  });
+  return out;
+}
+function papBorrarHuerfano(t){
+  var v=(DB.valores||{})[t]; if(v===undefined)return;
+  var dpa=(DB.divPorAccion||{})[t]||null;
+  var quitar=function(){ delete DB.valores[t]; if(dpa&&DB.divPorAccion)delete DB.divPorAccion[t]; if(typeof saveNow==='function')saveNow(); };
+  if(typeof undoableDelete==='function')
+    undoableDelete('valor_huerfano','Resto en DB.valores: '+t, {t:t, item:v, dpa:dpa}, quitar, []);
+  else quitar();
+  renderPapelera();
+}
+function _papHuerfanosHTML(){
+  var h=papValoresHuerfanos(); if(!h.length)return '';
+  var rows=h.map(function(x){
+    var det=[]; if(x.nombre)det.push(_papEsc(x.nombre));
+    if(x.precio>0)det.push((typeof fmt==='function')?fmt(x.precio):(x.precio+' €'));
+    if(x.dpa)det.push('con dividendo por acción');
+    if(!det.length)det.push(x.campos.length?('solo '+x.campos.join(', ')):'vacía');
+    return '<tr><td><b>'+_papEsc(x.t)+'</b></td><td class="muted" style="font-size:11px">'+det.join(' · ')
+      +'</td><td class="right"><button class="btn ghost sm" data-paphuer="'+_papEsc(x.t)+'">Quitar</button></td></tr>';
+  }).join('');
+  return '<div style="margin-top:16px;border-top:1px solid #eef2f7;padding-top:10px">'
+    +'<div style="font-weight:800;font-size:13px;margin-bottom:4px">🧹 Restos en la tabla de valores</div>'
+    +'<div class="muted" style="font-size:11.5px;margin-bottom:6px;line-height:1.6">'+h.length+' clave'+(h.length===1?'':'s')
+    +' de <code>DB.valores</code> que no corresponden a ninguna empresa de tu universo, cartera, plan ni seguimiento — '
+    +'restos de los antiguos formularios de alta que aceptaban cualquier texto como ticker. '
+    +'No estorban, pero pueden duplicar el precio o el dividendo de una empresa que ya tienes. Se puede deshacer.</div>'
+    +'<table style="width:100%"><tbody>'+rows+'</tbody></table></div>';
+}
+function renderPapelera(){
+  var el=document.getElementById('papeleraBody'); if(!el)return;
+  _trashPurge();
+  var items=DB.papelera||[];
+  var snap=_snapSectionHTML();
+  var head='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h2 style="margin:0;font-size:18px">🗑️ Papelera</h2><button class="btn ghost sm" data-papclose="1">Cerrar</button></div>';
+  if(!items.length){ el.innerHTML=head+'<div class="muted" style="padding:10px">Vacía. Aquí quedan los últimos elementos borrados ('+TRASH_DAYS+' días) por si quieres recuperarlos.</div>'+_papHuerfanosHTML()+snap; return; }
+  var fmtWhen=function(ms){ try{ var d=new Date(ms); return d.toLocaleDateString('es-ES')+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } };
+  var rows=items.map(function(e){ return '<tr><td>'+_papEsc(e.label)+'</td><td class="muted" style="font-size:11px;white-space:nowrap">'+fmtWhen(e.when)+'</td><td class="right" style="white-space:nowrap"><button class="btn sm" data-restore="'+e.id+'">Restaurar</button> <button class="btn ghost sm" data-purge="'+e.id+'" title="Borrar definitivamente">✕</button></td></tr>'; }).join('');
+  el.innerHTML=head+'<div class="sub" style="margin-bottom:8px">'+items.length+' elemento(s). Se guardan '+TRASH_DAYS+' días o hasta '+TRASH_MAX+' como máximo.</div><div style="overflow:auto"><table style="width:100%"><tbody>'+rows+'</tbody></table></div><div style="margin-top:12px;text-align:right"><button class="btn danger sm" data-papvaciar="1">Vaciar papelera</button></div>'+_papHuerfanosHTML()+snap;
+}
+
+/* ===== Puntos de restauración (snapshot completo en localStorage) =====
+   Copia entera de DB antes de operaciones destructivas (importar, vaciar, restaurar).
+   Se guarda FUERA de DB (localStorage) para no crecer de forma recursiva. */
+var SNAP_KEY='ecodom_snapshots', SNAP_MAX=5;
+function _snapLoad(){ try{ return JSON.parse(localStorage.getItem(SNAP_KEY)||'[]')||[]; }catch(e){ return []; } }
+function _snapStore(arr){ try{ localStorage.setItem(SNAP_KEY, JSON.stringify(arr)); return true; }catch(e){ try{ localStorage.setItem(SNAP_KEY, JSON.stringify(arr.slice(0,2))); }catch(e2){} return false; } }
+function pushSnapshot(motivo){
+  try{
+    if(typeof DB==='undefined'||!DB)return;
+    var data=JSON.stringify(DB);
+    var arr=_snapLoad();
+    /* evita duplicar si nada cambió desde el último punto */
+    if(arr.length && arr[0].data===data){ arr[0].when=Date.now(); arr[0].motivo=motivo||arr[0].motivo; _snapStore(arr); return; }
+    arr.unshift({ when:Date.now(), motivo:motivo||'(manual)', bytes:data.length, data:data });
+    if(arr.length>SNAP_MAX)arr=arr.slice(0,SNAP_MAX);
+    if(!_snapStore(arr))showToast('⚠️ Punto de restauración no guardado (almacenamiento del navegador lleno)', null, null, 4000);
+  }catch(e){}
+}
+function _snapSectionHTML(){
+  var arr=_snapLoad();
+  var when=function(ms){ try{ var d=new Date(ms); return d.toLocaleDateString('es-ES')+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } };
+  var rows=arr.map(function(s){ var kb=Math.round((s.bytes||0)/1024); return '<tr><td>'+_papEsc(s.motivo)+'</td><td class="muted" style="font-size:11px;white-space:nowrap">'+when(s.when)+'</td><td class="muted" style="font-size:11px;white-space:nowrap">'+kb+' KB</td><td class="right"><button class="btn sm" data-snaprestore="'+s.when+'">Restaurar</button></td></tr>'; }).join('');
+  return '<div style="margin-top:16px;border-top:1px solid #e2e8f0;padding-top:12px">'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3 style="margin:0;font-size:15px">💾 Puntos de restauración</h3><button class="btn sm" data-snapmake="1">Crear punto ahora</button></div>'
+    +'<div class="sub" style="margin-bottom:8px">Copia completa de tus datos guardada en este navegador. Se crea sola antes de importar o vaciar; también puedes crear uno a mano. Se conservan los últimos '+SNAP_MAX+'.</div>'
+    +(rows?('<div style="overflow:auto"><table style="width:100%"><tbody>'+rows+'</tbody></table></div>'):'<div class="muted" style="font-size:12px">Aún no hay puntos de restauración.</div>');
+}
+function restoreSnapshot(when){
+  var arr=_snapLoad();
+  var s=null; for(var i=0;i<arr.length;i++){ if(arr[i].when===when){ s=arr[i]; break; } }
+  if(!s){ alert('No encuentro ese punto de restauración.'); return; }
+  if(!confirm('Vas a REEMPLAZAR todos los datos actuales por el punto «'+s.motivo+'» del '+new Date(s.when).toLocaleString('es-ES')+'.\n\nSe guardará antes un punto con el estado actual por si acaso.\n\n¿Continuar?'))return;
+  var d; try{ d=JSON.parse(s.data); }catch(e){ alert('El punto está dañado y no se puede leer.'); return; }
+  pushSnapshot('antes de restaurar un punto');
+  DB=d;
+  var p=(typeof saveNow==='function')?saveNow():null;
+  if(p&&p.then){ p.then(function(){ location.reload(); }).catch(function(){ if(typeof renderAll==='function')renderAll(); showToast('Restaurado en memoria (no se pudo guardar en Drive)', null, null, 4000); }); }
+  else { if(typeof renderAll==='function')renderAll(); var ov=document.getElementById('papeleraOverlay'); if(ov)ov.remove(); showToast('✓ Datos restaurados', null, null, 3000); }
+}
+
+/* --- Clicks dentro de la papelera (delegado) --- */
+document.addEventListener('click',function(e){
+  if(!e.target||!e.target.closest)return;
+  var r=e.target.closest('[data-restore]'); if(r){ restoreTrash(r.getAttribute('data-restore')); return; }
+  var hu=e.target.closest('[data-paphuer]'); if(hu){ papBorrarHuerfano(hu.getAttribute('data-paphuer')); return; }
+  var p=e.target.closest('[data-purge]'); if(p){ var id=p.getAttribute('data-purge'); DB.papelera=(DB.papelera||[]).filter(function(x){return x.id!==id;}); _papSave(); renderPapelera(); return; }
+  var sr=e.target.closest('[data-snaprestore]'); if(sr){ restoreSnapshot(+sr.getAttribute('data-snaprestore')); return; }
+  if(e.target.closest('[data-snapmake]')){ pushSnapshot('punto manual'); showToast('💾 Punto de restauración creado', null, null, 2500); renderPapelera(); return; }
+  if(e.target.closest('[data-papclose]')){ var ov=document.getElementById('papeleraOverlay'); if(ov)ov.remove(); return; }
+  if(e.target.closest('[data-papvaciar]')){ if(confirm('¿Vaciar la papelera definitivamente? Esto sí es irreversible.')){ DB.papelera=[]; _papSave(); renderPapelera(); } return; }
+});

@@ -1,0 +1,1164 @@
+/* ===== 11-calibracion.js — Calibración Ex-Post (formulario integrado) =====
+   Marcador del Método KH&Claude: a los 6, 12 y 36 meses de la fecha del dossier
+   de cada empresa toca evaluar ex-post la tesis (¿entró en banda?, ¿tocó stop?,
+   ¿alcanzó PO Base?, retorno). Antes la evaluación se rellenaba SOLO en el Excel;
+   ahora se registra DENTRO de la app y el Excel queda como copia (el botón
+   «Copiar fila para Excel» genera la fila lista para pegar).
+
+   Estructura en DB.calibracion[TICKER]:
+     · t0     -> línea base congelada {cot0, poBase, entMax, stop, decision}
+                 (editable; se siembra del Excel Registro t0 y de DB.analisis).
+     · 6m/12m/36m -> evaluación del hito:
+                 {done, fecha, nota, cotDiana, maxP, minP, div, stopJust, tesis}
+   Veredictos (retornos, banda, stop, PO) se CALCULAN, no se guardan — igual
+   que las columnas negras del Excel. NO inventar datos: lo que falte queda vacío. */
+
+const CALIB_HITOS = [ {k:'6m', meses:6}, {k:'12m', meses:12}, {k:'36m', meses:36} ];
+const CALIB_COLOR = '#0f766e';
+
+/* Semilla de la línea base t0 (Excel «Registro t0») para las empresas ya
+   analizadas. Solo aporta cot0 y poBase (lo que DB.analisis no guarda); entMax,
+   stop y decision se toman en vivo de DB.analisis si no hay valor almacenado.
+   Para empresas nuevas no listadas aquí, la base se prerrellena de DB.analisis
+   y el operador la confirma/edita en el formulario. */
+const CALIB_T0_SEED = {
+  MAP:{cot0:4.18,  poBase:4.43,  entMax:3.5, stop:2.35, decision:'ESPERAR'},
+  ELE:{cot0:37.01, poBase:28.65, entMax:30,  stop:21.7, decision:'ESPERAR'},
+  IBE:{cot0:20.32, poBase:26.5,  entMax:21,  stop:10.4, decision:'COMPRAR'},
+  NTGY:{cot0:28.8, poBase:32.81, entMax:26,  stop:20.1, decision:'MANTENER'},
+  REP:{cot0:21.81, poBase:18,    entMax:16,  stop:11.7, decision:'ESPERAR'},
+  SAN:{cot0:11.35, poBase:8.3,   entMax:7.2, stop:5.9,  decision:'ESPERAR'},
+  LOG:{cot0:33.9,  poBase:34,    entMax:30,  stop:22.7, decision:'MANTENER'},
+  A3M:{cot0:4.82,  poBase:5.15,  entMax:4.3, stop:2.5,  decision:'ESPERAR'},
+  VIS:{cot0:57.2,  poBase:47.8,  entMax:45,  stop:25,   decision:'ESPERAR'},
+  ITX:{cot0:55.72, poBase:44.5,  entMax:46,  stop:30.8, decision:'ESPERAR'},
+  BKT:{cot0:15.395,poBase:10.2,  entMax:11,  stop:7,    decision:'ESPERAR'},
+  VID:{cot0:88.3,  poBase:107.3, entMax:90,  stop:63.5, decision:'COMPRAR'}
+};
+
+/* ===== El puente `calibracion.json` [30-jul-2026] ==========================
+   CALIB_T0_SEED es una lista ESCRITA A MANO con doce de las veinticinco empresas,
+   y con el PO de cuando se escribio. Es el mismo problema que ya mordio con
+   `kh_filas` duplicado en trece skills y con `empresas.json`: dos copias de la
+   misma verdad divergen, y la que se queda vieja no avisa de nada.
+
+   `calibracion.json` lo escribe `sincronizar_calibracion.py` desde el Excel de
+   calibracion, que es la fuente unica del t0. Ademas trae lo que esta app NO
+   puede calcular: la COMPOSICION del PO -DCF crudo, recorte de sintesis, banda,
+   robustez, g implicito, veto forense- y el desfase de beta.
+
+   Entra en la cadena de prioridad JUSTO DEBAJO de lo que tu hayas guardado a
+   mano: `guardada > puente > semilla > foto > vivo`. Nunca pisa una confirmacion
+   tuya; solo sustituye a la lista fija.
+   Si el fichero no esta -repo sin publicar aun-, todo sigue como antes. */
+let CALIB_PUENTE = {};      /* TICKER -> [fila, ...] ordenadas por fecha */
+let CALIB_PUENTE_META = null;
+
+async function calibCargarPuente(){
+  try{
+    const r = await fetch('calibracion.json', {cache:'no-store'});
+    if(!r.ok) return;
+    const d = await r.json();
+    const ix = {};
+    (d.t0||[]).forEach(f => {
+      const t = (f.ticker||'').toUpperCase();
+      if(!t) return;
+      (ix[t] = ix[t] || []).push(f);
+    });
+    Object.keys(ix).forEach(t => ix[t].sort((a,b) => (a.fecha||'').localeCompare(b.fecha||'')));
+    CALIB_PUENTE = ix;
+    CALIB_PUENTE_META = {generadoEl:d.generadoEl, resumen:d.resumen||{}, sesgo:d.sesgo||null, espejo:d.espejo||null};
+    try{ _calibCongelarAntiguo(); }catch(e){}
+    if(typeof renderPanelMetodo==='function') renderPanelMetodo();
+  }catch(e){ /* sin puente se sigue igual que antes: no es una condicion */ }
+}
+document.addEventListener('DOMContentLoaded', calibCargarPuente);
+if(document.readyState!=='loading') calibCargarPuente();
+
+/* [26-oct-2026] PETICIÓN PRIORITARIA del foro Método v3 · congelar YA la línea base del método
+   ANTIGUO en DB.calibracion[TK].t0, para que nunca más se rellene en vivo desde DB.analisis
+   (que desde el salto es el v3). Usa el puente `calibracion.json` —generado el 13-oct-2026, ANTES
+   del salto— que ya trae cot0/poBase/entMax/stop/decision del método antiguo para cada empresa.
+   Solo escribe si no hay YA un t0 guardado con cot0 y poBase (nunca pisa lo que el operador haya
+   tocado a mano); una vez escrito queda fijo y no se repite. */
+function _calibCongelarAntiguo(){
+  try{
+    if(!CALIB_PUENTE || !Object.keys(CALIB_PUENTE).length) return;
+    let n=0;
+    Object.keys(CALIB_PUENTE).forEach(function(t){
+      const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t);
+      const fecha=a&&a.dossierFecha;
+      const pte=calibPuenteDe(t, fecha); if(!pte) return;
+      const reg=_calibReg(t, fecha);
+      if(reg && reg.t0 && reg.t0.cot0!=null && reg.t0.poBase!=null) return;   /* ya congelado */
+      const k=_calibClave(t, fecha);
+      DB.calibracion=DB.calibracion||{}; DB.calibracion[k]=DB.calibracion[k]||{};
+      DB.calibracion[k].t0={
+        cot0:_calibN(pte.cot0), poBase:_calibN(pte.poBase), entMax:_calibN(pte.entMax),
+        stop:_calibN(pte.stop), decision:(pte.decision||'').toString().toUpperCase()
+      };
+      n++;
+    });
+    if(n){ if(typeof scheduleSave==='function')scheduleSave();
+      console.log('[26-oct-2026] calibración: '+n+' línea(s) base del método antiguo congelada(s) en DB.calibracion[TK].t0'); }
+  }catch(e){}
+}
+
+/* La fila del puente que corresponde al t0 de esa empresa. Misma regla que
+   `_calibT0Foto`: la ultima que no sea posterior a la fecha del dossier. */
+function calibPuenteDe(ticker, dossierFecha){
+  const arr = CALIB_PUENTE[(ticker||'').toUpperCase()] || [];
+  if(!arr.length) return null;
+  if(dossierFecha){
+    const previas = arr.filter(x => (x.fecha||'') <= dossierFecha);
+    if(previas.length) return previas[previas.length-1];
+  }
+  return arr[0];
+}
+
+function _calibHoy(){ return new Date().toISOString().slice(0,10); }
+function _calibEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+/* número tolerante: acepta '1.234,56' o '1234.56' o number; '' -> null */
+function _calibN(x){
+  if(x==null||x==='') return null;
+  if(typeof x==='number') return isNaN(x)?null:x;
+  let s=(''+x).trim().replace(/\s/g,'').replace(/€/g,'');
+  if(s.indexOf(',')>-1 && s.indexOf('.')>-1) s=s.replace(/\./g,'').replace(',','.');
+  else s=s.replace(',','.');
+  const n=parseFloat(s); return isNaN(n)?null:n;
+}
+function _calibIsN(x){ return typeof x==='number' && !isNaN(x); }
+function _calibFmt(n,dec){ return _calibIsN(n)?n.toLocaleString('es-ES',{minimumFractionDigits:dec==null?2:dec,maximumFractionDigits:dec==null?2:dec}):'—'; }
+function _calibPct(n){ return _calibIsN(n)?(n>=0?'+':'')+(n*100).toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1})+'%':'—'; }
+
+/* dossierFecha (YYYY-MM-DD) + N meses -> YYYY-MM-DD, con recorte de día a fin de mes */
+function _calibDiana(fechaStr, meses){
+  if(!fechaStr) return null;
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(fechaStr);
+  if(!m) return null;
+  let y = +m[1], mo = (+m[2]-1) + meses, day = +m[3];
+  y += Math.floor(mo/12); mo = ((mo%12)+12)%12;
+  const ultimoDia = new Date(y, mo+1, 0).getDate();
+  if(day > ultimoDia) day = ultimoDia;
+  return y + '-' + String(mo+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
+}
+
+function _calibDiasHasta(diana){
+  const a = new Date(diana+'T00:00:00'), b = new Date(_calibHoy()+'T00:00:00');
+  return Math.round((a - b) / 86400000);
+}
+
+/* ---------- Línea base t0 (congelada, editable) ---------- */
+
+/* [B10 · 26-jul-2026] La foto de tesis más cercana al día del dossier. Es la única memoria que
+   la app guarda del estado de la tesis en t0: `guardarTesisSnap` la escribe al importar. */
+function _calibT0Foto(ticker, dossierFecha){
+  const arr = (((typeof DB!=='undefined'&&DB.tesisHist)||{})[(ticker||'').toUpperCase()]||[])
+    .slice().sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||''));
+  if(!arr.length) return null;
+  if(dossierFecha){
+    const exacta = arr.find(x => x.fecha === dossierFecha);
+    if(exacta) return exacta;
+    const previas = arr.filter(x => (x.fecha||'') <= dossierFecha);
+    if(previas.length) return previas[previas.length-1];
+  }
+  return arr[0];        /* todas posteriores: la más antigua es la que más se acerca al t0 */
+}
+
+/* La línea base se busca en cuatro sitios, en este orden — y el ÚLTIMO es el peligroso:
+     1. lo guardado en DB.calibracion[T].t0     → congelada de verdad
+     2. CALIB_T0_SEED                            → la lista fija de doce (histórica)
+     3. la foto de tesis del día del dossier     → [B10] recuperación
+     4. los valores VIVOS de la ficha            → NO es una línea base: es el estado de hoy
+   El caso 4 daba un retorno ≈ 0 % sin avisar, porque `cot0` salía siendo la cotización actual y
+   el bloque del diálogo, al tener un número, se quedaba plegado. Ahora se devuelve además el
+   ORIGEN de cada campo y un flag `congelada`, y el diálogo lo enseña en rojo cuando no lo está. */
+function calibBaseline(ticker){
+  ticker = (ticker||'').toUpperCase();
+  const a = (DB.analisis||[]).find(x => (x.ticker||'').toUpperCase() === ticker) || {};
+  const stored = (_calibReg(ticker, a.dossierFecha).t0) || {};   /* [F640] clave compuesta */
+  const seed = CALIB_T0_SEED[ticker] || {};
+  const pte  = calibPuenteDe(ticker, a.dossierFecha) || {};
+  const foto = _calibT0Foto(ticker, a.dossierFecha);
+  const org = {};
+  const pick = (k, kFoto, fallback) => {
+    if(stored[k]!=null && stored[k]!=='')   { org[k]='guardada'; return stored[k]; }
+    if(pte[k]!=null && pte[k]!=='')         { org[k]='puente';   return pte[k]; }
+    if(seed[k]!=null && seed[k]!=='')       { org[k]='semilla';  return seed[k]; }
+    if(foto && kFoto && foto[kFoto]!=null && foto[kFoto]!=='' && _calibN(foto[kFoto])!==0)
+                                            { org[k]='foto';     return foto[kFoto]; }
+    org[k]='vivo'; return fallback;
+  };
+  const base = {
+    cot0:   _calibN(pick('cot0',   'cotizacion', a.cotizacion)),
+    poBase: _calibN(pick('poBase', 'poBase',     a.precioObjetivo)),
+    entMax: _calibN(pick('entMax', 'entMax',     a.entMax)),
+    stop:   _calibN(pick('stop',   'stop',       a.stopTesis)),
+    decision: (pick('decision', 'decision', a.decision)||'').toString().toUpperCase()
+  };
+  base.origen = org;
+  /* «Congelada» = el precio y el PO, que son los que mueven el veredicto, NO salen de los
+     valores vivos. La banda y el stop apenas se mueven solos, así que no bloquean el flag. */
+  base.congelada = (org.cot0!=='vivo' && org.poBase!=='vivo');
+  base.fotoFecha = (foto && foto.fecha) || '';
+  return base;
+}
+
+/* ---------- Veredictos calculados (columnas negras del Excel) ---------- */
+function calibVerdicto(base, ev){
+  ev = ev || {};
+  const cot = _calibN(ev.cotDiana), mx = _calibN(ev.maxP), mn = _calibN(ev.minP), dv = _calibN(ev.div);
+  const evaluada = _calibIsN(cot);
+  return {
+    evaluada,
+    retPrecio: (evaluada && _calibIsN(base.cot0) && base.cot0!==0) ? (cot/base.cot0 - 1) : null,
+    retTotal:  (evaluada && _calibIsN(base.cot0) && base.cot0!==0) ? ((cot + (_calibIsN(dv)?dv:0))/base.cot0 - 1) : null,
+    entroBanda: (_calibIsN(mn) && _calibIsN(base.entMax)) ? (mn <= base.entMax ? 'SÍ' : 'NO') : null,
+    tocoStop:   (_calibIsN(mn) && _calibIsN(base.stop))   ? (mn <= base.stop   ? 'SÍ' : 'NO') : null,
+    /* [29-sep-2026] Con el PO POR DEBAJO de la cotización t0 (ESPERAR «está cara») «alcanzar el PO»
+       es BAJAR hasta él. Antes se medía siempre «máximo ≥ PO» y esas salían SÍ aunque la acción
+       subiera (13 de las 25 apuestas v1). Si no se sabe la cotización t0, se mide como antes. */
+    alcanzoPO:  (_calibIsN(base.poBase) && _calibIsN(base.cot0) && base.poBase < base.cot0)
+                  ? (_calibIsN(mn) ? (mn <= base.poBase ? 'SÍ' : 'NO') : null)
+                  : ((_calibIsN(mx) && _calibIsN(base.poBase)) ? (mx >= base.poBase ? 'SÍ' : 'NO') : null)
+  };
+}
+
+/* ---------- Datos desde el histórico diario (precios/TICKER.json + dividendos) ----------
+   Calcula cotización en la diana (último cierre ≤ diana), máx/mín del tramo t0→diana
+   y dividendos cobrados. Devuelve null si el histórico no está en caché o no hay datos.
+   Fuente idéntica a la del gráfico de la ficha (_precioCache de 03-inversiones.js). */
+function _calibDesdeHistorico(ticker, base, t0, diana){
+  ticker = (ticker||'').toUpperCase();
+  const pj = (typeof _precioCache!=='undefined' && _precioCache) ? _precioCache[ticker] : null;
+  if(!pj || !pj.data || !pj.data.length) return null;
+  const data = pj.data.filter(p => Array.isArray(p) && p[0] && typeof p[1]==='number');
+  const hasta = data.filter(p => p[0] <= diana);          // data ordenada ascendente
+  const per   = data.filter(p => p[0] >= t0 && p[0] <= diana);
+  if(!hasta.length || !per.length) return null;
+  const cot = hasta[hasta.length - 1];
+  /* [15-oct-2026] La t0 está en acciones del día del análisis y la serie en las de hoy: se pasa la
+     serie a la base de la t0 (× eventos posteriores a la t0) y cada dividendo a esa misma base. */
+  const _F0 = (typeof khEvFactor==='function') ? khEvFactor(ticker, t0) : 1;
+  const _Fd = f => (typeof khEvFactor==='function') ? khEvFactor(ticker, t0, f) : 1;
+  const precios = per.map(p => p[1]*_F0);
+  const maxP = Math.max.apply(null, precios), minP = Math.min.apply(null, precios);
+  const divs = ((DB.dividendos||{})[ticker]||[]).filter(x => x && x.fecha && x.fecha > t0 && x.fecha <= diana);
+  const div = Math.round(divs.reduce((s,x) => s + (_calibN(x.importe)||0)*_Fd(x.fecha), 0) * 10000) / 10000;
+  const ev = { cotDiana:cot[1]*_F0, maxP:maxP, minP:minP, div:div };
+  return { cot:cot[1]*_F0, cotFecha:cot[0], maxP, minP, div, nDiv:divs.length, nPer:per.length,
+           futuro: cot[0] < diana, ev, ver: calibVerdicto(base, ev) };
+}
+
+/* Carga perezosa del histórico de una empresa (una sola vez) y re-render vía callback */
+const _calibFetching = {};
+function _calibLazyPrecios(ticker, cb){
+  ticker = (ticker||'').toUpperCase();
+  if(typeof _precioCache === 'undefined' || !_precioCache){ if(cb) cb(); return; }
+  if(_precioCache[ticker] !== undefined){ if(cb) cb(); return; }   // ya cargado (json o null)
+  if(_calibFetching[ticker]) return;
+  _calibFetching[ticker] = true;
+  fetch('precios/' + ticker + '.json', {cache:'no-store'})
+    .then(r => r.ok ? r.json() : null).catch(() => null)
+    .then(j => { _precioCache[ticker] = (j || null); _calibFetching[ticker] = false; if(cb) cb(); });
+}
+
+/* Datos de calibración de una empresa: sus 3 hitos con diana, estado, evaluación y provisional */
+function calibDataFor(ticker){
+  ticker = (ticker||'').toUpperCase();
+  const a = (DB.analisis||[]).find(x => (x.ticker||'').toUpperCase() === ticker);
+  if(!a || !a.dossierFecha) return null;
+  const reg = _calibReg(ticker, a.dossierFecha);                 /* [F640] clave compuesta */
+  const base = calibBaseline(ticker);
+  const hoy = _calibHoy();
+  return {
+    ticker, nombre: a.nombre||'', dossierFecha: a.dossierFecha, base,
+    hitos: CALIB_HITOS.map(h => {
+      const diana = _calibDiana(a.dossierFecha, h.meses);
+      const info = reg[h.k] || null;
+      const done = !!(info && info.done);
+      const vencida = !done && diana && diana <= hoy;
+      const ver = calibVerdicto(base, info);
+      const manualEval = !!(info && info.cotDiana!=null && info.cotDiana!=='');
+      // veredicto provisional: solo si la diana venció, no está cerrada y no hay dato manual
+      const prov = (!done && vencida && !manualEval) ? _calibDesdeHistorico(ticker, base, a.dossierFecha, diana) : null;
+      return { k:h.k, meses:h.meses, diana, done, vencida, info, ver, manualEval, prov, dias:_calibDiasHasta(diana) };
+    })
+  };
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   [B2 · 26-jul-2026] LA CALIBRACIÓN LEE EL DIARIO
+   La app te promete, en la cabecera de Mis Decisiones, que «la Calibración compara luego contra
+   tu criterio escrito, no contra tu memoria». No era verdad: la Calibración medía la TESIS
+   (dossier → diana) y agregaba por la decisión congelada de la ficha —COMPRAR/MANTENER/ESPERAR—
+   sin abrir jamás `DB.diario`. Las frases que escribías al decidir no entraban nunca en el
+   marcador, así que el bucle sembrar → medir → aprender se cortaba justo en el último paso.
+   Ahora cada diana cruza con las decisiones que anotaste DENTRO de su tramo (t0 → diana) y mide
+   cada una en su propio horizonte: desde el precio al que decidiste hasta el precio en la diana,
+   dividendos incluidos. Así el marcador responde a la pregunta que importa: ¿tus decisiones,
+   las que escribiste, acertaron — y acertaron más las que llevaban invalidación escrita?
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* Último cierre ≤ fecha del histórico diario. null si no hay histórico cargado. */
+function _calibPrecioEn(ticker, fecha){
+  ticker=(ticker||'').toUpperCase();
+  const pj=(typeof _precioCache!=='undefined'&&_precioCache)?_precioCache[ticker]:null;
+  if(!pj||!pj.data||!pj.data.length) return null;
+  let best=null;
+  pj.data.forEach(p=>{ if(Array.isArray(p)&&p[0]&&typeof p[1]==='number'&&p[0]<=fecha){ if(!best||p[0]>best[0]) best=p; } });
+  return best?{precio:best[1], fecha:best[0]}:null;
+}
+/* Dividendos por acción cobrados en la ventana (fecha0, fecha1]. */
+function _calibDivEntre(ticker, f0, f1){
+  ticker=(ticker||'').toUpperCase();
+  return ((DB.dividendos||{})[ticker]||[])
+    .filter(x=>x&&x.fecha&&x.fecha>f0&&x.fecha<=f1)
+    .reduce((s,x)=>s+(_calibN(x.importe)||0)*((typeof khEvFactor==='function')?khEvFactor(ticker,f0,x.fecha):1),0);   /* en acciones de f0 */
+}
+/* Dirección esperada de cada tipo de decisión del Diario (misma tabla que 23-diario.js). */
+function _calibDirTipo(tipo){
+  try{ if(typeof _diTipoCfg==='function') return _diTipoCfg(tipo).dir; }catch(e){}
+  const t=(tipo||'').toLowerCase();
+  if(t==='vender'||t==='recortar') return 'bear';
+  if(t==='descartar') return 'flat';
+  return 'bull';
+}
+/* Decisiones del Diario que caen dentro del tramo de un hito, medidas EN LA DIANA.
+   `cotDiana` = el número confirmado de la evaluación si existe; si no, el cierre del histórico. */
+function calibDecisionesEnHito(ticker, t0, diana, cotDianaConfirmada){
+  ticker=(ticker||'').toUpperCase();
+  const arr=(DB.diario||[]).filter(e=>(e.ticker||'').toUpperCase()===ticker
+    && (e.fecha||'')>=t0 && (e.fecha||'')<=diana);
+  if(!arr.length) return [];
+  let cot=_calibN(cotDianaConfirmada);
+  let cotFecha=diana;
+  let cotRepo=false;   /* [15-oct-2026] el de la serie está en acciones de hoy; el confirmado, en las de la diana */
+  if(!_calibIsN(cot)){ const p=_calibPrecioEn(ticker,diana); if(p){ cot=p.precio; cotFecha=p.fecha; cotRepo=true; } }
+  return arr.sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||'')).map(e=>{
+    const p0=_calibN(e.precio);
+    let ret=null;
+    if(_calibIsN(cot)&&_calibIsN(p0)&&p0!==0){
+      const dv=_calibDivEntre(ticker, e.fecha, diana);
+      const _fe=(typeof khEvFactor==='function')?(cotRepo?khEvFactor(ticker,e.fecha):khEvFactor(ticker,e.fecha,diana)):1;
+      ret=(cot*_fe+dv)/p0-1;
+    }
+    const dir=_calibDirTipo(e.tipo);
+    let acierto=null;
+    if(ret!=null){ acierto=(dir==='bull')?(ret>0):(dir==='bear'?(ret<0):(ret<=0.05)); }
+    return { e, dir, ret, acierto, cot, cotFecha,
+      conInval: !!((e.invalidacion||'').trim() || (e.trigs||[]).length) };
+  });
+}
+/* Todas las decisiones evaluadas contra hitos YA CERRADOS. Es la materia prima del marcador. */
+function calibDiarioCerrado(){
+  const out=[];
+  (DB.analisis||[]).forEach(a=>{
+    const d=calibDataFor(a.ticker); if(!d) return;
+    d.hitos.forEach(h=>{
+      if(!h.done || !h.diana) return;
+      calibDecisionesEnHito(d.ticker, d.dossierFecha, h.diana, (h.info||{}).cotDiana)
+        .forEach(x=>out.push(Object.assign({hito:h.k, ticker:d.ticker, diana:h.diana}, x)));
+    });
+  });
+  return out;
+}
+
+/* ---------- Avisos para el Panel (dianas vencidas sin marcar) ---------- */
+function calibAvisos(){
+  const out = [];
+  (DB.analisis||[]).forEach(a => {
+    const d = calibDataFor(a.ticker);
+    if(!d) return;
+    d.hitos.forEach(h => {
+      if(!h.vencida) return;
+      const atraso = -h.dias; // días desde que venció
+      out.push({
+        pri: atraso > 30 ? 2 : 3, cls:'a', goto:'monitor',
+        txt: `📐 <b><span data-ficha="${d.ticker}" style="cursor:pointer;color:var(--brand)">${d.ticker}</span></b> — calibración ex-post <b>${h.k}</b> pendiente (diana ${h.diana})`
+             + ` <span data-calibopen="${d.ticker}|${h.k}" style="cursor:pointer;font-size:10px;font-weight:700;color:#0f766e;background:#ccfbf1;border-radius:8px;padding:1px 6px" title="Rellenar la evaluación ex-post">rellenar →</span>`
+      });
+    });
+  });
+  return out;
+}
+
+/* ---------- Modal ---------- */
+function _calibDlg(){
+  let dlg = document.getElementById('calibDlg');
+  if(!dlg){
+    dlg = document.createElement('dialog');
+    dlg.id = 'calibDlg';
+    dlg.style.cssText = 'max-width:600px;width:94vw;border:none;border-radius:14px;padding:0;box-shadow:0 20px 60px rgba(0,0,0,.3)';
+    document.body.appendChild(dlg);
+    dlg.addEventListener('click', e => { if(e.target === dlg) dlg.close(); });
+  }
+  return dlg;
+}
+
+/* [B10] De dónde sale cada número de la línea base. Un veredicto medido contra una base
+   equivocada es peor que no medir: parece una medición. */
+function _calibOrigenHTML(base){
+  const O={guardada:['#dcfce7','#166534','congelada'],
+           semilla:['#dbeafe','#1e40af','semilla del método'],
+           foto:['#fef3c7','#92400e','foto de tesis'],
+           vivo:['#fee2e2','#991b1b','VALOR DE HOY']};
+  const et={cot0:'cot. t0',poBase:'PO base',entMax:'entrada máx',stop:'stop',decision:'decisión'};
+  const o=base.origen||{};
+  const chips=Object.keys(et).map(k=>{ const c=O[o[k]]||O.vivo;
+    return `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:7px;background:${c[0]};color:${c[1]}">${et[k]}: ${c[2]}</span>`;
+  }).join(' ');
+  return `<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px">${chips}</div>`;
+}
+
+function _calibInp(id,val,ph){ return `<input id="${id}" value="${val==null?'':_calibEsc(val)}" placeholder="${ph||''}" inputmode="decimal" style="width:100%;box-sizing:border-box;font-size:13px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">`; }
+
+/* pinta el panel de veredictos en vivo dentro del modal */
+function _calibPintaVer(dlg, base){
+  const g = id => (dlg.querySelector('#'+id)||{}).value;
+  const ev = { cotDiana:g('cCot'), maxP:g('cMax'), minP:g('cMin'), div:g('cDiv') };
+  const v = calibVerdicto(base, ev);
+  const chip = (txt,ok) => `<span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;background:${ok==null?'#f1f5f9':(ok?'#dcfce7':'#fee2e2')};color:${ok==null?'#64748b':(ok?'#166534':'#991b1b')}">${txt}</span>`;
+  const box = dlg.querySelector('#cVer');
+  if(!box) return;
+  box.innerHTML =
+    `<div style="display:flex;gap:14px;flex-wrap:wrap;font-size:12px">
+       <div><span style="color:#64748b">Retorno precio</span><br><b style="font-size:15px;color:${v.retPrecio==null?'#94a3b8':(v.retPrecio>=0?'#166534':'#991b1b')}">${_calibPct(v.retPrecio)}</b></div>
+       <div><span style="color:#64748b">Retorno total</span><br><b style="font-size:15px;color:${v.retTotal==null?'#94a3b8':(v.retTotal>=0?'#166534':'#991b1b')}">${_calibPct(v.retTotal)}</b></div>
+     </div>
+     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+       ${chip('¿Entró en banda? '+(v.entroBanda||'—'), v.entroBanda==null?null:v.entroBanda==='SÍ')}
+       ${chip('¿Tocó stop? '+(v.tocoStop||'—'), v.tocoStop==null?null:v.tocoStop==='NO')}
+       ${chip('¿Alcanzó PO Base? '+(v.alcanzoPO||'—'), v.alcanzoPO==null?null:v.alcanzoPO==='SÍ')}
+     </div>`;
+}
+
+/* [B2] Bloque del modal: las decisiones que anotaste en este tramo, con lo que escribiste y
+   cómo salió cada una en la diana. Es lo que convierte «calibrar la tesis» en «calibrar tu
+   criterio»: al confirmar la evaluación estás mirando tus propias frases, no solo el precio. */
+function _calibDiarioModalHTML(ticker, t0, h){
+  const L=calibDecisionesEnHito(ticker, t0, h.diana, (h.info||{}).cotDiana);
+  const cab='<div style="font-weight:800;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 6px">📓 Tus decisiones en este tramo ('+t0+' → '+h.diana+')</div>';
+  if(!L.length) return cab+'<div style="font-size:11.5px;color:#94a3b8;background:#f8fafc;border:1px dashed #e2e8f0;border-radius:8px;padding:8px 10px">No anotaste ninguna decisión en Mis Decisiones dentro de este tramo. La calibración medirá solo la tesis del dossier.</div>';
+  const filas=L.map(x=>{
+    const e=x.e;
+    const col=x.acierto==null?'#64748b':(x.acierto?'#166534':'#991b1b');
+    const bg =x.acierto==null?'#f1f5f9':(x.acierto?'#dcfce7':'#fee2e2');
+    const ver=x.acierto==null?'sin precio':(x.acierto?'✓ acertó':'✗ falló');
+    return '<div style="border:1px solid #e2e8f0;border-left:3px solid '+col+';border-radius:8px;padding:7px 9px;margin-bottom:6px;background:#fff">'
+      +'<div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:11.5px">'
+        +'<b style="font-size:12.5px">'+_calibEsc(e.tipo)+'</b>'
+        +'<span style="color:#64748b">'+_calibEsc(e.fecha)+(e.precio?(' · '+_calibFmt(_calibN(e.precio))+' €'):'')+'</span>'
+        +'<div style="flex:1"></div>'
+        +'<span style="font-weight:800;color:'+col+'">'+(x.ret==null?'—':_calibPct(x.ret))+'</span>'
+        +'<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:7px;background:'+bg+';color:'+col+'">'+ver+'</span>'
+      +'</div>'
+      +(e.porque?'<div style="font-size:11.5px;color:#334155;margin-top:4px"><b>Por qué:</b> '+_calibEsc(e.porque)+'</div>':'')
+      +(e.invalidacion?'<div style="font-size:11.5px;color:#9a3412;background:#fff7ed;border-radius:6px;padding:4px 7px;margin-top:4px"><b>Cambiaría de idea si…</b> '+_calibEsc(e.invalidacion)+'</div>'
+                      :'<div style="font-size:11px;color:#94a3b8;margin-top:4px">Sin invalidación escrita.</div>')
+      +'</div>';
+  }).join('');
+  const nOk=L.filter(x=>x.acierto===true).length, nEval=L.filter(x=>x.acierto!=null).length;
+  const res=nEval?('<div style="font-size:11.5px;color:#475569;margin-bottom:6px">'+nOk+' de '+nEval+' acertaron medidas en la diana (desde el precio al que decidiste, dividendos incluidos).</div>'):'';
+  return cab+res+filas;
+}
+
+function showCalib(ticker, hito){
+  ticker = (ticker||'').toUpperCase(); hito = (hito||'').toLowerCase();
+  const d = calibDataFor(ticker); if(!d) return;
+  const h = d.hitos.find(x => x.k === hito) || d.hitos[0];
+  const base = d.base;
+  const info = h.info || {};
+  const dlg = _calibDlg();
+  const estadoTxt = h.done ? `Calibrada el ${info.fecha||'—'}` : (h.vencida ? `Vencida (diana ${h.diana}, hace ${-h.dias} días)` : `Próxima: ${h.diana} (faltan ${h.dias} días)`);
+  const selJust = v => ['—','JUSTIFICADO','RUIDO'].map(o=>`<option${o===(v||'—')?' selected':''}>${o}</option>`).join('');
+  const selTesis = v => ['—','SÍ','NO'].map(o=>`<option${o===(v||'—')?' selected':''}>${o}</option>`).join('');
+
+  dlg.innerHTML =
+    `<div style="background:${CALIB_COLOR};color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px">
+       <span style="font-size:22px">📐</span>
+       <div style="flex:1"><div style="font-weight:800;font-size:16px">Calibración ex-post ${h.k} · ${ticker}</div>
+       <div style="font-size:12px;opacity:.9">${estadoTxt}</div></div>
+       <button id="calibX" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1">✕</button>
+     </div>
+     <div style="padding:14px 18px;max-height:74vh;overflow:auto">
+
+       <details style="margin-bottom:12px"${(!_calibIsN(base.cot0)||!_calibIsN(base.poBase)||!base.congelada)?' open':''}>
+         <summary style="cursor:pointer;font-weight:800;font-size:12px;color:${base.congelada?'#64748b':'#b91c1c'};text-transform:uppercase;letter-spacing:.5px">Línea base t0 ${base.congelada?'(congelada · '+d.dossierFecha+')':'⚠ SIN CONGELAR — revísala antes de guardar'}</summary>
+         <div style="font-size:11.5px;color:#64748b;margin:6px 0 8px">La foto de la tesis el día del análisis. Contra esto se miden los veredictos. Decisión t0: <b>${base.decision||'—'}</b>.</div>
+         ${base.congelada?'':`<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:8px 11px;margin-bottom:9px;font-size:11.5px;color:#991b1b;line-height:1.5">
+           <b>⚠ Esta línea base no está congelada.</b> La cotización y el PO que ves abajo son los de <b>hoy</b>, no los del ${d.dossierFecha||'día del análisis'} — así que el retorno saldría ≈ 0&nbsp;% y no significaría nada.
+           Corrige los valores con los del dossier de esa fecha antes de guardar${base.fotoFecha?', o usa la foto de tesis del '+base.fotoFecha:''}.
+         </div>`}
+         ${_calibOrigenHTML(base)}
+         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 12px">
+           <label style="font-size:11px;color:#475569">Cotización t0 (€)${_calibInp('bCot',base.cot0,'ej. 20,32')}</label>
+           <label style="font-size:11px;color:#475569">PO Base (€)${_calibInp('bPo',base.poBase,'ej. 26,50')}</label>
+           <label style="font-size:11px;color:#475569">Entrada máx (€)${_calibInp('bEnt',base.entMax,'techo banda')}</label>
+           <label style="font-size:11px;color:#475569">Stop (€)${_calibInp('bStop',base.stop,'nivel stop')}</label>
+         </div>
+       </details>
+
+       <div style="display:flex;align-items:center;gap:8px;margin:4px 0 4px;flex-wrap:wrap">
+         <div style="font-weight:800;font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:.5px">Evaluación en la diana (${h.diana})</div>
+         <div style="flex:1"></div>
+         <button class="btn ghost sm" id="calibAuto" style="font-weight:700;color:${CALIB_COLOR};border-color:${CALIB_COLOR}" title="Trae cotización en la diana, máximo y mínimo del periodo (cierres de precios/${ticker}.json) y dividendos cobrados del histórico">⚡ Auto-rellenar desde histórico</button>
+       </div>
+       <div id="calibAutoMsg" style="font-size:11px;color:#64748b;margin:0 0 6px"></div>
+       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 12px">
+         <label style="font-size:11px;color:#475569">Cotización en la diana (€)${_calibInp('cCot',info.cotDiana,'cierre en la fecha')}</label>
+         <label style="font-size:11px;color:#475569">Dividendos cobrados (€)${_calibInp('cDiv',info.div,'acumulado t0→diana')}</label>
+         <label style="font-size:11px;color:#475569">Máximo del periodo (€)${_calibInp('cMax',info.maxP,'máx t0→diana')}</label>
+         <label style="font-size:11px;color:#475569">Mínimo del periodo (€)${_calibInp('cMin',info.minP,'mín t0→diana')}</label>
+         <label style="font-size:11px;color:#475569">¿Stop justificado?<select id="cJust" style="width:100%;box-sizing:border-box;font-size:13px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">${selJust(info.stopJust)}</select></label>
+         <label style="font-size:11px;color:#475569">Tesis intacta<select id="cTesis" style="width:100%;box-sizing:border-box;font-size:13px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">${selTesis(info.tesis)}</select></label>
+       </div>
+
+       <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;margin-top:12px">
+         <div style="font-weight:800;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Veredicto (se calcula solo)</div>
+         <div id="cVer"></div>
+       </div>
+
+       ${_calibDiarioModalHTML(ticker, d.dossierFecha, h)}
+
+       <label style="display:block;margin-top:10px;font-size:11px;color:#475569">Notas (veredicto en una línea)
+         <textarea id="calibNota" rows="2" style="width:100%;box-sizing:border-box;margin-top:4px;font-size:13px;padding:6px;border:1px solid #cbd5e1;border-radius:6px">${info.nota?_calibEsc(info.nota):''}</textarea></label>
+
+       <div style="font-size:11px;color:#64748b;margin-top:8px">Reglas: <b>entró en banda</b> si el mínimo tocó el techo de la banda (Mín ≤ Entrada máx) · <b>tocó stop</b> si Mín ≤ Stop · <b>alcanzó PO</b> si Máx ≥ PO Base · <b>retorno total</b> = (cot. diana + dividendos) / cot. t0 − 1.</div>
+     </div>
+     <div style="padding:10px 18px 14px;display:flex;gap:8px;justify-content:flex-end;border-top:1px solid #e2e8f0;flex-wrap:wrap">
+       <button class="btn ghost sm" id="calibCopy" title="Copiar la fila lista para pegar en el Excel (Cot diana · Máx · Mín · Div · Stop just. · Tesis · Notas)">📋 Copiar fila para Excel</button>
+       ${h.done ? `<button class="btn ghost sm" id="calibReopen">↺ Reabrir</button>` : ''}
+       <button class="btn sm" id="calibSave" style="background:${CALIB_COLOR};border-color:${CALIB_COLOR}">💾 Guardar${h.done?'':' y marcar calibrada'}</button>
+       <button class="btn ghost sm" id="calibClose">Cerrar</button>
+     </div>`;
+
+  const readBase = () => ({
+    cot0:_calibN(dlg.querySelector('#bCot').value), poBase:_calibN(dlg.querySelector('#bPo').value),
+    entMax:_calibN(dlg.querySelector('#bEnt').value), stop:_calibN(dlg.querySelector('#bStop').value),
+    decision:base.decision
+  });
+  const readEv = () => ({
+    cotDiana:dlg.querySelector('#cCot').value.trim(), maxP:dlg.querySelector('#cMax').value.trim(),
+    minP:dlg.querySelector('#cMin').value.trim(), div:dlg.querySelector('#cDiv').value.trim(),
+    stopJust:dlg.querySelector('#cJust').value, tesis:dlg.querySelector('#cTesis').value,
+    nota:dlg.querySelector('#calibNota').value.trim()
+  });
+
+  _calibPintaVer(dlg, readBase());
+  ['bCot','bPo','bEnt','bStop','cCot','cMax','cMin','cDiv'].forEach(id => {
+    const el = dlg.querySelector('#'+id); if(el) el.addEventListener('input', () => _calibPintaVer(dlg, readBase()));
+  });
+
+  dlg.querySelector('#calibX').onclick = () => dlg.close();
+  dlg.querySelector('#calibClose').onclick = () => dlg.close();
+  dlg.querySelector('#calibSave').onclick = () => { _calibGuardar(ticker, h.k, readBase(), readEv(), true); dlg.close(); };
+  const bRe = dlg.querySelector('#calibReopen');
+  if(bRe) bRe.onclick = () => { _calibGuardar(ticker, h.k, readBase(), readEv(), false); dlg.close(); };
+  dlg.querySelector('#calibCopy').onclick = () => _calibCopiarFila(ticker, h.k, readEv());
+
+  // Auto-rellenar cotización diana + máx/mín del periodo (precios/TICKER.json) y dividendos (DB.dividendos)
+  const doAuto = async (silencioso) => {
+    const btn = dlg.querySelector('#calibAuto'), msg = dlg.querySelector('#calibAutoMsg');
+    if(btn){ btn.disabled = true; if(!btn.dataset.o) btn.dataset.o = btn.textContent; btn.textContent = '⏳ Cargando…'; }
+    const fin = t => { if(btn){ btn.disabled = false; btn.textContent = btn.dataset.o || '⚡ Auto-rellenar desde histórico'; } if(msg) msg.textContent = t||''; };
+    let pj = (typeof _precioCache !== 'undefined' && _precioCache) ? _precioCache[ticker] : undefined;
+    if(pj === undefined || pj === null){
+      try{ const r = await fetch('precios/' + ticker + '.json', {cache:'no-store'}); pj = r.ok ? await r.json() : null; }catch(e){ pj = null; }
+      if(typeof _precioCache !== 'undefined' && _precioCache) _precioCache[ticker] = pj;
+    }
+    const r = _calibDesdeHistorico(ticker, readBase(), d.dossierFecha, h.diana);
+    if(!r){ fin('⚠️ No hay histórico utilizable en precios/' + ticker + '.json — rellena a mano.'); return; }
+    const set = (id,val) => { const el = dlg.querySelector('#'+id); if(el && val!=null) el.value = ''+val; };
+    set('cCot', r.cot); set('cMax', r.maxP); set('cMin', r.minP);
+    if(r.nDiv) set('cDiv', r.div);
+    _calibPintaVer(dlg, readBase());
+    const aviso = r.futuro ? ' · ⚠️ aún sin cierre en la diana; usado el último disponible (' + r.cotFecha + ')' : '';
+    fin('✓ ' + r.nPer + ' cierres · ' + r.nDiv + ' dividendo(s). Revisa y guarda.' + aviso);
+  };
+  dlg.querySelector('#calibAuto').onclick = () => doAuto(false);
+
+  dlg.showModal();
+  // Si el hito ya venció y no hay dato manual, auto-rellena al abrir para que solo confirmes
+  if(h.vencida && !(info && info.cotDiana!=null && info.cotDiana!=='')) doAuto(true);
+}
+
+
+/* ===== [F640 · 13-sep-2026] CLAVE COMPUESTA: una empresa puede tener DOS t0 ==================
+   Lo pregunto el operador: «estoy registrando 2 t0, el del primer informe y el regenerado, pero
+   ahora en evaluaciones tambien me aparecen dos filas, ¿solo deberiamos evaluar el nuevo, o
+   debemos evaluar los dos?». Los DOS —lo decidio el, y esta escrito en su propio boton de
+   reanalisis: «la fila anterior SE CONSERVA, para poder ver dentro de un año cual de los dos
+   analisis acerto»—.
+
+   El Excel ya los distingue por (ticker, fecha). Esta app NO: guardaba todo en
+   DB.calibracion[TICKER], con el ticker a secas, asi que con dos t0 no sabia a cual pertenecia
+   cada evaluacion. El propio sincronizador lo dejo anotado el 30-jul-2026 y predijo el dia:
+   «en cuanto una empresa tenga dos t0 —su primera anual— la app no sabra a cual pertenece cada
+   evaluacion... Que lo diga el script». Llego antes de 2027 porque la regeneracion del parque
+   adelanto ONCE segundas filas de golpe.
+
+   Se arregla ahora porque hoy sale gratis: medido el 13-sep, las 216 filas de evaluacion del
+   Excel estan VACIAS — cero dianas rellenadas. En cuanto se rellene la primera, cambiar la clave
+   obliga a reasignar a mano evaluacion por evaluacion.
+
+   LAS FIRMAS NO CAMBIAN. `_calibGuardar(ticker, hito, ...)` y `_calibToggleDone(ticker, hito, on)`
+   siguen recibiendo el ticker a secas —las llama el check del calendario del radar, fuera de este
+   fichero— y la clave se deriva DENTRO. Asi no hay que tocar ningun otro modulo. */
+function _calibClave(ticker, fecha){
+  ticker = (ticker||'').toUpperCase();
+  if(!fecha){
+    try{ const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===ticker);
+         fecha = a && a.dossierFecha; }catch(e){}
+  }
+  return fecha ? (ticker + '@' + (''+fecha).slice(0,10)) : ticker;
+}
+/* Lee el registro de un t0 concreto, cayendo a la clave VIEJA si aun no se ha migrado. */
+function _calibReg(ticker, fecha){
+  const C = DB.calibracion||{};
+  const k = _calibClave(ticker, fecha);
+  if(C[k]) return C[k];
+  const bare = (ticker||'').toUpperCase();
+  return (k!==bare && C[bare]) ? C[bare] : {};
+}
+/* Migracion, una sola vez. Lo guardado bajo la clave vieja pertenece al t0 que estaba vigente
+   cuando se escribio. Si NO se puede determinar cual era, se CONSERVA bajo la clave vieja y se
+   avisa por consola: adjudicar una evaluacion al t0 equivocado es peor que dejarla sin clasificar,
+   porque el proposito de todo esto es comparar los dos analisis. */
+function _calibMigrarClaves(){
+  try{
+    const C = DB.calibracion; if(!C) return;
+    let movidas=0, dudosas=[];
+    Object.keys(C).forEach(function(k){
+      if(k.indexOf('@')>=0) return;                       /* ya migrada */
+      const nk = _calibClave(k, null);
+      if(nk===k){ dudosas.push(k); return; }              /* sin fecha de dossier: no se adivina */
+      if(C[nk]){ dudosas.push(k); return; }               /* ya hay algo ahi: no se pisa */
+      /* ¿La evaluacion es ANTERIOR al dossier vigente? Entonces se hizo contra un t0 que ya no
+         es el actual —la empresa se ha regenerado desde entonces— y NO se puede saber cual era
+         desde la app. Se conserva bajo la clave vieja y se avisa: atribuirla al t0 nuevo
+         falsearia justo la comparacion para la que existen las dos series. */
+      const _vig=(nk.split('@')[1]||'');
+      const _ant=Object.keys(C[k]).some(function(h){
+        const f=C[k][h] && C[k][h].fecha; return f && (''+f).slice(0,10) < _vig; });
+      if(_ant){ dudosas.push(k); return; }
+      C[nk]=C[k]; delete C[k]; movidas++;
+    });
+    if(movidas && typeof saveNow==='function') saveNow();
+    if(dudosas.length) console.warn('[F640] calibracion: '+dudosas.length+
+      ' registro(s) sin migrar (no se pudo determinar a que t0 pertenecen): '+dudosas.join(', '));
+  }catch(e){}
+}
+try{ _calibMigrarClaves(); }catch(e){}
+
+/* ---------- Persistencia ---------- */
+function _calibGuardar(ticker, hito, base, ev, done){
+  ticker = (ticker||'').toUpperCase();
+  const _k = _calibClave(ticker, null);                        /* [F640] clave compuesta */
+  DB.calibracion = DB.calibracion || {};
+  DB.calibracion[_k] = DB.calibracion[_k] || {};
+  // línea base t0 (solo si hay algo que guardar)
+  DB.calibracion[_k].t0 = {
+    cot0:base.cot0, poBase:base.poBase, entMax:base.entMax, stop:base.stop, decision:base.decision
+  };
+  /* [A10 · 26-jul-2026] Antes: done ? (hayCot || !!prev.done || true) : false — el `|| true` anulaba
+     la condición entera, así que las dos primeras comprobaciones no hacían nada y el comentario
+     prometía un automatismo que no existía. `done` lo decide el operador con los botones del
+     diálogo (Guardar = true / Reabrir = false), y eso es lo que manda: se deja explícito. */
+  const prev = DB.calibracion[_k][hito] || {};
+  DB.calibracion[_k][hito] = {
+    done: !!done,
+    fecha: done ? (prev.fecha || _calibHoy()) : '',
+    nota: ev.nota||'',
+    cotDiana:ev.cotDiana||'', maxP:ev.maxP||'', minP:ev.minP||'', div:ev.div||'',
+    stopJust:ev.stopJust||'—', tesis:ev.tesis||'—'
+  };
+  if(!done) DB.calibracion[_k][hito].done = false;
+  _calibRefrescar();
+}
+
+/* toggle rápido done (usado por el check del calendario del radar) — preserva la evaluación */
+function _calibToggleDone(ticker, hito, on){
+  ticker=(ticker||'').toUpperCase();
+  const _k = _calibClave(ticker, null);                        /* [F640] clave compuesta */
+  DB.calibracion = DB.calibracion || {}; DB.calibracion[_k] = DB.calibracion[_k] || {};
+  const prev = DB.calibracion[_k][hito] || {};
+  DB.calibracion[_k][hito] = Object.assign({}, prev, { done:!!on, fecha: on ? (prev.fecha||_calibHoy()) : '' });
+  _calibRefrescar();
+}
+
+function _calibRefrescar(){
+  if(typeof saveNow==='function') saveNow();
+  if(typeof renderPanelDash==='function') renderPanelDash();
+  if(typeof renderCobertura==='function') renderCobertura();
+  if(typeof renderPanelMetodo==='function') renderPanelMetodo();
+  if(typeof fichaTicker!=='undefined' && fichaTicker && typeof renderFicha==='function') renderFicha(fichaTicker);
+}
+
+/* copiar fila TSV para pegar en la hoja Evaluaciones del Excel (columnas H..N) */
+function _calibCopiarFila(ticker, hito, ev){
+  const g = v => (v==null?'':(''+v).replace(/\t/g,' '));
+  const fila = [g(ev.cotDiana), g(ev.maxP), g(ev.minP), g(ev.div), g(ev.stopJust==='—'?'':ev.stopJust), g(ev.tesis==='—'?'':ev.tesis), g(ev.nota)].join('\t');
+  const done = () => { const b=document.getElementById('calibCopy'); if(b){ const t=b.textContent; b.textContent='✓ Copiada'; setTimeout(()=>b.textContent=t,1400); } };
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(fila).then(done).catch(()=>done()); }
+  else { const ta=document.createElement('textarea'); ta.value=fila; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} ta.remove(); done(); }
+}
+
+/* ---------- Tarjeta en la Ficha ---------- */
+function _calibVchip(txt,ok){ return txt==null?'<span class="muted">—</span>':`<span style="font-size:10px;font-weight:700;padding:1px 6px;border-radius:7px;background:${ok?'#dcfce7':'#fee2e2'};color:${ok?'#166534':'#991b1b'}">${txt}</span>`; }
+function _calibVerCell(v, provisional){
+  if(!v || !v.evaluada) return '<span class="muted" style="font-size:11px">sin datos</span>';
+  const tag = provisional ? ` <span style="font-size:9px;font-weight:800;padding:1px 5px;border-radius:6px;background:#fef3c7;color:#92400e" title="Calculado desde el histórico; pendiente de confirmar">PROVISIONAL</span>` : '';
+  return `<span title="Retorno total" style="font-weight:700;color:${v.retTotal!=null&&v.retTotal>=0?'#166534':'#991b1b'}">${_calibPct(v.retTotal)}</span>
+     ${_calibVchip(v.entroBanda?('banda '+v.entroBanda):null, v.entroBanda==='SÍ')}
+     ${_calibVchip(v.tocoStop?('stop '+v.tocoStop):null, v.tocoStop==='NO')}
+     ${_calibVchip(v.alcanzoPO?('PO '+v.alcanzoPO):null, v.alcanzoPO==='SÍ')}${tag}`;
+}
+function calibFichaHTML(ticker){
+  const d = calibDataFor(ticker);
+  if(!d) return '';
+  // Carga perezosa del histórico para veredictos provisionales (y re-render cuando llegue)
+  const tkU = (ticker||'').toUpperCase();
+  const needProv = d.hitos.some(h => h.vencida && !h.done && !h.manualEval);
+  if(needProv && typeof _precioCache!=='undefined' && _precioCache && _precioCache[tkU]===undefined){
+    _calibLazyPrecios(tkU, () => { if(typeof fichaTicker!=='undefined' && (fichaTicker||'').toUpperCase()===tkU && typeof renderFicha==='function') renderFicha(fichaTicker); });
+  }
+  const rows = d.hitos.map(h => {
+    let chip, acc, verV=null, provFlag=false;
+    if(h.done){
+      chip = `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#ccfbf1;color:#0f766e">✓ CALIBRADA${h.info&&h.info.fecha?' · '+h.info.fecha:''}</span>`;
+      acc = `<button class="btn ghost sm" data-calibopen="${d.ticker}|${h.k}" title="Ver / editar">✎</button>`;
+      verV = h.ver;
+    } else if(h.vencida){
+      if(h.prov && h.prov.ver && h.prov.ver.evaluada){
+        chip = `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#fef3c7;color:#92400e">⏰ VENCIDA · provisional</span>`;
+        acc = `<button class="btn sm" data-calibopen="${d.ticker}|${h.k}" style="background:${CALIB_COLOR};border-color:${CALIB_COLOR}" title="Revisar y confirmar">Confirmar</button>`;
+        verV = h.prov.ver; provFlag = true;
+      } else {
+        chip = `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#fef3c7;color:#92400e">⏰ VENCIDA · hace ${-h.dias} d</span>`;
+        acc = `<button class="btn sm" data-calibopen="${d.ticker}|${h.k}" style="background:${CALIB_COLOR};border-color:${CALIB_COLOR}">Calibrar</button>`;
+      }
+    } else {
+      chip = `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#f1f5f9;color:#64748b">Próxima · faltan ${h.dias} d</span>`;
+      acc = `<button class="btn ghost sm" data-calibopen="${d.ticker}|${h.k}" title="Adelantar / ver">👁</button>`;
+      verV = h.ver.evaluada ? h.ver : null;
+    }
+    return `<tr>
+      <td style="font-weight:700;white-space:nowrap">${h.k}</td>
+      <td style="white-space:nowrap">${h.diana||'—'}</td>
+      <td>${chip}</td>
+      <td style="font-size:11px;line-height:1.5">${_calibVerCell(verV, provFlag)}</td>
+      <td class="right">${acc}</td>
+    </tr>`;
+  }).join('');
+  const baseTxt = _calibIsN(d.base.cot0)
+    ? `t0 ${_calibFmt(d.base.cot0)}€ · PO Base ${_calibFmt(d.base.poBase)}€ · banda≤${_calibFmt(d.base.entMax)}€ · stop ${_calibFmt(d.base.stop)}€`
+    : 'línea base t0 sin completar — se pide al calibrar';
+  return `<div class="card" style="margin-top:10px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <div style="font-weight:800;font-size:15px">📐 Calibración ex-post (6 / 12 / 36 meses)</div>
+    </div>
+    <div class="sub" style="margin-bottom:2px">Dianas contadas desde el análisis (${d.dossierFecha}). La evaluación se rellena aquí; el botón «Copiar fila para Excel» genera la fila para duplicarla en el Excel.</div>
+    <div class="sub" style="margin-bottom:6px;font-size:11px;color:#64748b">${baseTxt}</div>
+    <div style="overflow:auto"><table><thead><tr><th>Hito</th><th>Fecha diana</th><th>Estado</th><th>Veredicto</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
+  </div>`;
+}
+
+/* ---------- Panel del Método (marcador agregado, como el Excel) ---------- */
+function _calibMetPct(x){ return x==null?'—':(x*100).toLocaleString('es-ES',{maximumFractionDigits:0})+'%'; }
+function _calibMetRet(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1})+'%'; }
+function _calibRetColor(x){ return x==null?'#94a3b8':(x>=0?'#166534':'#991b1b'); }
+
+/* [B2] Marcador de las decisiones del Diario evaluadas contra las dianas ya cerradas.
+   Dos cortes: por TIPO de decisión (¿aciertan más tus «Comprar» que tus «Mantener»?) y por si
+   llevaban INVALIDACIÓN escrita (¿escribir el criterio de salida mejora el resultado?). Este
+   segundo corte es el que justifica todo el Diario, y hasta hoy no se medía en ningún sitio. */
+function _calibDiarioPanel(){
+  const L=calibDiarioCerrado();
+  const totalDiario=(DB.diario||[]).length;
+  if(!L.length){
+    const razon = totalDiario
+      ? 'Tienes '+totalDiario+' decisión(es) anotada(s), pero ninguna cae dentro del tramo de una diana ya <b>cerrada</b>. En cuanto confirmes una calibración cuyo tramo las contenga, aparecerán aquí evaluadas.'
+      : 'Aún no has anotado decisiones en <b>Mis Decisiones</b>. Este marcador mide tus decisiones escritas contra lo que hizo el precio hasta la diana.';
+    return {sum:'sin datos todavía', consejo:'',
+      html:'<div class="mt-empty">'+razon+'</div>'};
+  }
+  const evald=L.filter(x=>x.acierto!=null);
+  const avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
+  const grupo=arr=>({n:arr.length,
+    ok:arr.filter(x=>x.acierto===true).length,
+    pct:arr.length?arr.filter(x=>x.acierto===true).length/arr.length:null,
+    ret:avg(arr.map(x=>x.ret).filter(x=>x!=null))});
+  const tipos={}; evald.forEach(x=>{ const k=x.e.tipo||'—'; (tipos[k]=tipos[k]||[]).push(x); });
+  const con=grupo(evald.filter(x=>x.conInval)), sin=grupo(evald.filter(x=>!x.conInval));
+
+  const cel=v=>'<td style="text-align:center">'+v+'</td>';
+  const celRet=v=>'<td style="text-align:center;font-weight:700;color:'+_calibRetColor(v)+'">'+_calibMetRet(v)+'</td>';
+  const filas=Object.keys(tipos).sort().map(k=>{ const g=grupo(tipos[k]);
+    return '<tr><td class="l" style="font-weight:600">'+_calibEsc(k)+'</td>'+cel(g.n)+cel(_calibMetPct(g.pct))+celRet(g.ret)+'</tr>'; }).join('');
+  const filaInv=(lbl,g)=>'<tr><td class="l"'+(g.n?'':' style="color:#94a3b8"')+'>'+lbl+'</td>'+cel(g.n)+cel(_calibMetPct(g.pct))+celRet(g.ret)+'</tr>';
+
+  const G=grupo(evald);
+  const kpi='<div style="font-size:12.5px;color:#334155;margin-bottom:10px;line-height:1.55">'
+    +'<b>'+G.ok+' de '+G.n+'</b> decisiones anotadas acertaron ('+_calibMetPct(G.pct)+'), con un retorno medio de '
+    +'<b style="color:'+_calibRetColor(G.ret)+'">'+_calibMetRet(G.ret)+'</b> medido desde el precio al que decidiste hasta la diana, dividendos incluidos.'
+    +(L.length>evald.length?(' <span class="muted">('+(L.length-evald.length)+' sin precio de referencia, no computan.)</span>'):'')
+    +'</div>';
+  const t1='<div class="ptable"><table><thead><tr><th class="l">Tipo de decisión</th><th>N</th><th>% acierto</th><th>Retorno medio</th></tr></thead><tbody>'+filas+'</tbody></table></div>';
+  const t2='<div style="font-weight:800;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 6px">¿Escribir la invalidación cambia algo?</div>'
+    +'<div class="ptable"><table><thead><tr><th class="l">Decisiones</th><th>N</th><th>% acierto</th><th>Retorno medio</th></tr></thead><tbody>'
+    +filaInv('Con «cambiaría de idea si…» escrito', con)+filaInv('Sin invalidación escrita', sin)
+    +'</tbody></table></div>';
+
+  /* consejo: solo cuando hay muestra suficiente para que signifique algo */
+  let consejo='';
+  if(con.n>=3 && sin.n>=3 && con.pct!=null && sin.pct!=null){
+    consejo = (con.pct>sin.pct)
+      ? '<li><b>Escribir la invalidación te está saliendo a cuenta</b>: '+_calibMetPct(con.pct)+' de acierto con criterio de salida escrito frente a '+_calibMetPct(sin.pct)+' sin él. Anótala siempre.</li>'
+      : '<li>Las decisiones <b>con</b> invalidación escrita no van mejor ('+_calibMetPct(con.pct)+' vs '+_calibMetPct(sin.pct)+'). Mira si las estás escribiendo demasiado vagas para poder incumplirlas.</li>';
+  }
+  const mejor=Object.keys(tipos).filter(k=>tipos[k].length>=3)
+    .sort((a,b)=>grupo(tipos[b]).pct-grupo(tipos[a]).pct)[0];
+  const peor=Object.keys(tipos).filter(k=>tipos[k].length>=3)
+    .sort((a,b)=>grupo(tipos[a]).pct-grupo(tipos[b]).pct)[0];
+  if(mejor&&peor&&mejor!==peor)
+    consejo+='<li>Tus decisiones de <b>'+_calibEsc(peor)+'</b> ('+_calibMetPct(grupo(tipos[peor]).pct)+') aciertan bastante menos que las de <b>'+_calibEsc(mejor)+'</b> ('+_calibMetPct(grupo(tipos[mejor]).pct)+'): ahí está el sesgo que corregir.</li>';
+
+  const nota='<div class="sub" style="font-size:11px;color:#64748b;margin-top:10px;line-height:1.5">Solo entran decisiones anotadas dentro del tramo de una diana <b>ya confirmada</b> (t0 del dossier → 6/12/36 meses). Cada una se mide en su propio horizonte: desde el precio al que la tomaste hasta la cotización de la diana, sumando los dividendos cobrados en medio. El acierto sigue la dirección del tipo: Comprar/Ampliar/Mantener/Reafirmar aciertan si sube; Recortar/Vender, si baja; Descartar, si no se escapó más de un 5&nbsp;%.</div>';
+  return {sum:G.ok+' de '+G.n+' acertadas', consejo:consejo, html:kpi+t1+t2+nota};
+}
+
+
+/* ===== Bloque «De qué está hecho el PO» [30-jul-2026] =====================
+   Lo que esta app no puede calcular y el metodo si: el DCF crudo antes de
+   ponderarlo con multiplos, y cuanto se recorto al sintetizar. Es la diferencia
+   entre saber que el PO fallo y saber QUE PARTE del metodo fallo.
+   Y al lado, el desfase de beta: si el error del DCF viene del modelo o de un
+   input malo. Una celda vacia significa «no se sabe», nunca cero. */
+function _calibComposicionPanel(){
+  const meta = CALIB_PUENTE_META;
+  if(!meta) return null;
+  const filas = [];
+  Object.keys(CALIB_PUENTE).forEach(t => CALIB_PUENTE[t].forEach(f => filas.push(f)));
+  if(!filas.length) return null;
+  filas.sort((a,b) => (a.fecha||'').localeCompare(b.fecha||''));
+  const n = (v,d) => (typeof v==='number' && !isNaN(v))
+    ? v.toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d}) : '—';
+  const pc = v => (typeof v==='number' && !isNaN(v))
+    ? '<span style="color:'+(v<0?'#b45309':'#0f766e')+'">'+(v>=0?'+':'')+(v*100).toFixed(1)+'%</span>' : '—';
+  const R = meta.resumen||{};
+  const _k = (l,v,p) => '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:11px 13px">'
+    +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:#64748b">'+l+'</div>'
+    +'<div style="font-size:20px;font-weight:800;color:#0f172a;margin-top:3px">'+v+'</div>'
+    +'<div style="font-size:11px;color:#64748b;margin-top:2px;line-height:1.35">'+p+'</div></div>';
+  const kpi = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:14px">'
+    +_k('Con composición', (R.conComposicion||0)+' de '+(R.filas||0), 'el resto: su JSON dejó de ser la foto de t0')
+    +_k('Recorte de síntesis', (typeof R.recorteMediano==='number'?((R.recorteMediano*100).toFixed(1)+'%'):'—'), 'mediana · PO publicado vs DCF crudo')
+    +_k('Desfase de beta', n(R.desfaseBetaMediano,3), 'mediana · barrido menos la usada')
+    +_k('Puente generado', _calibEsc(meta.generadoEl||'—'), 'lo escribe «Sincronizar calibración»')
+    +'</div>';
+  const tr = filas.map(f => '<tr>'
+    +'<td class="l"><b>'+_calibEsc(f.ticker)+'</b></td>'
+    +'<td style="font-size:11px;color:#64748b">'+_calibEsc((f.fecha||'').slice(0,10))+'</td>'
+    +'<td>'+n(f.poBase,2)+' €</td>'
+    +'<td>'+(typeof f.dcf==='number'? n(f.dcf,2)+' €' : '—')+'</td>'
+    +'<td style="font-weight:700">'+pc(f.recorteSintesis)+'</td>'
+    +'<td style="font-size:11.5px">'+_calibEsc(f.robustez||'—')+'</td>'
+    +'<td>'+n(f.beta,2)+'</td>'
+    +'<td>'+n(f.betaReferencia,3)+'</td>'
+    +'<td style="font-weight:700;color:'+((typeof f.desfaseBeta==='number'&&Math.abs(f.desfaseBeta)>0.35)?'#b45309':'#475569')+'">'
+      +(typeof f.desfaseBeta==='number'?((f.desfaseBeta>=0?'+':'')+f.desfaseBeta.toFixed(3)):'—')+'</td>'
+    +'</tr>').join('');
+  const tabla = '<div class="ptable"><table><thead><tr>'
+    +'<th class="l">Empresa</th><th>t0</th><th>PO base</th><th>PO por DCF crudo</th>'
+    +'<th>Recorte de síntesis</th><th>Robustez t0</th><th>Beta usada</th><th>Beta ref.</th><th>Desfase</th>'
+    +'</tr></thead><tbody>'+tr+'</tbody></table></div>';
+  const nota = '<div class="mt-empty" style="margin:12px 0 0">'
+    +'<b>Cómo se lee.</b> El <b>recorte de síntesis</b> es cuánto se apartó el PO que publicaste del DCF crudo '
+    +'al ponderarlo con múltiplos: negativo, te recortaste a ti mismo. El <b>desfase de beta</b> es cuánto se '
+    +'aparta la beta que usó el análisis de la del barrido de <code>betas.json</code>; una beta baja da un WACC '
+    +'bajo y un WACC bajo da un DCF alto. En la cosecha de enero se cruzan las dos columnas contra el error real '
+    +'del PO, y ahí se sabrá si el sesgo viene del método o de un input. '
+    +'<b>Una celda vacía dice «no se sabe», nunca cero.</b></div>';
+  return {sum: (R.conComposicion||0)+' de '+(R.filas||0)+' con composición', html: kpi+tabla+nota};
+}
+
+/* ---------- El espejo del analista (propuesta 4, 31-jul-2026) ----------
+   La otra mitad de la pregunta que contesta este Panel. El marcador de arriba dice
+   si el metodo ACIERTA; esto dice COMO DECIDE. Ninguna de estas cifras es sobre las
+   empresas: todas son sobre quien decide, y por eso incomodan.
+   Se calcula EN EL LADO DEL METODO (kh_espejo.py) y viaja dentro de calibracion.json:
+   la app no puede abrir los 25 libros. */
+
+/* Las senales tienen FAMILIA: unas las dispara el precio y otras el negocio. Es la
+   distincion que da sentido al bloque 2, asi que manda tambien en el color y en el
+   ORDEN de la barra: con los segmentos mezclados se veian dos azules separados por
+   un gris y no se leia el grupo. */
+var _ESP_FAM = {S1:'precio', S3:'precio', S2:'negocio', S4:'negocio', S5:'negocio', S6:'negocio'};
+function _espFam(c){ return _ESP_FAM[(c||'').toUpperCase()] || 'otras'; }
+function _espColor(clave){
+  const c = (clave||'').toUpperCase();
+  if(c==='V'||c==='VERDE')  return 'var(--green)';
+  if(c==='A'||c==='ÁMBAR'||c==='AMBAR') return 'var(--amber)';
+  if(c==='R'||c==='ROJO')   return 'var(--red)';
+  /* Las cuatro decisiones del metodo, de menos a mas grave: se leen por color
+     igual que un semaforo, que es como se leen en el §10.5. */
+  if(c==='REAFIRMAR')  return '#0f766e';
+  if(c==='ABIERTA')    return '#cbd5e1';
+  if(c.indexOf('AJUSTA')===0) return '#d97706';
+  if(c==='REBAJA')     return '#ea580c';
+  if(c==='VENDE')      return 'var(--red)';
+  const f = _espFam(c);
+  if(f==='precio')  return '#7c3aed';
+  if(f==='negocio') return '#0369a1';
+  return '#cbd5e1';
+}
+function _espPct(n){
+  return _calibIsN(n) ? n.toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1})+'%' : '—';
+}
+/* Barra apilada + leyenda: una distribucion se lee de un vistazo y en una tabla no. */
+function _espBarra(items, colorDe){
+  if(!items || !items.length) return '';
+  const seg = items.map(x =>
+    `<span title="${_calibEsc(x.nombre||x.clave)}: ${x.n}" style="flex:${Math.max(x.pct,0.9)};background:${colorDe(x.clave)}"></span>`).join('');
+  const leg = items.map(x =>
+    `<span class="esp-lg"><i style="background:${colorDe(x.clave)}"></i>${_calibEsc(x.nombre||x.clave)}`
+    +` <b>${x.n}</b> <em>${_espPct(x.pct)}</em></span>`).join('');
+  return `<div class="esp-bar">${seg}</div><div class="esp-leg">${leg}</div>`;
+}
+function _espKpi(l,v,p,tono){
+  return `<div class="esp-k${tono?' '+tono:''}"><div class="l">${l}</div><div class="v">${v}</div><div class="p">${p}</div></div>`;
+}
+function _espNota(t){ return `<p class="esp-nota">${t}</p>`; }
+function _espH(n,t){ return `<div class="esp-h"><span class="esp-n">${n}</span>${t}</div>`; }
+
+function _calibEspejoPanel(){
+  const E = CALIB_PUENTE_META && CALIB_PUENTE_META.espejo;
+  if(!E) return null;
+  const dec = E.decisiones||{reparto:[]}, sen = E.senales||{reparto:[]},
+        sem = E.semaforo||{reparto:[]},   lat = E.latencia||{},
+        rac = (E.rachas||[]).filter(x=>x.verdesSeguidos>0);
+  const top  = (dec.reparto||[])[0] || {clave:'—',pct:null,n:0};
+  const rojo = (sem.reparto||[]).find(x=>x.clave==='R') || {pct:null,n:0};
+  const totLat = (lat.medibles||0) + (lat.sinFechaDeApertura||0);
+  const orden = {precio:0, negocio:1, otras:2};
+  const senOrd = (sen.reparto||[]).slice().sort((a,b) =>
+    (orden[_espFam(a.clave)] - orden[_espFam(b.clave)]) || (b.n - a.n));
+
+  const kpis = `<div class="esp-kpis">`
+    + _espKpi('La decisión de siempre', _espPct(top.pct),
+              `${top.n} de ${dec.total||0} Notas acaban en <b>${_calibEsc(top.clave)}</b>`,
+              (_calibIsN(top.pct)&&top.pct>=80)?'warn':'')
+    + _espKpi('Señales disparadas por el precio', _espPct(sen.pctDePrecio),
+              `S1 y S3 · el resto nace del negocio`,
+              (_calibIsN(sen.pctDePrecio)&&sen.pctDePrecio>=50)?'warn':'')
+    + _espKpi('Trimestres en rojo', _espPct(rojo.pct),
+              `${rojo.n} de ${sem.total||0} trimestres registrados`)
+    + _espKpi('Plazo medible', `${lat.medibles||0}<span class="sub"> / ${totLat}</span>`,
+              lat.mediana!=null ? `mediana <b>${lat.mediana} día(s)</b> · máximo ${lat.maximo}` : 'aún sin medida')
+    + `</div>`;
+
+  const rachaMax = rac.length ? rac[0].verdesSeguidos : 1;
+  const filasRac = rac.map(x => {
+    const limpia = x.verdesSeguidos >= x.trimestres;     /* ni un solo ámbar en toda la serie */
+    const w = Math.round(100*x.verdesSeguidos/rachaMax);
+    return `<tr${limpia?' class="esp-full"':''}><td class="l"><b>${_calibEsc(x.empresa)}</b>`
+      +(limpia?' <span class="esp-chip">sin un solo ámbar</span>':'')+`</td>`
+      +`<td class="l" style="width:46%"><span class="esp-mini"><i style="width:${w}%"></i></span></td>`
+      +`<td><b>${x.verdesSeguidos}</b></td><td class="esp-dim">${x.trimestres}</td></tr>`;
+  }).join('');
+
+  const html =
+     `<div class="esp-intro">Datos de los <b>${E.libros}</b> libros a ${_calibEsc(E.generadoEl)}. No hay ningún dato nuevo: `
+    +`son los del §10.5 y el §10.3, que hasta ahora solo se leían de uno en uno. `
+    +`<b>Un sesgo no se ve en una decisión, se ve en la distribución de cien.</b></div>`
+    + kpis
+    + _espH(1,'¿En qué acaban las Notas?')
+    + _espBarra(dec.reparto||[], _espColor)
+    + _espNota(`Si casi todas son <b>REAFIRMAR</b>, o el método es extraordinario o hay <b>sesgo de confirmación</b>. `
+              +`Las dos hipótesis se separan con el marcador de arriba: mirando qué hizo el precio después.`)
+    + _espH(2,'¿Qué señales se abren?')
+    + `<div class="esp-fam"><span><i style="background:#7c3aed"></i>las dispara el precio</span>`
+    + `<span><i style="background:#0369a1"></i>las dispara el negocio</span>`
+    + `<span><i style="background:#cbd5e1"></i>otras</span></div>`
+    + _espBarra(senOrd, _espColor)
+    + _espNota(`El <b>${_espPct(sen.pctDePrecio)}</b> las dispara la <b>cotización</b>, no el negocio. Un método que solo `
+              +`reacciona al precio no está vigilando la tesis: está vigilando el mercado.`)
+    + _espH(3,'Reparto del semáforo trimestral')
+    + _espBarra(sem.reparto||[], _espColor)
+    + _espNota(`Un método que <b>nunca pone rojos</b> no está midiendo nada. Uno que los pone siempre, tampoco.`)
+    + _espH(4,'¿Cuánto tarda una señal en cerrarse?')
+    + (totLat
+        ? _espBarra([{clave:'ok',nombre:'Con fecha de apertura',n:lat.medibles||0,pct:100*(lat.medibles||0)/totLat},
+                     {clave:'no',nombre:'Sin ella',n:lat.sinFechaDeApertura||0,pct:100*(lat.sinFechaDeApertura||0)/totLat}],
+                    c => c==='ok' ? '#0f766e' : '#cbd5e1')
+        : '')
+    + _espNota(`El plazo de una <b>S2</b> es de 7 días. Solo son medibles los apuntes cerrados con el helper, que guarda `
+              +`la fecha de apertura dentro del motivo (regla del 28-jul-2026). Los anteriores <b>no se reconstruyen</b>: `
+              +`inventarlos sería exactamente el sesgo que esta página viene a cazar.`)
+    + _espH(5,'Trimestres seguidos en verde')
+    + (rac.length
+        ? `<div class="ptable"><table><thead><tr><th class="l">Empresa</th><th class="l">Racha</th><th>Verdes</th><th>Trim.</th></tr></thead><tbody>${filasRac}</tbody></table></div>`
+        : '<div class="mt-empty">Ninguna empresa encadena verdes ahora mismo.</div>')
+    + _espNota(`Una racha larga puede ser <b>calidad</b>… o <b>falta de atención</b>. El dato no lo distingue; `
+              +`la pregunta es si has mirado esas empresas con el mismo cuidado que las que sí dan ámbares.`);
+
+  const sum = `${_espPct(top.pct)} ${_calibEsc(top.clave)} · ${_espPct(sen.pctDePrecio)} por precio`;
+  return {sum, html};
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   [29-sep-2026 · decisión de Carlos] LAS APUESTAS VIEJAS (método v1), MEDIDAS SOLAS
+   En julio cambió el método (v2) y se rehicieron los análisis; las 28 filas t0 de v1 siguen en
+   calibracion.json pero el Panel solo sigue el dossier VIGENTE. Carlos decide medirlas SIN
+   fichas: se calculan con el histórico de precios y los dividendos (mismo _calibDesdeHistorico
+   que los provisionales) y se enseñan aparte, al lado de las v2 CERRADAS, para ver en 2027 si
+   el cambio de método mejoró algo. No entran en el marcador, ni en «pendientes», ni en los avisos.
+   Qué fila cuenta: método v1 y fecha anterior en más de 30 días al dossier vigente (así no se
+   cuentan las filas repetidas de septiembre ni la tesis vigente mal etiquetada).
+   ════════════════════════════════════════════════════════════════════════════ */
+function _calibV1Filas(){
+  const out=[];
+  Object.keys(CALIB_PUENTE||{}).forEach(t=>{
+    const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t);
+    const vig=a&&a.dossierFecha?a.dossierFecha:null;
+    (CALIB_PUENTE[t]||[]).forEach(f=>{
+      if((f.metodo||'')!=='v1'||!f.fecha) return;
+      if(vig){ const lim=new Date(vig+'T00:00:00'); lim.setDate(lim.getDate()-30); if(f.fecha>lim.toISOString().slice(0,10)) return; }
+      out.push(Object.assign({ticker:t},f));
+    });
+  });
+  return out.sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||''));
+}
+function _calibV1Panel(){
+  const filas=_calibV1Filas(); if(!filas.length) return null;
+  const hoy=_calibHoy(), falta=[];
+  const med=filas.map(f=>{
+    const base={cot0:_calibN(f.cot0), entMax:_calibN(f.entMax), stop:_calibN(f.stop), poBase:_calibN(f.poBase)};
+    const hs=['6m','12m'].map(k=>{ const meses=k==='6m'?6:12, diana=_calibDiana(f.fecha,meses);
+      const cerrada=diana<=hoy;
+      const r=_calibDesdeHistorico(f.ticker, base, f.fecha, cerrada?diana:hoy);
+      if(!r && typeof _precioCache!=='undefined' && _precioCache && _precioCache[f.ticker]===undefined) falta.push(f.ticker);
+      return {k, diana, cerrada, r}; });
+    return {f, base, hs};
+  });
+  if(falta.length){ const u=[...new Set(falta)]; let n=u.length; u.forEach(t=>_calibLazyPrecios(t,()=>{ if(--n===0) renderPanelMetodo(); })); }
+  const avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
+  const agg=(lista)=>{ const n=lista.length; const r=lista.map(x=>x.v.retTotal).filter(x=>x!=null);
+    const dec=d=>avg(lista.filter(x=>x.dec===d).map(x=>x.v.retTotal).filter(x=>x!=null));
+    return {n, banda:n?lista.filter(x=>x.v.entroBanda==='SÍ').length/n:null, stops:lista.filter(x=>x.v.tocoStop==='SÍ').length,
+      po:n?lista.filter(x=>x.v.alcanzoPO==='SÍ').length/n:null, ret:avg(r), comprar:dec('COMPRAR'), mantener:dec('MANTENER'), esperar:dec('ESPERAR')}; };
+  const v1={};
+  ['6m','12m'].forEach(k=>{ v1[k]=agg(med.map(m=>{ const h=m.hs.find(x=>x.k===k); return (h.cerrada&&h.r&&h.r.ver&&h.r.ver.evaluada)?{v:h.r.ver,dec:(m.f.decision||'').toUpperCase()}:null; }).filter(Boolean)); });
+  /* v2 = las evaluaciones CERRADAS del marcador principal (mismas métricas) */
+  const v2={'6m':[], '12m':[]};
+  (DB.analisis||[]).map(a=>calibDataFor(a.ticker)).filter(Boolean).forEach(d=>d.hitos.forEach(h=>{ if(v2[h.k]&&h.done&&h.ver&&h.ver.evaluada) v2[h.k].push({v:h.ver,dec:(d.base.decision||'').toUpperCase()}); }));
+  const V2={'6m':agg(v2['6m']), '12m':agg(v2['12m'])};
+  const cel=v=>`<td style="text-align:center">${v}</td>`;
+  const celR=v=>`<td style="text-align:center;font-weight:700;color:${_calibRetColor(v)}">${_calibMetRet(v)}</td>`;
+  const cols=[v1['6m'],V2['6m'],v1['12m'],V2['12m']];
+  const fila=(etq,fn,sub)=>`<tr${sub?' style="color:#64748b"':''}><td style="${sub?'padding-left:18px;':'font-weight:600;'}white-space:nowrap">${etq}</td>${cols.map(fn).join('')}</tr>`;
+  const tabla=`<div class="ptable"><table><thead><tr><th class="l">Métrica</th><th>v1 · 6 m</th><th>v2 · 6 m</th><th>v1 · 12 m</th><th>v2 · 12 m</th></tr></thead><tbody>
+    ${fila('Evaluaciones',c=>cel(c.n))}
+    ${fila('% entró en banda',c=>cel(_calibMetPct(c.banda)))}
+    ${fila('Stops tocados',c=>cel(c.stops))}
+    ${fila('% alcanzó PO Base',c=>cel(_calibMetPct(c.po)))}
+    ${fila('Retorno total medio',c=>celR(c.ret))}
+    ${fila('· COMPRAR',c=>celR(c.comprar),true)}
+    ${fila('· MANTENER',c=>celR(c.mantener),true)}
+    ${fila('· ESPERAR',c=>celR(c.esperar),true)}
+  </tbody></table></div>`;
+  const det=med.map(m=>{ const h6=m.hs[0], r=h6.r;
+    const est=h6.cerrada?'<b>cerrada</b>':('en curso · diana '+h6.diana);
+    return `<tr><td class="l"><b>${m.f.ticker}</b></td><td>${m.f.fecha}</td><td>${m.f.decision||'—'}</td><td>${_calibFmt(m.base.cot0)}</td><td>${_calibFmt(m.base.poBase)}</td><td style="font-weight:700;color:${_calibRetColor(r&&r.ver?r.ver.retTotal:null)}">${r&&r.ver?_calibMetRet(r.ver.retTotal):'—'}</td><td>${r&&r.ver&&r.ver.alcanzoPO?('PO '+r.ver.alcanzoPO):'—'}</td><td class="l" style="font-size:11px;color:#64748b">${est}</td></tr>`; }).join('');
+  const n6=v1['6m'].n, nCurso=med.filter(m=>!m.hs[0].cerrada).length;
+  const html=`<div class="mt-empty" style="margin-bottom:8px">Las <b>${filas.length}</b> apuestas del método viejo (v1, jun–jul) que luego se rehicieron con el v2. Se miden <b>solas</b>, con el histórico de precios y los dividendos: no piden fichas ni avisan. Sirven para una sola cosa: comparar con las v2 <b>cerradas</b> y saber si el cambio de método mejoró algo. Las v2 cierran su primera diana el 23-feb-2027.</div>`
+    +tabla
+    +`<div style="margin-top:10px;font-weight:700;font-size:12.5px">Detalle (hito de 6 meses; «en curso» = retorno hasta hoy, aún no cuenta)</div>`
+    +`<div class="ptable"><table><thead><tr><th class="l">Empresa</th><th>t0</th><th>Decisión</th><th>Cotiz. t0</th><th>PO Base</th><th>Retorno total</th><th>PO</th><th class="l">Estado</th></tr></thead><tbody>${det}</tbody></table></div>`;
+  return {html, sum: n6?(n6+' cerradas a 6 m · '+nCurso+' en curso'):(filas.length+' apuestas · 1.ª diana '+(med[0].hs[0].diana||'—'))};
+}
+function renderPanelMetodo(){
+  const sec = document.getElementById('view-metodo'); if(!sec) return;
+  const empresas = (DB.analisis||[]).map(a => calibDataFor(a.ticker)).filter(Boolean);
+  const cerr = {'6m':[], '12m':[], '36m':[]};
+  let proxDiana = null, proxTk = '', pendientes = 0, provis = 0;
+  empresas.forEach(d => {
+    d.hitos.forEach(h => {
+      if(!h.done && h.diana){ pendientes++; if(!proxDiana || h.diana < proxDiana){ proxDiana = h.diana; proxTk = d.ticker; } }
+      if(!h.done && h.vencida && h.prov && h.prov.ver && h.prov.ver.evaluada) provis++;
+      if(h.done && h.ver && h.ver.evaluada) cerr[h.k].push({ v:h.ver, info:h.info||{}, decision:d.base.decision, ticker:d.ticker });
+    });
+  });
+  const avg = arr => arr.length ? arr.reduce((s,x)=>s+x,0)/arr.length : null;
+  const col = k => {
+    const arr = cerr[k], n = arr.length;
+    const stops = arr.filter(x => x.v.tocoStop==='SÍ');
+    const rets = arr.map(x => x.v.retTotal).filter(x => x!=null);
+    const avgDec = dec => avg(arr.filter(x => x.decision===dec).map(x => x.v.retTotal).filter(x => x!=null));
+    return {
+      n,
+      banda: n ? arr.filter(x => x.v.entroBanda==='SÍ').length / n : null,
+      stops: stops.length,
+      justif: stops.filter(x => (x.info.stopJust||'')==='JUSTIFICADO').length,
+      ruido:  stops.filter(x => (x.info.stopJust||'')==='RUIDO').length,
+      po: n ? arr.filter(x => x.v.alcanzoPO==='SÍ').length / n : null,
+      ret: avg(rets), comprar: avgDec('COMPRAR'), mantener: avgDec('MANTENER'), esperar: avgDec('ESPERAR')
+    };
+  };
+  const C = { '6m':col('6m'), '12m':col('12m'), '36m':col('36m') };
+  const totalCerradas = C['6m'].n + C['12m'].n + C['36m'].n;
+
+  const cel = v => `<td style="text-align:center">${v}</td>`;
+  const celRet = v => `<td style="text-align:center;font-weight:700;color:${_calibRetColor(v)}">${_calibMetRet(v)}</td>`;
+  const fila = (etq, fn, sub) => `<tr${sub?' style="color:#64748b"':''}><td style="${sub?'padding-left:18px;':'font-weight:600;'}white-space:nowrap">${etq}</td>${['6m','12m','36m'].map(k=>fn(C[k])).join('')}</tr>`;
+
+  const _kpis='<div class="pos-kpis">'
+    +`<div class="k hero"><div class="l">Evaluaciones cerradas</div><div class="v">${totalCerradas}</div><div class="p">${totalCerradas?'confirmadas':'confirmadas · aún sin datos'}</div></div>`
+    +`<div class="k"><div class="l">Análisis registrados (t0)</div><div class="v">${empresas.length}</div><div class="p">tesis con punto de partida</div></div>`
+    +`<div class="k"><div class="l">Pendientes · provisionales</div><div class="v">${pendientes} · <span style="color:#92400e">${provis}</span></div><div class="p">hitos por evaluar</div></div>`
+    +`<div class="k"><div class="l">Próxima diana</div><div class="v" style="font-size:16px">${proxDiana?(proxDiana+' · '+proxTk):'—'}</div><div class="p">${proxDiana?'primer hito pendiente':'sin hitos pendientes'}</div></div>`
+    +'</div>';
+  const tablaHTML = `<div class="ptable"><table><thead><tr><th class="l">Métrica</th><th>6 meses</th><th>12 meses</th><th>36 meses</th></tr></thead><tbody>
+      ${fila('Evaluaciones cerradas', c=>cel(c.n))}
+      ${fila('% entró en banda de entrada', c=>cel(_calibMetPct(c.banda)))}
+      ${fila('Stops tocados', c=>cel(c.stops))}
+      ${fila('· de ellos justificados', c=>cel(c.justif), true)}
+      ${fila('· de ellos ruido (falso stop)', c=>cel(c.ruido), true)}
+      ${fila('% alcanzó PO Base', c=>cel(_calibMetPct(c.po)))}
+      ${fila('Retorno total medio', c=>celRet(c.ret))}
+      ${fila('· decisiones COMPRAR', c=>celRet(c.comprar), true)}
+      ${fila('· decisiones MANTENER', c=>celRet(c.mantener), true)}
+      ${fila('· decisiones ESPERAR', c=>celRet(c.esperar), true)}
+    </tbody></table></div>`;
+  const emptyNote = totalCerradas ? '' : `<div class="mt-empty">Aún no hay evaluaciones <b>cerradas</b>. El marcador se rellena cuando cada tesis cumple su hito (6/12/36 meses desde el análisis) y confirmas la calibración.${proxDiana?(' La próxima diana es <b>'+proxTk+' · '+proxDiana+'</b>.'):''}</div>`;
+  const filasDet = [];
+  ['6m','12m','36m'].forEach(k => cerr[k].forEach(x => filasDet.push(
+    `<tr><td class="l"><b>${x.ticker}</b></td><td>${k}</td><td>${x.decision||'—'}</td><td style="font-weight:700;color:${_calibRetColor(x.v.retTotal)}">${_calibMetRet(x.v.retTotal)}</td><td>${_calibVchip(x.v.entroBanda?('banda '+x.v.entroBanda):null, x.v.entroBanda==='SÍ')}</td><td>${_calibVchip(x.v.tocoStop?('stop '+x.v.tocoStop):null, x.v.tocoStop==='NO')}</td><td>${_calibVchip(x.v.alcanzoPO?('PO '+x.v.alcanzoPO):null, x.v.alcanzoPO==='SÍ')}</td><td class="l" style="font-size:11px;color:#64748b">${x.info.nota?_calibEsc(x.info.nota):''}</td></tr>`
+  )));
+  const detInner = filasDet.length
+    ? `<div class="ptable"><table><thead><tr><th class="l">Empresa</th><th>Hito</th><th>Decisión t0</th><th>Retorno total</th><th>Banda</th><th>Stop</th><th>PO</th><th class="l">Nota</th></tr></thead><tbody>${filasDet.join('')}</tbody></table></div>`
+    : '<div class="mt-empty">Sin evaluaciones cerradas todavía. Aquí aparecerá cada tesis evaluada: empresa, hito, decisión t0, retorno total, si entró en banda, si tocó stop, si alcanzó PO y una nota.</div>';
+  const DI = _calibDiarioPanel();   /* [B2] marcador de TUS decisiones escritas, no solo de la tesis */
+  const guia = `<ul class="mt-guia">${DI.consejo}<li>Si <b>COMPRAR</b> no bate a <b>ESPERAR</b> de forma sistemática → la señal de decisión no aporta valor: revisar umbrales de MdS que disparan COMPRAR.</li><li>Si el % que alcanza <b>PO Base</b> es bajo y el retorno medio queda muy por debajo → los PO Base pecan de optimistas: recalibrar el DCF/múltiplos.</li><li>Si hay muchos stops <b>"ruido"</b> (saltó y rebotó con tesis intacta) → el colchón 10%·β·q es demasiado ajustado: ampliarlo.</li><li>Si casi nunca se <b>"entró en banda"</b> → las bandas de entrada se fijan demasiado bajas respecto a donde cotiza de verdad.</li></ul>`;
+  const _mblk=(icon,title,sum,inner,open,key)=>`<div class="pos-blk${open?' open':''}"${key?` data-metblk="${key}"`:''}><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="blk-pad">${inner}</div></div></div>`;
+  sec.innerHTML = `<div class="vhero g-navy"><div class="vhero-main"><span class="vhero-ic">📐</span><div class="vhero-txt"><h2>Panel del Método</h2><p>Marcador del Método KH&amp;Claude: confronta lo que cada tesis predijo (PO, banda, stop, decisión) con lo que la cotización hizo después, a 6/12/36 meses. Solo cuentan las evaluaciones <b>cerradas</b>${provis>0?('; los <b>'+provis+'</b> provisionales aún no computan'):''}.</p></div></div></div>
+    <div id="metKpis" style="margin-bottom:14px">${_kpis}</div>`
+    +_mblk('📊','Marcador por horizonte','6 · 12 · 36 meses', emptyNote+tablaHTML, false, 'marcador')
+    +_mblk('📓','Tus decisiones, evaluadas', DI.sum, DI.html, false, 'diario')   /* [B2] */
+    +_mblk('📋','Evaluaciones cerradas','detalle empresa a empresa', detInner, false, 'cerradas')
+    +_mblk('ℹ️','Qué corregir del método','cómo leer el marcador', guia, false, 'corregir')
+    +(function(){ const C=_calibComposicionPanel();
+        return C ? _mblk('🧩','De qué está hecho el PO', C.sum, C.html, false, 'composicion') : ''; })()
+    +(function(){ const V=_calibV1Panel();   /* [29-sep-2026] apuestas v1, medidas solas */
+        return V ? _mblk('🕰️','Método viejo (v1) contra el nuevo', V.sum, V.html, false, 'v1') : ''; })()
+    +(function(){ const E=_calibEspejoPanel();
+        return E ? _mblk('🪞','El espejo del analista', E.sum, E.html, false, 'espejo') : ''; })();
+  if(!sec._metBound){ sec._metBound=true; sec.addEventListener('click',function(e){ if(e.target.closest('[data-calibopen],a,button'))return; var h=e.target.closest('.pos-blk-h'); if(h)h.parentElement.classList.toggle('open'); }); }
+}
+
+/* ---------- Eventos delegados ---------- */
+document.addEventListener('click', e => {
+  const op = e.target.closest && e.target.closest('[data-calibopen]');
+  if(op){ e.stopPropagation(); const a=(op.dataset.calibopen||'').split('|'); showCalib(a[0], a[1]); return; }
+});

@@ -1,0 +1,472 @@
+/* ===== 29-coyuntura.js — Coyuntura de mercado (fase B) =====
+   Panel de contexto: qué está haciendo el mundo con el dinero de esta cartera, y si eso cambia lo
+   que se compra. Sale de DOS puentes, nunca de uno:
+     · macro.json          — lo escribe el skill del informe semanal, llega por el buzón.
+     · macro-mercado.json  — lo escribe un workflow de GitHub Actions, se commitea solo (aún no existe).
+   Comparten formato y se funden al leer. Dos escritores sobre un mismo fichero chocarían: el workflow
+   hace `git pull --rebase` desde Actions y el skill publica desde el PC.
+
+   Tres reglas que vienen de errores ya pagados en esta app:
+     1. Un dato ausente es `estado:"pte"`, NUNCA 0. Un 0 se lee como una medición (ver el −100 % de las
+        posiciones sin cotización).
+     2. El panel dice la EDAD del dato y avisa cuando envejece. Si pasan semanas sin lanzar el informe,
+        enseñar el Euríbor de hace un mes como si fuera de hoy convierte el panel en una trampa.
+     3. Las variaciones NO llevan color de juicio: el gas caro es ingreso para NTGY y coste para VIS.
+        El signo depende de la empresa, así que lo explica el texto, no un semáforo.
+
+   El render es DATA-DRIVEN: los bloques se construyen desde el campo `grupo` de cada indicador. Si el
+   skill añade un indicador nuevo, aparece en el panel sin tocar este fichero. */
+
+var _macroInf=null, _macroMkt=null;
+const COY_GRUPOS=[
+  {id:'tipos',    ic:'🏦', t:'Tipos de interés', sub:'Mueven a la banca y a los seguros en un sentido y a las utilities reguladas en el contrario.'},
+  {id:'energia',  ic:'⚡', t:'Energía',          sub:'Ingreso para las energéticas y coste para las industrias intensivas. El signo depende de la empresa.'},
+  {id:'bolsa',    ic:'📊', t:'Bolsa',            sub:'El nivel del índice alimenta el factor BOLSA de Escenarios, el de más peso en esta cartera.'},
+  {id:'inflacion',ic:'📈', t:'Inflación y actividad', sub:'El plan de inversión está en euros nominales: la inflación se come parte de lo que rinde.'},
+  {id:'divisas',  ic:'💱', t:'Divisas',          sub:''}
+];
+
+/* Carga memoizada, patrón de puente de la app: `no-store` porque Pages sirve por CDN, fallo silencioso
+   a vacío para que la vista siga funcionando sin el fichero, y repintado cuando llegue. */
+function _coyCargar(){
+  if(_macroInf!==null&&_macroMkt!==null) return Promise.resolve(true);
+  const uno=(f)=>fetch(f,{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+  return Promise.all([uno('macro.json'),uno('macro-mercado.json')]).then(function(a){
+    _macroInf=a[0]||{ind:{}}; _macroMkt=a[1]||{ind:{}};
+    return true;
+  });
+}
+/* Fusión: el fichero de mercado pisa al del informe SOLO donde trae dato, porque es más fresco
+   (diario contra semanal). Donde calla, manda el informe. */
+function _coyInd(){
+  const out={};
+  const meter=(src,origen)=>{ const I=(src&&src.ind)||{}; Object.keys(I).forEach(k=>{ const o=I[k]; if(!o)return;
+    if(out[k]&&(o.v==null||o.estado==='pte'))return; out[k]=Object.assign({},o,{_org:origen,_k:k}); }); };
+  meter(_macroInf,'informe'); meter(_macroMkt,'mercado');
+  return out;
+}
+function _coyFmt(o){
+  if(o.v==null) return '—';
+  const v=num(o.v);
+  let t;
+  if(Math.abs(v)>=10000) t=Math.round(v).toLocaleString('es-ES');
+  else if(Math.abs(v)>=100) t=v.toLocaleString('es-ES',{maximumFractionDigits:1});
+  /* [25-ago-2026] `minimumFractionDigits:2` pintaba «45,00 pb» para una prima de riesgo que es un
+     entero. Se deja que el número diga cuántos decimales tiene: 2,939 sigue siendo 2,939. */
+  else t=v.toLocaleString('es-ES',{maximumFractionDigits:4});
+  return t+(o.u?(o.u.charAt(0)==='%'||o.u.charAt(0)==='$'?' '+o.u:' '+o.u):'');
+}
+function _coyDelta(o){
+  if(o.d==null||o.v==null) return o.nota?('<span class="coy-nota">'+_coyEsc(o.nota)+'</span>'):'';
+  const d=num(o.d);
+  const arw=d>0?'▲':(d<0?'▼':'·');
+  const txt=(d>0?'+':'')+d.toLocaleString('es-ES',{maximumFractionDigits:2})+' '+(o.dU||'')+(o.dPer?(' '+o.dPer):'');
+  return '<span class="coy-arw">'+arw+'</span>'+txt+(o.nota?('<span class="coy-nota"> · '+_coyEsc(o.nota)+'</span>'):'');
+}
+function _coyEsc(s){ return (s==null?'':''+s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+/* Edad del dato. Regla 2: a partir de 14 días el panel lo dice en alto.
+   [26-ago-2026] Hay DOS relojes, y enseñar solo uno miente en las dos direcciones: con el
+   fichero diario en marcha, decir «datos del 14-ago» envejece el IBEX y el VIX que son de hoy;
+   y al revés, poner solo la fecha del diario haría pasar por fresco el IPC del informe. Cada
+   tarjeta ya dice su fuente («auto» = mercado); la cabecera dice las dos fechas, y el aviso de
+   antigüedad se refiere a lo que SOLO trae el informe, que es lo que de verdad envejece. */
+/* ============================================================================
+   LA LECTURA DEL PASE  ·  [11-sep-2026 · petición del operador]
+   ----------------------------------------------------------------------------
+   El panel tenía 18 tarjetas y ninguna decía qué SIGNIFICAN. La lectura se
+   escribía en cada pase... y se moría en la conversación: al mes siguiente el
+   panel conservaba los números y nadie recordaba por qué el gas había subido.
+
+   Tres condiciones que puso el operador, y las tres son código aquí abajo:
+     1. LLEVA SU FECHA EN EL TÍTULO. Un párrafo sin fecha se lee siempre como si
+        fuera de hoy — el mismo fallo que las tarjetas ya tienen resuelto. Y si
+        la lectura es de un pase ANTERIOR al último, se dice en alto.
+     2. SOLO HABLA DE LO QUE ESE PASE REFRESCÓ. El fichero se fusiona y el panel
+        mezcla dos fuentes: un texto que opinara sobre el IBEX, que lo escribe el
+        workflow diario, se contradiría solo.
+     3. DICE A QUIÉN AFECTA, NUNCA QUÉ HACER. El panel explica mecanismos —«el
+        gas es coste directo del vidrio»— y deja la decisión al método. Ésta es
+        la línea que convierte un termómetro en un panel útil sin convertirlo en
+        un consejo.
+   ========================================================================== */
+function _coyLectura(){
+  const L=(_macroInf&&_macroInf.lectura)||null;
+  if(!L||!L.puntos||!L.puntos.length) return '';
+  /* ¿la lectura es del último pase, o se quedó de uno anterior? El fichero se
+     fusiona, así que puede haber datos nuevos con una lectura vieja pegada. */
+  const fPase=(_macroInf&&_macroInf.generadoEl)||'';
+  const desfasada=!!(fPase&&L.generadoEl&&L.generadoEl<fPase);
+  const tit=_coyEsc(L.titulo||('Coyuntura Macro'+(L.generadoEl?(' a '+ddmmyyyy(L.generadoEl)):'')));
+  const ptos=L.puntos.map(function(p){
+    const af=[];
+    if(p.beneficia) af.push('<span class="coy-lec-b">▲ beneficia</span> '+_coyEsc(p.beneficia));
+    if(p.perjudica) af.push('<span class="coy-lec-p">▼ perjudica</span> '+_coyEsc(p.perjudica));
+    return '<li><div class="coy-lec-t">'+_coyEsc(p.t||'')+'</div>'
+      +'<div class="coy-lec-x">'+_coyEsc(p.txt||'')+'</div>'
+      +(af.length?('<div class="coy-lec-af">'+af.join(' &nbsp;·&nbsp; ')+'</div>'):'')+'</li>';
+  }).join('');
+  return '<div class="coy-lec'+(desfasada?' vieja':'')+'">'
+    +'<div class="coy-lec-h">'+tit
+    +(L.refrescados!=null?('<span class="coy-lec-n">'+L.refrescados+' de '+(L.total||18)+' indicadores refrescados en este pase</span>'):'')
+    +'</div>'
+    +(desfasada?('<div class="coy-lec-av">⚠️ Esta lectura es del pase del <b>'+ddmmyyyy(L.generadoEl)
+      +'</b> y el fichero ya tiene datos del <b>'+ddmmyyyy(fPase)+'</b>: habla de una foto anterior.</div>'):'')
+    +'<ul class="coy-lec-l">'+ptos+'</ul>'
+    +'<div class="coy-lec-pie">Explica a quién afecta cada movimiento. <b>No es una recomendación</b>: '
+    +'las decisiones sobre la cartera salen del método, no de este panel.</div>'
+    +'</div>';
+}
+
+function _coyEdad(){
+  const f=(_macroInf&&_macroInf.generadoEl)||'';
+  /* [26-ago-2026] La fecha del bloque de mercado NO es su `generadoEl`: ese es cuándo se lanzó
+     el pase, y el pase de las 06:00 publica los cierres de la VÍSPERA. Poner la fecha de
+     generación rejuvenecía el dato un día entero — la misma clase de mentira, más pequeña, que
+     el intradía firmado como cierre. Se usa el cierre más reciente que trae el fichero. */
+  let m='';
+  const MI=(_macroMkt&&_macroMkt.ind)||{};
+  Object.keys(MI).forEach(function(k){ const x=MI[k]; if(x&&x.f&&x.f>m)m=x.f; });
+  if(!m) m=(_macroMkt&&_macroMkt.generadoEl)||'';
+  /* [26-ago-2026 · fase F] El aviso de antigüedad ya NO mira `generadoEl` del informe, y esta es
+     la razón: desde que el pase macro FUSIONA sobre el fichero anterior, `macro.json` deja de ser
+     una foto de un instante y pasa a ser una colcha de retales. Un pase de hoy que no consiguió
+     refrescar el IPC deja dentro un IPC de hace tres semanas, y `generadoEl` diría «hoy». Sería el
+     mismo fallo que el de esta mañana con el fichero de mercado, girado del revés: allí una fecha
+     vieja envejecía datos frescos, aquí una fecha nueva rejuvenecería datos viejos.
+     Manda el dato MÁS VIEJO que haya dentro, y además se dice CUÁL es: un aviso que nombra al
+     culpable se puede arreglar; uno genérico solo se puede ignorar. */
+  /* Y no todos los datos caducan al mismo ritmo. El WACC de la CNMC es del periodo regulatorio
+     2026-2031 y el IPC se publica una vez al mes: avisar de que «llevan 32 días» es ruido, y un
+     aviso que salta siempre deja de leerse. Es la misma regla que el informe semanal aplica a los
+     expedientes regulatorios: «un expediente sin novedades no es un dato que caduque en siete
+     días». Cada indicador puede traer su propio plazo en `caduca` (días); sin él, 14.
+     Se avisa del que MÁS se ha pasado de SU plazo, no del más antiguo en bruto. */
+  let vf='', vn='', vd=null, peor=null;
+  const II=(_macroInf&&_macroInf.ind)||{};
+  const hoy=Date.now();
+  Object.keys(II).forEach(function(k){ const x=II[k];
+    if(!x||x.v==null||x.estado==='pte'||!x.f)return;      /* un hueco declarado no envejece: no hay dato */
+    const d=Math.round((hoy-Date.parse(x.f+'T00:00:00'))/86400000);
+    if(!isFinite(d))return;
+    if(!vf||x.f<vf){ vf=x.f; vn=x.n||k; vd=d; }
+    const lim=(typeof x.caduca==='number'&&x.caduca>0)?x.caduca:14;
+    const exceso=d-lim;
+    if(exceso>0&&(peor===null||exceso>peor.exceso)) peor={n:x.n||k, f:x.f, dias:d, exceso:exceso};
+  });
+  return {f:f, m:m, viejoF:vf, viejoN:vn, dias:vd, caducado:peor};
+}
+
+/* ===== Bloque «Tu dividendo contra el bono» =====
+   Las DOS cifras, siempre con etiqueta y nunca una sola:
+     · RPD sobre COSTE  → lo que paga el dinero que ya se puso. Es un hecho sobre decisiones pasadas.
+     · RPD sobre VALOR  → lo que rentaría un euro nuevo a precios de hoy. Es la pregunta del plan,
+       porque lo que queda por invertir se compra a precios de hoy, no a los de 2019.
+   Comparar la primera con el bono de hoy es comparar dos épocas; la segunda, dos alternativas reales.
+   El crecimiento del DPA NO se supone: sale de dividendos.json, que trae la serie real por empresa. */
+function _coyDivData(){
+  /* [27-ago-2026] LA VISTA PUEDE PINTARSE ANTES DE QUE HAYA DATOS.
+     `vistaArranque()` (06-main.js) abre la vista pedida con `?v=` -el acceso directo de la
+     PWA- y lo hace, por diseño, «con DB todavía vacía»; y el puente macro llega por su
+     cuenta, así que `_coyCargar().then(renderCoyuntura)` puede repintar en cualquier
+     instante de la carga. `invPositions()` lee `DB.operaciones` a pelo y con DB a null
+     revienta, se lleva por delante el render entero y la pestaña se queda EN BLANCO —el
+     mismo síntoma que traía aquí, por otra causa—. El resto del panel (tipos, energía,
+     bolsa…) no necesita la cartera para nada: se devuelve null, el bloque del dividendo
+     dice que está cargando y los demás se pintan igual. */
+  if(typeof DB==='undefined'||!DB) return null;
+  const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
+  if(!pos.length) return null;
+  const D=(typeof _evoData!=='undefined'&&_evoData&&_evoData.empresas)?_evoData:null;
+  const byT={}; if(D)D.empresas.forEach(e=>{ byT[(e.ticker||'').toUpperCase()]=e; });
+  const nowY=new Date().getFullYear();
+  const cagr=t=>{
+    const e=byT[t]; if(!e||!e.anios) return null;
+    const ys=Object.keys(e.anios).map(Number).filter(y=>y<nowY&&num((e.anios[y]||{}).dpaBruto)>0).sort((a,b)=>a-b);
+    if(ys.length<4) return null;
+    const fin=ys[ys.length-1]; let ini=ys.find(y=>y>=fin-10); if(ini==null) return null;
+    const a=num(e.anios[ini].dpaBruto), b=num(e.anios[fin].dpaBruto), k=fin-ini;
+    if(!(a>0)||k<=0) return null;
+    return {g:(Math.pow(b/a,1/k)-1)*100, ini:ini, fin:fin};
+  };
+  /* [25-ago-2026] invPositions() devuelve una fila por CARTERA+ticker: quien tiene ELE en dos brókeres
+     salía dos veces, y la línea sin coste asignado (traspaso, scrip) pintaba «—» al lado de la buena.
+     La tabla es por EMPRESA, así que se agrega por ticker antes de calcular: las RPD se sacan de los
+     totales acumulados, no promediando porcentajes de lotes distintos. */
+  let coste=0, valor=0, div=0; const agg={};
+  pos.forEach(p=>{
+    const t=(p.ticker||'').toUpperCase();
+    const c=p.acciones*p.precioCompra, v=p.acciones*p.precioActual, dv=p.acciones*num(p.divAccion);
+    coste+=c; valor+=v; div+=dv;
+    const a=agg[t]=agg[t]||{t:t,nombre:p.nombre||t,c:0,v:0,dv:0,sinPrecio:true};
+    a.c+=c; a.v+=v; a.dv+=dv; if(!p.sinPrecio)a.sinPrecio=false;
+    if(p.nombre&&a.nombre===t)a.nombre=p.nombre;
+  });
+  const filas=Object.keys(agg).map(t=>{ const a=agg[t];
+    return {t:t,nombre:a.nombre,sinPrecio:a.sinPrecio,cagr:cagr(t),
+            rpdHoy:(!a.sinPrecio&&a.v>0)?a.dv/a.v*100:null,
+            rpdCos:a.c>0?a.dv/a.c*100:null};
+  });
+  return {coste:coste,valor:valor,div:div,filas:filas,
+          rpdCoste:coste>0?div/coste*100:null, rpdValor:valor>0?div/valor*100:null};
+}
+function _coyDivHTML(bono){
+  /* «Sin posiciones» y «todavía no han cargado» no son lo mismo: con DB aún vacía decir
+     «no tienes posiciones» es mentir durante medio segundo, justo al abrir la app. */
+  if(typeof DB==='undefined'||!DB) return '<div class="coy-note">Cargando tus posiciones…</div>';
+  const V=_coyDivData();
+  if(!V) return '<div class="coy-note">Sin posiciones abiertas.</div>';
+  if(typeof _evoData==='undefined'||!_evoData) return '<div class="coy-note">Cargando <code>dividendos.json</code>…</div>';
+  const pp=x=>x==null?'—':x.toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1})+' %';
+  const d1=x=>x.toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1});
+  const dif=(a)=>{ if(a==null||bono==null)return ''; const d=a-bono;
+    return '<div class="p '+(d>=0?'pos':'neg')+'">'+(d>=0?'+':'')+d1(d)+' pp sobre el bono</div>'; };
+  const kpis='<div class="coy-kpis">'
+    +'<div class="k hero"><div class="l">Lo que te paga lo que pusiste</div><div class="v">'+pp(V.rpdCoste)+'</div><div class="p">sobre '+fmt(V.coste)+' de coste</div>'+dif(V.rpdCoste)+'</div>'
+    +'<div class="k"><div class="l">Lo que pagaría un euro nuevo</div><div class="v">'+pp(V.rpdValor)+'</div><div class="p">a precios de hoy</div>'+dif(V.rpdValor)+'</div>'
+    +'<div class="k"><div class="l">Dividendo bruto anual</div><div class="v">'+fmt(V.div)+'</div><div class="p">'+fmt(V.div/12)+'/mes · plusvalía '+fmt(V.valor-V.coste)+'</div></div>'
+    +'</div>';
+  /* «Años para batir al bono»: cuántos años de crecimiento real del DPA hacen falta para que una compra
+     de HOY iguale al bono. Sin bono en el puente, la columna no se pinta: no se inventa un 3,65 %. */
+  const anios=f=>{
+    if(bono==null||f.rpdHoy==null||!f.cagr) return null;
+    if(f.rpdHoy>=bono) return 0;
+    if(f.cagr.g<=0) return -1;
+    let y=f.rpdHoy, n=0;
+    while(y<bono&&n<40){ n++; y=f.rpdHoy*Math.pow(1+f.cagr.g/100,n); }
+    return y>=bono?n:-1;
+  };
+  const pillA=n=>{ if(n===null)return '<span class="coy-mut">—</span>';
+    if(n===0)return '<span class="coy-pill good">ya lo bate</span>';
+    if(n<0)return '<span class="coy-pill bad">nunca</span>';
+    return '<span class="coy-pill '+(n<=3?'good':'warn')+'">'+n+' año'+(n===1?'':'s')+'</span>'; };
+  const orden=V.filas.slice().sort((a,b)=>((b.cagr?b.cagr.g:-99)-(a.cagr?a.cagr.g:-99)));
+  const rows=orden.map(f=>{
+    const g=f.cagr?f.cagr.g:null;
+    const a10=(f.rpdHoy!=null&&g!=null)?f.rpdHoy*Math.pow(1+Math.max(g,0)/100,10):null;
+    return '<tr><td class="l"><b class="coy-tk" data-ficha="'+f.t+'">'+f.t+'</b> <span class="coy-nm">'+_coyEsc((f.nombre||'').slice(0,18))+'</span></td>'
+      +'<td>'+(f.sinPrecio?'<span class="coy-mut">sin cotización</span>':pp(f.rpdHoy))+'</td>'
+      +'<td>'+pp(f.rpdCos)+'</td>'
+      +'<td class="'+(g==null?'':(g<0?'neg':''))+'">'+(g==null?'<span class="coy-mut">—</span>':((g>=0?'+':'')+d1(g)+' %'))+'</td>'
+      +(bono!=null?('<td>'+pillA(anios(f))+'</td><td class="'+(g!=null&&g<0?'neg':'')+'">'+pp(a10)+'</td>'):'')
+      +'</tr>';
+  }).join('');
+  const cab='<tr><th class="l">Empresa</th><th>RPD hoy</th><th>RPD s/ coste</th><th>Crecim. DPA</th>'
+    +(bono!=null?'<th>Bate al bono en</th><th>RPD en 10 años si compras hoy</th>':'')+'</tr>';
+  const tot='<tr class="tot"><td class="l">Cartera</td><td>'+pp(V.rpdValor)+'</td><td>'+pp(V.rpdCoste)+'</td><td>—</td>'
+    +(bono!=null?'<td>—</td><td>—</td>':'')+'</tr>';
+  const nb=bono==null?'<div class="coy-note">Sin el bono a 10 años en el puente no se pinta la comparación: se prefiere una columna menos a un número inventado.</div>':'';
+  return kpis+nb+'<div class="coy-tw"><table class="coy-tbl"><thead>'+cab+'</thead><tbody>'+rows+tot+'</tbody></table></div>'
+    +'<div class="coy-note">El crecimiento sale de <code>dividendos.json</code>, con la serie real de DPA por empresa. No es una hipótesis: es lo que han hecho.</div>';
+}
+
+/* ============================================================================
+   ESTILOS · se inyectan una vez, desde aqui                    [27-ago-2026]
+   ----------------------------------------------------------------------------
+   Este fichero se publico el 26-ago y la pestaña salia EN BLANCO: `index.html`
+   nunca recibio su mitad del trabajo -ni el `<script>`, ni la `<section
+   id="view-coyuntura">` con `#coyBody`, ni una sola regla `.coy-*`-. El menu si
+   estaba (06-main.js), asi que la pestaña aparecia y no habia nada detras. Es el
+   mismo patron que ya mordio con las barras sticky de Plan/Simulador: el JS viaja
+   y los ganchos del HTML se quedan.
+   Para que no vuelva a pasar, el CSS vive AQUI y no en `index.html`, como hace
+   `_mcCSS()` en 28-micartera.js: asi la vista entera cabe en un fichero y lo unico
+   que `index.html` tiene que aportar son dos lineas que no se pueden olvidar
+   porque sin ellas no se ve nada.
+   Se reutiliza el lenguaje visual de siempre -variables `--panel`/`--line`/
+   `--muted`, la tarjeta blanca con sombra, la cabecera plegable del Panel- para
+   que no parezca una vista de otra aplicacion.
+   ============================================================================ */
+function _coyCSS(){
+  if(document.getElementById('coy-css'))return;
+  const s=document.createElement('style'); s.id='coy-css';
+  s.textContent=[
+    '#view-coyuntura .coy-head{margin-bottom:14px}',
+    '#view-coyuntura .coy-sub{font-size:13px;color:var(--muted);line-height:1.5}',
+    /* La edad del dato es la regla 2 del fichero: cuando envejece, se dice en alto. */
+    '#view-coyuntura .coy-edad{display:inline-block;margin-top:8px;font-size:11.5px;color:#334155;',
+    '  background:#f8fafc;border:1px solid var(--line);border-radius:20px;padding:4px 12px;line-height:1.45}',
+    '#view-coyuntura .coy-edad.viejo{background:#fffbeb;border-color:#fde68a;color:#92400e}',
+
+    /* --- la lectura del pase --- */
+    '#view-coyuntura .coy-lec{background:var(--panel);border:1px solid var(--line);border-left:4px solid #2563eb;',
+    '  border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin-bottom:16px}',
+    '#view-coyuntura .coy-lec.vieja{border-left-color:#f59e0b}',
+    '#view-coyuntura .coy-lec-h{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:2px}',
+    '#view-coyuntura .coy-lec-n{display:block;font-size:11.5px;font-weight:400;color:var(--muted);margin-top:3px}',
+    '#view-coyuntura .coy-lec-av{margin:10px 0 2px;font-size:11.5px;background:#fffbeb;border:1px solid #fde68a;',
+    '  color:#92400e;border-radius:8px;padding:6px 10px;line-height:1.45}',
+    '#view-coyuntura .coy-lec-l{margin:12px 0 0;padding:0;list-style:none}',
+    '#view-coyuntura .coy-lec-l li{padding:10px 0;border-top:1px solid var(--line)}',
+    '#view-coyuntura .coy-lec-l li:first-child{border-top:0;padding-top:2px}',
+    '#view-coyuntura .coy-lec-t{font-size:13.5px;font-weight:650;color:#0f172a;margin-bottom:3px}',
+    '#view-coyuntura .coy-lec-x{font-size:12.5px;color:#334155;line-height:1.55}',
+    '#view-coyuntura .coy-lec-af{margin-top:5px;font-size:11.5px;color:var(--muted);line-height:1.5}',
+    '#view-coyuntura .coy-lec-b{color:#15803d;font-weight:650}',
+    '#view-coyuntura .coy-lec-p{color:#b91c1c;font-weight:650}',
+    '#view-coyuntura .coy-lec-pie{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);',
+    '  font-size:11px;color:var(--muted);line-height:1.45}',
+
+    /* --- bloque plegable --- */
+    '#view-coyuntura .coy-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;',
+    '  box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}',
+    '#view-coyuntura .coy-blk-h{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;',
+    '  user-select:none;transition:background .12s}',
+    '#view-coyuntura .coy-blk-h:hover{background:#f8fafc}',
+    '#view-coyuntura .coy-blk-h .ic{font-size:16px;flex:none}',
+    '#view-coyuntura .coy-blk-h .t{font-size:14.5px;font-weight:800;color:#0f172a;flex:1 1 auto;min-width:0}',
+    '#view-coyuntura .coy-blk-h .cnt{font-size:11px;color:var(--muted);font-weight:600;flex:none}',
+    '#view-coyuntura .coy-blk-h .arw{font-size:10px;color:#94a3b8;flex:none;transition:transform .15s}',
+    '#view-coyuntura .coy-blk.open .coy-blk-h .arw{transform:rotate(90deg)}',
+    '#view-coyuntura .coy-blk-b{display:none;padding:0 16px 14px}',
+    '#view-coyuntura .coy-blk.open .coy-blk-b{display:block}',
+
+    /* --- tarjetas de indicador --- */
+    '#view-coyuntura .coy-ind{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-top:4px}',
+    '#view-coyuntura .coy-i{border:1px solid var(--line);border-radius:11px;padding:10px 12px;background:#fff;min-width:0}',
+    /* Un dato pendiente se ve pendiente: gris y en cursiva. Nunca un 0 disfrazado de medicion. */
+    '#view-coyuntura .coy-i.pte{background:#f8fafc;border-style:dashed}',
+    '#view-coyuntura .coy-i .n{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;',
+    '  letter-spacing:.02em;line-height:1.3}',
+    '#view-coyuntura .coy-i .v{font-size:20px;font-weight:800;color:#0f172a;margin-top:3px;font-variant-numeric:tabular-nums}',
+    '#view-coyuntura .coy-i.pte .v{color:#cbd5e1}',
+    '#view-coyuntura .coy-i .d{font-size:11.5px;color:#475569;margin-top:2px;line-height:1.4}',
+    '#view-coyuntura .coy-i .f{font-size:10px;color:#94a3b8;margin-top:5px}',
+    '#view-coyuntura .coy-i .f a{color:#94a3b8;text-decoration:underline;text-underline-offset:2px}',
+    '#view-coyuntura .coy-i .f a:hover{color:var(--brand)}',
+    /* La flecha NO lleva color de juicio (regla 3): el gas caro es ingreso para NTGY y coste para VIS. */
+    '#view-coyuntura .coy-arw{color:#64748b;font-weight:800;margin-right:4px}',
+    '#view-coyuntura .coy-mut{color:#94a3b8;font-style:italic}',
+    '#view-coyuntura .coy-nota{color:#94a3b8}',
+    '#view-coyuntura .coy-org{font-size:9px;font-weight:800;background:#eef2ff;color:#3730a3;',
+    '  border:1px solid #c7d2fe;border-radius:20px;padding:0 5px;margin-left:3px}',
+
+    /* --- KPIs del dividendo contra el bono --- */
+    '#view-coyuntura .coy-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:4px 0 14px}',
+    '#view-coyuntura .coy-kpis .k{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0}',
+    '#view-coyuntura .coy-kpis .k.hero{background:linear-gradient(135deg,#134e4a,#0f766e);border:none;color:#fff}',
+    '#view-coyuntura .coy-kpis .k .l{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.02em}',
+    '#view-coyuntura .coy-kpis .k.hero .l{color:#99f6e4}',
+    '#view-coyuntura .coy-kpis .k .v{font-size:23px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums;color:#0f172a}',
+    '#view-coyuntura .coy-kpis .k.hero .v{color:#fff}',
+    '#view-coyuntura .coy-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}',
+    '#view-coyuntura .coy-kpis .k.hero .p{color:#99f6e4}',
+    '#view-coyuntura .coy-kpis .k .p.pos{color:#15803d;font-weight:700}',
+    '#view-coyuntura .coy-kpis .k .p.neg{color:#b91c1c;font-weight:700}',
+    '#view-coyuntura .coy-kpis .k.hero .p.pos{color:#6ee7b7}',
+    '#view-coyuntura .coy-kpis .k.hero .p.neg{color:#fca5a5}',
+    '@media(max-width:760px){#view-coyuntura .coy-kpis{grid-template-columns:minmax(0,1fr)}}',
+
+    /* --- tabla del dividendo --- */
+    '#view-coyuntura .coy-tw{overflow-x:auto;border:1px solid var(--line);border-radius:11px}',
+    '#view-coyuntura .coy-tbl{width:100%;border-collapse:collapse;font-size:12.5px;',
+    '  font-variant-numeric:tabular-nums;white-space:nowrap}',
+    '#view-coyuntura .coy-tbl th{background:#f8fafc;text-align:right;font-size:10.5px;font-weight:800;',
+    '  color:var(--muted);text-transform:uppercase;letter-spacing:.02em;padding:8px 10px;',
+    '  border-bottom:1px solid var(--line)}',
+    '#view-coyuntura .coy-tbl td{text-align:right;padding:7px 10px;border-bottom:1px solid #f1f5f9}',
+    '#view-coyuntura .coy-tbl th.l,#view-coyuntura .coy-tbl td.l{text-align:left}',
+    '#view-coyuntura .coy-tbl tbody tr:hover{background:#f8fafc}',
+    '#view-coyuntura .coy-tbl tr.tot td{font-weight:800;background:#f8fafc;border-top:2px solid var(--line);',
+    '  border-bottom:none}',
+    '#view-coyuntura .coy-tbl td.neg{color:#b91c1c}',
+    '#view-coyuntura .coy-tk{color:var(--brand);cursor:pointer;text-decoration:underline;text-underline-offset:2px}',
+    '#view-coyuntura .coy-nm{color:var(--muted);font-size:11px}',
+    '#view-coyuntura .coy-pill{font-size:10.5px;font-weight:800;border-radius:20px;padding:2px 8px;border:1px solid}',
+    '#view-coyuntura .coy-pill.good{background:#dcfce7;color:#166534;border-color:#bbf7d0}',
+    '#view-coyuntura .coy-pill.warn{background:#fef3c7;color:#92400e;border-color:#fde68a}',
+    '#view-coyuntura .coy-pill.bad{background:#fee2e2;color:#991b1b;border-color:#fecaca}',
+
+    /* --- notas y vacio --- */
+    '#view-coyuntura .coy-note{font-size:11.5px;color:var(--muted);line-height:1.5;margin:8px 0}',
+    '#view-coyuntura .coy-note code{background:#f1f5f9;border-radius:4px;padding:1px 5px;font-size:11px}',
+    '#view-coyuntura .coy-empty{background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:12px;',
+    '  padding:14px 16px;font-size:13px;line-height:1.6}',
+    '#view-coyuntura .coy-empty code{background:#fef3c7;border-radius:4px;padding:1px 5px}',
+  ].join('');
+  document.head.appendChild(s);
+}
+
+function renderCoyuntura(){
+  const el=$('#coyBody');
+  /* Sin `#coyBody` no hay donde pintar. Antes se salia en silencio y la pestaña quedaba
+     en blanco sin una sola pista; ahora al menos lo dice por consola. */
+  if(!el){ try{ console.warn('[Coyuntura] falta #coyBody en index.html: la vista no puede pintarse.'); }catch(e){} return; }
+  _coyCSS();
+  if(_macroInf===null||_macroMkt===null){
+    el.innerHTML='<div class="coy-note">Cargando el puente macro…</div>';
+    if(!renderCoyuntura._pedido){ renderCoyuntura._pedido=true; _coyCargar().then(renderCoyuntura); }
+    return;
+  }
+  if(typeof _evoData!=='undefined'&&!_evoData&&typeof _evoCargar==='function'&&!renderCoyuntura._divPedido){
+    renderCoyuntura._divPedido=true; try{ _evoCargar().then(renderCoyuntura); }catch(e){}
+  }
+  const I=_coyInd();
+  const ks=Object.keys(I);
+  if(!ks.length){
+    el.innerHTML='<div class="coy-empty">Todavía no hay <code>macro.json</code> en el repo.<br>'
+      +'Lo escribe el <b>pase macro</b> del método y llega por el buzón de publicación, como <code>hallazgos.json</code>.</div>';
+    return;
+  }
+  const E=_coyEdad();
+  const viejo=!!E.caducado;
+  const cab='<div class="coy-head">'
+    +'<div class="coy-sub">Contexto de mercado de los factores que mueven <b>tu</b> cartera. '
+    +'Las flechas no llevan color a propósito: el mismo dato es ingreso para unas empresas y coste para otras.</div>'
+    +((E.f||E.m)?('<div class="coy-edad'+(viejo?' viejo':'')+'">'
+      +(viejo?'⚠️ ':'')
+      +(E.m?('Mercado del <b>'+ddmmyyyy(E.m)+'</b>'+(E.f?' · ':'')):'')
+      +(E.f?('pase macro del <b>'+ddmmyyyy(E.f)+'</b>'):'')
+      +(E.viejoF?(' · el dato más antiguo'+(E.viejoN?(' ('+_coyEsc(E.viejoN)+')'):'')
+                  +' es del <b>'+ddmmyyyy(E.viejoF)+'</b>'
+                  +(E.dias!=null?(', hace '+E.dias+' día'+(E.dias===1?'':'s')):'')):'')
+      +(viejo?(' — <b>'+_coyEsc(E.caducado.n)+'</b> debería haberse refrescado hace '
+               +E.caducado.exceso+' día'+(E.caducado.exceso===1?'':'s')+': lanza el pase macro.'):'')
+      +'</div>'):'')
+    +'</div>';
+
+  const bonoO=I['bono_10a_es'];
+  const bono=(bonoO&&bonoO.v!=null)?num(bonoO.v):null;
+
+  const blk=(key,ic,t,cnt,sub,inner)=>{
+    const op=window._coyOpen[key];
+    return '<div class="coy-blk'+(op?' open':'')+'" data-coyblk="'+key+'"><div class="coy-blk-h"><span class="ic">'+ic+'</span>'
+      +'<span class="t">'+t+'</span><span class="cnt">'+cnt+'</span><span class="arw">▶</span></div>'
+      +'<div class="coy-blk-b">'+(sub?'<div class="coy-note">'+sub+'</div>':'')+inner+'</div></div>';
+  };
+  window._coyOpen=window._coyOpen||{div:true,tipos:true,energia:true,bolsa:true,inflacion:false,divisas:false,otros:false};
+
+  const tarjetas=g=>{
+    const lista=ks.filter(k=>I[k].grupo===g);
+    if(!lista.length)return '';
+    return '<div class="coy-ind">'+lista.map(k=>{ const o=I[k];
+      const pte=o.v==null;
+      return '<div class="coy-i'+(pte?' pte':'')+'"><div class="n">'+_coyEsc(o.n||k)+'</div>'
+        +'<div class="v">'+_coyFmt(o)+'</div>'
+        +'<div class="d">'+(pte?('<span class="coy-mut">pendiente</span>'+(o.nota?(' · <span class="coy-nota">'+_coyEsc(o.nota)+'</span>'):'')):_coyDelta(o))+'</div>'
+        +'<div class="f">'+(o.url?('<a href="'+_coyEsc(o.url)+'" target="_blank" rel="noopener">'+_coyEsc(o.src||'fuente')+'</a>'):_coyEsc(o.src||''))
+        +(o._org==='mercado'?' <span class="coy-org">auto</span>':'')+'</div></div>';
+    }).join('')+'</div>';
+  };
+  const cnt=g=>{ const n=ks.filter(k=>I[k].grupo===g).length; const p=ks.filter(k=>I[k].grupo===g&&I[k].v==null).length;
+    return n+' indicador'+(n===1?'':'es')+(p?(' · '+p+' pendiente'+(p===1?'':'s')):''); };
+
+  let html=cab+_coyLectura()
+    +blk('div','💶','Tu dividendo contra el bono',(bono!=null?('bono 10A '+bono.toLocaleString('es-ES',{minimumFractionDigits:2})+' %'):'sin bono en el puente'),'',_coyDivHTML(bono));
+  COY_GRUPOS.forEach(g=>{ const inner=tarjetas(g.id); if(inner) html+=blk(g.id,g.ic,g.t,cnt(g.id),g.sub,inner); });
+  const otros=tarjetas('otros');
+  if(otros) html+=blk('otros','🔭','Otros · contexto',cnt('otros'),
+    'Aquí no hay interpretación a propósito: si un dato de este bloque llega a cambiar una decisión tuya, deja de ser «otros» y sube arriba.',otros);
+  el.innerHTML=html;
+
+  const sec=document.getElementById('view-coyuntura');
+  if(sec&&!renderCoyuntura._bound){ renderCoyuntura._bound=true;
+    sec.addEventListener('click',function(e){
+      if(e.target.closest('[data-ficha]')||e.target.closest('a'))return;
+      const h=e.target.closest('.coy-blk-h'); if(!h)return;
+      const k=h.parentElement.getAttribute('data-coyblk');
+      window._coyOpen[k]=!window._coyOpen[k];
+      h.parentElement.classList.toggle('open');
+    });
+  }
+}
