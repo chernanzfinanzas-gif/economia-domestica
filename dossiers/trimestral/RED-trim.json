@@ -13,7 +13,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -3,4 %, EBITDA -3,2 %, beneficio neto -2,8 %, margen 80,3 % (+0,16 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "resumen": "Ingresos -3,4 %, EBITDA -3,2 %, beneficio neto +4,9 %, margen 80,3 % (+0,16 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -33,7 +33,7 @@
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 266.0
+     "valor": 181.0
     }
    ],
    "hechos": [],
@@ -47,7 +47,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -0,0 %, EBITDA +0,3 %, beneficio neto +2,8 %, margen 79,0 % (+0,23 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "resumen": "Ingresos -0,0 %, EBITDA +0,3 %, beneficio neto +8,6 %, margen 79,0 % (+0,23 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -67,7 +67,7 @@
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 792.0
+     "valor": 551.0
     }
    ],
    "hechos": [],
@@ -81,7 +81,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +3,5 %, EBITDA +1,8 %, beneficio neto -0,4 %, margen 79,0 % (-1,31 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
+   "resumen": "Ingresos +3,5 %, EBITDA +1,8 %, beneficio neto +0,5 %, margen 79,0 % (-1,31 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -101,7 +101,7 @@
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 265.0
+     "valor": 182.0
     }
    ],
    "hechos": [],
@@ -153,11 +153,11 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +4,8 %, EBITDA +2,1 %, beneficio neto -0,5 %, margen 76,0 % (-2,01 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos +3,9 %, EBITDA +2,1 %, beneficio neto +0,1 %, margen 77,6 % (-1,40 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 1555.0
+     "valor": 1523.0
     },
     {
      "nombre": "EBITDA",
@@ -165,7 +165,7 @@
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 76.0
+     "valor": 77.6
     },
     {
      "nombre": "EBIT",
@@ -173,7 +173,7 @@
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 788.0
+     "valor": 551.0
     }
    ],
    "hechos": [],
@@ -225,7 +225,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +3,3 %, EBITDA +1,6 %, beneficio neto +2,4 %, margen 77,7 % (-1,28 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "resumen": "Ingresos +3,3 %, EBITDA +1,6 %, beneficio neto -0,9 %, margen 77,7 % (-1,28 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -245,7 +245,7 @@
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 272.0
+     "valor": 180.0
     }
    ],
    "hechos": [],
@@ -297,11 +297,11 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +2,8 %, EBITDA +0,1 %, margen 74,0 % (-2,00 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "resumen": "Ingresos +1,7 %, EBITDA +0,1 %, beneficio neto -2,9 %, margen 76,4 % (-1,20 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 1598.0
+     "valor": 1548.0
     },
     {
      "nombre": "EBITDA",
@@ -309,11 +309,15 @@
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 74.0
+     "valor": 76.4
     },
     {
      "nombre": "EBIT",
      "valor": 790.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 535.0
     }
    ],
    "hechos": [],
@@ -365,7 +369,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -11,8 %, EBITDA -15,5 %, beneficio neto -24,4 %, margen 74,5 % (-3,23 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos -11,8 %, EBITDA -15,5 %, beneficio neto -26,7 %, margen 74,5 % (-3,23 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -385,7 +389,7 @@
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 206.0
+     "valor": 132.0
     }
    ],
    "hechos": [],
@@ -432,55 +436,36 @@
   {
    "periodo": "2024-Q3",
    "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
    "fecha": "2024-10-30",
    "fechaOrigen": "portada",
-   "fechaOrigenNota": "Las catorce portadas imprimen su fecha y se han leido una a una. Cada periodo lleva ademas declarada su BASE: las de 2024 hasta 9M son las reexpresadas por NIIF 5 que la empresa publica en sus informes de 2025 [F755].",
-   "semaforoGlobal": "A",
+   "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de negocio -23.2 %, EBITDA -22.0 %, beneficio atribuido -23.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 77.7 % (banda del §10.1: verde ≥ 75.0, rojo < 72.0). ",
+   "resumen": "Ingresos -11,9 %, EBITDA -13,4 %, beneficio neto -23,6 %, margen 75,0 % (-1,33 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
-     "nombre": "Cifra de negocio (M€)",
-     "valor": 1188.8
+     "nombre": "Ingresos",
+     "valor": 1365.0
     },
     {
-     "nombre": "EBITDA (M€)",
-     "valor": 923.4
+     "nombre": "EBITDA",
+     "valor": 1024.0
     },
     {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 77.67
+     "nombre": "Margen EBITDA",
+     "valor": 75.0
     },
     {
-     "nombre": "EBIT (M€)",
-     "valor": 593.0
+     "nombre": "EBIT",
+     "valor": 619.0
     },
     {
-     "nombre": "Beneficio atribuido (M€)",
-     "valor": 408.8
-    },
-    {
-     "nombre": "FFO (M€)",
-     "valor": 927.6
-    },
-    {
-     "nombre": "Inversiones (M€)",
-     "valor": 655.6
-    },
-    {
-     "nombre": "Deuda financiera neta (M€)",
-     "valor": 5427.9
-    },
-    {
-     "nombre": "Inversión del TSO en España (M€)",
-     "valor": 603.2
-    },
-    {
-     "nombre": "Disponibilidad de la red (%)",
-     "valor": 97.8
+     "nombre": "Beneficio neto",
+     "valor": 409.0
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2024-Q4",
@@ -528,7 +513,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +2,6 %, EBITDA +4,4 %, beneficio neto +6,5 %, margen 79,1 % (+1,35 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +2,6 %, EBITDA +4,4 %, beneficio neto +4,2 %, margen 79,1 % (+1,35 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -548,7 +533,7 @@
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 211.0
+     "valor": 138.0
     }
    ],
    "hechos": [],
@@ -600,7 +585,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +2,5 %, EBITDA +3,0 %, beneficio neto +3,8 %, margen 78,1 % (+0,41 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +2,5 %, EBITDA +3,0 %, beneficio neto -4,6 %, margen 78,1 % (+0,41 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -620,7 +605,7 @@
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 616.0
+     "valor": 390.0
     }
    ],
    "hechos": [],
@@ -672,7 +657,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +6,3 %, EBITDA +5,8 %, beneficio neto +2,0 %, margen 78,8 % (-0,34 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +6,3 %, EBITDA +5,8 %, beneficio +2,0 %.",
+   "resumen": "Ingresos +6,3 %, EBITDA +5,8 %, beneficio neto +1,8 %, margen 78,8 % (-0,34 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +6,3 %, EBITDA +5,8 %, beneficio +2,0 %.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -692,7 +677,7 @@
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 215.0
+     "valor": 140.0
     }
    ],
    "hechos": [],
@@ -744,7 +729,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +7,8 %, EBITDA +5,3 %, beneficio neto +1,9 %, margen 76,3 % (-1,80 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: El margen cede 1,8 pp por gastos de crecimiento (personal +10 % para el TSO y obra del Salto de Chira) y la caída de Fibra óptica, pero el EBITDA nacional crece un 9,4 % y el beneficio atribuido un 5,3 % (410,3 M€) (documento: «2026-10-28 Comunicación resultados 9M26»). Qué ha pasado. Cifra de negocio de 1.312,9 M€ (+7,8 %), EBITDA de 1.001,4 M€ (+5,3 %) y beneficio atribuido de 410,3 M€ (+5,3 %). El margen EBITDA baja al 76,3 % (−1,8 pp). El consejo aprueba un dividendo a cuenta de 0,204 € (pago el 7-ene-2027), en línea con la política del plan 2026-2029 (+2 % anual hasta 0,87 € en 2029).\n\nPor qué. Los gastos operativos suben un 10,0 %: personal (+10 %, más plantilla para las inversiones del operador del sistema) y obra civil del Salto de Chira. Además, Fibra óptica cae (ingresos −6,9 %, EBITDA 77,0 M€ frente a 86,4) e Internacional resta 7,7 M€. El negocio nacional regulado crece: EBITDA +9,4 % (documento: «2026-10-28 Comunicación resultados 9M26»). Ojo: el «beneficio neto +1,9 %» del pase es el EBIT, no el beneficio; el lector lo confunde (también en 2025-9M).\n\nSemáforo. El rojo automático sale solo del margen. Propongo ÁMBAR: el margen cede por costes de crecimiento y por Fibra, pero el beneficio sube un 5,3 %.\n\nQué vigilar. Devolución pendiente al sistema de unos 553 M€ por las tarifas provisionales de 2024-2026, la planificación de la red 2025-2030 y que Fibra óptica deje de caer.\n\nLectura. Aprobar con ámbar y arreglar el lector (beneficio = resultado atribuido). S2 → REAFIRMAR.",
+   "resumen": "Ingresos +7,8 %, EBITDA +5,3 %, beneficio neto +5,3 %, margen 76,3 % (-1,80 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: El margen cede 1,8 pp por gastos de crecimiento (personal +10 % para el TSO y obra del Salto de Chira) y la caída de Fibra óptica, pero el EBITDA nacional crece un 9,4 % y el beneficio atribuido un 5,3 % (410,3 M€) (documento: «2026-10-28 Comunicación resultados 9M26»). Qué ha pasado. Cifra de negocio de 1.312,9 M€ (+7,8 %), EBITDA de 1.001,4 M€ (+5,3 %) y beneficio atribuido de 410,3 M€ (+5,3 %). El margen EBITDA baja al 76,3 % (−1,8 pp). El consejo aprueba un dividendo a cuenta de 0,204 € (pago el 7-ene-2027), en línea con la política del plan 2026-2029 (+2 % anual hasta 0,87 € en 2029).\n\nPor qué. Los gastos operativos suben un 10,0 %: personal (+10 %, más plantilla para las inversiones del operador del sistema) y obra civil del Salto de Chira. Además, Fibra óptica cae (ingresos −6,9 %, EBITDA 77,0 M€ frente a 86,4) e Internacional resta 7,7 M€. El negocio nacional regulado crece: EBITDA +9,4 % (documento: «2026-10-28 Comunicación resultados 9M26»). Ojo: el «beneficio neto +1,9 %» del pase es el EBIT, no el beneficio; el lector lo confunde (también en 2025-9M).\n\nSemáforo. El rojo automático sale solo del margen. Propongo ÁMBAR: el margen cede por costes de crecimiento y por Fibra, pero el beneficio sube un 5,3 %.\n\nQué vigilar. Devolución pendiente al sistema de unos 553 M€ por las tarifas provisionales de 2024-2026, la planificación de la red 2025-2030 y que Fibra óptica deje de caer.\n\nLectura. Aprobar con ámbar y arreglar el lector (beneficio = resultado atribuido). S2 → REAFIRMAR.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -764,7 +749,7 @@
     },
     {
      "nombre": "Beneficio neto",
-     "valor": 627.0
+     "valor": 410.0
     }
    ],
    "hechos": [],

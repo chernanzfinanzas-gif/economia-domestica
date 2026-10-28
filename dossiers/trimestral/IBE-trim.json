@@ -3,7 +3,7 @@
  "ticker": "IBE",
  "empresa": "Iberdrola, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-27",
+ "generado": "2026-10-28",
  "revisiones": [
   {
    "periodo": "2017-Q2",
@@ -1391,9 +1391,9 @@
    "periodoV3": "2026-9M",
    "fecha": "2026-09-30",
    "fechaOrigen": "cierre",
-   "semaforoGlobal": "A",
+   "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +6,2 %, EBITDA -0,7 %, beneficio neto +9,6 %, margen 34,6 % (-2,40 pp), margen EBITDA +34,6 % frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Ámbar: ventas +6,2 %, EBITDA reportado −0,7 % (el de Redes +4,9 %), margen 34,6 %, beneficio +9,6 %. Deuda neta 56.984 M€ (3,5 veces). Base de activos de Redes 56.323 M€ (+14 %). Revisado en este análisis inicial.",
+   "resumen": "Cifra de ventas +6,2 %, EBITDA -0,7 %, beneficio neto +9,6 %, margen 34,6 % (-2,40 pp), margen EBITDA +34,6 % frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El ámbar sale del EBITDA reportado (−0,7 %), torcido por dos ingresos de 2025 que no se repiten (costes pasados en EE. UU., 530 M€, y venta de contadores en Reino Unido, 382 M€). Ajustado: EBITDA +7,5 %, margen 34,6 % frente a 34,1 %, beneficio ajustado +8,8 % y guía mejorada (>10 %). Es el quinto periodo con la misma distorsión; la corrección anterior ya pedía usar el EBITDA ajustado si se repetía. **Qué ha pasado** — Ventas 34.405 M€ (+6,2 %). EBITDA reportado 11.891 M€ (−0,7 %), pero ajustado +7,5 %. EBITDA de Redes 6.430 M€: +4,9 % reportado y +14,9 % ajustado; base de activos de Redes 56.323 M€ (+14 %). Margen EBITDA 34,6 % (−2,4 puntos; umbral de la tesis, 30). Beneficio neto 5.816 M€ (+9,6 %); ajustado 5.141 M€ (+8,8 %). Deuda neta 56.984 M€ (+5.229 desde diciembre), 3,5 veces el EBITDA. Mejoran la guía 2026: beneficio neto ajustado «>10%».\n\n**Por qué** — Puntual: el EBITDA reportado baja por el año anterior, «por el impacto del reconocimiento de costes pasados en Estados Unidos (530 M Eur) y la venta de los contadores inteligentes de Reino Unido (382 M EUR) en 2025»; el beneficio de 2026 lleva la plusvalía de México (953 M€). Recurrente: Redes crece por «la mayor base de activos regulados en todas las geografías» y las tarifas de EE. UU. y Brasil; Generación y Clientes cae un 1,5 % por costes de aprovisionamiento con ventas a precios fijados en 2025. El resultado financiero empeora 524 M€.\n\n**Semáforo** — El ámbar es mecánico. Es el quinto periodo seguido con la comparación torcida por los extraordinarios de 2025, y la corrección de esos periodos ya decía «si se repite, hay que usar el EBITDA ajustado». Con el ajustado (EBITDA +7,5 %, margen 34,6 % frente a 34,1 % ajustado de 2025, beneficio ajustado +8,8 %, guía al alza) sale verde. Propongo VERDE. No abre señales; sigue la S3 (21,97 € frente al PO de 19,87 €).\n\n**Qué vigilar** — Coste de la deuda con Neoenergia: 4,93 % (+22 pb), cerca de la red flag de 5,5 %. Deuda neta / EBITDA 3,5 frente a la alarma de 4,5, subiendo por inversiones (10.087 M€, +13 %) y la compra de minoritarios de Neoenergia.\n\n**Lectura** — Aprobar, pero en verde. La tesis (crecer por Redes reguladas) sale reforzada; el problema sigue siendo el precio.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",

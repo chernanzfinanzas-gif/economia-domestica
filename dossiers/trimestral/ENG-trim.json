@@ -13,7 +13,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -13,1 %, EBITDA -7,9 %, margen 92,8 % (+5,24 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "resumen": "Ingresos -13,1 %, EBITDA -7,9 %, beneficio neto -11,9 %, margen 92,8 % (+5,24 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -30,6 +30,10 @@
     {
      "nombre": "EBIT",
      "valor": 439.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 307.0
     }
    ],
    "hechos": [],
@@ -41,9 +45,9 @@
    "periodoV3": "2022-3M",
    "fecha": "2022-03-31",
    "fechaOrigen": "cierre",
-   "semaforoGlobal": "A",
+   "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -2,8 %, EBITDA -14,0 %, margen 79,4 % (-10,38 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos -2,8 %, EBITDA -14,0 %, beneficio neto -25,4 %, margen 79,4 % (-10,38 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -60,6 +64,10 @@
     {
      "nombre": "EBIT",
      "valor": 105.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 69.3
     }
    ],
    "hechos": [],
@@ -111,7 +119,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -1,0 %, EBITDA -9,7 %, margen 84,6 % (-8,13 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos -1,0 %, EBITDA -9,7 %, beneficio neto +15,0 %, margen 84,6 % (-8,13 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -128,6 +136,10 @@
     {
      "nombre": "EBIT",
      "valor": 368.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 353.0
     }
    ],
    "hechos": [],
@@ -179,7 +191,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -5,7 %, EBITDA -6,6 %, margen 78,7 % (-0,74 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora.",
+   "resumen": "Ingresos -5,7 %, EBITDA -6,6 %, beneficio neto -21,2 %, margen 78,7 % (-0,74 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -196,6 +208,10 @@
     {
      "nombre": "EBIT",
      "valor": 95.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 54.6
     }
    ],
    "hechos": [],
@@ -245,9 +261,9 @@
    "periodoV3": "2023-9M",
    "fecha": "2023-09-30",
    "fechaOrigen": "cierre",
-   "semaforoGlobal": "A",
+   "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -5,9 %, EBITDA -5,5 %, margen 85,0 % (+0,39 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "resumen": "Ingresos -5,9 %, EBITDA -5,5 %, beneficio neto -26,7 %, margen 85,0 % (+0,39 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -264,6 +280,10 @@
     {
      "nombre": "EBIT",
      "valor": 335.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 259.0
     }
    ],
    "hechos": [],
@@ -315,7 +335,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -0,0 %, EBITDA +2,7 %, margen 80,9 % (+2,17 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "resumen": "Ingresos -0,0 %, EBITDA +2,7 %, beneficio neto +19,6 %, margen 80,9 % (+2,17 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -332,6 +352,10 @@
     {
      "nombre": "EBIT",
      "valor": 92.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 65.3
     }
    ],
    "hechos": [],
@@ -383,7 +407,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -1,1 %, EBITDA +0,1 %, margen 86,1 % (+1,08 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "resumen": "Ingresos -1,1 %, EBITDA +0,1 %, beneficio neto +7,8 %, margen 86,1 % (+1,08 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -400,6 +424,10 @@
     {
      "nombre": "EBIT",
      "valor": 324.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 234.0
     }
    ],
    "hechos": [],
@@ -451,7 +479,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -4,7 %, EBITDA -8,1 %, margen 78,0 % (-2,85 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −8,1 % por el impacto del marco regulatorio vigente en los ingresos regulados (ingresos regulados −5,7 %); el beneficio se queda plano (65,2 M€ frente a 65,3 M€) (documento: «2025-04-30 Resultados Primer Trimestre 2025»). Es la bajada de retribución ya conocida, no un extraordinario: el color se queda.",
+   "resumen": "Ingresos -4,7 %, EBITDA -8,1 %, beneficio neto -0,2 %, margen 78,0 % (-2,85 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −8,1 % por el impacto del marco regulatorio vigente en los ingresos regulados (ingresos regulados −5,7 %); el beneficio se queda plano (65,2 M€ frente a 65,3 M€) (documento: «2025-04-30 Resultados Primer Trimestre 2025»). Es la bajada de retribución ya conocida, no un extraordinario: el color se queda.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -468,6 +496,10 @@
     {
      "nombre": "EBIT",
      "valor": 86.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 65.2
     }
    ],
    "hechos": [],
@@ -519,7 +551,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +6,9 %, EBITDA -11,7 %, margen 71,1 % (-14,98 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −11,7 %, con el marco regulatorio restando unos 43 M€ de ingresos y Castor inflando ingresos y gastos (~89 M€) sin margen; beneficio recurrente −11,4 % (documento: «2025-10-21 Resultados tercer trimestre 2025»). Mismo motivo regulatorio: el color se queda.",
+   "resumen": "Ingresos +6,9 %, EBITDA -11,7 %, beneficio neto -11,4 %, margen 71,1 % (-14,98 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −11,7 %, con el marco regulatorio restando unos 43 M€ de ingresos y Castor inflando ingresos y gastos (~89 M€) sin margen; beneficio recurrente −11,4 % (documento: «2025-10-21 Resultados tercer trimestre 2025»). Mismo motivo regulatorio: el color se queda.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -536,6 +568,10 @@
     {
      "nombre": "EBIT",
      "valor": 275.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 207.0
     }
    ],
    "hechos": [],
@@ -587,7 +623,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +8,2 %, EBITDA -9,9 %, margen 64,9 % (-13,10 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −9,9 % por el marco regulatorio (unos −15 M€ de ingresos); los ingresos suben +8,2 % solo por Castor (37 M€, compensados en gastos), lo que hunde el margen en porcentaje (documento: «2026-04-21 Resultados Primer Trimestre 2026»). El color se queda.",
+   "resumen": "Ingresos +8,2 %, EBITDA -9,9 %, beneficio neto -12,7 %, margen 64,9 % (-13,10 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo: EBITDA −9,9 % por el marco regulatorio (unos −15 M€ de ingresos); los ingresos suben +8,2 % solo por Castor (37 M€, compensados en gastos), lo que hunde el margen en porcentaje (documento: «2026-04-21 Resultados Primer Trimestre 2026»). El color se queda.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -604,6 +640,10 @@
     {
      "nombre": "EBIT",
      "valor": 71.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 56.9
     }
    ],
    "hechos": [],
