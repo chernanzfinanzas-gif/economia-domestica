@@ -1,9 +1,31 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-27T21:46",
+ "generado": "2026-10-28T10:42",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "RED 2026-9M",
+   "ticker": "RED",
+   "periodos": [
+    "2025-9M",
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-10-28T09:33",
+   "semaforo": "R",
+   "frase": "Rojo automático por el margen (76,3 %, −1,8 pp), pero el resto sube: cifra de negocio 1.312,9 M€ (+7,8 %), EBITDA 1.001,4 M€ (+5,3 %; +4,4 % en el tercer trimestre) y beneficio atribuido 410,3 M€ (+5,3 %). El margen cae porque los gastos op"
+  },
+  {
+   "carpeta": "SAN sin periodo nuevo",
+   "ticker": "SAN",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-28T09:36",
+   "semaforo": "V",
+   "frase": "El lector no ha recogido el 9M-2026 aunque han llegado la nota de prensa, el informe y la presentación: el paquete solo trae la cotización al día (11,27 €), así que el semáforo sigue en el de 2026-S1 y hay que arreglar el lector. Las cifras"
+  }
+ ],
+ "n_pendientes": 2,
  "ultima_subida": {
   "cuando": "2026-10-27T21:46",
   "ficheros": [
