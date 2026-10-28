@@ -1,8 +1,50 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-28T10:45",
+ "generado": "2026-10-28T11:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
+  {
+   "carpeta": "AENA 2026-9M",
+   "ticker": "AENA",
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-10-28T10:21",
+   "semaforo": "R",
+   "frase": "Ingresos 5.283,9 M€ (+10,4 %), EBITDA 3.077,9 M€ (+6,8 %) y beneficio neto 1.774,7 M€ (+12,4 %); el margen baja al 58,3 % (60,2 %). La caída del margen se explica sobre todo por dos efectos que no son del negocio, los mismos de los dos trim"
+  },
+  {
+   "carpeta": "ELE 2026-9M",
+   "ticker": "ELE",
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-10-28T10:01",
+   "semaforo": "V",
+   "frase": "Verde bien puesto. EBITDA de unos 4.600 M€ (+8 %; +13 % sin la provisión de plantilla de 202 M€), beneficio neto 1.962 M€ (+14,7 %) y ordinario 2.125 M€ (+22 %); el margen se queda prácticamente igual (26,3 %). Deuda neta 11.187 M€, 1,8 vec"
+  },
+  {
+   "carpeta": "LDA 2026-9M",
+   "ticker": "LDA",
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-10-28T10:03",
+   "semaforo": "V",
+   "frase": "Verde bien puesto. Primas 919,0 M€ (+8,9 %, frente al +5,6 % del sector en No Vida), resultado técnico 74,3 M€ (+45,6 %) y beneficio 80,4 M€ (+34,8 %). La señal de la tesis mejora: el combinado de Motor baja al 91,3 % (−2,1 pp; 91,5 % en el"
+  },
+  {
+   "carpeta": "MAP sin periodo nuevo",
+   "ticker": "MAP",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-28T10:04",
+   "semaforo": "V",
+   "frase": "El pase no saca el 9M: el único documento que ha llegado («2026-10-27 Nota de prensa - Informe de actividad 9M 2026 MAP») es una página en blanco (PDF sin texto ni imagen), y la presentación del 9M no está en la Biblioteca. Por eso el paque"
+  },
   {
    "carpeta": "RED 2026-9M",
    "ticker": "RED",
@@ -11,21 +53,34 @@
     "2026-9M"
    ],
    "tipo": "pase",
-   "creada": "2026-10-28T09:33",
+   "creada": "2026-10-28T10:06",
    "semaforo": "R",
-   "frase": "Rojo automático por el margen (76,3 %, −1,8 pp), pero el resto sube: cifra de negocio 1.312,9 M€ (+7,8 %), EBITDA 1.001,4 M€ (+5,3 %; +4,4 % en el tercer trimestre) y beneficio atribuido 410,3 M€ (+5,3 %). El margen cae porque los gastos op"
+   "frase": "2026-9M. Cifra de negocio 1.312,9 M€ (+7,8 %), EBITDA 1.001,4 M€ (+5,3 %) y beneficio atribuido 410,3 M€ (+5,3 %). El rojo sale solo del margen (76,3 %, −1,8 pp): los gastos operativos suben un 10 % por más plantilla para las inversiones de"
   },
   {
-   "carpeta": "SAN sin periodo nuevo",
+   "carpeta": "SAN 2026-9M",
    "ticker": "SAN",
-   "periodos": [],
+   "periodos": [
+    "2026-9M"
+   ],
    "tipo": "pase",
-   "creada": "2026-10-28T09:36",
+   "creada": "2026-10-28T10:44",
    "semaforo": "V",
-   "frase": "El lector no ha recogido el 9M-2026 aunque han llegado la nota de prensa, el informe y la presentación: el paquete solo trae la cotización al día (11,27 €), así que el semáforo sigue en el de 2026-S1 y hay que arreglar el lector. Las cifras"
+   "frase": null
+  },
+  {
+   "carpeta": "VID 2026-9M",
+   "ticker": "VID",
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-10-28T10:10",
+   "semaforo": "V",
+   "frase": "Verde, pero otra vez gracias a Chile: las ventas suben un 2,0 % (1.146,5 M€) y el EBITDA un 2,9 % (338,5 M€), pero en orgánico caen un 3,0 % y un 0,5 %. El margen mejora al 29,5 % (+0,27 pp), el BPA sube a 4,99 € (+6,4 %) y la deuda neta ba"
   }
  ],
- "n_pendientes": 2,
+ "n_pendientes": 7,
  "ultima_subida": {
   "cuando": "2026-10-27T21:46",
   "ficheros": [
