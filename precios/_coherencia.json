@@ -48,13 +48,6 @@
    "difPct": 2.251
   },
   {
-   "ticker": "AZK",
-   "ultimaBarra": "2026-10-29",
-   "valorHistorico": 10.35,
-   "cierreAntIntradia": 10.4,
-   "difPct": -0.481
-  },
-  {
    "ticker": "BBVA",
    "ultimaBarra": "2026-10-29",
    "valorHistorico": 21.87,
@@ -64,16 +57,16 @@
   {
    "ticker": "BKT",
    "ultimaBarra": "2026-10-29",
-   "valorHistorico": 14.13,
+   "valorHistorico": 14.125,
    "cierreAntIntradia": 14.305,
-   "difPct": -1.223
+   "difPct": -1.258
   },
   {
    "ticker": "CABK",
    "ultimaBarra": "2026-10-29",
-   "valorHistorico": 11.17,
+   "valorHistorico": 11.165,
    "cierreAntIntradia": 11.37,
-   "difPct": -1.759
+   "difPct": -1.803
   },
   {
    "ticker": "CIE",
@@ -92,9 +85,9 @@
   {
    "ticker": "FAE",
    "ultimaBarra": "2026-10-29",
-   "valorHistorico": 4.78,
+   "valorHistorico": 4.775,
    "cierreAntIntradia": 4.76,
-   "difPct": 0.42
+   "difPct": 0.315
   },
   {
    "ticker": "FDR",
@@ -106,9 +99,9 @@
   {
    "ticker": "GEST",
    "ultimaBarra": "2026-10-29",
-   "valorHistorico": 2.9,
+   "valorHistorico": 2.895,
    "cierreAntIntradia": 2.885,
-   "difPct": 0.52
+   "difPct": 0.347
   },
   {
    "ticker": "IBE",
@@ -123,6 +116,13 @@
    "valorHistorico": 56.28,
    "cierreAntIntradia": 57.04,
    "difPct": -1.332
+  },
+  {
+   "ticker": "LDA",
+   "ultimaBarra": "2026-10-29",
+   "valorHistorico": 1.216,
+   "cierreAntIntradia": 1.26,
+   "difPct": -3.492
   },
   {
    "ticker": "LOG",
@@ -162,9 +162,9 @@
   {
    "ticker": "PRM",
    "ultimaBarra": "2026-10-29",
-   "valorHistorico": 12.55,
+   "valorHistorico": 12.45,
    "cierreAntIntradia": 12.35,
-   "difPct": 1.619
+   "difPct": 0.81
   },
   {
    "ticker": "R4",
@@ -197,23 +197,23 @@
   {
    "ticker": "SAN",
    "ultimaBarra": "2026-10-29",
-   "valorHistorico": 10.51,
+   "valorHistorico": 10.512,
    "cierreAntIntradia": 10.628,
-   "difPct": -1.11
+   "difPct": -1.091
   },
   {
    "ticker": "TEF",
    "ultimaBarra": "2026-10-29",
-   "valorHistorico": 3.33,
+   "valorHistorico": 3.326,
    "cierreAntIntradia": 3.273,
-   "difPct": 1.742
+   "difPct": 1.619
   },
   {
    "ticker": "UNI",
    "ultimaBarra": "2026-10-29",
-   "valorHistorico": 3.17,
+   "valorHistorico": 3.166,
    "cierreAntIntradia": 3.222,
-   "difPct": -1.614
+   "difPct": -1.738
   },
   {
    "ticker": "VID",
