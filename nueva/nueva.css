@@ -473,3 +473,33 @@ body.n-noscroll{overflow:hidden}
 #view-fondor4 .n-r4t .num{text-align:right!important;font-variant-numeric:tabular-nums}
 #view-fondor4 #nR4FMov .pos-blk-b{display:none} #view-fondor4 #nR4FMov.open .pos-blk-b{display:block}
 #view-fondor4 #r4Cards.n-r4x{display:block!important}
+/* 29-oct · Señales por decidir y ventana «Revisar» */
+.n-seng{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.n-senn{background:#FEF3C7;color:#92400E;border-radius:10px;padding:1px 8px;font-size:11.5px}
+.n-senall{margin-left:auto;border:0;background:#16A34A;color:#FFF;border-radius:8px;padding:6px 12px;font-weight:700;font-size:12.5px;cursor:pointer}
+.n-senmsg{background:#ECFDF5;color:#065F46;border-radius:8px;padding:7px 10px;font-size:12.5px;margin:0 0 6px}
+.n-sendec{color:#1E40AF}
+.n-senov{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:9999;display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px}
+.n-senbox{background:#FFF;border-radius:14px;max-width:720px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.25);color:#142231}
+.n-senhd{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 18px;border-bottom:1px solid #E5E9F0;background:linear-gradient(90deg,#1E3A8A,#2563EB);color:#FFF;border-radius:14px 14px 0 0}
+.n-sentk{font-size:18px;font-weight:800}.n-sensub{font-size:12px;opacity:.85}
+.n-senx{background:rgba(255,255,255,.2);border:0;color:#FFF;border-radius:8px;width:30px;height:30px;font-size:15px;cursor:pointer}
+.n-sendat{padding:12px 18px;background:#F8FAFC;border-bottom:1px solid #E5E9F0}
+.n-sendat ul{margin:4px 0 0;padding-left:18px;font-size:13px;line-height:1.5}
+.n-senlab{font-size:11.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:#475569}
+.n-sens{padding:14px 18px;border-bottom:1px solid #E5E9F0}
+.n-senmot{font-size:13px;color:#334155;margin:3px 0 8px}
+.n-senprop{background:#FFFBEB;border:1px solid #FDE68A;border-radius:10px;padding:9px 12px;font-size:13px}
+.n-senprop p{margin:5px 0 0;line-height:1.45;color:#334155}
+.n-senopc{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+.n-senopc label{border:1.5px solid #CBD5E1;border-radius:10px;padding:8px 9px;cursor:pointer;font-size:12.5px;display:flex;flex-direction:column;gap:3px}
+.n-senopc label.on{border-color:#2563EB;background:#EFF6FF}
+.n-senopc input{display:none}.n-senopc i{font-style:normal;font-size:10.5px;color:#92400E;font-weight:700}
+.n-senopc small{color:#5B6B7C;font-size:11px;line-height:1.3}
+.n-sencom{width:100%;box-sizing:border-box;min-height:54px;border:1px solid #CBD5E1;border-radius:8px;padding:8px;font:inherit;font-size:13px}
+.n-senpie{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 18px;flex-wrap:wrap}
+.n-senaviso{font-size:12px;color:#5B6B7C;flex:1;min-width:200px}
+.n-senok{border:0;background:#2563EB;color:#FFF;border-radius:10px;padding:10px 18px;font-weight:800;font-size:14px;cursor:pointer}
+@media (max-width:640px){.n-senopc{grid-template-columns:1fr 1fr}.n-senall{margin-left:0}}
+.n-avtx.n-sentx{display:block;-webkit-line-clamp:unset;overflow:visible;white-space:normal}
+.n-senl{font-size:13px;line-height:1.4;margin-top:2px}

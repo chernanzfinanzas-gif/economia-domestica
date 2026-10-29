@@ -1,6 +1,6 @@
 {
  "schemaVersion": 2,
- "generadoEl": "2026-10-15",
+ "generadoEl": "2026-10-29",
  "nota": "Con qué BASE está la serie de precios de cada empresa, y cómo se pasa de una a la otra. Base PUBLICADA = lo que valía una acción aquel día. Base AJUSTADA = ese precio reexpresado en acciones de hoy. publicado = repo x factorCierre[año]. Solo aparecen las empresas que han tenido eventos que cambian el nº de acciones (o un dividendo en especie): en el resto el repo es a la vez publicada y ajustada.",
  "regla": "Si el precio se DIVIDE con una cifra por acción (BPA, DPA, nº acciones, capitalización) -> base PUBLICADA. Si el precio se COMPARA consigo mismo en el tiempo (rentabilidad, drawdown, vs índice, beta) -> base AJUSTADA.",
  "empresas": {
@@ -44,23 +44,44 @@
      "tipo": "liberada",
      "proporcion": "1x20",
      "factor": 1.05
+    },
+    {
+     "exDate": "2024-11-12",
+     "tipo": "liberada",
+     "proporcion": "1x20",
+     "factor": 1.05,
+     "fuente": "CNMV 07-nov-2024 (características de la ampliación) y 10-dic-2024 (admisión de las acciones nuevas)"
+    },
+    {
+     "exDate": "2025-10-30",
+     "tipo": "liberada",
+     "proporcion": "1x20",
+     "factor": 1.05,
+     "fuente": "CNMV 20-oct-2025 (características) y 21-nov-2025 (admisión)"
+    },
+    {
+     "exDate": "2026-10-29",
+     "tipo": "liberada",
+     "proporcion": "1x20",
+     "factor": 1.05,
+     "fuente": "CNMV 20-oct-2026 (características; derechos del 29-oct al 11-nov)"
     }
    ],
    "fuente": "Cuentas Anuales: «one (1) new share for every twenty (20) existing shares» + nº de acciones de cada 31-dic",
    "factorCierre": {
-    "2016": 1.340096,
-    "2017": 1.340096,
-    "2018": 1.276282,
-    "2019": 1.215506,
-    "2020": 1.157625,
-    "2021": 1.1025,
-    "2022": 1.05,
-    "2023": 1.0,
-    "2024": 1.0,
-    "2025": 1.0
+    "2016": 1.407101,
+    "2017": 1.407101,
+    "2018": 1.340096,
+    "2019": 1.276281,
+    "2020": 1.215506,
+    "2021": 1.157625,
+    "2022": 1.1025,
+    "2023": 1.05,
+    "2024": 1.05,
+    "2025": 1.05
    },
-   "verificacion": "los factores medidos contra la serie publicada del libro coinciden con 1,05^n hasta el 5º decimal (n = 6,6,5,4,3,2,1,0,0,0)",
-   "pendiente": "las FECHAS exactas de cada liberada; el factor por cierre de ejercicio está verificado, el día concreto no"
+   "verificacion": "29-oct-2026: el Action de cotizaciones reexpresó todo el histórico del repo ×1/1,05 al detectar la liberada de 2026 (precios/_eventos.json, 2026-10-28). Medido contra los cierres publicados en los Informes Anuales: 2024 = 92,90 € (repo 88,4762 → factor 1,05) y 2025 = 90,10 € (repo 85,8095 → 1,05); 2023 = 93,80 € (repo 89,3333 → 1,05). Por eso todos los factores anteriores se multiplican por 1,05. Antes (24-ago-2026): «coinciden con 1,05^n hasta el 5º decimal (n = 6,6,5,4,3,2,1,0,0,0)». Las liberadas de 2024 y 2025 no movieron la serie del repo (Yahoo no las reexpresó), por eso sus cierres de 2024 y 2025 eran ya la base publicada hasta la de 2026.",
+   "pendiente": "Las fechas exactas de las liberadas de 2018-2023 (las de 2024, 2025 y 2026 ya están con exDate de la CNMV)."
   },
   "CIE": {
    "empresa": "CIE Automotive, S.A.",

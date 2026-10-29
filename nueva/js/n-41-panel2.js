@@ -53,10 +53,11 @@
   function avisos(){
     var A=window._nAv||{lista:[],vis:{}}, vis=A.vis||{}, F=window._avFiltro||{showSeen:false};
     try{ var r4a=(typeof nR4XlsAviso==='function')?nR4XlsAviso():null; if(r4a&&!A.lista.some(function(x){ return x.key===r4a.key; })) A.lista=A.lista.concat([r4a]); }catch(e){}
-    var L=A.lista.filter(function(x){ return F.showSeen||!vis[x.key]; });
+    var L=A.lista.filter(function(x){ return (F.showSeen||!vis[x.key]) && !(window.nSenCubre&&window.nSenCubre(x)); });   /* 29-oct: las señales con paquete salen en «Señales por decidir» */
+    var nSen=window.nSenCuenta?window.nSenCuenta():0, senH=window.nSenHtml?window.nSenHtml():'';
     var nVis=A.lista.filter(function(x){ return vis[x.key]; }).length;
     var G={dec:[],ext:[],tri:[],div:[],hog:[],inf:[]}; L.forEach(function(x){ G[grupo(x)].push(x); });
-    var nDec=L.length-G.inf.length;
+    var nDec=L.length-G.inf.length+nSen;
     sum('av',(nDec?nDec+' por decidir':'nada por decidir')+(G.inf.length?' · '+G.inf.length+' informativos':''));
     var ex=document.querySelector('#nP_av .n-pextra'); if(ex) ex.innerHTML=(L.length?'<span data-avseenall="'+L.map(function(x){return x.key;}).join('~')+'">marcar todos como vistos ✓</span>':'')+(nVis?' · <span data-avshow="1">'+(F.showSeen?'ocultar vistos':'ver vistos ('+nVis+')')+'</span>':'');
     var f=window._nAvF;
@@ -66,15 +67,16 @@
       var bt=g==='ext'?'Pedir revisión':'Ver';
       return '<div class="n-av'+(v?' visto':'')+'" style="--ac:'+(x.cls==='r'?'#DC2626':(g==='ext'?'#7C3AED':'#D97706'))+'"><span class="n-avst" style="background:'+st[1]+';color:'+st[2]+'">'+st[0]+'</span><div class="n-avtx">'+x.txt+'</div>'+
         (x.goto?'<button class="n-avbt" data-goto="'+x.goto+'"'+act+'>'+bt+'</button>':'')+'<button class="n-avok" data-avseen="'+x.key+'" title="'+(v?'Volver a mostrar':'Marcar como visto')+'">✓</button></div>'; }
-    var h=chips;
+    var h=chips+senH;
     window._nAvMas=window._nAvMas||{};
     ['dec','ext','tri','div','hog'].forEach(function(g){ if(!G[g].length||(f&&f!==g)) return; var todo=f===g||window._nAvMas[g], L2=todo?G[g]:G[g].slice(0,5);
       h+='<div class="n-avg">'+GN[g]+'</div>'+L2.map(function(x){return fila(x,g);}).join('')+(G[g].length>5?'<div class="n-avmas" data-navmas="'+g+'">'+(todo?'ver menos ▴':'ver las '+(G[g].length-5)+' restantes ▾')+'</div>':''); });
     if(G.inf.length&&(!f||f==='inf')){ window._nInfOpen=window._nInfOpen||false;
       h+='<div class="n-avinf'+(window._nInfOpen||f==='inf'?' open':'')+'"><div class="n-avg n-avinfh" data-navinf="1">▸ Informativos ('+G.inf.length+') · no piden decisión</div><div class="n-avinfb">'+G.inf.map(function(x){ return '<div class="n-avi">'+x.txt+(x.goto?' <span class="n-avver" data-goto="'+x.goto+'">ver ▸</span>':'')+'<button class="n-avok" data-avseen="'+x.key+'">✓</button></div>'; }).join('')+'</div></div>'; }
-    if(!L.length) h='<div class="muted" style="padding:6px 0">Nada pendiente ahora mismo. 👌</div>';
+    if(!L.length&&!senH) h='<div class="muted" style="padding:6px 0">Nada pendiente ahora mismo. 👌</div>';
     var b=body('av'); if(b) b.innerHTML=h;
   }
+  window.nPanelAvisos=avisos;
   document.addEventListener('click',function(e){
     var c=e.target.closest&&e.target.closest('[data-navf]'); if(c){ window._nAvF=c.getAttribute('data-navf'); avisos(); return; }
     var mm=e.target.closest&&e.target.closest('[data-navmas]'); if(mm){ var g=mm.getAttribute('data-navmas'); window._nAvMas[g]=!window._nAvMas[g]; avisos(); return; }
