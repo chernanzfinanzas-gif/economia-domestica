@@ -28,12 +28,23 @@
     if(out.anotado==null) out.anotado=out.saldoFinal; if(out.pendiente==null) out.pendiente=0;
     return out;
   }
-  window.nR4Xls=function(){ try{ var s=localStorage.getItem(KEY); return s?JSON.parse(s):null; }catch(e){ return null; } };
+  /* R4 da un Excel por año: se guardan todos (uno por periodo) y se juntan; el más reciente manda en fondo, acciones y efectivo */
+  function todos(){ try{ var s=localStorage.getItem(KEY); var v=s?JSON.parse(s):[]; return Array.isArray(v)?v:(v?[v]:[]); }catch(e){ return []; } }
+  window.nR4Xls=function(){
+    var L=todos().sort(function(a,b){ return a.desde<b.desde?-1:1; }); if(!L.length) return null;
+    var U=L[L.length-1], P0=L[0], cash=[];
+    L.forEach(function(x){ (x.cash||[]).forEach(function(l){ cash.push(l); }); });
+    cash.sort(function(a,b){ return a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:0); });
+    return {fecha:U.fecha,desde:P0.desde,cash:cash,fondo:U.fondo,acciones:U.acciones,anotado:U.anotado,pendiente:U.pendiente,saldoFinal:U.saldoFinal,patrimonio:U.patrimonio,
+            fondoIni:P0.fondoIni,fichero:L.map(function(x){ return x.desde.slice(0,4); }).join(' + '),periodos:L.map(function(x){ return [x.desde,x.fecha]; })};
+  };
   window.nR4XlsSubir=function(){
-    var i=document.createElement('input'); i.type='file'; i.accept='.xls,.xlsx'; i.style.display='none'; document.body.appendChild(i);
-    i.onchange=function(){ var f=i.files&&i.files[0]; i.remove(); if(!f) return; var msg=document.getElementById('nR4XMsg'); if(msg) msg.textContent='Leyendo '+f.name+'…';
-      cargarLib().then(function(){ return f.arrayBuffer(); }).then(function(b){ var X=leer(b); X.fichero=f.name; try{ localStorage.setItem(KEY,JSON.stringify(X)); }catch(e){} window._nR4XUlt=X;
-        if(typeof renderCaja==='function') renderCaja(); if(typeof renderFondoR4==='function') renderFondoR4(); var m2=document.getElementById('nR4XMsg'); if(m2) m2.textContent='✓ Extracto al '+X.fecha.split('-').reverse().join('/')+' leído: '+X.cash.length+' movimientos, '+X.acciones.length+' valores.'; })
+    var i=document.createElement('input'); i.type='file'; i.accept='.xls,.xlsx'; i.multiple=true; i.style.display='none'; document.body.appendChild(i);
+    i.onchange=function(){ var fs=[].slice.call(i.files||[]); i.remove(); if(!fs.length) return; var msg=document.getElementById('nR4XMsg'); if(msg) msg.textContent='Leyendo '+fs.length+' fichero(s)…';
+      cargarLib().then(function(){ return Promise.all(fs.map(function(f){ return f.arrayBuffer().then(function(b){ var x=leer(b); x.fichero=f.name; return x; }); })); }).then(function(XS){
+        var L=todos().filter(function(o){ return !XS.some(function(x){ return x.desde===o.desde; }); }).concat(XS);   /* el mismo periodo subido otra vez sustituye al anterior */
+        try{ localStorage.setItem(KEY,JSON.stringify(L)); }catch(e){} var X=window.nR4Xls(); window._nR4XUlt=X;
+        if(typeof renderCaja==='function') renderCaja(); if(typeof renderFondoR4==='function') renderFondoR4(); var m2=document.getElementById('nR4XMsg'); if(m2) m2.textContent='✓ '+XS.length+' extracto(s) leído(s). Tienes de '+X.fichero+', hasta el '+X.fecha.split('-').reverse().join('/')+': '+X.cash.length+' movimientos.'; })
       .catch(function(e){ var m3=document.getElementById('nR4XMsg'); if(m3) m3.textContent='✗ '+e.message; }); };
     i.click();
   };

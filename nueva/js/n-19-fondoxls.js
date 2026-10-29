@@ -19,8 +19,8 @@
       else if(/^VENTA DE/.test(c)){ R+=l.imp; F.push([l.fecha,l.imp]); movs.push([l.fecha,'Sale del fondo',-l.imp]); }
       else if(/^RETENCION/.test(c)){ ret[y]=(ret[y]||0)+(-l.imp); movs.push([l.fecha,'Retención a cuenta (19 % de la ganancia)',l.imp]); } });
     F.push([X.fecha,X.fondo.valor]); F.sort(function(a,b){ return a[0]<b[0]?-1:1; });
-    var y=X.fecha.slice(0,4);
-    return {A:A,R:R,ret:ret,movs:movs,ganancia:X.fondo.valor+R-A-ini.valor,ini:ini,tir:tir(F),realizado:(ret[y]||0)/0.19,retAnio:ret[y]||0,anio:y};
+    var y=X.fecha.slice(0,4), primera=(X.cash||[]).filter(function(l){ return /^COMPRA DE RENTA 4 FONCUENTA/i.test(l.concepto); })[0];
+    return {primera:primera&&primera.fecha,A:A,R:R,ret:ret,movs:movs,ganancia:X.fondo.valor+R-A-ini.valor,ini:ini,tir:tir(F),realizado:(ret[y]||0)/0.19,retAnio:ret[y]||0,anio:y};
   }
   var o=renderFondoR4;
   renderFondoR4=function(){
@@ -30,14 +30,15 @@
       ['blkR4Add','blkR4Ext'].forEach(function(id){ var e=document.getElementById(id); if(e) e.style.display='none'; });   /* ya no se pega el extracto ni se apunta a mano */
       var X=(typeof nR4Xls==='function')?nR4Xls():null, c=document.getElementById('r4Cards'); if(!c) return;
       var up=document.getElementById('nR4FUp'); if(!up){ up=document.createElement('div'); up.id='nR4FUp'; up.className='n-r4up'; c.insertAdjacentElement('afterend',up); }
-      up.innerHTML='<button class="btn sm" data-nr4up="1">📥 Subir extracto de R4</button><span>'+(X?'Datos del extracto de patrimonio de R4 al <b>'+fd(X.fecha)+'</b> (desde el '+fd(X.desde)+')':'Sube el «extracto de patrimonio» de Renta 4 en Excel: el fondo y la caja del bróker se ponen al día solos.')+'</span>';
+      up.innerHTML='<button class="btn sm" data-nr4up="1">📥 Subir extracto de R4</button><span id="nR4XMsg">'+(X?'Extractos de patrimonio de R4 de <b>'+X.fichero+'</b>, hasta el <b>'+fd(X.fecha)+'</b> · R4 da uno por año: sube el del año en curso cuando quieras':'Sube el «extracto de patrimonio» de Renta 4 en Excel: el fondo y la caja del bróker se ponen al día solos.')+'</span>';
       if(!X||!X.fondo) return;
-      var K=calc(X);
+      var K=calc(X); c.classList.add('n-r4x');
+      var lg=document.querySelector('#nR4Logo .n-r4t'); if(lg) lg.innerHTML='<b>Renta 4 Foncuenta</b><span>Tu liquidez remunerada · extracto de patrimonio de R4 al '+fd(X.fecha)+'</span>'+(K.tir!=null?'<em>⏱️ '+(K.tir*100).toFixed(2).replace('.',',')+' % anual</em>':'');
       c.innerHTML='<div class="n-ctrl">'+
         nKpi({c:'#1F4A9A',bg:'#EAF1FD',ic:'💶',t:'Valor del fondo',v:E(X.fondo.valor),s:'al '+fd(X.fecha)+' · '+String(X.fondo.part).replace('.',',')+' participaciones'})+
-        nKpi({c:'#16A34A',bg:'#DCFCE7',ic:'📈',t:'Ganancia del periodo',v:(K.ganancia>=0?'+':'')+E(K.ganancia),vCls:K.ganancia>=0?'n-pos':'n-neg',s:'desde el '+fd(K.ini.fecha)+(K.ini.valor?' (valía '+E(K.ini.valor)+')':'')+' · entra '+E(K.A)+' · sale '+E(K.R)})+
+        nKpi({c:'#16A34A',bg:'#DCFCE7',ic:'📈',t:K.ini.valor?'Ganancia del periodo':'Ganancia total',v:(K.ganancia>=0?'+':'')+E(K.ganancia),vCls:K.ganancia>=0?'n-pos':'n-neg',s:(K.ini.valor?'desde el '+fd(K.ini.fecha)+' (valía '+E(K.ini.valor)+')':'desde la primera entrada, el '+fd(K.primera))+' · entra '+E(K.A)+' · sale '+E(K.R)})+
         nKpi({c:'#0D9488',bg:'#CCFBF1',ic:'⏱️',t:'Rentabilidad',v:K.tir!=null?(K.tir*100).toFixed(2).replace('.',',')+' %':'—',vCls:'n-pos',s:'anual, con las fechas de cada entrada y salida'})+
-        nKpi({c:'#7C3AED',bg:'#EDE9FE',ic:'📅',t:'Realizado en '+K.anio,v:'+'+E(K.realizado),vCls:'n-pos',s:'ganancia de lo vendido (retención ÷ 0,19) · retenido '+E(K.retAnio)})+'</div>';
+        nKpi({c:'#7C3AED',bg:'#EDE9FE',ic:'📅',t:'Realizado en '+K.anio,v:'+'+E(K.realizado),vCls:'n-pos',s:'ganancia de lo vendido (retención ÷ 0,19) · retenido '+E(K.retAnio)+Object.keys(K.ret).filter(function(a){ return a!==K.anio; }).sort().map(function(a){ return ' · '+a+': +'+E(K.ret[a]/0.19); }).join('')})+'</div>';
       var L=document.getElementById('blkR4List'); if(L) L.style.display='none';
       var b=document.getElementById('nR4FMov'); if(!b){ b=document.createElement('div'); b.id='nR4FMov'; b.className='pos-blk n-blk'; up.insertAdjacentElement('afterend',b); }
       var mv=K.movs.slice().reverse();
