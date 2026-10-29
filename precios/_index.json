@@ -922,22 +922,7 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "VID",
-"fecha": "2026-10-22",
-"anterior": 86.3809,
-"nuevo": 86.381
-}
-],
+"corregidos": [],
 "revisar": [],
-"eventos": [
-{
-"ticker": "VID",
-"exDate": "2026-10-28",
-"factor": 1.05,
-"origen": "detectado",
-"motivo": "Yahoo devolvió la ventana hasta el 2026-10-28 con razón 0.952381 respecto a lo guardado: reexpresión (liberada o split, factor 1.0500)"
-}
-]
+"eventos": []
 }
