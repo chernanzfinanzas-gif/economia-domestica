@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-29T12:45",
+ "generado": "2026-10-29T14:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -49,17 +49,6 @@
    "frase": "S3 · REAFIRMAR propuesta. Cotiza a 31,30 €, un 137 % sobre el PO (13,20 €) y muy por encima del PO bull (22,43 €), pero los resultados acompañan con fuerza: verde en el S1-2026 con ingresos +10,7 %, EBITDA +28,7 %, beneficio +44,3 % y marge"
   },
   {
-   "carpeta": "BBVA 2026-9M",
-   "ticker": "BBVA",
-   "periodos": [
-    "2026-9M"
-   ],
-   "tipo": "pase",
-   "creada": "2026-10-29T11:03",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
    "carpeta": "BKT señales 2026-10-28",
    "ticker": "BKT",
    "periodos": [],
@@ -96,19 +85,6 @@
    "frase": "S3 · REAFIRMAR propuesta. Cotiza a 43,19 €, un 63,9 % sobre el PO (26,35 €) y sobre el PO bull (37,89 €). Verde en el 9M-2026: ingresos +9,0 %, EBITDA +8,4 % y beneficio +14,7 %. Los resultados acompañan; ESPERAR: no comprar más y mantener."
   },
   {
-   "carpeta": "FAE 2026-9M",
-   "ticker": "FAE",
-   "periodos": [
-    "2024-9M",
-    "2025-9M",
-    "2026-9M"
-   ],
-   "tipo": "pase",
-   "creada": "2026-10-29T11:23",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
    "carpeta": "FAE señales 2026-10-28",
    "ticker": "FAE",
    "periodos": [],
@@ -116,18 +92,6 @@
    "creada": "2026-10-28T22:40",
    "semaforo": null,
    "frase": "S3 · REAFIRMAR propuesta. Cotiza a 4,74 €, un 70,0 % sobre el PO (2,79 €) pero por debajo del PO bull (5,55 €). El ámbar del S1-2026 es de perímetro (SIFI y Edol, de menor margen, y 3,2 M€ de reestructuración), con EBITDA +23,8 % y la guía "
-  },
-  {
-   "carpeta": "FDR 2026-9M",
-   "ticker": "FDR",
-   "periodos": [
-    "2026-3M",
-    "2026-9M"
-   ],
-   "tipo": "pase",
-   "creada": "2026-10-29T11:22",
-   "semaforo": "V",
-   "frase": null
   },
   {
    "carpeta": "GEST señales 2026-10-28",
@@ -256,13 +220,30 @@
    "frase": "S3 · REAFIRMAR propuesta. Cotiza a 53,90 €, solo un 1,6 % sobre el PO (53,06 €) y lejos del PO bull (64,24 €). El rojo del 9M-2026 es de divisa y energía (EBITDA comparable +1,6 %; guía de EBITDA rebajada 10-15 M€) y la S2 se reafirmó el 26"
   }
  ],
- "n_pendientes": 27,
+ "n_pendientes": 24,
  "ultima_subida": {
-  "cuando": "2026-10-28T23:45",
+  "cuando": "2026-10-29T14:45",
   "ficheros": [
-   "dossiers/EBRO.html",
-   "dossiers/trimestral/EBRO-trim.json",
-   "dossiers/v3/EBRO.html"
+   "dossiers/BBVA.html",
+   "dossiers/BBVA.json",
+   "dossiers/FAE.html",
+   "dossiers/FAE.json",
+   "dossiers/FDR.html",
+   "dossiers/FDR.json",
+   "dossiers/NTGY.html",
+   "dossiers/NTGY.json",
+   "dossiers/REP.html",
+   "dossiers/REP.json",
+   "dossiers/trimestral/BBVA-trim.json",
+   "dossiers/trimestral/FAE-trim.json",
+   "dossiers/trimestral/FDR-trim.json",
+   "dossiers/trimestral/NTGY-trim.json",
+   "dossiers/trimestral/REP-trim.json",
+   "dossiers/v3/BBVA.html",
+   "dossiers/v3/FAE.html",
+   "dossiers/v3/FDR.html",
+   "dossiers/v3/NTGY.html",
+   "dossiers/v3/REP.html"
   ]
  },
  "rechazos": [],

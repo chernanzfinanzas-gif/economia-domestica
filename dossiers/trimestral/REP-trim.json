@@ -3,7 +3,7 @@
  "ticker": "REP",
  "empresa": "Repsol, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-28",
+ "generado": "2026-10-29",
  "revisiones": [
   {
    "periodo": "2021-Q1",
@@ -577,52 +577,33 @@
   },
   {
    "periodo": "2026-Q1",
-   "periodoDisplay": "Q1-2026",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
    "fecha": "2026-04-30",
-   "semaforoGlobal": "A",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Margen de refino 10,9 $/Bbl, el mejor desde 2023 y muy por encima del ciclo medio; pero la utilización de conversión cae a 86,1 %, el nivel más bajo de toda la serie fuera de la pandemia, y el informe no explica la causa en su cuadro de portada. Un margen alto sobre menos barriles procesados vale menos, y la fila de utilización tiene banda propia en el §10.1: el ámbar es suyo, no del margen.",
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)",
+   "resumen": "Ingresos +8,4 %, EBITDA +110,0 %, beneficio neto +153,8 %, margen 16,9 % (+8,16 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **1T-2026** (añadido el 29-oct-2026; faltaba en el método nuevo) — Ventas 15.502 M€ (+8,4 % sobre el 1T-2025 reexpresado, 14.307), EBITDA ajustado 2.613 M€ (1.244), resultado de las operaciones 1.402 M€ (570) y resultado atribuido 929 M€ (366). Margen de refino 10,9 $/barril. El lector no lo confirmaba porque desde las cuentas de 2025 Repsol presenta los negocios conjuntos por puesta en equivalencia y el 1T-2025 cambió. El método antiguo lo dejó en ámbar el 30-abr por la utilización de conversión del refino (86,1 %); el monitor nuevo no mide esa variable y sale verde.",
    "metricas": [
     {
-     "nombre": "Producción (kbep/d)",
-     "valor": 539
+     "nombre": "Ingresos",
+     "valor": 15502.0
     },
     {
-     "nombre": "Margen de refino ($/Bbl)",
-     "valor": 10.9
+     "nombre": "EBITDA",
+     "valor": 2613.0
     },
     {
-     "nombre": "Utiliz. conversión (%)",
-     "valor": 86.1
+     "nombre": "Margen EBITDA",
+     "valor": 16.9
     },
     {
-     "nombre": "Rtdo neto ajustado (M€)",
-     "valor": 873
+     "nombre": "EBIT",
+     "valor": 1402.0
     },
     {
-     "nombre": "Resultado neto (M€)",
-     "valor": 929
-    },
-    {
-     "nombre": "EBITDA (M€)",
-     "valor": 2613
-    },
-    {
-     "nombre": "EBITDA CCS (M€)",
-     "valor": 1790
-    },
-    {
-     "nombre": "Flujo de caja op. (M€)",
-     "valor": 1042
-    },
-    {
-     "nombre": "Deuda neta (M€)",
-     "valor": 4800
-    },
-    {
-     "nombre": "BPA (€/acc)",
-     "valor": 0.82
+     "nombre": "Beneficio neto",
+     "valor": 929.0
     }
    ],
    "hechos": [
@@ -632,7 +613,8 @@
      "impacto": "+",
      "valoracion": "Ejecuta el primer catalizador del §9.1"
     }
-   ]
+   ],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2026-Q2",
@@ -725,6 +707,36 @@
      "valoracion": "Deja claro por qué el §10.3 monitoriza el RNA y no el beneficio contable: la diferencia entre ambos este semestre es de 510 M€ y es puramente de valoración e inventario."
     }
    ],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +31,3 %, EBITDA +175,7 %, margen 20,2 % (+10,58 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — En los nueve meses, ventas 53.620 M€ (+31,3 %), EBITDA ajustado 10.834 M€ (3.929 M€), resultado de las operaciones 7.713 M€ (1.970 M€) y resultado neto 5.006 M€ (1.177 M€). Resultado neto ajustado 5.419 M€ (1.907 M€). La deuda neta baja a 2.038 M€ (5.708 M€). Entra también el 1T-2026, que faltaba en el método nuevo: ventas 15.502 M€ (14.307 reexpresado), EBITDA ajustado 2.613 M€ (1.244) y resultado atribuido 929 M€ (366); sale verde con las variables del método nuevo (el antiguo lo dejó en ámbar por la utilización de conversión del refino, 86,1 %, que este monitor no mide).\n\n**Por qué** — Casi todo es el entorno: Brent medio de 93,9 $/barril (70,9) y, sobre todo, el margen de refino en España, que se triplica: 20,6 $/barril (6,7), con 36,2 en el 3T. Industrial gana 3.668 M€ ajustados (540 M€). Exploración y Producción, 1.088 M€ (+28,6 %). Hay un efecto puntual que se da la vuelta si el crudo baja: el efecto patrimonial de existencias, +943 M€ (−478 M€); el EBITDA sin él (CCS) es 9.524 M€ (4.587 M€). En sentido contrario, 1.356 M€ de resultados específicos negativos, con 983 M€ de deterioros.\n\n**Semáforo** — Verde bien puesto por las cifras, pero no es un verde de mejora del negocio: es ciclo de refino y precio del crudo. Cierra la S5. La S3 (cotización 28,54 € frente al PO bull de 26,65 €) sigue abierta y va a su paquete de señales.\n\n**Qué vigilar** — Que el margen de refino de 36,2 $/barril del 3T no es recurrente. Hay que comprobar con qué márgenes se hizo la valoración del método: con estos resultados conviene rehacerla en el anual. Utilización del refino algo menor (79,7 %).\n\n**Lectura** — Aprobar los datos. La tesis no se rompe, pero la decisión de la S3 (mantener o salida parcial) es lo importante: la cotización ya descuenta parte de un ciclo excepcional.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 53620.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 10834.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 20.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 7713.0
+    }
+   ],
+   "hechos": [],
    "origen": "metodo-v3"
   }
  ]

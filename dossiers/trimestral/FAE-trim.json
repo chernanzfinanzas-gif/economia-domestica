@@ -3,7 +3,7 @@
  "ticker": "FAE",
  "empresa": "Faes Farma, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-28",
+ "generado": "2026-10-29",
  "revisiones": [
   {
    "periodo": "2022-Q1",
@@ -13,11 +13,15 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +22,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +19,2 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 116.0
+     "valor": 125.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 31.6
     }
    ],
    "hechos": [],
@@ -67,13 +71,13 @@
    "periodoV3": "2022-9M",
    "fecha": "2022-09-30",
    "fechaOrigen": "cierre",
-   "semaforoGlobal": "V",
+   "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +12,9 %, EBITDA +30,2 %, margen 30,2 % (+4,00 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +9,7 %, EBITDA +5,8 %, margen 28,6 % (-1,04 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 333.0
+     "valor": 352.0
     },
     {
      "nombre": "EBITDA",
@@ -81,7 +85,7 @@
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 30.2
+     "valor": 28.6
     },
     {
      "nombre": "EBIT",
@@ -137,11 +141,11 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +1,9 %, beneficio neto +3,7 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +4,0 %, beneficio neto +3,7 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 118.0
+     "valor": 130.0
     },
     {
      "nombre": "EBIT",
@@ -201,11 +205,11 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +3,0 %, beneficio neto +0,2 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +2,8 %, beneficio neto +0,2 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 343.0
+     "valor": 362.0
     },
     {
      "nombre": "EBIT",
@@ -265,11 +269,11 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +10,7 %, beneficio neto +10,3 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +7,2 %, beneficio neto +10,3 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
-     "valor": 131.0
+     "valor": 139.0
     },
     {
      "nombre": "EBIT",
@@ -324,55 +328,36 @@
   {
    "periodo": "2024-Q3",
    "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
    "fecha": "2024-09-30",
-   "fechaOrigen": "portada",
-   "fechaOrigenNota": "La fecha de cada periodo sale de la PORTADA del informe de negocio de Faes, que trae el mes de publicación impreso —«Abril 2024», «Octubre 2024», «Julio 2026»—, comprobado informe a informe en los catorce: Q1 en abril, S1 en julio, 9M en octubre y el del ejercicio en febrero del año siguiente. Se toma la de portada y no la de cierre contable porque es cuando el mercado tiene el dato, que es lo que el monitor necesita para ordenar señales: con la de cierre parecería que el 9M-2025 se conocía el 30 de septiembre.",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +8.5 %, EBITDA +0.0 %, Licencias +5.5 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA del periodo en 27.9 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El crecimiento interanual de LICENCIAS sube 5.5 %, que es la señal única de la tesis.",
+   "resumen": "Ingresos +8,5 %, EBITDA +7,6 %, beneficio neto +7,7 %, margen 27,9 % (-0,24 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
-     "nombre": "Ingresos totales (M€)",
-     "valor": 392.916
+     "nombre": "Ingresos",
+     "valor": 393.0
     },
     {
-     "nombre": "EBITDA (M€)",
-     "valor": 109.5
+     "nombre": "EBITDA",
+     "valor": 110.0
     },
     {
-     "nombre": "Resultado de explotación (M€)",
-     "valor": 94.405
+     "nombre": "Margen EBITDA",
+     "valor": 27.9
     },
     {
-     "nombre": "Beneficio consolidado (M€)",
-     "valor": 79.718
+     "nombre": "EBIT",
+     "valor": 94.4
     },
     {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 27.87
-    },
-    {
-     "nombre": "LICENCIAS · ingresos del área (M€)",
-     "valor": 85.1
-    },
-    {
-     "nombre": "LICENCIAS · crecimiento interanual (%)",
-     "valor": 5.45
-    },
-    {
-     "nombre": "Bilastina dentro de licencias (M€)",
-     "valor": 70.2
-    },
-    {
-     "nombre": "Segmento Farma (M€)",
-     "valor": 353.8
-    },
-    {
-     "nombre": "Nutrición y Salud Animal (M€)",
-     "valor": 39.1
+     "nombre": "Beneficio neto",
+     "valor": 79.8
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2024-Q4",
@@ -506,55 +491,32 @@
   {
    "periodo": "2025-Q3",
    "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
    "fecha": "2025-09-30",
-   "fechaOrigen": "portada",
-   "fechaOrigenNota": "La fecha de cada periodo sale de la PORTADA del informe de negocio de Faes, que trae el mes de publicación impreso —«Abril 2024», «Octubre 2024», «Julio 2026»—, comprobado informe a informe en los catorce: Q1 en abril, S1 en julio, 9M en octubre y el del ejercicio en febrero del año siguiente. Se toma la de portada y no la de cierre contable porque es cuando el mercado tiene el dato, que es lo que el monitor necesita para ordenar señales: con la de cierre parecería que el 9M-2025 se conocía el 30 de septiembre.",
-   "semaforoGlobal": "A",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +15.5 %, EBITDA -2.7 %, Licencias +16.6 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA del periodo en 23.5 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El crecimiento interanual de LICENCIAS sube 16.6 %, que es la señal única de la tesis.  ·  QUIEBRE DE PERÍMETRO: Desde aquí la serie lleva dentro SIFI (desde septiembre de 2025), Edol e ISF. Ni el crecimiento ni el margen de este periodo ni de los siguientes se comparan con el mismo periodo del año anterior sin decir esto primero: los ingresos de 2025 crecen un 22,9 % y el EBITDA CAE un 8,4 %, y esa tijera es el perímetro comprado entrando con su propio margen y sus gastos de reestructuración, no el negocio de siempre deteriorándose.",
+   "resumen": "Ingresos +15,5 %, EBITDA +3,0 %, beneficio neto -7,9 %, margen 24,8 % (-3,03 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
-     "nombre": "Ingresos totales (M€)",
-     "valor": 453.998
+     "nombre": "Ingresos",
+     "valor": 454.0
     },
     {
-     "nombre": "EBITDA (M€)",
-     "valor": 106.535
+     "nombre": "EBITDA",
+     "valor": 113.0
     },
     {
-     "nombre": "Resultado de explotación (M€)",
-     "valor": 87.889
+     "nombre": "Margen EBITDA",
+     "valor": 24.8
     },
     {
-     "nombre": "Beneficio consolidado (M€)",
-     "valor": 73.625
-    },
-    {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 23.47
-    },
-    {
-     "nombre": "LICENCIAS · ingresos del área (M€)",
-     "valor": 99.2
-    },
-    {
-     "nombre": "LICENCIAS · crecimiento interanual (%)",
-     "valor": 16.57
-    },
-    {
-     "nombre": "Bilastina dentro de licencias (M€)",
-     "valor": 76.3
-    },
-    {
-     "nombre": "Segmento Farma (M€)",
-     "valor": 399.5
-    },
-    {
-     "nombre": "Nutrición y Salud Animal (M€)",
-     "valor": 57.8
+     "nombre": "Beneficio neto",
+     "valor": 73.6
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2025-Q4",
@@ -680,6 +642,28 @@
     {
      "nombre": "Deuda neta",
      "valor": 326.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +24,1 %, beneficio neto +0,8 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — En los nueve meses, ingresos totales 563,5 M€ (+24,1 %), cifra de negocio 551,9 M€ (+25 %), EBITDA 124,4 M€ (+17 %; +20 % sin la reestructuración) con margen del 22,1 % (23,5 %), resultado de explotación 94,5 M€ (+7 %) y beneficio atribuido 74,1 M€ (+0,8 %). Entran también el 9M-2024 (verde) y el 9M-2025 (rojo: beneficio −7,9 % y margen −3 pp con la entrada de SIFI), que el lector no había leído.\n\n**Por qué** — El crecimiento viene del perímetro (SIFI y Edol) y de la venta directa internacional; la bilastina pierde la protección en Japón, «en línea con las previsiones». El beneficio no acompaña a las ventas por tres razones: la reestructuración de SIFI y Edol en el 1T (puntual), la amortización de los intangibles de las compras (+60 %, recurrente) y el resultado financiero, que pasa de −1,1 a −7,2 M€ («el incremento de los tipos de interés y el impacto de las divisas latinoamericanas»).\n\n**Semáforo** — Verde para el 9M, bien puesto: ingresos y beneficio suben. El EBITDA ajustado de 2025 y el reportado de 2026 no se comparan en el automático, que no lo ha contado. Cierra la S5. La S3 (cotización 4,74 € frente al PO de 2,79 €) sigue en su paquete de señales.\n\n**Qué vigilar** — La guía 2026 (ingresos +17 % a +19 % y EBITDA +28 % a +31 % sobre 118 M€) exige unos 27-30 M€ de EBITDA en el 4T. El margen sigue por debajo del de 2024 y el beneficio plano pese a ventas +24 %. Deuda por debajo de 2 veces el EBITDA, según la empresa.\n\n**Lectura** — Aprobar. La tesis no cambia, pero la conversión de ventas en beneficio es lo que hay que ver en el anual.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 564.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 74.1
     }
    ],
    "hechos": [],

@@ -3,7 +3,7 @@
  "ticker": "NTGY",
  "empresa": "Naturgy Energy Group, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-28",
+ "generado": "2026-10-29",
  "revisiones": [
   {
    "periodo": "2022-Q2",
@@ -274,55 +274,36 @@
   {
    "periodo": "2025-Q3",
    "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
    "fecha": "2025-09-30",
-   "fechaOrigen": "portada",
-   "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
-   "semaforoGlobal": "A",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "HUECO DE CADENCIA, no falta de dato: la empresa publicó 2024 pero NO publicó su «9M», así que este periodo no tiene gemelo del ejercicio anterior con el que compararse. No es el primero de la serie ni hay nada que buscar: el periodo con el que se compararía no existe. El color se deja en ámbar porque el crecimiento no se puede razonar, no porque haya deterioro; el margen de este periodo, que sí está, es del 28.9 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). ",
+   "resumen": "Ingresos +4,8 %, EBITDA -1,8 %, beneficio neto +5,6 %, margen 28,9 % (-1,93 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora.",
    "metricas": [
     {
-     "nombre": "Ingresos (M€)",
+     "nombre": "Ingresos",
      "valor": 14586.0
     },
     {
-     "nombre": "EBITDA (M€)",
+     "nombre": "EBITDA",
      "valor": 4214.0
     },
     {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 28.89
+     "nombre": "Margen EBITDA",
+     "valor": 28.9
     },
     {
-     "nombre": "EBIT (M€)",
+     "nombre": "EBIT",
      "valor": 2912.0
     },
     {
-     "nombre": "Resultado neto (M€)",
+     "nombre": "Beneficio neto",
      "valor": 1668.0
-    },
-    {
-     "nombre": "Deuda neta (M€)",
-     "valor": 12913.0
-    },
-    {
-     "nombre": "Puntos conexión gas España (miles)",
-     "valor": 5314.0
-    },
-    {
-     "nombre": "Var. interanual puntos gas (%)",
-     "valor": -0.36
-    },
-    {
-     "nombre": "EBITDA Gas España (M€)",
-     "valor": 583.0
-    },
-    {
-     "nombre": "EBITDA Electricidad España (M€)",
-     "valor": 565.0
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2025-Q4",
@@ -448,6 +429,40 @@
     {
      "nombre": "Deuda neta",
      "valor": 11832.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,4 %, EBITDA +3,9 %, beneficio neto +5,4 %, margen 28,5 % (-0,40 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — En los nueve meses, cifra de negocio 15.374 M€ (+5,4 %), EBITDA 4.380 M€ (+3,9 %) con margen del 28,5 % (28,9 %), EBIT 3.092 M€ (+6,2 %) y resultado neto 1.758 M€ (+5,4 %). Es el primer 9M que se lee de Naturgy: entra también el 9M-2025, en rojo (EBITDA −1,8 % y margen −1,9 pp).\n\n**Por qué** — Según el informe, lo sostienen las actividades reguladas y la generación térmica: las redes crecen con el nuevo marco retributivo de la distribución eléctrica en España y las tarifas de Latinoamérica, y los ciclos combinados producen más por la demanda del mercado de ajustes. Restan la gestión de la energía, por el fin del contrato con Omán y una posición mayoritariamente cubierta, y la comercialización. Hay 126 M€ de ajustes retroactivos de periodos regulatorios anteriores en redes, que son puntuales: sin ellos el EBITDA crecería en torno al 1 %.\n\n**Semáforo** — Verde bien puesto, aunque justo: el margen baja 0,4 pp y parte del crecimiento es el atraso regulatorio de una vez. Cierra la S5.\n\n**Qué vigilar** — Precios de la energía altos y volátiles por el conflicto en Oriente Medio y Ormuz, que la empresa cita como incertidumbre principal. La gestión de la energía resta sin el contrato de Omán. La cotización, 30,10 €, ya está un 3,5 % por debajo del PO de 31,15 € y cerca del bull de 33,41 €.\n\n**Lectura** — Aprobar. No toca la tesis, pero el crecimiento recurrente es más flojo de lo que dice el titular.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 15374.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4380.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 3092.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1758.0
     }
    ],
    "hechos": [],

@@ -3,7 +3,7 @@
  "ticker": "FDR",
  "empresa": "Fluidra, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-28",
+ "generado": "2026-10-29",
  "revisiones": [
   {
    "periodo": "2021-Q1",
@@ -31,7 +31,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +31,1 %, EBITDA +25,8 %, margen 25,5 % (-1,07 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
+   "resumen": "Ingresos +31,1 %, EBITDA +25,7 %, beneficio neto +12,0 %, margen 25,4 % (-1,09 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -43,7 +43,11 @@
     },
     {
      "nombre": "Margen EBITDA",
-     "valor": 25.5
+     "valor": 25.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 75.4
     }
    ],
    "hechos": [],
@@ -95,7 +99,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +15,4 %, EBITDA +1,2 %, margen 23,2 % (-3,27 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos +15,4 %, EBITDA +1,2 %, beneficio neto -19,0 %, margen 23,2 % (-3,27 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -108,6 +112,10 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 23.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 179.0
     }
    ],
    "hechos": [],
@@ -159,7 +167,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -16,9 %, EBITDA -28,8 %, margen 21,8 % (-3,65 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos -16,9 %, EBITDA -28,8 %, beneficio neto -45,3 %, margen 21,8 % (-3,65 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -172,6 +180,10 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 21.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 41.0
     }
    ],
    "hechos": [],
@@ -223,7 +235,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -17,5 %, EBITDA -19,7 %, margen 22,6 % (-0,63 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora.",
+   "resumen": "Ingresos -17,5 %, EBITDA -19,7 %, beneficio neto -39,7 %, margen 22,6 % (-0,63 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -236,6 +248,10 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 22.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 108.0
     }
    ],
    "hechos": [],
@@ -351,7 +367,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +0,9 %, EBITDA +5,5 %, margen 23,6 % (+1,03 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +0,9 %, EBITDA +5,5 %, beneficio neto +13,9 %, margen 23,6 % (+1,03 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -364,6 +380,10 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 23.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 123.0
     }
    ],
    "hechos": [],
@@ -479,11 +499,19 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +5,0 % frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +5,0 %.",
+   "resumen": "Ingresos +5,3 %, EBITDA +6,5 %, margen 23,8 % (+0,26 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +5,0 %.",
    "metricas": [
     {
      "nombre": "Ingresos",
      "valor": 1724.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 411.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.8
     }
    ],
    "hechos": [],
@@ -530,55 +558,28 @@
   {
    "periodo": "2026-Q1",
    "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
    "fecha": "2026-05-06",
    "fechaOrigen": "portada",
-   "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ventas +0.0 %, EBITDA ajustado -5.3 %, Beneficio neto ajustado -7.6 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 57.1 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto cae un 0.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+   "resumen": "Ingresos -5,1 %, EBITDA -5,3 %, margen 23,2 % (-0,05 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
    "metricas": [
     {
-     "nombre": "Ventas (M€)",
-     "valor": 564.0
+     "nombre": "Ingresos",
+     "valor": 535.0
     },
     {
-     "nombre": "Crecimiento orgánico (%)",
-     "valor": 5.3
-    },
-    {
-     "nombre": "Ventas América del Norte (M€)",
-     "valor": 249.0
-    },
-    {
-     "nombre": "Ventas Europa (M€)",
-     "valor": 228.0
-    },
-    {
-     "nombre": "Margen bruto (%)",
-     "valor": 57.1
-    },
-    {
-     "nombre": "EBITDA ajustado (M€)",
+     "nombre": "EBITDA",
      "valor": 124.0
     },
     {
-     "nombre": "Margen EBITDA ajustado (%)",
-     "valor": 22.0
-    },
-    {
-     "nombre": "Beneficio neto ajustado (M€)",
-     "valor": 61.0
-    },
-    {
-     "nombre": "FCL · explotación + CAPEX (M€)",
-     "valor": -150.0
-    },
-    {
-     "nombre": "Deuda neta / EBITDA aj. 12m (x)",
-     "valor": 2.59
+     "nombre": "Margen EBITDA",
+     "valor": 23.2
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2026-Q2",
@@ -613,6 +614,32 @@
     {
      "nombre": "Deuda neta",
      "valor": 1112.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,2 %, EBITDA +4,1 %, margen 24,0 % (+0,21 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — En los nueve meses, ventas 1.780 M€ (+3,3 %; +4,3 % a tipo de cambio constante), EBITDA ajustado 428 M€ (+4,1 %; +5,9 % a tipo constante) con margen del 24,1 % (23,9 %), y beneficio neto ajustado 221 M€ (+3,9 %). El resultado atribuido baja a 154 M€ (163 M€). Deuda neta 1.145 M€, 2,2 veces el EBITDA. El 1T-2026, que no se había leído, entra como ámbar: ventas 535 M€ (564 M€).\n\n**Por qué** — Según la nota de prensa, «la resiliencia de la demanda de aftermarket… compensó con creces la debilidad de la nueva construcción»; todas las regiones crecen (Europa +4,2 %, Norteamérica +3,5 %). Los 23 M€ de ahorro del plan de eficiencia y los precios compensan inflación, aranceles y mix. La caída del resultado atribuido es puntual: reestructuración 40 M€ (13 M€) y pagos en acciones 45 M€ (17 M€) por el plan de huella industrial.\n\n**Semáforo** — Verde bien puesto para el 9M. El ámbar del 1T queda recuperado en el acumulado. Cierra la S5; no abre ninguna.\n\n**Qué vigilar** — La guía del año se estrecha: ventas +3,5 % a +5,5 % a tipo constante, margen 23,3-23,5 % y BPA ajustado +5 % a +9 %. El margen del año (23,3-23,5 %) por debajo del 24,1 % acumulado implica un 4T de menor margen. Deuda en 2,2 veces tras la recompra de 40 M€ y el arrendamiento de Tánger. La nueva construcción sigue débil.\n\n**Lectura** — Aprobar. No toca la tesis.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1780.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 428.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.0
     }
    ],
    "hechos": [],
