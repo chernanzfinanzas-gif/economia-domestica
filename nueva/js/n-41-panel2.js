@@ -52,6 +52,7 @@
   function estado(x,g){ if(g==='ext') return ['Propuesta · decides tú','#EDE9FE','#5B21B6']; if(x.cls==='r') return ['Para actuar','#FEE2E2','#B91C1C']; if(g==='tri') return ['Esperando','#F3F5F8','#5B6B7C']; return ['Para revisar','#FEF3C7','#92400E']; }
   function avisos(){
     var A=window._nAv||{lista:[],vis:{}}, vis=A.vis||{}, F=window._avFiltro||{showSeen:false};
+    try{ var r4a=(typeof nR4XlsAviso==='function')?nR4XlsAviso():null; if(r4a&&!A.lista.some(function(x){ return x.key===r4a.key; })) A.lista=A.lista.concat([r4a]); }catch(e){}
     var L=A.lista.filter(function(x){ return F.showSeen||!vis[x.key]; });
     var nVis=A.lista.filter(function(x){ return vis[x.key]; }).length;
     var G={dec:[],ext:[],tri:[],div:[],hog:[],inf:[]}; L.forEach(function(x){ G[grupo(x)].push(x); });

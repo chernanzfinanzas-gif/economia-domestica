@@ -365,3 +365,110 @@ body.n-noscroll{overflow:hidden}
 #view-panel .mc-max.n-max2{display:grid!important;grid-template-columns:1fr 1fr;gap:6px 24px;align-items:baseline;padding:9px 14px!important;font-size:12.5px!important}
 #view-panel .mc-max.n-max2 .mc-max-intra{display:block;margin:0!important;padding:0!important;border:0!important}
 @media (max-width:640px){#view-panel .mc-max.n-max2{grid-template-columns:1fr}}
+
+/* ===== Kanban como el boceto 28-oct (n-31, 29-oct) ===== */
+#view-embudo .em-legend,#view-embudo .em-divr,#view-embudo .em-agenda,#view-embudo .em-legend+*:not(.em-lane):not(.em-kanban):not(.n-ctrl):not(.em-closed):not(.em-glos){}
+#view-embudo .em-wrap>.em-legend,#view-embudo .em-wrap>[class*="em-div"],#view-embudo .em-wrap>[class*="em-agenda"]{display:none!important}
+#view-embudo .em-lane{background:#FFF!important;border:1px solid #E3E8EF!important;border-left:4px solid #DC2626!important;border-radius:14px!important;padding:14px 16px!important;box-shadow:0 1px 3px rgba(20,34,49,.05)!important}
+#view-embudo .n-lh{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+#view-embudo .n-lh .ic{width:34px;height:34px;border-radius:9px;background:#FEF3C7;display:grid;place-items:center;font-size:17px}
+#view-embudo .n-lh b{display:block;font-size:15.5px;color:#142231} #view-embudo .n-lh small{font-size:12px;color:#64748B}
+#view-embudo .n-lh .n-cc,#view-embudo .em-cc{margin-left:auto;background:#EEF1F5;color:#475569;border-radius:999px;padding:1px 9px;font-size:12px;font-weight:700}
+#view-embudo .em-lane .em-dim{display:none!important}
+#view-embudo .em-lane .em-card{border:1px solid #E3E8EF!important;border-left-width:4px!important;border-radius:10px!important;box-shadow:none!important;padding:10px 14px!important}
+#view-embudo .em-lane .em-acc{background:none!important;color:#334155!important;padding:4px 0!important;font-size:13px!important;border:0!important}
+#view-embudo .em-lane .em-acc:hover{text-decoration:underline}
+#view-embudo .em-dbtns .btn,#view-embudo .n-cbt .btn{padding:4px 12px!important;font-size:12.5px!important;border-radius:7px!important;width:auto!important;flex:0 0 auto!important;min-height:0!important}
+#view-embudo .em-dbtns{display:flex;gap:6px;justify-content:flex-start!important}
+#view-embudo .btn.sm:not(.ghost){background:#1F3F86!important;color:#FFF!important;border-color:#1F3F86!important}
+#view-embudo .btn.ghost.sm{background:#FFF!important;color:#1F3F86!important;border:1px solid #CBD5E1!important}
+#view-embudo .em-kanban .em-col{background:#FFF!important;border:1px solid #E3E8EF!important;border-radius:14px!important;padding:12px!important}
+#view-embudo .em-kanban .em-colh{border-bottom:3px solid var(--nc)!important;padding:0 2px 8px!important;margin-bottom:10px!important;color:#142231!important;font-weight:700!important;text-transform:none!important;letter-spacing:0!important}
+#view-embudo .em-kanban .em-card{border-left-color:var(--nc)!important;border-radius:10px!important;border:1px solid #E3E8EF;border-left:4px solid var(--nc)!important;box-shadow:none!important}
+#view-embudo .em-kanban .em-caret{display:none}
+#view-embudo .n-cdet{font-size:12px;color:#64748B;margin-left:2px}
+#view-embudo .n-cbt{display:flex;gap:6px;margin-top:8px}
+/* ventana de la ficha */
+#view-embudo .n-fwin{max-width:1100px!important}
+.n-fchs{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.n-fch{font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 9px}
+.n-fk4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.n-fk{border:1px solid #E3E8EF;border-radius:10px;padding:10px 12px}
+.n-fk .l{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#64748B;font-weight:600}
+.n-fk .v{font-size:21px;font-weight:800;color:#142231;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.n-fk .s{font-size:12px;color:#64748B}
+.n-f2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.n-fbx{border:1px solid #E3E8EF;border-radius:10px;padding:12px 14px;font-size:13px;color:#334155}
+.n-fbx ul{margin:4px 0 0 18px;padding:0} .n-fbx li{margin:3px 0}
+.n-fbt{font-weight:700;color:#142231;margin-bottom:8px;font-size:13.5px}
+.n-fpl{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.n-fpl div{background:#F5F7FA;border-radius:8px;padding:7px 9px} .n-fpl span{display:block;font-size:11px;color:#64748B} .n-fpl b{font-size:15px;color:#142231}
+.n-fbars{display:flex;gap:6px;align-items:flex-end;height:96px}
+.n-fbars .b{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.n-fbars i{display:block;width:100%;background:#4ADE80;border-radius:3px 3px 0 0}
+.n-fbars span{font-size:10px;color:#64748B;margin-top:3px} .n-fbars b{font-size:10.5px;color:#15803D}
+.n-fds{font-size:12px;color:#64748B;margin-top:6px}
+.n-fwhy{margin-bottom:4px} .n-fwhy>div{margin:2px 0}
+@media (max-width:760px){.n-fk4{grid-template-columns:1fr 1fr}.n-f2{grid-template-columns:1fr}.n-fpl{grid-template-columns:1fr 1fr}}
+/* Mazinger: seis cifras en tres columnas */
+#view-mazinger .n-mzk{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:14px!important}
+@media (max-width:640px){#view-mazinger .n-mzk{grid-template-columns:1fr 1fr!important}}
+/* Patrimonio: reparto en verde (efectivo) y naranja (invertido), como el boceto y la gráfica */
+#view-patrimonio .pat-rep .pr-bar i:nth-child(1),#view-patrimonio .pat-rep .pr-leg>span:nth-child(1) .pr-dot{background:#16A34A!important}
+#view-patrimonio .pat-rep .pr-bar i:nth-child(2),#view-patrimonio .pat-rep .pr-leg>span:nth-child(2) .pr-dot{background:#D97706!important}
+
+/* 29-oct (Carlos): en Mazinger Z y Fondo R4 fuera el banner de arriba; la tarjeta de la foto pasa a ser el banner, con degradado */
+#view-mazinger .vhero,#view-fondor4 .vhero{display:none!important}
+#view-mazinger .mz-hero,#view-fondor4 .n-r4logo{background:linear-gradient(100deg,#1B3260 0%,#1F4A9A 50%,#2563EB 100%)!important;border:0!important;box-shadow:0 10px 26px rgba(21,50,90,.22)!important;color:#FFF!important}
+#view-mazinger .mz-hero *{color:#FFF!important}
+#view-mazinger .mz-hero img{background:#FFF;padding:6px}
+#view-mazinger .mz-hero .mz-consbadge,#view-fondor4 .n-r4logo em{background:rgba(255,255,255,.16)!important;color:#FFF!important}
+#view-fondor4 .n-r4logo img{background:#FFF;border-radius:10px;padding:8px 14px;height:54px!important}
+#view-fondor4 .n-r4logo .n-r4t b,#view-fondor4 .n-r4logo .n-r4t span{color:#FFF!important}
+#view-fondor4 .n-r4logo .n-r4t span{opacity:.85}
+/* Fondo R4: «Importar .json» ya no se usa (los datos entran pegando el extracto de Renta 4) */
+#view-fondor4 #r4ImportBtn{display:none!important}
+/* Caja bróker (29-oct) */
+#view-caja .ptable td,#view-caja .ptable th{text-align:left}
+#view-caja .ptable td.num,#view-caja .ptable th.num{text-align:right}
+#view-caja .ptable td:first-child,#view-caja .ptable th:first-child{text-align:center;width:44px}
+#view-caja #nCajaBlk .pos-blk-b{display:none} #view-caja #nCajaBlk.open .pos-blk-b{display:block}
+#view-caja .caja-toolbar{margin-bottom:10px}
+/* Hogar bajo Presupuesto (29-oct) */
+.n-hogar{margin-top:16px}
+.n-hg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:860px){.n-hg{grid-template-columns:1fr}}
+.n-hc{background:#FFF;border:1px solid #E3E8EF;border-left:4px solid var(--c);border-radius:14px;padding:14px 16px;box-shadow:0 1px 3px rgba(20,34,49,.05)}
+.n-hh{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#475569}
+.n-hh .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-size:15px}
+.n-hh em{margin-left:auto;font-style:normal;text-transform:none;letter-spacing:0;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px}
+.n-hv{font-size:27px;font-weight:800;color:#142231;margin:10px 0 2px;font-variant-numeric:tabular-nums}
+.n-hv small{font-size:15px;font-weight:600;color:#475569}
+.n-hs{font-size:13px;color:#475569}
+.n-hbar{position:relative;height:9px;background:#EEF1F5;border-radius:99px;margin:10px 0 4px;overflow:visible}
+.n-hbar i{display:block;height:100%;border-radius:99px}
+.n-hbar u{position:absolute;top:-4px;width:2px;height:17px;background:#142231}
+.n-hn{font-size:11.5px;color:#94A3B8;margin-top:4px}
+.n-hms{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px} .n-hms.n3{grid-template-columns:repeat(3,1fr)}
+.n-hm{background:#F5F7FA;border-radius:8px;padding:7px 10px} .n-hm span{display:block;font-size:11.5px;color:#64748B} .n-hm b{font-size:16px;color:#142231}
+@media (max-width:560px){.n-hms{grid-template-columns:1fr 1fr}}
+#view-caja .ptable tbody td:nth-child(2),#view-caja .ptable tbody td:nth-child(3){text-align:left!important}
+.n-hg{align-items:start}
+/* Cuenta del bróker R4 (cálculo nuevo, 29-oct) */
+#view-caja .n-r4note{font-size:12.5px;color:#475569;background:#F5F7FA;border-radius:8px;padding:9px 12px;margin-bottom:12px;line-height:1.5}
+#view-caja .n-r4t{display:table!important;table-layout:auto!important;width:100%!important;border-collapse:collapse;font-size:13px;margin:0!important}
+#view-caja .n-r4t th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#64748B;text-align:left!important;padding:6px 10px;border-bottom:1px solid #E3E8EF;background:#F8FAFC}
+#view-caja .n-r4t td{padding:7px 10px;border-bottom:1px solid #F1F4F8;text-align:left!important}
+#view-caja .n-r4t .num{text-align:right!important;font-variant-numeric:tabular-nums;white-space:nowrap}
+#view-caja .n-r4t td:first-child{width:60px;color:#475569}
+#view-caja .n-r4t td:nth-child(3){width:120px}
+#view-caja .n-r4t td:nth-child(4){width:300px;font-size:12.5px}
+#view-caja .n-org{font-size:11px;color:#94A3B8}
+#view-caja .n-r4sub{font-size:12px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.04em;margin:14px 0 6px}
+#view-caja .n-r4up{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 12px;font-size:13px;color:#334155}
+#view-fondor4 .n-r4up{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0;font-size:13px;color:#334155}
+#view-fondor4 .n-r4t{display:table!important;width:100%!important;border-collapse:collapse;font-size:13px}
+#view-fondor4 .n-r4t th{font-size:11px;text-transform:uppercase;color:#64748B;text-align:left;padding:6px 10px;border-bottom:1px solid #E3E8EF;background:#F8FAFC}
+#view-fondor4 .n-r4t td{padding:7px 10px;border-bottom:1px solid #F1F4F8;text-align:left}
+#view-fondor4 .n-r4t .num{text-align:right!important;font-variant-numeric:tabular-nums}
+#view-fondor4 #nR4FMov .pos-blk-b{display:none} #view-fondor4 #nR4FMov.open .pos-blk-b{display:block}

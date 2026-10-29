@@ -4,7 +4,7 @@
 const $ = (s,el=document)=>el.querySelector(s);
 const $$ = (s,el=document)=>[...el.querySelectorAll(s)];
 const uid = ()=> Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const eur = new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'});
+const eur = (function(){ try{ return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',useGrouping:'always'}); }catch(e){ return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}); } })();
 const fmt = n => eur.format(n||0);
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 const num = v => { const n = parseFloat(v); return isNaN(n)?0:n; };

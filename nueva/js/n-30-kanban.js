@@ -4,6 +4,7 @@
    El contenido de la ficha y sus botones son los de siempre. */
 (function(){
   if(typeof renderEmbudo!=='function') return;
+  function fmt(x){ x=+x||0; try{ return x.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2,useGrouping:'always'})+' €'; }catch(e){ return window.fmt(x); } }
   function kpis(sec){
     var caja=(typeof _saldoCajaHoy==='function')?_saldoCajaHoy():null;
     var hoy=new Date(); hoy.setHours(0,0,0,0); var hS=hoy.toISOString().slice(0,10), lS=new Date(hoy.getTime()+30*864e5).toISOString().slice(0,10);
@@ -25,6 +26,7 @@
     window._emExp=window._emExp||{}; var prev=window._emExp[t]; window._emExp[t]=true;
     var card=''; try{ card=_emCard(r,false); }catch(e){ console.error('n-kanban',e); } window._emExp[t]=prev;
     var m=document.createElement('div'); m.id='nEmModal'; m.className='n-mback';
+    if(typeof window.nEmFicha==='function'){ try{ m.innerHTML=window.nEmFicha(r); sec.appendChild(m); document.body.classList.add('n-noscroll'); window._nEmModal=t; return; }catch(e){ console.error('n-kanban ficha',e); } }
     m.innerHTML='<div class="n-mwin" role="dialog" aria-modal="true"><div class="n-mhead"><div><div class="n-mt"><b>'+_emEsc(r.t)+'</b> '+_emEsc(r.nombre||'')+'</div><div class="n-msub">'+_emEsc(r.et||'')+(r.held?' · en cartera':'')+(r.score!=null?' · score '+Math.round(r.score):'')+'</div></div>'+
       '<button class="n-mx" data-nemclose="1" aria-label="Cerrar">✕</button></div><div class="n-mbody">'+card+'</div>'+
       '<div class="n-mfoot"><button class="btn ghost" data-ficha="'+_emEsc(r.t)+'">📄 Ficha completa</button><span style="flex:1"></span><span class="n-mro">Comprar, vender y anotar dividendos guardarán datos en la fase 3</span></div></div>';
