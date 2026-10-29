@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-29T10:45",
+ "generado": "2026-10-29T12:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -55,9 +55,9 @@
     "2026-9M"
    ],
    "tipo": "pase",
-   "creada": "2026-10-29T09:26",
+   "creada": "2026-10-29T11:03",
    "semaforo": "V",
-   "frase": "Qué ha pasado — Resultado atribuido de 9.066 M€ (+13,6 %), margen de intereses de 23.243 M€ (+20,8 %), margen bruto de 32.072 M€ (+18,2 %) y margen neto de 19.903 M€ (+18,6 %). RoTE del 22,0 % (19,7 % hace un año), en el objetivo del plan ("
+   "frase": null
   },
   {
    "carpeta": "BKT señales 2026-10-28",
@@ -96,6 +96,19 @@
    "frase": "S3 · REAFIRMAR propuesta. Cotiza a 43,19 €, un 63,9 % sobre el PO (26,35 €) y sobre el PO bull (37,89 €). Verde en el 9M-2026: ingresos +9,0 %, EBITDA +8,4 % y beneficio +14,7 %. Los resultados acompañan; ESPERAR: no comprar más y mantener."
   },
   {
+   "carpeta": "FAE 2026-9M",
+   "ticker": "FAE",
+   "periodos": [
+    "2024-9M",
+    "2025-9M",
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-10-29T11:23",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
    "carpeta": "FAE señales 2026-10-28",
    "ticker": "FAE",
    "periodos": [],
@@ -108,10 +121,11 @@
    "carpeta": "FDR 2026-9M",
    "ticker": "FDR",
    "periodos": [
+    "2026-3M",
     "2026-9M"
    ],
    "tipo": "pase",
-   "creada": "2026-10-29T09:29",
+   "creada": "2026-10-29T11:22",
    "semaforo": "V",
    "frase": null
   },
@@ -242,7 +256,7 @@
    "frase": "S3 · REAFIRMAR propuesta. Cotiza a 53,90 €, solo un 1,6 % sobre el PO (53,06 €) y lejos del PO bull (64,24 €). El rojo del 9M-2026 es de divisa y energía (EBITDA comparable +1,6 %; guía de EBITDA rebajada 10-15 M€) y la S2 se reafirmó el 26"
   }
  ],
- "n_pendientes": 26,
+ "n_pendientes": 27,
  "ultima_subida": {
   "cuando": "2026-10-28T23:45",
   "ficheros": [
