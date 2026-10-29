@@ -24,6 +24,16 @@
     "motivo": "Rojo en 2026-9M por persistencia: el 3T mejora (ventas +5,5 %) y, sin la divisa, el EBITDA comparable sube un 1,6 %; la empresa rebaja en 10-15 M€ el EBITDA del año por la energía. Puntual (divisa y energía). ESPERAR (cotiza sobre el PO de 53,13 €): mantener sin ampliar. Pase con nota del método v3, aprobado el 26-oct-2026.",
     "revision": "VIS revisión con nota",
     "origen": "metodo-v3"
+   },
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 53.9,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 53,90 €, solo un 1,6 % sobre el PO (53,06 €) y lejos del PO bull (64,24 €). El rojo del 9M-2026 es de divisa y energía (EBITDA comparable +1,6 %; guía de EBITDA rebajada 10-15 M€) y la S2 se reafirmó el 26-oct. ESPERAR: mantener sin ampliar. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026.",
+    "revision": "VIS señales 2026-10-28",
+    "origen": "metodo-v3"
    }
   ],
   "AENA": [
@@ -46,6 +56,17 @@
     "motivo": "Puntual y contable, no estructural: el rojo del 9M sale del margen (58,3 % frente a 60,2 %), arrastrado por los ingresos de construcción IFRIC 12 sin margen y el seguro de Luton cobrado en 2025; sin ellos el margen es 60,3 % frente a 60,9 % y el EBITDA sube un 8,4 %, con beneficio +12,4 % (documento: «2026-10-28 Presentación de Resultados e Informe de Gestión 9M 2026»). Se vigila el impacto en rentabilidad del DORA III (+0,33 % anual de tarifa con 12.888 M€ de inversión). Propuesta del pase de novedades del método v3.",
     "revision": "AENA 2026-9M",
     "origen": "metodo-v3"
+   },
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 26.78,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 26,78 €, un 63,9 % sobre el PO (16,34 €) y claramente sobre el PO bull (20,98 €). El ámbar del 9M-2026 es contable (S2 reafirmada el 28-oct: sin IFRIC 12 ni el seguro de Luton, EBITDA +8,4 % y beneficio +12,4 %), así que el negocio sí acompaña. ESPERAR sin ampliar; si el margen ajustado empezara a bajar, la propuesta pasaría a VENDE parcial. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "AENA señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
    }
   ],
   "FAE": [
@@ -58,6 +79,17 @@
     "motivo": "Rojo del S1-2026 corregido a ámbar con el informe de la empresa: el margen baja por la entrada de SIFI y Edol (de menor margen) y 3,2 M€ de reestructuración de una vez; EBITDA +23,8 % (+28 % sin ella) y previsión 2026 mantenida (EBITDA +28/+31 %). ESPERAR. Nota del semestre del método v3, aprobada el 26-oct-2026.",
     "revision": "FAE nota del semestre",
     "origen": "metodo-v3"
+   },
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 4.74,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 4,74 €, un 70,0 % sobre el PO (2,79 €) pero por debajo del PO bull (5,55 €). El ámbar del S1-2026 es de perímetro (SIFI y Edol, de menor margen, y 3,2 M€ de reestructuración), con EBITDA +23,8 % y la guía de 2026 mantenida. ESPERAR: no comprar más; el 9M-2026 está pendiente de documento y dirá si la guía sigue. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "FAE señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
    }
   ],
   "PRM": [
@@ -70,6 +102,17 @@
     "motivo": "Rojo del S1-2026 por los costes del plan de crecimiento (personal +6,9 %, amortizaciones +8 %) con ventas −1,0 %; el margen bruto, variable de la tesis, sigue en verde (51,3 %). Puntual en la tesis, a vigilar en costes: el 9M dirá si las compras devuelven el EBITDA a crecer. ESPERAR. Nota del semestre del método v3, aprobada el 26-oct-2026.",
     "revision": "PRM nota del semestre",
     "origen": "metodo-v3"
+   },
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 12.45,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 12,45 €, un 9,9 % sobre el PO (11,33 €) y un 3 % sobre el PO bull (12,09 €), con el S1-2026 en rojo por los costes del plan de crecimiento (EBITDA −18,4 %; S2 reafirmada el 26-oct como puntual). Está muy poco sobre el bull para vender: ESPERAR sin ampliar y decidir con el 9M; si el EBITDA no vuelve a crecer con las compras dentro, la propuesta será REBAJA. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "PRM señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
    }
   ],
   "TEF": [
@@ -129,7 +172,274 @@
     "revision": "RED 2026-9M",
     "origen": "metodo-v3"
    }
+  ],
+  "ACS": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 91.15,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 91,15 €, un 32,5 % sobre el PO (68,77 €) y por encima del PO bull (82,65 €), pero el último semáforo es verde (S1-2026: ingresos +8,5 %, EBITDA +10,8 %, beneficio +13,3 %): los resultados acompañan. La tesis ya es ESPERAR: no comprar más y mantener lo que se tenga; el PO no se toca a mano hasta que la valoración recoja el cierre de 2026. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "ACS señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "ACX": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 16.84,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 16,84 €, un 35,2 % sobre el PO (12,45 €) y apenas por encima del PO bull (16,38 €). Los resultados acompañan: verde en el S1-2026 con EBITDA +26,0 % y margen del 9,1 % (+2,1 puntos) tras dos rojos en 2025. ESPERAR: no comprar más; mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "ACX señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "AMS": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 56.38,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 56,38 €, un 14,6 % sobre el PO (49,19 €) y justo en el PO bull (56,43 €). Verde en el S1-2026 (ingresos +2,3 %, EBITDA +2,1 %), aunque el beneficio baja un 3,7 %. ESPERAR: no comprar más; se vigila que el beneficio vuelva a crecer. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "AMS señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "ART": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 31.3,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 31,30 €, un 137 % sobre el PO (13,20 €) y muy por encima del PO bull (22,43 €), pero los resultados acompañan con fuerza: verde en el S1-2026 con ingresos +10,7 %, EBITDA +28,7 %, beneficio +44,3 % y margen del 18,4 % (+2,6 puntos). ESPERAR: no comprar más; la distancia al PO es tan grande que conviene que la valoración se rehaga con el cierre de 2026. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "ART señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "BKT": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 14.31,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 14,31 €, un 20,3 % sobre el PO (11,89 €) y poco por encima del PO bull (13,94 €). Verde en el 9M-2026: resultado atribuido +11,0 % y RoTE del 20,4 %, por encima del 19,1 % del bull. ESPERAR: no comprar más; mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "BKT señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "CABK": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 11.455,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 11,46 €, un 51,4 % sobre el PO (7,57 €) y sobre el PO bull (9,23 €). Verde en el S1-2026: resultado atribuido +8,5 % y RoTE del 18,0 %. Los resultados acompañan; ESPERAR: no comprar más y mantener, a revisar con el 9M. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "CABK señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "EBRO": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 17.74,
+    "decision": "REBAJA",
+    "motivo": "Sin posición en cartera: la propuesta VENDE pasa a REBAJA. Decidido por Carlos en la app el 29-10-2026, en lugar de la propuesta (VENDE). Decidido sin posición en cartera.",
+    "revision": "EBRO señales 2026-10-28",
+    "origen": "metodo-v3",
+    "veredictoAntes": "ESPERAR",
+    "veredictoTope": "ESPERAR",
+    "sinPosicion": true
+   },
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S6",
+    "cot": 17.74,
+    "decision": "REAFIRMAR",
+    "motivo": "Cuatro ámbar seguidos, pero mezcla de puntual y real: en el 9M-2026 4,9 M€ de la caída del EBITDA son dólar (sin él, plano) y el arroz sube (EBITDA +2,4 %); lo que se deteriora de verdad es la pasta (−15,0 % por aranceles, transporte, energía y Garofalo), según «2026-10-28 Ebro Foods, S.A. publica la presentación a analistas». La variable de la tesis, la conversión en caja, no está tocada: se vigila la pasta en el cierre de 2026. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "EBRO señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "ELE": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 43.19,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 43,19 €, un 63,9 % sobre el PO (26,35 €) y sobre el PO bull (37,89 €). Verde en el 9M-2026: ingresos +9,0 %, EBITDA +8,4 % y beneficio +14,7 %. Los resultados acompañan; ESPERAR: no comprar más y mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026.",
+    "revision": "ELE señales 2026-10-28",
+    "origen": "metodo-v3"
+   }
+  ],
+  "GEST": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S6",
+    "cot": 2.88,
+    "decision": "REAFIRMAR",
+    "motivo": "Dos ámbar seguidos (1T y S1-2026) por divisa más que por negocio: en el S1 ingresos −0,9 % y EBITDA −0,2 %, con margen del 11,05 %, beneficio +47 % y deuda neta de 1.771 M€ (−17 %). Puntual por ahora, pero el margen está en el borde de la señal única de la tesis (por debajo del 11 % dos semestres seguidos): el 9M-2026 lo decide. MANTENER. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "GEST señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "IBE": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 22.03,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 22,03 €, un 10,9 % sobre el PO (19,87 €) y por debajo del PO bull (22,71 €). Verde en el 9M-2026 con EBITDA ajustado +7,5 %, beneficio ajustado +8,8 % y guía de 2026 mejorada. ESPERAR: no comprar más; mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026.",
+    "revision": "IBE señales 2026-10-28",
+    "origen": "metodo-v3"
+   }
+  ],
+  "ITX": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 57.08,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 57,08 €, un 17,2 % sobre el PO (48,71 €) y apenas sobre el PO bull (56,52 €). Verde en el S1-2026: ingresos +7,6 %, EBITDA +8,1 %, beneficio +6,8 %. Los resultados acompañan; ESPERAR: no comprar más y mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "ITX señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "LDA": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 1.23,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 1,23 €, un 44,1 % sobre el PO (0,85 €) y sobre el PO bull (1,03 €). Verde en el 9M-2026: resultado neto +34,8 % y margen técnico de Motor de 8,7 puntos (+2,1). Los resultados acompañan; ESPERAR: no comprar más y mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "LDA señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "LOG": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 36.3,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 36,30 €, prácticamente en el PO (36,25 €, +0,1 %) y lejos del PO bull (40,27 €). Verde en el 9M-2026 con EBIT ajustado +3,1 %. Nada que hacer: ESPERAR y mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026.",
+    "revision": "LOG señales 2026-10-28",
+    "origen": "metodo-v3"
+   }
+  ],
+  "MAP": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 4.17,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 4,17 €, un 23,9 % sobre el PO (3,36 €) y sobre el PO bull (3,88 €). El ámbar del 9M-2026 es puntual: el combinado de No Vida sube al 93,5 % por catástrofes (terremoto de Colombia, 83 M€ netos), pero el beneficio crece un 11,5 % y el dividendo a cuenta un 13,6 %. ESPERAR: no comprar más; si el combinado sigue sobre el 92 % al cierre sin catástrofes, se revisa. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026.",
+    "revision": "MAP señales 2026-10-28",
+    "origen": "metodo-v3"
+   }
+  ],
+  "MCM": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S2",
+    "cot": 9.9,
+    "decision": "REAFIRMAR",
+    "motivo": "Cuarto rojo seguido: en el S1-2026 cifra de negocios −7,4 %, EBITDA −13,7 %, beneficio −23,1 % y tabaco −5,3 %, el primer semestre de caída de la señal única. La tesis, escrita el 27-oct con ese semestre dentro, ya lo recoge: COMPRAR con tamaño reducido o esperar al 9M; la cotización (9,90 €) está bajo el PO bear (11,33 €) y sobre el stop (8,19 €). Si el tabaco vuelve a caer en el segundo semestre, el deterioro pasa a estructural y se propondrá REBAJA. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "MCM señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "MRL": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 11.27,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 11,27 €, un 10,4 % sobre el PO (10,21 €) y por debajo del PO bull (12,13 €). Verde en el S1-2026: rentas +10,2 %, FFO +8,0 % y LTV del 24,5 %. ESPERAR: no comprar más; mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "MRL señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "R4": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 19.9,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 19,90 €, un 31,7 % sobre el PO (15,12 €) y sobre el PO bull (16,02 €). Verde en el 9M-2026: beneficio atribuido +48,0 % y ROE a 12 meses del 34,1 %. Los resultados acompañan; ESPERAR: no comprar más y mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "R4 señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
+  ],
+  "REP": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 28.54,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 28,54 €, un 7 % sobre el PO bull (26,65 €) y un 73 % sobre el PO (16,49 €), con el 9M-2026 en verde. El disparador del bull (margen EBITDA trimestral por encima del 14 %) ya se ha cumplido: el margen del 9M es del 20,2 %, por encima incluso del 17,3 % de mediana de la década que el bull supone, porque el margen de refino se ha triplicado (20,6 $/barril frente a 6,7; 36,2 en el 3T) y hay +943 M€ de efecto patrimonial que se da la vuelta si el crudo baja. Los resultados acompañan, así que según el criterio del método no toca vender: REAFIRMAR el ESPERAR (no comprar más). La cotización ya descuenta un ciclo de refino mejor que el bull. Si el margen trimestral vuelve por debajo del 14 % con la cotización arriba, VENDE parcial. Una salida parcial ahora también es defendible para quien quiera asegurar parte de la subida. La valoración se rehace con las cuentas de 2026. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026.",
+    "revision": "REP señales 2026-10-29",
+    "origen": "metodo-v3"
+   }
+  ],
+  "SAN": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 10.64,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 10,64 €, un 52,6 % sobre el PO (6,97 €) y sobre el PO bull (8,69 €). Verde en el 9M-2026: beneficio atribuido +20,0 % y RoTE del 17,4 %. Los resultados acompañan; ESPERAR: no comprar más y mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026.",
+    "revision": "SAN señales 2026-10-28",
+    "origen": "metodo-v3"
+   }
+  ],
+  "UNI": [
+   {
+    "fecha": "29-oct-2026",
+    "fechaIso": "2026-10-29",
+    "senal": "S3",
+    "cot": 3.17,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 3,17 €, un 19,6 % sobre el PO (2,65 €) y por debajo del PO bull (3,23 €). Verde en el S1-2026: resultado consolidado +6,8 % y RoTE del 10,0 %. ESPERAR: no comprar más; mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026. Decidido sin posición en cartera.",
+    "revision": "UNI señales 2026-10-28",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
   ]
  },
- "actualizado": "2026-10-28"
+ "actualizado": "2026-10-29"
 }
