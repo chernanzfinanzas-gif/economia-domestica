@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-28T23:45",
+ "generado": "2026-10-29T10:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -10,7 +10,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 91,15 €, un 32,5 % sobre el PO (68,77 €) y por encima del PO bull (82,65 €), pero el último semáforo es verde (S1-2026: ingresos +8,5 %, EBITDA +10,8 %, beneficio +13,3 %): los resultados acompañan. La tes"
   },
   {
    "carpeta": "ACX señales 2026-10-28",
@@ -19,7 +19,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 16,84 €, un 35,2 % sobre el PO (12,45 €) y apenas por encima del PO bull (16,38 €). Los resultados acompañan: verde en el S1-2026 con EBITDA +26,0 % y margen del 9,1 % (+2,1 puntos) tras dos rojos en 2025."
   },
   {
    "carpeta": "AENA señales 2026-10-28",
@@ -28,7 +28,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 26,78 €, un 63,9 % sobre el PO (16,34 €) y claramente sobre el PO bull (20,98 €). El ámbar del 9M-2026 es contable (S2 reafirmada el 28-oct: sin IFRIC 12 ni el seguro de Luton, EBITDA +8,4 % y beneficio +1"
   },
   {
    "carpeta": "AMS señales 2026-10-28",
@@ -37,7 +37,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 56,38 €, un 14,6 % sobre el PO (49,19 €) y justo en el PO bull (56,43 €). Verde en el S1-2026 (ingresos +2,3 %, EBITDA +2,1 %), aunque el beneficio baja un 3,7 %. ESPERAR: no comprar más; se vigila que el "
   },
   {
    "carpeta": "ART señales 2026-10-28",
@@ -46,16 +46,18 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 31,30 €, un 137 % sobre el PO (13,20 €) y muy por encima del PO bull (22,43 €), pero los resultados acompañan con fuerza: verde en el S1-2026 con ingresos +10,7 %, EBITDA +28,7 %, beneficio +44,3 % y marge"
   },
   {
-   "carpeta": "BBVA señales 2026-10-28",
+   "carpeta": "BBVA 2026-9M",
    "ticker": "BBVA",
-   "periodos": [],
-   "tipo": "senales",
-   "creada": "2026-10-28T22:40",
-   "semaforo": null,
-   "frase": null
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-10-29T09:26",
+   "semaforo": "V",
+   "frase": "Qué ha pasado — Resultado atribuido de 9.066 M€ (+13,6 %), margen de intereses de 23.243 M€ (+20,8 %), margen bruto de 32.072 M€ (+18,2 %) y margen neto de 19.903 M€ (+18,6 %). RoTE del 22,0 % (19,7 % hace un año), en el objetivo del plan ("
   },
   {
    "carpeta": "BKT señales 2026-10-28",
@@ -64,7 +66,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 14,31 €, un 20,3 % sobre el PO (11,89 €) y poco por encima del PO bull (13,94 €). Verde en el 9M-2026: resultado atribuido +11,0 % y RoTE del 20,4 %, por encima del 19,1 % del bull. ESPERAR: no comprar más"
   },
   {
    "carpeta": "CABK señales 2026-10-28",
@@ -73,7 +75,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 11,46 €, un 51,4 % sobre el PO (7,57 €) y sobre el PO bull (9,23 €). Verde en el S1-2026: resultado atribuido +8,5 % y RoTE del 18,0 %. Los resultados acompañan; ESPERAR: no comprar más y mantener, a revis"
   },
   {
    "carpeta": "EBRO señales 2026-10-28",
@@ -82,7 +84,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · VENDE propuesta. Salida parcial. Cotiza a 17,74 €, un 23,5 % sobre el PO (14,36 €) y ya por encima del PO bull (17,42 €), mientras los resultados no acompañan: cuarto ámbar seguido, con el 9M-2026 en ventas −2,3 %, EBITDA −1,4 % y la p"
   },
   {
    "carpeta": "ELE señales 2026-10-28",
@@ -91,7 +93,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 43,19 €, un 63,9 % sobre el PO (26,35 €) y sobre el PO bull (37,89 €). Verde en el 9M-2026: ingresos +9,0 %, EBITDA +8,4 % y beneficio +14,7 %. Los resultados acompañan; ESPERAR: no comprar más y mantener."
   },
   {
    "carpeta": "FAE señales 2026-10-28",
@@ -100,6 +102,17 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 4,74 €, un 70,0 % sobre el PO (2,79 €) pero por debajo del PO bull (5,55 €). El ámbar del S1-2026 es de perímetro (SIFI y Edol, de menor margen, y 3,2 M€ de reestructuración), con EBITDA +23,8 % y la guía "
+  },
+  {
+   "carpeta": "FDR 2026-9M",
+   "ticker": "FDR",
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-10-29T09:29",
+   "semaforo": "V",
    "frase": null
   },
   {
@@ -109,7 +122,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S6 · REAFIRMAR propuesta. Dos ámbar seguidos (1T y S1-2026) por divisa más que por negocio: en el S1 ingresos −0,9 % y EBITDA −0,2 %, con margen del 11,05 %, beneficio +47 % y deuda neta de 1.771 M€ (−17 %). Puntual por ahora, pero el marge"
   },
   {
    "carpeta": "IBE señales 2026-10-28",
@@ -118,7 +131,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 22,03 €, un 10,9 % sobre el PO (19,87 €) y por debajo del PO bull (22,71 €). Verde en el 9M-2026 con EBITDA ajustado +7,5 %, beneficio ajustado +8,8 % y guía de 2026 mejorada. ESPERAR: no comprar más; mant"
   },
   {
    "carpeta": "ITX señales 2026-10-28",
@@ -127,7 +140,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 57,08 €, un 17,2 % sobre el PO (48,71 €) y apenas sobre el PO bull (56,52 €). Verde en el S1-2026: ingresos +7,6 %, EBITDA +8,1 %, beneficio +6,8 %. Los resultados acompañan; ESPERAR: no comprar más y mant"
   },
   {
    "carpeta": "LDA señales 2026-10-28",
@@ -136,7 +149,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 1,23 €, un 44,1 % sobre el PO (0,85 €) y sobre el PO bull (1,03 €). Verde en el 9M-2026: resultado neto +34,8 % y margen técnico de Motor de 8,7 puntos (+2,1). Los resultados acompañan; ESPERAR: no comprar"
   },
   {
    "carpeta": "LOG señales 2026-10-28",
@@ -145,7 +158,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 36,30 €, prácticamente en el PO (36,25 €, +0,1 %) y lejos del PO bull (40,27 €). Verde en el 9M-2026 con EBIT ajustado +3,1 %. Nada que hacer: ESPERAR y mantener. Propuesta del pase de señales del método v"
   },
   {
    "carpeta": "MAP señales 2026-10-28",
@@ -154,7 +167,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 4,17 €, un 23,9 % sobre el PO (3,36 €) y sobre el PO bull (3,88 €). El ámbar del 9M-2026 es puntual: el combinado de No Vida sube al 93,5 % por catástrofes (terremoto de Colombia, 83 M€ netos), pero el ben"
   },
   {
    "carpeta": "MCM señales 2026-10-28",
@@ -163,7 +176,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S2 · REAFIRMAR propuesta. Cuarto rojo seguido: en el S1-2026 cifra de negocios −7,4 %, EBITDA −13,7 %, beneficio −23,1 % y tabaco −5,3 %, el primer semestre de caída de la señal única. La tesis, escrita el 27-oct con ese semestre dentro, ya"
   },
   {
    "carpeta": "MRL señales 2026-10-28",
@@ -172,7 +185,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 11,27 €, un 10,4 % sobre el PO (10,21 €) y por debajo del PO bull (12,13 €). Verde en el S1-2026: rentas +10,2 %, FFO +8,0 % y LTV del 24,5 %. ESPERAR: no comprar más; mantener. Propuesta del pase de señal"
   },
   {
    "carpeta": "PRM señales 2026-10-28",
@@ -181,7 +194,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 12,45 €, un 9,9 % sobre el PO (11,33 €) y un 3 % sobre el PO bull (12,09 €), con el S1-2026 en rojo por los costes del plan de crecimiento (EBITDA −18,4 %; S2 reafirmada el 26-oct como puntual). Está muy p"
   },
   {
    "carpeta": "R4 señales 2026-10-28",
@@ -190,7 +203,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 19,90 €, un 31,7 % sobre el PO (15,12 €) y sobre el PO bull (16,02 €). Verde en el 9M-2026: beneficio atribuido +48,0 % y ROE a 12 meses del 34,1 %. Los resultados acompañan; ESPERAR: no comprar más y mant"
   },
   {
    "carpeta": "REP señales 2026-10-28",
@@ -199,7 +212,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 28,54 €, un 73,0 % sobre el PO (16,49 €) y sobre el PO bull (26,65 €). Verde en el S1-2026 por el rebote del refino (EBITDA +119 %, beneficio +265 %), que es justo el catalizador del bull. ESPERAR: no comp"
   },
   {
    "carpeta": "SAN señales 2026-10-28",
@@ -208,7 +221,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 10,64 €, un 52,6 % sobre el PO (6,97 €) y sobre el PO bull (8,69 €). Verde en el 9M-2026: beneficio atribuido +20,0 % y RoTE del 17,4 %. Los resultados acompañan; ESPERAR: no comprar más y mantener. Propue"
   },
   {
    "carpeta": "UNI señales 2026-10-28",
@@ -217,7 +230,7 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 3,17 €, un 19,6 % sobre el PO (2,65 €) y por debajo del PO bull (3,23 €). Verde en el S1-2026: resultado consolidado +6,8 % y RoTE del 10,0 %. ESPERAR: no comprar más; mantener. Propuesta del pase de señal"
   },
   {
    "carpeta": "VIS señales 2026-10-28",
@@ -226,10 +239,10 @@
    "tipo": "senales",
    "creada": "2026-10-28T22:40",
    "semaforo": null,
-   "frase": null
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 53,90 €, solo un 1,6 % sobre el PO (53,06 €) y lejos del PO bull (64,24 €). El rojo del 9M-2026 es de divisa y energía (EBITDA comparable +1,6 %; guía de EBITDA rebajada 10-15 M€) y la S2 se reafirmó el 26"
   }
  ],
- "n_pendientes": 25,
+ "n_pendientes": 26,
  "ultima_subida": {
   "cuando": "2026-10-28T23:45",
   "ficheros": [
