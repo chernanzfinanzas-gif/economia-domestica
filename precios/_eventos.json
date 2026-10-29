@@ -1,0 +1,17 @@
+{
+ "nota": "Eventos de capital DETECTADOS por el Action (Yahoo reexpresó la serie). Provisionales: se confirman registrándolos en eventos.json con su fuente.",
+ "empresas": {
+  "VID": {
+   "eventos": [
+    {
+     "exDate": "2026-10-28",
+     "factor": 1.05,
+     "detectadoEl": "2026-10-29",
+     "origen": "detectado",
+     "motivo": "Yahoo devolvió la ventana hasta el 2026-10-28 con razón 0.952381 respecto a lo guardado: reexpresión (liberada o split, factor 1.0500)"
+    }
+   ]
+  }
+ },
+ "actualizado": "2026-10-29"
+}

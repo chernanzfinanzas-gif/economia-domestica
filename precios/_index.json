@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-10-28",
+"actualizado": "2026-10-29",
 "ventana_dias": 10,
-"ventana_desde": "2026-10-18",
+"ventana_desde": "2026-10-19",
 "tickers": [
 {
 "ticker": "A3M",
@@ -924,180 +924,20 @@
 "fallos": [],
 "corregidos": [
 {
-"ticker": "AEDAS",
-"fecha": "2026-10-28",
-"anterior": 22.0,
-"nuevo": 22.1
-},
-{
-"ticker": "AIR",
-"fecha": "2026-10-28",
-"anterior": 191.6,
-"nuevo": 191.8
-},
-{
-"ticker": "ARM",
-"fecha": "2026-10-28",
-"anterior": 11.8,
-"nuevo": 11.4
-},
-{
-"ticker": "BKT",
-"fecha": "2026-10-28",
-"anterior": 14.31,
-"nuevo": 14.305
-},
-{
-"ticker": "CBAV",
-"fecha": "2026-10-28",
-"anterior": 53.6,
-"nuevo": 53.8
-},
-{
-"ticker": "CCEP",
-"fecha": "2026-10-28",
-"anterior": 100.0,
-"nuevo": 99.8
-},
-{
-"ticker": "CMO",
-"fecha": "2026-10-28",
-"anterior": 36.0,
-"nuevo": 35.4
-},
-{
-"ticker": "COL",
-"fecha": "2026-10-28",
-"anterior": 5.13,
-"nuevo": 5.125
-},
-{
-"ticker": "DOM",
-"fecha": "2026-10-28",
-"anterior": 2.64,
-"nuevo": 2.635
-},
-{
-"ticker": "EBROM",
-"fecha": "2026-10-28",
-"anterior": 9.5,
-"nuevo": 9.7
-},
-{
-"ticker": "ECO",
-"fecha": "2026-10-28",
-"anterior": 3.26,
-"nuevo": 3.3
-},
-{
-"ticker": "EDR",
-"fecha": "2026-10-28",
-"anterior": 4.79,
-"nuevo": 4.785
-},
-{
-"ticker": "ENC",
-"fecha": "2026-10-28",
-"anterior": 2.23,
-"nuevo": 2.234
-},
-{
-"ticker": "IAG",
-"fecha": "2026-10-28",
-"anterior": 4.82,
-"nuevo": 4.823
-},
-{
-"ticker": "IBG",
-"fecha": "2026-10-28",
-"anterior": 16.6,
-"nuevo": 16.45
-},
-{
-"ticker": "IMC",
-"fecha": "2026-10-28",
-"anterior": 3.56,
-"nuevo": 3.6
-},
-{
-"ticker": "INDXA",
-"fecha": "2026-10-28",
-"anterior": 15.1,
-"nuevo": 15.2
-},
-{
-"ticker": "LLYC",
-"fecha": "2026-10-28",
-"anterior": 5.1,
-"nuevo": 5.3
-},
-{
-"ticker": "MAKS",
-"fecha": "2026-10-28",
-"anterior": 6.0,
-"nuevo": 5.9
-},
-{
-"ticker": "MAP",
-"fecha": "2026-10-28",
-"anterior": 4.17,
-"nuevo": 4.166
-},
-{
-"ticker": "NEA",
-"fecha": "2026-10-28",
-"anterior": 9.9,
-"nuevo": 9.8
-},
-{
-"ticker": "ORY",
-"fecha": "2026-10-28",
-"anterior": 2.49,
-"nuevo": 2.494
-},
-{
-"ticker": "R4",
-"fecha": "2026-10-28",
-"anterior": 19.9,
-"nuevo": 20.2
-},
-{
-"ticker": "SAN",
-"fecha": "2026-10-28",
-"anterior": 10.64,
-"nuevo": 10.638
-},
-{
-"ticker": "TEF",
-"fecha": "2026-10-28",
-"anterior": 3.28,
-"nuevo": 3.277
-},
-{
-"ticker": "TLGO",
-"fecha": "2026-10-28",
-"anterior": 2.28,
-"nuevo": 2.275
-},
-{
-"ticker": "TUB",
-"fecha": "2026-10-28",
-"anterior": 2.69,
-"nuevo": 2.685
-},
-{
-"ticker": "UNI",
-"fecha": "2026-10-28",
-"anterior": 3.22,
-"nuevo": 3.218
-},
-{
-"ticker": "VYT",
-"fecha": "2026-10-28",
-"anterior": 15.05,
-"nuevo": 15.15
+"ticker": "VID",
+"fecha": "2026-10-22",
+"anterior": 86.3809,
+"nuevo": 86.381
 }
 ],
 "revisar": [],
-"eventos": []
+"eventos": [
+{
+"ticker": "VID",
+"exDate": "2026-10-28",
+"factor": 1.05,
+"origen": "detectado",
+"motivo": "Yahoo devolvió la ventana hasta el 2026-10-28 con razón 0.952381 respecto a lo guardado: reexpresión (liberada o split, factor 1.0500)"
+}
+]
 }
