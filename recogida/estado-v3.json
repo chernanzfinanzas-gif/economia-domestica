@@ -1,9 +1,41 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-29T17:45",
+ "generado": "2026-10-29T22:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "BBVA señales 2026-10-29",
+   "ticker": "BBVA",
+   "periodos": [],
+   "tipo": "senales",
+   "creada": "2026-10-29T21:49",
+   "semaforo": null,
+   "frase": "S3 · REAFIRMAR propuesta. Cotización 22,45 €, un 53,7 % sobre el PO base (14,60 €) y un 28,7 % sobre el PO bull (17,44 €); la decisión de la tesis ya es ESPERAR y el semáforo del 9M-2026 es VERDE (margen neto +18,6 %, atribuido +13,6 %, RoT",
+   "senales": [
+    {
+     "senal": "S3",
+     "motivo": "cotización ≥ PO bull 17.44 €: salida parcial razonable, revisar el PO",
+     "desde": null
+    }
+   ],
+   "propuesta": [
+    {
+     "senal": "S3",
+     "decision": "REAFIRMAR",
+     "motivo": "Cotización 22,45 €, un 53,7 % sobre el PO base (14,60 €) y un 28,7 % sobre el PO bull (17,44 €); la decisión de la tesis ya es ESPERAR y el semáforo del 9M-2026 es VERDE (margen neto +18,6 %, atribuido +13,6 %, RoTE 22,0 %). Los resultados acompañan: el disparador del bull (RoTE por encima del 21 % dos trimestres seguidos) se cumple, y la valoración ya se rehízo el 29-oct con el 9M, así que no hay dato nuevo que pida AJUSTA PO. REAFIRMAR: no comprar más a este precio; una salida parcial sería defendible solo si el RoTE baja del 21 % o el coste de riesgo pasa su alarma (1,44 % frente a 1,5 %). Propuesta del pase de señales del método v3."
+    }
+   ],
+   "datos": [
+    "Decisión vigente de la tesis: ESPERAR",
+    "Cotización 22,45 € · PO bear 12,25 € · PO 14,60 € · PO bull 17,44 € · 53,7 % sobre el PO",
+    "Banda de entrada 12,25–12,70 € · stop 7,78 €",
+    "Semáforo de empresa: VERDE · revisado hasta 2026-9M",
+    "Tesis escrita el 2026-10-25 · valoración generada el 2026-10-29",
+    "Última revisión · 2026-9M · Margen bruto +18,2 %, margen neto +18,6 %, resultado atribuido +13,6 %, margen 62,1 % (+0,24 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 22,0 %. Verde: nada que seña"
+   ]
+  }
+ ],
+ "n_pendientes": 1,
  "ultima_subida": {
   "cuando": "2026-10-29T17:45",
   "ficheros": [
