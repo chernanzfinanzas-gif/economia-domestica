@@ -55,7 +55,7 @@
   "motivos": [
    "Vigilar: cobertura OE 0.36x · payout 58 % · 4 recorte(s) del DPA · TOPE en 40 (no se cubre con caja o payout 3 años > 100 %)"
   ],
-  "calculadoEl": "2026-10-28",
+  "calculadoEl": "2026-10-29",
   "origen": "metodo-v3",
   "shareholderYield": 3.83
  },
@@ -96,7 +96,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-28",
+  "calculadoEl": "2026-10-29",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -105,7 +105,7 @@
   "gIntrinseco": 6.1,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-28",
+  "calculadoEl": "2026-10-29",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 5.6307,
@@ -118,7 +118,7 @@
    "precioBase": 12.45,
    "gBase": 14.31,
    "fechaBase": "2026-10-28",
-   "congeladoEl": "2026-10-28",
+   "congeladoEl": "2026-10-29",
    "validado": false,
    "desviacion": 1.62
   }

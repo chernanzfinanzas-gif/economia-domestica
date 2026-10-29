@@ -56,7 +56,7 @@
   "motivos": [
    "Frágil: cobertura OE 1.11x · payout 76 % · 3 recorte(s) del DPA · señales: DN/EBITDA al alza, recompras recortadas"
   ],
-  "calculadoEl": "2026-10-27",
+  "calculadoEl": "2026-10-29",
   "origen": "metodo-v3",
   "shareholderYield": null
  },
@@ -98,16 +98,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-27",
+  "calculadoEl": "2026-10-29",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 5.49,
+  "gImplicito": 5.69,
   "gIntrinseco": null,
   "veredicto": "HEROICO",
-  "motivo": "HEROICO (exige 5.5 % al año, más de 1,4 veces el 3 % del caso base)",
-  "calculadoEl": "2026-10-27",
+  "motivo": "HEROICO (exige 5.7 % al año, más de 1,4 veces el 3 % del caso base)",
+  "calculadoEl": "2026-10-29",
   "origen": "metodo-v3"
  }
 }
