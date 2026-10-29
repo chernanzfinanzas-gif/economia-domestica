@@ -503,3 +503,4 @@ body.n-noscroll{overflow:hidden}
 @media (max-width:640px){.n-senopc{grid-template-columns:1fr 1fr}.n-senall{margin-left:0}}
 .n-avtx.n-sentx{display:block;-webkit-line-clamp:unset;overflow:visible;white-space:normal}
 .n-senl{font-size:13px;line-height:1.4;margin-top:2px}
+.n-sennp{color:#9A3412;font-size:12px;font-weight:600}

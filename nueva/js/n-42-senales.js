@@ -8,8 +8,8 @@
      ficha y en Mis Decisiones; entonces el paquete deja de salir en estado-v3.json y desaparece de aquí. */
 (function(){
   var FN='senales-decisiones.json', OPC=['REAFIRMAR','AJUSTA PO','REBAJA','VENDE'];
-  var AYUDA={'REAFIRMAR':'La tesis sigue: se mantiene la decisión vigente.','AJUSTA PO':'Hay un dato nuevo que la valoración aún no recoge: se rehace el precio objetivo.',
-             'REBAJA':'Se baja la decisión un escalón (p. ej. de COMPRAR a ESPERAR).','VENDE':'Salida total o parcial de la posición.'};
+  var AYUDA={'REAFIRMAR':'No cambia nada: la decisión de la tesis sigue como está.','AJUSTA PO':'Se rehace la valoración con los datos que haya: pueden cambiar el PO y la banda.',
+             'REBAJA':'La decisión baja un escalón (COMPRAR → MANTENER → ESPERAR → REDUCIR) hasta que se reescriba la tesis. Banda y PO no cambian.','VENDE':'La decisión pasa a VENDER (salida total o parcial) hasta que se reescriba la tesis.'};
   var NOMS={S1:'cotización en el stop',S2:'semáforo rojo o tesis rota',S3:'cotización sobre el PO',S4:'tesis con más de 12 meses',S6:'dos periodos seguidos en ámbar'};
   window._nSen=window._nSen||null; window._nSenDec=window._nSenDec||{schemaVersion:1,decisiones:{}};
   var _fid=null, _msg='';
@@ -43,6 +43,10 @@
       .then(function(r){ return r.ok?r.json():null; }).then(function(j){ if(j&&j.id){ _fid=j.id; return true; } return false; });
   }
 
+  /* 29-oct (Carlos: «si no tengo una empresa y la decisión es vender se pone igual, no?»): sin posición, VENDE no se ofrece y
+     una propuesta de VENDE pasa a REBAJA (no comprar y bajar la decisión). La cartera solo la conoce la app. */
+  function tiene(tk){ try{ var T=String(tk||'').toUpperCase(); return (typeof invPositions==='function'?invPositions():[]).some(function(p){ return String(p.ticker||'').toUpperCase().replace(/\.MC$/,'')===T && (+p.acciones||+p.acc||0)>0.0001; }); }catch(e){ return true; } }
+  function propDe(p,pr){ var d=pr&&pr.decision; return (d==='VENDE'&&!tiene(p.ticker))?'REBAJA':d; }
   function paquetes(){ return (window._nSen||[]).filter(function(p){ return (p.senales||[]).length; }); }
   function estadoDe(p){
     if(window._nSenDec.decisiones[p.carpeta]) return 'decidida';
@@ -66,7 +70,8 @@
     h+=P2.map(function(p){ var e=estadoDe(p), st=ST[e];
       var sen=(p.senales||[]).map(function(s){ var pr=(p.propuesta||[]).filter(function(x){ return x.senal===s.senal; })[0], dd=(window._nSenDec.decisiones[p.carpeta]||{}).filas||[];
         var d=dd.filter(function(x){ return x.senal===s.senal; })[0];
-        return '<div class="n-senl"><b>'+esc(s.senal)+'</b> '+esc(s.motivo||NOMS[s.senal]||'')+(d?' → <b class="n-sendec">'+esc(d.decision)+'</b>':(pr?' → propongo <b>'+esc(pr.decision)+'</b>':''))+'</div>'; }).join('');
+        var pd=pr?propDe(p,pr):null;
+        return '<div class="n-senl"><b>'+esc(s.senal)+'</b> '+esc(s.motivo||NOMS[s.senal]||'')+(d?' → <b class="n-sendec">'+esc(d.decision)+'</b>':(pr?' → propongo <b>'+esc(pd)+'</b>'+(pd!==pr.decision?' <span class="n-sennp">(no la tienes)</span>':''):''))+'</div>'; }).join('');
       return '<div class="n-av n-sen" style="--ac:'+st[3]+'"><span class="n-avst" style="background:'+st[1]+';color:'+st[2]+'">'+st[0]+'</span>'+
         '<div class="n-avtx n-sentx"><b>'+esc(p.ticker)+'</b>'+sen+'</div>'+
         (e!=='abierta'?'<button class="n-avbt" data-senrev="'+esc(p.carpeta)+'">'+(e==='decidida'?'Ver':'Revisar')+'</button>':'<span></span>')+'<span></span></div>'; }).join('');
@@ -78,15 +83,16 @@
   function cerrar(){ var m=document.getElementById('nSenModal'); if(m) m.remove(); }
   function abrir(carpeta){
     var p=paquetes().filter(function(x){ return x.carpeta===carpeta; })[0]; if(!p) return;
-    var prev=(window._nSenDec.decisiones[carpeta]||{}).filas||[];
+    var prev=(window._nSenDec.decisiones[carpeta]||{}).filas||[], tengo=tiene(p.ticker), OP=tengo?OPC:OPC.filter(function(o){ return o!=='VENDE'; });
     var h='<div class="n-senbox" role="dialog" aria-modal="true"><div class="n-senhd"><div><div class="n-sentk">'+esc(p.ticker)+' · señales</div><div class="n-sensub">'+esc(carpeta)+'</div></div><button class="n-senx" data-senx="1" aria-label="Cerrar">✕</button></div>';
     if((p.datos||[]).length) h+='<div class="n-sendat"><div class="n-senlab">Datos para decidir</div><ul>'+p.datos.map(function(l){ return '<li>'+esc(l)+'</li>'; }).join('')+'</ul></div>';
     h+=(p.senales||[]).map(function(s,i){
       var pr=(p.propuesta||[]).filter(function(x){ return x.senal===s.senal; })[0]||{}, d=prev.filter(function(x){ return x.senal===s.senal; })[0];
-      var sel=(d&&d.decision)||pr.decision||'REAFIRMAR';
-      return '<div class="n-sens" data-sens="'+esc(s.senal)+'" data-prop="'+esc(pr.decision||'')+'"><div class="n-senlab">'+esc(s.senal)+' · '+esc(NOMS[s.senal]||'')+'</div><div class="n-senmot">'+esc(s.motivo||'')+'</div>'+
-        (pr.decision?'<div class="n-senprop"><span>Mi propuesta: <b>'+esc(pr.decision)+'</b></span><p>'+esc(pr.motivo||'')+'</p></div>':'')+
-        '<div class="n-senopc">'+OPC.map(function(o){ return '<label class="'+(o===sel?'on':'')+'"><input type="radio" name="sen'+i+'" value="'+o+'"'+(o===sel?' checked':'')+'><b>'+o+'</b>'+(o===pr.decision?' <i>propuesta</i>':'')+'<small>'+AYUDA[o]+'</small></label>'; }).join('')+'</div>'+
+      var pd=propDe(p,pr), sel=(d&&d.decision)||pd||'REAFIRMAR'; if(!tengo&&sel==='VENDE') sel='REBAJA';
+      return '<div class="n-sens" data-sens="'+esc(s.senal)+'" data-prop="'+esc(pr.decision||'')+'" data-sinpos="'+(tengo?'':'1')+'"><div class="n-senlab">'+esc(s.senal)+' · '+esc(NOMS[s.senal]||'')+'</div><div class="n-senmot">'+esc(s.motivo||'')+'</div>'+
+        (pr.decision?'<div class="n-senprop"><span>Mi propuesta: <b>'+esc(pd)+'</b></span>'+(pd!==pr.decision?'<p class="n-sennp">No la tienes en cartera: vender no aplica. La propuesta era VENDE y pasa a REBAJA (no comprar y bajar la decisión).</p>':'')+'<p>'+esc(pr.motivo||'')+'</p></div>':'')+
+        (!tengo&&!pr.decision?'<p class="n-sennp">No la tienes en cartera: la opción de vender no se ofrece.</p>':'')+
+        '<div class="n-senopc" style="grid-template-columns:repeat('+OP.length+',1fr)">'+OP.map(function(o){ return '<label class="'+(o===sel?'on':'')+'"><input type="radio" name="sen'+i+'" value="'+o+'"'+(o===sel?' checked':'')+'><b>'+o+'</b>'+(o===pd?' <i>propuesta</i>':'')+'<small>'+AYUDA[o]+'</small></label>'; }).join('')+'</div>'+
         '<textarea class="n-sencom" placeholder="Comentario (opcional; si cambias la propuesta, di por qué)">'+esc((d&&d.comentario)||'')+'</textarea></div>'; }).join('');
     h+='<div class="n-senpie"><span class="n-senaviso">Al confirmar se guarda en tu Drive. El siguiente pase la aprueba: la señal queda revisada en la ficha y en Mis Decisiones.</span><button class="n-senok" data-senok="'+esc(carpeta)+'">Confirmar decisión</button></div></div>';
     cerrar(); var m=document.createElement('div'); m.id='nSenModal'; m.className='n-senov'; m.innerHTML=h; document.body.appendChild(m);
@@ -94,15 +100,16 @@
   function confirmar(carpeta){
     var m=document.getElementById('nSenModal'); if(!m) return; var p=paquetes().filter(function(x){ return x.carpeta===carpeta; })[0];
     var filas=[].map.call(m.querySelectorAll('[data-sens]'),function(n){ var r=n.querySelector('input:checked');
-      return {senal:n.getAttribute('data-sens'),decision:r?r.value:'REAFIRMAR',propuesta:n.getAttribute('data-prop')||null,comentario:(n.querySelector('textarea').value||'').trim()}; });
+      var f={senal:n.getAttribute('data-sens'),decision:r?r.value:'REAFIRMAR',propuesta:n.getAttribute('data-prop')||null,comentario:(n.querySelector('textarea').value||'').trim()};
+      if(n.getAttribute('data-sinpos')) f.sinPosicion=true; return f; });
     window._nSenDec.decisiones[carpeta]={ticker:p&&p.ticker,decidido:ahora(),filas:filas};
     _msg=''; guardar().then(function(ok){ _msg=ok?'✓ Guardado en Drive. Se aplica en el próximo pase de novedades (o dímelo en el chat).':(_msg||'No se pudo guardar en Drive.'); cerrar(); rep(); });
   }
   function aceptarTodas(){
     var P=paquetes().filter(function(p){ return estadoDe(p)==='propuesta'; }); if(!P.length) return;
-    if(!confirm('Aceptar mi propuesta en las '+P.length+' empresas:\n\n'+P.map(function(p){ return p.ticker+': '+(p.propuesta||[]).map(function(x){ return x.senal+' '+x.decision; }).join(', '); }).join('\n'))) return;
+    if(!confirm('Aceptar mi propuesta en las '+P.length+' empresas:\n\n'+P.map(function(p){ return p.ticker+': '+(p.propuesta||[]).map(function(x){ var d=propDe(p,x); return x.senal+' '+d+(d!==x.decision?' (no la tienes; era VENDE)':''); }).join(', '); }).join('\n'))) return;
     var t=ahora();
-    P.forEach(function(p){ window._nSenDec.decisiones[p.carpeta]={ticker:p.ticker,decidido:t,filas:(p.propuesta||[]).map(function(x){ return {senal:x.senal,decision:x.decision,propuesta:x.decision,comentario:''}; })}; });
+    P.forEach(function(p){ var sp=!tiene(p.ticker); window._nSenDec.decisiones[p.carpeta]={ticker:p.ticker,decidido:t,filas:(p.propuesta||[]).map(function(x){ var d=propDe(p,x), f={senal:x.senal,decision:d,propuesta:x.decision,comentario:d!==x.decision?'Sin posición en cartera: la propuesta VENDE pasa a REBAJA.':''}; if(sp) f.sinPosicion=true; return f; })}; });
     guardar().then(function(ok){ _msg=ok?'✓ '+P.length+' decisiones guardadas en Drive. Se aplican en el próximo pase (o dímelo en el chat).':(_msg||'No se pudo guardar en Drive.'); rep(); });
   }
   document.addEventListener('click',function(e){
