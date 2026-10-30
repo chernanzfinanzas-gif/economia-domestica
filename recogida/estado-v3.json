@@ -1,26 +1,8 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-30T11:45",
+ "generado": "2026-10-30T12:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
-  {
-   "carpeta": "A3M cuentas anuales",
-   "ticker": "A3M",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:20",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "ACS cuentas anuales",
-   "ticker": "ACS",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:21",
-   "semaforo": "V",
-   "frase": null
-  },
   {
    "carpeta": "ACX 2026-9M",
    "ticker": "ACX",
@@ -29,51 +11,6 @@
    ],
    "tipo": "pase",
    "creada": "2026-10-30T09:53",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "ACX cuentas anuales",
-   "ticker": "ACX",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:22",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "AENA cuentas anuales",
-   "ticker": "AENA",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:23",
-   "semaforo": "A",
-   "frase": null
-  },
-  {
-   "carpeta": "AMS cuentas anuales",
-   "ticker": "AMS",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:24",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "BBVA cuentas anuales",
-   "ticker": "BBVA",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:25",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "BKT cuentas anuales",
-   "ticker": "BKT",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:26",
    "semaforo": "V",
    "frase": null
   },
@@ -89,204 +26,6 @@
    "frase": "Qué ha pasado — Resultado atribuido de 4.962 M€ en los nueve meses (+12,9 %), margen de intereses 8.186 M€ (+2,9 %), margen bruto 12.656 M€ (+4,4 %) y margen de explotación 7.653 M€ (+4,6 %). RoTE a 12 meses del 18,8 % (17,8 % hace un año),"
   },
   {
-   "carpeta": "CIE cuentas anuales",
-   "ticker": "CIE",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:27",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "EBRO cuentas anuales",
-   "ticker": "EBRO",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:28",
-   "semaforo": "A",
-   "frase": null
-  },
-  {
-   "carpeta": "ELE cuentas anuales",
-   "ticker": "ELE",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:29",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "ENG cuentas anuales",
-   "ticker": "ENG",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:30",
-   "semaforo": "R",
-   "frase": null
-  },
-  {
-   "carpeta": "FAE cuentas anuales",
-   "ticker": "FAE",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:31",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "FDR cuentas anuales",
-   "ticker": "FDR",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:32",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "GEST cuentas anuales",
-   "ticker": "GEST",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:33",
-   "semaforo": "A",
-   "frase": null
-  },
-  {
-   "carpeta": "IBE cuentas anuales",
-   "ticker": "IBE",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:34",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "ITX cuentas anuales",
-   "ticker": "ITX",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:35",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "LDA cuentas anuales",
-   "ticker": "LDA",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:36",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "LOG cuentas anuales",
-   "ticker": "LOG",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:37",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "MAP cuentas anuales",
-   "ticker": "MAP",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:38",
-   "semaforo": "A",
-   "frase": null
-  },
-  {
-   "carpeta": "MCM cuentas anuales",
-   "ticker": "MCM",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:39",
-   "semaforo": "R",
-   "frase": null
-  },
-  {
-   "carpeta": "MRL cuentas anuales",
-   "ticker": "MRL",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:40",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "NTGY cuentas anuales",
-   "ticker": "NTGY",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:41",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "PRM cuentas anuales",
-   "ticker": "PRM",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:41",
-   "semaforo": "R",
-   "frase": null
-  },
-  {
-   "carpeta": "R4 cuentas anuales",
-   "ticker": "R4",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:42",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "RED cuentas anuales",
-   "ticker": "RED",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:43",
-   "semaforo": "A",
-   "frase": null
-  },
-  {
-   "carpeta": "REP cuentas anuales",
-   "ticker": "REP",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:44",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "ROVI cuentas anuales",
-   "ticker": "ROVI",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:45",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "SAN cuentas anuales",
-   "ticker": "SAN",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:46",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "TEF cuentas anuales",
-   "ticker": "TEF",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:47",
-   "semaforo": "A",
-   "frase": null
-  },
-  {
    "carpeta": "UNI 2026-9M",
    "ticker": "UNI",
    "periodos": [
@@ -296,34 +35,48 @@
    "creada": "2026-10-30T09:56",
    "semaforo": "V",
    "frase": "Qué ha pasado — Resultado consolidado de 543 M€ en los nueve meses (+8,1 %), margen de intereses 1.151 M€ (+3,0 %) y margen bruto 1.629 M€ (+3,5 %). RoTE del 10,3 % (12,2 % ajustado por el exceso de capital), eficiencia 45,8 % (+0,6 pp), co"
-  },
-  {
-   "carpeta": "VID cuentas anuales",
-   "ticker": "VID",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:48",
-   "semaforo": "V",
-   "frase": null
-  },
-  {
-   "carpeta": "VIS cuentas anuales",
-   "ticker": "VIS",
-   "periodos": [],
-   "tipo": "pase",
-   "creada": "2026-10-30T10:49",
-   "semaforo": "R",
-   "frase": null
   }
  ],
- "n_pendientes": 34,
+ "n_pendientes": 3,
  "ultima_subida": {
-  "cuando": "2026-10-30T09:45",
+  "cuando": "2026-10-30T12:45",
   "ficheros": [
-   "dossiers/BBVA.html",
-   "dossiers/BBVA.json",
-   "dossiers/trimestral/BBVA-trim.json",
-   "dossiers/v3/BBVA.html"
+   "fichas/A3M.json",
+   "fichas/ACS.json",
+   "fichas/ACX.json",
+   "fichas/AENA.json",
+   "fichas/AMS.json",
+   "fichas/ART.json",
+   "fichas/AZK.json",
+   "fichas/BBVA.json",
+   "fichas/BKT.json",
+   "fichas/CABK.json",
+   "fichas/CIE.json",
+   "fichas/EBRO.json",
+   "fichas/ELE.json",
+   "fichas/ENG.json",
+   "fichas/FAE.json",
+   "fichas/FDR.json",
+   "fichas/GEST.json",
+   "fichas/IBE.json",
+   "fichas/ITX.json",
+   "fichas/LDA.json",
+   "fichas/LOG.json",
+   "fichas/MAP.json",
+   "fichas/MCM.json",
+   "fichas/MRL.json",
+   "fichas/NTGY.json",
+   "fichas/PRM.json",
+   "fichas/R4.json",
+   "fichas/RED.json",
+   "fichas/REP.json",
+   "fichas/ROVI.json",
+   "fichas/SAN.json",
+   "fichas/TEF.json",
+   "fichas/UNI.json",
+   "fichas/VID.json",
+   "fichas/VIS.json",
+   "fichas/_resumen.json"
   ]
  },
  "rechazos": [],
