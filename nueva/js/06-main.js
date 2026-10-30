@@ -159,10 +159,10 @@ const GROUPS={
   panel:[['panel','Panel']],
   embudo:[['embudo','Kanban']],
   fin:[['movimientos','Movimientos'],['presupuesto','Presupuesto'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['caja','Caja bróker']],
-  plan:[['independencia','Independencia'],['pignorado','Capital pignorado'],['fiscalidad','Fiscalidad'],['simulador','Simulador'],['proxcompra','Próxima compra']],
-  cartera:[['inversiones','Cartera'],['rentabilidad','Rentabilidad'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del dividendo'],['divfut','Actualizar dividendos'],['asignacion','Asignación'],['riesgo','Riesgo']],
-  empresas:[['radar','Radar Op.'],['universo','Universo'],['divisa','¿Invertir en euros?'],['vision','Visión de conjunto'],['analisis','Análisis'],['tesisinv','Ficha de Tesis'],['monitor','Monitor'],['hechos','Diario de Hechos'],['coyuntura','Coyuntura']],
-  sistema:[['cobertura','Cobertura'],['informes','Informes'],['graficas','Gráficas'],['diario','Mis Decisiones'],['estado','Estado y calibración'],['backtest','Backtest'],['hemero','Hemeroteca']]
+  plan:[['independencia','Independencia'],['asignacion','Asignación'],['simulador','Simulador'],['riesgo','Riesgo'],['fiscalidad','Fiscalidad'],['opciones','Opciones de futuro']],
+  cartera:[['inversiones','Cartera'],['rentabilidad','Rentabilidad'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del dividendo'],['divfut','Actualizar dividendos']],
+  empresas:[['unin','Universo'],['analizadas','Analizadas'],['fichaemp','Ficha de empresa']],
+  sistema:[['cobertura','Cobertura'],['informes','Informes'],['graficas','Gráficas'],['diario','Mis Decisiones'],['estado','Estado y calibración'],['backtest','Backtest'],['hemero','Hemeroteca'],['monitor','Monitor'],['hechos','Diario de Hechos'],['analisis','Análisis (antiguo)'],['radar','Radar (antiguo)'],['tesisinv','Ficha de Tesis (antigua)'],['vision','Visión de conjunto (antigua)']]
 };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 /* Botón flotante «+»: en cada vista lleva directo a donde se añade información */
@@ -176,7 +176,7 @@ const ADD_ACTIONS={
   asignacion:()=>{ if(typeof addLoteEmpresa==='function')addLoteEmpresa(); }
 };
 if($('#fabAdd'))$('#fabAdd').addEventListener('click',()=>{ const fn=ADD_ACTIONS[_activeViewId()]; if(fn)try{ fn(); }catch(e){} });
-const groupCurrent={panel:'panel', embudo:'embudo', fin:'movimientos', plan:'independencia', cartera:'inversiones', empresas:'radar', sistema:'cobertura'};
+const groupCurrent={panel:'panel', embudo:'embudo', fin:'movimientos', plan:'independencia', cartera:'inversiones', empresas:'unin', sistema:'cobertura'};
 function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el=$('#view-'+view); if(el)el.classList.add('active');

@@ -527,6 +527,7 @@ function renderInformeBlock(){
     chips.push({ ic:'⚠️', txt:'Alertas: '+(uniFecha?_estFmtFecha(uniFecha):'—')+(uniOk?'':(' (siguiente '+_estFmtFechaCorta(_estProximoPrimerLunes(uniFecha))+')')),
       ok:uniOk, href:(uniOk===false?_alHref:null), ordenPrep:_alOrden, tarea:'la revisión de alertas', carpeta:'de Economía Doméstica' });
 
+    try{ var _r4=(typeof nR4Xls==='function')?nR4Xls():null, _r4d=_r4?Math.round((Date.now()-new Date(_r4.fecha+'T12:00:00'))/864e5):null; chips.push({ ic:'🏦', txt:'Extracto R4: '+(_r4?_estFmtFechaCorta(_r4.fecha):'sin subir'), ok:(_r4&&_r4d<=31)?true:false }); }catch(_e){}
     _wrap.innerHTML = chips.map(function(c,i){
       var color = c.ok===true?'#16a34a':(c.ok===false?'#dc2626':'#64748b');
       var marca = c.ok===true?' ✓':(c.ok===false?' ⚠':'');

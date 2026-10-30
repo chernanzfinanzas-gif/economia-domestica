@@ -80,6 +80,9 @@ function _tzDivSerie(t){
     serie.push({ year:yr, val:val, real:!esFut, proj:isProj, cut:isCut, delta:delta, reanuda:false });
     if(val>0) prev=val;
   });
+  /* [30-oct-2026 · boceto] Los años sin dividendo ANTES del primer pago no son cortes: la empresa aún no
+     cotizaba o no pagaba (Logista salió a bolsa en jul-2014 y la app marcaba «corte 2011-2014»). Se quitan. */
+  while(serie.length && serie[0].val===0 && !serie[0].proj) serie.shift();
   /* marcar reanudación (primer año >0 tras un corte) */
   for(var i=1;i<serie.length;i++){ if(serie[i].val>0 && serie[i-1].cut) serie[i].reanuda=true; }
   /* racha: años consecutivos crecientes al final (o campo racha del modelo) */
@@ -119,7 +122,7 @@ function _tzDivChart(t){
   var D=_tzDivSerie(t); var s=D.serie;
   if(!s.length) return '<div class="muted" style="font-size:12px;padding:10px 0">Sin histórico de dividendo. Rellénalo en <b>Evolución del Dividendo</b>.</div>';
   var maxV=Math.max.apply(null,s.map(function(x){return x.val;})); if(!(maxV>0))maxV=1;
-  var n=s.length, padL=8, padR=8, padT=14, padB=26, bw=Math.min(46,Math.max(20,Math.floor(560/n)));
+  var n=s.length, padL=8, padR=8, padT=22, padB=26, bw=Math.min(46,Math.max(20,Math.floor(560/n)));
   var W=padL+padR+n*bw, H=150, plotH=H-padT-padB, base=padT+plotH;
   var bars='', lbls='', zonas='';
   if(typeof barTipBind==='function') barTipBind();
@@ -132,9 +135,11 @@ function _tzDivChart(t){
     } else {
       bars+='<rect x="'+(cx-halfw/2)+'" y="'+y+'" width="'+halfw+'" height="'+bh+'" rx="2" fill="'+col+'"'+(x.proj?' opacity="0.45" stroke="'+col+'" stroke-dasharray="2 2"':'')+'/>';
       if(x.reanuda) bars+='<circle cx="'+cx+'" cy="'+(y-5)+'" r="3" fill="'+TZ_COL.ok+'"/>';
+      /* [30-oct-2026 · boceto] importe encima de cada barra */
+      bars+='<text x="'+cx+'" y="'+(y-(x.reanuda?11:3))+'" text-anchor="middle" font-size="8.5" font-weight="700" fill="'+(x.proj?'#94a3b8':'#334155')+'">'+x.val.toFixed(2).replace('.',',')+'</text>';
     }
     lbls+='<text x="'+cx+'" y="'+(H-14)+'" text-anchor="middle" font-size="9" fill="#64748b">'+("'"+(''+x.year).slice(2))+'</text>';
-    if(i===0||i===n-1||x.cut||x.reanuda) lbls+='<text x="'+cx+'" y="'+(H-4)+'" text-anchor="middle" font-size="8" fill="#94a3b8">'+(x.val>0?(''+x.val).replace('.',','):'0')+'</text>';
+    if(x.cut) lbls+='<text x="'+cx+'" y="'+(H-4)+'" text-anchor="middle" font-size="8" fill="#94a3b8">'+(x.val>0?(''+x.val).replace('.',','):'0')+'</text>';
     /* La zona sensible cubre la COLUMNA entera, no la barra: con barras de 8 px de ancho
        y años de corte sin barra, acertar con el raton seria una loteria. */
     if(typeof btZona==='function') zonas+=btZona(padL+i*bw, padT, bw, plotH, _tzDivTip(x));
@@ -143,7 +148,11 @@ function _tzDivChart(t){
           '<line x1="'+padL+'" y1="'+base+'" x2="'+(W-padR)+'" y2="'+base+'" stroke="#e2e8f0"/>'+bars+lbls+zonas+'</svg>';
   var chips=[];
   chips.push('<span style="background:'+(D.cagr==null?TZ_COL.na:(D.cagr>=0?TZ_COL.ok:TZ_COL.bad))+';color:#fff;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:700">CAGR '+(D.cagr==null?'n.d.':_tzPct(D.cagr))+'</span>');
-  chips.push('<span style="background:#0f172a;color:#fff;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:700">Racha '+D.racha+' año'+(D.racha===1?'':'s')+'</span>');
+  /* [30-oct-2026 · boceto] «Racha» confundía (parecía «años subiendo»): ahora cuenta los años seguidos PAGANDO, hasta el último cerrado */
+  var _pag=0; var _re=s.filter(function(x){return !x.proj;}); for(var _k=_re.length-1;_k>=0;_k--){ if(_re[_k].val>0)_pag++; else break; }
+  var _sube=0,_tot=0; s.forEach(function(x){ if(!x.proj&&x.delta!=null){ _tot++; if(x.delta>0.001)_sube++; } });
+  chips.push('<span style="background:#0f172a;color:#fff;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:700">'+_pag+' año'+(_pag===1?'':'s')+' pagando</span>');
+  chips.push('<span style="background:#334155;color:#fff;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:700">Sube '+_sube+' de '+_tot+' años</span>');
   if(D.cortes.length) chips.push('<span style="background:'+TZ_COL.bad+';color:#fff;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:700">✂️ Corte '+D.cortes.join(', ')+'</span>');
   else chips.push('<span style="background:'+TZ_COL.ok+';color:#fff;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:700">Sin cortes</span>');
   return svg+'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">'+chips.join('')+'</div>'+
