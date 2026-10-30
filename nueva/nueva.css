@@ -801,3 +801,7 @@ body.n-noscroll{overflow:hidden}
 #view-graficas input[type=range]{accent-color:#1F4A9A}
 .ns-viejo{display:none!important} .ns-vertodos .ns-viejo{display:block!important}
 .ns-vertodo{font-size:12.5px;color:#1F4A9A;margin:6px 2px 0;cursor:pointer}
+/* 30-oct · Fase 3 · modo ensayo */
+#nuevaBanner.n-ens{background:linear-gradient(90deg,#FEF3C7,#FDE68A)!important;color:#78350F!important}
+#nuevaBanner.n-ens a{color:#1F4A9A;font-weight:700;text-decoration:underline;cursor:pointer}
+#nuevaBanner .n-ens-av{color:#B91C1C;font-weight:700}
