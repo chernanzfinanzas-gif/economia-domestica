@@ -160,7 +160,7 @@ const GROUPS={
   embudo:[['embudo','Kanban']],
   fin:[['movimientos','Movimientos'],['presupuesto','Presupuesto'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['caja','Caja bróker']],
   plan:[['independencia','Independencia'],['asignacion','Asignación'],['simulador','Simulador'],['riesgo','Riesgo'],['fiscalidad','Fiscalidad'],['opciones','Opciones de futuro']],
-  cartera:[['inversiones','Cartera'],['rentabilidad','Rentabilidad'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del dividendo'],['divfut','Actualizar dividendos']],
+  cartera:[['inversiones','Cartera'],['rentabilidad','Rentabilidad'],['dividendos','Dividendos']],
   empresas:[['unin','Universo'],['analizadas','Analizadas'],['fichaemp','Ficha de empresa']],
   sistema:[['cobertura','Cobertura'],['informes','Informes'],['graficas','Gráficas'],['diario','Mis Decisiones'],['estado','Estado y calibración'],['backtest','Backtest'],['hemero','Hemeroteca'],['monitor','Monitor'],['hechos','Diario de Hechos'],['analisis','Análisis (antiguo)'],['radar','Radar (antiguo)'],['tesisinv','Ficha de Tesis (antigua)'],['vision','Visión de conjunto (antigua)']]
 };
