@@ -750,3 +750,12 @@ body.n-noscroll{overflow:hidden}
 #view-dividendos .nd-btn{border:1px solid #CBD5E1;color:#94A3B8;border-radius:8px;padding:2px 8px;font-size:12px;font-weight:700;cursor:not-allowed}
 #view-dividendos .nd-det .ej{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:8px 12px;color:#14532D;margin-top:10px}
 @media(max-width:800px){#view-dividendos .nd-k{grid-template-columns:1fr 1fr}#view-dividendos .nd-k .v{font-size:19px}}
+/* 30-oct · filtros del calendario dentro de Dividendos: tres filas con etiqueta, mismos botones */
+#view-dividendos .nd-fil{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:0 0 10px;display:flex;flex-direction:column;gap:6px}
+#view-dividendos .nd-fil .r,#view-dividendos .nd-tiporow{display:flex!important;flex-wrap:wrap;align-items:center;gap:6px!important}
+#view-dividendos .nd-lbl{min-width:72px;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+#view-dividendos .nd-b,#view-dividendos #ndPane-cal .calFbtn{background:#fff!important;color:#334155!important;border:1px solid #CBD5E1!important;border-radius:8px!important;padding:6px 12px!important;font-weight:700!important;font-size:12.5px!important;cursor:pointer;line-height:1.2}
+#view-dividendos .nd-b.on,#view-dividendos #ndPane-cal .calFbtn.on{background:#1F4A9A!important;color:#fff!important;border-color:#1F4A9A!important}
+#view-dividendos .nd-b small{font-weight:500;opacity:.8}
+#view-dividendos #ndPane-cal .calEmpSel{border:1px solid #CBD5E1!important;border-radius:8px!important;padding:6px 8px!important;font-size:12.5px!important}
+@media(max-width:600px){#view-dividendos .nd-lbl{min-width:100%}}

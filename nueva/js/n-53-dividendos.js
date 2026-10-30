@@ -215,25 +215,62 @@
   }
 
   /* ================= Calendario ================= */
-  var AMB=[['car','Cartera'],['plan','Dentro de Plan <small>(incluye cartera)</small>'],['ana','Analizadas'],['uni','Universo']];
+  var AMB=[['car','Cartera'],['plan','En Plan'],['ana','Analizadas'],['uni','Universo']];
   function aplicarAmb(){ var a=window._ndAmb; try{ _calFil.ambito=(a==='car')?'cartera':'todas'; }catch(e){} window._calShowAna=(a==='ana'||a==='uni'); window._calShowUni=(a==='uni'); }
   function postCal(){
     var V=document.getElementById('view-calendario'); if(!V||!V.closest('#ndPane-cal')) return;
     V.querySelectorAll('#calBar label.cal-anatgl').forEach(function(l){ l.remove(); });
+    var cb=document.getElementById('calBody');
+    /* la fila propia de la Agenda: fuera «Cartera + radar / Solo cartera» (los sustituye el selector) y los separadores */
     var row=V.querySelector('#calBody .card > div');
-    if(row&&!row.querySelector('.nd-seg')){ row.querySelectorAll('[data-cala]').forEach(function(b){ b.remove(); });
-      var s=document.createElement('span'); s.className='nd-seg'; s.innerHTML='<b>Empresas:</b>'+AMB.map(function(a){return '<span data-ndamb="'+a[0]+'" class="'+(a[0]===window._ndAmb?'on':'')+'">'+a[1]+'</span>';}).join('');
-      row.insertBefore(s,row.firstChild); }
+    if(row&&row.querySelector('.calFbtn')){ row.querySelectorAll('[data-cala]').forEach(function(b){ b.remove(); });
+      [].slice.call(row.children).forEach(function(c){ if(c.tagName==='SPAN'&&!c.textContent.trim()) c.remove(); });
+      row.classList.add('nd-tiporow'); if(!row.querySelector('.nd-lbl')) row.insertAdjacentHTML('afterbegin','<span class="nd-lbl">Tipo</span>'); }
     V.querySelectorAll('#calBody span').forEach(function(sp){ if(!sp.children.length&&sp.textContent.trim()==='est'){ sp.textContent='⏳ fecha estimada'; sp.title='La empresa aún no ha confirmado la fecha'; } });
     var pas=0; V.querySelectorAll('#calBody tr').forEach(function(tr){ if(/opacity:\s*\.4/.test(tr.getAttribute('style')||'')){ tr.classList.add('nd-pas'); pas++; } });
     V.querySelectorAll('#calBody .e-past').forEach(function(c){ c.classList.add('nd-pas'); });
     V.classList.toggle('nd-verpas',!!window._ndVerPas);
-    var vs=V.querySelector('.nd-seg.pas'); if(row){ if(!vs){ vs=document.createElement('span'); vs.className='nd-seg pas'; var e1=row.querySelector('.nd-seg'); row.insertBefore(vs,e1?e1.nextSibling:row.firstChild); }
-      vs.innerHTML='<b>Ver:</b><span data-ndpas="0" class="'+(window._ndVerPas?'':'on')+'">Solo los futuros</span><span data-ndpas="1" class="'+(window._ndVerPas?'on':'')+'">Todos los del año'+(pas?' <small>(+'+pas+' pasados)</small>':'')+'</span>'; }
+    /* barra de filtros propia, encima del calendario y la misma en las tres vistas */
+    var f=document.getElementById('ndCalFil');
+    if(!f&&cb){ f=document.createElement('div'); f.id='ndCalFil'; f.className='nd-fil'; cb.parentNode.insertBefore(f,cb); }
+    if(f){ var ag=(typeof _calVista==='undefined'||_calVista==='agenda');
+      f.innerHTML='<div class="r"><span class="nd-lbl">Empresas</span>'+AMB.map(function(x){return '<button data-ndamb="'+x[0]+'" class="nd-b'+(x[0]===window._ndAmb?' on':'')+'">'+x[1]+'</button>';}).join('')+'</div>'+
+        (ag?'<div class="r"><span class="nd-lbl">Ver</span><button data-ndpas="0" class="nd-b'+(window._ndVerPas?'':' on')+'">Solo los futuros</button><button data-ndpas="1" class="nd-b'+(window._ndVerPas?' on':'')+'">Todos los del año'+(pas?' <small>(+'+pas+' pasados)</small>':'')+'</button></div>':''); }
+  }
+  /* El selector manda en las tres vistas (Agenda, Mensual, €/mes):
+     Cartera = solo lo que tienes · En Plan = + las del plan (las que aún no tienes, con ✕ en sus meses de pago)
+     · Analizadas / Universo = además, las sin asignar. */
+  function enPane(){ return window._ndSub==='cal'&&!!document.querySelector('#ndPane-cal #view-calendario'); }
+  function soloCartera(){ return enPane()&&window._ndAmb==='car'; }
+  function planSinTener(){ var H=held(); try{ return (_calPrev()||[]).map(U).filter(function(t,i,a){ return t&&!H.has(t)&&a.indexOf(t)===i; }); }catch(e){ return []; } }
+  function filaPlanX(y){
+    if(window._ndAmb==='car'||_calVista!=='divs') return;
+    var tb=document.querySelector('#view-calendario table.calDivt'); if(!tb||tb.querySelector('.nd-planx')) return;
+    var ya={}; tb.querySelectorAll('[data-ficha]').forEach(function(e){ ya[U(e.getAttribute('data-ficha'))]=1; });
+    var MES=_CAL_MES, rows=[];
+    planSinTener().forEach(function(t){ if(ya[t]) return; var mm=[0,0,0,0,0,0,0,0,0,0,0,0], n=0;
+      try{ calEventosDe(t,y).forEach(function(e){ if(e.tipo==='pago'&&(''+e.fecha).slice(0,4)==String(y)){ var m=(+(''+e.fecha).slice(5,7))-1; if(m>=0&&m<12&&!mm[m]){ mm[m]=1; n++; } } }); }catch(e){}
+      rows.push({t:t,mm:mm,n:n}); });
+    if(!rows.length) return;
+    rows.sort(function(a,b){ return a.t.localeCompare(b.t); });
+    var col='#1D4ED8', h='<tr class="nd-planx" style="background:#EFF6FF"><td colspan="14" style="text-align:left;font-weight:800;color:'+col+'">En Plan, todavía sin comprar ✕ = mes con pago (sin importe: aún no tienes acciones)</td></tr>'+
+      rows.map(function(r){ return '<tr class="nd-planx"><td style="text-align:left;white-space:nowrap"><span data-ficha="'+esc(r.t)+'" style="cursor:pointer;font-weight:700;color:'+col+'">'+esc(r.t)+'</span> <span class="muted" style="font-size:11px">'+esc((_calNombre(r.t)||'').slice(0,18))+'</span></td>'+
+        r.mm.map(function(v){ return v?'<td style="color:'+col+';font-weight:800;text-align:center">✕</td>':'<td class="muted" style="text-align:center">·</td>'; }).join('')+
+        '<td style="text-align:center;font-weight:800;color:'+col+'">'+(r.n||'—')+'</td></tr>'; }).join('');
+    /* justo debajo de «Neto en caja / mes», antes de analizadas/universo */
+    var trs=[].slice.call(tb.querySelectorAll('tr')), ancla=null;
+    trs.forEach(function(tr){ if(/Neto en caja/.test(tr.textContent)) ancla=tr; });
+    if(ancla) ancla.insertAdjacentHTML('afterend',h); else tb.insertAdjacentHTML('beforeend',h);
   }
   function engancharCal(){
+    if(typeof calEventosAnio==='function'&&!calEventosAnio._nd){ var oe=calEventosAnio; calEventosAnio=function(){ var r=oe.apply(this,arguments); if(soloCartera()) r=r.filter(function(e){ return e.grp==='cartera'; }); return r; }; calEventosAnio._nd=1; }
+    if(typeof calDivMesEmpresas==='function'&&!calDivMesEmpresas._nd){ var od=calDivMesEmpresas; calDivMesEmpresas=function(){ var d=od.apply(this,arguments); if(!soloCartera()||!d) return d;
+      var H=held(), rows=d.rows.filter(function(r){ return H.has(U(r.t)); }), tm=new Array(12).fill(0);
+      rows.forEach(function(r){ for(var i=0;i<12;i++) tm[i]+=r.neto[i]; }); var nt=tm.reduce(function(a,b){return a+b;},0);
+      return {rows:rows,totMes:tm,irpf:d.irpf,irpfPrevision:d.irpfPrevision,netoTotal:nt,total:nt+d.irpf}; }; calDivMesEmpresas._nd=1; }
+    if(typeof _calBodyRepaint==='function'&&!_calBodyRepaint._nd){ var ob=_calBodyRepaint; _calBodyRepaint=function(){ if(enPane()) aplicarAmb(); var r=ob.apply(this,arguments); if(enPane()) try{ postCal(); filaPlanX(_calYearSel); }catch(e){} return r; }; _calBodyRepaint._nd=1; }
     if(typeof _calPaint!=='function'||_calPaint._nd) return;
-    var o=_calPaint; _calPaint=function(){ var dentro=!!document.querySelector('#ndPane-cal #view-calendario'); if(dentro) aplicarAmb(); var r=o.apply(this,arguments); if(dentro) try{ postCal(); }catch(e){ console.error('[nd cal]',e); } return r; }; _calPaint._nd=1;
+    var o=_calPaint; _calPaint=function(){ var dentro=!!document.querySelector('#ndPane-cal #view-calendario'); if(dentro) aplicarAmb(); var r=o.apply(this,arguments); if(dentro) try{ postCal(); filaPlanX(_calYearSel); }catch(e){ console.error('[nd cal]',e); } return r; }; _calPaint._nd=1;
   }
 
   /* ================= Anotar (solo lectura en la app nueva) ================= */
