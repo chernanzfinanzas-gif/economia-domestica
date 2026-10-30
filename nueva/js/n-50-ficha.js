@@ -328,7 +328,7 @@
     var v=document.getElementById('view-fichaemp'); if(!v) return;
     var L=lista(); if(!cur) cur=(L[0]||[])[0]; if(!cur){ v.innerHTML='<div class="nf-mu">Sin empresas analizadas.</div>'; return; }
     var i=L.map(function(x){return x[0];}).indexOf(cur), prev=L[(i-1+L.length)%L.length], next=L[(i+1)%L.length];
-    var pick='<div class="nf-pick"><select id="nfSel">'+L.map(function(x){ return '<option value="'+x[0]+'"'+(x[0]===cur?' selected':'')+'>'+esc(x[1])+' ('+x[0]+')</option>'; }).join('')+'</select><button data-nfgo="'+(prev||[])[0]+'">◀ '+esc((prev||[])[0]||'')+'</button><button data-nfgo="'+(next||[])[0]+'">'+esc((next||[])[0]||'')+' ▶</button></div>';
+    var pick='<div class="nf-pick"><div class="nf-bus"><input id="nfBus" type="search" autocomplete="off" placeholder="🔎 Escribe ticker o nombre (LO → Logista)"><div id="nfSug" class="nf-sug"></div></div><select id="nfSel">'+L.map(function(x){ return '<option value="'+x[0]+'"'+(x[0]===cur?' selected':'')+'>'+esc(x[1])+' ('+x[0]+')</option>'; }).join('')+'</select><button data-nfgo="'+(prev||[])[0]+'">◀ '+esc((prev||[])[0]||'')+'</button><button data-nfgo="'+(next||[])[0]+'">'+esc((next||[])[0]||'')+' ▶</button></div>';
     soltarCot(); v.innerHTML=pick+'<div class="nf-mu" style="padding:20px">Cargando la ficha de '+esc(cur)+'…</div>';
     var t=cur;
     cargar(t).then(function(F){ if(t!==cur) return;
@@ -346,6 +346,20 @@
     var g=e.target.closest&&e.target.closest('[data-nfgo]'); if(g){ cur=g.getAttribute('data-nfgo'); tab=tab==='cot'?'cot':tab; pintar(); return; }
   });
   document.addEventListener('change',function(e){ if(e.target&&e.target.id==='nfSel'){ cur=e.target.value; pintar(); } });
+  /* 30-oct (Carlos): buscador que predice al escribir — por ticker (empieza por) y por nombre (contiene), sin acentos */
+  var _sugI=0;
+  function norm(x){ return String(x||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+  function sugerir(){ var i=document.getElementById('nfBus'), b=document.getElementById('nfSug'); if(!i||!b) return; var q=norm(i.value.trim());
+    if(!q){ b.innerHTML=''; b.style.display='none'; return; }
+    var L=lista().map(function(x){ var t=norm(x[0]), n=norm(x[1]), s=t===q?0:(t.indexOf(q)===0?1:(n.indexOf(q)===0?2:(n.indexOf(' '+q)>=0?3:(n.indexOf(q)>=0||t.indexOf(q)>=0?4:9)))); return [x,s]; }).filter(function(z){ return z[1]<9; }).sort(function(a,c){ return a[1]-c[1]||a[0][1].localeCompare(c[0][1]); }).slice(0,8);
+    _sugI=0; b.innerHTML=L.length?L.map(function(z,k){ return '<div class="nf-sgi'+(k===0?' on':'')+'" data-nfsug="'+z[0][0]+'"><b>'+esc(z[0][0])+'</b> '+esc(z[0][1])+'</div>'; }).join(''):'<div class="nf-sgi nf-mu">Ninguna analizada con «'+esc(i.value)+'»</div>'; b.style.display='block'; }
+  function elegir(t){ if(!t) return; cur=t; pintar(); }
+  document.addEventListener('input',function(e){ if(e.target&&e.target.id==='nfBus') sugerir(); });
+  document.addEventListener('keydown',function(e){ if(!e.target||e.target.id!=='nfBus') return; var it=[].slice.call(document.querySelectorAll('#nfSug [data-nfsug]')); if(!it.length) return;
+    if(e.key==='ArrowDown'||e.key==='ArrowUp'){ e.preventDefault(); _sugI=(_sugI+(e.key==='ArrowDown'?1:-1)+it.length)%it.length; it.forEach(function(x,k){ x.classList.toggle('on',k===_sugI); }); }
+    else if(e.key==='Enter'){ e.preventDefault(); elegir(it[_sugI].getAttribute('data-nfsug')); }
+    else if(e.key==='Escape'){ e.target.value=''; sugerir(); } });
+  document.addEventListener('mousedown',function(e){ var s=e.target.closest&&e.target.closest('[data-nfsug]'); if(s){ e.preventDefault(); elegir(s.getAttribute('data-nfsug')); } });
   /* tooltips de las gráficas */
   var tip=null; document.addEventListener('mousemove',function(e){ var r=e.target.closest&&e.target.closest('rect.nf-hv'); if(!tip){ tip=document.createElement('div'); tip.className='nf-tip'; document.body.appendChild(tip); }
     if(!r){ tip.style.display='none'; return; } var p=r.getAttribute('data-tip').split('|'); tip.innerHTML='<b>'+p[0]+'</b>'+p.slice(1).join('<br>'); tip.style.display='block'; tip.style.left=(e.clientX+14)+'px'; tip.style.top=(e.clientY+14)+'px'; });
