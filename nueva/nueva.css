@@ -791,3 +791,13 @@ body.n-noscroll{overflow:hidden}
 .view.ns-in{display:block!important;padding:0;margin:0}
 .view.ns-in>.vhero{display:none}
 #view-monitor.ns-tareas [data-monblk="mon"],#view-monitor.ns-tareas #monKpis{display:none!important}
+/* 30-oct · Sistema depurado: cifras y botones con el estilo común */
+#view-cobertura .cob-k .c,#view-estado .pos-kpis .k,#view-backtest .pos-kpis .k,#view-hemero .hem-kpis .k,#view-graficas .graf-kpis .k{background:#FFF!important;color:#142231!important;border:1px solid #E5E9EF!important;border-left:4px solid #1F4A9A!important;border-radius:14px!important;box-shadow:0 1px 3px rgba(20,34,49,.06)!important}
+#view-cobertura .cob-k .c.hero,#view-estado .pos-kpis .k.hero,#view-backtest .pos-kpis .k.hero,#view-hemero .hem-kpis .k.hero,#view-graficas .graf-kpis .k.hero{border-left-color:#15803D!important}
+#view-cobertura .cob-k .c .l,#view-cobertura .cob-k .c .p,#view-estado .pos-kpis .k .l,#view-estado .pos-kpis .k .p,#view-backtest .pos-kpis .k .l,#view-backtest .pos-kpis .k .p,#view-hemero .hem-kpis .k .l,#view-hemero .hem-kpis .k .p,#view-graficas .graf-kpis .k .l,#view-graficas .graf-kpis .k .p{color:#5B6B7C!important}
+#view-cobertura .cob-k .c.hero .v,#view-estado .pos-kpis .k.hero .v,#view-backtest .pos-kpis .k.hero .v,#view-hemero .hem-kpis .k.hero .v,#view-graficas .graf-kpis .k.hero .v{color:#15803D!important}
+#view-graficas .btn.sm,#view-informes .btn.sm{background:#fff!important;border:1px solid #C9D7EE!important;color:#1F4A9A!important;border-radius:8px!important;font-weight:800!important;box-shadow:none!important}
+#view-graficas .btn.sm.on,#view-graficas .btn.sm.active,#view-informes .btn.sm.on{background:#1F4A9A!important;color:#fff!important;border-color:#1F4A9A!important}
+#view-graficas input[type=range]{accent-color:#1F4A9A}
+.ns-viejo{display:none!important} .ns-vertodos .ns-viejo{display:block!important}
+.ns-vertodo{font-size:12.5px;color:#1F4A9A;margin:6px 2px 0;cursor:pointer}
