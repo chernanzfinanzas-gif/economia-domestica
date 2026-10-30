@@ -3,7 +3,7 @@
  "ticker": "UNI",
  "empresa": "Unicaja Banco, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-29",
+ "generado": "2026-10-30",
  "revisiones": [
   {
    "periodo": "2023-Q1",
@@ -812,6 +812,64 @@
     {
      "nombre": "Fuera de balance",
      "valor": 27289.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +3,6 %, margen de explotación +2,6 %, resultado consolidado +8,0 %, margen 54,3 % (-0,53 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 10,3 %. Verde: solo el margen empeora, sin más señales. **Qué ha pasado** — Resultado consolidado de 543 M€ en los nueve meses (+8,1 %), margen de intereses 1.151 M€ (+3,0 %) y margen bruto 1.629 M€ (+3,5 %). RoTE del 10,3 % (12,2 % ajustado por el exceso de capital), eficiencia 45,8 % (+0,6 pp), coste del riesgo 0,19 % (−0,05 pp), morosidad 1,8 % (2,2 % hace un año) y CET1 fully loaded 15,4 % (−0,7 pp). Crédito performing 49.371 M€ (+4,9 %) y recursos minoristas 97.616 M€ (+4,6 %).\n\n**Por qué** — El beneficio sube «impulsado por el aumento de los ingresos y la reducción de las dotaciones» (−21,6 %) («nota de prensa sobre sus resultados del tercer trimestre»). El margen de intereses mejora por la repreciación del crédito: el diferencial de clientes sube al 2,28 % en el 3T (presentación). Los gastos suben un 4,9 % por el Plan Estratégico y el convenio colectivo: de ahí la eficiencia. El CET1 baja porque el reparto sube al 95 % del beneficio (70 % en 2025): recurrente y buscado.\n\n**Semáforo** — Verde correcto: ninguna métrica cruza su umbral; solo eficiencia y CET1 empeoran, y por causas conocidas. No abre señales; la S5 se cierra al aprobar. La S3 ya está decidida (REAFIRMAR, 29-oct).\n\n**Qué vigilar** — El payout del 95 % es el catalizador 2 de la tesis (devolver el capital que sobra sobre un CET1 del 12,5 %) empezando a cumplirse: dividendos a cuenta de 8,44 y 6,42 céntimos (este, el 17-dic). Coste de los depósitos al alza (0,47 % → 0,53 % en el trimestre): riesgo 4. Diferencial de clientes 2,28 %, por encima del 2 % que dispara el riesgo 1. Cotiza a la altura del PO bull (3,23 €).\n\n**Lectura** — Aprobar. Refuerza la tesis de capital y dividendo; no cambia el veredicto (ESPERAR).",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 1151.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1629.0
+    },
+    {
+     "nombre": "Resultado consolidado",
+     "valor": 543.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 10.3
+    },
+    {
+     "nombre": "CET1",
+     "valor": 15.4
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 1.8
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.19
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 45.8
+    },
+    {
+     "nombre": "Crédito performing",
+     "valor": 49371.0
+    },
+    {
+     "nombre": "Recursos minoristas",
+     "valor": 97616.0
+    },
+    {
+     "nombre": "Fuera de balance",
+     "valor": 26707.0
     }
    ],
    "hechos": [],

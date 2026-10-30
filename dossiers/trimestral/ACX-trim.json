@@ -3,7 +3,7 @@
  "ticker": "ACX",
  "empresa": "Acerinox, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-29",
+ "generado": "2026-10-30",
  "revisiones": [
   {
    "periodo": "2021-Q1",
@@ -590,6 +590,10 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 8.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 45.0
     }
    ],
    "hechos": [],
@@ -628,6 +632,32 @@
     {
      "nombre": "Deuda neta",
      "valor": 1459.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,9 %, EBITDA +46,4 %, margen 10,3 % (+3,14 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4556.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 470.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 10.3
     }
    ],
    "hechos": [],

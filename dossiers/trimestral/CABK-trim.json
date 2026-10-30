@@ -3,7 +3,7 @@
  "ticker": "CABK",
  "empresa": "CaixaBank, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-29",
+ "generado": "2026-10-30",
  "revisiones": [
   {
    "periodo": "2023-Q1",
@@ -756,6 +756,60 @@
     {
      "nombre": "Recursos de clientes",
      "valor": 771943.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +4,4 %, margen de explotación +4,6 %, resultado atribuido +12,8 %, margen 60,5 % (+0,07 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal única de la tesis): 18,8 %. Verde: nada que señalar. **Qué ha pasado** — Resultado atribuido de 4.962 M€ en los nueve meses (+12,9 %), margen de intereses 8.186 M€ (+2,9 %), margen bruto 12.656 M€ (+4,4 %) y margen de explotación 7.653 M€ (+4,6 %). RoTE a 12 meses del 18,8 % (17,8 % hace un año), eficiencia 39,4 % (+0,2 pp), coste del riesgo 0,24 % (igual), morosidad 1,76 % (2,07 % en diciembre) y CET1 12,5 % (−0,1 pp). Crédito bruto 404.756 M€ (+5,3 % sobre diciembre) y recursos de clientes 760.353 M€.\n\n**Por qué** — Recurrente: el margen de intereses crece «apoyado por el crecimiento en volúmenes» y los ingresos por servicios suben un 7,7 % (gestión patrimonial +12,5 %, seguros de protección +14,5 %) («Nota de Prensa sobre los Resultados del tercer trimestre»). Los gastos suben un 4,3 %, por eso la eficiencia no mejora. Puntual: el impuesto a la banca (IMIC) resta 452 M€ (446 M€ en 2025) y el CET1 recoge «el impacto extraordinario (-20 puntos básicos)» de la recompra de 500 M€; sin ella, sube 14 pb.\n\n**Semáforo** — Verde bien puesto: todas las métricas del §10.2 mejoran o se mantienen; solo el CET1 baja una décima, por la recompra. No abre señales; la S5 se cierra al aprobar. La S3 (cotiza por encima del PO bull, 9,23 €) ya está decidida: REAFIRMAR (29-oct).\n\n**Qué vigilar** — El disparador del catalizador 1 (RoTE por encima del 19 % dos trimestres seguidos) está a 0,2 pp. Dividendo a cuenta de 0,1844 € (40 % del beneficio del semestre), pago el 6-nov; la recompra se alarga hasta el 30-ene-2027 (comunicación a la CNMV del 30-oct). Lejos de las alarmas de la §8: coste del riesgo 0,24 % frente al 0,40 %, morosidad 1,76 % frente al 2,5 %.\n\n**Lectura** — Aprobar. No toca la tesis: empuja hacia el escenario bull, pero el precio ya lo descuenta; ESPERAR sigue.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 8186.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 12656.0
+    },
+    {
+     "nombre": "Resultado atribuido",
+     "valor": 4962.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 18.8
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.5
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 1.76
+    },
+    {
+     "nombre": "Coste del riesgo",
+     "valor": 0.24
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 39.4
+    },
+    {
+     "nombre": "Crédito bruto",
+     "valor": 404756.0
+    },
+    {
+     "nombre": "Recursos de clientes",
+     "valor": 760353.0
     }
    ],
    "hechos": [],
