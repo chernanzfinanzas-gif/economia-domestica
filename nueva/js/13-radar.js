@@ -777,7 +777,7 @@ function _pintarCalendario(analizadas){
     /* Informe recién publicado: se mantiene visible 10 días como confirmación de que está hecho,
        luego desaparece solo. */
     if(c&&c.ultimoFecha){ var _ud=_cbDias(c.ultimoFecha,hoy); if(_ud!=null&&_ud<=0&&_ud>=-10){
-      items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:'Informe '+(_QLABEL[c.uq]||c.uq),date:c.ultimoFecha,dias:_ud,bucket:2,done:true,chkType:'informe',chkKey:_cbToStr(c.ultimoFecha),conf:!!c.ultimoManual,recien:true}); } }
+      items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:'Informe '+(_QLABEL[c.uq]||c.uq),date:c.ultimoFecha,dias:_ud,bucket:2,done:true,chkType:'informe',chkKey:_cbToStr(c.ultimoFecha),conf:!!(c.ultimoManual||c.ultimoCnmv),recien:true}); } }
     var d=(typeof calibDataFor==='function')?calibDataFor(t):null;
     if(d){ var act=_calibActivo(d.hitos,hoy); if(act){ var dc=(act.dias==null?9999:act.dias); items.push({t:t,nombre:inf.nombre,tipo:'calib',tipoLbl:'Calibración '+act.k,date:act.diana,dias:act.dias,bucket:(dc<=0?0:2),done:!!act.done,chkType:'calib',chkKey:act.k}); } }
     var sen=_senalActiva(t); if(sen && !_cbSenalRespondida(t,sen.tipo)){ items.push({t:t,nombre:inf.nombre,tipo:'senal',tipoLbl:'Señal '+sen.lbl,date:null,dias:null,bucket:0,done:!!((senDone[t]||{})[sen.tipo]),chkType:'senal',chkKey:sen.tipo,sev:sen.sev,col:sen.col}); }
@@ -973,7 +973,9 @@ function _cadenciaDe(t){
       var dd=Math.abs(d-next.date);
       if(dd<75*86400000&&(!_bc||dd<_bc.dd))_bc={d:d,dd:dd,x:x}; });
     if(_bc&&(_bc.x.fuerte||!next.manual)){ next.date=_bc.d; next.cnmv=true; next.confirmada=!!_bc.x.fuerte; next.fuente=_bc.x.fuente; next.publicado=!!_bc.x.publicado; if(_bc.x.fuerte)next.manual=false; } } }catch(e){}
-  return {ultimo:ultimo, ultimoFecha:ultFecha, ultimoManual:!!cm[uq], next:next, uq:uq};
+  /* [30-oct-2026] el último informe cuenta como confirmado si la CNMV lo da por publicado en esa fecha (no solo si lo confirmaste a mano) */
+  var _ultCnmv=false; try{ _ultCnmv=_cnmvFechas(t).some(function(x){ return x.publicado && x.fecha===ultFecha; }); }catch(e){}
+  return {ultimo:ultimo, ultimoFecha:ultFecha, ultimoManual:!!cm[uq], ultimoCnmv:_ultCnmv, next:next, uq:uq};
 }
 var _QLABEL={Q1:'Q1',Q2:'H1',Q3:'9M',Q4:'FY'};
 function _cadEstado(c,hoy,dossierFecha){
