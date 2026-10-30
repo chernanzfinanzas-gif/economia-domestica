@@ -642,16 +642,6 @@ body.n-noscroll{overflow:hidden}
 @media(max-width:900px){.nf-pick{flex-wrap:wrap}.nf-bus{flex-basis:100%}}
 
 /* ===== 30-oct · Mi cartera → Dividendos (una pestaña con cuatro sub-pestañas) ===== */
-#view-dividendos .nd-k{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 12px}
-#view-dividendos .nd-k .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
-#view-dividendos .nd-k .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
-#view-dividendos .nd-k .l{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.02em}
-#view-dividendos .nd-k .hero .l,#view-dividendos .nd-k .hero .p{color:#DCFCE7}
-#view-dividendos .nd-k .v{font-size:23px;font-weight:800;margin:3px 0}
-#view-dividendos .nd-k .p{font-size:12px;color:var(--muted)}
-#view-dividendos .nd-tabs{display:flex;gap:6px;margin:12px 0;flex-wrap:wrap}
-#view-dividendos .nd-tabs button{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 16px;font-weight:800;color:#334155;cursor:pointer;font-size:14px}
-#view-dividendos .nd-tabs button.on{background:#1F4A9A;color:#fff;border-color:#1F4A9A}
 #view-dividendos .nd-pane{display:none}
 #view-dividendos .nd-pane>.view.nd-in{display:block!important;padding:0;margin:0}
 #view-dividendos .nd-pane>.view.nd-in>.vhero{display:none}
@@ -700,10 +690,6 @@ body.n-noscroll{overflow:hidden}
 #view-dividendos #view-calendario.nd-verpas tr.nd-pas{display:table-row!important}
 #view-dividendos #view-calendario.nd-verpas .e-past.nd-pas{display:block!important}
 #view-dividendos .nd-abar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px}
-#view-dividendos .nd-abar .yl{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase}
-#view-dividendos .nd-abar .yr{display:inline-flex;align-items:center;gap:8px;font-size:20px}
-#view-dividendos .nd-abar .yr button{background:#2563EB;color:#fff;border:0;border-radius:8px;padding:3px 10px;font-size:13px;cursor:pointer}
-#view-dividendos .nd-abar .yr button[disabled]{background:#CBD5E1;cursor:default}
 #view-dividendos .nd-abar input{border:1px solid #CBD5E1;border-radius:8px;padding:6px 10px;width:180px;max-width:100%}
 #view-dividendos .nd-chip{border-radius:20px;padding:4px 10px;font-size:12.5px;font-weight:700;display:inline-block}
 #view-dividendos .nd-chip.p{background:#F1F5F9;color:#475569}#view-dividendos .nd-chip.a{background:#FEF3C7;color:#92400E}
@@ -747,15 +733,54 @@ body.n-noscroll{overflow:hidden}
 #view-dividendos table.nd-dt th{text-align:left;font-size:11.5px;color:var(--muted);border-bottom:1px solid #E5E9EF;padding:5px 8px}
 #view-dividendos table.nd-dt td{padding:6px 8px;border-bottom:1px solid #F1F5F9}
 #view-dividendos table.nd-dt tr.tot td{font-weight:800;background:#F8FAFC}
-#view-dividendos .nd-btn{border:1px solid #CBD5E1;color:#94A3B8;border-radius:8px;padding:2px 8px;font-size:12px;font-weight:700;cursor:not-allowed}
 #view-dividendos .nd-det .ej{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:8px 12px;color:#14532D;margin-top:10px}
-@media(max-width:800px){#view-dividendos .nd-k{grid-template-columns:1fr 1fr}#view-dividendos .nd-k .v{font-size:19px}}
 /* 30-oct · filtros del calendario dentro de Dividendos: tres filas con etiqueta, mismos botones */
 #view-dividendos .nd-fil{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:0 0 10px;display:flex;flex-direction:column;gap:6px}
 #view-dividendos .nd-fil .r,#view-dividendos .nd-tiporow{display:flex!important;flex-wrap:wrap;align-items:center;gap:6px!important}
 #view-dividendos .nd-lbl{min-width:72px;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
-#view-dividendos .nd-b,#view-dividendos #ndPane-cal .calFbtn{background:#fff!important;color:#334155!important;border:1px solid #CBD5E1!important;border-radius:8px!important;padding:6px 12px!important;font-weight:700!important;font-size:12.5px!important;cursor:pointer;line-height:1.2}
-#view-dividendos .nd-b.on,#view-dividendos #ndPane-cal .calFbtn.on{background:#1F4A9A!important;color:#fff!important;border-color:#1F4A9A!important}
-#view-dividendos .nd-b small{font-weight:500;opacity:.8}
 #view-dividendos #ndPane-cal .calEmpSel{border:1px solid #CBD5E1!important;border-radius:8px!important;padding:6px 8px!important;font-size:12.5px!important}
 @media(max-width:600px){#view-dividendos .nd-lbl{min-width:100%}}
+
+/* 30-oct · Dividendos con los estilos comunes de la app nueva (cifras n-w, grupos n-seg, sub-pestañas como subtabs) */
+#view-dividendos #ndKpis{margin:0 0 14px}
+#view-dividendos .nd-tabs{display:flex;gap:6px;margin:14px 0 12px;flex-wrap:wrap}
+#view-dividendos .nd-tabs button{padding:8px 16px;cursor:pointer;font-size:14px}
+#view-dividendos .nd-tabs button.on{background:#1F4A9A!important;border-color:#1F4A9A!important;color:#FFF!important}
+#view-dividendos .n-seg{flex-wrap:wrap;background:#FFF}
+#view-dividendos .n-seg button{padding:6px 12px;font-size:12.5px}
+#view-dividendos .n-seg button small{font-weight:500;opacity:.8}
+#view-dividendos .n-seg .calFbtn{border-radius:0!important;border:0!important;background:#FFF!important;color:#5B6B7C!important;font-weight:600!important;padding:6px 12px!important;font-size:12.5px!important;box-shadow:none!important}
+#view-dividendos .n-seg .calFbtn+.calFbtn{border-left:1px solid #DDE3EA!important}
+#view-dividendos .n-seg .calFbtn.on{background:#1F4A9A!important;color:#FFF!important}
+#view-dividendos .nd-fil{background:#FFF;border:1px solid #E5E9EF;box-shadow:0 1px 3px rgba(20,34,49,.06)}
+#view-dividendos #ndPane-cal .calEmpSel,#view-dividendos #ndPane-evo select{padding:6px 28px 6px 10px!important;border:1px solid #C9D7EE!important;border-radius:10px!important;font-size:13px!important;font-weight:700!important;color:#1F4A9A!important;background-color:#fff!important}
+/* barra del calendario: año, deslizador y vistas */
+#view-dividendos #calBar>div>div{background:#FFF!important;border:1px solid #E5E9EF!important;box-shadow:0 1px 3px rgba(20,34,49,.06)}
+#view-dividendos #calBar .calYbtn,#view-dividendos #calBar #calHoy,#view-dividendos .nd-yr button{border:1px solid #C9D7EE!important;background:#fff!important;border-radius:8px!important;padding:4px 12px!important;font-weight:800!important;color:#1F4A9A!important;cursor:pointer}
+#view-dividendos #calBar .calYbtn[disabled],#view-dividendos .nd-yr button[disabled]{opacity:.4;cursor:default}
+#view-dividendos #calBar>div>div:last-of-type:has(.calSubtab){display:inline-flex!important;gap:0!important;border:1px solid #DDE3EA!important;border-radius:9px!important;overflow:hidden;padding:0!important;box-shadow:none}
+#view-dividendos #calBar .calSubtab{border:0!important;border-radius:0!important;background:#FFF!important;color:#5B6B7C!important;font-weight:600!important;padding:7px 14px!important;font-size:12.5px!important;box-shadow:none!important}
+#view-dividendos #calBar .calSubtab+.calSubtab{border-left:1px solid #DDE3EA!important}
+#view-dividendos #calBar .calSubtab.on{background:#1F4A9A!important;color:#FFF!important}
+#view-dividendos #calBar #calYearRange{accent-color:#1F4A9A!important}
+/* cifras del calendario como las de arriba */
+#view-dividendos #calKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+#view-dividendos #calKpis .k,#view-dividendos #calKpis .k.hero{background:#FFF!important;color:#142231!important;border:1px solid #E5E9EF!important;border-left:4px solid #1F4A9A!important;border-radius:14px!important;box-shadow:0 1px 3px rgba(20,34,49,.06)!important}
+#view-dividendos #calKpis .k.hero{border-left-color:#15803D!important}
+#view-dividendos #calKpis .k .l,#view-dividendos #calKpis .k.hero .l{color:#5B6B7C!important}
+#view-dividendos #calKpis .k .p,#view-dividendos #calKpis .k.hero .p{color:#5B6B7C!important}
+#view-dividendos #calKpis .k .v{color:#142231!important;font-size:24px!important}
+#view-dividendos #calKpis .k.hero .v{color:#15803D!important}
+/* Por acción: botones de la tabla del universo */
+#view-dividendos #ndPane-evo .btn.sm{background:#FFF!important;border:1px solid #DDE3EA!important;color:#5B6B7C!important;border-radius:9px!important;font-weight:600!important;box-shadow:none!important}
+#view-dividendos #ndPane-evo .btn.sm.on,#view-dividendos #ndPane-evo .btn.sm.active,#view-dividendos #ndPane-evo .btn.sm[style*="var(--brand)"]{background:#1F4A9A!important;color:#FFF!important;border-color:#1F4A9A!important}
+#view-dividendos #ndPane-evo input:not([type=checkbox]):not([type=range]),#view-dividendos .nd-abar input{border:1px solid #C9D7EE!important;border-radius:10px!important;padding:6px 10px!important;font-size:13px}
+/* Anotar */
+#view-dividendos .nd-yr{margin:0}
+#view-dividendos .nd-yr b{font-size:20px;min-width:56px;text-align:center}
+#view-dividendos .nd-abar{background:#FFF;border:1px solid #E5E9EF;box-shadow:0 1px 3px rgba(20,34,49,.06)}
+@media(max-width:1100px){#view-dividendos #calKpis .pos-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#view-dividendos #ndPane-evo .k,#view-dividendos #ndPane-evo .k.hero{background:#FFF!important;color:#142231!important;border:1px solid #E5E9EF!important;border-left:4px solid #1F4A9A!important;border-radius:14px!important;box-shadow:0 1px 3px rgba(20,34,49,.06)!important}
+#view-dividendos #ndPane-evo .k.hero{border-left-color:#15803D!important}
+#view-dividendos #ndPane-evo .k .l,#view-dividendos #ndPane-evo .k .p{color:#5B6B7C!important}
+#view-dividendos #ndPane-evo .k .v{color:#142231!important}#view-dividendos #ndPane-evo .k.hero .v{color:#15803D!important}

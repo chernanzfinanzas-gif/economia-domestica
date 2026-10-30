@@ -79,7 +79,7 @@
     var rw=document.getElementById('divRiesgoWrap');
     if(hero&&hero.nextSibling) V.insertBefore(k,hero.nextSibling); else V.appendChild(k);
     if(rw) V.insertBefore(rw,k.nextSibling);
-    var tb=document.createElement('div'); tb.id='ndTabs'; tb.className='nd-tabs';
+    var tb=document.createElement('div'); tb.id='ndTabs'; tb.className='nd-tabs subtabs';
     tb.innerHTML=SUBS.map(function(s){return '<button data-ndsub="'+s[0]+'">'+s[1]+'</button>';}).join('');
     V.insertBefore(tb,(rw||k).nextSibling);
     SUBS.forEach(function(s){ var p=document.createElement('div'); p.id='ndPane-'+s[0]; p.className='nd-pane'; V.appendChild(p); });
@@ -109,7 +109,7 @@
 
   function pintarSub(){
     var s=window._ndSub;
-    document.querySelectorAll('#ndTabs [data-ndsub]').forEach(function(b){ b.classList.toggle('on',b.dataset.ndsub===s); });
+    document.querySelectorAll('#ndTabs [data-ndsub]').forEach(function(b){ b.classList.toggle('on',b.dataset.ndsub===s); b.classList.toggle('active',b.dataset.ndsub===s); });
     SUBS.forEach(function(x){ var p=document.getElementById('ndPane-'+x[0]); if(p) p.style.display=(x[0]===s)?'block':'none'; });
     var vc=document.getElementById('view-calendario'), vp=document.getElementById('view-prevision');
     if(s==='cal'&&vc){ vc.classList.add('active'); if(window._ndCalPrimera==null){ window._ndCalPrimera=1; } try{ renderCalendario(); }catch(e){} }
@@ -120,12 +120,12 @@
 
   /* ================= cabecera: 4 cifras ================= */
   function pintarKpis(C,K){
-    var el=document.getElementById('ndKpis'); if(!el) return;
+    var el=document.getElementById('ndKpis'); if(!el) return; el.className='n-ctrl';
     var pr=K.prox;
-    el.innerHTML='<div class="k hero"><div class="l">Cobrado en '+K.y+' (bruto)</div><div class="v">'+es(K.cob)+' €</div><div class="p">por cobrar hasta dic. '+es(K.pend)+' €</div></div>'+
-      '<div class="k"><div class="l">Próximo cobro</div><div class="v">'+(pr?es(pr.v)+' €':'—')+'</div><div class="p">'+(pr?esc(pr.t)+' · '+fd(pr.f).replace(/\//g,'-'):'nada pendiente este año')+'</div></div>'+
-      '<div class="k"><div class="l">Total '+K.y+' previsto</div><div class="v">'+es(K.cob+K.pend)+' €</div><div class="p">cobrado + por cobrar</div></div>'+
-      '<div class="k"><div class="l">Total cobrado desde el principio</div><div class="v">'+es(C.grand)+' €</div><div class="p">bruto · neto '+es(C.grand*0.81)+' €</div></div>';
+    el.innerHTML=nKpi({c:'#15803D',bg:'#DCFCE7',ic:'💶',t:'Cobrado en '+K.y+' (bruto)',v:es(K.cob)+' €',vCls:'n-pos',s:'por cobrar hasta diciembre <b>'+es(K.pend)+' €</b>'})+
+      nKpi({c:'#1F4A9A',bg:'#EAF1FD',ic:'📅',t:'Próximo cobro',v:pr?es(pr.v)+' €':'—',s:pr?'<b>'+esc(pr.t)+'</b> · '+fd(pr.f):'nada pendiente este año'})+
+      nKpi({c:'#0D9488',bg:'#CCFBF1',ic:'🎯',t:'Total '+K.y+' previsto',v:es(K.cob+K.pend)+' €',s:'cobrado + por cobrar'})+
+      nKpi({c:'#7C3AED',bg:'#EDE9FE',ic:'🏦',t:'Cobrado desde el principio',v:es(C.grand)+' €',s:'bruto · neto <b>'+es(C.grand*0.81)+' €</b>'});
   }
 
   /* ================= Cobrado ================= */
@@ -225,7 +225,7 @@
     var row=V.querySelector('#calBody .card > div');
     if(row&&row.querySelector('.calFbtn')){ row.querySelectorAll('[data-cala]').forEach(function(b){ b.remove(); });
       [].slice.call(row.children).forEach(function(c){ if(c.tagName==='SPAN'&&!c.textContent.trim()) c.remove(); });
-      row.classList.add('nd-tiporow'); if(!row.querySelector('.nd-lbl')) row.insertAdjacentHTML('afterbegin','<span class="nd-lbl">Tipo</span>'); }
+      row.classList.add('nd-tiporow'); if(!row.querySelector('.nd-lbl')){ var sg=document.createElement('span'); sg.className='n-seg'; row.querySelectorAll('.calFbtn[data-calf]').forEach(function(b){ b.removeAttribute('style'); sg.appendChild(b); }); row.insertBefore(sg,row.firstChild); row.insertAdjacentHTML('afterbegin','<span class="nd-lbl">Tipo</span>'); } }
     V.querySelectorAll('#calBody span').forEach(function(sp){ if(!sp.children.length&&sp.textContent.trim()==='est'){ sp.textContent='⏳ fecha estimada'; sp.title='La empresa aún no ha confirmado la fecha'; } });
     var pas=0; V.querySelectorAll('#calBody tr').forEach(function(tr){ if(/opacity:\s*\.4/.test(tr.getAttribute('style')||'')){ tr.classList.add('nd-pas'); pas++; } });
     V.querySelectorAll('#calBody .e-past').forEach(function(c){ c.classList.add('nd-pas'); });
@@ -234,8 +234,8 @@
     var f=document.getElementById('ndCalFil');
     if(!f&&cb){ f=document.createElement('div'); f.id='ndCalFil'; f.className='nd-fil'; cb.parentNode.insertBefore(f,cb); }
     if(f){ var ag=(typeof _calVista==='undefined'||_calVista==='agenda');
-      f.innerHTML='<div class="r"><span class="nd-lbl">Empresas</span>'+AMB.map(function(x){return '<button data-ndamb="'+x[0]+'" class="nd-b'+(x[0]===window._ndAmb?' on':'')+'">'+x[1]+'</button>';}).join('')+'</div>'+
-        (ag?'<div class="r"><span class="nd-lbl">Ver</span><button data-ndpas="0" class="nd-b'+(window._ndVerPas?'':' on')+'">Solo los futuros</button><button data-ndpas="1" class="nd-b'+(window._ndVerPas?' on':'')+'">Todos los del año'+(pas?' <small>(+'+pas+' pasados)</small>':'')+'</button></div>':''); }
+      f.innerHTML='<div class="r"><span class="nd-lbl">Empresas</span><span class="n-seg">'+AMB.map(function(x){return '<button data-ndamb="'+x[0]+'" class="'+(x[0]===window._ndAmb?'on':'')+'">'+x[1]+'</button>';}).join('')+'</span></div>'+
+        (ag?'<div class="r"><span class="nd-lbl">Ver</span><span class="n-seg"><button data-ndpas="0" class="'+(window._ndVerPas?'':'on')+'">Solo los futuros</button><button data-ndpas="1" class="'+(window._ndVerPas?'on':'')+'">Todos los del año'+(pas?' <small>(+'+pas+' pasados)</small>':'')+'</button></span></div>':''); }
   }
   /* El selector manda en las tres vistas (Agenda, Mensual, €/mes):
      Cartera = solo lo que tienes · En Plan = + las del plan (las que aún no tienes, con ✕ en sus meses de pago)
@@ -325,7 +325,7 @@
       } else det='<div class="nd-det"><b>'+esc(t)+'</b> · sin pagos anteriores registrados de los que partir.</div>';
     }
     var html='<div class="nd-nota">Antes «Actualizar dividendos». <b>Desaparece «Volcar a Evolución»</b>: lo que hay en la casilla es lo que usa la app. <b>En la app nueva solo se mira</b>; mientras no guarde, se anota en la de siempre.</div>'+
-      '<div class="nd-abar"><span class="yl">Año</span><span class="yr"><button data-ndano="-1"'+(Y<=cur+1?' disabled':'')+'>◀</button><b>'+Y+'</b><button data-ndano="1"'+(Y>=hz?' disabled':'')+'>▶</button></span>'+
+      '<div class="nd-abar"><span class="nd-lbl">Año</span><span class="ns-nav nd-yr"><button data-ndano="-1"'+(Y<=cur+1?' disabled':'')+'>◀</button><b>'+Y+'</b><button data-ndano="1"'+(Y>=hz?' disabled':'')+'>▶</button></span>'+
         '<span class="nd-chip p">⚪ '+cnt.p+' proyectadas</span><span class="nd-chip a">🟡 '+cnt.a+' anotadas</span><span class="nd-chip c">✏️ '+cnt.c+' corregidas</span><span class="nd-chip k">✅ '+cnt.k+' confirmadas</span><span style="flex:1"></span>'+
         '<input id="ndAnoQ" placeholder="Buscar…" value="'+esc(window._ndAnoQ||'')+'"></div>'+
       '<div class="nd-cic"><b>Ciclo de cada pago</b> (el valor de la casilla es el que usa toda la app para ese año):'+

@@ -142,7 +142,7 @@ function _calEvJuntaRes(t, year){
 /* Patrón de publicación por trimestre canónico: MM-DD del informe MÁS RECIENTE de cada Q
    (Q1/Q2/Q3/Q4). Respeta el año fiscal de cada empresa (p.ej. Logista Q4≈11-03, IBE Q4≈02-26).
    Sirve para PROYECTAR la cadencia completa del año, no solo el próximo informe. */
-function _calPatronTrim(t){
+function _calPatronTrim(t, sinManual){
   var d=(typeof _cadTrim!=='undefined' && _cadTrim) ? _cadTrim[(t||'').toUpperCase()] : null;
   if(!d || !d.revisiones) return null;
   var md={};
@@ -150,9 +150,19 @@ function _calPatronTrim(t){
     .forEach(function(r){ var q=_calQ(r.periodo); if(q && r.fecha) md[q]=(''+r.fecha).slice(5,10); });
   /* Confirmación MANUAL (Cobertura → DB.cadManual): su día-mes sustituye el del histórico para ese Q. */
   var cm=(typeof DB!=='undefined'&&DB.cadManual)?(DB.cadManual[(t||'').toUpperCase()]||{}):{};
-  ['Q1','Q2','Q3','Q4'].forEach(function(q){ if(cm[q])md[q]=cm[q]; });
+  if(!sinManual) ['Q1','Q2','Q3','Q4'].forEach(function(q){ if(cm[q])md[q]=cm[q]; });
   return Object.keys(md).length ? md : null;
 }
+/* [30-oct-2026] Fecha del calendario de la CNMV (la de Cobertura) más cercana a una fecha estimada, a menos de
+   75 días: la publicada si ya publicó; si no, la anunciada. fuerte = publicada, anunciada por la empresa o Yahoo. */
+function _calFechaCnmv(t, fEst){
+  try{ if(typeof _cnmvFechas!=='function' || !fEst) return null;
+    var e=new Date(fEst+'T00:00:00'), best=null;
+    _cnmvFechas(t).forEach(function(x){ var d=new Date(x.fecha+'T00:00:00'), dd=Math.abs(d-e); if(!(dd<75*86400000)) return;
+      var rk=x.publicado?0:(x.fuerte?1:2);
+      if(!best || rk<best.rk || (rk===best.rk && dd<best.dd)) best={fecha:x.fecha, fuerte:!!(x.publicado||x.fuerte), publicado:!!x.publicado, rk:rk, dd:dd}; });
+    return best;
+  }catch(err){ return null; } }
 /* ---- informes trimestrales desde -trim.json cuya fecha cae en `year` ---- */
 function _calEvTrim(t, year){
   t=(t||'').toUpperCase(); var out=[]; var filed={};
@@ -162,8 +172,14 @@ function _calEvTrim(t, year){
   var d=(typeof _cadTrim!=='undefined' && _cadTrim) ? _cadTrim[t] : null;
   if(d && d.revisiones){
     d.revisiones.forEach(function(r){ var q=_calQ(r.periodo); var f=(r.fecha||'').slice(0,10); if(!f) return;
-      if(cm[q]) f=f.slice(0,4)+'-'+cm[q];
-      if(f.slice(0,4)==String(year)){ out.push({ t:t, fecha:f, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:!!(r.fechaEstimada&&!cm[q]), proyectado:false }); }
+      /* [30-oct-2026 · Carlos: «los calendarios deben decir lo mismo»] Manda el calendario de la CNMV
+         (recogida/calendario.json, el mismo que Cobertura): la fecha publicada o, si no, la anunciada, a menos de
+         75 días de la estimada. La confirmación manual antigua (DB.cadManual, día-mes que se arrastra cada año)
+         solo se usa si la CNMV no tiene fecha. */
+      var _f0=f, _est=!!r.fechaEstimada, _cf=_est?_calFechaCnmv(t,_f0):null; if(_cf&&!_cf.fuerte) _cf=null;   /* informe ya presentado: solo vale una fecha publicada o anunciada */
+      if(_cf){ f=_cf.fecha; _est=!_cf.fuerte; }
+      else if(cm[q]){ f=f.slice(0,4)+'-'+cm[q]; _est=false; }
+      if(f.slice(0,4)==String(year)){ out.push({ t:t, fecha:f, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:_est, proyectado:false }); }
       filed[f.slice(0,4)+'-'+q]=1;   /* trimestre YA presentado ese año → no proyectarlo encima */
     });
   }
@@ -173,8 +189,11 @@ function _calEvTrim(t, year){
   if(pat){ ['Q1','Q2','Q3','Q4'].forEach(function(q){ var md=pat[q]; if(!md) return;
     var dt=year+'-'+md;
     if(filed[year+'-'+q]) return;
-    if(hoy && dt<hoy) return;
-    out.push({ t:t, fecha:dt, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:!cm[q], proyectado:false });
+    /* [30-oct-2026] la proyección también toma la fecha de la CNMV (anunciada o publicada) si la hay; manda sobre la manual */
+    var _pb=_calPatronTrim(t,true), _dtb=(_pb&&_pb[q])?(year+'-'+_pb[q]):dt;   /* se busca en la CNMV desde la fecha habitual, no desde la manual */
+    var _est2=!cm[q], _cf2=_calFechaCnmv(t,_dtb)||_calFechaCnmv(t,dt); if(_cf2){ dt=_cf2.fecha; _est2=!_cf2.fuerte; }
+    if(hoy && dt<hoy && !(_cf2&&!_cf2.publicado)) return;   /* pasada: fuera, salvo que la CNMV la tenga aún pendiente (como en Cobertura) */
+    out.push({ t:t, fecha:dt, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:_est2, proyectado:false });
   }); }
   return out;
 }
