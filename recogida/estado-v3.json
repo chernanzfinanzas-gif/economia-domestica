@@ -1,9 +1,244 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-30T09:45",
+ "generado": "2026-10-30T10:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "A3M cuentas anuales",
+   "ticker": "A3M",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:20",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "ACS cuentas anuales",
+   "ticker": "ACS",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:21",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "ACX cuentas anuales",
+   "ticker": "ACX",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:22",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "AENA cuentas anuales",
+   "ticker": "AENA",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:23",
+   "semaforo": "A",
+   "frase": null
+  },
+  {
+   "carpeta": "AMS cuentas anuales",
+   "ticker": "AMS",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:24",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "BBVA cuentas anuales",
+   "ticker": "BBVA",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:25",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "BKT cuentas anuales",
+   "ticker": "BKT",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:26",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "CIE cuentas anuales",
+   "ticker": "CIE",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:27",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "EBRO cuentas anuales",
+   "ticker": "EBRO",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:28",
+   "semaforo": "A",
+   "frase": null
+  },
+  {
+   "carpeta": "ELE cuentas anuales",
+   "ticker": "ELE",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:29",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "ENG cuentas anuales",
+   "ticker": "ENG",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:30",
+   "semaforo": "R",
+   "frase": null
+  },
+  {
+   "carpeta": "FAE cuentas anuales",
+   "ticker": "FAE",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:31",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "FDR cuentas anuales",
+   "ticker": "FDR",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:32",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "GEST cuentas anuales",
+   "ticker": "GEST",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:33",
+   "semaforo": "A",
+   "frase": null
+  },
+  {
+   "carpeta": "IBE cuentas anuales",
+   "ticker": "IBE",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:34",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "ITX cuentas anuales",
+   "ticker": "ITX",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:35",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "LDA cuentas anuales",
+   "ticker": "LDA",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:36",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "LOG cuentas anuales",
+   "ticker": "LOG",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:37",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "MAP cuentas anuales",
+   "ticker": "MAP",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:38",
+   "semaforo": "A",
+   "frase": null
+  },
+  {
+   "carpeta": "MCM cuentas anuales",
+   "ticker": "MCM",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:39",
+   "semaforo": "R",
+   "frase": null
+  },
+  {
+   "carpeta": "MRL cuentas anuales",
+   "ticker": "MRL",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:40",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "NTGY cuentas anuales",
+   "ticker": "NTGY",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:41",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "PRM cuentas anuales",
+   "ticker": "PRM",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:41",
+   "semaforo": "R",
+   "frase": null
+  },
+  {
+   "carpeta": "R4 cuentas anuales",
+   "ticker": "R4",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:42",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "RED cuentas anuales",
+   "ticker": "RED",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:43",
+   "semaforo": "A",
+   "frase": null
+  },
+  {
+   "carpeta": "REP cuentas anuales",
+   "ticker": "REP",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:44",
+   "semaforo": "V",
+   "frase": null
+  }
+ ],
+ "n_pendientes": 26,
  "ultima_subida": {
   "cuando": "2026-10-30T09:45",
   "ficheros": [
