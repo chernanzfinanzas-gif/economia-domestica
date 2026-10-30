@@ -162,7 +162,7 @@ const GROUPS={
   plan:[['independencia','Independencia'],['asignacion','Asignación'],['simulador','Simulador'],['riesgo','Riesgo'],['fiscalidad','Fiscalidad'],['opciones','Opciones de futuro']],
   cartera:[['inversiones','Cartera'],['rentabilidad','Rentabilidad'],['dividendos','Dividendos']],
   empresas:[['unin','Universo'],['analizadas','Analizadas'],['fichaemp','Ficha de empresa']],
-  sistema:[['cobertura','Cobertura'],['informes','Informes'],['graficas','Gráficas'],['diario','Mis Decisiones'],['estado','Estado y calibración'],['backtest','Backtest'],['hemero','Hemeroteca'],['monitor','Monitor'],['hechos','Diario de Hechos'],['analisis','Análisis (antiguo)'],['radar','Radar (antiguo)'],['tesisinv','Ficha de Tesis (antigua)'],['vision','Visión de conjunto (antigua)']]
+  sistema:[['cobertura','Cobertura'],['diario','Mis Decisiones'],['estado','Estado del método'],['informes','Informes'],['graficas','Gráficas'],['monitor','Tareas']]
 };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 /* Botón flotante «+»: en cada vista lleva directo a donde se añade información */

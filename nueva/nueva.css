@@ -784,3 +784,10 @@ body.n-noscroll{overflow:hidden}
 #view-dividendos #ndPane-evo .k.hero{border-left-color:#15803D!important}
 #view-dividendos #ndPane-evo .k .l,#view-dividendos #ndPane-evo .k .p{color:#5B6B7C!important}
 #view-dividendos #ndPane-evo .k .v{color:#142231!important}#view-dividendos #ndPane-evo .k.hero .v{color:#15803D!important}
+
+/* ===== 30-oct · Sistema: pestañas metidas dentro de otras ===== */
+.ns-sub{margin-top:22px;border-top:1px solid #E5E9EF;padding-top:12px}
+.ns-subh{font-size:15px;font-weight:800;color:#1F4A9A;margin:0 0 10px}
+.view.ns-in{display:block!important;padding:0;margin:0}
+.view.ns-in>.vhero{display:none}
+#view-monitor.ns-tareas [data-monblk="mon"],#view-monitor.ns-tareas #monKpis{display:none!important}
