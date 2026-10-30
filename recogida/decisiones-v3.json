@@ -439,7 +439,20 @@
     "origen": "metodo-v3",
     "sinPosicion": true
    }
+  ],
+  "BBVA": [
+   {
+    "fecha": "30-oct-2026",
+    "fechaIso": "2026-10-30",
+    "senal": "S3",
+    "cot": 22.45,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotización 22,45 €, un 53,7 % sobre el PO base (14,60 €) y un 28,7 % sobre el PO bull (17,44 €); la decisión de la tesis ya es ESPERAR y el semáforo del 9M-2026 es VERDE (margen neto +18,6 %, atribuido +13,6 %, RoTE 22,0 %). Los resultados acompañan: el disparador del bull (RoTE por encima del 21 % dos trimestres seguidos) se cumple, y la valoración ya se rehízo el 29-oct con el 9M, así que no hay dato nuevo que pida AJUSTA PO. REAFIRMAR: no comprar más a este precio; una salida parcial sería defendible solo si el RoTE baja del 21 % o el coste de riesgo pasa su alarma (1,44 % frente a 1,5 %). Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 30-10-2026. Decidido sin posición en cartera.",
+    "revision": "BBVA señales 2026-10-29",
+    "origen": "metodo-v3",
+    "sinPosicion": true
+   }
   ]
  },
- "actualizado": "2026-10-29"
+ "actualizado": "2026-10-30"
 }
