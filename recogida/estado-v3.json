@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-30T10:45",
+ "generado": "2026-10-30T11:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -18,6 +18,17 @@
    "periodos": [],
    "tipo": "pase",
    "creada": "2026-10-30T10:21",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "ACX 2026-9M",
+   "ticker": "ACX",
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-10-30T09:53",
    "semaforo": "V",
    "frase": null
   },
@@ -65,6 +76,17 @@
    "creada": "2026-10-30T10:26",
    "semaforo": "V",
    "frase": null
+  },
+  {
+   "carpeta": "CABK 2026-9M",
+   "ticker": "CABK",
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-10-30T09:54",
+   "semaforo": "V",
+   "frase": "Qué ha pasado — Resultado atribuido de 4.962 M€ en los nueve meses (+12,9 %), margen de intereses 8.186 M€ (+2,9 %), margen bruto 12.656 M€ (+4,4 %) y margen de explotación 7.653 M€ (+4,6 %). RoTE a 12 meses del 18,8 % (17,8 % hace un año),"
   },
   {
    "carpeta": "CIE cuentas anuales",
@@ -236,9 +258,65 @@
    "creada": "2026-10-30T10:44",
    "semaforo": "V",
    "frase": null
+  },
+  {
+   "carpeta": "ROVI cuentas anuales",
+   "ticker": "ROVI",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:45",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "SAN cuentas anuales",
+   "ticker": "SAN",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:46",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "TEF cuentas anuales",
+   "ticker": "TEF",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:47",
+   "semaforo": "A",
+   "frase": null
+  },
+  {
+   "carpeta": "UNI 2026-9M",
+   "ticker": "UNI",
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-10-30T09:56",
+   "semaforo": "V",
+   "frase": "Qué ha pasado — Resultado consolidado de 543 M€ en los nueve meses (+8,1 %), margen de intereses 1.151 M€ (+3,0 %) y margen bruto 1.629 M€ (+3,5 %). RoTE del 10,3 % (12,2 % ajustado por el exceso de capital), eficiencia 45,8 % (+0,6 pp), co"
+  },
+  {
+   "carpeta": "VID cuentas anuales",
+   "ticker": "VID",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:48",
+   "semaforo": "V",
+   "frase": null
+  },
+  {
+   "carpeta": "VIS cuentas anuales",
+   "ticker": "VIS",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-10-30T10:49",
+   "semaforo": "R",
+   "frase": null
   }
  ],
- "n_pendientes": 26,
+ "n_pendientes": 34,
  "ultima_subida": {
   "cuando": "2026-10-30T09:45",
   "ficheros": [
