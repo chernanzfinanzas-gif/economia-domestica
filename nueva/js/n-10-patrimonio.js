@@ -1,6 +1,24 @@
 /* APP NUEVA · Patrimonio (boceto aprobado 28-oct): 4 cifras fuera del banner.
    Se apoya en el renderPat de siempre (lista, gráfica, cuentas, formulario) y solo cambia la cabecera. */
 (function(){
+  /* 1-nov-2026 (Carlos): la tarjeta Efectivo, desglosada por cuenta; en ING y Santander, además, el saldo de hoy según el último extracto importado */
+  window.efCuentas=function(snap){
+    try{
+      var S=(DB.bancoSaldos)||{}, C={}; (DB.cuentas||[]).forEach(function(c){ C[c.id]=c; });
+      function hoyDe(nom){ var n=String(nom||'').toLowerCase(); if(n==='ing') return S.ING; if(n==='santander') return S.SAN; if(n==='renta 4') return S.R4; return null; }
+      var filas=(snap.lineas||[]).filter(function(l){ return num(l.ef)||hoyDe((C[l.cuentaId]||{}).nombre); }).map(function(l){ var c=C[l.cuentaId]||{nombre:'?'}, h=hoyDe(c.nombre);
+        var dif=h?h.saldo-num(l.ef):0;
+        return '<div class="n-efc-f"><span class="n-efc-n">'+_infEsc(c.nombre)+'</span><b>'+fmt(num(l.ef))+'</b>'+
+          (h?'<span class="n-efc-h">hoy <b>'+fmt(h.saldo)+'</b> <small>('+ddmmyyyy(h.fecha).slice(0,5)+(Math.abs(dif)>=0.5?' · '+(dif>0?'+':'−')+fmt(Math.abs(dif)):'')+')</small></span>':'<span class="n-efc-h"></span>')+'</div>'; });
+      var tb=0, fb=''; ['ING','SAN','R4'].forEach(function(k){ if(S[k]){ tb+=S[k].saldo; if(!fb||S[k].fecha<fb) fb=S[k].fecha; } });
+      return '<div class="n-efc">'+filas.join('')+(tb?'<div class="n-efc-t">Hoy según los extractos (bancos y R4): <b>'+fmt(tb)+'</b></div>':'')+'</div>';
+    }catch(e){ return ''; }
+  };
+  var st=document.createElement('style'); st.textContent='.n-efc{margin-top:6px;display:flex;flex-direction:column;gap:3px}.n-efc-f{display:grid;grid-template-columns:1fr auto;column-gap:10px;font-size:12.5px;padding:3px 0;border-top:1px dashed #E5E9EF}'+
+    '.n-efc-n{color:#334155}.n-efc-f>b{text-align:right;color:#142231}.n-efc-h{grid-column:1/-1;text-align:right;color:#15803D;font-size:12px}.n-efc-h small{color:#64748B}.n-efc-t{font-size:12px;color:#475569;margin-top:4px}';
+  document.head.appendChild(st);
+})();
+(function(){
   if(typeof renderPat!=='function') return;
   var orig=renderPat;
   renderPat=function(){
@@ -15,7 +33,7 @@
       el.innerHTML=
         nKpi({c:'#1F4A9A',bg:'#EAF1FD',ic:'🏛️',t:'Patrimonio total',pill:crec==null?'':(crec>=0?'▲ ':'▼ ')+nPct(crec,0),pillCls:crec>=0?'up':'dn',v:fmt(t.total),
               s:'<b class="'+(crec>=0?'n-pos':'n-neg')+'">'+nPct(crec,0)+'</b> desde el inicio, el <b>'+ddmmyyyy(first.fecha)+'</b> ('+fmt(tf.total)+')',p:'al '+ddmmyyyy(last.fecha)+' · '+snaps.length+' registros'})+
-        nKpi({c:'#16A34A',bg:'#DCFCE7',ic:'💶',t:'Efectivo',pill:Math.round((1-pInv)*100)+' %',v:fmt(t.ef),s:'cuentas y Fondo R4'})+
+        nKpi({c:'#16A34A',bg:'#DCFCE7',ic:'💶',t:'Efectivo',pill:Math.round((1-pInv)*100)+' %',v:fmt(t.ef),s:'cuentas y Fondo R4 · al '+ddmmyyyy(last.fecha)+efCuentas(last)})+
         nKpi({c:'#D97706',bg:'#FEF3C7',ic:'📈',t:'Invertido',pill:Math.round(pInv*100)+' %',v:fmt(t.inv),s:'acciones en el bróker'})+
         nKpi({c:'#0D9488',bg:'#CCFBF1',ic:'↗',t:'Frente al anterior',v:nPct(vsAnt,1),vCls:vsAnt==null?'':(vsAnt>=0?'n-pos':'n-neg'),s:prev?('desde el registro del '+ddmmyyyy(prev.fecha)+' ('+fmt(tp.total)+')'):'primer registro'});
     }catch(e){ console.error('n-patrimonio',e); }

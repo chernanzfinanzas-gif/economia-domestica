@@ -30,7 +30,9 @@
   function leer(buf,nombre){
     var wb=XLSX.read(buf,{type:'array'}), N=wb.SheetNames, out={fichero:nombre,lineas:[],tipo:null};
     if(N.indexOf('Rdos.')>=0||N.indexOf('Saldo en Divisa')>=0){ out.tipo='R4'; out.r4=[];   /* solo para cotejar los recibos que pagan los bancos a R4 */
-      filas(wb,'Saldo en Divisa').forEach(function(r){ var f=serial(r[0]), c=String(r[1]||'').toUpperCase(), im=nn(r[2]); if(f&&im!=null&&/^(INGRESO RECIBO|TRANSF\. RECIBIDA)/.test(c)) out.r4.push({fecha:f,imp:im}); });
+      out.r4cash=[]; filas(wb,'Saldo en Divisa').forEach(function(r){ var f=serial(r[0]), c=String(r[1]||'').toUpperCase(), im=nn(r[2]), sl=nn(r[3]); if(f&&im!=null&&/^(INGRESO RECIBO|TRANSF\. RECIBIDA)/.test(c)) out.r4.push({fecha:f,imp:im}); if(f&&sl!=null) out.r4cash.push({fecha:f,saldo:sl}); });
+      filas(wb,'Fondos Inv.').forEach(function(r){ if(/FONCUENTA/i.test(String(r[0]||''))) out.r4fondo=nn(r[2]); });
+      filas(wb,'Rdos.').forEach(function(r){ var m=/hasta (\d{2}\/\d{2}\/\d{4})/.exec(String(r[0]||'')); if(m) out.r4hasta=serial(m[1]); });
       return out; }
     for(var si=0;si<N.length;si++){ var R=filas(wb,N[si]);
       for(var i=0;i<Math.min(R.length,15);i++){ var h=R[i].map(function(c){ return String(c).trim().toUpperCase(); });
@@ -60,10 +62,13 @@
     return s.toLowerCase().split(' ').map(function(w){ return w?w.charAt(0).toUpperCase()+w.slice(1):w; }).join(' '); }
 
   /* ---------- traspasos ---------- */
+  /* tarjetas de Susana (los extractos traen el número): sus retiradas de cajero se apuntan mitad Compras Varios, mitad Ocio (Carlos, 1-nov) */
+  function deSusana(txt){ var T=((DB.config&&DB.config.tarjetasSusana)||['369065']); var m=/pan:?\s*(\d{8,19})/i.exec(txt)||/tarj(?:eta|\.)?\s*:?\s*\*?(\d{4,19})/i.exec(txt); if(!m) return false; var n=m[1];
+    return T.some(function(x){ return n.slice(-x.length)===x; }); }
   function traspaso(l){ var t=sinAc(l.txt);
     if(/renta 4/.test(t)) return 'Aportación a Renta 4';
     if(/cargo mensual tarjeta/.test(t)) return 'Cargo mensual de la tarjeta (sus compras vienen una a una en el extracto de la tarjeta)';
-    if(/retirada de efectivo|cajero/.test(t)) return 'Retirada de efectivo (pasa a Efectivo casa)';
+    if(/retirada de efectivo|cajero/.test(t)){ if(deSusana(l.txt)) return null; return 'Retirada de efectivo con tu tarjeta (pasa a Efectivo casa; apuntas tú lo que gastas)'; }
     if(/^(transferencia|traspaso)/.test(t)&&/hernanz blazquez carlos/.test(t)) return 'Traspaso entre tus cuentas';
     return null; }
 
@@ -98,6 +103,9 @@
     if(/^devolucion tarjeta/.test(t)){ p.nota='Devolución de un cargo con tarjeta'; }
     var cm=/concepto:?\s*(.+)$/i.exec(l.txt);
     if(!p.k&&/^bizum/.test(t)) p.k='Bizum '+(ing?'de ':'a ')+p.d+(cm?' · '+cm[1].trim():'');
+    if(/retirada de efectivo|cajero/.test(t)&&deSusana(l.txt)){ var h=r2(Math.abs(l.imp)/2), c22=catPorNombre('Compras Varios'), c21=catPorNombre('Ocio');
+      p.parts=[{f:l.f,k:'Efectivo Susana',co:'Efectivo',d:'Cajero',c:c22,t:'Susana',r:false,imp:h},{f:l.f,k:'Efectivo Susana',co:'Efectivo',d:'Cajero',c:c21,t:'Susana',r:false,imp:r2(Math.abs(l.imp)-h)}];
+      p.nota='Cajero con la tarjeta de Susana: mitad Compras Varios, mitad Ocio'; p.origen=''; p.k='Efectivo Susana'; }
     if(!p.k) p.k=(ing?'':'Compra ')+p.d;
     if(!p.c&&!p.r) p.nota=(p.nota?p.nota+' · ':'')+'elige la categoría';
     return p;
@@ -166,7 +174,7 @@
     ST.nuevas=0;
     nuevas.forEach(function(l){ if(C.res[l.key]||enPend[l.key]) return; var pr=proponer(l);
       DB.movPend.push({id:'np'+l.key,key:l.key,l:{src:l.src,f:l.f,txt:l.txt,imp:l.imp,saldo:l.saldo,bcat:l.bcat||'',key:l.key},tipo:pr.tipo,nota:pr.nota,origen:pr.origen,dudoso:!pr.marcar,
-        parts:[{f:l.f,k:pr.k,co:pr.co||'',d:pr.d||'',c:pr.c,t:pr.t,r:pr.r,imp:r2(Math.abs(l.imp))}]});
+        parts:pr.parts||[{f:l.f,k:pr.k,co:pr.co||'',d:pr.d||'',c:pr.c,t:pr.t,r:pr.r,imp:r2(Math.abs(l.imp))}]});
       V[l.key]='p'+l.f.replace(/-/g,'').slice(2); ST.nuevas++; });
     ST.traspasos=L.filter(function(l){ return l._tr&&!l._visto; });
     ST.yaVistas=L.filter(function(l){ return l._visto; }).length;
@@ -182,6 +190,10 @@
     ['ING','SAN'].forEach(function(s){ var U=ST.lineas.filter(function(l){ return l.src===s&&l.saldo!=null; }); if(!U.length) return;
       var last=U[0]; U.forEach(function(l){ if(l.f>last.f) last=l; });   /* los bancos listan del más nuevo al más viejo: con la misma fecha manda el primero */
       var prev=DB.bancoSaldos[s]; if(!prev||prev.fecha<=last.f) DB.bancoSaldos[s]={fecha:last.f,saldo:last.saldo,leido:hy}; });
+    /* saldo al final de cada día (para rellenar Patrimonio en cualquier fecha): el banco lista del más nuevo al más viejo, así que manda la primera línea de cada día */
+    DB.bancoSaldoDia=DB.bancoSaldoDia||{};
+    ['ING','SAN'].forEach(function(s){ var H=DB.bancoSaldoDia[s]=DB.bancoSaldoDia[s]||{}, vis={};
+      ST.lineas.forEach(function(l){ if(l.src!==s||l.saldo==null||vis[l.f]) return; vis[l.f]=1; H[l.f]=l.saldo; }); });
     podar(); _dets=null;
     if(typeof scheduleSave==='function') scheduleSave();
     if(typeof renderMovs==='function'){ try{ renderMovs(); }catch(e){} }
@@ -313,7 +325,10 @@
   window.nImpLeer=function(buf,nombre){ return leer(buf,nombre); };
   window.nImpProcesar=function(XS){ var s=document.getElementById('nImpMsg');
     var L=[], fic=[], r4=false, r4ing=[], porSrc={};
-    XS.forEach(function(x){ if(x.tipo==='R4'){ r4=true; r4ing=r4ing.concat(x.r4||[]); fic.push('Renta 4 (para cotejar)'); return; } if(porSrc[x.tipo]) return; porSrc[x.tipo]=1; claves(x.lineas); L=L.concat(x.lineas); fic.push(CTA[x.tipo]+' ('+x.lineas.length+')'); });
+    XS.forEach(function(x){ if(x.tipo==='R4'){ r4=true; r4ing=r4ing.concat(x.r4||[]);
+      try{ if(x.r4hasta&&x.r4fondo!=null){ var cs=0; (x.r4cash||[]).forEach(function(c){ cs=c.saldo; }); DB.bancoSaldos=DB.bancoSaldos||{}; var pv=DB.bancoSaldos.R4;   /* Foncuenta + efectivo de R4, para Patrimonio */
+        var fh=x.r4hasta>hoy()?hoy():x.r4hasta;
+        if(!pv||pv.fecha<=fh) DB.bancoSaldos.R4={fecha:fh,saldo:r2(x.r4fondo+cs),fondo:x.r4fondo,cash:cs,leido:hoy()}; } }catch(e){} fic.push('Renta 4 (para cotejar)'); return; } if(porSrc[x.tipo]) return; porSrc[x.tipo]=1; claves(x.lineas); L=L.concat(x.lineas); fic.push(CTA[x.tipo]+' ('+x.lineas.length+')'); });
     if(!L.length){ if(s) s.textContent=r4?'Con el extracto de R4 solo se cotejan los recibos: elígelo junto a los del banco.':'No había movimientos en esos ficheros.'; return; }
     var u0=(DB.bancoUltImport||''), desde=u0?addD(u0,-10):addD(hoy(),-92);
     ST={lineas:L,ficheros:fic,r4:r4,r4ing:r4ing,desde:desde};
