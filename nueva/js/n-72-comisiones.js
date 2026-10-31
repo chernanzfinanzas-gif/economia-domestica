@@ -133,3 +133,33 @@
       if(d>0){ S.derechos=d; S.divCob=num(S.divCob)+d; S.aportado-=d; S.resultado+=d; S.pct=(S.aportado>0.01)?S.resultado/S.aportado:null; } } }catch(e){}
     return S; };
 })();
+/* 5. «Los 35 € de 2026» (IBE −19,20 y LOG −16,00 con sus datos del 29-oct): en los pagos YA PASADOS el calendario
+   usaba el importe de Evolución; ahora manda lo COBRADO apuntado (DB.dividendos). Cada cobro se casa con el pago
+   del calendario más cercano (±30 días) y le pone su importe; un cobro sin pareja (p. ej. la prima de asistencia de
+   IBE de junio) entra como pago propio. Así el calendario y «Cobrado» dicen lo mismo. */
+(function(){
+  if(typeof _calEvDiv!=='function') return;
+  var o=_calEvDiv;
+  _calEvDiv=function(t,year){ var out=o.apply(this,arguments);
+    try{ var T=(t||'').toUpperCase(), hoy=_calHoy(), Y=String(year);
+      var cob=((DB.dividendos||{})[T]||[]).filter(function(d){ var f=(d.fecha||'').slice(0,10); return f.slice(0,4)===Y && f<=hoy; });
+      if(!cob.length) return out;
+      var pas=out.filter(function(e){ return e.tipo==='pago' && e.fecha<=hoy; }), usado={};
+      cob.forEach(function(d){ var f=(d.fecha||'').slice(0,10), fm=Date.parse(f+'T00:00:00'), best=-1, bd=31;
+        pas.forEach(function(e,i){ if(usado[i]) return; var dd=Math.abs((Date.parse(e.fecha+'T00:00:00')-fm)/864e5); if(dd<bd){ bd=dd; best=i; } });
+        var imp=_calNum(d.importe);
+        if(best>=0){ var e=pas[best], fe=Date.parse(e.fecha+'T00:00:00');
+          /* los pagos del mismo día (p. ej. ordinario + extraordinario, VIS 0,799 + 1) son UN cobro apuntado: el primero lleva
+             el importe cobrado y los demás se quitan, con sus ex-dividendos */
+          var grupo=[]; pas.forEach(function(x,i){ if(!usado[i]&&Math.abs((Date.parse(x.fecha+'T00:00:00')-fe)/864e5)<=3) grupo.push(i); });
+          grupo.forEach(function(i,k){ usado[i]=1; var x=pas[i], viejo=x.imp;
+            var ex=out.filter(function(z){ return z.tipo==='exdiv'&&!z._cob&&z.imp===viejo&&z.fecha<=x.fecha; })[0];
+            if(k===0){ x.imp=imp; x.cobrado=true; x.previsto=false; if(ex){ ex.imp=imp; ex._cob=1; } }
+            else { x._quitar=1; if(ex){ ex._quitar=1; ex._cob=1; } } }); }
+        else out.push({t:T,fecha:f,tipo:'pago',periodo:'',imp:imp,sh:(typeof _calShEvento==='function'?_calShEvento(T,f,year):_calSharesAt(T,f,1)),previsto:false,proyectado:false,cobrado:true});
+      });
+      /* un pago pasado del calendario sin cobro apuntado no se toca: puede ser que aún no lo hayas anotado */
+      out=out.filter(function(x){ return !x._quitar; });
+    }catch(e){ console.warn('[calendario] cobrado',e); }
+    return out; };
+})();

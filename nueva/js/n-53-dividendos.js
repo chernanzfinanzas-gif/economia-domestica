@@ -190,18 +190,18 @@
     var R=[].map.call(t.querySelectorAll('tbody tr'),function(tr){ return [].map.call(tr.children,function(td){ var inp=td.querySelector('input'); if(inp) return inp.value?es(+inp.value):''; return td.textContent.replace(/ €/g,'').replace(/ €/g,'').trim(); }); });
     var G=[['Inversión',[['Compras','Compras',0,''],['Ventas','Ventas',0,''],['Invertido neto','Invertido neto',0,'compras − ventas − dividendos brutos cobrados: tu dinero que sigue dentro',1],['Valor compra','Valor de compra',0,'coste de las acciones que tienes']]],
            ['Dividendo',[['Div bruto','Dividendo bruto',0,'',1],['Div neto','Dividendo neto',0,'bruto − 19 %'],['%Inv','% sobre invertido neto',1,'dividendo bruto ÷ invertido neto'],['%Compra','% sobre valor de compra',1,'dividendo bruto ÷ valor de compra']]],
-           ['Hacienda',[['Impuesto','Retención (19 %)',0,''],['Dev. Hacienda','✏️ Devolución de Hacienda',0,'el único dato que escribes tú cada año (en la app de siempre)'],['Total ingresado','Total ingresado',0,'neto + devolución',1],['Descuento real','Impuesto real pagado',0,'bruto − total ingresado'],['Tasa imp.','Tasa real de impuesto',1,'impuesto real ÷ bruto']]],
+           ['Hacienda',[['Impuesto','Retención (19 %)',0,''],['Dev. Hacienda','✏️ Devolución de Hacienda',0,'el único dato que escribes tú cada año: lo que te devuelve Hacienda en la renta'],['Total ingresado','Total ingresado',0,'neto + devolución',1],['Descuento real','Impuesto real pagado',0,'bruto − total ingresado'],['Tasa imp.','Tasa real de impuesto',1,'impuesto real ÷ bruto']]],
            ['Resultado',[['Rent. neta','Rentabilidad neta',1,'total ingresado ÷ valor de compra',1]]]];
     var anos=R.map(function(r){return r[0];});
     var h='<div class="nd-sct"><div></div></div><div class="nd-sc"><table class="nd-t nd-tr nd-rs"><thead><tr><th class="l">Concepto</th>'+anos.map(function(y){return '<th class="n">'+esc(y)+'</th>';}).join('')+'</tr></thead><tbody>';
     G.forEach(function(g){ h+='<tr class="grp"><td class="l">'+g[0]+'</td>'+anos.map(function(){return '<td></td>';}).join('')+'</tr>';
       g[1].forEach(function(it){ var i=ix[it[0]]; if(i==null) return; var dev=it[0]==='Dev. Hacienda';
         h+='<tr class="'+(dev?'dev':'')+(it[4]?' key':'')+'"><td class="l">'+it[1]+(it[3]?'<div class="tip">'+it[3]+'</div>':'')+'</td>'+
-          R.map(function(r){ var v=r[i]||''; if(dev&&!v) return '<td class="n"><span class="nd-add">sin anotar</span></td>';
+          R.map(function(r){ var v=r[i]||''; if(dev){ var yy=String(r[0]||'').trim(), dv=(DB.devolucionHacienda||{})[yy]; return '<td class="n"><input class="nd-dev" type="number" step="0.01" min="0" data-devhac="'+esc(yy)+'" value="'+(dv?num(dv):'')+'" placeholder="sin anotar" title="Lo que te devolvió Hacienda por la retención de dividendos de '+esc(yy)+'"></td>'; }
             if(v===''||v==='·') return '<td class="n"><span class="dot">·</span></td>';
             if(it[2]) v=v.replace('+','').replace('.',',').replace('%',' %');
             return '<td class="n'+(/^-/.test(v)?' neg':'')+'">'+esc(v)+'</td>'; }).join('')+'</tr>'; }); });
-    h+='</tbody></table></div><div class="nd-pie">Mismo formato que la tabla de empresas. La fila <b>✏️ Devolución de Hacienda</b> es la única que escribes tú; en la app nueva se ve, y se sigue anotando en la de siempre.</div>';
+    h+='</tbody></table></div><div class="nd-pie">Mismo formato que la tabla de empresas. La fila <b>✏️ Devolución de Hacienda</b> es la única que escribes tú: pon la cifra en el año y se recalculan el total ingresado y el impuesto real.</div>';
     var b=blk.querySelector('.div-pad'); if(b) b.innerHTML=h;
   }
   function postCobrado(){
