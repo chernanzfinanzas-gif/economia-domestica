@@ -78,7 +78,7 @@
       var bt=g==='ext'?'Pedir revisión':'Ver';
       if(g==='car') return '<div class="n-av'+(v?' visto':'')+'" style="--ac:#0EA5E9"><span class="n-avst" style="background:#E0F2FE;color:#075985">Esperando</span><div class="n-avtx">'+x.txt+'</div><button class="n-avbt n-avbtp" data-nevok="'+x.key+'">'+esc(x.btn||'Confirmar')+'</button><button class="n-avok" data-avseen="'+x.key+'" title="Marcar como visto">✓</button></div>';
       return '<div class="n-av'+(v?' visto':'')+'" style="--ac:'+(x.cls==='r'?'#DC2626':(g==='ext'?'#7C3AED':'#D97706'))+'"><span class="n-avst" style="background:'+st[1]+';color:'+st[2]+'">'+st[0]+'</span><div class="n-avtx">'+x.txt+'</div>'+
-        (x.goto?'<button class="n-avbt" data-goto="'+x.goto+'"'+act+'>'+bt+'</button>':'')+'<button class="n-avok" data-avseen="'+x.key+'" title="'+(v?'Volver a mostrar':'Marcar como visto')+'">✓</button></div>'; }
+        ((g==='ext'&&x.tick)?'<button class="n-avbt" data-nprv="'+esc(String(x.tick).toUpperCase())+'" data-nprvh="'+esc(String(x.txt||'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim().slice(0,160))+'">Pedir revisión</button>':(x.goto?'<button class="n-avbt" data-goto="'+x.goto+'"'+act+'>'+bt+'</button>':''))+'<button class="n-avok" data-avseen="'+x.key+'" title="'+(v?'Volver a mostrar':'Marcar como visto')+'">✓</button></div>'; }
     var h=chips+senH;
     window._nAvMas=window._nAvMas||{};
     ['dec','ext','tri','car','div','hog'].forEach(function(g){ if((!G[g].length&&!(g==='dec'&&G.s3d.length))||(f&&f!==g)) return; var todo=f===g||window._nAvMas[g], L2=todo?G[g]:G[g].slice(0,5);

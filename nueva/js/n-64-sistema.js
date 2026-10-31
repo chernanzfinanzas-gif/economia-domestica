@@ -19,9 +19,9 @@
     if(M&&!M._ns){ M._ns=1; var h=M.querySelector('.vhero h2'), p=M.querySelector('.vhero p'); if(h) h.textContent='Tareas'; if(p) p.textContent='Tu lista de acciones pendientes, con fecha límite y el porqué de cada una.'; M.classList.add('ns-tareas'); }
   }
     /* ---- depuración 30-oct (revisión con Carlos) ---- */
-  var TXT=[[/Radar Op\.?/g,'Universo'],[/Radar\/Universo/g,'Universo']];
+  var TXT=[[/Radar Op\.?/g,'Universo'],[/Radar\/Universo/g,'Universo'],[/ y pulsa «Añadir ★ a la cola»/g,' (la estrella la añade sola)'],[/(^|[^\d])1 pendientes/g,'$11 pendiente']];   /* 31-oct: en la nueva la ★ añade directamente */
   function textos(root){ if(!root) return; var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null), n, cambios=[];
-    while((n=w.nextNode())){ var t=n.nodeValue; if(!/Radar/.test(t)) continue; var u=t; TXT.forEach(function(r){ u=u.replace(r[0],r[1]); }); if(u!==t) cambios.push([n,u]); }
+    while((n=w.nextNode())){ var t=n.nodeValue; if(!/Radar|Añadir ★|1 pendientes/.test(t)) continue; var u=t; TXT.forEach(function(r){ u=u.replace(r[0],r[1]); }); if(u!==t) cambios.push([n,u]); }
     cambios.forEach(function(c){ c[0].nodeValue=c[1]; }); }
   /* Novedades de la recogida: solo los documentos recientes (fecha del documento a menos de 30 días de cuando se recogió);
      lo descargado de años anteriores (rellenos de la Biblioteca) queda detrás de «ver también». */
