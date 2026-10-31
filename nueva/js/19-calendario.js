@@ -191,7 +191,10 @@ function _calEvTrim(t, year){
     if(filed[year+'-'+q]) return;
     /* [30-oct-2026] la proyección también toma la fecha de la CNMV (anunciada o publicada) si la hay; manda sobre la manual */
     var _pb=_calPatronTrim(t,true), _dtb=(_pb&&_pb[q])?(year+'-'+_pb[q]):dt;   /* se busca en la CNMV desde la fecha habitual, no desde la manual */
-    var _est2=!cm[q], _cf2=_calFechaCnmv(t,_dtb)||_calFechaCnmv(t,dt); if(_cf2){ dt=_cf2.fecha; _est2=!_cf2.fuerte; }
+    /* [31-oct-2026 · ensayo] la confirmación manual (DB.cadManual) guarda solo día-mes: vale para la PRÓXIMA vez de ese
+       trimestre, no para todos los años futuros (IBE 2027 salía con FY, H1 y 9M «confirmados»). */
+    var _cmOk=false; if(cm[q]&&hoy){ var _y0=+hoy.slice(0,4), _nx=((_y0+'-'+cm[q])>=hoy)?_y0:_y0+1, _dd=(Date.parse(_nx+'-'+cm[q]+'T00:00:00')-Date.parse(hoy+'T00:00:00'))/864e5; _cmOk=(+year===_nx && _dd<=150); }   /* y solo si esa próxima vez está cerca (≤150 días): nadie confirma hoy una fecha de dentro de 9 meses */
+    var _est2=!_cmOk, _cf2=_calFechaCnmv(t,_dtb)||_calFechaCnmv(t,dt); if(_cf2){ dt=_cf2.fecha; _est2=!_cf2.fuerte; }
     if(hoy && dt<hoy && !(_cf2&&!_cf2.publicado)) return;   /* pasada: fuera, salvo que la CNMV la tenga aún pendiente (como en Cobertura) */
     out.push({ t:t, fecha:dt, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:_est2, proyectado:false });
   }); }
