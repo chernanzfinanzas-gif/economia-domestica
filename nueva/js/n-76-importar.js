@@ -29,7 +29,8 @@
   function filas(wb,n){ var ws=wb.Sheets[n]; return ws?XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:''}):[]; }
   function leer(buf,nombre){
     var wb=XLSX.read(buf,{type:'array'}), N=wb.SheetNames, out={fichero:nombre,lineas:[],tipo:null};
-    if(N.indexOf('Rdos.')>=0||N.indexOf('Saldo en Divisa')>=0){ out.tipo='R4'; out.r4=[];   /* solo para cotejar los recibos que pagan los bancos a R4 */
+    if(N.indexOf('Rdos.')>=0||N.indexOf('Saldo en Divisa')>=0){ out.tipo='R4'; out.r4=[];
+      try{ if(typeof window.nR4XlsDesdeImport==='function') window.nR4XlsDesdeImport(buf,nombre); }catch(e){ console.warn('[importar] R4 para Fondo/Caja',e); }   /* solo para cotejar los recibos que pagan los bancos a R4 */
       out.r4cash=[]; filas(wb,'Saldo en Divisa').forEach(function(r){ var f=serial(r[0]), c=String(r[1]||'').toUpperCase(), im=nn(r[2]), sl=nn(r[3]); if(f&&im!=null&&/^(INGRESO RECIBO|TRANSF\. RECIBIDA)/.test(c)) out.r4.push({fecha:f,imp:im}); if(f&&sl!=null) out.r4cash.push({fecha:f,saldo:sl}); });
       filas(wb,'Fondos Inv.').forEach(function(r){ if(/FONCUENTA/i.test(String(r[0]||''))) out.r4fondo=nn(r[2]); });
       filas(wb,'Rdos.').forEach(function(r){ var m=/hasta (\d{2}\/\d{2}\/\d{4})/.exec(String(r[0]||'')); if(m) out.r4hasta=serial(m[1]); });

@@ -38,6 +38,14 @@
     return {fecha:U.fecha,desde:P0.desde,cash:cash,fondo:U.fondo,acciones:U.acciones,anotado:U.anotado,pendiente:U.pendiente,saldoFinal:U.saldoFinal,patrimonio:U.patrimonio,
             fondoIni:P0.fondoIni,fichero:L.map(function(x){ return x.desde.slice(0,4); }).join(' + '),periodos:L.map(function(x){ return [x.desde,x.fecha]; })};
   };
+  /* 1-nov-2026: el mismo extracto que entra por «Importar extractos del banco» (botón o Drive) pone al día Fondo R4 y Caja bróker */
+  window.nR4XlsDesdeImport=function(buf,nombre){
+    var x=leer(buf); x.fichero=nombre;
+    var L=todos().filter(function(o){ return o.desde!==x.desde; }).concat([x]);
+    try{ localStorage.setItem(KEY,JSON.stringify(L)); }catch(e){}
+    window._nR4XUlt=window.nR4Xls();
+    try{ if(typeof renderCaja==='function') renderCaja(); if(typeof renderFondoR4==='function') renderFondoR4(); }catch(e){}
+    return x; };
   window.nR4XlsSubir=function(){
     var i=document.createElement('input'); i.type='file'; i.accept='.xls,.xlsx'; i.multiple=true; i.style.display='none'; document.body.appendChild(i);
     i.onchange=function(){ var fs=[].slice.call(i.files||[]); i.remove(); if(!fs.length) return; var msg=document.getElementById('nR4XMsg'); if(msg) msg.textContent='Leyendo '+fs.length+' fichero(s)…';
