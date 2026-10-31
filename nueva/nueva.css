@@ -108,7 +108,8 @@ header #nav button:hover:not(.active){background:rgba(255,255,255,.12);color:#FF
 header #nav button.active{background:#FFF;color:#1F4A9A}
 header .filestat,header #fstat{color:#E8EEF9}
 header .hbtn{color:#FFF;border-color:rgba(255,255,255,.35)}
-header .cogmenu .hbtn{color:inherit;border-color:transparent}
+header .cogmenu .hbtn{color:var(--ink,#1E293B);border-color:transparent}
+header .cogmenu a.cogitem{display:flex;align-items:center;gap:6px;text-decoration:none;box-sizing:border-box}   /* 31-oct: menú de Ajustes legible (antes heredaba el blanco de la cabecera) */
 #subnav{background:#FFF;border:1px solid #E5E9EF;box-shadow:0 1px 3px rgba(20,34,49,.06)}
 #subnav button{color:#5B6B7C}
 #subnav button:hover:not(.active){background:#EAF1FD;color:#1F4A9A}
