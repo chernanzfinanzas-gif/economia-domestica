@@ -71,9 +71,26 @@
   };
   window.nAnuncios=function(){ return DATA; };
 
+  /* Borradores de la app vieja (Actualizar dividendos, «sin volcar»): en la nueva no hay «Volcar», así que lo
+     tecleado pasa a Anotar como TU estimación del total del año (✏️, repartido en la proporción de los pagos). Una casilla
+     vaciada a propósito («quitar») vuelve a lo proyectado. Solo años futuros. */
+  window.nBorradorAAnotar=function(){
+    var A=window.nAnotar; if(!A||typeof DB==='undefined'||!DB||!DB.divDraft) return [];
+    var cur=new Date().getFullYear(), hecho=[], saveOrig=window.scheduleSave; window.scheduleSave=function(){};
+    try{ Object.keys(DB.divDraft).forEach(function(y){ var Y=+y, D=DB.divDraft[y]||{}; if(!(Y>cur)) return;
+      Object.keys(D).forEach(function(t){ var raw=String(D[t]==null?'':D[t]).trim(), T=U(t);
+        try{ if(raw===''){ A.volver(T,Y); hecho.push(T+' '+Y+': quitado'); }
+             else { var v=num(raw.replace(',','.')); if(!(v>=0)) return; A.guardar(T,Y,A.repartir(A.pagosDe(T,Y),v)); hecho.push(T+' '+Y+': '+v); }
+             delete D[t]; }catch(e){ console.warn('[borrador]',T,Y,e); } });
+      if(!Object.keys(D).length) delete DB.divDraft[y]; }); }
+    finally{ window.scheduleSave=saveOrig; }
+    window._nBorradorMigrado=hecho; return hecho; };
+  if(typeof divBorradorPendiente==='function'){ var oBP=divBorradorPendiente; divBorradorPendiente=function(){
+    try{ window.nBorradorAAnotar(); }catch(e){} return oBP.apply(this,arguments); }; }
+
   /* al cargar los datos */
   if(typeof afterLoad==='function'){ var oA=afterLoad; afterLoad=function(){ var r=oA.apply(this,arguments);
-    Promise.resolve(r).then(function(){ return window.nAnunciosAplicar(); }).then(function(n){
+    Promise.resolve(r).then(function(){ return Promise.resolve(typeof _evoCargar==='function'?_evoCargar():null); }).then(function(){ try{ window.nBorradorAAnotar(); }catch(e){} return window.nAnunciosAplicar(); }).then(function(n){
       if(n&&typeof renderDividendos==='function'){ try{ renderDividendos(); }catch(e){} } }).catch(function(e){ console.warn('[anuncios]',e); });
     return r; }; }
 
