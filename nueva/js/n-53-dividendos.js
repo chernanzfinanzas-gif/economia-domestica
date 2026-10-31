@@ -392,7 +392,7 @@
       '<div class="nd-cic"><b>Ciclo de cada pago</b> (el valor de la casilla es el que usa toda la app para ese año):'+
         '<div class="st"><span class="s p">⚪ Proyectado<small>año anterior × tu %</small></span>→<span class="s a">🟡 Anotación<small>la pone el pase con lo que diga la empresa</small></span>→<span class="s c">✏️ Corregida<small>la cambias tú</small></span>→<span class="s k">✅ Confirmada<small>anuncio oficial · queda cerrada</small></span></div>'+
         '<div class="sm">Se confirma sola cuando la empresa publica el anuncio oficial (lo detecta el pase semanal); si lo ves antes, pulsas la casilla y confirmas el pago. Los puntos de cada casilla son sus pagos y se ponen en verde al confirmarse. ⚠ marca las de riesgo de recorte.</div></div>'+
-      det+'<div class="nd-sech">💶 Pagan dividendo <span class="pill">'+pag.length+'</span></div><div class="nd-grid">'+gp+'</div>'+
+      (typeof nAnunciosHTML==='function'?nAnunciosHTML():'')+det+'<div class="nd-sech">💶 Pagan dividendo <span class="pill">'+pag.length+'</span></div><div class="nd-grid">'+gp+'</div>'+
       '<div class="nd-sech no">🚫 No pagan <span class="pill">'+nop.length+'</span></div><div class="nd-grid">'+gn+'</div>'+
       (fuera.length?'<div class="nd-pie">Fuera del universo (no salen): '+fuera.sort().join(', ')+'.</div>':'');
     if(soloRejilla){ var qi=document.getElementById('ndAnoQ'), pos=qi?qi.selectionStart:null; el.innerHTML=html; var q2=document.getElementById('ndAnoQ'); if(q2){ q2.focus(); if(pos!=null) q2.setSelectionRange(pos,pos); } }

@@ -820,3 +820,6 @@ select.n-brk.n-brk-auto{border-style:dashed;color:#64748b}
 #view-dividendos .nd-btn.g{border-color:#94A3B8;color:#475569}
 #view-dividendos .nd-btn.x{border-color:#FCA5A5;color:#DC2626;padding:3px 7px}
 #view-dividendos .nd-dev{font:inherit;font-size:13px;width:86px;padding:2px 6px;border:1px dashed #94A3B8;border-radius:6px;text-align:right;background:#FFFBEB}
+#view-dividendos .nd-anu{background:#fff;border:1px solid #E5E9EF;border-radius:12px;padding:12px 14px;margin:10px 0}
+#view-dividendos .nd-anu .dh{margin-bottom:6px}
+#view-dividendos .nd-anu a{color:#2563EB;font-weight:700;text-decoration:none}
