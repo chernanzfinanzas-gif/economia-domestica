@@ -11,12 +11,12 @@ function nFifo(lista){
       var rest=n;
       while(rest>0.0001 && L.length){
         var l=L[0], take=Math.min(rest,l.acc), fr=take/l.acc;
-        sold.push({ticker:t,cartera:car,fecha:l.fecha,acc:take,pc:l.pc,pcBruto:l.pcBruto,com:l.com*fr,comReg:l.comReg,pv:num(o.precio),fVenta:o.fecha||'',comV:khComision(o)*take/n,opId:o.id});
+        sold.push({ticker:t,cartera:car,fecha:l.fecha,acc:take,pc:l.pc,pcBruto:l.pcBruto,com:l.com*fr,comReg:l.comReg,pv:num(o.precio),fVenta:o.fecha||'',comV:khComision(o)*take/n,opId:o.id,broker:l.broker,opIdC:l.opId});
         l.com-=l.com*fr; l.acc-=take; rest-=take; if(l.acc<=0.0001) L.shift();
       }
       if(rest>0.0001) console.warn('[FIFO] venta sin acciones suficientes',t,car,o.fecha,rest);
     } else {
-      var com=khComision(o); L.push({ticker:t,cartera:car,fecha:o.fecha||'',acc:n,pc:(n*num(o.precio)+com)/n,pcBruto:num(o.precio),com:com,comReg:khTieneComision(o)});
+      var com=khComision(o); L.push({ticker:t,cartera:car,fecha:o.fecha||'',acc:n,pc:(n*num(o.precio)+com)/n,pcBruto:num(o.precio),com:com,comReg:khTieneComision(o),broker:o.broker||'',opId:o.id});
     }
   });
   Object.keys(q).forEach(function(k){ q[k].forEach(function(l){ if(l.acc>0.0001) open.push(l); }); });
@@ -47,14 +47,14 @@ posLots=function(){
     var sAcc=sells.reduce(function(s,o){return s+num(o.acciones);},0), sVal=sells.reduce(function(s,o){return s+num(o.acciones)*num(o.precio);},0);
     var pv=sAcc?sVal/sAcc:0, fV=sells.map(function(o){return o.fecha;}).filter(Boolean).sort().slice(-1)[0]||'';
     buys.forEach(function(o){ var acc=num(o.acciones); if(acc<=0)return;
-      lots.push({fecha:o.fecha||'',ticker:t,nombre:c.nombre||t,cartera:c.cartera||'Propia',acc:acc,pc:num(o.precio),pa:pv,div:_posDivCobrado(c.divs,o.fecha,acc),years:_posYears(o.fecha,fV),estado:'Vendida',fechaFin:fV}); });
+      lots.push({fecha:o.fecha||'',ticker:t,nombre:c.nombre||t,cartera:c.cartera||'Propia',acc:acc,pc:num(o.precio),pa:pv,div:_posDivCobrado(c.divs,o.fecha,acc),years:_posYears(o.fecha,fV),estado:'Vendida',fechaFin:fV,broker:o.broker||''}); });
   });
   F.open.forEach(function(l){ var v=(DB.valores&&DB.valores[l.ticker])||{}, pi=precioActualInfo(l.ticker);
     lots.push({fecha:l.fecha,ticker:l.ticker,nombre:v.nombre||l.ticker,cartera:l.cartera,acc:l.acc,pc:l.pc,pcBruto:l.pcBruto,com:l.com,comReg:l.comReg,
-      pa:(pi.p>0)?pi.p:l.pcBruto,sinPrecio:!(pi.p>0),div:_posDivCobrado((DB.dividendos||{})[l.ticker],l.fecha,l.acc),years:_posYears(l.fecha,hoy),estado:'Cartera',fechaFin:hoy}); });
+      pa:(pi.p>0)?pi.p:l.pcBruto,sinPrecio:!(pi.p>0),div:_posDivCobrado((DB.dividendos||{})[l.ticker],l.fecha,l.acc),years:_posYears(l.fecha,hoy),estado:'Cartera',fechaFin:hoy,broker:l.broker,opId:l.opId}); });
   F.sold.forEach(function(l){ if(archT.has(l.ticker)) return; var v=(DB.valores&&DB.valores[l.ticker])||{};
     lots.push({fecha:l.fecha,ticker:l.ticker,nombre:v.nombre||l.ticker,cartera:l.cartera,acc:l.acc,pc:l.pc,pcBruto:l.pcBruto,com:l.com,comReg:l.comReg,
-      pa:l.pv,div:_nDivEntre((DB.dividendos||{})[l.ticker],l.fecha,l.fVenta,l.acc),years:_posYears(l.fecha,l.fVenta),estado:'Vendida',fechaFin:l.fVenta}); });
+      pa:l.pv,div:_nDivEntre((DB.dividendos||{})[l.ticker],l.fecha,l.fVenta,l.acc),years:_posYears(l.fecha,l.fVenta),estado:'Vendida',fechaFin:l.fVenta,broker:l.broker,opId:l.opIdC}); });
   return lots;
 };
 

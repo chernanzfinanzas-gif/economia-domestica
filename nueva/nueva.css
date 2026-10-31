@@ -805,3 +805,7 @@ body.n-noscroll{overflow:hidden}
 #nuevaBanner.n-ens{background:linear-gradient(90deg,#FEF3C7,#FDE68A)!important;color:#78350F!important}
 #nuevaBanner.n-ens a{color:#1F4A9A;font-weight:700;text-decoration:underline;cursor:pointer}
 #nuevaBanner .n-ens-av{color:#B91C1C;font-weight:700}
+/* 31-oct · bróker por lote */
+select.n-brk{font:inherit;font-size:12px;padding:2px 4px;border:1px solid var(--line,#e2e8f0);border-radius:6px;background:#fff}
+select.n-brk.n-brk-auto{border-style:dashed;color:#64748b}
+.n-brk-r{font-size:10px;color:#94a3b8;font-weight:500}

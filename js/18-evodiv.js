@@ -45,7 +45,7 @@ function _evoCargar(){
 function _evoStore(){ DB.divData=DB.divData||{}; return DB.divData; }
 function _evoOv(t){ return (DB.divData||{})[(t||'').toUpperCase()]||null; }
 function _evoOvYear(t,year){ var o=_evoOv(t); return (o&&o.anios&&o.anios[String(year)])||null; }
-function _evoEnsure(t,year){ var s=_evoStore(); var T=(t||'').toUpperCase(); s[T]=s[T]||{}; if(year==null) return s[T]; s[T].anios=s[T].anios||{}; s[T].anios[String(year)]=s[T].anios[String(year)]||{}; return s[T].anios[String(year)]; }
+function _evoEnsure(t,year){ var s=_evoStore(); var T=(t||'').toUpperCase(); s[T]=s[T]||{}; if(year==null) return s[T]; s[T].anios=s[T].anios||{}; s[T].anios[String(year)]=s[T].anios[String(year)]||{}; var _ay=s[T].anios[String(year)]; /* [31-oct-2026] tocarlo a mano lo hace TUYO: si seguía marcado «de origen Excel», el refresco desde dividendos.json lo pisaba al instante y no dejaba cambiar nada */ if(_ay.origenExcel===true) _ay.origenExcel=false; return _ay; }
 function _evoPagosSeed(t,year){ var ay=_evoEnsure(t,year); if(!ay.pagos){ var T=(t||'').toUpperCase(); var base=(_evoIndex[T]&&_evoIndex[T].anios)?_evoIndex[T].anios[String(year)]:null; ay.pagos=(base&&base.pagos)?base.pagos.map(function(p){ return {exDiv:p.exDiv||'',pago:p.pago||'',bruto:num(p.bruto),neto:num(p.neto),tipo:p.tipo||''}; }):[]; } return ay.pagos; }
 function _evoClean(t){ var s=DB.divData||{}; var T=(t||'').toUpperCase(); var o=s[T]; if(!o) return;
   if(o.anios){ Object.keys(o.anios).forEach(function(y){ var ay=o.anios[y]||{};
