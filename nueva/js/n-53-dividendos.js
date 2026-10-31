@@ -96,10 +96,17 @@
       var a=e.target.closest('[data-ndamb]'); if(a){ window._ndAmb=a.dataset.ndamb; if(typeof _calPaint==='function') _calPaint(); return; }
       var vp=e.target.closest('[data-ndpas]'); if(vp){ window._ndVerPas=vp.dataset.ndpas==='1'; if(typeof _calPaint==='function') _calPaint(); return; }
       var y=e.target.closest('[data-ndano]'); if(y){ window._ndAnoY=(window._ndAnoY||nowY()+1)+(+y.dataset.ndano); window._ndAnoSel=null; pintarAno(); return; }
+      var ab=e.target.closest('[data-ndpok],[data-ndpdes],[data-ndpdel],[data-ndpadd],[data-ndprst]'); if(ab&&window._ndAnoSel){ anotarAccion(ab); return; }
       var c=e.target.closest('[data-ndcel]'); if(c){ window._ndAnoSel=(window._ndAnoSel===c.dataset.ndcel)?null:c.dataset.ndcel; pintarAno(); return; }
       var q=e.target.closest('[data-ndq]'); if(q) return;
     });
     V.addEventListener('input',function(e){ if(e.target&&e.target.id==='ndAnoQ'){ window._ndAnoQ=e.target.value; pintarAno(true); } });
+    V.addEventListener('change',function(e){ var el=e.target; if(!el||!window._ndAnoSel) return;
+      var t=window._ndAnoSel, Y=window._ndAnoY, P=window.nAnotar.pagosDe(t,Y);
+      if(el.dataset.ndpb!=null){ var i=+el.dataset.ndpb; if(!P[i]) return; P[i].bruto=num((el.value||'').replace(',','.')); P[i].estado='c'; window.nAnotar.guardar(t,Y,P); pintarAno(); return; }
+      if(el.dataset.ndpf){ var q=el.dataset.ndpf.split('|'); if(!P[+q[0]]) return; P[+q[0]][q[1]]=el.value||''; if(P[+q[0]].estado==='p') P[+q[0]].estado='c'; window.nAnotar.guardar(t,Y,P); pintarAno(); return; }
+      if(el.dataset.ndtot){ var v=num((el.value||'').replace(',','.')); if(!(v>=0)) return; window.nAnotar.guardar(t,Y,window.nAnotar.repartir(P,v)); pintarAno(); return; }
+    });
     /* barras de desplazamiento sincronizadas (arriba y abajo) */
     window.addEventListener('resize',sync);
   }
@@ -279,12 +286,55 @@
       if(I){ var s=new Set(); (I.continuo||[]).concat(I.growth||[]).forEach(function(e){ if(e&&e.ticker) s.add(U(e.ticker)); }); window._ndUni=s.size?s:null; if(window._ndSub==='ano') pintarAno(); } }).catch(function(){});
     return null; }
   function basePagos(t,Y){ for(var y=Y-1;y>=Y-4;y--){ var a=null; try{ a=evoAnioM(t,y); }catch(e){} if(a&&a.pagos&&a.pagos.length) return {y:y,pagos:a.pagos}; } return null; }
+  /* ===== Anotar por pago (Fase 3, 31-oct-2026 · decidido con Carlos) =====
+     Cada pago del año se estima y se confirma por separado. Guardado en DB.divAnotPagos[T][Y].pagos
+     [{exDiv,pago,bruto,tipo,estado:'p'|'a'|'c'|'k'}]. Tras cada cambio:
+       · DB.divOverride[T][Y] = suma de los pagos → es lo que usa toda la app para ese año (sin «Volcar»).
+       · Evolución (DB.divData) año Y = los pagos (confirmados como reales, el resto previstos) y su total.
+     Total del año tecleado → se reparte entre los pagos sin confirmar en la proporción que ya tenían. */
+  function r4(x){ return Math.round(num(x)*10000)/10000; }
+  function movAnio(f,d){ if(!f||!d) return f||''; var y=+f.slice(0,4); return isNaN(y)?f:(String(y+d)+f.slice(4)); }
+  function autoTotal(t,Y){ try{ var pv=_evoBaseProy(t,Y-1); if(pv!=null&&pv>0) return r4(pv*(1+_evoCrecAno(Y)/100)); }catch(e){} return null; }
+  function anotSt(t,Y,crear){ var T=U(t); DB.divAnotPagos=DB.divAnotPagos||{}; var m=DB.divAnotPagos[T]; if(!m){ if(!crear) return null; m=DB.divAnotPagos[T]={}; }
+    var o=m[String(Y)]; if(!o&&crear) o=m[String(Y)]={}; return o||null; }
+  function pagosDe(t,Y){
+    var st=anotSt(t,Y,false); if(st&&st.pagos&&st.pagos.length) return st.pagos.map(function(p){ return Object.assign({},p); });
+    var ev=null; try{ ev=evoAnioM(t,Y); }catch(e){}
+    if(ev&&ev.pagos&&ev.pagos.length&&num(ev.dpaBruto)>0) return ev.pagos.map(function(p){ return {exDiv:p.exDiv||'',pago:p.pago||'',bruto:r4(p.bruto),tipo:p.tipo||'',estado:p.previsto?'a':'k'}; });
+    var bp=basePagos(t,Y); if(!bp) return [];
+    /* lo extraordinario del año anterior no se repite: solo se proyectan los pagos recurrentes */
+    var NR=(typeof _EVO_NO_RECURRENTE!=='undefined')?_EVO_NO_RECURRENTE:{extraordinario:1,especial:1};
+    var rec=bp.pagos.filter(function(p){ return !NR[(''+(p.tipo||'')).toLowerCase()]; }); if(!rec.length) rec=bp.pagos;
+    bp={y:bp.y,pagos:rec};
+    var sb=bp.pagos.reduce(function(s,p){return s+num(p.bruto);},0), ov=null; try{ ov=_evoOverride(t,Y); }catch(e){}
+    var tot=(ov!=null)?ov:autoTotal(t,Y), f=(tot!=null&&sb>0)?tot/sb:1, d=Y-bp.y;
+    return bp.pagos.map(function(p){ return {exDiv:movAnio(p.exDiv,d),pago:movAnio(p.pago,d),bruto:r4(num(p.bruto)*f),tipo:p.tipo||'',estado:(ov!=null?'c':'p')}; });
+  }
+  function guardarPagos(t,Y,P){ var T=U(t), st=anotSt(T,Y,true);
+    st.pagos=P.map(function(p){ return {exDiv:p.exDiv||'',pago:p.pago||'',bruto:r4(p.bruto),tipo:p.tipo||'',estado:p.estado||'c'}; });
+    var tot=r4(P.reduce(function(s,p){return s+num(p.bruto);},0)), todos=P.length&&P.every(function(p){return p.estado==='k';});
+    DB.divOverride=DB.divOverride||{}; DB.divOverride[T]=DB.divOverride[T]||{}; DB.divOverride[T][String(Y)]=tot;
+    try{ var ay=_evoEnsure(T,Y); ay.pagos=st.pagos.map(function(p){ return {exDiv:p.exDiv,pago:p.pago,bruto:p.bruto,neto:_evoNeto(p.bruto),tipo:p.tipo,previsto:p.estado!=='k'}; });
+      ay.dpaBruto=tot; ay.dpaNeto=_evoNeto(tot); ay.totalPrevisto=!todos; ay.deAnotar=true; }catch(e){ console.warn('[anotar] evolución',e); }
+    if(typeof scheduleSave==='function') scheduleSave(); else if(typeof saveNow==='function') saveNow(); }
+  function volverProyectado(t,Y){ var T=U(t), P=pagosDe(T,Y), conf=P.filter(function(p){return p.estado==='k';});
+    var st=anotSt(T,Y,false); if(st){ delete DB.divAnotPagos[T][String(Y)]; }
+    if(DB.divOverride&&DB.divOverride[T]){ delete DB.divOverride[T][String(Y)]; if(!Object.keys(DB.divOverride[T]).length) delete DB.divOverride[T]; }
+    try{ var dd=DB.divData&&DB.divData[T]; if(dd&&dd.anios&&dd.anios[String(Y)]&&dd.anios[String(Y)].deAnotar) delete dd.anios[String(Y)]; }catch(e){}
+    if(conf.length){ var Q=pagosDe(T,Y); conf.forEach(function(c){ var i=-1; Q.forEach(function(q,k){ if(i<0&&q.estado!=='k'&&(q.pago||'').slice(0,7)===(c.pago||'').slice(0,7)) i=k; }); if(i>=0) Q[i]=c; else Q.push(c); }); guardarPagos(T,Y,Q); }
+    else if(typeof scheduleSave==='function') scheduleSave(); }
+  function repartirTotal(P,total){ var conf=0, base=0; P.forEach(function(p){ if(p.estado==='k') conf+=num(p.bruto); else base+=num(p.bruto); });
+    var resto=Math.max(0,num(total)-conf), libres=P.filter(function(p){return p.estado!=='k';}).length;
+    P.forEach(function(p){ if(p.estado==='k') return; p.bruto=r4(base>0?num(p.bruto)*resto/base:(libres?resto/libres:0)); p.estado='c'; }); return P; }
+  window.nAnotar={pagosDe:pagosDe,guardar:guardarPagos,volver:volverProyectado,repartir:repartirTotal};
   function estado(t,Y,pagan){
-    var ov=null, re=null, pr=null; try{ ov=_evoOverride(t,Y); }catch(e){} try{ re=evoDpaBruto(t,Y); }catch(e){} try{ pr=evoDpaProyectado(t,Y); }catch(e){}
-    if(ov!=null) return {st:'c',v:+ov,sub:'corregida por ti'};
-    if(re!=null&&+re>0) return {st:'a',v:+re,sub:'anotación'};
-    if(pr!=null&&pagan) return {st:'p',v:+pr,sub:'proyectado (tu %)'};
-    return {st:'v',v:null,sub:''};
+    var P=pagosDe(t,Y);
+    if(P.length){ var tot=r4(P.reduce(function(s,p){return s+num(p.bruto);},0)), st='p';
+      if(P.every(function(p){return p.estado==='k';})) st='k'; else if(P.some(function(p){return p.estado==='c';})) st='c'; else if(P.some(function(p){return p.estado==='a'||p.estado==='k';})) st='a';
+      return {st:st,v:tot,sub:{p:'proyectado (tu %)',a:'anotación',c:'tu estimación',k:'confirmado'}[st],P:P}; }
+    var pr=null; try{ pr=evoDpaProyectado(t,Y); }catch(e){}
+    if(pr!=null&&pagan) return {st:'p',v:+pr,sub:'proyectado (tu %)',P:[]};
+    return {st:'v',v:null,sub:'',P:[]};
   }
   function f4(v){ return v==null?'—':(Math.round(v*10000)/10000).toString().replace('.',','); }
   function pintarAno(soloRejilla){
@@ -304,7 +354,7 @@
       var E=estado(t,Y,pagan); cnt[E.st]++;
       if(q&&t.indexOf(q)<0&&U(nombre(t)).indexOf(q)<0) return '';
       var rz=RZ[t], rzn=rz?(rz.nivel>=2?'alto':'medio'):'';
-      var bp=pagan?basePagos(t,Y):null, dots=bp?'<div class="d" title="'+bp.pagos.length+' pagos al año · se ponen en verde al confirmarse">'+bp.pagos.map(function(){return '<i></i>';}).join('')+'</div>':'';
+      var dots=(pagan&&E.P&&E.P.length)?'<div class="d" title="'+E.P.length+' pagos al año · en verde los confirmados">'+E.P.map(function(p){return '<i'+(p.estado==='k'?' class="ok"':'')+'></i>';}).join('')+'</div>':'';
       var ic={p:'⚪',a:'🟡',c:'✏️',k:'✅',v:''}[E.st];
       return '<div class="nd-c st-'+E.st+(rzn?' rz-'+rzn:'')+(window._ndAnoSel===t?' sel':'')+'" data-ndcel="'+esc(t)+'" title="'+esc(nombre(t))+(E.sub?' · '+E.sub:'')+(rz?' · riesgo de recorte '+rzn+': '+esc(rz.razones.join(' · ')):'')+'">'+
         '<div class="h"><b>'+esc(t)+'</b>'+(Hs.has(t)?'<span class="car">cartera</span>':(plan[t]?'<span class="pl">plan</span>':''))+(rzn?'<span class="rz '+rzn+'">⚠ '+rzn+'</span>':'')+'</div>'+
@@ -313,18 +363,29 @@
     }
     var gp=ord(pag).map(function(t){return card(t,true);}).join(''), gn=ord(nop).map(function(t){return card(t,false);}).join('');
     var det='';
-    if(window._ndAnoSel){ var t=window._ndAnoSel, E=estado(t,Y,true), bp=basePagos(t,Y);
-      if(bp){ var sb=bp.pagos.reduce(function(s,p){return s+num(p.bruto);},0), fct=(E.v!=null&&sb>0)?E.v/sb:null;
-        var MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-        var fil=bp.pagos.map(function(p,i){ var f=(p.pago||p.exDiv||''), m=f?MES[(+f.slice(5,7))-1]:(i+1)+'.º';
-          return '<tr><td>'+m+'</td><td>'+f4(num(p.bruto))+'</td><td>'+(fct!=null?'× '+fct.toFixed(2).replace('.',','):'—')+'</td><td><b>'+(fct!=null?(num(p.bruto)*fct).toFixed(3).replace('.',','):'—')+'</b></td><td><span class="nd-chip '+E.st+'">'+({p:'⚪ proyectado',a:'🟡 anotación',c:'✏️ tu estimación',v:'—'}[E.st])+'</span></td><td><span class="nd-btn" title="En la app nueva todavía no se guarda: se confirma en la de siempre o lo hace el pase semanal">confirmar este pago</span></td></tr>'; }).join('');
-        det='<div class="nd-det"><div class="dh"><b>'+esc(t)+' · '+esc(nombre(t))+' · '+Y+'</b><span style="flex:1"></span><span class="muted">pagos de '+bp.y+' × el crecimiento hasta '+Y+'</span></div>'+
-          '<table class="nd-dt"><thead><tr><th>Pago</th><th>'+bp.y+'</th><th>Crecimiento</th><th>'+Y+'</th><th>Estado</th><th></th></tr></thead><tbody>'+fil+
-          '<tr class="tot"><td>Total año</td><td>'+f4(sb)+'</td><td></td><td>'+f4(E.v)+'</td><td colspan="2">0 de '+bp.pagos.length+' pagos confirmados</td></tr></tbody></table>'+
-          '<div class="ej">Cada pago se estima por separado (el mismo pago del año anterior × tu crecimiento) y se confirma por separado. Cuando se confirma uno, queda fijo y cerrado; los demás siguen en tu estimación hasta que se anuncien.</div></div>';
-      } else det='<div class="nd-det"><b>'+esc(t)+'</b> · sin pagos anteriores registrados de los que partir.</div>';
+    if(window._ndAnoSel){ var t=window._ndAnoSel, E=estado(t,Y,true), P=E.P||[], bp=basePagos(t,Y), MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+      var NR2=(typeof _EVO_NO_RECURRENTE!=='undefined')?_EVO_NO_RECURRENTE:{extraordinario:1,especial:1}, bpr=bp?bp.pagos.filter(function(q){ return !NR2[(''+(q.tipo||'')).toLowerCase()]; }):[];
+      function anteDe(i,p){ if(!bp) return null; if(bpr.length===P.length) return num(bpr[i].bruto); var m=(p.pago||p.exDiv||'').slice(5,7), q=bpr.filter(function(x){ return (x.pago||x.exDiv||'').slice(5,7)===m; }); return q.length===1?num(q[0].bruto):null; }
+      var nk=P.filter(function(p){return p.estado==='k';}).length;
+      var chip={p:'⚪ proyectado',a:'🟡 anotación',c:'✏️ tu estimación',k:'✅ confirmado'};
+      var fil=P.map(function(p,i){ var f=(p.pago||p.exDiv||''), m=f?MES[(+f.slice(5,7))-1]:(i+1)+'.º', ant=anteDe(i,p);
+        var k=p.estado==='k';
+        return '<tr class="'+(k?'okr':'')+'"><td>'+m+(/^(extraordinario|especial)$/i.test(p.tipo||'')?' <small class="muted">'+esc(p.tipo)+'</small>':'')+'</td><td>'+(ant!=null?f4(ant):'—')+'</td>'+
+          '<td>'+(k?'<b>'+f4(p.bruto)+'</b>':'<input class="nd-in" type="number" step="0.0001" min="0" data-ndpb="'+i+'" value="'+r4(p.bruto)+'">')+'</td>'+
+          '<td>'+(k?esc((p.exDiv||'').split('-').reverse().join('/')):'<input class="nd-in d" type="date" data-ndpf="'+i+'|exDiv" value="'+esc(p.exDiv||'')+'">')+'</td>'+
+          '<td>'+(k?esc((p.pago||'').split('-').reverse().join('/')):'<input class="nd-in d" type="date" data-ndpf="'+i+'|pago" value="'+esc(p.pago||'')+'">')+'</td>'+
+          '<td><span class="nd-chip '+p.estado+'">'+chip[p.estado]+'</span></td>'+
+          '<td style="white-space:nowrap">'+(k?'<span class="nd-btn g" data-ndpdes="'+i+'" title="Volver a dejarlo sin confirmar">deshacer</span>':'<span class="nd-btn" data-ndpok="'+i+'" title="Fijar este pago como confirmado (cifra y fechas)">✅ confirmar</span>')+
+          ' <span class="nd-btn x" data-ndpdel="'+i+'" title="Quitar este pago">✕</span></td></tr>'; }).join('');
+      det='<div class="nd-det"><div class="dh"><b>'+esc(t)+' · '+esc(nombre(t))+' · '+Y+'</b><span style="flex:1"></span><span class="muted">'+(bp?'parte de los pagos de '+bp.y+' × tu crecimiento':'sin pagos anteriores: añade los pagos')+'</span></div>'+
+        '<table class="nd-dt"><thead><tr><th>Pago</th><th>'+(bp?bp.y:'Antes')+'</th><th>'+Y+' (bruto €)</th><th>Ex-dividendo</th><th>Pago</th><th>Estado</th><th></th></tr></thead><tbody>'+fil+
+        '<tr class="tot"><td>Total año</td><td>'+(bp?f4(bp.pagos.reduce(function(s,q){return s+num(q.bruto);},0)):'—')+(bpr.length&&bpr.length<(bp?bp.pagos.length:0)?' <small class="muted">(recurrente '+f4(bpr.reduce(function(s,q){return s+num(q.bruto);},0))+')</small>':'')+'</td>'+
+          '<td><input class="nd-in tot" type="number" step="0.0001" min="0" data-ndtot="1" value="'+(E.v!=null?r4(E.v):'')+'" title="Si escribes el total, se reparte entre los pagos sin confirmar en la misma proporción"></td>'+
+          '<td colspan="4">'+nk+' de '+P.length+' pagos confirmados'+(P.length&&nk===P.length?' · <b>año cerrado ✅</b>':'')+'</td></tr></tbody></table>'+
+        '<div class="nd-acc"><span class="nd-btn" data-ndpadd="1">+ Añadir pago</span><span class="nd-btn g" data-ndprst="1" title="Deshace tus cambios en los pagos sin confirmar; los confirmados se quedan">↺ Volver a lo proyectado</span></div>'+
+        '<div class="ej">Cada pago se estima y se confirma por separado. Escribe un pago o el total: el total se reparte entre los pagos sin confirmar en la misma proporción. Al confirmar, el pago queda fijo y pasa a Evolución como real; el total del año es lo que usa toda la app.</div></div>';
     }
-    var html='<div class="nd-nota">Antes «Actualizar dividendos». <b>Desaparece «Volcar a Evolución»</b>: lo que hay en la casilla es lo que usa la app. <b>En la app nueva solo se mira</b>; mientras no guarde, se anota en la de siempre.</div>'+
+    var html='<div class="nd-nota">Antes «Actualizar dividendos». <b>Desaparece «Volcar a Evolución»</b>: lo que hay en la casilla es lo que usa la app. Pulsa una empresa para anotar pago a pago.</div>'+
       '<div class="nd-abar"><span class="nd-lbl">Año</span><span class="ns-nav nd-yr"><button data-ndano="-1"'+(Y<=cur+1?' disabled':'')+'>◀</button><b>'+Y+'</b><button data-ndano="1"'+(Y>=hz?' disabled':'')+'>▶</button></span>'+
         '<span class="nd-chip p">⚪ '+cnt.p+' proyectadas</span><span class="nd-chip a">🟡 '+cnt.a+' anotadas</span><span class="nd-chip c">✏️ '+cnt.c+' corregidas</span><span class="nd-chip k">✅ '+cnt.k+' confirmadas</span><span style="flex:1"></span>'+
         '<input id="ndAnoQ" placeholder="Buscar…" value="'+esc(window._ndAnoQ||'')+'"></div>'+
@@ -337,6 +398,18 @@
     if(soloRejilla){ var qi=document.getElementById('ndAnoQ'), pos=qi?qi.selectionStart:null; el.innerHTML=html; var q2=document.getElementById('ndAnoQ'); if(q2){ q2.focus(); if(pos!=null) q2.setSelectionRange(pos,pos); } }
     else el.innerHTML=html;
   }
+
+  function anotarAccion(b){ var t=window._ndAnoSel, Y=window._ndAnoY, A=window.nAnotar, P=A.pagosDe(t,Y);
+    if(b.dataset.ndpok!=null){ var p=P[+b.dataset.ndpok]; if(!p) return;
+      if(!(num(p.bruto)>0)){ alert('Pon el importe del pago antes de confirmarlo.'); return; }
+      if(!confirm('¿Confirmar el pago de '+t+' '+Y+'?\n\n  bruto '+f4(p.bruto)+' €'+(p.exDiv?'\n  ex-dividendo '+p.exDiv:'')+(p.pago?'\n  pago '+p.pago:'')+'\n\nQueda fijo y pasa a Evolución como real.')) return;
+      p.estado='k'; A.guardar(t,Y,P); }
+    else if(b.dataset.ndpdes!=null){ var q=P[+b.dataset.ndpdes]; if(!q) return; q.estado='c'; A.guardar(t,Y,P); }
+    else if(b.dataset.ndpdel!=null){ var i=+b.dataset.ndpdel; if(!P[i]) return; if(P[i].estado==='k'&&!confirm('Ese pago está confirmado. ¿Quitarlo igualmente?')) return; P.splice(i,1);
+      if(P.length) A.guardar(t,Y,P); else A.volver(t,Y); }
+    else if(b.dataset.ndpadd!=null){ P.push({exDiv:'',pago:'',bruto:0,tipo:'extraordinario',estado:'c'}); A.guardar(t,Y,P); }
+    else if(b.dataset.ndprst!=null){ if(!confirm('¿Volver a lo proyectado en '+t+' '+Y+'? Los pagos confirmados se quedan.')) return; A.volver(t,Y); }
+    pintarAno(); }
 
   /* ================= enganches ================= */
   function enganchar(){
