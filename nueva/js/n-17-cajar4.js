@@ -31,17 +31,22 @@
   }
   function accCart(t,f,c){ var s=0; (DB.operaciones||[]).forEach(function(o){ if((o.ticker||'').toUpperCase()!==t||(o.cartera||'Propia')!==c||!(o.fecha<f)) return; s+=(o.tipo==='venta'?-1:1)*num(o.acciones); }); return s; }
   function accPropia(t,f){ return accCart(t,f,'Propia'); }
+  /* [31-oct-2026 · ensayo] el bróker de cada operación manda (n-71-broker); sin dato, la regla de siempre */
+  function brk(o){ if(o&&o.broker) return o.broker; var T=(o.ticker||'').toUpperCase();
+    if(typeof khBrokerRegla==='function') return khBrokerRegla(T,o.cartera); return ((o.cartera||'Propia')==='Propia'&&!NO_R4[T])?'Renta 4':'otro'; }
+  function accR4(t,f){ var s=0; (DB.operaciones||[]).forEach(function(o){ if((o.ticker||'').toUpperCase()!==t||!(o.fecha<f)||brk(o)!=='Renta 4') return; s+=(o.tipo==='venta'?-1:1)*num(o.acciones); }); return s; }
+  function feeR4(b){ return b>0?Math.max(0.09,b*0.00075)*1.21:0; }
   function fijas(desde,hasta){ var out=[], d=D(desde); d.setDate(1);
     for(var i=0;i<14;i++){ var f=iso(hab(new Date(d.getFullYear(),d.getMonth(),DIA,12))); if(f>desde&&f<=hasta) FIJAS.forEach(function(x){ out.push({fecha:f,imp:x.imp,txt:x.txt,origen:'regla'}); }); d.setMonth(d.getMonth()+1); if(iso(d)>hasta) break; }
     return out; }
   function flujos(hasta){
     var out=fijas(P.fecha,hasta), pend=[];
-    (DB.operaciones||[]).forEach(function(o){ if(!(o.fecha>P.fecha&&o.fecha<=hasta)||(o.cartera||'Propia')!=='Propia'||NO_R4[(o.ticker||'').toUpperCase()]) return; var b=num(o.acciones)*num(o.precio), c=num(o.comision);
+    (DB.operaciones||[]).forEach(function(o){ if(!(o.fecha>P.fecha&&o.fecha<=hasta)||brk(o)!=='Renta 4') return; var b=num(o.acciones)*num(o.precio), c=num(o.comision);
       out.push(o.tipo==='venta'?{fecha:o.fecha,imp:b-c,txt:'Venta '+num(o.acciones)+' '+o.ticker,origen:'operación'}:{fecha:o.fecha,imp:-(b+c),txt:'Compra '+num(o.acciones)+' '+o.ticker,origen:'operación'}); });
     (DB.movimientos||[]).forEach(function(m){ if(!(m.fecha>P.fecha&&m.fecha<=hasta)||m.tipo!=='gasto') return; var t=((m.comercio||'')+' '+(m.concepto||'')+' '+(m.detalle||'')); if(/custodia/i.test(t)&&/\bR4\b|renta ?4/i.test(t)) out.push({fecha:m.fecha,imp:-num(m.importe),txt:'Custodia R4',origen:'Movimientos'}); });
-    Object.keys(DB.dividendos||{}).forEach(function(t){ (DB.dividendos[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(!(f>P.fecha&&f<=hasta)) return; var sh=accPropia(t,f); if(!(sh>0)) return;
-      var bruto=sh*num(d.importe), neto=bruto*(1-RET)-bruto*COMDIV, x={fecha:f,imp:neto,txt:'Dividendo '+t+' ('+E(bruto)+' bruto)',origen:'dividendo',tk:t};
-      if(NO_R4[t]) pend.push(x); else out.push(x); }); });
+    Object.keys(DB.dividendos||{}).forEach(function(t){ (DB.dividendos[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(!(f>P.fecha&&f<=hasta)) return; var shP=accPropia(t,f), shR=accR4(t,f), shO=Math.max(0,shP-shR);
+      if(shR>0){ var bR=shR*num(d.importe); out.push({fecha:f,imp:bR*(1-RET)-feeR4(bR),txt:'Dividendo '+t+' ('+E(bR)+' bruto)',origen:'dividendo',tk:t}); }
+      if(shO>0){ var bO=shO*num(d.importe); pend.push({fecha:f,imp:bO*(1-RET),txt:'Dividendo '+t+' (fuera de R4)',origen:'dividendo',tk:t}); } }); });
     /* Carlos 29-oct: la cartera Compartida cobra en su bróker (Endesa, Santander…) y lo traspasa a R4 con transferencias puntuales */
     Object.keys(DB.dividendos||{}).forEach(function(t){ (DB.dividendos[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(!(f>P.fecha&&f<=hasta)) return; var sh=accCart(t,f,'Compartida'); if(!(sh>0)) return;
       var bruto=sh*num(d.importe); pend.push({fecha:f,imp:bruto*(1-RET),txt:'Dividendo '+t+' (Compartida)',origen:'dividendo',tk:t+' (Comp.)'}); }); });
@@ -51,8 +56,8 @@
   function previsto(hoy,fin){
     var L=fijas(hoy,fin).map(function(x){ return {fecha:x.fecha,imp:x.imp,txt:x.txt}; });
     var y=+hoy.slice(0,4);
-    Object.keys(DB.dividendos||{}).concat((DB.operaciones||[]).map(function(o){ return (o.ticker||'').toUpperCase(); })).filter(function(t,i,a){ return t&&a.indexOf(t)===i&&!NO_R4[t]; }).forEach(function(t){
-      [y,y+1].forEach(function(yy){ var ev=[]; try{ ev=_calPendNoReg(t,yy)||[]; }catch(e){} ev.forEach(function(e){ if(!(e.fecha>hoy&&e.fecha<=fin)) return; var sh=accPropia(t,e.fecha); if(!(sh>0)) return; var b=sh*num(e.imp); L.push({fecha:e.fecha,imp:b*(1-RET)-b*COMDIV,txt:'Dividendo '+t+' (previsto)'}); }); }); });
+    Object.keys(DB.dividendos||{}).concat((DB.operaciones||[]).map(function(o){ return (o.ticker||'').toUpperCase(); })).filter(function(t,i,a){ return t&&a.indexOf(t)===i; }).forEach(function(t){
+      [y,y+1].forEach(function(yy){ var ev=[]; try{ ev=_calPendNoReg(t,yy)||[]; }catch(e){} ev.forEach(function(e){ if(!(e.fecha>hoy&&e.fecha<=fin)) return; var sh=accR4(t,e.fecha); if(!(sh>0)) return; var b=sh*num(e.imp); L.push({fecha:e.fecha,imp:b*(1-RET)-feeR4(b),txt:'Dividendo '+t+' (previsto)'}); }); }); });
     var cu=(DB.movimientos||[]).filter(function(m){ var t=((m.comercio||'')+' '+(m.concepto||'')+' '+(m.detalle||'')); return m.tipo==='gasto'&&/custodia/i.test(t)&&/\bR4\b|renta ?4/i.test(t); }).sort(function(a,b){ return a.fecha<b.fecha?-1:1; }).pop();
     if(cu){ var nx=D(cu.fecha); nx.setMonth(nx.getMonth()+3); var f=iso(nx); if(f>hoy&&f<=fin) L.push({fecha:f,imp:-num(cu.importe),txt:'Custodia R4 (prevista, como la última)'}); }
     return L.sort(function(a,b){ return a.fecha<b.fecha?-1:1; });
@@ -133,7 +138,7 @@
     var row=function(f,txt,imp,st,col,org){ return '<tr><td>'+fd(f)+'</td><td>'+txt+(org?' <span class="n-org">'+org+'</span>':'')+'</td><td class="num '+(imp>=0?'n-pos':'n-neg')+'">'+(imp>=0?'+':'')+E(imp)+'</td><td style="color:'+col+'">'+st+'</td></tr>'; };
     var X=C.X||((typeof nR4Xls==='function')?nR4Xls():null);
     var up='<div class="n-r4up"><button class="btn sm" data-nr4up="1">📥 Subir extracto de R4</button><span id="nR4XMsg">'+(X?'Último: extracto de patrimonio al <b>'+fd(X.fecha)+'</b>'+(X.fichero?' ('+X.fichero+')':''):'Descárgalo en el área de clientes de Renta 4: «Extracto de patrimonio» en Excel, desde el 1 de enero.')+'</span></div>';
-    var h=up+'<div class="n-r4note"><b>En prueba.</b> Partida 28/10: efectivo 92,97 € + Foncuenta 1.698,71 € = 1.791,68 €. Supuestos (dime si alguno no es así): las compras de la cartera <b>Propia</b> salen de R4 salvo <b>Repsol</b> (ING) y <b>Santander</b>, que tampoco cobran sus dividendos en R4; los dividendos de la cartera <b>Compartida</b> se cobran en su bróker y quedan como pendientes de traspasar; las transferencias fijas (400 € de Santander y 700 € de ING) se prevén el <b>día 3</b> y se cotejan hasta dos días hábiles después; retención del 19 % y comisión de cobro del 0,09 % + IVA.</div>'+
+    var h=up+'<div class="n-r4note"><b>En prueba.</b> Partida 28/10: efectivo 92,97 € + Foncuenta 1.698,71 € = 1.791,68 €. Supuestos (dime si alguno no es así): solo cuentan las compras, ventas y dividendos de los lotes con bróker <b>Renta 4</b> (el bróker de cada lote; sin dato, la regla: Propia en R4 salvo <b>Repsol</b> en ING y <b>Santander</b>); lo cobrado en otro bróker queda como pendiente de traspasar; los dividendos de la cartera <b>Compartida</b> se cobran en su bróker y quedan como pendientes de traspasar; las transferencias fijas (400 € de Santander y 700 € de ING) se prevén el <b>día 3</b> y se cotejan hasta dos días hábiles después; retención del 19 % y comisión de cobro de R4 del 0,075 % (mínimo 0,09 €) + IVA.</div>'+
       '<table class="n-r4t"><thead><tr><th>Fecha</th><th>Apunte</th><th class="num">Importe</th><th>Cotejo</th></tr></thead><tbody>'+
       row(P.fecha,'Saldo de partida',P.efectivo+P.fondo,'efectivo + Foncuenta','#475569','')+
       C.filas.map(function(r){ return [r.x.fecha,row(r.x.fecha,r.x.txt,r.x.imp,r.st[0],r.st[1],r.x.origen==='regla'?'por regla':'')]; })
