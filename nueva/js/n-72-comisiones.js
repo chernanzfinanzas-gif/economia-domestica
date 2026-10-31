@@ -102,3 +102,34 @@
   /* renta por empresa de las ventas de derechos (para Rentabilidad y la ficha) */
   window.nDerechosDe=function(t){ t=(t||'').toUpperCase(); return (DB.ventaDerechos||[]).filter(function(v){ return (v.ticker||'').toUpperCase()===t; }); };
 })();
+
+/* 4. La venta de derechos suma a la rentabilidad de SU empresa (Carlos, 31-oct: «imputarlo a Vidrala»).
+   Se suma el importe ABONADO (antes de retención, igual que el dividendo se cuenta en bruto) al balance y a la
+   rentabilidad total de la empresa. No se mete en «dividendos cobrados»: queda aparte, en `derechos`. */
+(function(){
+  if(typeof rentabilidadEmpresas!=='function') return;
+  var o=rentabilidadEmpresas;
+  rentabilidadEmpresas=function(){ var R=o.apply(this,arguments);
+    try{ if(R&&R.ok&&R.rows&&(DB.ventaDerechos||[]).length){
+      var hoy=new Date().toISOString().slice(0,10);
+      R.rows.forEach(function(r){ var d=0; (DB.ventaDerechos||[]).forEach(function(v){ if((v.ticker||'').toUpperCase()===r.t && (v.fecha||'')<=hoy) d+=num(v.importe); });
+        if(d>0){ r.derechos=d; r.balance=num(r.balance)+d; r.rentTot=r.coste>0?r.balance/r.coste:r.rentTot; } }); } }catch(e){ console.warn('[derechos] rentabilidad',e); }
+    return R; };
+})();
+/* y los totales de la tabla, para que la fila TOTAL sea la suma de las filas */
+(function(){
+  if(typeof _rentaTotales!=='function') return;
+  var o=_rentaTotales;
+  _rentaTotales=function(rows){ var T=o.apply(this,arguments); var d=0; (rows||[]).forEach(function(r){ d+=num(r.derechos); });
+    if(d>0){ T.derechos=d; T.balance=num(T.balance)+d; T.rentTot=T.coste>0?T.balance/T.coste:T.rentTot; } return T; };
+})();
+/* y el recuadro «Situación de mi inversión»: la venta de derechos es dinero cobrado, como el dividendo:
+   baja lo que ha salido de la nómina y sube el resultado. Se dice aparte en el texto. */
+(function(){
+  if(typeof _situacionInversion!=='function') return;
+  var o=_situacionInversion;
+  _situacionInversion=function(R,CR){ var S=o.apply(this,arguments);
+    try{ if(S&&R&&R.ok){ var d=0; (R.rows||[]).forEach(function(r){ d+=num(r.derechos); });
+      if(d>0){ S.derechos=d; S.divCob=num(S.divCob)+d; S.aportado-=d; S.resultado+=d; S.pct=(S.aportado>0.01)?S.resultado/S.aportado:null; } } }catch(e){}
+    return S; };
+})();

@@ -23,10 +23,10 @@
         '<div><b class="'+(S.pct==null?'':(S.pct>=0?'n-pos':'n-neg'))+'">'+pc(S.pct)+'</b><small>sobre mi dinero</small></div>'+
         '<div><b class="'+(S.tir==null?'':(S.tir>=0?'n-pos':'n-neg'))+'">'+pc(S.tir)+'</b><small>anual'+(S.anio0?' · desde '+S.anio0:'')+'</small></div></div>'+
       (S.resultado>=0?'<div class="n-sit-bar"><div class="b1" style="width:'+w.toFixed(1)+'%"><span>De mi nómina<b>'+fmt(S.aportado)+'</b></span></div><div class="b2"><span>Resultado<b>'+sg(S.resultado)+'</b></span></div></div>':'')+
-      '<div class="n-sit-c"><div><span>De mi nómina ha salido</span><b>'+fmt(S.aportado)+'</b><em>compras '+fmt(S.coste)+' − dividendos cobrados '+fmt(S.divCob)+(hayV?((cN>=0?' − ganancia de lo vendido ':' + pérdida de lo vendido ')+fmt(Math.abs(cN))):'')+'</em></div>'+
+      '<div class="n-sit-c"><div><span>De mi nómina ha salido</span><b>'+fmt(S.aportado)+'</b><em>compras '+fmt(S.coste)+' − dividendos'+(S.derechos?' y derechos':'')+' cobrados '+fmt(S.divCob)+(hayV?((cN>=0?' − ganancia de lo vendido ':' + pérdida de lo vendido ')+fmt(Math.abs(cN))):'')+'</em></div>'+
         '<div><span>Hoy tengo</span><b>'+fmt(S.valor)+'</b><em>valor de mercado de la cartera · '+S.n+' posiciones</em></div>'+
         '<div class="tot"><span>Resultado</span><b class="'+(S.resultado>=0?'n-pos':'n-neg')+'">'+sg(S.resultado)+'</b><em>lo que tengo menos lo que ha salido de mi nómina</em></div></div>'+
-      '<div class="n-sit-d"><span class="t">De dónde sale</span><span>dividendos cobrados y reinvertidos <b>'+fmt(S.divCob)+'</b></span>'+
+      '<div class="n-sit-d"><span class="t">De dónde sale</span><span>dividendos cobrados y reinvertidos <b>'+fmt(S.divCob-num(S.derechos||0))+'</b></span>'+(S.derechos?'<span>venta de derechos <b>'+fmt(S.derechos)+'</b></span>':'')+
         (hayV?'<span>'+(cN>=0?'ganancia':'pérdida')+' de lo ya vendido <b class="'+(cN>=0?'n-pos':'n-neg')+'">'+sg(cN)+'</b></span>':'')+
         '<span>plusvalía latente de lo que tengo <b class="'+(S.pl>=0?'n-pos':'n-neg')+'">'+sg(S.pl)+'</b></span></div>'+av+
       '<div class="n-sit-p">El porcentaje se mide sobre <b>tu dinero</b> (compras menos lo que se reinvirtió solo), así que <b>no es comparable con un índice</b>: para eso está la cifra anual. Las ventas parciales se cuentan por FIFO.</div></div>';
