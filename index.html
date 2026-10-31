@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script>/* 31-oct-2026 (Carlos): el enlace de siempre abre la app nueva. La de siempre solo con ?vieja=1 (desde ⚙ Ajustes de la nueva). */
+(function(){ try{ if(!/[?&]vieja=1\b/.test(location.search)) location.replace('nueva/'); }catch(e){} })();</script>
 <script>/* 31-oct-2026 · La app de siempre pasa a SOLO LECTURA: desde hoy se anota en la app nueva (nueva/).
    1) ninguna escritura sale hacia Google o GitHub; 2) las funciones de guardar no hacen nada y lo dicen. */
 (function(){
