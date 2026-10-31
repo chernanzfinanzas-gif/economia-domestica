@@ -104,26 +104,38 @@
   }
 
   /* ---------- casar con lo ya apuntado ---------- */
+  function palabras(t){ return sinAc(t).replace(PRE,'').split(/[^a-z0-9]+/).filter(function(w){ return w.length>=4&&!VACIAS[w]&&!/^\d+$/.test(w); }); }
   function casar(L,desde,hasta){
     var M=(DB.movimientos||[]).filter(function(m){ return m.fecha>=addD(desde,-7)&&m.fecha<=addD(hasta,7); }), usado={}, res={};
     M.forEach(function(m){ if(m.bk) usado[m.id]=1; });   /* ya atado a una línea del banco: no se vuelve a usar */
     function signo(m){ return (m.tipo==='ingreso')?1:-1; }
-    function busca(l,imp,excl){ var best=null,bd=99; M.forEach(function(m){ if(usado[m.id]||(excl&&excl[m.id])) return; if(Math.abs(num(m.importe)-imp)>0.005) return; if(signo(m)*l.imp<0) return;
-        var d=dias(m.fecha,l.f); if(d<=6&&d<bd){ best=m; bd=d; } }); return best; }
-    L.forEach(function(l){ var m=busca(l,Math.abs(l.imp)); if(m){ usado[m.id]=1; res[l.key]={tipo:'casado',mov:[m]}; } });
-    /* dos líneas del mismo día y cuenta que suman un apunte tuyo (Telefónica fijo + móvil = «Movistar») */
-    var S=L.filter(function(l){ return !res[l.key]&&!l._tr; });
-    for(var i=0;i<S.length;i++) for(var j=i+1;j<S.length;j++){ var a=S[i], b=S[j]; if(res[a.key]||res[b.key]||a.src!==b.src||a.f!==b.f||(a.imp<0)!==(b.imp<0)) continue;
-      var m2=busca({f:a.f,imp:a.imp},r2(Math.abs(a.imp)+Math.abs(b.imp))); if(m2){ usado[m2.id]=1; res[a.key]=res[b.key]={tipo:'casado',mov:[m2],suma:true}; } }
-    /* una línea que reparte en dos apuntes tuyos del mismo día (parte normal + parte reembolsable) */
-    S=L.filter(function(l){ return !res[l.key]&&!l._tr; });
-    S.forEach(function(l){ var C=M.filter(function(m){ return !usado[m.id]&&signo(m)*l.imp>0&&dias(m.fecha,l.f)<=6; }), ok=null;
-      for(var i2=0;i2<C.length&&!ok;i2++) for(var j2=i2+1;j2<C.length&&!ok;j2++){ if(C[i2].fecha!==C[j2].fecha) continue; if(Math.abs(num(C[i2].importe)+num(C[j2].importe)-Math.abs(l.imp))<0.006) ok=[C[i2],C[j2]]; }
-      if(ok){ ok.forEach(function(m){ usado[m.id]=1; }); res[l.key]={tipo:'casado',mov:ok,suma:true}; } });
+    /* ¿el apunte habla del mismo comercio que la línea del banco? */
+    function parecido(l,m){ var W=palabras(l.txt), T=sinAc((m.detalle||'')+' '+(m.concepto||'')+' '+(m.comercio||'')).replace(/[^a-z0-9]+/g,' ');
+      for(var i=0;i<W.length;i++){ if((' '+T+' ').indexOf(' '+W[i])>=0||T.indexOf(W[i].slice(0,6))>=0) return true; }
+      var A=aprend()[clave(l.txt)]; return !!(A&&A.d&&m.detalle&&sinAc(A.d)===sinAc(m.detalle)); }
+    function libre(l){ return !res[l.key]&&!l._tr; }
+    /* un apunte tuyo de ese importe: mismo comercio hasta 6 días; si no se parece, como mucho 3 */
+    function busca(l,imp,soloParecido){ var best=null,bd=99; M.forEach(function(m){ if(usado[m.id]) return; if(Math.abs(num(m.importe)-imp)>0.005) return; if(signo(m)*l.imp<0) return;
+        var d=dias(m.fecha,l.f), par=parecido(l,m); if(soloParecido&&!par) return; var lim=par?6:3, sc=d+(par?0:0.5); if(d<=lim&&sc<bd){ best=m; bd=sc; } }); return best; }
+    function casa(Ls,mov,suma){ mov.forEach(function(m){ usado[m.id]=1; }); var r={tipo:'casado',mov:mov,suma:!!suma}; Ls.forEach(function(l){ res[l.key]=r; }); }
+    /* 1 · uno a uno, del mismo comercio */
+    L.forEach(function(l){ if(!libre(l)) return; var m=busca(l,Math.abs(l.imp),true); if(m) casa([l],[m]); });
+    /* 2 · varias líneas del mismo día, cuenta y comercio que suman un apunte tuyo (Telefónica fijo + móvil = «Movistar»; 4 devoluciones = un apunte) */
+    var G={}; L.forEach(function(l){ if(!libre(l)) return; var k=l.src+'|'+l.f+'|'+(clave(l.txt).split(' ')[0]||'')+'|'+(l.imp<0); (G[k]=G[k]||[]).push(l); });
+    Object.keys(G).forEach(function(k){ var g=G[k]; if(g.length<2||g.length>6) return; var t=r2(g.reduce(function(a,l){ return a+Math.abs(l.imp); },0)); var m=busca(g[0],t); if(m) casa(g,[m],true); });
+    /* 3 · uno a uno, aunque el texto no se parezca (fechas muy cercanas) */
+    L.forEach(function(l){ if(!libre(l)) return; var m=busca(l,Math.abs(l.imp),false); if(m) casa([l],[m]); });
+    /* 4 · dos líneas cualesquiera (también de cuentas distintas, como el IKEA pagado con ING y Santander) que suman un apunte tuyo */
+    var S=L.filter(libre);
+    for(var i=0;i<S.length;i++) for(var j=i+1;j<S.length;j++){ var a=S[i], b=S[j]; if(!libre(a)||!libre(b)||dias(a.f,b.f)>1||(a.imp<0)!==(b.imp<0)) continue;
+      var m2=busca(a,r2(Math.abs(a.imp)+Math.abs(b.imp))); if(m2) casa([a,b],[m2],true); }
+    /* 5 · una línea que repartiste en dos apuntes tuyos (parte normal + reembolsable; o la farmacia: 28,27 + 9,97) */
+    L.filter(libre).forEach(function(l){ var C=M.filter(function(m){ return !usado[m.id]&&signo(m)*l.imp>0&&dias(m.fecha,l.f)<=3; }), ok=null;
+      for(var i2=0;i2<C.length&&!ok;i2++) for(var j2=i2+1;j2<C.length&&!ok;j2++){ if(dias(C[i2].fecha,C[j2].fecha)>1) continue; if(Math.abs(num(C[i2].importe)+num(C[j2].importe)-Math.abs(l.imp))<0.006) ok=[C[i2],C[j2]]; }
+      if(ok) casa([l],ok,true); });
     var sinExt=M.filter(function(m){ return !usado[m.id]&&m.fecha>=desde&&m.fecha<=hasta; });
     return {res:res,sinExt:sinExt};
   }
-
   /* ---------- estado de la importación en curso ---------- */
   var ST=null;   /* {lineas, desde, hasta, ficheros, r4} */
   function vistos(){ DB.bancoVistos=DB.bancoVistos||{}; return DB.bancoVistos; }
