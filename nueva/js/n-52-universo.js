@@ -152,7 +152,10 @@
   document.addEventListener('change',function(e){ var x=e.target; if(x&&x.getAttribute&&x.hasAttribute('data-nuf')){ F[x.getAttribute('data-nuf')]=x.value; abierto=null; filas(); [].forEach.call(document.querySelectorAll('#view-unin select[data-nuf]'),function(s){ s.classList.toggle('act',s.selectedIndex>0); }); } });
   document.addEventListener('click',function(e){
     if(!e.target.closest||!e.target.closest('#view-unin')) return;
-    var st=e.target.closest('[data-nustar]'); if(st){ if(window.nModal) window.nModal('<b>Cola de análisis</b><p style="margin:8px 0">La app nueva todavía no guarda: la ★ se pondrá desde aquí cuando pueda guardar. Mientras, en la app de siempre.</p>'); return; }
+    var st=e.target.closest('[data-nustar]'); if(st){ var tk=String(st.getAttribute('data-nustar')||'').toUpperCase(); if(!tk) return;   /* [31-oct-2026 · Fase 3] ★ = cola de análisis (la misma de la app de siempre) */
+      if(enCola(tk)){ if(!confirm('¿Quitar '+tk+' de la cola de análisis?')) return; DB.cola=(DB.cola||[]).filter(function(c){ return String(c.t||'').toUpperCase()!==tk; }); }
+      else if(typeof colaAdd==='function') colaAdd(tk); else { DB.cola=DB.cola||[]; DB.cola.push({t:tk,estado:'pendiente',nota:'',alta:new Date().toISOString().slice(0,10)}); }
+      if(typeof scheduleSave==='function') scheduleSave(); filas(); if(typeof showToast==='function') showToast(enCola(tk)?(tk+' añadida a la cola de análisis'):(tk+' quitada de la cola')); return; }
     var g=e.target.closest('.gs'); if(g){ var k=g.getAttribute('data-nugrp'); F.grp=F.grp===k?'':k; var s=document.querySelector('#view-unin select[data-nuf="grp"]'); if(s) s.value=F.grp; abierto=null; filas(); if(F.grp){ var t=document.getElementById('nuT'); if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); } return; }
     var th=e.target.closest('#nuT th.so'); if(th){ var i=[].indexOf.call(th.parentNode.children,th); S.d=(S.c===i)?-S.d:-1; S.c=i; abierto=null; filas(); return; }
     if(e.target.closest('[data-nuclose]')){ abierto=null; filas(); return; }

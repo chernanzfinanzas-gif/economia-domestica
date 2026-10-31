@@ -93,7 +93,13 @@
   };
   document.addEventListener('click',function(e){
     var b=e.target.closest&&e.target.closest('[data-nevok]'); if(!b) return; e.stopPropagation();
-    nModal('<b>Confirmar acciones recibidas</b><p style="margin:8px 0">La app nueva todavía no guarda operaciones: lo hará en la siguiente fase, con la ventana de «Dividendo / Scrip / Ampliación liberada» del Kanban.</p><p style="margin:0;color:#475569">Mientras tanto, la de siempre manda.</p>');
+    /* [31-oct-2026 · Fase 3] abre el 💶 del Kanban en «Scrip», con las acciones nuevas y precio 0 ya puestos */
+    var k=b.getAttribute('data-nevok'), l=(window._nLib||[]).filter(function(x){ return x.key===k||x.t===k; })[0];
+    if(l && typeof _emDivForm==='function'){ _emDivForm(l.t); setTimeout(function(){ try{
+        var r=document.querySelector('input[name=emdivt][value=scrip]'); if(r){ r.checked=true; if(typeof _emDivToggle==='function') _emDivToggle(); }
+        var a=document.getElementById('emdAcc'); if(a&&l.nuevas) a.value=l.nuevas; var pr=document.getElementById('emdPrecio'); if(pr) pr.value='0';
+        var fe=document.getElementById('emdFecha'); if(fe) fe.value=hoyIso(); }catch(err){} },60); return; }
+    nModal('<b>Confirmar acciones recibidas</b><p style="margin:8px 0">Ve al Kanban → la empresa → 💶 → Scrip, y pon las acciones nuevas a precio 0.</p>');
   });
 
   /* ---------- 3 · Pedir revisión (se apunta en Drive; la recoge el próximo pase) ---------- */
@@ -140,6 +146,7 @@
     var ok=e.target.closest&&e.target.closest('[data-nprvok]'); if(!ok) return;
     var t=(document.getElementById('nPrvT')||{}).value||'', h=(document.getElementById('nPrvH')||{}).value||'', mo=(document.getElementById('nPrvM')||{}).value||'';
     var msg=document.getElementById('nPrvMsg');
+    if(window.NUEVA_ENSAYO&&window.NUEVA_RO){ if(msg) msg.innerHTML='<span style="color:#B45309">🧪 En el ensayo no se escribe en Drive: la petición no se apunta (para que el pase no revise de verdad). Cuando la app nueva guarde en Drive, quedará «Pedida» y la recogerá el próximo pase.</span>'; return; }
     if(!hayDrive()){ if(msg) msg.innerHTML='<span style="color:#B45309">Sin conexión con Drive (o modo demo): no se ha apuntado. Pídemela en el chat.</span>'; return; }
     ok.disabled=true;
     leer().then(function(d){ d=d&&d.pedidas?d:{pedidas:[]}; var dt=new Date(); dt=new Date(dt.getTime()-dt.getTimezoneOffset()*6e4);
