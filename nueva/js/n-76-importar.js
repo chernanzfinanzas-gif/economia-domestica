@@ -328,7 +328,8 @@
     XS.forEach(function(x){ if(x.tipo==='R4'){ r4=true; r4ing=r4ing.concat(x.r4||[]);
       try{ if(x.r4hasta&&x.r4fondo!=null){ var cs=0; (x.r4cash||[]).forEach(function(c){ cs=c.saldo; }); DB.bancoSaldos=DB.bancoSaldos||{}; var pv=DB.bancoSaldos.R4;   /* Foncuenta + efectivo de R4, para Patrimonio */
         var fh=x.r4hasta>hoy()?hoy():x.r4hasta;
-        if(!pv||pv.fecha<=fh) DB.bancoSaldos.R4={fecha:fh,saldo:r2(x.r4fondo+cs),fondo:x.r4fondo,cash:cs,leido:hoy()}; } }catch(e){} fic.push('Renta 4 (para cotejar)'); return; } if(porSrc[x.tipo]) return; porSrc[x.tipo]=1; claves(x.lineas); L=L.concat(x.lineas); fic.push(CTA[x.tipo]+' ('+x.lineas.length+')'); });
+        if(!pv||pv.fecha<=fh) DB.bancoSaldos.R4={fecha:fh,saldo:r2(x.r4fondo+cs),fondo:x.r4fondo,cash:cs,leido:hoy()}; } }catch(e){} fic.push('Renta 4 (para cotejar)'); return; }
+      claves(x.lineas); var nv=x.lineas.filter(function(l){ if(porSrc[l.key]) return false; porSrc[l.key]=1; return true; }); L=L.concat(nv); fic.push(CTA[x.tipo]+' ('+x.lineas.length+')'); });
     if(!L.length){ if(s) s.textContent=r4?'Con el extracto de R4 solo se cotejan los recibos: elígelo junto a los del banco.':'No había movimientos en esos ficheros.'; return; }
     var u0=(DB.bancoUltImport||''), desde=u0?addD(u0,-10):addD(hoy(),-92);
     ST={lineas:L,ficheros:fic,r4:r4,r4ing:r4ing,desde:desde};
@@ -337,6 +338,36 @@
   };
   window._nImpST=function(){ return ST; };
 
+  /* ---------- recogida automática desde Google Drive (1-nov-2026) ----------
+     Descargas se sincroniza con Drive (Google Drive para escritorio) o guardas el extracto en Drive desde el móvil: la app busca en
+     TODO tu Drive los ficheros con nombre de extracto (movements-…, transactions_…, extractosPatrimonio…) modificados en los últimos
+     120 días y que no haya leído ya (DB.bancoFicheros: id → fecha de modificación). Necesita el permiso de LEER Drive. */
+  var PAT=/^(movements-|transactions_|extractosPatrimonio)/i, _busc=false, _ultB=0, _permOk=null;
+  function hayDrive(){ return !window._demoOn && typeof gfetch==='function' && typeof accessToken!=='undefined' && !!accessToken; }
+  function permiso(){ if(_permOk!=null) return Promise.resolve(_permOk);
+    return fetch('https://oauth2.googleapis.com/tokeninfo?access_token='+encodeURIComponent(accessToken)).then(function(r){ return r.ok?r.json():null; })
+      .then(function(j){ _permOk=!!(j&&/drive\.readonly|auth\/drive(\s|$)/.test(j.scope||'')); return _permOk; }).catch(function(){ return true; }); }
+  window.nImpDrive=function(manual){
+    if(!hayDrive()||_busc) return Promise.resolve(0); if(!manual&&Date.now()-_ultB<10*60e3) return Promise.resolve(0);
+    _busc=true; _ultB=Date.now(); var s=document.getElementById('nImpMsg'); if(manual&&s) s.textContent='Buscando extractos en tu Drive…';
+    var F=DB.bancoFicheros=DB.bancoFicheros||{}, desde=new Date(Date.now()-120*864e5).toISOString().slice(0,19);
+    var q="trashed=false and modifiedTime > '"+desde+"' and (name contains 'movements-' or name contains 'transactions_' or name contains 'extractosPatrimonio')";
+    return permiso().then(function(ok){ if(!ok) throw new Error('permiso');
+      return gfetch('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+'&fields=files(id,name,modifiedTime)&orderBy=modifiedTime%20desc&pageSize=50'); })
+     .then(function(r){ if(r.status===401||r.status===403) throw new Error('permiso'); return r.ok?r.json():{files:[]}; })
+     .then(function(j){ var N=(j.files||[]).filter(function(f){ return PAT.test(f.name)&&F[f.id]!==f.modifiedTime; });
+        if(!N.length){ if(manual&&s) s.textContent='No hay extractos nuevos en tu Drive.'; return 0; }
+        if(s) s.textContent='Leyendo '+N.length+' extracto(s) de tu Drive…';
+        return cargarLib().then(function(){ return Promise.all(N.map(function(f){ return gfetch('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media').then(function(r){ return r.ok?r.arrayBuffer():null; })
+            .then(function(b){ if(!b) return null; try{ var x=leer(b,f.name); x._f=f; return x; }catch(e){ F[f.id]=f.modifiedTime; return null; } }); })); })
+          .then(function(XS){ XS=XS.filter(Boolean); if(!XS.length){ if(s) s.textContent=''; return 0; }
+            window.nImpProcesar(XS); XS.forEach(function(x){ F[x._f.id]=x._f.modifiedTime; });
+            var m=document.getElementById('nImpMsg'); if(m) m.textContent='✓ Recogidos de tu Drive: '+XS.map(function(x){ return x._f.name; }).join(' · ');
+            if(typeof scheduleSave==='function') scheduleSave(); return XS.length; }); })
+     .catch(function(e){ var m=document.getElementById('nImpMsg'); if(m) m.innerHTML=(e.message==='permiso')?'Para recoger los extractos solos, la app necesita permiso para <b>leer</b> tu Drive. <button class="btn sm" data-nimp="permiso">Dar permiso</button>':'No pude mirar tu Drive ('+E(e.message)+').'; return 0; })
+     .then(function(n){ _busc=false; return n; });
+  };
+
   /* ---------- montaje en Movimientos ---------- */
   function montar(){
     var V=document.getElementById('view-movimientos'); if(!V||document.getElementById('blkMovImp')) return;
@@ -344,7 +375,7 @@
     var b=document.createElement('div'); b.className='blk mv-blk open'; b.id='blkMovImp';
     b.innerHTML='<div class="blk-h" data-movblk="blkMovImp"><span class="blk-arw">▶</span><span class="blk-ic">🏦</span><div><div class="blk-t">Importar extractos del banco</div>'+
       '<div class="blk-sub">ING (cuenta y tarjeta), Santander y, para cotejar sus recibos, Renta 4: lo ya apuntado queda comprobado, lo nuevo entra en tu lista para revisar</div></div></div>'+
-      '<div class="blk-b"><div class="nimp-top"><button class="btn" data-nimp="subir">⤓ Elegir los Excel del banco</button> <span id="nImpMsg" class="muted"></span>'+
+      '<div class="blk-b"><div class="nimp-top"><button class="btn" data-nimp="subir">⤓ Elegir los Excel del banco</button> <button class="btn ghost" data-nimp="drive">🔄 Buscar en mi Drive</button> <span id="nImpMsg" class="muted"></span>'+
       '<span class="nimp-ult muted" id="nImpUlt"></span></div><div id="nImpRes"></div></div>';
     add.parentNode.insertBefore(b,add);
     ult();
@@ -359,6 +390,8 @@
     var t=e.target, c=function(sel){ return t.closest&&t.closest(sel); };
     var a=c('[data-nimp]'); if(a){ var w=a.getAttribute('data-nimp');
       if(w==='subir') window.nImportarExtractos();
+      else if(w==='drive') window.nImpDrive(true);
+      else if(w==='permiso'){ if(typeof getToken==='function') getToken(true).then(function(){ _permOk=null; window.nImpDrive(true); }).catch(function(){}); }
       else if(w==='redo'){ var d=document.getElementById('nImpDesde'); if(d&&d.value&&ST){ ST.desde=d.value; analizar(); pintar(); } }
       ult(); return; }
     var all=c('[data-npall]'); if(all){ var n=0; pend().slice().forEach(function(x){ if(completo(x)&&confirmar(x,true)) n++; }); rehacer(); return; }
@@ -381,7 +414,7 @@
     guardarLuego();
   }
   document.addEventListener('input',campo); document.addEventListener('change',campo);
-  if(typeof renderMovs==='function'){ var o=renderMovs; renderMovs=function(){ var r=o.apply(this,arguments); try{ montar(); ult(); inyectar(); }catch(e){ console.warn('[pendientes]',e); } return r; }; }
+  if(typeof renderMovs==='function'){ var o=renderMovs; renderMovs=function(){ var r=o.apply(this,arguments); try{ montar(); ult(); inyectar(); var V=document.getElementById('view-movimientos'); if(V&&V.classList.contains('active')) setTimeout(function(){ window.nImpDrive(false); },800); }catch(e){ console.warn('[pendientes]',e); } return r; }; }
   setTimeout(function(){ try{ montar(); if(document.getElementById('movTable')) inyectar(); }catch(e){} },1500);
 
   var st=document.createElement('style'); st.textContent=

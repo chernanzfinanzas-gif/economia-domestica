@@ -177,7 +177,7 @@ function seed(){
 /* ============ Estado + persistencia (Google Drive) ============ */
 let DB=null, saveTimer=null, accessToken=null, tokenClient=null, fileId=null;
 let _res=null,_rej=null;
-const SCOPE='https://www.googleapis.com/auth/drive.file';
+const SCOPE='https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.readonly';
 const FNAME='datos-economia.json';
 
 function setFileStatus(state,txt){
@@ -213,10 +213,13 @@ async function gfetch(url,opts){
 }
 var _lastMod='';   /* modifiedTime del fichero en Drive la última vez que lo leímos/guardamos (chequeo de concurrencia) */
 async function driveFindId(){
-  const q=encodeURIComponent("name='"+FNAME+"' and trashed=false");
-  const r=await gfetch('https://www.googleapis.com/drive/v3/files?q='+q+'&fields=files(id,name,modifiedTime)&pageSize=1');
+  const q0=encodeURIComponent("name='"+FNAME+"' and trashed=false and 'root' in parents");
+  let r=await gfetch('https://www.googleapis.com/drive/v3/files?q='+q0+'&fields=files(id,name,modifiedTime)&pageSize=1');
   if(!r.ok) throw new Error('Drive '+r.status);
-  const j=await r.json(); const f=(j.files&&j.files[0])||null;
+  let j=await r.json(); let f=(j.files&&j.files[0])||null;
+  if(!f){ const q=encodeURIComponent("name='"+FNAME+"' and trashed=false");
+    r=await gfetch('https://www.googleapis.com/drive/v3/files?q='+q+'&fields=files(id,name,modifiedTime)&pageSize=1&orderBy=createdTime');
+    if(!r.ok) throw new Error('Drive '+r.status); j=await r.json(); f=(j.files&&j.files[0])||null; }
   if(f){ _lastMod=f.modifiedTime||''; return f.id; }
   return null;
 }
