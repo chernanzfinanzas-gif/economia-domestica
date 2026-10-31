@@ -41,7 +41,9 @@
     return out; }
   function flujos(hasta){
     var out=fijas(P.fecha,hasta), pend=[];
-    (DB.operaciones||[]).forEach(function(o){ if(!(o.fecha>P.fecha&&o.fecha<=hasta)||brk(o)!=='Renta 4') return; var b=num(o.acciones)*num(o.precio), c=num(o.comision);
+    (DB.operaciones||[]).forEach(function(o){ if(!(o.fecha>P.fecha&&o.fecha<=hasta)) return;
+      /* [31-oct · Carlos] una venta en otro bróker deja el dinero allí: queda pendiente de traspasar a R4 (todo va al Foncuenta) */
+      if(brk(o)!=='Renta 4'){ if(o.tipo==='venta'){ var bv=num(o.acciones)*num(o.precio)-num(o.comision); pend.push({fecha:o.fecha,imp:bv,txt:'Venta '+num(o.acciones)+' '+o.ticker+' ('+brk(o)+')',origen:'operación',tk:o.ticker+' (venta '+brk(o)+')'}); } return; } var b=num(o.acciones)*num(o.precio), c=num(o.comision);
       out.push(o.tipo==='venta'?{fecha:o.fecha,imp:b-c,txt:'Venta '+num(o.acciones)+' '+o.ticker,origen:'operación'}:{fecha:o.fecha,imp:-(b+c),txt:'Compra '+num(o.acciones)+' '+o.ticker,origen:'operación'}); });
     (DB.movimientos||[]).forEach(function(m){ if(!(m.fecha>P.fecha&&m.fecha<=hasta)||m.tipo!=='gasto') return; var t=((m.comercio||'')+' '+(m.concepto||'')+' '+(m.detalle||'')); if(/custodia/i.test(t)&&/\bR4\b|renta ?4/i.test(t)) out.push({fecha:m.fecha,imp:-num(m.importe),txt:'Custodia R4',origen:'Movimientos'}); });
     Object.keys(DB.dividendos||{}).forEach(function(t){ (DB.dividendos[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(!(f>P.fecha&&f<=hasta)) return; var shP=accPropia(t,f), shR=accR4(t,f), shO=Math.max(0,shP-shR);
@@ -132,7 +134,7 @@
     k.innerHTML='<div class="n-ctrl">'+
       nKpi({c:'#1F4A9A',bg:'#EAF1FD',ic:'💶',t:'Disponible hoy',v:C.total!=null?E(C.total):'—',s:'efectivo <b>'+E(C.ef)+'</b> + Foncuenta <b>'+(C.fondo!=null?E(C.fondo):'—')+'</b>',p:C.fuente==='R4'?('exacto a '+fd(C.lastE)+' según el extracto de R4'+(C.lastE<C.hoy?'; desde entonces, estimado':'')):(C.lastE?('fondo estimado desde el extracto del '+fd(C.lastE)):'sin extracto del fondo')})+
       nKpi({c:'#16A34A',bg:'#DCFCE7',ic:'🌱',t:'Intereses del fondo',v:C.interes!=null?((C.interes>=0?'+':'')+E(C.interes)):'—',vCls:'n-pos',s:'desde el 28/10'+(anual!=null?' · al '+anual.toFixed(2).replace('.',',')+' % anual':'')})+
-      nKpi({c:'#D97706',bg:'#FEF3C7',ic:'⏳',t:'Pendiente de traspasar',v:E(C.pendT),s:C.pend.length?C.pend.map(function(x){ return x.tk+' '+E(x.imp); }).join(' · '):'dividendos cobrados fuera de R4 (Repsol, Santander y la Compartida) desde el 28/10'})+
+      nKpi({c:'#D97706',bg:'#FEF3C7',ic:'⏳',t:'Pendiente de traspasar',v:E(C.pendT),s:C.pend.length?C.pend.map(function(x){ return x.tk+' '+E(x.imp); }).join(' · '):'dividendos y ventas cobrados fuera de R4 (otros brókers y la Compartida) desde el 28/10'})+
       nKpi({c:'#7C3AED',bg:'#EDE9FE',ic:'📅',t:'Próximos 30 días',v:(pe>=0?'+':'')+E(pe),vCls:pe>=0?'n-pos':'n-neg',s:'entra <b>'+E(pin)+'</b> · sale <b>'+E(-pout)+'</b>'})+'</div>';
     var b=document.getElementById('nCajaR4'); if(!b){ b=document.createElement('div'); b.id='nCajaR4'; b.className='pos-blk n-blk open'; k.insertAdjacentElement('afterend',b); }
     var row=function(f,txt,imp,st,col,org){ return '<tr><td>'+fd(f)+'</td><td>'+txt+(org?' <span class="n-org">'+org+'</span>':'')+'</td><td class="num '+(imp>=0?'n-pos':'n-neg')+'">'+(imp>=0?'+':'')+E(imp)+'</td><td style="color:'+col+'">'+st+'</td></tr>'; };

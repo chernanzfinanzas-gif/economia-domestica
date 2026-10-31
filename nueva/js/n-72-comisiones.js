@@ -32,7 +32,8 @@
     if(bs&&bs.offsetParent!==null) return {br:bs.value,tipo:'compra',t:(document.getElementById('emcBrk').dataset.tk||'')};
     var t=(typeof invOpsTicker!=='undefined'&&invOpsTicker)||'', car=(typeof invOpsCartera!=='undefined'&&invOpsCartera)||'Propia';
     var tp=((document.getElementById('opTipo')||{}).value)||'compra';
-    if(t) return {br:(typeof khBrokerRegla==='function'?khBrokerRegla(t,car):'Renta 4'),tipo:tp,t:t};
+    var ob=document.getElementById('opBrk');   /* el selector de bróker del formulario de Operaciones (n-74) manda */
+    if(t) return {br:(ob&&ob.value)||(typeof khBrokerRegla==='function'?khBrokerRegla(t,car):'Renta 4'),tipo:tp,t:t};
     var nt=((document.getElementById('invTicker')||{}).value||'').trim().toUpperCase(), nc=((document.getElementById('invCart')||{}).value||'').trim()||'Propia';
     return {br:(typeof khBrokerRegla==='function'?khBrokerRegla(nt,nc):'Renta 4'),tipo:'compra',t:nt};
   }
