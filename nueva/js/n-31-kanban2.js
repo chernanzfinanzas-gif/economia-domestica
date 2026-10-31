@@ -64,8 +64,24 @@
       '<button class="n-mx" data-nemclose="1" aria-label="Cerrar">✕</button></div><div class="n-mbody"><div class="n-fk4">'+[k1,k2,k3,k4].map(kb).join('')+'</div>'+
       '<div class="n-f2">'+plan+div+'</div><div class="n-f2">'+cat+rie+'</div>'+why+'</div>'+foot+'</div>';
   };
+  /* [31-oct-2026 · Fase 3] los botones de la ficha ya guardan: Comprar y Dividendo abren su formulario (el del Kanban);
+     Vender lleva a Operaciones de esa empresa con «Venta» elegido (allí está el control de acciones disponibles y FIFO). */
   document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('[data-nf3]'); if(!b) return; e.preventDefault();
-    var m=document.getElementById('nF3msg'); if(m) m.textContent='«'+b.textContent.trim()+'» abre su formulario aquí mismo cuando la app pueda guardar (fase 3).'; });
+    var t=window._nEmModal, k=b.getAttribute('data-nf3'); if(!t) return;
+    var cerrar=function(){ window._nEmModal=null; var m=document.getElementById('nEmModal'); if(m) m.remove(); document.body.classList.remove('n-noscroll'); };
+    try{
+      if(k==='comprar'&&typeof _emCompraForm==='function'){ cerrar(); _emCompraForm(t); return; }
+      if(k==='dividendo'&&typeof _emDivForm==='function'){ cerrar(); _emDivForm(t); return; }
+      if(k==='vender'){ cerrar();
+        var car='Propia'; try{ var P=(typeof invPositions==='function'?invPositions():[]).filter(function(p){ return (p.ticker||'').toUpperCase()===t&&num(p.acciones)>0; }); if(P.length) car=P[0].cartera||'Propia'; }catch(_){}
+        if(typeof activarVista==='function') activarVista('inversiones');
+        setTimeout(function(){ try{ invOpsTicker=t; invOpsCartera=car; if(typeof renderInvOps==='function') renderInvOps();
+          var tp=document.getElementById('opTipo'); if(tp){ tp.value='venta'; tp.dispatchEvent(new Event('change',{bubbles:true})); }
+          var pn=document.getElementById('invOpsPanel'); if(pn) pn.scrollIntoView({behavior:'smooth',block:'start'});
+          var ac=document.getElementById('opAcc'); if(ac) ac.focus(); }catch(err){ console.warn('[vender]',err); } },250);
+        return; }
+    }catch(err){ console.error('[ficha kanban]',err); }
+    var m=document.getElementById('nF3msg'); if(m) m.textContent='No he podido abrir «'+b.textContent.trim()+'».'; });
 
   /* tablero: cabecera, banda y columnas como el boceto */
   function detalle(r){
