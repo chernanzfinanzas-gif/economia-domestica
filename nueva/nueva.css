@@ -811,9 +811,9 @@ select.n-brk.n-brk-auto{border-style:dashed;color:#64748b}
 .n-brk-r{font-size:10px;color:#94a3b8;font-weight:500}
 /* 31-oct · Anotar por pago */
 #view-dividendos .nd-c .d i.ok{background:#16A34A;border-color:#16A34A}
-#view-dividendos .nd-in{font:inherit;font-size:13px;width:92px;padding:3px 6px;border:1px solid #CBD5E1;border-radius:6px;text-align:right;background:#fff}
-#view-dividendos .nd-in.d{width:132px;text-align:left}
-#view-dividendos .nd-in.tot{font-weight:800}
+#view-dividendos .nd-inp{font:inherit;font-size:13px;width:92px;padding:3px 6px;border:1px solid #CBD5E1;border-radius:6px;text-align:right;background:#fff}
+#view-dividendos .nd-inp.d{width:132px;text-align:left}
+#view-dividendos .nd-inp.tot{font-weight:800}
 #view-dividendos table.nd-dt tr.okr td{background:#F0FDF4}
 #view-dividendos .nd-acc{display:flex;gap:8px;margin:10px 0 4px}
 #view-dividendos .nd-btn{display:inline-block;cursor:pointer;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid #2563EB;color:#2563EB;background:#fff;white-space:nowrap}

@@ -371,16 +371,16 @@
       var fil=P.map(function(p,i){ var f=(p.pago||p.exDiv||''), m=f?MES[(+f.slice(5,7))-1]:(i+1)+'.º', ant=anteDe(i,p);
         var k=p.estado==='k';
         return '<tr class="'+(k?'okr':'')+'"><td>'+m+(/^(extraordinario|especial)$/i.test(p.tipo||'')?' <small class="muted">'+esc(p.tipo)+'</small>':'')+'</td><td>'+(ant!=null?f4(ant):'—')+'</td>'+
-          '<td>'+(k?'<b>'+f4(p.bruto)+'</b>':'<input class="nd-in" type="number" step="0.0001" min="0" data-ndpb="'+i+'" value="'+r4(p.bruto)+'">')+'</td>'+
-          '<td>'+(k?esc((p.exDiv||'').split('-').reverse().join('/')):'<input class="nd-in d" type="date" data-ndpf="'+i+'|exDiv" value="'+esc(p.exDiv||'')+'">')+'</td>'+
-          '<td>'+(k?esc((p.pago||'').split('-').reverse().join('/')):'<input class="nd-in d" type="date" data-ndpf="'+i+'|pago" value="'+esc(p.pago||'')+'">')+'</td>'+
+          '<td>'+(k?'<b>'+f4(p.bruto)+'</b>':'<input class="nd-inp" type="number" step="0.0001" min="0" data-ndpb="'+i+'" value="'+r4(p.bruto)+'">')+'</td>'+
+          '<td>'+(k?esc((p.exDiv||'').split('-').reverse().join('/')):'<input class="nd-inp d" type="date" data-ndpf="'+i+'|exDiv" value="'+esc(p.exDiv||'')+'">')+'</td>'+
+          '<td>'+(k?esc((p.pago||'').split('-').reverse().join('/')):'<input class="nd-inp d" type="date" data-ndpf="'+i+'|pago" value="'+esc(p.pago||'')+'">')+'</td>'+
           '<td><span class="nd-chip '+p.estado+'">'+chip[p.estado]+'</span></td>'+
           '<td style="white-space:nowrap">'+(k?'<span class="nd-btn g" data-ndpdes="'+i+'" title="Volver a dejarlo sin confirmar">deshacer</span>':'<span class="nd-btn" data-ndpok="'+i+'" title="Fijar este pago como confirmado (cifra y fechas)">✅ confirmar</span>')+
           ' <span class="nd-btn x" data-ndpdel="'+i+'" title="Quitar este pago">✕</span></td></tr>'; }).join('');
       det='<div class="nd-det"><div class="dh"><b>'+esc(t)+' · '+esc(nombre(t))+' · '+Y+'</b><span style="flex:1"></span><span class="muted">'+(bp?'parte de los pagos de '+bp.y+' × tu crecimiento':'sin pagos anteriores: añade los pagos')+'</span></div>'+
         '<table class="nd-dt"><thead><tr><th>Pago</th><th>'+(bp?bp.y:'Antes')+'</th><th>'+Y+' (bruto €)</th><th>Ex-dividendo</th><th>Pago</th><th>Estado</th><th></th></tr></thead><tbody>'+fil+
         '<tr class="tot"><td>Total año</td><td>'+(bp?f4(bp.pagos.reduce(function(s,q){return s+num(q.bruto);},0)):'—')+(bpr.length&&bpr.length<(bp?bp.pagos.length:0)?' <small class="muted">(recurrente '+f4(bpr.reduce(function(s,q){return s+num(q.bruto);},0))+')</small>':'')+'</td>'+
-          '<td><input class="nd-in tot" type="number" step="0.0001" min="0" data-ndtot="1" value="'+(E.v!=null?r4(E.v):'')+'" title="Si escribes el total, se reparte entre los pagos sin confirmar en la misma proporción"></td>'+
+          '<td><input class="nd-inp tot" type="number" step="0.0001" min="0" data-ndtot="1" value="'+(E.v!=null?r4(E.v):'')+'" title="Si escribes el total, se reparte entre los pagos sin confirmar en la misma proporción"></td>'+
           '<td colspan="4">'+nk+' de '+P.length+' pagos confirmados'+(P.length&&nk===P.length?' · <b>año cerrado ✅</b>':'')+'</td></tr></tbody></table>'+
         '<div class="nd-acc"><span class="nd-btn" data-ndpadd="1">+ Añadir pago</span><span class="nd-btn g" data-ndprst="1" title="Deshace tus cambios en los pagos sin confirmar; los confirmados se quedan">↺ Volver a lo proyectado</span></div>'+
         '<div class="ej">Cada pago se estima y se confirma por separado. Escribe un pago o el total: el total se reparte entre los pagos sin confirmar en la misma proporción. Al confirmar, el pago queda fijo y pasa a Evolución como real; el total del año es lo que usa toda la app.</div></div>';
