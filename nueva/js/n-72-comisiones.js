@@ -56,7 +56,7 @@
   function curT(){ var h=document.querySelector('#emModal b, .em-modal b'); var m=h&&/·\s*([A-Z0-9.]+)/.exec(h.textContent||''); return m?m[1]:(window._ncomT||''); }
   if(typeof _emDivCalc==='function'){ _emDivCalc=function(){ var b=_emNum((document.getElementById('emdBruto')||{}).value), n=document.getElementById('emdNeto');
     var c=nComisionCobro(window._ncomT||curT(), b); if(n) n.value=(b>0?(Math.round((b*0.81-c.fee)*100)/100):'');
-    var nt=document.getElementById('emdCom'); if(nt) nt.textContent=c.fee>0?('Incluye comisión de cobro '+c.det+' (IVA incluido).'):'Sin comisión de cobro (bróker sin comisión).'; }; }
+    var nt=document.getElementById('emdCom'); if(nt) nt.textContent=!(b>0)?'':(c.fee>0?('Incluye comisión de cobro '+c.det+' (IVA incluido).'):'Sin comisión de cobro (bróker sin comisión).'); }; }
 
   /* ---------- 3. venta de derechos: tercera opción del 💶 ---------- */
   if(typeof _emDivForm==='function'){ var oD=_emDivForm; _emDivForm=function(t){ window._ncomT=(t||'').toUpperCase(); var r=oD.apply(this,arguments);

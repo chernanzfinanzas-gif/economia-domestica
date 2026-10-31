@@ -40,7 +40,7 @@
   }
   function calc(){
     var t=T(), car=C(), n=num(($i('opAcc')||{}).value), pr=num(($i('opPrecio')||{}).value);
-    if(!t||!(n>0)) return null;
+    if(!t||!(n>0)||!(pr>0)) return null;
     var fecha=($i('opFecha')||{}).value||new Date().toISOString().slice(0,10);
     var lista=(DB.operaciones||[]).filter(function(o){ return o.id!==editando(); }).concat([{id:'__prev',ticker:t,cartera:car,fecha:fecha,tipo:'venta',acciones:n,precio:pr}]);
     var F=null; try{ F=nFifo(lista); }catch(e){ return null; }
@@ -54,7 +54,7 @@
     var box=$i('nVentaInfo'); if(!box) return;
     var tipo=($i('opTipo')||{}).value; porDefecto();
     if(tipo!=='venta'){ box.style.display='none'; return; }
-    var r=calc(); if(!r){ box.style.display='block'; box.innerHTML='<b>Venta</b> · pon acciones y precio y te digo qué lote cuenta como vendido y desde qué bróker te conviene.'; return; }
+    var r=calc(); if(!r){ box.style.display='block'; box.innerHTML='<b>Venta</b> · pon las acciones y el precio y te digo qué lote cuenta como vendido y desde qué bróker te conviene.'; return; }
     var b=($i('opBrk')||{}).value, g=gastos(r.imp,b,r.t), coste=0;
     var lot=r.vend.map(function(s){ coste+=s.acc*s.pc; return '<tr><td>'+fd(s.fecha)+'</td><td>'+(Math.round(s.acc*10000)/10000)+'</td><td>'+E(s.pc)+'</td><td>'+esc(s.broker||'')+'</td></tr>'; }).join('');
     var falta=r.n-r.vend.reduce(function(s,x){ return s+x.acc; },0);
