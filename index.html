@@ -1,6 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script>/* 31-oct-2026 · La app de siempre pasa a SOLO LECTURA: desde hoy se anota en la app nueva (nueva/).
+   1) ninguna escritura sale hacia Google o GitHub; 2) las funciones de guardar no hacen nada y lo dicen. */
+(function(){
+  window.APP_VIEJA_RO=true;
+  var RX=/(googleapis\.com|api\.github\.com|script\.google\.com)/i, of=window.fetch&&window.fetch.bind(window);
+  if(of) window.fetch=function(i,o){ try{ var u=(typeof i==='string')?i:(i&&i.url)||'', m=((o&&o.method)||(i&&i.method)||'GET').toUpperCase();
+    if(m!=='GET'&&m!=='HEAD'&&RX.test(u)) return Promise.resolve(new Response('{"error":"app de siempre en solo lectura"}',{status:403,headers:{'Content-Type':'application/json'}})); }catch(e){}
+    return of(i,o); };
+  var ox=XMLHttpRequest&&XMLHttpRequest.prototype.open;
+  if(ox) XMLHttpRequest.prototype.open=function(m,u){ if(String(m).toUpperCase()!=='GET'&&RX.test(String(u))){ u='data:,solo-lectura'; m='GET'; } return ox.apply(this,[m,u].concat([].slice.call(arguments,2))); };
+  document.addEventListener('DOMContentLoaded',function(){
+    var aviso=function(){ try{ setFileStatus('warn','🔒 Solo lectura — anota en la app nueva'); }catch(e){} };
+    try{ window.saveNow=function(){ aviso(); return Promise.resolve(); }; }catch(e){}
+    try{ window.driveSave=function(){ return Promise.resolve({ro:true}); }; }catch(e){}
+    try{ window.driveMonthlyBackup=function(){ return Promise.resolve(); }; }catch(e){}
+    try{ window.driveSaveBridge=function(){ return Promise.resolve(); }; }catch(e){}
+  });
+})();</script>
+<style>#viejaRO{position:sticky;top:0;z-index:99999;background:#7c2d12;color:#fff;font:600 14px/1.4 system-ui,sans-serif;padding:9px 14px;text-align:center}#viejaRO a{color:#fde68a;margin-left:8px;text-decoration:underline}</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#1f3d6b">
@@ -3539,6 +3558,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 </style>
 </head>
 <body>
+<div id="viejaRO">🔒 App de siempre en SOLO LECTURA desde el 31-oct-2026: puedes consultar, pero no guarda. Anota en la app nueva. <a href="nueva/" target="_self">Abrir la app nueva →</a></div>
 <div id="khIntro">
   <video id="khIntroVid" playsinline></video>
   <div id="khIntroBar">
