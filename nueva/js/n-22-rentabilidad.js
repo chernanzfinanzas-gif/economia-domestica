@@ -47,6 +47,8 @@
     var coste=[], nomina=[]; for(k=0;k<n;k++){ var div=num(d.valdiv[k])-num(d.valor[k]); coste.push(buys[k]-cs[k]); nomina.push(buys[k]-sells[k]-div);   /* = coste de lo que tengo − resultado de lo vendido − dividendos */ }
     return {coste:coste, nomina:nomina, buys:buys};
   }
+  /* 1-nov-2026: la misma línea «de mi nómina» la usa la evolución de Gráficas (evoChartHTML, id evoGraf) */
+  window.nSerieNomina=function(d){ try{ return serieExtra(d).nomina; }catch(e){ return null; } };
   function twrRango(d,i0,i1){ var r=1,ok=false; for(var m=i0+1;m<=i1;m++){ var st=num(d.valdiv[m-1]), fl=num(d.aport[m])-num(d.aport[m-1]), en=num(d.valdiv[m]); if(st>0.01){ r*=(en-fl)/st; ok=true; } } return ok?r-1:null; }
   function idxDesde(L,dias){ if(!dias) return 0; var cut=Date.parse(L[L.length-1]+'T00:00:00')-dias*864e5, i0=0; for(var i=0;i<L.length;i++){ if(Date.parse(L[i]+'T00:00:00')<=cut) i0=i; else break; } return i0; }
   window._nRentaRango=window._nRentaRango||'Máx';

@@ -70,6 +70,7 @@
     try{ calEventosAnio(y+1).forEach(function(e){ if(e.tipo==='pago'&&pos[e.t]){ var v=(+e.sh||0)*(+e.imp||0); sig+=v; sigT[e.t]=(sigT[e.t]||0)+v; } }); }catch(e){}
     return {y:y,cob:cob,pend:pend,prox:prox,sig:sig,sigT:sigT};
   }
+  window.nDivKpis=kpis;   /* 1-nov-2026: también lo usa Gráficas › Dividendos */
 
   /* ================= montaje (una vez) ================= */
   function montar(){
