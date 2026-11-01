@@ -59,7 +59,16 @@
     var L=fijas(hoy,fin).map(function(x){ return {fecha:x.fecha,imp:x.imp,txt:x.txt}; });
     var y=+hoy.slice(0,4);
     Object.keys(DB.dividendos||{}).concat((DB.operaciones||[]).map(function(o){ return (o.ticker||'').toUpperCase(); })).filter(function(t,i,a){ return t&&a.indexOf(t)===i; }).forEach(function(t){
-      [y,y+1].forEach(function(yy){ var ev=[]; try{ ev=_calPendNoReg(t,yy)||[]; }catch(e){} ev.forEach(function(e){ if(!(e.fecha>hoy&&e.fecha<=fin)) return; var sh=accR4(t,e.fecha); if(!(sh>0)) return; var b=sh*num(e.imp); L.push({fecha:e.fecha,imp:b*(1-RET)-feeR4(b),txt:'Dividendo '+t+' (previsto)'}); }); }); });
+      /* 1-nov-2026 (Carlos): también los ya anotados con fecha futura, y los que se cobran fuera de R4 (otro bróker → hay que traspasarlos; Compartida → Susu SAN) */
+      var ev=[], vf={};
+      ((DB.dividendos||{})[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f>hoy&&f<=fin&&!vf[f]){ vf[f]=1; ev.push({fecha:f,imp:d.importe,anot:true}); } });
+      [y,y+1].forEach(function(yy){ var e2=[]; try{ e2=_calPendNoReg(t,yy)||[]; }catch(e){} e2.forEach(function(e){ if(!(e.fecha>hoy&&e.fecha<=fin)||vf[e.fecha]) return;
+        if(((DB.dividendos||{})[t]||[]).some(function(d){ var f=(d.fecha||'').slice(0,10); return f&&Math.abs(dias(f,e.fecha))<=20; })) return;   /* ya anotado (con su fecha real): no contar el calculado */
+        vf[e.fecha]=1; ev.push(e); }); });
+      ev.forEach(function(e){ var et=e.anot?'':' (previsto)', shR=accR4(t,e.fecha), shO=Math.max(0,accPropia(t,e.fecha)-shR), shC=accCart(t,e.fecha,'Compartida');
+        if(shR>0){ var b=shR*num(e.imp); L.push({fecha:e.fecha,imp:b*(1-RET)-feeR4(b),txt:'Dividendo '+t+et}); }
+        if(shO>0){ var bo=shO*num(e.imp); L.push({fecha:e.fecha,imp:bo*(1-RET),txt:'Dividendo '+t+et+' · se cobra en otro bróker: pendiente de traspasar a R4',fuera:true}); }
+        if(shC>0){ var bc=shC*num(e.imp); L.push({fecha:e.fecha,imp:bc*(1-RET),txt:'Dividendo '+t+et+' · Compartida (Susu SAN)',fuera:true}); } }); });
     var cu=(DB.movimientos||[]).filter(function(m){ var t=((m.comercio||'')+' '+(m.concepto||'')+' '+(m.detalle||'')); return m.tipo==='gasto'&&/custodia/i.test(t)&&/\bR4\b|renta ?4/i.test(t); }).sort(function(a,b){ return a.fecha<b.fecha?-1:1; }).pop();
     if(cu){ var nx=D(cu.fecha); nx.setMonth(nx.getMonth()+3); var f=iso(nx); if(f>hoy&&f<=fin) L.push({fecha:f,imp:-num(cu.importe),txt:'Custodia R4 (prevista, como la última)'}); }
     return L.sort(function(a,b){ return a.fecha<b.fecha?-1:1; });
@@ -129,7 +138,8 @@
   function pintar(){
     var sec=document.getElementById('view-caja'); if(!sec) return; var C=calcular();
     var k=document.getElementById('cajaKpis'); if(!k) return;
-    var pe=C.prev.reduce(function(s,x){ return s+x.imp; },0), pin=C.prev.filter(function(x){ return x.imp>0; }).reduce(function(s,x){ return s+x.imp; },0), pout=pe-pin;
+    var PR=C.prev.filter(function(x){ return !x.fuera; });   /* lo que se cobra fuera de R4 no entra en la caja hasta que lo traspasas */
+    var pe=PR.reduce(function(s,x){ return s+x.imp; },0), pin=PR.filter(function(x){ return x.imp>0; }).reduce(function(s,x){ return s+x.imp; },0), pout=pe-pin;
     var anual=null; if(C.S.length>1){ var a=C.S[0], b=C.S[C.S.length-1]; var lo=C.S.filter(function(x){ return dias(x[0],b[0])<=60; })[0]||a; if(lo[0]!==b[0]) anual=(Math.pow(b[1]/lo[1],365/dias(lo[0],b[0]))-1)*100; }
     k.innerHTML='<div class="n-ctrl">'+
       nKpi({c:'#1F4A9A',bg:'#EAF1FD',ic:'💶',t:'Disponible hoy',v:C.total!=null?E(C.total):'—',s:'efectivo <b>'+E(C.ef)+'</b> + Foncuenta <b>'+(C.fondo!=null?E(C.fondo):'—')+'</b>',p:C.fuente==='R4'?('exacto a '+fd(C.lastE)+' según el extracto de R4'+(C.lastE<C.hoy?'; desde entonces, estimado':'')):(C.lastE?('fondo estimado desde el extracto del '+fd(C.lastE)):'sin extracto del fondo')})+
@@ -152,6 +162,16 @@
       (C.acc&&C.acc.length?'<div class="n-r4sub">Tus acciones en R4 frente a la app (cartera Propia)</div><table class="n-r4t"><thead><tr><th>Empresa</th><th class="num">R4</th><th class="num">App</th><th>Cotejo</th></tr></thead><tbody>'+C.acc.map(function(a){ return '<tr><td>'+a.nombre+(a.tk?' <span class="n-org">'+a.tk+'</span>':'')+'</td><td class="num">'+a.r4+'</td><td class="num">'+(a.app==null?'—':a.app)+'</td><td style="color:'+a.st[1]+'">'+a.st[0]+'</td></tr>'; }).join('')+'</tbody></table>':'')+
       (C.prev.length?'<div class="n-r4sub">Próximos 30 días</div><table class="n-r4t"><tbody>'+C.prev.map(function(x){ return row(x.fecha,x.txt,x.imp,'previsto','#64748B',''); }).join('')+'</tbody></table>':'');
     b.innerHTML='<div class="pos-blk-h" data-nr4blk="1"><span class="arw">▶</span><span class="bt">🏦 Cuenta del bróker R4 · cálculo nuevo</span><span class="bsum">'+(C.filas.length+C.sueltos.length)+' apuntes desde el 28/10 · '+(C.fuente==='R4'?'extracto de R4 al '+fd(C.lastE):(C.lastE?'extracto del fondo al '+fd(C.lastE):'sin extracto'))+'</span></div><div class="pos-blk-b"><div class="blk-pad">'+h+'</div></div>';
+    /* 1-nov-2026 (Carlos: «no se pueden ver más movimientos?»): todo lo que trae el extracto de R4, del más nuevo al más viejo */
+    try{ var XH=(typeof nR4Xls==='function')?nR4Xls():null, hb=document.getElementById('nCajaHist');
+      if(XH&&(XH.cash||[]).length){ if(!hb){ hb=document.createElement('div'); hb.id='nCajaHist'; hb.className='pos-blk n-blk'; b.insertAdjacentElement('afterend',hb); }
+        var LH=XH.cash.slice().reverse(), lim=window._nCajaHistTodo?LH.length:40, fy=function(f){ return f.slice(8,10)+'/'+f.slice(5,7)+'/'+f.slice(2,4); };
+        var filasH=LH.slice(0,lim).map(function(l){ return '<tr><td>'+fy(l.fecha)+'</td><td>'+String(l.concepto).replace(/[<>&]/g,'')+'</td><td class="num '+(l.imp>=0?'n-pos':'n-neg')+'">'+(l.imp>=0?'+':'')+E(l.imp)+'</td><td class="num">'+(l.saldo!=null?E(l.saldo):'')+'</td></tr>'; }).join('');
+        hb.innerHTML='<div class="pos-blk-h" data-nhist="1"><span class="arw">▶</span><span class="bt">📜 Movimientos de la cuenta en R4 (según el extracto)</span><span class="bsum">'+LH.length+' apuntes · del '+fy(XH.desde||LH[LH.length-1].fecha)+' al '+fy(XH.fecha)+'</span></div>'+
+          '<div class="pos-blk-b"><div class="blk-pad"><table class="n-r4t"><thead><tr><th>Fecha</th><th>Concepto</th><th class="num">Importe</th><th class="num">Saldo</th></tr></thead><tbody>'+filasH+'</tbody></table>'+
+          (LH.length>lim?'<div style="text-align:center;margin-top:8px"><button class="btn ghost sm" data-nhisttodo="1">Ver los '+LH.length+'</button></div>':'')+
+          '<div class="muted" style="font-size:11.5px;margin-top:6px">Para ver años anteriores, importa también el extracto de patrimonio de R4 de esos años: se juntan solos.</div></div></div>';
+        if(window._nCajaHistOpen) hb.classList.add('open'); } }catch(e){ console.warn('[caja hist]',e); }
     /* la tabla de siempre (aportaciones estimadas) queda debajo, plegada, como referencia mientras dura la prueba */
     var old=document.querySelector('#nCajaBlk .bt'); if(old) old.textContent='📒 Previsión de siempre (aportaciones estimadas)';
   }
@@ -159,4 +179,6 @@
   renderCaja=function(){ o.apply(this,arguments); try{ pintar(); }catch(e){ console.error('n-cajar4',e); } };
   document.addEventListener('click',function(e){ var u=e.target.closest&&e.target.closest('[data-nr4up]'); if(u){ e.preventDefault(); if(typeof nR4XlsSubir==='function') nR4XlsSubir(); return; } var h=e.target.closest&&e.target.closest('[data-nr4blk]'); if(h) h.parentElement.classList.toggle('open'); });
   window._nCajaOpen=false;
+  document.addEventListener('click',function(e){ var h=e.target.closest&&e.target.closest('[data-nhist]'); if(h){ var bl=h.parentElement; setTimeout(function(){ if(bl.classList.contains('open')===!!window._nCajaHistOpen){ bl.classList.toggle('open'); } window._nCajaHistOpen=bl.classList.contains('open'); },0); return; }
+    var t=e.target.closest&&e.target.closest('[data-nhisttodo]'); if(t){ window._nCajaHistTodo=true; if(typeof renderCaja==='function') renderCaja(); } });
 })();
