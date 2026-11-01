@@ -12,7 +12,8 @@
 (function(){
   if(window._nimp) return; window._nimp=true;
   var LIB='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
-  var CTA={ING:'ING cuenta',TARJ:'ING tarjeta',SAN:'Santander'};
+  var CTA={ING:'ING cuenta',INGN:'ING Naranja',INGV:'ING valores',TARJ:'ING tarjeta',SAN:'Santander',R4:'Renta 4'};
+  var BANCOS=['ING','INGN','INGV','SAN'];   /* cuentas con saldo en su extracto */
   function cargarLib(){ return new Promise(function(ok,ko){ if(window.XLSX) return ok(); var s=document.createElement('script'); s.src=LIB; s.onload=function(){ ok(); }; s.onerror=function(){ ko(new Error('no se pudo cargar el lector de Excel')); }; document.head.appendChild(s); }); }
   function E(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
   function hoy(){ var d=new Date(); d=new Date(d.getTime()-d.getTimezoneOffset()*6e4); return d.toISOString().slice(0,10); }
@@ -31,14 +32,21 @@
     var wb=XLSX.read(buf,{type:'array'}), N=wb.SheetNames, out={fichero:nombre,lineas:[],tipo:null};
     if(N.indexOf('Rdos.')>=0||N.indexOf('Saldo en Divisa')>=0){ out.tipo='R4'; out.r4=[];
       try{ if(typeof window.nR4XlsDesdeImport==='function') window.nR4XlsDesdeImport(buf,nombre); }catch(e){ console.warn('[importar] R4 para Fondo/Caja',e); }   /* solo para cotejar los recibos que pagan los bancos a R4 */
-      out.r4cash=[]; filas(wb,'Saldo en Divisa').forEach(function(r){ var f=serial(r[0]), c=String(r[1]||'').toUpperCase(), im=nn(r[2]), sl=nn(r[3]); if(f&&im!=null&&/^(INGRESO RECIBO|TRANSF\. RECIBIDA)/.test(c)) out.r4.push({fecha:f,imp:im}); if(f&&sl!=null) out.r4cash.push({fecha:f,saldo:sl}); });
+      out.r4cash=[]; filas(wb,'Saldo en Divisa').forEach(function(r){ var f=serial(r[0]), c=String(r[1]||'').toUpperCase(), im=nn(r[2]), sl=nn(r[3]); if(f&&im!=null&&/^(INGRESO RECIBO|TRANSF\. RECIBIDA)/.test(c)) out.r4.push({fecha:f,imp:im}); if(f&&sl!=null) out.r4cash.push({fecha:f,saldo:sl}); if(f&&im!=null) (out.r4l=out.r4l||[]).push({f:f,c:c,imp:im}); });
+      out.lineas=r4Hechos(out.r4l||[]);
       filas(wb,'Fondos Inv.').forEach(function(r){ if(/FONCUENTA/i.test(String(r[0]||''))) out.r4fondo=nn(r[2]); });
       filas(wb,'Rdos.').forEach(function(r){ var m=/hasta (\d{2}\/\d{2}\/\d{4})/.exec(String(r[0]||'')); if(m) out.r4hasta=serial(m[1]); });
       return out; }
     for(var si=0;si<N.length;si++){ var R=filas(wb,N[si]);
       for(var i=0;i<Math.min(R.length,15);i++){ var h=R[i].map(function(c){ return String(c).trim().toUpperCase(); });
-        if(h[0]==='F. VALOR'&&h.indexOf('SALDO (€)')>=0){ out.tipo='ING';
+        if(h[0]==='F. VALOR'&&h.indexOf('SALDO (€)')>=0){
+          var num4=''; for(var k0=0;k0<i;k0++){ var nc=String(R[k0][3]||'').replace(/\D/g,''); if(nc.length>=8){ num4=nc.slice(-4); break; } }
           for(var j=i+1;j<R.length;j++){ var r=R[j], f=serial(r[0]), im=nn(r[5]); if(!f||im==null) continue; out.lineas.push({src:'ING',f:f,txt:String(r[3]).trim(),imp:im,saldo:nn(r[6]),bcat:String(r[2]||r[1]||'').trim()}); }
+          var BC=DB.bancoCuentas=DB.bancoCuentas||{}, src=BC[num4];
+          if(!src){ var T=out.lineas.map(function(l){ return sinAc(l.txt); });
+            src=T.some(function(t){ return /dividendo|comision de custodia|abono por evento/.test(t); })?'INGV':(T.length&&T.every(function(t){ return /intereses a tu favor|traspaso/.test(t); })?'INGN':'ING');
+            if(num4) BC[num4]=src; }
+          out.tipo=src; out.lineas.forEach(function(l){ l.src=src; });
           return out; }
         if(h[0]==='FECHA VALOR'&&h.indexOf('IMPORTE (€)')>=0){ out.tipo='TARJ'; var ci=h.indexOf('IMPORTE (€)'), ce=h.indexOf('ESTADO');
           for(var j2=i+1;j2<R.length;j2++){ var q=R[j2], f2=serial(q[0]), im2=nn(q[ci]); if(!f2||im2==null) continue; out.lineas.push({src:'TARJ',f:f2,txt:String(q[3]).trim(),imp:im2,saldo:null,bcat:String(q[2]||q[1]||'').trim(),est:ce>=0?String(q[ce]):''}); }
@@ -50,6 +58,24 @@
       } }
     throw new Error(nombre+': no reconozco este Excel (sirven los de movimientos de ING —cuenta o tarjeta— y el de Santander)');
   }
+  /* 1-nov-2026 (Carlos): de R4 entran como movimientos los DIVIDENDOS (netos de comisión e IVA), la CUSTODIA (con su IVA) y la VENTA DE DERECHOS
+     (neta de retención). Lo demás del extracto (recibos, Foncuenta, compras de acciones) no es gasto ni ingreso del hogar. */
+  function r4Hechos(R){ var H=[], last=null, m;
+    function tc(s){ return String(s||'').toLowerCase().replace(/\b\w/g,function(x){ return x.toUpperCase(); }); }
+    R.forEach(function(l){ var c=l.c;
+      if((m=/^DIVIDENDO DE (\d+) (.+)$/.exec(c))){ var nm=m[2].replace(/\s+\d\d\.\d\d$/,'').trim(), esD=/\.D$/.test(nm), base=nm.replace(/\.D$/,'');
+        var V=(DB.valores||{})[base.toUpperCase()]; var bonita=(V&&V.nombre?V.nombre:tc(base)).replace(/,?\s*S\.?\s?A\.?$/i,'').trim();
+        var prev=null; for(var i=H.length-1;i>=0&&H[i].f===l.f;i--){ if(H[i].k==='div'&&H[i].nm.slice(0,3)===base.slice(0,3)){ prev=H[i]; break; } }
+        if(prev){ prev.imp+=l.imp; if(!esD){ prev.nm=base; prev.txt='Dividendo de '+bonita; } last=prev; return; }   /* Iberdrola: IBE.D (scrip) + Iberdrola el mismo día = un dividendo */
+        H.push(last={k:'div',f:l.f,nm:base,imp:l.imp,txt:'Dividendo de '+bonita}); return; }
+      if(/^(COMISION DVDO|IVA DIVIDENDO)/.test(c)){ var mm=/^COMISION DVDO \d+ (\S+)/.exec(c), d=null;
+        for(var j=H.length-1;j>=0&&H[j].f===l.f;j--){ if(H[j].k==='div'&&(!mm||H[j].nm.slice(0,3)===mm[1].slice(0,3))){ d=H[j]; break; } }
+        if(!d&&last&&last.k==='div'&&last.f===l.f) d=last; if(d){ d.imp+=l.imp; return; } }
+      if((m=/^VENTA DE (\d+) (\S+\.D)\b/.exec(c))){ H.push(last={k:'der',f:l.f,imp:l.imp,txt:'Venta de '+m[1]+' derechos '+m[2].replace(/\.D$/,'')}); return; }
+      if(/^RETENCION VENT DCHOS/.test(c)&&last&&last.k==='der'&&last.f===l.f){ last.imp+=l.imp; return; }
+      if(/CUSTODIA/.test(c)){ if(last&&last.k==='cus'&&last.f===l.f){ last.imp+=l.imp; return; } H.push(last={k:'cus',f:l.f,imp:l.imp,txt:'Custodia Renta 4'}); return; }
+      if(!/^(COMISION DVDO|IVA DIVIDENDO)/.test(c)) last=null; });
+    return H.map(function(h){ return {src:'R4',f:h.f,txt:h.txt,imp:r2(h.imp),saldo:null,bcat:h.k==='cus'?'R4 custodia':'R4 dividendo',r4k:h.k}; }); }
   /* clave de línea: única aunque haya dos cargos idénticos el mismo día (ordinal) */
   function claves(L){ var c={}; L.forEach(function(l){ var b=l.src+'|'+l.f+'|'+l.imp.toFixed(2)+'|'+sinAc(l.txt).replace(/\s+/g,' ')+'|'+(l.saldo==null?'':l.saldo.toFixed(2)); c[b]=(c[b]||0)+1; l.key=hash(b+'#'+c[b]); }); }
 
@@ -66,11 +92,12 @@
   /* tarjetas de Susana (los extractos traen el número): sus retiradas de cajero se apuntan mitad Compras Varios, mitad Ocio (Carlos, 1-nov) */
   function deSusana(txt){ var T=((DB.config&&DB.config.tarjetasSusana)||['369065']); var m=/pan:?\s*(\d{8,19})/i.exec(txt)||/tarj(?:eta|\.)?\s*:?\s*\*?(\d{4,19})/i.exec(txt); if(!m) return false; var n=m[1];
     return T.some(function(x){ return n.slice(-x.length)===x; }); }
-  function traspaso(l){ var t=sinAc(l.txt);
+  function traspaso(l){ if(l.src==='R4') return null; var t=sinAc(l.txt);
     if(/renta 4/.test(t)) return 'Aportación a Renta 4';
     if(/cargo mensual tarjeta/.test(t)) return 'Cargo mensual de la tarjeta (sus compras vienen una a una en el extracto de la tarjeta)';
     if(/retirada de efectivo|cajero/.test(t)){ if(deSusana(l.txt)) return null; return 'Retirada de efectivo con tu tarjeta (pasa a Efectivo casa; apuntas tú lo que gastas)'; }
     if(/^(transferencia|traspaso)/.test(t)&&/hernanz blazquez carlos/.test(t)) return 'Traspaso entre tus cuentas';
+    if(/traspaso entre cuentas/.test(sinAc(l.bcat))||/^traspaso (emitido|recibido)/.test(t)) return 'Traspaso entre tus cuentas';
     return null; }
 
   /* ---------- lo aprendido ---------- */
@@ -100,8 +127,13 @@
       else if(l.bcat&&MAPA_ING[sinAc(l.bcat)]){ p.c=catPorNombre(MAPA_ING[sinAc(l.bcat)]); p.origen='por la categoría de ING'; } }
     if(/^bizum de /.test(t)){ p.marcar=false; p.nota='Bizum que te mandan: si es lo que te devuelven de un gasto compartido, normalmente no se apunta'; }
     if(/^transferencia de perez pardillo susana/.test(t)){ p.r=true; p.t='Susana'; p.k=p.k||'Devolución Susana'; p.nota='Transferencia de Susana → reembolsable'; }
+    if(!A&&/abono por evento dividendo/.test(t)){ var em=/\(([^)]+)\)/.exec(l.txt); p.c=catPorNombre('Dividendos'); p.k='Dividendo '+(em?em[1].charAt(0)+em[1].slice(1).toLowerCase():''); p.co='Dividendos'; p.d=em?em[1]:''; p.origen='del extracto de ING valores'; }
+    if(!A&&/intereses a tu favor|abono de intereses/.test(t+' '+sinAc(l.bcat))){ p.c=catPorNombre('Intereses Banco'); p.k='Intereses '+CTA[l.src]; p.co='Banco'; p.d=CTA[l.src]; }
     if(/^traspaso:/.test(t)){ p.r=true; p.t='Dos'; p.k='Transferencia Reembolso'; p.c=''; p.nota='Transferencia de reembolsables'; }
     if(/^devolucion tarjeta/.test(t)){ p.nota='Devolución de un cargo con tarjeta'; }
+    if(l.src==='R4'&&!A){ if(l.r4k==='cus'){ p.c=catPorNombre('Comisiones / Custodia'); p.k='Comisión Custodia R4'; p.co='Custodia'; p.d='Renta 4'; }
+      else { p.c=catPorNombre('Dividendos'); p.k=l.txt.replace(/^Dividendo de /,'Dividendo '); p.co='Dividendos'; p.d=l.txt.replace(/^Dividendo de |^Venta de \d+ derechos /,''); }
+      p.t='Dos'; p.origen='del extracto de R4'; }
     var cm=/concepto:?\s*(.+)$/i.exec(l.txt);
     if(!p.k&&/^bizum/.test(t)) p.k='Bizum '+(ing?'de ':'a ')+p.d+(cm?' · '+cm[1].trim():'');
     if(/retirada de efectivo|cajero/.test(t)&&deSusana(l.txt)){ var h=r2(Math.abs(l.imp)/2), c22=catPorNombre('Compras Varios'), c21=catPorNombre('Ocio');
@@ -124,7 +156,8 @@
       var A=aprend()[clave(l.txt)]; return !!(A&&A.d&&m.detalle&&sinAc(A.d)===sinAc(m.detalle)); }
     function libre(l){ return !res[l.key]&&!l._tr; }
     /* un apunte tuyo de ese importe: mismo comercio hasta 6 días; si no se parece, como mucho 3 */
-    function busca(l,imp,soloParecido){ var best=null,bd=99; M.forEach(function(m){ if(usado[m.id]) return; if(Math.abs(num(m.importe)-imp)>0.005) return; if(signo(m)*l.imp<0) return;
+    function busca(l,imp,soloParecido){ var best=null,bd=99; var tol=l.src==='R4'?0.10:0.005;   /* dividendos de R4: tú apuntas a veces con unos céntimos de diferencia */
+      M.forEach(function(m){ if(usado[m.id]) return; if(Math.abs(num(m.importe)-imp)>tol) return; if(signo(m)*l.imp<0) return;
         var d=dias(m.fecha,l.f), par=parecido(l,m); if(soloParecido&&!par) return; var lim=par?6:3, sc=d+(par?0:0.5); if(d<=lim&&sc<bd){ best=m; bd=sc; } }); return best; }
     function casa(Ls,mov,suma){ mov.forEach(function(m){ usado[m.id]=1; }); var r={tipo:'casado',mov:mov,suma:!!suma}; Ls.forEach(function(l){ res[l.key]=r; }); }
     /* 1 · uno a uno, del mismo comercio */
@@ -188,12 +221,12 @@
     ST.nuevasMarcadas=nC;
     /* saldos de cada cuenta (el más reciente) */
     DB.bancoSaldos=DB.bancoSaldos||{};
-    ['ING','SAN'].forEach(function(s){ var U=ST.lineas.filter(function(l){ return l.src===s&&l.saldo!=null; }); if(!U.length) return;
+    BANCOS.forEach(function(s){ var U=ST.lineas.filter(function(l){ return l.src===s&&l.saldo!=null; }); if(!U.length) return;
       var last=U[0]; U.forEach(function(l){ if(l.f>last.f) last=l; });   /* los bancos listan del más nuevo al más viejo: con la misma fecha manda el primero */
       var prev=DB.bancoSaldos[s]; if(!prev||prev.fecha<=last.f) DB.bancoSaldos[s]={fecha:last.f,saldo:last.saldo,leido:hy}; });
     /* saldo al final de cada día (para rellenar Patrimonio en cualquier fecha): el banco lista del más nuevo al más viejo, así que manda la primera línea de cada día */
     DB.bancoSaldoDia=DB.bancoSaldoDia||{};
-    ['ING','SAN'].forEach(function(s){ var H=DB.bancoSaldoDia[s]=DB.bancoSaldoDia[s]||{}, vis={};
+    BANCOS.forEach(function(s){ var H=DB.bancoSaldoDia[s]=DB.bancoSaldoDia[s]||{}, vis={};
       ST.lineas.forEach(function(l){ if(l.src!==s||l.saldo==null||vis[l.f]) return; vis[l.f]=1; H[l.f]=l.saldo; }); });
     podar(); _dets=null;
     if(typeof scheduleSave==='function') scheduleSave();
@@ -326,7 +359,8 @@
   window.nImpLeer=function(buf,nombre){ return leer(buf,nombre); };
   window.nImpProcesar=function(XS){ var s=document.getElementById('nImpMsg');
     var L=[], fic=[], r4=false, r4ing=[], porSrc={};
-    XS.forEach(function(x){ if(x.tipo==='R4'){ r4=true; r4ing=r4ing.concat(x.r4||[]);
+    XS.forEach(function(x){ if(x.tipo==='R4'&&(x.lineas||[]).length){ claves(x.lineas); x.lineas.forEach(function(l){ if(!porSrc[l.key]){ porSrc[l.key]=1; L.push(l); } }); }
+      if(x.tipo==='R4'){ r4=true; r4ing=r4ing.concat(x.r4||[]);
       try{ if(x.r4hasta&&x.r4fondo!=null){ var cs=0; (x.r4cash||[]).forEach(function(c){ cs=c.saldo; }); DB.bancoSaldos=DB.bancoSaldos||{}; var pv=DB.bancoSaldos.R4;   /* Foncuenta + efectivo de R4, para Patrimonio */
         var fh=x.r4hasta>hoy()?hoy():x.r4hasta;
         if(!pv||pv.fecha<=fh) DB.bancoSaldos.R4={fecha:fh,saldo:r2(x.r4fondo+cs),fondo:x.r4fondo,cash:cs,leido:hoy()}; } }catch(e){} fic.push('Renta 4 (para cotejar)'); return; }
@@ -383,7 +417,7 @@
   }
   function ult(){ var u=document.getElementById('nImpUlt'); if(!u||typeof DB==='undefined'||!DB) return; var S=DB.bancoSaldos||{};
     u.innerHTML=(DB.bancoUltImport?'Última importación: hasta el '+fd(DB.bancoUltImport):'Aún no has importado ninguno')+
-      (S.ING?' · saldo ING '+eu(S.ING.saldo)+' ('+fd(S.ING.fecha)+')':'')+(S.SAN?' · saldo Santander '+eu(S.SAN.saldo)+' ('+fd(S.SAN.fecha)+')':''); }
+      BANCOS.concat(['R4']).filter(function(k){ return S[k]; }).map(function(k){ return ' · '+(CTA[k]||k)+' '+eu(S[k].saldo)+' ('+fd(S[k].fecha)+')'; }).join('')+(''); }
 
   /* ---------- eventos ---------- */
   var tSave=null; function guardarLuego(){ clearTimeout(tSave); tSave=setTimeout(function(){ if(typeof scheduleSave==='function') scheduleSave(); },1500); }

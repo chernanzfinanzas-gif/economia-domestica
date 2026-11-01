@@ -5,21 +5,63 @@
   window.efCuentas=function(snap){
     try{
       var S=(DB.bancoSaldos)||{}, C={}; (DB.cuentas||[]).forEach(function(c){ C[c.id]=c; });
-      function hoyDe(nom){ var n=String(nom||'').toLowerCase(); if(n==='ing') return S.ING; if(n==='santander') return S.SAN; if(n==='renta 4') return S.R4; return null; }
+      function hoyDe(nom){ var n=String(nom||'').toLowerCase(); if(n==='ing'){ var I=['ING','INGN','INGV'].filter(function(k){ return S[k]; }); if(!I.length) return null; return {saldo:I.reduce(function(a,k){ return a+S[k].saldo; },0),fecha:I.map(function(k){ return S[k].fecha; }).sort()[0]}; }
+        if(n==='santander') return S.SAN; if(n==='renta 4') return S.R4; return null; }
       function e0(x){ return fmt(Math.round(x)).replace(/,\d\d\s*€$/,' €'); }
       var L=(snap.lineas||[]).filter(function(l){ return num(l.ef)||hoyDe((C[l.cuentaId]||{}).nombre); }), tR=0, tH=0, hayH=false;
       var filas=L.map(function(l){ var c=C[l.cuentaId]||{nombre:'?'}, h=hoyDe(c.nombre), r=num(l.ef); tR+=r; tH+=h?h.saldo:r; if(h) hayH=true;
         var d=h?h.saldo-r:0;
         return '<tr><td>'+_infEsc(c.nombre)+'</td><td>'+e0(r)+'</td><td>'+(h?'<b>'+e0(h.saldo)+'</b><small>'+ddmmyyyy(h.fecha).slice(0,5)+(Math.abs(d)>=1?' · <span class="'+(d>0?'n-pos':'n-neg')+'">'+(d>0?'+':'−')+e0(Math.abs(d))+'</span>':'')+'</small>':'<span class="n-efc-ig">igual</span>')+'</td></tr>'; });
       if(!hayH) return '';
-      return '<table class="n-efc"><thead><tr><th></th><th>Registro<br>'+ddmmyyyy(snap.fecha).slice(0,5)+'</th><th>Hoy<br><small>extractos</small></th></tr></thead><tbody>'+filas.join('')+
+      return '<table class="n-efc"><colgroup><col class="c1"><col><col></colgroup><thead><tr><th></th><th>Registro<br>'+ddmmyyyy(snap.fecha).slice(0,5)+'</th><th>Hoy<br><small>extractos</small></th></tr></thead><tbody>'+filas.join('')+
         '</tbody><tfoot><tr><td>Total</td><td>'+e0(tR)+'</td><td><b>'+e0(tH)+'</b></td></tr></tfoot></table>';
     }catch(e){ return ''; }
   };
-  var st=document.createElement('style'); st.textContent='table.n-efc{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px}table.n-efc th{font-size:10.5px;color:#64748B;font-weight:700;text-align:right;padding:0 0 4px;line-height:1.2}'+
+  function e0(x){ return fmt(Math.round(x)).replace(/,\d\d\s*€$/,' €'); }
+  function pc(a,b){ return b?((a/b-1)*100):null; }
+  function pcT(v){ return v==null?'—':(v>=0?'+':'')+v.toFixed(1).replace('.',',')+' %'; }
+  /* Patrimonio total: frente a hace 1 mes, 3 meses, 1 año y el inicio; y una estimación de hoy */
+  window.totExtra=function(snaps,last){
+    try{ var t=snapTot(last).total;
+      function hace(m){ var d=new Date(last.fecha+'T12:00:00'); d.setMonth(d.getMonth()-m); var f=d.toISOString().slice(0,10), b=null; snaps.forEach(function(s){ if(s.fecha<=f) b=s; }); return b; }
+      var R=[['hace 1 mes',hace(1)],['hace 3 meses',hace(3)],['hace 1 año',hace(12)],['al inicio',snaps[0]]].filter(function(x){ return x[1]&&x[1]!==last; });
+      var filas=R.map(function(x){ var v=snapTot(x[1]).total, d=t-v; return '<tr><td>'+x[0]+'<small>'+ddmmyyyy(x[1].fecha)+'</small></td><td>'+e0(v)+'</td><td><b class="'+(d>=0?'n-pos':'n-neg')+'">'+pcT(pc(t,v))+'</b><small>'+(d>=0?'+':'−')+e0(Math.abs(d))+'</small></td></tr>'; }).join('');
+      /* hoy: efectivo de los extractos + valor de hoy de cada bróker; lo que no tiene dato de hoy, como en el registro */
+      var S=DB.bancoSaldos||{}, IH=(typeof window.nPatInvHoy==='function')?window.nPatInvHoy():{}, C={}; (DB.cuentas||[]).forEach(function(c){ C[c.id]=c.nombre; });
+      var hoy=0; (last.lineas||[]).forEach(function(l){ var n=String(C[l.cuentaId]||'').toLowerCase(), ef=num(l.ef), iv=num(l.inv);
+        if(n==='ing'&&(S.ING||S.INGN||S.INGV)) ef=['ING','INGN','INGV'].reduce(function(a,k){ return a+(S[k]?S[k].saldo:0); },0); if(n==='santander'&&S.SAN) ef=S.SAN.saldo; if(n==='renta 4'&&S.R4) ef=S.R4.saldo; var h=IH[C[l.cuentaId]]; if(h!=null) iv=h; hoy+=ef+iv; });
+      var dh=hoy-t;
+      return '<table class="n-efc"><colgroup><col class="c1"><col><col></colgroup><thead><tr><th>Frente a</th><th>Entonces</th><th>Cambio</th></tr></thead><tbody>'+filas+'</tbody>'+
+        '<tfoot><tr><td>Hoy<small>estimado: extractos + cotización</small></td><td><b>'+e0(hoy)+'</b></td><td><b class="'+(dh>=0?'n-pos':'n-neg')+'">'+pcT(pc(hoy,t))+'</b><small>'+(dh>=0?'+':'−')+e0(Math.abs(dh))+' desde el registro</small></td></tr></tfoot></table>';
+    }catch(e){ return ''; } };
+  /* Frente al anterior: de dónde sale la diferencia */
+  window.antExtra=function(prev,last){
+    try{ if(!prev) return ''; var a=snapTot(prev), b=snapTot(last), dE=b.ef-a.ef, dI=b.inv-a.inv;
+      var compras=0; (DB.operaciones||[]).forEach(function(o){ if(!(o.fecha>prev.fecha&&o.fecha<=last.fecha)) return; var v=num(o.acciones)*num(o.precio)+(o.tipo==='venta'?-1:1)*num(o.comision); compras+=(o.tipo==='venta'?-1:1)*v; });
+      var mercado=dI-compras, div=0;
+      Object.keys(DB.dividendos||{}).forEach(function(t){ (DB.dividendos[t]||[]).forEach(function(d){ var f=String(d.fecha||'').slice(0,10); if(!(f>prev.fecha&&f<=last.fecha)) return;
+        var sh=(typeof _calSharesAt==='function')?_calSharesAt(t,f,true):0; div+=sh*num(d.importe)*0.81; }); });
+      function fila(lbl,v,sub){ return '<tr><td>'+lbl+(sub?'<small>'+sub+'</small>':'')+'</td><td colspan="2"><b class="'+(v>=0?'n-pos':'n-neg')+'">'+(v>=0?'+':'−')+e0(Math.abs(v))+'</b></td></tr>'; }
+      return '<table class="n-efc n-efc2"><colgroup><col style="width:60%"><col><col></colgroup><tbody>'+
+        fila('Efectivo',dE,'cuentas, Foncuenta y casa')+fila('Invertido',dI,'')+fila('· compras netas',compras,'dinero que pasó a acciones')+fila('· mercado',mercado,'subida o bajada de las cotizaciones')+
+        (div?fila('Dividendos cobrados',div,'netos, entre los dos registros'):'')+'</tbody><tfoot><tr><td>Total</td><td colspan="2"><b class="'+((dE+dI)>=0?'n-pos':'n-neg')+'">'+((dE+dI)>=0?'+':'−')+e0(Math.abs(dE+dI))+'</b></td></tr></tfoot></table>';
+    }catch(e){ return ''; } };
+  window.invCuentas=function(snap){
+    try{ if(typeof window.nPatInvHoy!=='function') return ''; var H=window.nPatInvHoy(), C={}; (DB.cuentas||[]).forEach(function(c){ C[c.id]=c; });
+      function e0(x){ return fmt(Math.round(x)).replace(/,\d\d\s*€$/,' €'); }
+      var L=(snap.lineas||[]).filter(function(l){ return num(l.inv)||H[(C[l.cuentaId]||{}).nombre]; }), tR=0, tH=0;
+      var filas=L.map(function(l){ var c=C[l.cuentaId]||{nombre:'?'}, r=num(l.inv), h=H[c.nombre]; tR+=r; tH+=(h!=null?h:r); var d=h!=null?h-r:0;
+        return '<tr><td>'+_infEsc(c.nombre)+'</td><td>'+e0(r)+'</td><td>'+(h!=null?'<b>'+e0(h)+'</b>'+(Math.abs(d)>=1?'<small><span class="'+(d>0?'n-pos':'n-neg')+'">'+(d>0?'+':'−')+e0(Math.abs(d))+' ('+(r?((d/r*100).toFixed(1).replace('.',',')+' %'):'')+')</span></small>':''):'<span class="n-efc-ig">—</span>')+'</td></tr>'; });
+      if(!L.length) return '';
+      return '<table class="n-efc"><colgroup><col class="c1"><col><col></colgroup><thead><tr><th></th><th>Registro<br>'+ddmmyyyy(snap.fecha).slice(0,5)+'</th><th>Hoy<br><small>cotización</small></th></tr></thead><tbody>'+filas.join('')+
+        '</tbody><tfoot><tr><td>Total</td><td>'+e0(tR)+'</td><td><b>'+e0(tH)+'</b></td></tr></tfoot></table>';
+    }catch(e){ return ''; }
+  };
+  var st=document.createElement('style'); st.textContent='#patCards .n-ws,#patCards .n-wp{display:block;min-width:0}#patCards .n-w{min-width:0;overflow:hidden}table.n-efc{width:100%;table-layout:fixed;border-collapse:collapse;margin-top:8px;font-size:11.5px;letter-spacing:-.1px}table.n-efc col.c1{width:31%}table.n-efc td,table.n-efc th{padding-left:3px!important;padding-right:3px!important;box-shadow:none}table.n-efc{box-shadow:none!important;border-radius:0!important}'+
+    'table.n-efc td,table.n-efc th{overflow:hidden;text-overflow:ellipsis}table.n-efc th{font-size:9.5px;color:#64748B;font-weight:700;text-align:right;padding:0 0 4px;line-height:1.2}'+
     'table.n-efc td{padding:5px 0;border-top:1px solid #EEF1F5;text-align:right;vertical-align:top;white-space:nowrap}table.n-efc td:first-child,table.n-efc th:first-child{text-align:left;color:#334155;white-space:normal;padding-right:6px}'+
-    'table.n-efc td small{display:block;font-size:10.5px;color:#64748B}table.n-efc td b{color:#142231}table.n-efc .n-efc-ig{color:#94A3B8;font-size:11.5px}'+
-    'table.n-efc tfoot td{border-top:1.5px solid #CBD5E1;font-weight:800;color:#142231;padding-top:6px}table.n-efc th:nth-child(3),table.n-efc td:nth-child(3){padding-left:10px}';
+    'table.n-efc td small{display:block;font-size:10.5px;color:#64748B;white-space:normal;font-weight:400}table.n-efc2 td:last-child{text-align:right}table.n-efc td b{color:#142231}table.n-efc .n-efc-ig{color:#94A3B8;font-size:11.5px}'+
+    'table.n-efc tfoot td{border-top:1.5px solid #CBD5E1;font-weight:800;color:#142231;padding-top:6px}table.n-efc th:nth-child(3),table.n-efc td:nth-child(3){padding-left:4px}table.n-efc th:nth-child(2),table.n-efc td:nth-child(2){padding-right:2px}';
   document.head.appendChild(st);
 })();
 (function(){
@@ -36,10 +78,10 @@
       el.className='n-ctrl';
       el.innerHTML=
         nKpi({c:'#1F4A9A',bg:'#EAF1FD',ic:'🏛️',t:'Patrimonio total',pill:crec==null?'':(crec>=0?'▲ ':'▼ ')+nPct(crec,0),pillCls:crec>=0?'up':'dn',v:fmt(t.total),
-              s:'<b class="'+(crec>=0?'n-pos':'n-neg')+'">'+nPct(crec,0)+'</b> desde el inicio, el <b>'+ddmmyyyy(first.fecha)+'</b> ('+fmt(tf.total)+')',p:'al '+ddmmyyyy(last.fecha)+' · '+snaps.length+' registros'})+
+              s:'<b class="'+(crec>=0?'n-pos':'n-neg')+'">'+nPct(crec,0)+'</b> desde el inicio, el <b>'+ddmmyyyy(first.fecha)+'</b> ('+fmt(tf.total)+')',p:'al '+ddmmyyyy(last.fecha)+' · '+snaps.length+' registros'+totExtra(snaps,last)})+
         nKpi({c:'#16A34A',bg:'#DCFCE7',ic:'💶',t:'Efectivo',pill:Math.round((1-pInv)*100)+' %',v:fmt(t.ef),s:'cuentas y Fondo R4, según tu registro del '+ddmmyyyy(last.fecha)+efCuentas(last)})+
-        nKpi({c:'#D97706',bg:'#FEF3C7',ic:'📈',t:'Invertido',pill:Math.round(pInv*100)+' %',v:fmt(t.inv),s:'acciones en el bróker'})+
-        nKpi({c:'#0D9488',bg:'#CCFBF1',ic:'↗',t:'Frente al anterior',v:nPct(vsAnt,1),vCls:vsAnt==null?'':(vsAnt>=0?'n-pos':'n-neg'),s:prev?('desde el registro del '+ddmmyyyy(prev.fecha)+' ('+fmt(tp.total)+')'):'primer registro'});
+        nKpi({c:'#D97706',bg:'#FEF3C7',ic:'📈',t:'Invertido',pill:Math.round(pInv*100)+' %',v:fmt(t.inv),s:'acciones en los brókers, según tu registro del '+ddmmyyyy(last.fecha)+invCuentas(last)})+
+        nKpi({c:'#0D9488',bg:'#CCFBF1',ic:'↗',t:'Frente al anterior',v:nPct(vsAnt,1),vCls:vsAnt==null?'':(vsAnt>=0?'n-pos':'n-neg'),s:prev?('desde el registro del '+ddmmyyyy(prev.fecha)+' ('+fmt(tp.total)+')'+antExtra(prev,last)):'primer registro'});
     }catch(e){ console.error('n-patrimonio',e); }
   };
 })();

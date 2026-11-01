@@ -33,6 +33,11 @@
     return r2(s); }
   function anterior(f){ var S=(typeof patSnaps==='function'?patSnaps():DB.patrimonio||[]).filter(function(s){ return s.fecha<f; }); return S.length?S[S.length-1]:null; }
 
+  /* valor HOY de cada cuenta de valores, con la cotización actual (para la tarjeta Invertido de Patrimonio) */
+  window.nPatInvHoy=function(){ var f=new Date().toISOString().slice(0,10), A=acciones(f), T={}, ms=Date.now();
+    Object.keys(A).forEach(function(k){ var p=k.split('|'), n=A[k]; if(Math.abs(n)<0.0001) return;
+      var pr=(typeof _precioActualDe==='function'?_precioActualDe(p[1]):0)||((typeof priceAtFB==='function')?priceAtFB(p[1],ms):0); if(!(pr>0)) return; T[p[0]]=(T[p[0]]||0)+n*pr; });
+    return T; };
   window.nPatCalcular=function(f){
     return Promise.resolve(typeof cargarPreciosCartera==='function'?cargarPreciosCartera():null).then(function(){
       var R={}, ms=Date.parse(f+'T23:59:59'), A=acciones(f), sinPrecio=[];
@@ -42,7 +47,8 @@
         var pr=(typeof priceAtFB==='function')?priceAtFB(p[1],ms):0; if(!(pr>0)){ sinPrecio.push(p[1]); return; } tot[p[0]]=(tot[p[0]]||0)+n*pr; });
       ['Renta 4','ING','Santander','Susu SAN'].forEach(function(c){ pon(c,'inv',tot[c]||0,'valor en bolsa al '+fd(f)); });
       /* efectivo */
-      var si=saldoEn('ING',f); if(si) pon('ING','ef',si.v,'extracto ING del '+fd(si.f));
+      var IG=['ING','INGN','INGV'].map(function(k){ return saldoEn(k,f); }).filter(Boolean);
+      if(IG.length) pon('ING','ef',IG.reduce(function(a,x){ return a+x.v; },0),'extractos ING ('+IG.length+(IG.length>1?' cuentas':' cuenta')+') del '+fd(IG.map(function(x){ return x.f; }).sort()[0]));
       var ss=saldoEn('SAN',f); if(ss) pon('Santander','ef',ss.v,'extracto Santander del '+fd(ss.f));
       var R4=(DB.bancoSaldos||{}).R4; if(R4&&dias(R4.fecha,f)<=10) pon('Renta 4','ef',R4.saldo,'extracto R4 del '+fd(R4.fecha)+' (Foncuenta + efectivo)');
       else try{ var X=window.nR4Xls&&window.nR4Xls(); if(X&&X.fondo&&dias(X.fecha,f)<=10){ var cash=0; (X.cash||[]).forEach(function(l){ if(l.fecha<=f&&l.saldo!=null) cash=l.saldo; });

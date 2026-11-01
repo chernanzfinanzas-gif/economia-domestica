@@ -45,6 +45,8 @@
       /* [31-oct · Carlos] una venta en otro bróker deja el dinero allí: queda pendiente de traspasar a R4 (todo va al Foncuenta) */
       if(brk(o)!=='Renta 4'){ if(o.tipo==='venta'){ var bv=num(o.acciones)*num(o.precio)-num(o.comision); pend.push({fecha:o.fecha,imp:bv,txt:'Venta '+num(o.acciones)+' '+o.ticker+' ('+brk(o)+')',origen:'operación',tk:o.ticker+' (venta '+brk(o)+')'}); } return; } var b=num(o.acciones)*num(o.precio), c=num(o.comision);
       out.push(o.tipo==='venta'?{fecha:o.fecha,imp:b-c,txt:'Venta '+num(o.acciones)+' '+o.ticker,origen:'operación'}:{fecha:o.fecha,imp:-(b+c),txt:'Compra '+num(o.acciones)+' '+o.ticker,origen:'operación'}); });
+    (DB.ventaDerechos||[]).forEach(function(v){ if(!(v.fecha>P.fecha&&v.fecha<=hasta)) return; if(v.broker&&v.broker!=='Renta 4') return;
+      out.push({fecha:v.fecha,imp:num(v.neto),txt:'Venta '+(v.derechos?v.derechos+' ':'')+'derechos '+(v.ticker||'')+' (neto de retención)',origen:'operación'}); });
     (DB.movimientos||[]).forEach(function(m){ if(!(m.fecha>P.fecha&&m.fecha<=hasta)||m.tipo!=='gasto') return; var t=((m.comercio||'')+' '+(m.concepto||'')+' '+(m.detalle||'')); if(/custodia/i.test(t)&&/\bR4\b|renta ?4/i.test(t)) out.push({fecha:m.fecha,imp:-num(m.importe),txt:'Custodia R4',origen:'Movimientos'}); });
     Object.keys(DB.dividendos||{}).forEach(function(t){ (DB.dividendos[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(!(f>P.fecha&&f<=hasta)) return; var shP=accPropia(t,f), shR=accR4(t,f), shO=Math.max(0,shP-shR);
       if(shR>0){ var bR=shR*num(d.importe); out.push({fecha:f,imp:bR*(1-RET)-feeR4(bR),txt:'Dividendo '+t+' ('+E(bR)+' bruto)',origen:'dividendo',tk:t}); }
@@ -126,12 +128,13 @@
     if(X.pendiente) C.sueltosR4.push({fecha:X.fecha,tipo:'pendiente',imp:X.pendiente,txt:'Pendiente de anotar en R4 (p. ej. venta de derechos)'});
     /* acciones: lo que dice R4 frente a la cartera Propia de la app */
     var nom=function(s){ return String(s||'').toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Z0-9 ]/g,' ').trim().split(/\s+/)[0]; };
-    var app={}; (DB.operaciones||[]).forEach(function(o){ if((o.cartera||'Propia')!=='Propia') return; var t=(o.ticker||'').toUpperCase(); app[t]=(app[t]||0)+(o.tipo==='venta'?-1:1)*num(o.acciones); });
+    var app={}, fut={}; (DB.operaciones||[]).forEach(function(o){ if((o.cartera||'Propia')!=='Propia') return; var t=(o.ticker||'').toUpperCase(), q=(o.tipo==='venta'?-1:1)*num(o.acciones);
+      if(o.fecha>X.fecha){ fut[t]=fut[t]||{n:0,f:o.fecha}; fut[t].n+=q; return; } app[t]=(app[t]||0)+q; });
     var visto={}; C.acc=(X.acciones||[]).map(function(a){
       if(/\.D /.test(a.nombre)) return {nombre:a.nombre,r4:a.titulos,app:null,st:['derechos','#64748B']};
       var tk=Object.keys(app).concat(Object.keys(DB.valores||{})).filter(function(t){ var n=((DB.valores||{})[t]||{}).nombre||''; return nom(n)===nom(a.nombre)||t===nom(a.nombre); })[0];
       if(tk) visto[tk]=1; var q=tk?(app[tk]||0):null;
-      return {nombre:a.nombre,tk:tk,r4:a.titulos,app:q,st:q==null?['no la encuentro en la app','#B45309']:(Math.abs(q-a.titulos)<1e-6?['✓ igual','#15803D']:['✗ la app dice '+q,'#B91C1C'])};
+      return {nombre:a.nombre,tk:tk,r4:a.titulos,app:q,st:q==null?['no la encuentro en la app','#B45309']:(Math.abs(q-a.titulos)<1e-6?['✓ igual'+(tk&&fut[tk]?' (+'+fut[tk].n+' llegan el '+fd(fut[tk].f)+')':''),'#15803D']:['✗ la app dice '+q,'#B91C1C'])};
     });
     Object.keys(app).forEach(function(t){ if(app[t]>0.0001&&!visto[t]&&!NO_R4[t]) C.acc.push({nombre:(((DB.valores||{})[t]||{}).nombre)||t,tk:t,r4:0,app:app[t],st:['en la app pero no en R4 (¿otro bróker?)','#B45309']}); });
   }
