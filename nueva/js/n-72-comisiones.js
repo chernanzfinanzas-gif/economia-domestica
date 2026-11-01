@@ -117,6 +117,17 @@
         if(d>0){ r.derechos=d; r.balance=num(r.balance)+d; r.rentTot=r.coste>0?r.balance/r.coste:r.rentTot; } }); } }catch(e){ console.warn('[derechos] rentabilidad',e); }
     return R; };
 })();
+/* 1-nov-2026 (Carlos): en el detalle de cada empresa, la casilla «Derechos» con lo cobrado por venta de derechos */
+(function(){
+  if(typeof renderRentabEmpresas!=='function') return;
+  var o=renderRentabEmpresas;
+  renderRentabEmpresas=function(){ var r=o.apply(this,arguments);
+    try{ var R=rentabilidadEmpresas(); if(R&&R.ok) (R.rows||[]).forEach(function(x){ if(!(x.derechos>0)) return;
+      document.querySelectorAll('#rentaBody tr.mt-row').forEach(function(tr){ var b=tr.querySelector('[data-ficha]'); if(!b||b.getAttribute('data-ficha')!==x.t) return;
+        var det=tr.nextElementSibling, nums=det&&det.querySelector('.mt-nums'); if(!nums||nums.querySelector('.n-derm')) return;
+        var d=document.createElement('div'); d.className='n-derm'; d.style.display='contents'; d.innerHTML=_mtNum('Derechos',fmt(x.derechos),'mt-pos'); nums.insertBefore(d,nums.children[1]||null); }); }); }catch(e){ console.warn('[derechos] detalle',e); }
+    return r; };
+})();
 /* y los totales de la tabla, para que la fila TOTAL sea la suma de las filas */
 (function(){
   if(typeof _rentaTotales!=='function') return;

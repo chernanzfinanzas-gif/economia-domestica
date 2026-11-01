@@ -71,11 +71,18 @@
       if(/^(COMISION DVDO|IVA DIVIDENDO)/.test(c)){ var mm=/^COMISION DVDO \d+ (\S+)/.exec(c), d=null;
         for(var j=H.length-1;j>=0&&H[j].f===l.f;j--){ if(H[j].k==='div'&&(!mm||H[j].nm.slice(0,3)===mm[1].slice(0,3))){ d=H[j]; break; } }
         if(!d&&last&&last.k==='div'&&last.f===l.f) d=last; if(d){ d.imp+=l.imp; return; } }
-      if((m=/^VENTA DE (\d+) (\S+\.D)\b/.exec(c))){ H.push(last={k:'der',f:l.f,imp:l.imp,txt:'Venta de '+m[1]+' derechos '+m[2].replace(/\.D$/,'')}); return; }
-      if(/^RETENCION VENT DCHOS/.test(c)&&last&&last.k==='der'&&last.f===l.f){ last.imp+=l.imp; return; }
+      if((m=/^VENTA DE (\d+) (\S+\.D)\b/.exec(c))){ var tkD=m[2].replace(/\.D$/,''), VD=(DB.valores||{})[tkD.toUpperCase()], nD=(VD&&VD.nombre?VD.nombre:tkD).replace(/,?\s*S\.?\s?A\.?$/i,'').trim();
+        H.push(last={k:'der',f:l.f,imp:l.imp,txt:'Venta de '+m[1]+' derechos '+nD,tk:tkD.toUpperCase(),n:+m[1],bruto:l.imp,ret:0}); return; }
+      if(/^RETENCION VENT DCHOS/.test(c)&&last&&last.k==='der'&&last.f===l.f){ last.imp+=l.imp; last.ret+=-l.imp; return; }
       if(/CUSTODIA/.test(c)){ if(last&&last.k==='cus'&&last.f===l.f){ last.imp+=l.imp; return; } H.push(last={k:'cus',f:l.f,imp:l.imp,txt:'Custodia Renta 4'}); return; }
       if(!/^(COMISION DVDO|IVA DIVIDENDO)/.test(c)) last=null; });
-    return H.map(function(h){ return {src:'R4',f:h.f,txt:h.txt,imp:r2(h.imp),saldo:null,bcat:h.k==='cus'?'R4 custodia':'R4 dividendo',r4k:h.k}; }); }
+    return H.map(function(h){ return {src:'R4',f:h.f,txt:h.txt,imp:r2(h.imp),saldo:null,bcat:h.k==='cus'?'R4 custodia':'R4 dividendo',r4k:h.k,
+      r4der:h.k==='der'?{tk:h.tk,n:h.n,bruto:r2(h.bruto),ret:r2(h.ret)}:null}; }); }
+  /* la venta de derechos que trae R4 queda registrada en la rentabilidad de su empresa (si no lo estaba ya, ±5 días) */
+  function asegurarDerechos(L){ var n=0; L.forEach(function(l){ var d=l.r4der; if(!d||!d.tk) return; DB.ventaDerechos=DB.ventaDerechos||[];
+      if(DB.ventaDerechos.some(function(v){ return (v.ticker||'').toUpperCase()===d.tk&&dias(v.fecha,l.f)<=5; })) return;
+      DB.ventaDerechos.push({id:'vd'+l.key,fecha:l.f,ticker:d.tk,derechos:d.n||null,importe:d.bruto,retencion:d.ret,neto:l.imp,broker:'Renta 4',origen:'extracto R4'}); n++; });
+    return n; }
   /* clave de línea: única aunque haya dos cargos idénticos el mismo día (ordinal) */
   function claves(L){ var c={}; L.forEach(function(l){ var b=l.src+'|'+l.f+'|'+l.imp.toFixed(2)+'|'+sinAc(l.txt).replace(/\s+/g,' ')+'|'+(l.saldo==null?'':l.saldo.toFixed(2)); c[b]=(c[b]||0)+1; l.key=hash(b+'#'+c[b]); }); }
 
@@ -187,6 +194,7 @@
   function analizar(){
     var V=vistos(), d0=ST.desde, L=ST.lineas.filter(function(l){ return l.f>=d0; });
     var hasta=L.reduce(function(a,l){ return l.f>a?l.f:a; },d0);
+    try{ ST.derechosNuevos=asegurarDerechos(ST.lineas); }catch(e){}
     L.forEach(function(l){ l._tr=traspaso(l); var v=V[l.key]||''; l._visto=(v&&v.charAt(0)!=='p')?v:null; });
     /* compra y su anulación (mismo importe con signo contrario, ≤3 días, mismo comercio) */
     L.forEach(function(a){ if(a._tr||a._visto||a.imp>=0) return; var b=L.filter(function(x){ return !x._tr&&!x._visto&&x.imp>0&&Math.abs(x.imp+a.imp)<0.005&&dias(x.f,a.f)<=3&&clave(x.txt)===clave(a.txt); })[0];
@@ -397,6 +405,7 @@
             .then(function(b){ if(!b) return null; try{ var x=leer(b,f.name); x._f=f; return x; }catch(e){ F[f.id]=f.modifiedTime; return null; } }); })); })
           .then(function(XS){ XS=XS.filter(Boolean); if(!XS.length){ if(s) s.textContent=''; return 0; }
             window.nImpProcesar(XS); XS.forEach(function(x){ F[x._f.id]=x._f.modifiedTime; });
+            DB.bancoDriveUlt={cuando:new Date().toISOString(),ficheros:XS.map(function(x){ return x._f.name; })}; ult();
             var m=document.getElementById('nImpMsg'); if(m) m.textContent='✓ Recogidos de tu Drive: '+XS.map(function(x){ return x._f.name; }).join(' · ');
             if(typeof scheduleSave==='function') scheduleSave(); return XS.length; }); })
      .catch(function(e){ var m=document.getElementById('nImpMsg'); if(m) m.innerHTML=(e.message==='permiso')?'Para recoger los extractos solos, la app necesita permiso para <b>leer</b> tu Drive. <button class="btn sm" data-nimp="permiso">Dar permiso</button>':'No pude mirar tu Drive ('+E(e.message)+').'; return 0; })
@@ -416,7 +425,9 @@
     ult();
   }
   function ult(){ var u=document.getElementById('nImpUlt'); if(!u||typeof DB==='undefined'||!DB) return; var S=DB.bancoSaldos||{};
-    u.innerHTML=(DB.bancoUltImport?'Última importación: hasta el '+fd(DB.bancoUltImport):'Aún no has importado ninguno')+
+    var DU=DB.bancoDriveUlt, dq=DU?new Date(DU.cuando):null;
+    u.innerHTML=(DU?'<span title="'+E((DU.ficheros||[]).join('\n'))+'">🔄 Última recogida de Drive: <b>'+dq.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit'})+' a las '+dq.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+'</b> · '+(DU.ficheros||[]).length+' fichero'+((DU.ficheros||[]).length===1?'':'s')+'</span><br>':'')+
+      (DB.bancoUltImport?'Última importación: hasta el '+fd(DB.bancoUltImport):'Aún no has importado ninguno')+
       BANCOS.concat(['R4']).filter(function(k){ return S[k]; }).map(function(k){ return ' · '+(CTA[k]||k)+' '+eu(S[k].saldo)+' ('+fd(S[k].fecha)+')'; }).join('')+(''); }
 
   /* ---------- eventos ---------- */
