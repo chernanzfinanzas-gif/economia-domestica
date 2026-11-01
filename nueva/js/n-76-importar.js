@@ -67,16 +67,16 @@
         var V=(DB.valores||{})[base.toUpperCase()]; var bonita=(V&&V.nombre?V.nombre:tc(base)).replace(/,?\s*S\.?\s?A\.?$/i,'').trim();
         var prev=null; for(var i=H.length-1;i>=0&&H[i].f===l.f;i--){ if(H[i].k==='div'&&H[i].nm.slice(0,3)===base.slice(0,3)){ prev=H[i]; break; } }
         if(prev){ prev.imp+=l.imp; if(!esD){ prev.nm=base; prev.txt='Dividendo de '+bonita; } last=prev; return; }   /* Iberdrola: IBE.D (scrip) + Iberdrola el mismo día = un dividendo */
-        H.push(last={k:'div',f:l.f,nm:base,imp:l.imp,txt:'Dividendo de '+bonita}); return; }
+        H.push(last={k:'div',f:l.f,nm:base,imp:l.imp,txt:'Dividendo de '+bonita,alts:['Dividendo de '+tc(base),'Dividendo de '+base]}); return; }
       if(/^(COMISION DVDO|IVA DIVIDENDO)/.test(c)){ var mm=/^COMISION DVDO \d+ (\S+)/.exec(c), d=null;
         for(var j=H.length-1;j>=0&&H[j].f===l.f;j--){ if(H[j].k==='div'&&(!mm||H[j].nm.slice(0,3)===mm[1].slice(0,3))){ d=H[j]; break; } }
         if(!d&&last&&last.k==='div'&&last.f===l.f) d=last; if(d){ d.imp+=l.imp; return; } }
       if((m=/^VENTA DE (\d+) (\S+\.D)\b/.exec(c))){ var tkD=m[2].replace(/\.D$/,''), VD=(DB.valores||{})[tkD.toUpperCase()], nD=(VD&&VD.nombre?VD.nombre:tkD).replace(/,?\s*S\.?\s?A\.?$/i,'').trim();
-        H.push(last={k:'der',f:l.f,imp:l.imp,txt:'Venta de '+m[1]+' derechos '+nD,tk:tkD.toUpperCase(),n:+m[1],bruto:l.imp,ret:0}); return; }
+        H.push(last={k:'der',f:l.f,imp:l.imp,txt:'Venta de '+m[1]+' derechos '+nD,tk:tkD.toUpperCase(),n:+m[1],bruto:l.imp,ret:0,alts:['Venta de '+m[1]+' derechos '+tkD,'Venta de '+m[1]+' derechos '+tkD.toUpperCase()]}); return; }
       if(/^RETENCION VENT DCHOS/.test(c)&&last&&last.k==='der'&&last.f===l.f){ last.imp+=l.imp; last.ret+=-l.imp; return; }
       if(/CUSTODIA/.test(c)){ if(last&&last.k==='cus'&&last.f===l.f){ last.imp+=l.imp; return; } H.push(last={k:'cus',f:l.f,imp:l.imp,txt:'Custodia Renta 4'}); return; }
       if(!/^(COMISION DVDO|IVA DIVIDENDO)/.test(c)) last=null; });
-    return H.map(function(h){ return {src:'R4',f:h.f,txt:h.txt,imp:r2(h.imp),saldo:null,bcat:h.k==='cus'?'R4 custodia':'R4 dividendo',r4k:h.k,
+    return H.map(function(h){ return {src:'R4',f:h.f,txt:h.txt,alts:h.alts||[],kt:h.k+' '+(h.tk||h.nm||'')+' '+(h.n||''),imp:r2(h.imp),saldo:null,bcat:h.k==='cus'?'R4 custodia':'R4 dividendo',r4k:h.k,
       r4der:h.k==='der'?{tk:h.tk,n:h.n,bruto:r2(h.bruto),ret:r2(h.ret)}:null}; }); }
   /* la venta de derechos que trae R4 queda registrada en la rentabilidad de su empresa (si no lo estaba ya, ±5 días) */
   function asegurarDerechos(L){ var n=0; L.forEach(function(l){ var d=l.r4der; if(!d||!d.tk) return; DB.ventaDerechos=DB.ventaDerechos||[];
@@ -84,7 +84,14 @@
       DB.ventaDerechos.push({id:'vd'+l.key,fecha:l.f,ticker:d.tk,derechos:d.n||null,importe:d.bruto,retencion:d.ret,neto:l.imp,broker:'Renta 4',origen:'extracto R4'}); n++; });
     return n; }
   /* clave de línea: única aunque haya dos cargos idénticos el mismo día (ordinal) */
-  function claves(L){ var c={}; L.forEach(function(l){ var b=l.src+'|'+l.f+'|'+l.imp.toFixed(2)+'|'+sinAc(l.txt).replace(/\s+/g,' ')+'|'+(l.saldo==null?'':l.saldo.toFixed(2)); c[b]=(c[b]||0)+1; l.key=hash(b+'#'+c[b]); }); }
+  function claves(L){ var c={}, V=(typeof DB!=='undefined'&&DB&&DB.bancoVistos)||{}, BK={}; try{ (DB.movimientos||[]).forEach(function(m){ if(m.bk) BK[m.bk]=1; }); }catch(e){}
+    L.forEach(function(l){ var b=l.src+'|'+l.f+'|'+l.imp.toFixed(2)+'|'+sinAc(l.txt).replace(/\s+/g,' ')+'|'+(l.saldo==null?'':l.saldo.toFixed(2)); c[b]=(c[b]||0)+1; l.key=hash(b+'#'+c[b]);
+      /* 2-nov-2026: las líneas de R4 que ya entraron por «derechos guardados» llevan otra clave (R4|fecha|texto|importe); si existe, es la misma línea */
+      /* las líneas de R4 llevan en el texto el NOMBRE de la empresa, que puede cambiar (VID → Vidrala): se busca la clave con la que
+         ya se vio la línea (con cualquiera de sus nombres, y la de «derechos guardados»); si no hay ninguna, la clave sale del ticker */
+      if(l.src==='R4'){ var cand=[], tx=[l.txt].concat(l.alts||[]);
+        tx.forEach(function(t){ cand.push(hash(l.src+'|'+l.f+'|'+l.imp.toFixed(2)+'|'+sinAc(t).replace(/\s+/g,' ')+'|#'+c[b])); cand.push(hash('R4|'+l.f+'|'+t+'|'+l.imp)); });
+        var ya=cand.filter(function(k){ return V[k]||BK[k]; })[0]; l.key=ya||(l.kt?hash('R4|'+l.f+'|'+l.imp.toFixed(2)+'|'+l.kt+'#'+c[b]):l.key); } }); }
 
   /* ---------- comercio: la parte del texto que identifica al comercio ---------- */
   var PRE=/^(pago en|transaccion contactless en|compra internet en|compra en|compra|recibo|bizum a favor de|bizum de|transferencia de|transferencia a favor de|transferencia inmediata a favor de|transferencia inmediata de|paypal \*|devolucion tarjeta|anul compra internet en|anulacion compra en|traspaso)\s+/;
@@ -205,6 +212,7 @@
       R4.forEach(function(x,i){ if(j<0&&!usR4[i]&&Math.abs(Math.abs(l.imp)-x.imp)<0.005&&dias(x.fecha,l.f)<=7) j=i; });
       if(j>=0){ usR4[j]=1; l._tr='Aportación a Renta 4 · ✓ cotejada: entró en R4 el '+fd(R4[j].fecha); l._r4=true; }
       else { l._tr='Aportación a Renta 4 · sin cotejar todavía (no está en el extracto de R4 que tengo)'; l._r4=false; ST.r4sin++; } });
+    limpiarPendR4();
     var P=pend(), enPend={}; P.forEach(function(x){ enPend[x.key]=x; });
     var nuevas=L.filter(function(l){ return !l._tr&&!l._visto; }), enL={}; nuevas.forEach(function(l){ enL[l.key]=1; });
     P.forEach(function(x){ if(!enL[x.key]) nuevas.push(x.l); });   /* los pendientes de otras veces vuelven a cotejarse (por si los apuntaste a mano) */
@@ -243,6 +251,12 @@
   function podar(){ var V=vistos(), lim=addD(hoy(),-400).replace(/-/g,'').slice(2); Object.keys(V).forEach(function(k){ if(String(V[k]).slice(1)<lim) delete V[k]; }); }
 
   function pend(){ DB.movPend=DB.movPend||[]; return DB.movPend; }
+  /* 2-nov-2026: una línea de R4 pendiente que ya está apuntada (mismo día e importe, apunte de R4 ya atado al extracto) sobra */
+  function limpiarPendR4(){ try{ var P=pend(), V=vistos(), n0=P.length;
+    DB.movPend=P.filter(function(x){ var l=x&&x.l; if(!l||l.src!=='R4') return true;
+      var dup=(DB.movimientos||[]).some(function(m){ return m.cta==='R4'&&m.bk&&m.bk!==x.key&&m.fecha===l.f&&Math.abs(num(m.importe)-Math.abs(l.imp))<0.005; });
+      if(dup){ V[x.key]='a'+String(l.f).replace(/-/g,'').slice(2); return false; } return true; });
+    return n0-DB.movPend.length; }catch(e){ return 0; } }
   function pPorId(id){ return pend().filter(function(x){ return x.id===id; })[0]; }
 
   /* ---------- pintar ---------- */
@@ -383,7 +397,7 @@
   /* 1-nov-2026: la venta de derechos también sale del extracto de R4 que la app ya tiene guardado (sin volver a importar) */
   window.nImpDerechosGuardados=function(){ try{ var X=(typeof nR4Xls==='function')?nR4Xls():null; if(!X||!(X.cash||[]).length||typeof DB==='undefined'||!DB) return 0;
       var L=r4Hechos(X.cash.map(function(l){ return {f:l.fecha,c:String(l.concepto||'').toUpperCase(),imp:l.imp}; })).filter(function(l){ return l.r4der; });
-      L.forEach(function(l){ l.key=hash('R4|'+l.f+'|'+l.txt+'|'+l.imp); }); var n=asegurarDerechos(L);
+      claves(L); var n=asegurarDerechos(L);
       if(n&&typeof scheduleSave==='function') scheduleSave(); return n; }catch(e){ console.warn('[derechos guardados]',e); return 0; } };
 
   /* ---------- recogida automática desde Google Drive (1-nov-2026) ----------
@@ -465,7 +479,7 @@
     guardarLuego();
   }
   document.addEventListener('input',campo); document.addEventListener('change',campo);
-  if(typeof renderMovs==='function'){ var o=renderMovs; renderMovs=function(){ var r=o.apply(this,arguments); try{ montar(); ult(); inyectar(); var V=document.getElementById('view-movimientos'); if(V&&V.classList.contains('active')) setTimeout(function(){ window.nImpDrive(false); },800); }catch(e){ console.warn('[pendientes]',e); } return r; }; }
+  if(typeof renderMovs==='function'){ var o=renderMovs; renderMovs=function(){ var r=o.apply(this,arguments); try{ if(limpiarPendR4()&&typeof scheduleSave==='function') scheduleSave(); montar(); ult(); inyectar(); var V=document.getElementById('view-movimientos'); if(V&&V.classList.contains('active')) setTimeout(function(){ window.nImpDrive(false); },800); }catch(e){ console.warn('[pendientes]',e); } return r; }; }
   setTimeout(function(){ try{ montar(); if(document.getElementById('movTable')) inyectar(); }catch(e){} },1500);
 
   var st=document.createElement('style'); st.textContent=
