@@ -1129,7 +1129,414 @@
           ]
         }
       ]
+    },
+    {
+      "mesKey": "2026-11",
+      "fecha": "2026-11-01",
+      "periodoTexto": "desde 2026-10-01 (~31 días)",
+      "resumenTexto": "Radar (desde 2026-10-01 (~31 días)): 88 empresas con cambios, 51 con señal accionable. Señales: BANCO BILBAO VIZCAYA ARGENTARIA — 🟢 Más barata que hace un mes, 💰 RPD cruzó el 5%, 🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 3.1x el año anterior); FERROVIAL N.V. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?), ✂️ Dividendo 12m a la baja; PHARMA MAR, S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas, 📊 BPA revisado ▲ (¿resultados nuevos?); ALANTRA PARTNERS, S.A. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?), 🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 3.3x el año anterior); ENAGAS,S.A. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?), 🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.5x el año anterior); BANCO DE SABADELL — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?), 🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.9x el año anterior); SOLARIA ENERGIA Y MEDIO AMBIENT — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas, 📊 BPA revisado ▲ (¿resultados nuevos?); GRUPO EMPRESARIAL SAN JOSE, S.A — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas, 📊 BPA revisado ▲ (¿resultados nuevos?). Nuevas en el universo: 28 (ATRY, ATSI, CASH, CBAV, CLR, CMO, DESA, DOM, EAT, EBROM).",
+      "totales": {
+        "conCambios": 88,
+        "conSenal": 51,
+        "universo": 130
+      },
+      "senaladas": [
+        {
+          "ticker": "BBVA",
+          "nombre": "BANCO BILBAO VIZCAYA ARGENTARIA",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "💰 RPD cruzó el 5%",
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 3.1x el año anterior)"
+          ]
+        },
+        {
+          "ticker": "FER",
+          "nombre": "FERROVIAL N.V.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)",
+            "✂️ Dividendo 12m a la baja"
+          ]
+        },
+        {
+          "ticker": "PHM",
+          "nombre": "PHARMA MAR, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ALNT",
+          "nombre": "ALANTRA PARTNERS, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)",
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 3.3x el año anterior)"
+          ]
+        },
+        {
+          "ticker": "ENG",
+          "nombre": "ENAGAS,S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)",
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.5x el año anterior)"
+          ]
+        },
+        {
+          "ticker": "SAB",
+          "nombre": "BANCO DE SABADELL",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)",
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.9x el año anterior)"
+          ]
+        },
+        {
+          "ticker": "SLR",
+          "nombre": "SOLARIA ENERGIA Y MEDIO AMBIENT",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "GSJ",
+          "nombre": "GRUPO EMPRESARIAL SAN JOSE, S.A",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "GEST",
+          "nombre": "GESTAMP AUTOMOCION, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "RLIA",
+          "nombre": "REALIA BUSINESS, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "REP",
+          "nombre": "REPSOL,  S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ACX",
+          "nombre": "ACERINOX, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "BKT",
+          "nombre": "BANKINTER, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "💰 RPD cruzó el 4%"
+          ]
+        },
+        {
+          "ticker": "MVC",
+          "nombre": "METROVACESA, S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)",
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.6x el año anterior)"
+          ]
+        },
+        {
+          "ticker": "AENA",
+          "nombre": "AENA, S.M.E., S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ALM",
+          "nombre": "ALMIRALL S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "APAM",
+          "nombre": "APERAM",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "💰 RPD cruzó el 5%"
+          ]
+        },
+        {
+          "ticker": "ART",
+          "nombre": "ARTECHE LANTEGI  ELKARTEA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.4x el año anterior)"
+          ]
+        },
+        {
+          "ticker": "COXG",
+          "nombre": "COX ABG GROUP, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "IBG",
+          "nombre": "IBERPAPEL GESTION,S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ACS",
+          "nombre": "ACS,ACTIVIDADES DE CONSTRUCCION",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ADX",
+          "nombre": "AUDAX RENOVABLES, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ANE",
+          "nombre": "CORPORACI...N ACCIONA ENERG...A",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ARM",
+          "nombre": "ARIMA REAL ESTATE SOCIMI, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "MCM",
+          "nombre": "MIQUEL Y COSTAS & MIQUEL, S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)",
+            "✂️ Dividendo 12m a la baja"
+          ]
+        },
+        {
+          "ticker": "TUB",
+          "nombre": "TUBACEX, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "IAG",
+          "nombre": "INTL CONSOLIDATED AIRLINES GROU",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 1.6x el año anterior)"
+          ]
+        },
+        {
+          "ticker": "CABK",
+          "nombre": "CAIXABANK, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "LLN",
+          "nombre": "LLEIDANETWORKS SERVEIS TELEMATI",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "SAN",
+          "nombre": "BANCO SANTANDER S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ECO",
+          "nombre": "ECOENER, S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "CEV",
+          "nombre": "CEV.MC,0P0000A5U9,0",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ENC",
+          "nombre": "ENCE ENERGIA Y CELULOSA, S.A.",
+          "senales": [
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "GIGA",
+          "nombre": "GIGAS HOSTING, S.A.",
+          "senales": [
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "HOME",
+          "nombre": "NEINOR HOMES, S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "IDR",
+          "nombre": "INDRA SISTEMAS S.A., SERIE A",
+          "senales": [
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "RIO",
+          "nombre": "BODEGAS RIOJANAS,S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "GRE",
+          "nombre": "GRENERGY RENOVABLES, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "LDA",
+          "nombre": "LINEA DIRECTA ASEGURADORA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "UNI",
+          "nombre": "UNICAJA BANCO, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "CLNX",
+          "nombre": "CELLNEX TELECOM, S.A.",
+          "senales": [
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 11.9x el año anterior)"
+          ]
+        },
+        {
+          "ticker": "MAP",
+          "nombre": "MAPFRE, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "MTS",
+          "nombre": "ARCELORMITTAL SA",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "TEF",
+          "nombre": "TELEFONICA,S.A.",
+          "senales": [
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "OHLA",
+          "nombre": "OBRASCON HUARTE LAIN, S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "CAF",
+          "nombre": "CONSTRUCCIONES Y AUXILIAR DE FE",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "EBRO",
+          "nombre": "EBRO FOODS, S.A.",
+          "senales": [
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "MAKS",
+          "nombre": "MAKING SCIENCE GROUP, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "VIS",
+          "nombre": "VISCOFAN, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "AZK",
+          "nombre": "AZKOYEN, S.A.",
+          "senales": [
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.6x el año anterior)"
+          ]
+        },
+        {
+          "ticker": "PRM",
+          "nombre": "PRIM, S.A.",
+          "senales": [
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        }
+      ]
     }
   ],
-  "actualizado": "2026-10-01T14:39:36+02:00"
+  "actualizado": "2026-11-01T13:51:52+01:00"
 }

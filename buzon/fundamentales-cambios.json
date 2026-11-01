@@ -1,124 +1,104 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-10-01T14:39:36+02:00",
+  "generadoEl": "2026-11-01T13:51:52+01:00",
   "generadoPor": "fundamentales_cambios.py (GitHub Actions) — comparación mensual de fundamentales.json",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-10-01",
-  "fechaAnterior": "2026-09-01",
-  "periodoTexto": "desde 2026-09-01 (~30 días)",
-  "resumenTexto": "Radar (desde 2026-09-01 (~30 días)): 76 empresas con cambios, 49 con señal accionable. Señales: ARIMA REAL ESTATE SOCIMI, S.A. — 🟢 Más barata que hace un mes, 💰 RPD cruzó el 5%, 📊 BPA revisado ▲ (¿resultados nuevos?), 🚩 Nueva alerta: dividendo irregular (posible extraordinario / pago único); GRENERGY RENOVABLES, S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas, 📊 BPA revisado ▲ (¿resultados nuevos?); MIQUEL Y COSTAS & MIQUEL, S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas, 📊 BPA revisado ▼ (¿resultados nuevos?); CEV.MC,0P0000A5U9,0 — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); SOLARIA ENERGIA Y MEDIO AMBIENT — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); OBRASCON HUARTE LAIN, S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas; TELEFONICA,S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas; MERLIN PROPERTIES SOCIMI, S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas.",
+  "fechaReferencia": "2026-11-01",
+  "fechaAnterior": "2026-10-01",
+  "periodoTexto": "desde 2026-10-01 (~31 días)",
+  "resumenTexto": "Radar (desde 2026-10-01 (~31 días)): 88 empresas con cambios, 51 con señal accionable. Señales: BANCO BILBAO VIZCAYA ARGENTARIA — 🟢 Más barata que hace un mes, 💰 RPD cruzó el 5%, 🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 3.1x el año anterior); FERROVIAL N.V. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?), ✂️ Dividendo 12m a la baja; PHARMA MAR, S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas, 📊 BPA revisado ▲ (¿resultados nuevos?); ALANTRA PARTNERS, S.A. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?), 🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 3.3x el año anterior); ENAGAS,S.A. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?), 🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.5x el año anterior); BANCO DE SABADELL — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?), 🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.9x el año anterior); SOLARIA ENERGIA Y MEDIO AMBIENT — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas, 📊 BPA revisado ▲ (¿resultados nuevos?); GRUPO EMPRESARIAL SAN JOSE, S.A — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas, 📊 BPA revisado ▲ (¿resultados nuevos?). Nuevas en el universo: 28 (ATRY, ATSI, CASH, CBAV, CLR, CMO, DESA, DOM, EAT, EBROM).",
   "cambios": [
     {
-      "ticker": "ARM",
-      "nombre": "ARIMA REAL ESTATE SOCIMI, S.A.",
+      "ticker": "BBVA",
+      "nombre": "BANCO BILBAO VIZCAYA ARGENTARIA",
       "campos": [
         {
           "k": "per",
           "label": "PER",
-          "antes": 23.2,
-          "ahora": 12.1,
-          "delta": -11.1,
-          "deltaPct": -47.8,
+          "antes": 13.0,
+          "ahora": 10.7,
+          "delta": -2.3,
+          "deltaPct": -17.7,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "perFwd",
           "label": "PER fwd",
-          "antes": 15.7,
-          "ahora": 20.3,
-          "delta": 4.6,
-          "deltaPct": 29.3,
-          "dir": "up",
+          "antes": 10.6,
+          "ahora": 9.0,
+          "delta": -1.6,
+          "deltaPct": -15.1,
+          "dir": "down",
           "unidad": ""
         },
         {
           "k": "pbv",
           "label": "P/BV",
-          "antes": 0.76,
-          "ahora": 0.98,
-          "delta": 0.22,
-          "deltaPct": 28.9,
-          "dir": "up",
+          "antes": 2.41,
+          "ahora": 2.0,
+          "delta": -0.41,
+          "deltaPct": -17.0,
+          "dir": "down",
           "unidad": ""
         },
         {
           "k": "rpd",
           "label": "RPD",
-          "antes": 0.0,
-          "ahora": 6.35,
-          "delta": 6.35,
-          "deltaPct": null,
+          "antes": 3.74,
+          "ahora": 6.13,
+          "delta": 2.39,
+          "deltaPct": 63.9,
           "dir": "up",
           "unidad": "%"
         },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 38.0,
-          "ahora": 64.0,
-          "delta": 26.0,
-          "deltaPct": 68.4,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "roe",
-          "label": "ROE",
-          "antes": 2.6,
-          "ahora": 6.7,
-          "delta": 4.1,
-          "deltaPct": 157.7,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "margenNeto",
-          "label": "Margen neto",
-          "antes": 30.2,
-          "ahora": 71.2,
-          "delta": 41.0,
-          "deltaPct": 135.8,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "dnEbitda",
-          "label": "DN/EBITDA",
-          "antes": 13.59,
-          "ahora": 12.63,
-          "delta": -0.96,
-          "deltaPct": -7.1,
+          "antes": 90.0,
+          "ahora": 47.0,
+          "delta": -43.0,
+          "deltaPct": -47.8,
           "dir": "down",
-          "unidad": "x"
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 48.7,
+          "ahora": 65.8,
+          "delta": 17.1,
+          "deltaPct": 35.1,
+          "dir": "up",
+          "unidad": "%"
         },
         {
           "k": "crecBpa",
           "label": "Crec. BPA",
-          "antes": -88.9,
-          "ahora": 216.8,
-          "delta": 305.7,
-          "deltaPct": 343.9,
+          "antes": 15.2,
+          "ahora": 23.8,
+          "delta": 8.6,
+          "deltaPct": 56.6,
           "dir": "up",
           "unidad": "%"
         },
         {
           "k": "crecIngresos",
           "label": "Crec. ingresos",
-          "antes": 58.7,
-          "ahora": 7.3,
-          "delta": -51.4,
-          "deltaPct": -87.6,
+          "antes": 20.2,
+          "ahora": 15.6,
+          "delta": -4.6,
+          "deltaPct": -22.8,
           "dir": "down",
           "unidad": "%"
         },
         {
-          "k": "bpa",
-          "label": "BPA",
-          "antes": 0.44,
-          "ahora": 1.09,
-          "delta": 0.65,
-          "deltaPct": 147.7,
+          "k": "div12m",
+          "label": "Div. 12m",
+          "antes": 0.92,
+          "ahora": 1.29,
+          "delta": 0.37,
+          "deltaPct": 40.2,
           "dir": "up",
           "unidad": ""
         }
@@ -133,106 +113,192 @@
           "txt": "💰 RPD cruzó el 5%"
         },
         {
-          "tipo": "bpa",
-          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
-        },
-        {
           "tipo": "flag",
-          "txt": "🚩 Nueva alerta: dividendo irregular (posible extraordinario / pago único)"
+          "txt": "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 3.1x el año anterior)"
         }
       ]
     },
     {
-      "ticker": "GRE",
-      "nombre": "GRENERGY RENOVABLES, S.A.",
+      "ticker": "FER",
+      "nombre": "FERROVIAL N.V.",
       "campos": [
         {
           "k": "per",
           "label": "PER",
-          "antes": 28.6,
-          "ahora": 16.4,
-          "delta": -12.2,
-          "deltaPct": -42.7,
+          "antes": 55.6,
+          "ahora": 32.5,
+          "delta": -23.1,
+          "deltaPct": -41.5,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "perFwd",
           "label": "PER fwd",
-          "antes": 16.1,
-          "ahora": 14.1,
-          "delta": -2.0,
-          "deltaPct": -12.4,
-          "dir": "down",
+          "antes": 40.7,
+          "ahora": 44.1,
+          "delta": 3.4,
+          "deltaPct": 8.4,
+          "dir": "up",
           "unidad": ""
         },
         {
           "k": "pbv",
           "label": "P/BV",
-          "antes": 5.85,
-          "ahora": 4.85,
-          "delta": -1.0,
-          "deltaPct": -17.1,
+          "antes": 5.88,
+          "ahora": 6.39,
+          "delta": 0.51,
+          "deltaPct": 8.7,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 2.38,
+          "ahora": 1.25,
+          "delta": -1.13,
+          "deltaPct": -47.5,
           "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 3.0,
+          "ahora": 38.0,
+          "delta": 35.0,
+          "deltaPct": 1166.7,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 132.3,
+          "ahora": 40.7,
+          "delta": -91.6,
+          "deltaPct": -69.2,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 0.84,
+          "ahora": 1.56,
+          "delta": 0.72,
+          "deltaPct": 85.7,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "div12m",
+          "label": "Div. 12m",
+          "antes": 1.112,
+          "ahora": 0.635,
+          "delta": -0.477,
+          "deltaPct": -42.9,
+          "dir": "down",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        },
+        {
+          "tipo": "divcut",
+          "txt": "✂️ Dividendo 12m a la baja"
+        }
+      ]
+    },
+    {
+      "ticker": "PHM",
+      "nombre": "PHARMA MAR, S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 22.5,
+          "ahora": 18.2,
+          "delta": -4.3,
+          "deltaPct": -19.1,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 11.0,
+          "ahora": 13.7,
+          "delta": 2.7,
+          "deltaPct": 24.5,
+          "dir": "up",
           "unidad": ""
         },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 34.0,
-          "ahora": 13.0,
-          "delta": -21.0,
-          "deltaPct": -61.8,
+          "antes": 20.0,
+          "ahora": 8.0,
+          "delta": -12.0,
+          "deltaPct": -60.0,
           "dir": "down",
           "unidad": "%"
         },
         {
           "k": "roe",
           "label": "ROE",
-          "antes": 12.8,
-          "ahora": 27.7,
-          "delta": 14.9,
-          "deltaPct": 116.4,
+          "antes": 24.8,
+          "ahora": 31.5,
+          "delta": 6.7,
+          "deltaPct": 27.0,
           "dir": "up",
           "unidad": "%"
         },
         {
           "k": "margenNeto",
           "label": "Margen neto",
-          "antes": 5.9,
-          "ahora": 15.5,
-          "delta": 9.6,
-          "deltaPct": 162.7,
+          "antes": 25.7,
+          "ahora": 28.8,
+          "delta": 3.1,
+          "deltaPct": 12.1,
           "dir": "up",
           "unidad": "%"
         },
         {
           "k": "dnEbitda",
           "label": "DN/EBITDA",
-          "antes": 9.59,
-          "ahora": 5.31,
-          "delta": -4.28,
-          "deltaPct": -44.6,
-          "dir": "down",
+          "antes": -2.74,
+          "ahora": -1.88,
+          "delta": 0.86,
+          "deltaPct": 31.4,
+          "dir": "up",
           "unidad": "x"
         },
         {
           "k": "crecIngresos",
           "label": "Crec. ingresos",
-          "antes": -39.6,
-          "ahora": 134.6,
-          "delta": 174.2,
-          "deltaPct": 439.9,
+          "antes": -12.0,
+          "ahora": 52.6,
+          "delta": 64.6,
+          "deltaPct": 538.3,
           "dir": "up",
           "unidad": "%"
         },
         {
           "k": "bpa",
           "label": "BPA",
-          "antes": 3.11,
-          "ahora": 4.49,
-          "delta": 1.38,
-          "deltaPct": 44.4,
+          "antes": 3.22,
+          "ahora": 3.71,
+          "delta": 0.49,
+          "deltaPct": 15.2,
           "dir": "up",
           "unidad": ""
         }
@@ -253,146 +319,66 @@
       ]
     },
     {
-      "ticker": "MCM",
-      "nombre": "MIQUEL Y COSTAS & MIQUEL, S.A.",
+      "ticker": "ALNT",
+      "nombre": "ALANTRA PARTNERS, S.A.",
       "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 16.2,
+          "ahora": 13.6,
+          "delta": -2.6,
+          "deltaPct": -16.0,
+          "dir": "down",
+          "unidad": ""
+        },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 20.0,
-          "ahora": 0.0,
-          "delta": -20.0,
-          "deltaPct": -100.0,
+          "antes": 36.0,
+          "ahora": 25.0,
+          "delta": -11.0,
+          "deltaPct": -30.6,
           "dir": "down",
           "unidad": "%"
         },
         {
           "k": "payout",
           "label": "Payout",
-          "antes": 41.7,
-          "ahora": 47.2,
-          "delta": 5.5,
-          "deltaPct": 13.2,
-          "dir": "up",
+          "antes": 89.3,
+          "ahora": 78.1,
+          "delta": -11.2,
+          "deltaPct": -12.5,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": 19.9,
+          "ahora": 0.2,
+          "delta": -19.7,
+          "deltaPct": -99.0,
+          "dir": "down",
           "unidad": "%"
         },
         {
           "k": "crecIngresos",
           "label": "Crec. ingresos",
-          "antes": -13.5,
-          "ahora": -0.4,
-          "delta": 13.1,
-          "deltaPct": 97.0,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "bpa",
-          "label": "BPA",
-          "antes": 1.19,
-          "ahora": 1.05,
-          "delta": -0.14,
-          "deltaPct": -11.8,
-          "dir": "down",
-          "unidad": ""
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        },
-        {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
-        },
-        {
-          "tipo": "bpa",
-          "txt": "📊 BPA revisado ▼ (¿resultados nuevos?)"
-        }
-      ]
-    },
-    {
-      "ticker": "CEV",
-      "nombre": "CEV.MC,0P0000A5U9,0",
-      "campos": [
-        {
-          "k": "per",
-          "label": "PER",
           "antes": 8.0,
-          "ahora": 6.3,
-          "delta": -1.7,
-          "deltaPct": -21.3,
+          "ahora": -5.6,
+          "delta": -13.6,
+          "deltaPct": -170.0,
           "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 18.1,
-          "ahora": 16.3,
-          "delta": -1.8,
-          "deltaPct": -9.9,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 0.55,
-          "ahora": 0.49,
-          "delta": -0.06,
-          "deltaPct": -10.9,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 76.0,
-          "ahora": 51.0,
-          "delta": -25.0,
-          "deltaPct": -32.9,
-          "dir": "down",
-          "unidad": "%"
-        },
-        {
-          "k": "margenNeto",
-          "label": "Margen neto",
-          "antes": 110.3,
-          "ahora": 136.6,
-          "delta": 26.3,
-          "deltaPct": 23.8,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "dnEbitda",
-          "label": "DN/EBITDA",
-          "antes": 4.17,
-          "ahora": 2.92,
-          "delta": -1.25,
-          "deltaPct": -30.0,
-          "dir": "down",
-          "unidad": "x"
-        },
-        {
-          "k": "crecIngresos",
-          "label": "Crec. ingresos",
-          "antes": -43.1,
-          "ahora": -18.3,
-          "delta": 24.8,
-          "deltaPct": 57.5,
-          "dir": "up",
           "unidad": "%"
         },
         {
           "k": "bpa",
           "label": "BPA",
-          "antes": 1.28,
-          "ahora": 1.47,
-          "delta": 0.19,
-          "deltaPct": 14.8,
+          "antes": 0.56,
+          "ahora": 0.64,
+          "delta": 0.08,
+          "deltaPct": 14.3,
           "dir": "up",
           "unidad": ""
         }
@@ -405,6 +391,160 @@
         {
           "tipo": "bpa",
           "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        },
+        {
+          "tipo": "flag",
+          "txt": "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 3.3x el año anterior)"
+        }
+      ]
+    },
+    {
+      "ticker": "ENG",
+      "nombre": "ENAGAS,S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 15.0,
+          "ahora": 13.0,
+          "delta": -2.0,
+          "deltaPct": -13.3,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 6.06,
+          "ahora": 5.66,
+          "delta": -0.4,
+          "deltaPct": -6.6,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 71.0,
+          "ahora": 95.0,
+          "delta": 24.0,
+          "deltaPct": 33.8,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 90.9,
+          "ahora": 73.5,
+          "delta": -17.4,
+          "deltaPct": -19.1,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "dnEbitda",
+          "label": "DN/EBITDA",
+          "antes": 5.27,
+          "ahora": 6.15,
+          "delta": 0.88,
+          "deltaPct": 16.7,
+          "dir": "up",
+          "unidad": "x"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 1.1,
+          "ahora": 1.36,
+          "delta": 0.26,
+          "deltaPct": 23.6,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        },
+        {
+          "tipo": "flag",
+          "txt": "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.5x el año anterior)"
+        }
+      ]
+    },
+    {
+      "ticker": "SAB",
+      "nombre": "BANCO DE SABADELL",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 17.9,
+          "ahora": 13.7,
+          "delta": -4.2,
+          "deltaPct": -23.5,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 15.94,
+          "ahora": 16.59,
+          "delta": 0.65,
+          "deltaPct": 4.1,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 80.0,
+          "ahora": 66.0,
+          "delta": -14.0,
+          "deltaPct": -17.5,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 285.0,
+          "ahora": 228.0,
+          "delta": -57.0,
+          "deltaPct": -20.0,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 0.2,
+          "ahora": 0.25,
+          "delta": 0.05,
+          "deltaPct": 25.0,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        },
+        {
+          "tipo": "flag",
+          "txt": "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.9x el año anterior)"
         }
       ]
     },
@@ -415,60 +555,310 @@
         {
           "k": "per",
           "label": "PER",
-          "antes": 15.6,
-          "ahora": 11.8,
-          "delta": -3.8,
-          "deltaPct": -24.4,
+          "antes": 11.8,
+          "ahora": 7.8,
+          "delta": -4.0,
+          "deltaPct": -33.9,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 9.7,
+          "ahora": 8.6,
+          "delta": -1.1,
+          "deltaPct": -11.3,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 2.61,
+          "ahora": 1.77,
+          "delta": -0.84,
+          "deltaPct": -32.2,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 44.0,
-          "ahora": 32.0,
-          "delta": -12.0,
-          "deltaPct": -27.3,
-          "dir": "down",
-          "unidad": "%"
-        },
-        {
-          "k": "roe",
-          "label": "ROE",
-          "antes": 22.8,
-          "ahora": 20.4,
-          "delta": -2.4,
-          "deltaPct": -10.5,
-          "dir": "down",
-          "unidad": "%"
-        },
-        {
-          "k": "dnEbitda",
-          "label": "DN/EBITDA",
-          "antes": 5.15,
-          "ahora": 4.14,
-          "delta": -1.01,
-          "deltaPct": -19.6,
-          "dir": "down",
-          "unidad": "x"
-        },
-        {
-          "k": "crecIngresos",
-          "label": "Crec. ingresos",
-          "antes": 48.6,
-          "ahora": 38.8,
-          "delta": -9.8,
-          "deltaPct": -20.2,
+          "antes": 32.0,
+          "ahora": 8.0,
+          "delta": -24.0,
+          "deltaPct": -75.0,
           "dir": "down",
           "unidad": "%"
         },
         {
           "k": "bpa",
           "label": "BPA",
-          "antes": 1.1,
-          "ahora": 1.39,
-          "delta": 0.29,
-          "deltaPct": 26.4,
+          "antes": 1.39,
+          "ahora": 1.87,
+          "delta": 0.48,
+          "deltaPct": 34.5,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "min52",
+          "txt": "📉 Entró en mínimos de 52 semanas"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "GSJ",
+      "nombre": "GRUPO EMPRESARIAL SAN JOSE, S.A",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 10.6,
+          "ahora": 8.0,
+          "delta": -2.6,
+          "deltaPct": -24.5,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 29.0,
+          "ahora": 6.0,
+          "delta": -23.0,
+          "deltaPct": -79.3,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 25.7,
+          "ahora": 20.7,
+          "delta": -5.0,
+          "deltaPct": -19.5,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 0.7,
+          "ahora": 0.87,
+          "delta": 0.17,
+          "deltaPct": 24.3,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "min52",
+          "txt": "📉 Entró en mínimos de 52 semanas"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "GEST",
+      "nombre": "GESTAMP AUTOMOCION, S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 9.1,
+          "ahora": 7.5,
+          "delta": -1.6,
+          "deltaPct": -17.6,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 36.0,
+          "ahora": 11.0,
+          "delta": -25.0,
+          "deltaPct": -69.4,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 0.33,
+          "ahora": 0.38,
+          "delta": 0.05,
+          "deltaPct": 15.2,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "min52",
+          "txt": "📉 Entró en mínimos de 52 semanas"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "RLIA",
+      "nombre": "REALIA BUSINESS, S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 19.4,
+          "ahora": 13.1,
+          "delta": -6.3,
+          "deltaPct": -32.5,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 23.0,
+          "ahora": 13.0,
+          "delta": -10.0,
+          "deltaPct": -43.5,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 0.05,
+          "ahora": 0.07,
+          "delta": 0.02,
+          "deltaPct": 40.0,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "min52",
+          "txt": "📉 Entró en mínimos de 52 semanas"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "REP",
+      "nombre": "REPSOL,  S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 9.6,
+          "ahora": 5.5,
+          "delta": -4.1,
+          "deltaPct": -42.7,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 7.8,
+          "ahora": 6.7,
+          "delta": -1.1,
+          "deltaPct": -14.1,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "roe",
+          "label": "ROE",
+          "antes": 13.3,
+          "ahora": 21.1,
+          "delta": 7.8,
+          "deltaPct": 58.6,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "margenNeto",
+          "label": "Margen neto",
+          "antes": 6.4,
+          "ahora": 9.4,
+          "delta": 3.0,
+          "deltaPct": 46.9,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 34.1,
+          "ahora": 18.7,
+          "delta": -15.4,
+          "deltaPct": -45.2,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": 494.5,
+          "ahora": 422.4,
+          "delta": -72.1,
+          "deltaPct": -14.6,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 35.5,
+          "ahora": 51.8,
+          "delta": 16.3,
+          "deltaPct": 45.9,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 3.08,
+          "ahora": 5.63,
+          "delta": 2.55,
+          "deltaPct": 82.8,
           "dir": "up",
           "unidad": ""
         }
@@ -485,48 +875,78 @@
       ]
     },
     {
-      "ticker": "OHLA",
-      "nombre": "OBRASCON HUARTE LAIN, S.A.",
+      "ticker": "ACX",
+      "nombre": "ACERINOX, S.A.",
       "campos": [
         {
           "k": "per",
           "label": "PER",
-          "antes": 19.2,
-          "ahora": 17.6,
-          "delta": -1.6,
-          "deltaPct": -8.3,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 38.4,
-          "ahora": 35.3,
-          "delta": -3.1,
-          "deltaPct": -8.1,
+          "antes": 78.3,
+          "ahora": 50.2,
+          "delta": -28.1,
+          "deltaPct": -35.9,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "pbv",
           "label": "P/BV",
-          "antes": 0.85,
-          "ahora": 0.78,
-          "delta": -0.07,
-          "deltaPct": -8.2,
+          "antes": 2.03,
+          "ahora": 1.8,
+          "delta": -0.23,
+          "deltaPct": -11.3,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 24.0,
-          "ahora": 8.0,
-          "delta": -16.0,
-          "deltaPct": -66.7,
+          "antes": 82.0,
+          "ahora": 67.0,
+          "delta": -15.0,
+          "deltaPct": -18.3,
           "dir": "down",
           "unidad": "%"
+        },
+        {
+          "k": "roe",
+          "label": "ROE",
+          "antes": 1.5,
+          "ahora": 4.5,
+          "delta": 3.0,
+          "deltaPct": 200.0,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 281.8,
+          "ahora": 193.8,
+          "delta": -88.0,
+          "deltaPct": -31.2,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 5.2,
+          "ahora": 12.4,
+          "delta": 7.2,
+          "deltaPct": 138.5,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 0.22,
+          "ahora": 0.32,
+          "delta": 0.1,
+          "deltaPct": 45.5,
+          "dir": "up",
+          "unidad": ""
         }
       ],
       "senales": [
@@ -535,52 +955,82 @@
           "txt": "🟢 Más barata que hace un mes"
         },
         {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
         }
       ]
     },
     {
-      "ticker": "TEF",
-      "nombre": "TELEFONICA,S.A.",
+      "ticker": "BKT",
+      "nombre": "BANKINTER, S.A.",
       "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 13.1,
+          "ahora": 11.0,
+          "delta": -2.1,
+          "deltaPct": -16.0,
+          "dir": "down",
+          "unidad": ""
+        },
         {
           "k": "perFwd",
           "label": "PER fwd",
-          "antes": 9.2,
-          "ahora": 8.3,
-          "delta": -0.9,
-          "deltaPct": -9.8,
+          "antes": 11.0,
+          "ahora": 9.6,
+          "delta": -1.4,
+          "deltaPct": -12.7,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "pbv",
           "label": "P/BV",
-          "antes": 1.39,
-          "ahora": 1.27,
-          "delta": -0.12,
-          "deltaPct": -8.6,
+          "antes": 2.15,
+          "ahora": 1.87,
+          "delta": -0.28,
+          "deltaPct": -13.0,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "rpd",
           "label": "RPD",
-          "antes": 8.29,
-          "ahora": 9.04,
-          "delta": 0.75,
-          "deltaPct": 9.0,
+          "antes": 3.84,
+          "ahora": 4.43,
+          "delta": 0.59,
+          "deltaPct": 15.4,
           "dir": "up",
           "unidad": "%"
         },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 27.0,
-          "ahora": 6.0,
-          "delta": -21.0,
-          "deltaPct": -77.8,
+          "antes": 80.0,
+          "ahora": 29.0,
+          "delta": -51.0,
+          "deltaPct": -63.7,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": 13.8,
+          "ahora": 10.0,
+          "delta": -3.8,
+          "deltaPct": -27.5,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 9.4,
+          "ahora": 5.5,
+          "delta": -3.9,
+          "deltaPct": -41.5,
           "dir": "down",
           "unidad": "%"
         }
@@ -591,42 +1041,230 @@
           "txt": "🟢 Más barata que hace un mes"
         },
         {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
+          "tipo": "rpd",
+          "txt": "💰 RPD cruzó el 4%"
         }
       ]
     },
     {
-      "ticker": "MRL",
-      "nombre": "MERLIN PROPERTIES SOCIMI, S.A.",
+      "ticker": "MVC",
+      "nombre": "METROVACESA, S.A.",
       "campos": [
         {
           "k": "per",
           "label": "PER",
-          "antes": 9.0,
-          "ahora": 8.2,
-          "delta": -0.8,
-          "deltaPct": -8.9,
-          "dir": "down",
+          "antes": 17.2,
+          "ahora": 27.8,
+          "delta": 10.6,
+          "deltaPct": 61.6,
+          "dir": "up",
           "unidad": ""
         },
         {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 0.89,
-          "ahora": 0.8,
-          "delta": -0.09,
-          "deltaPct": -10.1,
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 19.57,
+          "ahora": 18.63,
+          "delta": -0.94,
+          "deltaPct": -4.8,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 32.0,
+          "ahora": 43.0,
+          "delta": 11.0,
+          "deltaPct": 34.4,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 336.7,
+          "ahora": 517.9,
+          "delta": 181.2,
+          "deltaPct": 53.8,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 0.6,
+          "ahora": 0.39,
+          "delta": -0.21,
+          "deltaPct": -35.0,
+          "dir": "down",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▼ (¿resultados nuevos?)"
+        },
+        {
+          "tipo": "flag",
+          "txt": "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.6x el año anterior)"
+        }
+      ]
+    },
+    {
+      "ticker": "AENA",
+      "nombre": "AENA, S.M.E., S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 17.2,
+          "ahora": 13.5,
+          "delta": -3.7,
+          "deltaPct": -21.5,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 36.0,
-          "ahora": 7.0,
-          "delta": -29.0,
-          "deltaPct": -80.6,
+          "antes": 53.0,
+          "ahora": 74.0,
+          "delta": 21.0,
+          "deltaPct": 39.6,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 73.2,
+          "ahora": 54.2,
+          "delta": -19.0,
+          "deltaPct": -26.0,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 1.49,
+          "ahora": 2.01,
+          "delta": 0.52,
+          "deltaPct": 34.9,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "ALM",
+      "nombre": "ALMIRALL S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 36.9,
+          "ahora": 32.1,
+          "delta": -4.8,
+          "deltaPct": -13.0,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 8.0,
+          "ahora": 19.0,
+          "delta": 11.0,
+          "deltaPct": 137.5,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 66.8,
+          "ahora": 56.7,
+          "delta": -10.1,
+          "deltaPct": -15.1,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 0.28,
+          "ahora": 0.33,
+          "delta": 0.05,
+          "deltaPct": 17.9,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "APAM",
+      "nombre": "APERAM",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 24.7,
+          "ahora": 19.6,
+          "delta": -5.1,
+          "deltaPct": -20.6,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 0.96,
+          "ahora": 0.76,
+          "delta": -0.2,
+          "deltaPct": -20.8,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 4.62,
+          "ahora": 5.83,
+          "delta": 1.21,
+          "deltaPct": 26.2,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 58.0,
+          "ahora": 22.0,
+          "delta": -36.0,
+          "deltaPct": -62.1,
           "dir": "down",
           "unidad": "%"
         }
@@ -637,31 +1275,87 @@
           "txt": "🟢 Más barata que hace un mes"
         },
         {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
+          "tipo": "rpd",
+          "txt": "💰 RPD cruzó el 5%"
         }
       ]
     },
     {
-      "ticker": "TLGO",
-      "nombre": "TALGO, S.A.",
+      "ticker": "ART",
+      "nombre": "ARTECHE LANTEGI  ELKARTEA, S.A.",
       "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 45.6,
+          "ahora": 38.3,
+          "delta": -7.3,
+          "deltaPct": -16.0,
+          "dir": "down",
+          "unidad": ""
+        },
         {
           "k": "perFwd",
           "label": "PER fwd",
-          "antes": 15.4,
-          "ahora": 13.6,
-          "delta": -1.8,
-          "deltaPct": -11.7,
+          "antes": 25.4,
+          "ahora": 21.3,
+          "delta": -4.1,
+          "deltaPct": -16.1,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "pbv",
           "label": "P/BV",
-          "antes": 1.83,
-          "ahora": 1.62,
-          "delta": -0.21,
+          "antes": 13.18,
+          "ahora": 11.05,
+          "delta": -2.13,
+          "deltaPct": -16.2,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 67.0,
+          "ahora": 46.0,
+          "delta": -21.0,
+          "deltaPct": -31.3,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "flag",
+          "txt": "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.4x el año anterior)"
+        }
+      ]
+    },
+    {
+      "ticker": "COXG",
+      "nombre": "COX ABG GROUP, S.A.",
+      "campos": [
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 7.1,
+          "ahora": 6.2,
+          "delta": -0.9,
+          "deltaPct": -12.7,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 5.14,
+          "ahora": 4.55,
+          "delta": -0.59,
           "deltaPct": -11.5,
           "dir": "down",
           "unidad": ""
@@ -669,12 +1363,22 @@
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 25.0,
-          "ahora": 5.0,
-          "delta": -20.0,
-          "deltaPct": -80.0,
+          "antes": 54.0,
+          "ahora": 31.0,
+          "delta": -23.0,
+          "deltaPct": -42.6,
           "dir": "down",
           "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": -0.69,
+          "ahora": -0.61,
+          "delta": 0.08,
+          "deltaPct": 11.6,
+          "dir": "up",
+          "unidad": ""
         }
       ],
       "senales": [
@@ -683,24 +1387,44 @@
           "txt": "🟢 Más barata que hace un mes"
         },
         {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
         }
       ]
     },
     {
-      "ticker": "AMP",
-      "nombre": "AMPER, S.A.",
+      "ticker": "IBG",
+      "nombre": "IBERPAPEL GESTION,S.A.",
       "campos": [
         {
           "k": "per",
           "label": "PER",
-          "antes": 454.5,
-          "ahora": 229.7,
-          "delta": -224.8,
-          "deltaPct": -49.5,
+          "antes": 1710.0,
+          "ahora": 810.0,
+          "delta": -900.0,
+          "deltaPct": -52.6,
           "dir": "down",
           "unidad": ""
+        },
+        {
+          "k": "margenNeto",
+          "label": "Margen neto",
+          "antes": 0.0,
+          "ahora": -2.6,
+          "delta": -2.6,
+          "deltaPct": null,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 8600.0,
+          "ahora": 4300.0,
+          "delta": -4300.0,
+          "deltaPct": -50.0,
+          "dir": "down",
+          "unidad": "%"
         },
         {
           "k": "bpa",
@@ -725,64 +1449,38 @@
       ]
     },
     {
-      "ticker": "COL",
-      "nombre": "COLONIAL SFL, SOCIMI. S.A.",
+      "ticker": "ACS",
+      "nombre": "ACS,ACTIVIDADES DE CONSTRUCCION",
       "campos": [
         {
-          "k": "rpd",
-          "label": "RPD",
-          "antes": 6.14,
-          "ahora": 6.51,
-          "delta": 0.37,
-          "deltaPct": 6.0,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 37.0,
-          "ahora": 9.0,
-          "delta": -28.0,
-          "deltaPct": -75.7,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        },
-        {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
-        }
-      ]
-    },
-    {
-      "ticker": "ENC",
-      "nombre": "ENCE ENERGIA Y CELULOSA, S.A.",
-      "campos": [
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 1.33,
-          "ahora": 1.19,
-          "delta": -0.14,
-          "deltaPct": -10.5,
+          "k": "per",
+          "label": "PER",
+          "antes": 24.0,
+          "ahora": 19.8,
+          "delta": -4.2,
+          "deltaPct": -17.5,
           "dir": "down",
           "unidad": ""
         },
         {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 51.0,
-          "ahora": 15.0,
-          "delta": -36.0,
-          "deltaPct": -70.6,
+          "k": "payout",
+          "label": "Payout",
+          "antes": 61.0,
+          "ahora": 50.7,
+          "delta": -10.3,
+          "deltaPct": -16.9,
           "dir": "down",
           "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 3.81,
+          "ahora": 4.58,
+          "delta": 0.77,
+          "deltaPct": 20.2,
+          "dir": "up",
+          "unidad": ""
         }
       ],
       "senales": [
@@ -791,101 +1489,8 @@
           "txt": "🟢 Más barata que hace un mes"
         },
         {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
-        }
-      ]
-    },
-    {
-      "ticker": "FCC",
-      "nombre": "ACCIONES FOMENTO DE CONSTRUCCIO",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 34.0,
-          "ahora": 12.0,
-          "delta": -22.0,
-          "deltaPct": -64.7,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        },
-        {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
-        }
-      ]
-    },
-    {
-      "ticker": "FER",
-      "nombre": "FERROVIAL N.V.",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 25.0,
-          "ahora": 3.0,
-          "delta": -22.0,
-          "deltaPct": -88.0,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        },
-        {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
-        }
-      ]
-    },
-    {
-      "ticker": "TRE",
-      "nombre": "TECNICAS REUNIDAS S.A.",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 32.0,
-          "ahora": 15.0,
-          "delta": -17.0,
-          "deltaPct": -53.1,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        },
-        {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
-        }
-      ]
-    },
-    {
-      "ticker": "TRG",
-      "nombre": "TUBOS REUNIDOS S.A.",
-      "campos": [],
-      "senales": [
-        {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
-        },
-        {
-          "tipo": "flag",
-          "txt": "🚩 Nueva alerta: BPA<=0 (payout/PER no fiables)"
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
         }
       ]
     },
@@ -896,82 +1501,56 @@
         {
           "k": "per",
           "label": "PER",
-          "antes": 29.8,
-          "ahora": 55.8,
-          "delta": 26.0,
-          "deltaPct": 87.2,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "roe",
-          "label": "ROE",
-          "antes": 8.4,
-          "ahora": 6.4,
-          "delta": -2.0,
-          "deltaPct": -23.8,
+          "antes": 55.8,
+          "ahora": 34.3,
+          "delta": -21.5,
+          "deltaPct": -38.5,
           "dir": "down",
-          "unidad": "%"
+          "unidad": ""
         },
         {
           "k": "payout",
           "label": "Payout",
-          "antes": 84.2,
-          "ahora": 168.5,
-          "delta": 84.3,
-          "deltaPct": 100.1,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "crecBpa",
-          "label": "Crec. BPA",
-          "antes": -20.7,
-          "ahora": -73.9,
-          "delta": -53.2,
-          "deltaPct": -257.0,
+          "antes": 168.5,
+          "ahora": 112.3,
+          "delta": -56.2,
+          "deltaPct": -33.4,
           "dir": "down",
-          "unidad": "%"
-        },
-        {
-          "k": "crecIngresos",
-          "label": "Crec. ingresos",
-          "antes": -6.3,
-          "ahora": 8.3,
-          "delta": 14.6,
-          "deltaPct": 231.7,
-          "dir": "up",
           "unidad": "%"
         },
         {
           "k": "bpa",
           "label": "BPA",
-          "antes": 0.04,
-          "ahora": 0.02,
-          "delta": -0.02,
-          "deltaPct": -50.0,
-          "dir": "down",
+          "antes": 0.02,
+          "ahora": 0.03,
+          "delta": 0.01,
+          "deltaPct": 50.0,
+          "dir": "up",
           "unidad": ""
         }
       ],
       "senales": [
         {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
           "tipo": "bpa",
-          "txt": "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
         }
       ]
     },
     {
-      "ticker": "RLIA",
-      "nombre": "REALIA BUSINESS, S.A.",
+      "ticker": "ANE",
+      "nombre": "CORPORACI...N ACCIONA ENERG...A",
       "campos": [
         {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 17.4,
-          "ahora": 13.6,
-          "delta": -3.8,
-          "deltaPct": -21.8,
+          "k": "per",
+          "label": "PER",
+          "antes": 44.3,
+          "ahora": 36.8,
+          "delta": -7.5,
+          "deltaPct": -16.9,
           "dir": "down",
           "unidad": ""
         },
@@ -979,195 +1558,111 @@
           "k": "pos52sem",
           "label": "Pos. 52s",
           "antes": 49.0,
-          "ahora": 23.0,
-          "delta": -26.0,
-          "deltaPct": -53.1,
-          "dir": "down",
-          "unidad": "%"
-        },
-        {
-          "k": "dnEbitda",
-          "label": "DN/EBITDA",
-          "antes": 3.34,
-          "ahora": 2.56,
-          "delta": -0.78,
-          "deltaPct": -23.4,
-          "dir": "down",
-          "unidad": "x"
-        },
-        {
-          "k": "crecBpa",
-          "label": "Crec. BPA",
-          "antes": -4.0,
-          "ahora": -11.3,
-          "delta": -7.3,
-          "deltaPct": -182.5,
-          "dir": "down",
-          "unidad": "%"
-        },
-        {
-          "k": "crecIngresos",
-          "label": "Crec. ingresos",
-          "antes": 55.2,
-          "ahora": 41.6,
-          "delta": -13.6,
-          "deltaPct": -24.6,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "ACS",
-      "nombre": "ACS,ACTIVIDADES DE CONSTRUCCION",
-      "campos": [
-        {
-          "k": "per",
-          "label": "PER",
-          "antes": 26.7,
-          "ahora": 24.0,
-          "delta": -2.7,
-          "deltaPct": -10.1,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 20.7,
-          "ahora": 18.5,
-          "delta": -2.2,
-          "deltaPct": -10.6,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 4.49,
-          "ahora": 4.03,
-          "delta": -0.46,
-          "deltaPct": -10.2,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 50.0,
           "ahora": 31.0,
-          "delta": -19.0,
-          "deltaPct": -38.0,
+          "delta": -18.0,
+          "deltaPct": -36.7,
           "dir": "down",
           "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "ALNT",
-      "nombre": "ALANTRA PARTNERS, S.A.",
-      "campos": [
-        {
-          "k": "per",
-          "label": "PER",
-          "antes": 18.0,
-          "ahora": 16.2,
-          "delta": -1.8,
-          "deltaPct": -10.0,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 1.32,
-          "ahora": 1.21,
-          "delta": -0.11,
-          "deltaPct": -8.3,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "rpd",
-          "label": "RPD",
-          "antes": 5.05,
-          "ahora": 5.51,
-          "delta": 0.46,
-          "deltaPct": 9.1,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 60.0,
-          "ahora": 36.0,
-          "delta": -24.0,
-          "deltaPct": -40.0,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "ECO",
-      "nombre": "ECOENER, S.A.",
-      "campos": [
-        {
-          "k": "per",
-          "label": "PER",
-          "antes": 38.1,
-          "ahora": 43.8,
-          "delta": 5.7,
-          "deltaPct": 15.0,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 10.6,
-          "ahora": 9.7,
-          "delta": -0.9,
-          "deltaPct": -8.5,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 1.76,
-          "ahora": 1.61,
-          "delta": -0.15,
-          "deltaPct": -8.5,
-          "dir": "down",
-          "unidad": ""
         },
         {
           "k": "bpa",
           "label": "BPA",
-          "antes": 0.1,
-          "ahora": 0.08,
-          "delta": -0.02,
-          "deltaPct": -20.0,
+          "antes": 0.5,
+          "ahora": 0.57,
+          "delta": 0.07,
+          "deltaPct": 14.0,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "ARM",
+      "nombre": "ARIMA REAL ESTATE SOCIMI, S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 12.1,
+          "ahora": 10.6,
+          "delta": -1.5,
+          "deltaPct": -12.4,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 76.9,
+          "ahora": 66.5,
+          "delta": -10.4,
+          "deltaPct": -13.5,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 1.09,
+          "ahora": 1.26,
+          "delta": 0.17,
+          "deltaPct": 15.6,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "MCM",
+      "nombre": "MIQUEL Y COSTAS & MIQUEL, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 0.0,
+          "ahora": 13.0,
+          "delta": 13.0,
+          "deltaPct": null,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 1.05,
+          "ahora": 0.87,
+          "delta": -0.18,
+          "deltaPct": -17.1,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "div12m",
+          "label": "Div. 12m",
+          "antes": 0.496,
+          "ahora": 0.414,
+          "delta": -0.081,
+          "deltaPct": -16.4,
           "dir": "down",
           "unidad": ""
         }
@@ -1176,187 +1671,167 @@
         {
           "tipo": "bpa",
           "txt": "📊 BPA revisado ▼ (¿resultados nuevos?)"
+        },
+        {
+          "tipo": "divcut",
+          "txt": "✂️ Dividendo 12m a la baja"
         }
       ]
     },
     {
-      "ticker": "MTS",
-      "nombre": "ARCELORMITTAL SA",
+      "ticker": "TUB",
+      "nombre": "TUBACEX, S.A.",
+      "campos": [
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 13.2,
+          "ahora": 11.4,
+          "delta": -1.8,
+          "deltaPct": -13.6,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 1.21,
+          "ahora": 1.1,
+          "delta": -0.11,
+          "deltaPct": -9.1,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 35.0,
+          "ahora": 15.0,
+          "delta": -20.0,
+          "deltaPct": -57.1,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "min52",
+          "txt": "📉 Entró en mínimos de 52 semanas"
+        }
+      ]
+    },
+    {
+      "ticker": "IAG",
+      "nombre": "INTL CONSOLIDATED AIRLINES GROU",
       "campos": [
         {
           "k": "per",
           "label": "PER",
-          "antes": 31.0,
-          "ahora": 27.6,
-          "delta": -3.4,
-          "deltaPct": -11.0,
+          "antes": 8.0,
+          "ahora": 7.3,
+          "delta": -0.7,
+          "deltaPct": -8.8,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 68.0,
+          "ahora": 53.0,
+          "delta": -15.0,
+          "deltaPct": -22.1,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "flag",
+          "txt": "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 1.6x el año anterior)"
+        }
+      ]
+    },
+    {
+      "ticker": "CABK",
+      "nombre": "CAIXABANK, S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 14.7,
+          "ahora": 13.0,
+          "delta": -1.7,
+          "deltaPct": -11.6,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "perFwd",
           "label": "PER fwd",
-          "antes": 11.8,
-          "ahora": 10.8,
+          "antes": 11.3,
+          "ahora": 10.3,
           "delta": -1.0,
-          "deltaPct": -8.5,
+          "deltaPct": -8.8,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "pbv",
           "label": "P/BV",
-          "antes": 1.01,
-          "ahora": 0.92,
-          "delta": -0.09,
-          "deltaPct": -8.9,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 95.0,
-          "ahora": 71.0,
-          "delta": -24.0,
-          "deltaPct": -25.3,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "PHM",
-      "nombre": "PHARMA MAR, S.A.",
-      "campos": [
-        {
-          "k": "per",
-          "label": "PER",
-          "antes": 25.2,
-          "ahora": 22.5,
-          "delta": -2.7,
-          "deltaPct": -10.7,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 12.6,
-          "ahora": 11.0,
-          "delta": -1.6,
-          "deltaPct": -12.7,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 5.61,
-          "ahora": 5.0,
-          "delta": -0.61,
-          "deltaPct": -10.9,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 42.0,
-          "ahora": 20.0,
-          "delta": -22.0,
-          "deltaPct": -52.4,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "CLNX",
-      "nombre": "CELLNEX TELECOM, S.A.",
-      "campos": [
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 1.45,
-          "ahora": 1.27,
-          "delta": -0.18,
-          "deltaPct": -12.4,
+          "antes": 2.23,
+          "ahora": 2.01,
+          "delta": -0.22,
+          "deltaPct": -9.9,
           "dir": "down",
           "unidad": ""
         },
         {
           "k": "rpd",
           "label": "RPD",
-          "antes": 2.92,
-          "ahora": 3.35,
-          "delta": 0.43,
-          "deltaPct": 14.7,
+          "antes": 4.04,
+          "ahora": 4.46,
+          "delta": 0.42,
+          "deltaPct": 10.4,
           "dir": "up",
           "unidad": "%"
         },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 19.0,
-          "ahora": 3.0,
-          "delta": -16.0,
-          "deltaPct": -84.2,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "ITX",
-      "nombre": "INDUSTRIA DE DISE...O TEXTIL S.",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 88.0,
-          "ahora": 61.0,
+          "antes": 76.0,
+          "ahora": 49.0,
           "delta": -27.0,
-          "deltaPct": -30.7,
+          "deltaPct": -35.5,
           "dir": "down",
           "unidad": "%"
         },
         {
-          "k": "roe",
-          "label": "ROE",
-          "antes": 34.0,
-          "ahora": 36.8,
-          "delta": 2.8,
-          "deltaPct": 8.2,
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": 11.6,
+          "ahora": 23.3,
+          "delta": 11.7,
+          "deltaPct": 100.9,
           "dir": "up",
           "unidad": "%"
         },
         {
           "k": "crecIngresos",
           "label": "Crec. ingresos",
-          "antes": 5.8,
-          "ahora": 9.1,
-          "delta": 3.3,
-          "deltaPct": 56.9,
-          "dir": "up",
+          "antes": 12.6,
+          "ahora": 7.7,
+          "delta": -4.9,
+          "deltaPct": -38.9,
+          "dir": "down",
           "unidad": "%"
         }
       ],
@@ -1374,200 +1849,70 @@
         {
           "k": "per",
           "label": "PER",
-          "antes": 13.2,
-          "ahora": 11.5,
-          "delta": -1.7,
-          "deltaPct": -12.9,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 11.8,
-          "ahora": 10.2,
-          "delta": -1.6,
-          "deltaPct": -13.6,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 2.95,
-          "ahora": 2.55,
-          "delta": -0.4,
-          "deltaPct": -13.6,
-          "dir": "down",
-          "unidad": ""
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "UNI",
-      "nombre": "UNICAJA BANCO, S.A.",
-      "campos": [
-        {
-          "k": "rpd",
-          "label": "RPD",
-          "antes": 4.89,
-          "ahora": 5.49,
-          "delta": 0.6,
-          "deltaPct": 12.3,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "payout",
-          "label": "Payout",
-          "antes": 69.0,
-          "ahora": 76.4,
-          "delta": 7.4,
-          "deltaPct": 10.7,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "div12m",
-          "label": "Div. 12m",
-          "antes": 0.173,
-          "ahora": 0.191,
-          "delta": 0.018,
-          "deltaPct": 10.7,
+          "antes": 11.5,
+          "ahora": 23.1,
+          "delta": 11.6,
+          "deltaPct": 100.9,
           "dir": "up",
           "unidad": ""
-        }
-      ],
-      "senales": [
+        },
         {
-          "tipo": "rpd",
-          "txt": "💰 RPD cruzó el 5%"
-        }
-      ]
-    },
-    {
-      "ticker": "APAM",
-      "nombre": "APERAM",
-      "campos": [
+          "k": "roe",
+          "label": "ROE",
+          "antes": 25.9,
+          "ahora": 12.8,
+          "delta": -13.1,
+          "deltaPct": -50.6,
+          "dir": "down",
+          "unidad": "%"
+        },
         {
-          "k": "rpd",
-          "label": "RPD",
-          "antes": 4.31,
-          "ahora": 4.62,
-          "delta": 0.31,
-          "deltaPct": 7.2,
+          "k": "margenNeto",
+          "label": "Margen neto",
+          "antes": 6.1,
+          "ahora": 3.8,
+          "delta": -2.3,
+          "deltaPct": -37.7,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "dnEbitda",
+          "label": "DN/EBITDA",
+          "antes": 2.2,
+          "ahora": 4.73,
+          "delta": 2.53,
+          "deltaPct": 115.0,
           "dir": "up",
+          "unidad": "x"
+        },
+        {
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": -38.8,
+          "ahora": -61.2,
+          "delta": -22.4,
+          "deltaPct": -57.7,
+          "dir": "down",
           "unidad": "%"
         },
         {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 74.0,
-          "ahora": 58.0,
-          "delta": -16.0,
-          "deltaPct": -21.6,
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": -2.6,
+          "ahora": -8.9,
+          "delta": -6.3,
+          "deltaPct": -242.3,
           "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "BKY",
-      "nombre": "BERKELEY ENERGIA LIMITED",
-      "campos": [
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 2.97,
-          "ahora": 2.72,
-          "delta": -0.25,
-          "deltaPct": -8.4,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 51.0,
-          "ahora": 28.0,
-          "delta": -23.0,
-          "deltaPct": -45.1,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "GIGA",
-      "nombre": "GIGAS HOSTING, S.A.",
-      "campos": [
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 1.25,
-          "ahora": 1.11,
-          "delta": -0.14,
-          "deltaPct": -11.2,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 19.0,
-          "ahora": 5.0,
-          "delta": -14.0,
-          "deltaPct": -73.7,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "RIO",
-      "nombre": "BODEGAS RIOJANAS,S.A.",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 4.0,
-          "ahora": 13.0,
-          "delta": 9.0,
-          "deltaPct": 225.0,
-          "dir": "up",
           "unidad": "%"
         },
         {
           "k": "bpa",
           "label": "BPA",
-          "antes": -0.94,
-          "ahora": -1.79,
-          "delta": -0.85,
-          "deltaPct": -90.4,
+          "antes": 0.08,
+          "ahora": 0.04,
+          "delta": -0.04,
+          "deltaPct": -50.0,
           "dir": "down",
           "unidad": ""
         }
@@ -1580,26 +1925,210 @@
       ]
     },
     {
-      "ticker": "VIS",
-      "nombre": "VISCOFAN, S.A.",
+      "ticker": "SAN",
+      "nombre": "BANCO SANTANDER S.A.",
       "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 14.0,
+          "ahora": 11.1,
+          "delta": -2.9,
+          "deltaPct": -20.7,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 9.6,
+          "ahora": 8.1,
+          "delta": -1.5,
+          "deltaPct": -15.6,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 1.59,
+          "ahora": 1.44,
+          "delta": -0.15,
+          "deltaPct": -9.4,
+          "dir": "down",
+          "unidad": ""
+        },
         {
           "k": "rpd",
           "label": "RPD",
-          "antes": 5.73,
-          "ahora": 6.07,
-          "delta": 0.34,
-          "deltaPct": 5.9,
+          "antes": 1.98,
+          "ahora": 2.49,
+          "delta": 0.51,
+          "deltaPct": 25.8,
           "dir": "up",
           "unidad": "%"
         },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 64.0,
-          "ahora": 41.0,
-          "delta": -23.0,
-          "deltaPct": -35.9,
+          "antes": 81.0,
+          "ahora": 33.0,
+          "delta": -48.0,
+          "deltaPct": -59.3,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": 8.7,
+          "ahora": 5.2,
+          "delta": -3.5,
+          "deltaPct": -40.2,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "div12m",
+          "label": "Div. 12m",
+          "antes": 0.24,
+          "ahora": 0.252,
+          "delta": 0.012,
+          "deltaPct": 5.0,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        }
+      ]
+    },
+    {
+      "ticker": "ECO",
+      "nombre": "ECOENER, S.A.",
+      "campos": [
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 1.61,
+          "ahora": 1.36,
+          "delta": -0.25,
+          "deltaPct": -15.5,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "margenNeto",
+          "label": "Margen neto",
+          "antes": 6.4,
+          "ahora": 4.4,
+          "delta": -2.0,
+          "deltaPct": -31.2,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "dnEbitda",
+          "label": "DN/EBITDA",
+          "antes": 16.36,
+          "ahora": 13.33,
+          "delta": -3.03,
+          "deltaPct": -18.5,
+          "dir": "down",
+          "unidad": "x"
+        },
+        {
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": -81.4,
+          "ahora": -33.6,
+          "delta": 47.8,
+          "deltaPct": 58.7,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 4.7,
+          "ahora": 28.7,
+          "delta": 24.0,
+          "deltaPct": 510.6,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 0.08,
+          "ahora": 0.07,
+          "delta": -0.01,
+          "deltaPct": -12.5,
+          "dir": "down",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▼ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "CEV",
+      "nombre": "CEV.MC,0P0000A5U9,0",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 6.3,
+          "ahora": 5.5,
+          "delta": -0.8,
+          "deltaPct": -12.7,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 16.3,
+          "ahora": 14.3,
+          "delta": -2.0,
+          "deltaPct": -12.3,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 0.49,
+          "ahora": 0.43,
+          "delta": -0.06,
+          "deltaPct": -12.2,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 2.69,
+          "ahora": 3.07,
+          "delta": 0.38,
+          "deltaPct": 14.1,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 51.0,
+          "ahora": 23.0,
+          "delta": -28.0,
+          "deltaPct": -54.9,
           "dir": "down",
           "unidad": "%"
         }
@@ -1612,148 +2141,356 @@
       ]
     },
     {
-      "ticker": "AIR",
-      "nombre": "AIRBUS",
+      "ticker": "ENC",
+      "nombre": "ENCE ENERGIA Y CELULOSA, S.A.",
       "campos": [
         {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 59.0,
-          "ahora": 48.0,
-          "delta": -11.0,
-          "deltaPct": -18.6,
-          "dir": "down",
+          "k": "roe",
+          "label": "ROE",
+          "antes": -12.8,
+          "ahora": -8.1,
+          "delta": 4.7,
+          "deltaPct": 36.7,
+          "dir": "up",
           "unidad": "%"
+        },
+        {
+          "k": "margenNeto",
+          "label": "Margen neto",
+          "antes": -8.8,
+          "ahora": -5.4,
+          "delta": 3.4,
+          "deltaPct": 38.6,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "dnEbitda",
+          "label": "DN/EBITDA",
+          "antes": 21.77,
+          "ahora": 6.36,
+          "delta": -15.41,
+          "deltaPct": -70.8,
+          "dir": "down",
+          "unidad": "x"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 3.1,
+          "ahora": 19.1,
+          "delta": 16.0,
+          "deltaPct": 516.1,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": -0.26,
+          "ahora": -0.16,
+          "delta": 0.1,
+          "deltaPct": 38.5,
+          "dir": "up",
+          "unidad": ""
         }
       ],
       "senales": [
         {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
         }
       ]
     },
     {
-      "ticker": "AMS",
-      "nombre": "AMADEUS IT GROUP, S.A.",
+      "ticker": "GIGA",
+      "nombre": "GIGAS HOSTING, S.A.",
       "campos": [
         {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 41.0,
-          "ahora": 29.0,
-          "delta": -12.0,
-          "deltaPct": -29.3,
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 1.11,
+          "ahora": 1.01,
+          "delta": -0.1,
+          "deltaPct": -9.0,
           "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "roe",
+          "label": "ROE",
+          "antes": -30.0,
+          "ahora": -24.3,
+          "delta": 5.7,
+          "deltaPct": 19.0,
+          "dir": "up",
           "unidad": "%"
+        },
+        {
+          "k": "margenNeto",
+          "label": "Margen neto",
+          "antes": -13.7,
+          "ahora": -11.4,
+          "delta": 2.3,
+          "deltaPct": 16.8,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "dnEbitda",
+          "label": "DN/EBITDA",
+          "antes": 5.71,
+          "ahora": 3.76,
+          "delta": -1.95,
+          "deltaPct": -34.2,
+          "dir": "down",
+          "unidad": "x"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": -0.85,
+          "ahora": -0.66,
+          "delta": 0.19,
+          "deltaPct": 22.4,
+          "dir": "up",
+          "unidad": ""
         }
       ],
       "senales": [
         {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
         }
       ]
     },
     {
-      "ticker": "BKT",
-      "nombre": "BANKINTER, S.A.",
+      "ticker": "HOME",
+      "nombre": "NEINOR HOMES, S.A.",
       "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 10.6,
+          "ahora": 12.8,
+          "delta": 2.2,
+          "deltaPct": 20.8,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 10.4,
+          "ahora": 10.08,
+          "delta": -0.32,
+          "deltaPct": -3.1,
+          "dir": "down",
+          "unidad": "%"
+        },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 91.0,
-          "ahora": 80.0,
-          "delta": -11.0,
-          "deltaPct": -12.1,
-          "dir": "down",
+          "antes": 31.0,
+          "ahora": 39.0,
+          "delta": 8.0,
+          "deltaPct": 25.8,
+          "dir": "up",
           "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 110.5,
+          "ahora": 128.7,
+          "delta": 18.2,
+          "deltaPct": 16.5,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 1.55,
+          "ahora": 1.33,
+          "delta": -0.22,
+          "deltaPct": -14.2,
+          "dir": "down",
+          "unidad": ""
         }
       ],
       "senales": [
         {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▼ (¿resultados nuevos?)"
         }
       ]
     },
     {
-      "ticker": "CABK",
-      "nombre": "CAIXABANK, S.A.",
+      "ticker": "IDR",
+      "nombre": "INDRA SISTEMAS S.A., SERIE A",
       "campos": [
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 92.0,
-          "ahora": 76.0,
-          "delta": -16.0,
-          "deltaPct": -17.4,
+          "antes": 74.0,
+          "ahora": 90.0,
+          "delta": 16.0,
+          "deltaPct": 21.6,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "dnEbitda",
+          "label": "DN/EBITDA",
+          "antes": -1.84,
+          "ahora": -1.44,
+          "delta": 0.4,
+          "deltaPct": 21.7,
+          "dir": "up",
+          "unidad": "x"
+        },
+        {
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": -6.9,
+          "ahora": 77.9,
+          "delta": 84.8,
+          "deltaPct": 1229.0,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 44.9,
+          "ahora": 22.7,
+          "delta": -22.2,
+          "deltaPct": -49.4,
           "dir": "down",
           "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 2.51,
+          "ahora": 2.95,
+          "delta": 0.44,
+          "deltaPct": 17.5,
+          "dir": "up",
+          "unidad": ""
         }
       ],
       "senales": [
         {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
         }
       ]
     },
     {
-      "ticker": "CCEP",
-      "nombre": "COCA-COLA EUROPACIFIC PARTNERS ",
+      "ticker": "RIO",
+      "nombre": "BODEGAS RIOJANAS,S.A.",
       "campos": [
         {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 75.0,
-          "ahora": 62.0,
-          "delta": -13.0,
-          "deltaPct": -17.3,
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 0.33,
+          "ahora": 1.02,
+          "delta": 0.69,
+          "deltaPct": 209.1,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "roe",
+          "label": "ROE",
+          "antes": -28.2,
+          "ahora": -83.4,
+          "delta": -55.2,
+          "deltaPct": -195.7,
           "dir": "down",
           "unidad": "%"
+        },
+        {
+          "k": "margenNeto",
+          "label": "Margen neto",
+          "antes": -33.4,
+          "ahora": -77.8,
+          "delta": -44.4,
+          "deltaPct": -132.9,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": -18.1,
+          "ahora": -29.3,
+          "delta": -11.2,
+          "deltaPct": -61.9,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": -1.79,
+          "ahora": -1.95,
+          "delta": -0.16,
+          "deltaPct": -8.9,
+          "dir": "down",
+          "unidad": ""
         }
       ],
       "senales": [
         {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▼ (¿resultados nuevos?)"
         }
       ]
     },
     {
-      "ticker": "EBRO",
-      "nombre": "EBRO FOODS, S.A.",
+      "ticker": "GRE",
+      "nombre": "GRENERGY RENOVABLES, S.A.",
       "campos": [
         {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 42.0,
-          "ahora": 26.0,
-          "delta": -16.0,
-          "deltaPct": -38.1,
+          "k": "per",
+          "label": "PER",
+          "antes": 16.4,
+          "ahora": 14.3,
+          "delta": -2.1,
+          "deltaPct": -12.8,
           "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
+          "unidad": ""
+        },
         {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "FDR",
-      "nombre": "FLUIDRA, S.A.",
-      "campos": [
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 14.1,
+          "ahora": 12.5,
+          "delta": -1.6,
+          "deltaPct": -11.3,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 4.85,
+          "ahora": 3.48,
+          "delta": -1.37,
+          "deltaPct": -28.2,
+          "dir": "down",
+          "unidad": ""
+        },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 15.0,
-          "ahora": 3.0,
-          "delta": -12.0,
-          "deltaPct": -80.0,
+          "antes": 13.0,
+          "ahora": 5.0,
+          "delta": -8.0,
+          "deltaPct": -61.5,
           "dir": "down",
           "unidad": "%"
         }
@@ -1772,10 +2509,40 @@
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 93.0,
-          "ahora": 58.0,
-          "delta": -35.0,
-          "deltaPct": -37.6,
+          "antes": 58.0,
+          "ahora": 43.0,
+          "delta": -15.0,
+          "deltaPct": -25.9,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "roe",
+          "label": "ROE",
+          "antes": 23.3,
+          "ahora": 25.6,
+          "delta": 2.3,
+          "deltaPct": 9.9,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "dnEbitda",
+          "label": "DN/EBITDA",
+          "antes": -0.61,
+          "ahora": 2.45,
+          "delta": 3.06,
+          "deltaPct": 501.6,
+          "dir": "up",
+          "unidad": "x"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 16.0,
+          "ahora": 12.6,
+          "delta": -3.4,
+          "deltaPct": -21.3,
           "dir": "down",
           "unidad": "%"
         }
@@ -1788,46 +2555,96 @@
       ]
     },
     {
-      "ticker": "LGT",
-      "nombre": "LINGOTES ESPECIALES, S.A.",
+      "ticker": "UNI",
+      "nombre": "UNICAJA BANCO, S.A.",
       "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 13.9,
+          "ahora": 12.2,
+          "delta": -1.7,
+          "deltaPct": -12.2,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 12.6,
+          "ahora": 11.3,
+          "delta": -1.3,
+          "deltaPct": -10.3,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 5.49,
+          "ahora": 6.03,
+          "delta": 0.54,
+          "deltaPct": 9.8,
+          "dir": "up",
+          "unidad": "%"
+        },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 66.0,
+          "antes": 86.0,
+          "ahora": 62.0,
+          "delta": -24.0,
+          "deltaPct": -27.9,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        }
+      ]
+    },
+    {
+      "ticker": "CLNX",
+      "nombre": "CELLNEX TELECOM, S.A.",
+      "campos": [
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 1.27,
+          "ahora": 1.48,
+          "delta": 0.21,
+          "deltaPct": 16.5,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 3.35,
+          "ahora": 2.87,
+          "delta": -0.48,
+          "deltaPct": -14.3,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 3.0,
           "ahora": 39.0,
-          "delta": -27.0,
-          "deltaPct": -40.9,
-          "dir": "down",
+          "delta": 36.0,
+          "deltaPct": 1200.0,
+          "dir": "up",
           "unidad": "%"
         }
       ],
       "senales": [
         {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "LOG",
-      "nombre": "COMPA...IA DE DISTRIBUCION INTE",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 82.0,
-          "ahora": 66.0,
-          "delta": -16.0,
-          "deltaPct": -19.5,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
+          "tipo": "flag",
+          "txt": "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 11.9x el año anterior)"
         }
       ]
     },
@@ -1838,845 +2655,319 @@
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 87.0,
-          "ahora": 61.0,
-          "delta": -26.0,
-          "deltaPct": -29.9,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "NXT",
-      "nombre": "NUEVA EXPRESI...N TEXTIL, S.A.",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 84.0,
-          "ahora": 61.0,
-          "delta": -23.0,
-          "deltaPct": -27.4,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "PRM",
-      "nombre": "PRIM, S.A.",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 47.0,
-          "ahora": 22.0,
-          "delta": -25.0,
-          "deltaPct": -53.2,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "RED",
-      "nombre": "REDEIA CORPORACION, S.A.",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 26.0,
-          "ahora": 18.0,
-          "delta": -8.0,
-          "deltaPct": -30.8,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
-        }
-      ]
-    },
-    {
-      "ticker": "RJF",
-      "nombre": "LABORATORIO REIG JOFRE, S.A.",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 34.0,
-          "ahora": 23.0,
-          "delta": -11.0,
-          "deltaPct": -32.4,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "ROVI",
-      "nombre": "LABORATORIOS FARMACEUTICOS ROVI",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 21.0,
-          "ahora": 13.0,
-          "delta": -8.0,
-          "deltaPct": -38.1,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "min52",
-          "txt": "📉 Entró en mínimos de 52 semanas"
-        }
-      ]
-    },
-    {
-      "ticker": "SCYR",
-      "nombre": "SACYR, S.A.",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 50.0,
-          "ahora": 24.0,
-          "delta": -26.0,
-          "deltaPct": -52.0,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": [
-        {
-          "tipo": "barata",
-          "txt": "🟢 Más barata que hace un mes"
-        }
-      ]
-    },
-    {
-      "ticker": "A3M",
-      "nombre": "ATRESMEDIA CORPORACION DE MEDIO",
-      "campos": [
-        {
-          "k": "per",
-          "label": "PER",
-          "antes": 21.1,
-          "ahora": 24.3,
-          "delta": 3.2,
-          "deltaPct": 15.2,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 10.5,
-          "ahora": 12.0,
-          "delta": 1.5,
-          "deltaPct": 14.3,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 1.41,
-          "ahora": 1.62,
-          "delta": 0.21,
-          "deltaPct": 14.9,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "rpd",
-          "label": "RPD",
-          "antes": 7.69,
-          "ahora": 6.7,
-          "delta": -0.99,
-          "deltaPct": -12.9,
-          "dir": "down",
-          "unidad": "%"
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 41.0,
-          "ahora": 89.0,
-          "delta": 48.0,
-          "deltaPct": 117.1,
-          "dir": "up",
-          "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "AEDAS",
-      "nombre": "AEDAS HOMES, S.A",
-      "campos": [
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 7.2,
-          "ahora": 7.8,
-          "delta": 0.6,
-          "deltaPct": 8.3,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 3.0,
-          "ahora": 59.0,
-          "delta": 56.0,
-          "deltaPct": 1866.7,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "roe",
-          "label": "ROE",
-          "antes": 4.4,
-          "ahora": 6.5,
-          "delta": 2.1,
-          "deltaPct": 47.7,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "margenNeto",
-          "label": "Margen neto",
-          "antes": 10.4,
-          "ahora": 7.0,
-          "delta": -3.4,
-          "deltaPct": -32.7,
+          "antes": 61.0,
+          "ahora": 43.0,
+          "delta": -18.0,
+          "deltaPct": -29.5,
           "dir": "down",
           "unidad": "%"
         },
         {
           "k": "dnEbitda",
           "label": "DN/EBITDA",
-          "antes": 3.97,
-          "ahora": 2.51,
-          "delta": -1.46,
-          "deltaPct": -36.8,
-          "dir": "down",
+          "antes": -4.69,
+          "ahora": 0.22,
+          "delta": 4.91,
+          "deltaPct": 104.7,
+          "dir": "up",
           "unidad": "x"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "ART",
-      "nombre": "ARTECHE LANTEGI  ELKARTEA, S.A.",
-      "campos": [
-        {
-          "k": "per",
-          "label": "PER",
-          "antes": 35.5,
-          "ahora": 45.6,
-          "delta": 10.1,
-          "deltaPct": 28.5,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 21.1,
-          "ahora": 25.4,
-          "delta": 4.3,
-          "deltaPct": 20.4,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 10.26,
-          "ahora": 13.18,
-          "delta": 2.92,
-          "deltaPct": 28.5,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "rpd",
-          "label": "RPD",
-          "antes": 1.4,
-          "ahora": 1.09,
-          "delta": -0.31,
-          "deltaPct": -22.1,
-          "dir": "down",
-          "unidad": "%"
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 48.0,
-          "ahora": 67.0,
-          "delta": 19.0,
-          "deltaPct": 39.6,
-          "dir": "up",
-          "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "CIRSA",
-      "nombre": "CIRSA ENTERPRISES, S.A.",
-      "campos": [
-        {
-          "k": "per",
-          "label": "PER",
-          "antes": 20.1,
-          "ahora": 27.1,
-          "delta": 7.0,
-          "deltaPct": 34.8,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 7.4,
-          "ahora": 9.8,
-          "delta": 2.4,
-          "deltaPct": 32.4,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 3.57,
-          "ahora": 4.07,
-          "delta": 0.5,
-          "deltaPct": 14.0,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "rpd",
-          "label": "RPD",
-          "antes": 3.29,
-          "ahora": 2.44,
-          "delta": -0.85,
-          "deltaPct": -25.8,
-          "dir": "down",
-          "unidad": "%"
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 30.0,
-          "ahora": 80.0,
-          "delta": 50.0,
-          "deltaPct": 166.7,
-          "dir": "up",
-          "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "DIA",
-      "nombre": "DISTRIBUIDORA INTERNACIONAL DE ",
-      "campos": [
-        {
-          "k": "per",
-          "label": "PER",
-          "antes": 19.9,
-          "ahora": 23.7,
-          "delta": 3.8,
-          "deltaPct": 19.1,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 16.5,
-          "ahora": 19.6,
-          "delta": 3.1,
-          "deltaPct": 18.8,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 12.51,
-          "ahora": 14.91,
-          "delta": 2.4,
-          "deltaPct": 19.2,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 72.0,
-          "ahora": 86.0,
-          "delta": 14.0,
-          "deltaPct": 19.4,
-          "dir": "up",
-          "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "EZE",
-      "nombre": "GRUPO EZENTIS, S.A.",
-      "campos": [
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 14.18,
-          "ahora": 2.71,
-          "delta": -11.47,
-          "deltaPct": -80.9,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "roe",
-          "label": "ROE",
-          "antes": -309.0,
-          "ahora": 7.8,
-          "delta": 316.8,
-          "deltaPct": 102.5,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "margenNeto",
-          "label": "Margen neto",
-          "antes": -9.3,
-          "ahora": 1.0,
-          "delta": 10.3,
-          "deltaPct": 110.8,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "dnEbitda",
-          "label": "DN/EBITDA",
-          "antes": 7.75,
-          "ahora": 0.74,
-          "delta": -7.01,
-          "deltaPct": -90.5,
-          "dir": "down",
-          "unidad": "x"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "NEA",
-      "nombre": "NICOLAS CORREA",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 40.0,
-          "ahora": 49.0,
-          "delta": 9.0,
-          "deltaPct": 22.5,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "dnEbitda",
-          "label": "DN/EBITDA",
-          "antes": -0.57,
-          "ahora": -1.05,
-          "delta": -0.48,
-          "deltaPct": -84.2,
-          "dir": "down",
-          "unidad": "x"
-        },
-        {
-          "k": "crecBpa",
-          "label": "Crec. BPA",
-          "antes": -14.6,
-          "ahora": 2.6,
-          "delta": 17.2,
-          "deltaPct": 117.8,
-          "dir": "up",
-          "unidad": "%"
         },
         {
           "k": "crecIngresos",
           "label": "Crec. ingresos",
-          "antes": 1.7,
-          "ahora": 8.4,
-          "delta": 6.7,
-          "deltaPct": 394.1,
+          "antes": 15.1,
+          "ahora": 43.1,
+          "delta": 28.0,
+          "deltaPct": 185.4,
           "dir": "up",
           "unidad": "%"
         }
       ],
-      "senales": []
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        }
+      ]
+    },
+    {
+      "ticker": "MTS",
+      "nombre": "ARCELORMITTAL SA",
+      "campos": [
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 10.8,
+          "ahora": 9.8,
+          "delta": -1.0,
+          "deltaPct": -9.3,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 0.92,
+          "ahora": 0.83,
+          "delta": -0.09,
+          "deltaPct": -9.8,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 71.0,
+          "ahora": 59.0,
+          "delta": -12.0,
+          "deltaPct": -16.9,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        }
+      ]
+    },
+    {
+      "ticker": "TEF",
+      "nombre": "TELEFONICA,S.A.",
+      "campos": [
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 1.27,
+          "ahora": 2.67,
+          "delta": 1.4,
+          "deltaPct": 110.2,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 6.0,
+          "ahora": 19.0,
+          "delta": 13.0,
+          "deltaPct": 216.7,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": -0.47,
+          "ahora": -0.43,
+          "delta": 0.04,
+          "deltaPct": 8.5,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "OHLA",
+      "nombre": "OBRASCON HUARTE LAIN, S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 17.6,
+          "ahora": 34.9,
+          "delta": 17.3,
+          "deltaPct": 98.3,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 0.02,
+          "ahora": 0.01,
+          "delta": -0.01,
+          "deltaPct": -50.0,
+          "dir": "down",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▼ (¿resultados nuevos?)"
+        }
+      ]
     },
     {
       "ticker": "CAF",
       "nombre": "CONSTRUCCIONES Y AUXILIAR DE FE",
       "campos": [
         {
-          "k": "per",
-          "label": "PER",
-          "antes": 13.9,
-          "ahora": 15.4,
-          "delta": 1.5,
-          "deltaPct": 10.8,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 10.8,
-          "ahora": 11.8,
-          "delta": 1.0,
-          "deltaPct": 9.3,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 2.31,
-          "ahora": 2.56,
-          "delta": 0.25,
-          "deltaPct": 10.8,
-          "dir": "up",
-          "unidad": ""
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "SEC",
-      "nombre": "SECUOYA  GRUPO DE COMUNICACION,",
-      "campos": [
-        {
-          "k": "per",
-          "label": "PER",
-          "antes": 57.1,
-          "ahora": 62.0,
-          "delta": 4.9,
-          "deltaPct": 8.6,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 15.5,
-          "ahora": 16.82,
-          "delta": 1.32,
-          "deltaPct": 8.5,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 20.0,
-          "ahora": 60.0,
-          "delta": 40.0,
-          "deltaPct": 200.0,
-          "dir": "up",
-          "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "HOME",
-      "nombre": "NEINOR HOMES, S.A.",
-      "campos": [
-        {
-          "k": "rpd",
-          "label": "RPD",
-          "antes": 11.1,
-          "ahora": 10.4,
-          "delta": -0.7,
-          "deltaPct": -6.3,
-          "dir": "down",
-          "unidad": "%"
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 16.0,
-          "ahora": 31.0,
-          "delta": 15.0,
-          "deltaPct": 93.8,
-          "dir": "up",
-          "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "IAG",
-      "nombre": "INTL CONSOLIDATED AIRLINES GROU",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 60.0,
-          "ahora": 68.0,
-          "delta": 8.0,
-          "deltaPct": 13.3,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "crecBpa",
-          "label": "Crec. BPA",
-          "antes": -33.8,
-          "ahora": -30.4,
-          "delta": 3.4,
-          "deltaPct": 10.1,
-          "dir": "up",
-          "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "MVC",
-      "nombre": "METROVACESA, S.A.",
-      "campos": [
-        {
-          "k": "rpd",
-          "label": "RPD",
-          "antes": 19.27,
-          "ahora": 19.57,
-          "delta": 0.3,
-          "deltaPct": 1.6,
-          "dir": "up",
-          "unidad": "%"
-        },
-        {
-          "k": "payout",
-          "label": "Payout",
-          "antes": 342.4,
-          "ahora": 336.7,
-          "delta": -5.7,
-          "deltaPct": -1.7,
+          "antes": 92.0,
+          "ahora": 80.0,
+          "delta": -12.0,
+          "deltaPct": -13.0,
           "dir": "down",
           "unidad": "%"
         }
       ],
-      "senales": []
-    },
-    {
-      "ticker": "PRS",
-      "nombre": "PROMOTORA DE INFORMACIONES S.A.",
-      "campos": [
+      "senales": [
         {
-          "k": "perFwd",
-          "label": "PER fwd",
-          "antes": 115.7,
-          "ahora": 97.7,
-          "delta": -18.0,
-          "deltaPct": -15.6,
-          "dir": "down",
-          "unidad": ""
-        },
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": -1.02,
-          "ahora": -0.87,
-          "delta": 0.15,
-          "deltaPct": 14.7,
-          "dir": "up",
-          "unidad": ""
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
         }
-      ],
-      "senales": []
+      ]
     },
     {
-      "ticker": "VOC",
-      "nombre": "VOCENTO",
-      "campos": [
-        {
-          "k": "pbv",
-          "label": "P/BV",
-          "antes": 1.06,
-          "ahora": 1.15,
-          "delta": 0.09,
-          "deltaPct": 8.5,
-          "dir": "up",
-          "unidad": ""
-        },
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 42.0,
-          "ahora": 58.0,
-          "delta": 16.0,
-          "deltaPct": 38.1,
-          "dir": "up",
-          "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "ADZ",
-      "nombre": "ADOLFO DOMINGUEZ, S.A.",
+      "ticker": "EBRO",
+      "nombre": "EBRO FOODS, S.A.",
       "campos": [
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 76.0,
-          "ahora": 90.0,
-          "delta": 14.0,
-          "deltaPct": 18.4,
-          "dir": "up",
-          "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "AENA",
-      "nombre": "AENA, S.M.E., S.A.",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 61.0,
-          "ahora": 53.0,
-          "delta": -8.0,
-          "deltaPct": -13.1,
+          "antes": 26.0,
+          "ahora": 17.0,
+          "delta": -9.0,
+          "deltaPct": -34.6,
           "dir": "down",
           "unidad": "%"
         }
       ],
-      "senales": []
+      "senales": [
+        {
+          "tipo": "min52",
+          "txt": "📉 Entró en mínimos de 52 semanas"
+        }
+      ]
     },
     {
-      "ticker": "ANE",
-      "nombre": "CORPORACI...N ACCIONA ENERG...A",
+      "ticker": "MAKS",
+      "nombre": "MAKING SCIENCE GROUP, S.A.",
       "campos": [
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 36.0,
-          "ahora": 49.0,
-          "delta": 13.0,
-          "deltaPct": 36.1,
-          "dir": "up",
+          "antes": 12.0,
+          "ahora": 0.0,
+          "delta": -12.0,
+          "deltaPct": -100.0,
+          "dir": "down",
           "unidad": "%"
         }
       ],
-      "senales": []
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        }
+      ]
+    },
+    {
+      "ticker": "VIS",
+      "nombre": "VISCOFAN, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 41.0,
+          "ahora": 26.0,
+          "delta": -15.0,
+          "deltaPct": -36.6,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        }
+      ]
+    },
+    {
+      "ticker": "AZK",
+      "nombre": "AZKOYEN, S.A.",
+      "campos": [],
+      "senales": [
+        {
+          "tipo": "flag",
+          "txt": "🚩 Nueva alerta: dividendo irregular (posible extraordinario: 12m = 2.6x el año anterior)"
+        }
+      ]
+    },
+    {
+      "ticker": "PRM",
+      "nombre": "PRIM, S.A.",
+      "campos": [],
+      "senales": [
+        {
+          "tipo": "min52",
+          "txt": "📉 Entró en mínimos de 52 semanas"
+        }
+      ]
     },
     {
       "ticker": "ELE",
       "nombre": "ENDESA,S.A.",
       "campos": [
         {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 96.0,
-          "ahora": 87.0,
-          "delta": -9.0,
-          "deltaPct": -9.4,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "ENO",
-      "nombre": "ELECNOR S.A.",
-      "campos": [
+          "k": "per",
+          "label": "PER",
+          "antes": 16.4,
+          "ahora": 18.4,
+          "delta": 2.0,
+          "deltaPct": 12.2,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 5.24,
+          "ahora": 5.71,
+          "delta": 0.47,
+          "deltaPct": 9.0,
+          "dir": "up",
+          "unidad": ""
+        },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 43.0,
-          "ahora": 35.0,
-          "delta": -8.0,
-          "deltaPct": -18.6,
-          "dir": "down",
-          "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "GEST",
-      "nombre": "GESTAMP AUTOMOCION, S.A.",
-      "campos": [
-        {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 20.0,
-          "ahora": 36.0,
-          "delta": 16.0,
-          "deltaPct": 80.0,
+          "antes": 87.0,
+          "ahora": 97.0,
+          "delta": 10.0,
+          "deltaPct": 11.5,
           "dir": "up",
           "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "GSJ",
-      "nombre": "GRUPO EMPRESARIAL SAN JOSE, S.A",
-      "campos": [
+        },
         {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 37.0,
-          "ahora": 29.0,
-          "delta": -8.0,
-          "deltaPct": -21.6,
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": 67.8,
+          "ahora": -26.7,
+          "delta": -94.5,
+          "deltaPct": -139.4,
           "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 3.5,
+          "ahora": 27.0,
+          "delta": 23.5,
+          "deltaPct": 671.4,
+          "dir": "up",
           "unidad": "%"
         }
       ],
@@ -2687,12 +2978,156 @@
       "nombre": "ACCIONES IBERDROLA",
       "campos": [
         {
+          "k": "per",
+          "label": "PER",
+          "antes": 26.0,
+          "ahora": 30.0,
+          "delta": 4.0,
+          "deltaPct": 15.4,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 69.0,
-          "ahora": 79.0,
-          "delta": 10.0,
-          "deltaPct": 14.5,
+          "antes": 79.0,
+          "ahora": 98.0,
+          "delta": 19.0,
+          "deltaPct": 24.1,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 85.6,
+          "ahora": 92.6,
+          "delta": 7.0,
+          "deltaPct": 8.2,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": 68.3,
+          "ahora": -13.4,
+          "delta": -81.7,
+          "deltaPct": -119.6,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 9.8,
+          "ahora": 15.9,
+          "delta": 6.1,
+          "deltaPct": 62.2,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "NXT",
+      "nombre": "NUEVA EXPRESI...N TEXTIL, S.A.",
+      "campos": [
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 67.87,
+          "ahora": 40.88,
+          "delta": -26.99,
+          "deltaPct": -39.8,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 61.0,
+          "ahora": 52.0,
+          "delta": -9.0,
+          "deltaPct": -14.8,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "roe",
+          "label": "ROE",
+          "antes": 134.2,
+          "ahora": 40.7,
+          "delta": -93.5,
+          "deltaPct": -69.7,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": -29.7,
+          "ahora": 141.4,
+          "delta": 171.1,
+          "deltaPct": 576.1,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 36.5,
+          "ahora": 66.5,
+          "delta": 30.0,
+          "deltaPct": 82.2,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "GRF",
+      "nombre": "GRIFOLS S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 14.6,
+          "ahora": 16.6,
+          "delta": 2.0,
+          "deltaPct": 13.7,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 8.5,
+          "ahora": 9.9,
+          "delta": 1.4,
+          "deltaPct": 16.5,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 1.19,
+          "ahora": 1.35,
+          "delta": 0.16,
+          "deltaPct": 13.4,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 28.0,
+          "ahora": 78.0,
+          "delta": 50.0,
+          "deltaPct": 178.6,
           "dir": "up",
           "unidad": "%"
         }
@@ -2706,27 +3141,40 @@
         {
           "k": "pbv",
           "label": "P/BV",
-          "antes": 0.9,
-          "ahora": 0.75,
-          "delta": -0.15,
-          "deltaPct": -16.7,
+          "antes": 0.75,
+          "ahora": 0.56,
+          "delta": -0.19,
+          "deltaPct": -25.3,
           "dir": "down",
           "unidad": ""
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "OLE",
-      "nombre": "DEOLEO, S.A.",
-      "campos": [
+        },
         {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 63.0,
-          "ahora": 55.0,
-          "delta": -8.0,
-          "deltaPct": -12.7,
+          "k": "roe",
+          "label": "ROE",
+          "antes": 8.1,
+          "ahora": 5.7,
+          "delta": -2.4,
+          "deltaPct": -29.6,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "margenNeto",
+          "label": "Margen neto",
+          "antes": 4.9,
+          "ahora": 16.0,
+          "delta": 11.1,
+          "deltaPct": 226.5,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": -4.5,
+          "ahora": -36.1,
+          "delta": -31.6,
+          "deltaPct": -702.2,
           "dir": "down",
           "unidad": "%"
         }
@@ -2738,29 +3186,42 @@
       "nombre": "RENTA 4 BANCO, S.A.",
       "campos": [
         {
-          "k": "pos52sem",
-          "label": "Pos. 52s",
-          "antes": 63.0,
-          "ahora": 76.0,
-          "delta": 13.0,
-          "deltaPct": 20.6,
+          "k": "per",
+          "label": "PER",
+          "antes": 14.8,
+          "ahora": 16.5,
+          "delta": 1.7,
+          "deltaPct": 11.5,
           "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 4.05,
+          "ahora": 5.13,
+          "delta": 1.08,
+          "deltaPct": 26.7,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 3.54,
+          "ahora": 3.21,
+          "delta": -0.33,
+          "deltaPct": -9.3,
+          "dir": "down",
           "unidad": "%"
-        }
-      ],
-      "senales": []
-    },
-    {
-      "ticker": "REN",
-      "nombre": "RENTA CORPORACION REAL ESTATE, ",
-      "campos": [
+        },
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 7.0,
-          "ahora": 16.0,
+          "antes": 76.0,
+          "ahora": 85.0,
           "delta": 9.0,
-          "deltaPct": 128.6,
+          "deltaPct": 11.8,
           "dir": "up",
           "unidad": "%"
         }
@@ -2768,16 +3229,706 @@
       "senales": []
     },
     {
-      "ticker": "TUB",
-      "nombre": "TUBACEX, S.A.",
+      "ticker": "ROVI",
+      "nombre": "LABORATORIOS FARMACEUTICOS ROVI",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 15.9,
+          "ahora": 17.3,
+          "delta": 1.4,
+          "deltaPct": 8.8,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 17.1,
+          "ahora": 19.0,
+          "delta": 1.9,
+          "deltaPct": 11.1,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 4.19,
+          "ahora": 4.57,
+          "delta": 0.38,
+          "deltaPct": 9.1,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 13.0,
+          "ahora": 28.0,
+          "delta": 15.0,
+          "deltaPct": 115.4,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "CCEP",
+      "nombre": "COCA-COLA EUROPACIFIC PARTNERS ",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 20.2,
+          "ahora": 22.9,
+          "delta": 2.7,
+          "deltaPct": 13.4,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 4.8,
+          "ahora": 5.48,
+          "delta": 0.68,
+          "deltaPct": 14.2,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 62.0,
+          "ahora": 96.0,
+          "delta": 34.0,
+          "deltaPct": 54.8,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "ORY",
+      "nombre": "ORYZON GENOMICS, S.A.",
+      "campos": [
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 306.2,
+          "ahora": 269.8,
+          "delta": -36.4,
+          "deltaPct": -11.9,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 1.78,
+          "ahora": 1.57,
+          "delta": -0.21,
+          "deltaPct": -11.8,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 11.0,
+          "ahora": 2.0,
+          "delta": -9.0,
+          "deltaPct": -81.8,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "UBS",
+      "nombre": "URBAS GRUPO FINANCIERO, S.A.",
+      "campos": [
+        {
+          "k": "roe",
+          "label": "ROE",
+          "antes": -24.1,
+          "ahora": -27.3,
+          "delta": -3.2,
+          "deltaPct": -13.3,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "margenNeto",
+          "label": "Margen neto",
+          "antes": -79.9,
+          "ahora": -89.3,
+          "delta": -9.4,
+          "deltaPct": -11.8,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "dnEbitda",
+          "label": "DN/EBITDA",
+          "antes": 212.51,
+          "ahora": 247.68,
+          "delta": 35.17,
+          "deltaPct": 16.5,
+          "dir": "up",
+          "unidad": "x"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "ADZ",
+      "nombre": "ADOLFO DOMINGUEZ, S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 36.1,
+          "ahora": 39.2,
+          "delta": 3.1,
+          "deltaPct": 8.6,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 13.8,
+          "ahora": 15.0,
+          "delta": 1.2,
+          "deltaPct": 8.7,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "AEDAS",
+      "nombre": "AEDAS HOMES, S.A",
+      "campos": [
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 7.8,
+          "ahora": 8.7,
+          "delta": 0.9,
+          "deltaPct": 11.5,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 59.0,
+          "ahora": 89.0,
+          "delta": 30.0,
+          "deltaPct": 50.8,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "AIR",
+      "nombre": "AIRBUS",
+      "campos": [
+        {
+          "k": "crecBpa",
+          "label": "Crec. BPA",
+          "antes": 125.8,
+          "ahora": 20.6,
+          "delta": -105.2,
+          "deltaPct": -83.6,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 27.7,
+          "ahora": -2.0,
+          "delta": -29.7,
+          "deltaPct": -107.2,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "BKY",
+      "nombre": "BERKELEY ENERGIA LIMITED",
+      "campos": [
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 2.72,
+          "ahora": 5.08,
+          "delta": 2.36,
+          "deltaPct": 86.8,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 28.0,
+          "ahora": 66.0,
+          "delta": 38.0,
+          "deltaPct": 135.7,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "FAE",
+      "nombre": "FAES FARMA, S.A.",
       "campos": [
         {
           "k": "pos52sem",
           "label": "Pos. 52s",
-          "antes": 7.0,
+          "antes": 28.0,
+          "ahora": 45.0,
+          "delta": 17.0,
+          "deltaPct": 60.7,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 24.0,
+          "ahora": 17.4,
+          "delta": -6.6,
+          "deltaPct": -27.5,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "FDR",
+      "nombre": "FLUIDRA, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 3.0,
+          "ahora": 19.0,
+          "delta": 16.0,
+          "deltaPct": 533.3,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 4.3,
+          "ahora": 15.0,
+          "delta": 10.7,
+          "deltaPct": 248.8,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "LOG",
+      "nombre": "COMPA...IA DE DISTRIBUCION INTE",
+      "campos": [
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 6.12,
+          "ahora": 5.8,
+          "delta": -0.32,
+          "deltaPct": -5.2,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 66.0,
+          "ahora": 85.0,
+          "delta": 19.0,
+          "deltaPct": 28.8,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "PRS",
+      "nombre": "PROMOTORA DE INFORMACIONES S.A.",
+      "campos": [
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 97.7,
+          "ahora": 88.3,
+          "delta": -9.4,
+          "deltaPct": -9.6,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": -0.87,
+          "ahora": -0.78,
+          "delta": 0.09,
+          "deltaPct": 10.3,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "RED",
+      "nombre": "REDEIA CORPORACION, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 18.0,
+          "ahora": 54.0,
+          "delta": 36.0,
+          "deltaPct": 200.0,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "dnEbitda",
+          "label": "DN/EBITDA",
+          "antes": 4.62,
+          "ahora": 4.96,
+          "delta": 0.34,
+          "deltaPct": 7.4,
+          "dir": "up",
+          "unidad": "x"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "A3M",
+      "nombre": "ATRESMEDIA CORPORACION DE MEDIO",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 89.0,
+          "ahora": 80.0,
+          "delta": -9.0,
+          "deltaPct": -10.1,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "AI",
+      "nombre": "AIRTIFICIAL INTELLIGENCE STRUCT",
+      "campos": [
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 2.42,
+          "ahora": 2.14,
+          "delta": -0.28,
+          "deltaPct": -11.6,
+          "dir": "down",
+          "unidad": ""
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "AMS",
+      "nombre": "AMADEUS IT GROUP, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 29.0,
+          "ahora": 47.0,
+          "delta": 18.0,
+          "deltaPct": 62.1,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "CIE",
+      "nombre": "CIE AUTOMOTIVE, S.A.",
+      "campos": [
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 1.82,
+          "ahora": 1.36,
+          "delta": -0.46,
+          "deltaPct": -25.3,
+          "dir": "down",
+          "unidad": ""
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "COL",
+      "nombre": "COLONIAL SFL, SOCIMI. S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 9.0,
+          "ahora": 27.0,
+          "delta": 18.0,
+          "deltaPct": 200.0,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "DIA",
+      "nombre": "DISTRIBUIDORA INTERNACIONAL DE ",
+      "campos": [
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 19.6,
+          "ahora": 21.7,
+          "delta": 2.1,
+          "deltaPct": 10.7,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "ENO",
+      "nombre": "ELECNOR S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 35.0,
+          "ahora": 26.0,
+          "delta": -9.0,
+          "deltaPct": -25.7,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "EZE",
+      "nombre": "GRUPO EZENTIS, S.A.",
+      "campos": [
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 3.4,
+          "ahora": 22.0,
+          "delta": 18.6,
+          "deltaPct": 547.1,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "FCC",
+      "nombre": "ACCIONES FOMENTO DE CONSTRUCCIO",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 12.0,
+          "ahora": 4.0,
+          "delta": -8.0,
+          "deltaPct": -66.7,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "ITX",
+      "nombre": "Industria de Diseño Textil, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 61.0,
+          "ahora": 75.0,
+          "delta": 14.0,
+          "deltaPct": 23.0,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "NTGY",
+      "nombre": "NATURGY ENERGY GROUP, S.A.",
+      "campos": [
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 2.82,
+          "ahora": 3.27,
+          "delta": 0.45,
+          "deltaPct": 16.0,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "PUIG",
+      "nombre": "PUIG BRANDS, S.A. CLASE B",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 84.0,
+          "ahora": 92.0,
+          "delta": 8.0,
+          "deltaPct": 9.5,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "PVA",
+      "nombre": "PESCANOVA,S.A.",
+      "campos": [
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": -1.07,
+          "ahora": -0.98,
+          "delta": 0.09,
+          "deltaPct": 8.4,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "RJF",
+      "nombre": "LABORATORIO REIG JOFRE, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 23.0,
+          "ahora": 41.0,
+          "delta": 18.0,
+          "deltaPct": 78.3,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "SCYR",
+      "nombre": "SACYR, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 24.0,
           "ahora": 35.0,
-          "delta": 28.0,
-          "deltaPct": 400.0,
+          "delta": 11.0,
+          "deltaPct": 45.8,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "SEC",
+      "nombre": "SECUOYA  GRUPO DE COMUNICACION,",
+      "campos": [
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 17.7,
+          "ahora": 13.8,
+          "delta": -3.9,
+          "deltaPct": -22.0,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "TRE",
+      "nombre": "TECNICAS REUNIDAS S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 15.0,
+          "ahora": 26.0,
+          "delta": 11.0,
+          "deltaPct": 73.3,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "VID",
+      "nombre": "VIDRALA, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 74.0,
+          "ahora": 87.0,
+          "delta": 13.0,
+          "deltaPct": 17.6,
           "dir": "up",
           "unidad": "%"
         }
@@ -2785,11 +3936,124 @@
       "senales": []
     }
   ],
-  "nuevas": [],
+  "nuevas": [
+    {
+      "ticker": "ATRY",
+      "nombre": "ATRYS HEALTH, S.A."
+    },
+    {
+      "ticker": "ATSI",
+      "nombre": "APLICACIONES Y TRATAMIENTOS DE "
+    },
+    {
+      "ticker": "CASH",
+      "nombre": "PROSEGUR CASH, S.A."
+    },
+    {
+      "ticker": "CBAV",
+      "nombre": "CLINICA BAVIERA S.A."
+    },
+    {
+      "ticker": "CLR",
+      "nombre": "CLERHP ESTRUCTURAS, S.A."
+    },
+    {
+      "ticker": "CMO",
+      "nombre": "CEMENTOS MOLINS, S.A."
+    },
+    {
+      "ticker": "DESA",
+      "nombre": "DESARROLLOS ESPECIALES DE SISTE"
+    },
+    {
+      "ticker": "DOM",
+      "nombre": "GLOBAL DOMINION ACCESS, S.A."
+    },
+    {
+      "ticker": "EAT",
+      "nombre": "AMREST HOLDINGS, S.E."
+    },
+    {
+      "ticker": "EBROM",
+      "nombre": "EBRO MOTORS GROUP EV, S.A."
+    },
+    {
+      "ticker": "EDR",
+      "nombre": "EDREAMS ODIGEO, S.A."
+    },
+    {
+      "ticker": "GAM",
+      "nombre": "GENERAL DE ALQUILER DE MAQUINAR"
+    },
+    {
+      "ticker": "GGR",
+      "nombre": "GREENING GROUP GLOBAL, S.A."
+    },
+    {
+      "ticker": "IMC",
+      "nombre": "INMOCEMENTO S.A."
+    },
+    {
+      "ticker": "INDXA",
+      "nombre": "INDEXA CAPITAL GROUP, S.A."
+    },
+    {
+      "ticker": "ISUR",
+      "nombre": "INMOBILIARIA DEL SUR S.A."
+    },
+    {
+      "ticker": "IZER",
+      "nombre": "IZERTIS, S.A."
+    },
+    {
+      "ticker": "LIB",
+      "nombre": "LIBERTAS 7"
+    },
+    {
+      "ticker": "LLYC",
+      "nombre": "LLORENTE Y CUENCA, S.A."
+    },
+    {
+      "ticker": "MDF",
+      "nombre": "DURO FELGUERA, S.A."
+    },
+    {
+      "ticker": "MTB",
+      "nombre": "MONTEBALITO, S.A."
+    },
+    {
+      "ticker": "NAT",
+      "nombre": "NATAC NATURAL INGREDIENTS, S.A."
+    },
+    {
+      "ticker": "NTH",
+      "nombre": "NATURHOUSE HEALTH, S.A"
+    },
+    {
+      "ticker": "SNG",
+      "nombre": "SINGULAR PEOPLE S.A."
+    },
+    {
+      "ticker": "SOL",
+      "nombre": "SOLTEC POWER HOLDINGS, S.A."
+    },
+    {
+      "ticker": "SQRL",
+      "nombre": "SQUIRREL MEDIA, S.A."
+    },
+    {
+      "ticker": "TSK",
+      "nombre": "TSK ELECTRONICA Y ELECTRICIDAD,"
+    },
+    {
+      "ticker": "VYT",
+      "nombre": "VYTRUS BIOTECH, S.A."
+    }
+  ],
   "salieron": [],
   "totales": {
-    "conCambios": 76,
-    "conSenal": 49,
-    "universo": 102
+    "conCambios": 88,
+    "conSenal": 51,
+    "universo": 130
   }
 }
