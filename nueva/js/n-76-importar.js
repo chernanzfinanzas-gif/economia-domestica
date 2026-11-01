@@ -380,6 +380,11 @@
     if(s) s.textContent='';
   };
   window._nImpST=function(){ return ST; };
+  /* 1-nov-2026: la venta de derechos también sale del extracto de R4 que la app ya tiene guardado (sin volver a importar) */
+  window.nImpDerechosGuardados=function(){ try{ var X=(typeof nR4Xls==='function')?nR4Xls():null; if(!X||!(X.cash||[]).length||typeof DB==='undefined'||!DB) return 0;
+      var L=r4Hechos(X.cash.map(function(l){ return {f:l.fecha,c:String(l.concepto||'').toUpperCase(),imp:l.imp}; })).filter(function(l){ return l.r4der; });
+      L.forEach(function(l){ l.key=hash('R4|'+l.f+'|'+l.txt+'|'+l.imp); }); var n=asegurarDerechos(L);
+      if(n&&typeof scheduleSave==='function') scheduleSave(); return n; }catch(e){ console.warn('[derechos guardados]',e); return 0; } };
 
   /* ---------- recogida automática desde Google Drive (1-nov-2026) ----------
      Descargas se sincroniza con Drive (Google Drive para escritorio) o guardas el extracto en Drive desde el móvil: la app busca en

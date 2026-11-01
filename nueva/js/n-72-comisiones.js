@@ -121,7 +121,8 @@
 (function(){
   if(typeof renderRentabEmpresas!=='function') return;
   var o=renderRentabEmpresas;
-  renderRentabEmpresas=function(){ var r=o.apply(this,arguments);
+  renderRentabEmpresas=function(){ if(typeof window.nImpDerechosGuardados==='function') window.nImpDerechosGuardados();   /* idempotente: no duplica */
+    var r=o.apply(this,arguments);
     try{ var R=rentabilidadEmpresas(); if(R&&R.ok) (R.rows||[]).forEach(function(x){ if(!(x.derechos>0)) return;
       document.querySelectorAll('#rentaBody tr.mt-row').forEach(function(tr){ var b=tr.querySelector('[data-ficha]'); if(!b||b.getAttribute('data-ficha')!==x.t) return;
         var det=tr.nextElementSibling, nums=det&&det.querySelector('.mt-nums'); if(!nums||nums.querySelector('.n-derm')) return;
