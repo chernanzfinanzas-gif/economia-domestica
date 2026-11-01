@@ -16,7 +16,7 @@
     R.forEach(function(r){ var t=String(r[0]||''); var m=/desde (\d{2}\/\d{2}\/\d{4}) hasta (\d{2}\/\d{2}\/\d{4})/.exec(t); if(m){ ini=iso(m[1]); fin=iso(m[2]); }
       if(String(r[1]||'').trim()==='Saldo Anotado') out.anotado=n(r[3]); if(String(r[1]||'').trim()==='Saldo pendiente Anotar') out.pendiente=n(r[3]);
       if(String(r[0]||'').trim()==='Patrimonio Total') out.patrimonio=n(r[3]); });
-    out.desde=ini; out.fecha=fin;
+    out.desde=ini; var _hoy=new Date().toISOString().slice(0,10); out.fecha=(fin&&fin>_hoy)?_hoy:fin;   /* R4 a veces pone el «hasta» en el futuro */
     /* valor del fondo al principio del periodo (fila «Cartera de Fondos» del resumen) y resultado del fondo (hoja Fondos) */
     var hdr=R.filter(function(r){ return String(r[0]||'').trim()==='PATRIMONIO TOTAL'; })[0], cf=R.filter(function(r){ return String(r[0]||'').trim()==='Cartera de Fondos'; })[0];
     if(hdr&&cf) out.fondoIni={fecha:iso(hdr[2]),valor:n(cf[2])||0};
@@ -32,16 +32,18 @@
   function todos(){ try{ var s=localStorage.getItem(KEY); var v=s?JSON.parse(s):[]; return Array.isArray(v)?v:(v?[v]:[]); }catch(e){ return []; } }
   window.nR4Xls=function(){
     var L=todos().sort(function(a,b){ return a.desde<b.desde?-1:1; }); if(!L.length) return null;
-    var U=L[L.length-1], P0=L[0], cash=[];
-    L.forEach(function(x){ (x.cash||[]).forEach(function(l){ cash.push(l); }); });
+    var U=L.slice().sort(function(a,b){ return a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:(a.desde<b.desde?1:-1)); }).pop(), P0=L[0], cash=[];
+    /* 1-nov: extractos que se solapan traen las mismas líneas: cada línea cuenta una vez (si un día tiene dos iguales de verdad, se respetan las dos) */
+    var mx={}, ej={}; L.forEach(function(x){ var c={}; (x.cash||[]).forEach(function(l){ var k=l.fecha+'|'+l.concepto+'|'+l.imp; c[k]=(c[k]||0)+1; if(!ej[k]) ej[k]=l; }); Object.keys(c).forEach(function(k){ mx[k]=Math.max(mx[k]||0,c[k]); }); });
+    Object.keys(mx).forEach(function(k){ for(var i=0;i<mx[k];i++) cash.push(ej[k]); });
     cash.sort(function(a,b){ return a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:0); });
     return {fecha:U.fecha,desde:P0.desde,cash:cash,fondo:U.fondo,acciones:U.acciones,anotado:U.anotado,pendiente:U.pendiente,saldoFinal:U.saldoFinal,patrimonio:U.patrimonio,
-            fondoIni:P0.fondoIni,fichero:L.map(function(x){ return x.desde.slice(0,4); }).join(' + '),periodos:L.map(function(x){ return [x.desde,x.fecha]; })};
+            fondoIni:P0.fondoIni,fichero:L.map(function(x){ return x.desde.slice(0,4); }).filter(function(y,i,a){ return a.indexOf(y)===i; }).join(' + '),periodos:L.map(function(x){ return [x.desde,x.fecha]; })};
   };
   /* 1-nov-2026: el mismo extracto que entra por «Importar extractos del banco» (botón o Drive) pone al día Fondo R4 y Caja bróker */
   window.nR4XlsDesdeImport=function(buf,nombre){
     var x=leer(buf); x.fichero=nombre;
-    var L=todos().filter(function(o){ return o.desde!==x.desde; }).concat([x]);
+    var L=todos().filter(function(o){ return o.desde!==x.desde&&!(o.desde>=x.desde&&o.fecha<=x.fecha); }).concat([x]);   /* el que queda dentro del nuevo sobra */
     try{ localStorage.setItem(KEY,JSON.stringify(L)); }catch(e){}
     window._nR4XUlt=window.nR4Xls();
     try{ if(typeof renderCaja==='function') renderCaja(); if(typeof renderFondoR4==='function') renderFondoR4(); }catch(e){}
@@ -67,6 +69,7 @@
       if(/^(COMISION DVDO|IVA DIVIDENDO)/.test(c)&&last&&last.tipo==='div'&&last.fecha===l.fecha){ last.imp+=l.imp; return; }
       if((m=/^COMPRA DE (\d+) (\S+) A /.exec(c))){ H.push(last={fecha:l.fecha,tipo:'compra',imp:l.imp,txt:'Compra '+m[1]+' '+m[2],tk:m[2],acc:+m[1]}); return; }
       if((m=/^VENTA DE (\d+) (\S+) A /.exec(c))){ H.push(last={fecha:l.fecha,tipo:'venta',imp:l.imp,txt:'Venta '+m[1]+' '+m[2],tk:m[2],acc:+m[1]}); return; }
+      if(/^RETENCION VENT DCHOS/.test(c)&&last&&last.tipo==='venta'&&last.fecha===l.fecha){ last.imp+=l.imp; last.txt+=' (neto de retención)'; return; }   /* venta de derechos: su retención va con ella */
       if(/^ITF /.test(c)&&last&&(last.tipo==='compra'||last.tipo==='venta')&&last.fecha===l.fecha){ last.imp+=l.imp; return; }
       if(/CUSTODIA/.test(c)){ var u=H.filter(function(h){ return h.tipo==='custodia'&&h.fecha===l.fecha; })[0]; if(u) u.imp+=l.imp; else H.push(last={fecha:l.fecha,tipo:'custodia',imp:l.imp,txt:'Custodia R4'}); return; }
       H.push(last={fecha:l.fecha,tipo:'otro',imp:l.imp,txt:l.concepto});
