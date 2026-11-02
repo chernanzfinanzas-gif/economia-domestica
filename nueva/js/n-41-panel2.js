@@ -38,6 +38,8 @@
   document.addEventListener('click',function(e){ var h=e.target.closest&&e.target.closest('[data-npblk]'); if(!h||e.target.closest('[data-avseenall],[data-avshow],a,button')) return; e.stopPropagation(); var b=h.parentElement; b.classList.toggle('open'); window._nPOpen[h.getAttribute('data-npblk')]=b.classList.contains('open'); },true);
 
   /* ---------------- 1 · Avisos agrupados ---------------- */
+  /* 2-nov: las 35 analizadas del método v3 (DB.analisis trae todo el universo y no sirve para esto) */
+  if(!window._nAn35){ window._nAn35={}; fetch('fichas/_resumen.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(R){ var E=R&&R.empresas; if(!E) return; (Array.isArray(E)?E:Object.keys(E).map(function(k){ return Object.assign({ticker:k},E[k]); })).forEach(function(e){ if(e&&e.ticker) window._nAn35[String(e.ticker).toUpperCase()]=1; }); try{ avisos(); }catch(e){} }).catch(function(){}); }
   window._nAvF=window._nAvF||'';
   function cotDe(t){ try{ return (typeof _mcCot==='function')?(+_mcCot(t)||0):0; }catch(e){ return 0; } }
   function grupo(x){
@@ -51,7 +53,7 @@
       return 'dec';
     }
     /* 2-nov (Carlos): un hecho no es una propuesta. Los de tus analizadas, como aviso; los del resto del universo, plegados */
-    if(x.tipo==='hallazgo'){ var th=String(x.tick||'').toUpperCase(); return (th&&typeof _mcAna==='function'&&_mcAna(th))?'ext':'uni'; }
+    if(x.tipo==='hallazgo'){ var th=String(x.tick||'').toUpperCase(); return (th&&window._nAn35&&window._nAn35[th])?'ext':'uni'; }
     if(x.tipo==='dividendo') return 'div';
     if(x.tipo==='hogar') return 'hog';
     if(x.sig==='S5'||x.sig==='S4') return 'tri';
