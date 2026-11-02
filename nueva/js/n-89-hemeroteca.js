@@ -23,7 +23,7 @@
       L.push({t:t.toUpperCase(),f:f,fecha:m?m[1]:'',sen:m&&m[3]?m[3]:'',tit:m?m[2].replace(/^Nota Revisión Extraordinaria\s*/i,''):f}); }); });
     Object.keys(DV3||{}).forEach(function(t){ (DV3[t]||[]).forEach(function(d){ if(!d||!d.fechaIso) return; L.push({t:t.toUpperCase(),v3:1,fecha:d.fechaIso,sen:d.senal||'',dec:d.decision||'',tit:d.motivo||'',rev:d.revision||''}); }); });
     return L.sort(function(a,b){ return a.fecha<b.fecha?1:(a.fecha>b.fecha?-1:0); }); }
-  var SEN={S1:['Stop tocado','#991B1B','#FEE2E2'],S2:['Rojo o tesis rota','#991B1B','#FEE2E2'],S3:['Precio en el objetivo','#1E40AF','#DBEAFE'],S6:['Dos ámbar seguidos','#92400E','#FEF3C7'],Disc:['Revisión a criterio','#475569','#F1F5F9'],VETO:['Veto','#6D28D9','#EDE9FE']};
+  var SEN={EXT:['Revisión extraordinaria','#9A3412','#FFEDD5'],S1:['Stop tocado','#991B1B','#FEE2E2'],S2:['Rojo o tesis rota','#991B1B','#FEE2E2'],S3:['Precio en el objetivo','#1E40AF','#DBEAFE'],S6:['Dos ámbar seguidos','#92400E','#FEF3C7'],Disc:['Revisión a criterio','#475569','#F1F5F9'],VETO:['Veto','#6D28D9','#EDE9FE']};
   function pillS(s){ var c=SEN[s]||[s,'#475569','#F1F5F9']; return '<span class="n-hm-pill" style="background:'+c[2]+';color:'+c[1]+'">'+E(s)+' · '+c[0]+'</span>'; }
   function sem(c){ var M={V:['#16A34A','verde'],A:['#D97706','ámbar'],R:['#DC2626','rojo']}[c]||['#94A3B8','—']; return '<span class="n-hm-sem" style="background:'+M[0]+'" title="'+M[1]+'"></span>'; }
   function trim(t,cb){ if(TRIM[t]!==undefined){ cb(); return; } TRIM[t]=null; fetch('dossiers/trimestral/'+t+'-trim.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }).then(function(j){ TRIM[t]=j||false; cb(); }); }

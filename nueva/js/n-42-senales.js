@@ -10,7 +10,7 @@
   var FN='senales-decisiones.json', OPC=['REAFIRMAR','AJUSTA PO','REBAJA','VENDE'];
   var AYUDA={'REAFIRMAR':'No cambia nada: la decisión de la tesis sigue como está.','AJUSTA PO':'Se rehace la valoración con los datos que haya: pueden cambiar el PO y la banda.',
              'REBAJA':'La decisión baja un escalón (COMPRAR → MANTENER → ESPERAR → REDUCIR) hasta que se reescriba la tesis. Banda y PO no cambian.','VENDE':'La decisión pasa a VENDER (salida total o parcial) hasta que se reescriba la tesis.'};
-  var NOMS={S1:'cotización en el stop',S2:'semáforo rojo o tesis rota',S3:'cotización sobre el PO',S4:'tesis con más de 12 meses',S6:'dos periodos seguidos en ámbar'};
+  var NOMS={EXT:'revisión extraordinaria propuesta',S1:'cotización en el stop',S2:'semáforo rojo o tesis rota',S3:'cotización sobre el PO',S4:'tesis con más de 12 meses',S6:'dos periodos seguidos en ámbar'};
   window._nSen=window._nSen||null; window._nSenDec=window._nSenDec||{schemaVersion:1,decisiones:{}};
   var _fid=null, _msg='';
   function ahora(){ var d=new Date(); d=new Date(d.getTime()-d.getTimezoneOffset()*6e4); return d.toISOString().slice(0,16); }   /* hora local */
