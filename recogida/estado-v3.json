@@ -1,26 +1,15 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-02T20:45",
+ "generado": "2026-11-02T21:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-02T20:45",
+  "cuando": "2026-11-02T21:45",
   "ficheros": [
-   "dossiers/AENA.html",
-   "dossiers/AENA.json",
-   "dossiers/SAN.html",
-   "dossiers/SAN.json",
-   "dossiers/trimestral/AENA-trim.json",
-   "dossiers/trimestral/SAN-trim.json",
-   "dossiers/v3/AENA.html",
-   "dossiers/v3/SAN.html",
-   "fichas/AENA.json",
-   "fichas/SAN.json"
+   "fichas/_resumen.json"
   ]
  },
- "rechazos": [
-  "NO SUBE fichas/_resumen.json: lista de empresas rara"
- ],
+ "rechazos": [],
  "decisiones": "recogida/decisiones-v3.json"
 }
