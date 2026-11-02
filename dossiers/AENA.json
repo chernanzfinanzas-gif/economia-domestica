@@ -15,7 +15,7 @@
  "poBull": 20.98,
  "entMin": 13.28,
  "entMax": 14.21,
- "stop": 8.82,
+ "stop": 8.83,
  "dpaPrevisto": 1.09,
  "moat": "70,5 sobre 100 · MOAT MODERADO. Monopolio legal de la red española: el regulador limita el exceso de retorno",
  "catalizadores": [
@@ -56,7 +56,7 @@
   "motivos": [
    "Vigilar: cobertura OE 1.27x · payout 77 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-02",
   "origen": "metodo-v3",
   "shareholderYield": 4.58
  },
@@ -97,31 +97,31 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-02",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 14.78,
+  "gImplicito": 15.06,
   "gIntrinseco": 3.78,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-02",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1102.8987,
-   "wacc": 7.6782,
+   "wacc": 7.64,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 1500.0,
    "deudaNeta": 5509.027,
    "modo": "EV",
-   "precioBase": 26.78,
-   "gBase": 17.55,
-   "fechaBase": "2026-10-28",
-   "congeladoEl": "2026-10-29",
+   "precioBase": 27.6,
+   "gBase": 18.06,
+   "fechaBase": "2026-11-02",
+   "congeladoEl": "2026-11-02",
    "validado": false,
-   "desviacion": 2.78
+   "desviacion": 3.0
   }
  }
 }

@@ -4,20 +4,20 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "SAN",
  "empresa": "Banco Santander, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-02",
  "revisadoEl": "2026-10-27",
  "rating": "A",
  "score": 73.1,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): ptbv_pesimista 8 % · ptbv_base 26 % · ptbv_optimista 8 % · m_ptbv 11 % · m_per 7 % · m_pvc 5 % · m_rpd 35 % · flujo base del DCF: P/TBV justificado (banca)",
- "poBear": 5.74,
- "poBase": 6.97,
- "poBull": 8.69,
- "entMin": 5.74,
- "entMax": 6.06,
- "stop": 3.59,
+ "poBear": 5.72,
+ "poBase": 6.94,
+ "poBull": 8.65,
+ "entMin": 5.72,
+ "entMax": 6.04,
+ "stop": 3.57,
  "dpaPrevisto": 0.24,
- "moat": "68,1 sobre 100 · MOAT MODERADO. Escala y vinculación de clientes que el RoTE de la década no enseña entero",
+ "moat": "68,0 sobre 100 · MOAT MODERADO. Escala y vinculación de clientes que el RoTE de la década no enseña entero",
  "catalizadores": [
   "El coste del riesgo se normaliza hacia el 0,90 %: Está en 1,15 % y no baja del 0,77 % en diez años: −25 pb sobre 1,04 billones de préstamos. (12-24 meses)",
   "El RoTE se sostiene en el 17,1 %: El caso base usa la mediana de tres años (16,3 %); si el 17,1 % de 2025 se sostiene, el RoTE de los tres escenarios sube 0,8 pp. (6-18 meses)",
@@ -35,8 +35,8 @@
   "Las comisiones se erosionan por la competencia en pagos (Baja-Media): Las comisiones netas son el 22 % del margen bruto (12.976 M€ en 2025) y su peso baja desde el 23 % de 2016. Cada 5 % menos de comisiones es un 1,1 % menos de margen bruto.",
   "Ciberataque o caída prolongada de sistemas (Baja-Media): 1,04 billones de depósitos y una base de clientes digital: se mide como lucro cesante y multa, no como fuga de depósitos (el modelo no la tiene)."
  ],
- "bull": "8,69 € — escenario optimista: RoTE del último año (o +1 pp sobre el base)",
- "bear": "5,74 € — escenario pesimista: RoTE medio de 5 años",
+ "bull": "8,65 € — escenario optimista: RoTE del último año (o +1 pp sobre el base)",
+ "bear": "5,72 € — escenario pesimista: RoTE medio de 5 años",
  "resumen": "ESPERAR, como en septiembre. A 11,51 € la cotización está casi al doble del techo de la banda de entrada (5,74-6,06 €) y un 34 % por encima incluso del bull (8,69 €). El banco es bueno (A, moat moderado, dividendo muy seguro); el precio no deja margen. Cumple tres de las cuatro condiciones de COMPRAR; falla el margen de seguridad.",
  "dividendSafety": {
   "score": 88,
@@ -51,7 +51,7 @@
   "motivos": [
    "Muy seguro · payout del dividendo 26 % → 30/30 · CET1 13.5 % → 25/25 · RoTE 17.1 % → 20/20 · 2 recorte(s) en 10 años → 3/15 · predictores: ninguno → 10/10"
   ],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-02",
   "origen": "metodo-v3",
   "shareholderYield": 5.14
  },
@@ -59,17 +59,17 @@
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-02",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 7.19,
+  "gImplicito": 7.12,
   "gIntrinseco": null,
   "veredicto": "HEROICO",
-  "motivo": "IMPROBABLE (exige un RoTE de 20.7 %, más de 3 pp por encima del último, 17.1 %)",
-  "calculadoEl": "2026-10-29",
+  "motivo": "IMPROBABLE (exige un RoTE de 20.4 %, más de 3 pp por encima del último, 17.1 %)",
+  "calculadoEl": "2026-11-02",
   "origen": "metodo-v3",
-  "roteImplicito": 20.7
+  "roteImplicito": 20.41
  }
 }

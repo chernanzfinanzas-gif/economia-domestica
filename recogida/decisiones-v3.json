@@ -67,6 +67,17 @@
     "revision": "AENA señales 2026-10-28",
     "origen": "metodo-v3",
     "sinPosicion": true
+   },
+   {
+    "fecha": "2-nov-2026",
+    "fechaIso": "2026-11-02",
+    "senal": "EXT",
+    "cot": 26.78,
+    "decision": "REAFIRMAR",
+    "motivo": "La decisión de la tesis ya es ESPERAR y no hay posición: cotiza a 26,78 €, un 64 % sobre el PO (16,34 €) y por encima del PO bull (20,98 €). Con la tarifa del DORA III por debajo del +2 %, el escenario A pesa más: no comprar. Queda por comprobar en la revisión anual si la valoración ya recoge esa tarifa. Propuesta de informe semanal 02-11-2026 (método v3). Confirmada por Carlos en la app el 02-11-2026. Decidido sin posición en cartera.",
+    "revision": "AENA señales 2026-11-02",
+    "origen": "metodo-v3",
+    "sinPosicion": true
    }
   ],
   "FAE": [
@@ -425,6 +436,16 @@
     "motivo": "Cotiza a 10,64 €, un 52,6 % sobre el PO (6,97 €) y sobre el PO bull (8,69 €). Verde en el 9M-2026: beneficio atribuido +20,0 % y RoTE del 17,4 %. Los resultados acompañan; ESPERAR: no comprar más y mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026.",
     "revision": "SAN señales 2026-10-28",
     "origen": "metodo-v3"
+   },
+   {
+    "fecha": "2-nov-2026",
+    "fechaIso": "2026-11-02",
+    "senal": "EXT",
+    "cot": 10.638,
+    "decision": "REAFIRMAR",
+    "motivo": "Es un golpe de mercado por el riesgo Brasil, no un deterioro de las cifras: el 9M salió en verde (beneficio atribuido +20,0 %, RoTE 17,4 %). Sigue en ESPERAR: mantener sin ampliar y vigilar el CET1 frente al 13 % y el peso de Brasil. Propuesta de pase de novedades 30-10-2026 (método v3). Confirmada por Carlos en la app el 02-11-2026.",
+    "revision": "SAN señales 2026-11-02",
+    "origen": "metodo-v3"
    }
   ],
   "UNI": [
@@ -454,5 +475,5 @@
    }
   ]
  },
- "actualizado": "2026-10-30"
+ "actualizado": "2026-11-02"
 }
