@@ -76,8 +76,22 @@
     return 'Eres Claude, el analista del Método KH v3 de Carlos (inversor particular, bolsa española), dentro de su app Economía Doméstica. Hoy es '+hoy+'.\n'+
       'Reglas: contesta en castellano llano y corto, con cifras y tablas cuando ayuden y sin jerga técnica. Toda cifra sale de los datos del método (el resumen de abajo o lo que pidas con las herramientas): nunca la inventes ni la estimes; si no está, dilo. Di de dónde sale cada dato importante (p. ej. «ficha de LOG, valoración»). Pide a las herramientas solo los apartados que necesites. Su cartera la ves con la herramienta mi_cartera (posiciones, y por valor sus operaciones y dividendos); úsala cuando la pregunta trate de lo que tiene. No ves sus movimientos bancarios ni sus finanzas del hogar: si la pregunta los necesita, dilo. Carlos sabe que no eres asesor; no hace falta repetirlo. Las decisiones del método (COMPRAR, MANTENER, ESPERAR, REDUCIR, VENDER) y los PO son los que dicen los datos; si crees que algo merece revisión, dilo y explica por qué, pero no cambies nada. Si te pide qué haría en un caso (comprar, esperar, vender, reforzar), razónalo con las reglas del método —banda de entrada, stop, PO, señales, riesgos y su señal de alarma— y da una opinión clara, separando lo que dicen los datos de tu juicio. Si te pide un resumen de una empresa, consulta su ficha y escríbelo por apartados: negocio, decisión y precios, valoración, riesgos, vigilancia y qué mirar ahora.'; }
   /* ---------------- llamada a la API ---------------- */
-  var hist=[]; try{ hist=JSON.parse(ls(KH)||'[]'); }catch(e){ hist=[]; }
-  function guardar(){ try{ ls(KH,JSON.stringify(hist.slice(-40))); }catch(e){} }
+  /* 2-nov (Carlos: «quiero guardar las conversaciones para tener un archivo de lo consultado»): cada conversación se guarda
+     en sus datos de Drive (DB.chatClaude), igual que el resto de la app, y se ve en todos los aparatos. Nada se borra de
+     verdad: «borrar» la marca como borrada (así no reaparece al juntar con otro aparato). */
+  var KA='kh-claude-actual';
+  function hayDB(){ return typeof DB!=='undefined'&&DB&&typeof DB==='object'; }
+  function archivo(){ if(!hayDB()) return (window._kcSinDB=window._kcSinDB||[]); DB.chatClaude=DB.chatClaude||[];
+    try{ var viejo=JSON.parse(ls(KH)||'[]'); if(viejo.length){ DB.chatClaude.push({id:'cc'+Date.now().toString(36),titulo:String((viejo.filter(function(m){ return m.role==='user'; })[0]||{}).content||'Conversación').slice(0,80),creada:new Date(viejo[0].t||Date.now()).toISOString(),actualizada:new Date().toISOString(),mensajes:viejo}); ls(KH,null); salvar(); } }catch(e){}
+    return DB.chatClaude; }
+  function vivas(){ return archivo().filter(function(c){ return c&&!c.borrada; }); }
+  function actual(){ var id=ls(KA); return id?vivas().filter(function(c){ return c.id===id; })[0]||null:null; }
+  var hist=[];
+  function sincroniza(){ var c=actual(); hist=c?c.mensajes:[]; }
+  function nueva(primera){ var c={id:'cc'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),titulo:String(primera||'Conversación').replace(/\s+/g,' ').slice(0,80),creada:new Date().toISOString(),actualizada:new Date().toISOString(),mensajes:[]};
+    archivo().push(c); ls(KA,c.id); hist=c.mensajes; return c; }
+  function salvar(){ try{ if(hayDB()&&typeof scheduleSave==='function') scheduleSave(); }catch(e){} }
+  function guardar(){ var c=actual(); if(c){ c.actualizada=new Date().toISOString(); c.coste=Math.round(c.mensajes.reduce(function(a,m){ return a+(+m.coste||0); },0)*10000)/10000; c.n=c.mensajes.filter(function(m){ return m.role==='user'; }).length; } salvar(); }
   function mes(){ return new Date().toISOString().slice(0,7); }
   function gasto(add){ var g={}; try{ g=JSON.parse(ls(KG)||'{}'); }catch(e){} if(add){ g[mes()]=(g[mes()]||0)+add; ls(KG,JSON.stringify(g)); } return g[mes()]||0; }
   function coste(u){ return ((u.input_tokens||0)*PRECIO.in+(u.output_tokens||0)*PRECIO.out+(u.cache_creation_input_tokens||0)*PRECIO.cw+(u.cache_read_input_tokens||0)*PRECIO.cr)/1e6; }
@@ -86,7 +100,7 @@
       .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error((j&&j.error&&j.error.message)||('Error '+r.status)); return j; }); }); }
   var ocupado=false;
   async function preguntar(texto){
-    if(ocupado) return; ocupado=true;
+    if(ocupado) return; ocupado=true; sincroniza(); if(!actual()) nueva(texto);
     var conv=hist.filter(function(m){ return m.role; }).slice(-12).map(function(m){ return {role:m.role,content:m.content}; });
     conv.push({role:'user',content:texto}); hist.push({role:'user',content:texto,t:Date.now()}); pintar(); estado('Claude está pensando…');
     var total=0, usados=[];
@@ -124,10 +138,13 @@
       par.push(l); i++; }
     cierra(); return o.join(''); }
   function panel(){ var P=document.getElementById('kcPanel'); if(P) return P;
-    P=document.createElement('div'); P.id='kcPanel'; P.innerHTML='<div class="kc-top"><b>💬 Pregúntale a Claude</b><span class="kc-sub">Opus 5.5 · ve el método y tu cartera</span><button data-kc="cfg" title="Clave de API">⚙</button><button data-kc="nuevo" title="Conversación nueva">🗑</button><button data-kc="x">✕</button></div><div class="kc-cfg"></div><div class="kc-msgs"></div><div class="kc-st"></div><form class="kc-in"><textarea rows="2" placeholder="Pregunta sobre tus empresas, el método, las señales…"></textarea><button type="submit">Enviar</button></form>';
+    P=document.createElement('div'); P.id='kcPanel'; P.innerHTML='<div class="kc-top"><b>💬 Pregúntale a Claude</b><span class="kc-sub">Opus 5.5 · ve el método y tu cartera</span><button data-kc="cfg" title="Clave de API">⚙</button><button data-kc="archivo" title="Conversaciones guardadas">📁</button><button data-kc="nuevo" title="Conversación nueva">＋</button><button data-kc="x">✕</button></div><div class="kc-cfg"></div><div class="kc-tit"></div><div class="kc-msgs"></div><div class="kc-st"></div><form class="kc-in"><textarea rows="2" placeholder="Pregunta sobre tus empresas, el método, las señales…"></textarea><button type="submit">Enviar</button></form>';
     document.body.appendChild(P);
     P.addEventListener('click',function(e){ var b=e.target.closest('[data-kc]'); if(!b) return; var a=b.getAttribute('data-kc');
-      if(a==='x') P.classList.remove('open'); else if(a==='cfg') cfg(true); else if(a==='nuevo'){ if(confirm('¿Empezar una conversación nueva? Se borra la de este aparato.')){ hist=[]; guardar(); pintar(); } }
+      if(a==='x') P.classList.remove('open'); else if(a==='cfg') cfg(true); else if(a==='nuevo'){ ls(KA,null); hist=[]; verArchivo=false; pintar(); P.querySelector('textarea').focus(); }
+      else if(a==='archivo'){ verArchivo=!verArchivo; pintar(); }
+      else if(a==='abrirc'){ ls(KA,b.getAttribute('data-id')); sincroniza(); verArchivo=false; pintar(); }
+      else if(a==='borrarc'){ var c=archivo().filter(function(x){ return x.id===b.getAttribute('data-id'); })[0]; if(c&&confirm('¿Borrar la conversación «'+c.titulo+'»?')){ c.borrada=true; c.mensajes=[]; c.actualizada=new Date().toISOString(); if(ls(KA)===c.id){ ls(KA,null); hist=[]; } salvar(); pintar(); } }
       else if(a==='guardar'){ var v=P.querySelector('.kc-cfg input').value.trim(), dd=P.querySelector('.kc-cfg select').value; if(v){ ls(KK,v); var f=null; if(/^\d+$/.test(dd)){ f=new Date(Date.now()+(+dd)*86400000).toISOString().slice(0,10); } else if(dd==='fecha'){ f=P.querySelector('.kc-cfg input[type=date]').value||null; } ls(KC,f||null); } cfg(false); pintar(); }
       else if(a==='borrar'){ ls(KK,null); cfg(true); }
       else if(a==='ej'){ P.querySelector('textarea').value=b.textContent; P.querySelector('textarea').focus(); } });
@@ -136,7 +153,7 @@
     return P; }
   function cfg(abrir){ var C=document.querySelector('#kcPanel .kc-cfg'); if(!abrir){ C.style.display='none'; return; }
     var k=ls(KK); C.style.display='block';
-    C.innerHTML='<div class="kc-cfgt">Clave de la API de Claude (Consola, con los 100 $ al mes del plan Max). Se guarda solo en este aparato; no va a Drive ni al repositorio.</div>'+
+    C.innerHTML='<div class="kc-cfgt">Clave de la API de Claude (Consola, con los créditos de API de tu plan). Se guarda solo en este aparato; no va a Drive ni al repositorio.</div>'+
       (k?'<div>Clave guardada: <code>'+E(k.slice(0,10))+'…'+E(k.slice(-4))+'</code> <button data-kc="borrar">Quitarla</button></div>':'')+
       '<input type="password" placeholder="sk-ant-…" autocomplete="off"><div class="kc-cad">Caduca: <select><option value="365">dentro de 1 año</option><option value="30">dentro de 30 días</option><option value="7">dentro de 7 días</option><option value="fecha">en esta fecha…</option><option value="nunca">nunca</option></select> <input type="date"></div><button data-kc="guardar">Guardar</button>'+
       '<div class="kc-cfgt" style="margin-top:6px">Para crear una clave nueva: <a href="'+URLK+'" target="_blank" rel="noopener">platform.claude.com › Claves de API</a> → «Crear clave», cópiala y pégala aquí.</div>'; }
@@ -145,12 +162,24 @@
     if(d<=7) return '<div class="kc-renov">🔑 Tu clave caduca '+(d===0?'hoy':'en '+d+' día'+(d===1?'':'s'))+' ('+E(ls(KC))+'). Crea otra en <a href="'+URLK+'" target="_blank" rel="noopener">platform.claude.com</a> y pégala en <button data-kc="cfg">⚙ Clave</button></div>'; return ''; }
   function estado(t){ var s=document.querySelector('#kcPanel .kc-st'); if(s) s.textContent=t; }
   var EJ=['¿Qué empresas de las 35 están ahora en zona de compra?','¿Por qué Logista está en ESPERAR y qué tendría que pasar para comprar?','Resúmeme los riesgos de Santander y cuál vigilar esta semana','¿Qué hallazgos importantes hay esta semana en el universo?','De lo que tengo en cartera, ¿qué está por encima de su PO y qué haría el método?'];
+  var verArchivo=false;
+  function fechaC(iso){ try{ var d=new Date(iso); return d.toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } }
+  function costeC(c){ return (c.mensajes||[]).reduce(function(a,m){ return a+(+m.coste||0); },0)||(+c.coste||0); }
+  function pintaArchivo(M){ var L=vivas().slice().sort(function(a,b){ return String(b.actualizada).localeCompare(String(a.actualizada)); }), q=(window._kcBusca||'').toLowerCase();
+    var F=q?L.filter(function(c){ return (c.titulo+' '+c.mensajes.map(function(m){ return m.content; }).join(' ')).toLowerCase().indexOf(q)>=0; }):L;
+    var tot=L.reduce(function(a,c){ return a+costeC(c); },0);
+    M.innerHTML='<div class="kc-arh"><b>📁 Conversaciones guardadas</b> · '+L.length+' · '+tot.toFixed(2).replace('.',',')+' $ en total'+(hayDB()?'':' <span class="kc-aviso">(sin conectar a Drive: no se guardan)</span>')+'</div>'+
+      '<input class="kc-busca" placeholder="Buscar en las conversaciones…" value="'+E(window._kcBusca||'')+'">'+
+      (F.length?F.map(function(c){ return '<div class="kc-ci'+(ls(KA)===c.id?' on':'')+'"><button class="kc-cia" data-kc="abrirc" data-id="'+E(c.id)+'"><b>'+E(c.titulo)+'</b><span>'+fechaC(c.actualizada)+' · '+(c.n||c.mensajes.filter(function(m){ return m.role==='user'; }).length)+' pregunta(s) · '+(costeC(c)<0.01?'<0,01':costeC(c).toFixed(2).replace('.',','))+' $</span></button><button class="kc-cib" data-kc="borrarc" data-id="'+E(c.id)+'" title="Borrar">🗑</button></div>'; }).join(''):'<div class="kc-vacio">'+(q?'Nada coincide con la búsqueda.':'Aún no hay conversaciones guardadas.')+'</div>');
+    var bi=M.querySelector('.kc-busca'); if(bi){ bi.addEventListener('input',function(){ window._kcBusca=bi.value; var pos=bi.selectionStart; pintaArchivo(M); var b2=M.querySelector('.kc-busca'); b2.focus(); try{ b2.setSelectionRange(pos,pos); }catch(e){} }); } }
   function pintar(){ var P=panel(), M=P.querySelector('.kc-msgs'), AV=avisoCad();
+    if(verArchivo){ pintaArchivo(M); return; } sincroniza();
+    var ca=actual(); var T=P.querySelector('.kc-tit'); if(T) T.textContent=ca?ca.titulo:'Conversación nueva';
     if(!hist.length){ M.innerHTML='<div class="kc-vacio">Pregunta lo que quieras sobre el método y tus 35 empresas. Ejemplos:'+EJ.map(function(x){ return '<button class="kc-ej" data-kc="ej">'+E(x)+'</button>'; }).join('')+(ls(KK)?'':'<div class="kc-aviso">Antes, pon la clave de la API en ⚙.</div>')+'</div>'+AV; return; }
     M.innerHTML=AV+hist.map(function(m){ if(m.role==='user') return '<div class="kc-u">'+E(m.content)+'</div>';
       if(m.role==='aviso') return '<div class="kc-err">'+E(m.content)+'</div>';
       return '<div class="kc-a">'+md(m.content)+'<div class="kc-pie">'+(m.usados&&m.usados.length?'Ha consultado: '+E(m.usados.join(' · '))+' · ':'')+'coste '+(m.coste!=null?(m.coste<0.01?'<0,01':m.coste.toFixed(2).replace('.',','))+' $':'—')+'</div></div>'; }).join('')+
-      '<div class="kc-mes">Gastado este mes en este aparato: '+gasto().toFixed(2).replace('.',',')+' $ de 100 $</div>';
+      '<div class="kc-mes">Gastado este mes en este aparato: '+gasto().toFixed(2).replace('.',',')+' $ (el saldo y el tope los ves en platform.claude.com)</div>';
     M.scrollTop=M.scrollHeight; }
   function abrir(){ var P=panel(); P.classList.add('open'); pintar(); if(!ls(KK)) cfg(true); setTimeout(function(){ var t=P.querySelector('textarea'); if(t) t.focus(); },50); }
   window.nChatAbrir=abrir;
@@ -164,7 +193,7 @@
    '.kc-msgs{flex:1;overflow:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px}.kc-u{align-self:flex-end;background:#1F4A9A;color:#fff;border-radius:14px 14px 4px 14px;padding:8px 12px;max-width:85%;white-space:pre-wrap}'+
    '.kc-a{align-self:stretch;background:#F8FAFC;border:1px solid #EEF1F5;border-radius:14px 14px 14px 4px;padding:10px 12px}.kc-a p{margin:0 0 8px}.kc-a ul,.kc-a ol{margin:0 0 8px;padding-left:20px}.kc-a table{border-collapse:collapse;margin:4px 0 8px;font-size:12.5px;width:100%}.kc-a th,.kc-a td{border:1px solid #E5E9EF;padding:4px 6px;text-align:left}.kc-a th{background:#EEF2F7}.kc-h{font-weight:800;margin:6px 0 4px}'+
    '.kc-pie{font-size:11px;color:#64748B;margin-top:4px}.kc-mes{font-size:11px;color:#64748B;text-align:center}.kc-err{background:#FEF2F2;border:1px solid #FECACA;color:#991B1B;border-radius:10px;padding:8px 10px;font-size:13px}'+
-   '.kc-cad{margin:6px 0;font-size:12.5px;color:#475569}.kc-cad select,.kc-cad input[type=date]{border:1px solid #CBD5E1;border-radius:8px;padding:4px 6px;font:inherit;width:auto!important}.kc-renov{background:#FFFBEB;border:1px solid #FDE68A;color:#92400E;border-radius:10px;padding:8px 10px;font-size:13px}.kc-renov button{border:1px solid #FCD34D;background:#fff;border-radius:8px;padding:2px 8px;cursor:pointer;font:inherit}'+'.kc-st{font-size:12px;color:#1F4A9A;padding:0 14px;min-height:16px}.kc-in{display:flex;gap:8px;padding:10px 14px;border-top:1px solid #EEF1F5}.kc-in textarea{flex:1;resize:none;border:1px solid #CBD5E1;border-radius:10px;padding:8px;font:inherit}.kc-in button{border:0;background:#1F4A9A;color:#fff;border-radius:10px;padding:0 14px;font-weight:700;cursor:pointer}'+
+   '.kc-cad{margin:6px 0;font-size:12.5px;color:#475569}.kc-cad select,.kc-cad input[type=date]{border:1px solid #CBD5E1;border-radius:8px;padding:4px 6px;font:inherit;width:auto!important}.kc-renov{background:#FFFBEB;border:1px solid #FDE68A;color:#92400E;border-radius:10px;padding:8px 10px;font-size:13px}.kc-renov button{border:1px solid #FCD34D;background:#fff;border-radius:8px;padding:2px 8px;cursor:pointer;font:inherit}'+'.kc-tit{font-size:12px;color:#475569;padding:6px 14px;border-bottom:1px solid #F1F5F9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kc-arh{font-size:13px;color:#334155}.kc-busca{border:1px solid #CBD5E1;border-radius:10px;padding:7px 10px;font:inherit;font-size:13px}.kc-ci{display:flex;gap:6px;align-items:stretch}.kc-ci.on .kc-cia{border-color:#1F4A9A}.kc-cia{flex:1;text-align:left;border:1px solid #E5E9EF;background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer;font:inherit;display:flex;flex-direction:column;gap:2px;color:#142231}.kc-cia span{font-size:11.5px;color:#64748B}.kc-cib{border:1px solid #E5E9EF;background:#fff;border-radius:10px;cursor:pointer;padding:0 10px}'+'.kc-st{font-size:12px;color:#1F4A9A;padding:0 14px;min-height:16px}.kc-in{display:flex;gap:8px;padding:10px 14px;border-top:1px solid #EEF1F5}.kc-in textarea{flex:1;resize:none;border:1px solid #CBD5E1;border-radius:10px;padding:8px;font:inherit}.kc-in button{border:0;background:#1F4A9A;color:#fff;border-radius:10px;padding:0 14px;font-weight:700;cursor:pointer}'+
    '.kc-vacio{color:#475569;font-size:13px;display:flex;flex-direction:column;gap:6px}.kc-ej{text-align:left;border:1px solid #E5E9EF;background:#fff;border-radius:10px;padding:7px 10px;cursor:pointer;font:inherit;font-size:13px;color:#1F4A9A}.kc-aviso{color:#92400E;font-weight:600}'+
    '@media(max-width:900px){#kcPanel{right:6px;left:6px;width:auto;bottom:134px;height:calc(100vh - 150px)}#kcBtn{right:12px;bottom:76px;width:48px;height:48px}}';
   document.head.appendChild(st);
