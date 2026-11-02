@@ -433,29 +433,6 @@
       "revisionesEl": "2026-10-26",
       "revisionesFrescas": true
     },
-    "ECR": {
-      "empresa": "ECR.MC",
-      "cobertura": {
-        "universo": "2026-10-05"
-      },
-      "hallazgos": [
-        {
-          "id": "soc-otro",
-          "abiertoEl": "2026-05-01",
-          "estado": "resuelta",
-          "resueltoEl": "2026-10-05",
-          "desenlace": "Bondalti llegó al 85,85 % con la OPA de exclusión a 3,505 €/acción (37,23 % de aceptación, 16-sep-2026) y Ercros quedó excluida de bolsa el 21-23 de septiembre de 2026. Ya no cotiza; el 14,15 % restante queda en minoritarios fuera de mercado.",
-          "resumen": "Ercros anunció planes de exclusión de bolsa tras elevar sus pérdidas a 13,6 M€; su accionista mayoritario Bondalti está impulsando activamente la exclusión bursátil junto a un giro industrial. Aún cotiza, pero el proceso de sacarla de bolsa está en marcha.",
-          "tipo": "otro",
-          "naturaleza": "situacion",
-          "severidad": "media",
-          "origen": "alertas.json (migrado)",
-          "fecha": "2026-05-01",
-          "fuente": "https://es.investing.com/news/global-filings/ercros-anuncia-planes-de-exclusion-de-bolsa-tras-perdidas-de-136-millones-93CH-3664271",
-          "exigeAccion": false
-        }
-      ]
-    },
     "ELE": {
       "empresa": "Endesa, S.A.",
       "cobertura": {
@@ -1618,36 +1595,6 @@
         }
       ]
     },
-    "TRG": {
-      "empresa": "TRG.MC",
-      "cobertura": {
-        "universo": "2026-11-01"
-      },
-      "hallazgos": [
-        {
-          "id": "soc-concurso",
-          "abiertoEl": "2026-05-05",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "resumen": "Tubos Reunidos solicitó concurso voluntario de acreedores el 4-5 de mayo de 2026 por insolvencia inminente; la CNMV suspendió su cotización de inmediato y sigue suspendida. En julio recibió diez ofertas de compra; queda pendiente en los tribunales el préstamo de la SEPI.",
-          "tipo": "concurso",
-          "naturaleza": "situacion",
-          "severidad": "alta",
-          "origen": "barrido universo 2026-11-01 (completo)",
-          "fecha": "2026-10-26",
-          "fuente": "https://www.tubosreunidosgroup.com/en/investors/concurso-de-acreedores",
-          "exigeAccion": false,
-          "precioIntervenido": "suspension-cnmv",
-          "precioIntervenidoPorque": "La CNMV suspendió la cotización al pedir el concurso: el histórico repite el último cruce.",
-          "precioIntervenidoDesde": "2026-05-04",
-          "ultimaNovedad": {
-            "fecha": "2026-10-26",
-            "texto": "Fase de LIQUIDACIÓN: a petición del consejo y la administración concursal (19-20 oct), el Tribunal de Instancia de Vitoria (proc. 296/2026) abrió la liquidación y declaró disuelta Tubos Reunidos, S.A. (auto notificado el 26-oct-2026); cesa el consejo y asume la administración concursal (PKF-Attest). Sigue la venta de las unidades productivas (Amurrio y Trapagaran; 5 mejores ofertas seleccionadas el 16-oct). Pasivo >263 M€, principal acreedor la SEPI (112,8 M€). Cotización suspendida; exclusión aún no anunciada. Para el accionista, pérdida casi total previsible."
-          }
-        }
-      ]
-    },
     "VID": {
       "empresa": "Vidrala",
       "cobertura": {
@@ -2006,36 +1953,6 @@
       ],
       "revisionesEl": "2026-10-26",
       "revisionesFrescas": true
-    },
-    "UBS": {
-      "empresa": "Urbas Grupo Financiero, S.A.",
-      "cobertura": {
-        "universo": "2026-11-01"
-      },
-      "hallazgos": [
-        {
-          "id": "soc-concurso",
-          "abiertoEl": "2026-10-05",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "resumen": "Urbas está en concurso de acreedores (Juzgado Mercantil nº 2 de Madrid; deuda de unos 200 M€) y con la cotización suspendida desde abril de 2025 (el auditor no firmó las cuentas de 2024). El 23-sep-2026 presentó una propuesta de convenio sin quitas con adhesiones del 61,19 % de la deuda ordinaria; la administración concursal se opone y el 1-oct fechó la insolvencia en 2021. Desenlace abierto: convenio o liquidación. Según prensa.",
-          "tipo": "concurso",
-          "naturaleza": "situacion",
-          "severidad": "media",
-          "origen": "barrido universo 2026-11-01 (completo)",
-          "fecha": "2026-10-27",
-          "fuente": "https://www.capitalmadrid.com/2026/10/27/72664/urbas-culpa-al-administrador-concursal-de-buscar-la-liquidacion-y-no-su-continuidad.html",
-          "exigeAccion": false,
-          "precioIntervenido": "suspension-cnmv",
-          "precioIntervenidoPorque": "Cotización suspendida desde abril de 2025: el precio no es de mercado.",
-          "precioIntervenidoDesde": "2025-04-30",
-          "ultimaNovedad": {
-            "fecha": "2026-10-27",
-            "texto": "La administración concursal informa al juzgado (27-oct-2026) de que la propuesta de convenio NO alcanza las mayorías: 20,3 M€ de adhesiones válidas, 37,2 M€ excluidos por extemporáneos y ~34,1 M€ de oposiciones (12,4 M€ de Attijariwafa Bank). Urbas comunica a la CNMV que el cómputo es incorrecto (sostiene >57,3 M€ de adhesiones) y anuncia impugnación. Sin aprobación judicial; cotización suspendida. Sube el riesgo de liquidación."
-          }
-        }
-      ]
     },
     "CIRSA": {
       "empresa": "Cirsa Enterprises, S.A.",
@@ -2604,13 +2521,6 @@
       },
       "hallazgos": []
     },
-    "BKY": {
-      "empresa": "BKY",
-      "cobertura": {
-        "universo": "2026-10-05"
-      },
-      "hallazgos": []
-    },
     "RJF": {
       "empresa": "RJF",
       "cobertura": {
@@ -3119,20 +3029,19 @@
     }
   },
   "resumen": {
-    "empresasConHallazgo": 41,
-    "hallazgosActivos": 53,
+    "empresasConHallazgo": 39,
+    "hallazgosActivos": 51,
     "porTipo": {
       "sancion": 3,
       "coyuntura": 17,
       "otro": 23,
       "opa": 4,
-      "litigio": 4,
-      "concurso": 2
+      "litigio": 4
     },
     "exigenAccion": 0,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 33,
-    "hechosCaducadosHoy": 2
+    "situacionesAbiertas": 31,
+    "hechosCaducadosHoy": 0
   },
   "reproyectadoEl": "2026-09-26"
 }
