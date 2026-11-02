@@ -1,263 +1,260 @@
 {
- "schemaVersion": 1,
- "generadoEl": "2026-10-26",
- "fuente": "informe-semanal-cartera",
- "nota": "Pase del informe semanal del 26-oct-2026. Bono y Bund de countryeconomy.com (23-oct, misma fecha); prima calculada. Pool: media de 6 días (19-24 oct) de los precios diarios OMIE publicados por selectra.es. Sin dato nuevo del INE (ICM y PIB 3T salen a final de mes) ni de afiliación media.",
- "ind": {
-  "bce_deposito": {
-   "n": "BCE · facilidad de depósito",
-   "grupo": "tipos",
-   "v": 2.5,
-   "u": "%",
-   "f": "2026-09-16",
-   "src": "ecb.europa.eu",
-   "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
-   "slider": "TIPOS",
-   "nota": "29-oct: Polymarket 98,2 % mantener (cryptoslate.com, 25-oct); consenso Trading Economics: mantener"
-  },
-  "euribor_12m": {
-   "n": "Euríbor 12M",
-   "grupo": "tipos",
-   "v": 3.267,
-   "u": "%",
-   "f": "2026-10-23",
-   "d": 5.2,
-   "dU": "pb",
-   "dPer": "semana",
-   "src": "euribor-rates.eu",
-   "url": "https://www.euribor-rates.eu/en/current-euribor-rates/4/euribor-rate-12-months/",
-   "nota": "frente a 3,215 % el 16-oct; +9 pb desde el 13-oct"
-  },
-  "euribor_3m": {
-   "n": "Euríbor 3M",
-   "grupo": "tipos",
-   "v": 2.666,
-   "u": "%",
-   "f": "2026-10-23",
-   "d": 2.4,
-   "dU": "pb",
-   "dPer": "semana",
-   "src": "euribor-rates.eu",
-   "url": "https://www.euribor-rates.eu/en/current-euribor-rates/2/euribor-rate-3-months/"
-  },
-  "bono_10a_es": {
-   "n": "Bono 10A España",
-   "grupo": "tipos",
-   "v": 4.05,
-   "u": "%",
-   "f": "2026-10-23",
-   "d": 0,
-   "dU": "pb",
-   "dPer": "semana",
-   "src": "countryeconomy.com",
-   "url": "https://countryeconomy.com/bonds/spain",
-   "nota": "4,05 % también el 16-oct; máximo semanal 4,10 % el 19-oct"
-  },
-  "bund_10a": {
-   "n": "Bund 10A Alemania",
-   "grupo": "tipos",
-   "v": 3.34,
-   "u": "%",
-   "f": "2026-10-23",
-   "d": -7,
-   "dU": "pb",
-   "dPer": "semana",
-   "src": "countryeconomy.com",
-   "url": "https://countryeconomy.com/bonds/germany",
-   "nota": "frente a 3,41 % el 16-oct; −11 pb el 22-oct"
-  },
-  "prima_riesgo": {
-   "n": "Prima de riesgo",
-   "grupo": "tipos",
-   "v": 71,
-   "u": "pb",
-   "f": "2026-10-23",
-   "d": 7,
-   "dU": "pb",
-   "dPer": "semana",
-   "src": "calculada",
-   "url": "https://countryeconomy.com/risk-premium/spain",
-   "slider": "CRED",
-   "sliderV": 0.71,
-   "nota": "(4,05 − 3,34) × 100 con bonos de countryeconomy del mismo día; la propia fuente da 71 pb. Sube por la caída del Bund, no por el bono español"
-  },
-  "wacc_cnmc": {
-   "v": 6.58,
-   "u": "%",
-   "f": "2025-12-22",
-   "nota": "Tasa de retribución financiera de las redes ELÉCTRICAS, Circular 9/2025, periodo 2026-2031. Verificado sin cambios el 28-sep-2026",
-   "src": "cnmc.es",
-   "url": "https://www.cnmc.es/prensa/circulares-retribucion-electrica-20251222",
-   "n": "Retribución de redes · WACC CNMC",
-   "grupo": "tipos",
-   "slider": "REG",
-   "caduca": 1900
-  },
-  "gas_ttf": {
-   "n": "Gas TTF",
-   "grupo": "energia",
-   "v": 93.86,
-   "u": "€/MWh",
-   "f": "2026-10-23",
-   "d": 25.24,
-   "dU": "%",
-   "dPer": "mes",
-   "src": "tradingeconomics.com",
-   "url": "https://tradingeconomics.com/commodity/eu-natural-gas",
-   "slider": "GAS",
-   "nota": "cierre 23-oct, máximo desde finales de 2022; cuarta subida semanal (>6 %); almacenes UE 74,62 % el 22-oct, el nivel estacional más bajo desde 2009"
-  },
-  "pool_omie": {
-   "n": "Pool eléctrico OMIE",
-   "grupo": "energia",
-   "v": 160.09,
-   "u": "€/MWh",
-   "f": "2026-10-24",
-   "d": 14.11,
-   "dU": "€/MWh",
-   "dPer": "frente a la media 6-12 oct",
-   "src": "selectra.es (datos OMIE)",
-   "url": "https://selectra.es/energia/noticias/precio-luz/2026-10-24",
-   "nota": "Media de 6 días (19-24 oct): 215,12 · 195,52 · 146,97 · 155,63 · 110,09 · 137,19. El 19-oct, máximo de 2026. omie.es da 196,86 para el 26-oct"
-  },
-  "ipc": {
-   "n": "IPC España",
-   "grupo": "inflacion",
-   "v": 4.9,
-   "u": "% i.a.",
-   "f": "2026-09-01",
-   "src": "ine.es",
-   "url": "https://ine.es/dyngs/Prensa/IPC0926.htm",
-   "caduca": 45,
-   "nota": "septiembre DEFINITIVO (14-oct) confirma el adelantado; subyacente 3,1 %, IPCA 5,0 %; máximo desde feb-2023"
-  },
-  "pib": {
-   "v": 2.6,
-   "u": "% i.a.",
-   "f": "2026-04-01",
-   "nota": "2T-2026, estimación revisada del 25-sep (el avance daba 2,7 %); +0,7 % trimestral",
-   "src": "ine.es",
-   "url": "https://www.ine.es/",
-   "n": "PIB España",
-   "grupo": "inflacion",
-   "slider": "PIB",
-   "caduca": 225
-  },
-  "ventas_minoristas": {
-   "n": "Ventas minoristas",
-   "grupo": "inflacion",
-   "v": -0.4,
-   "u": "% i.a.",
-   "f": "2026-08-01",
-   "src": "ine.es",
-   "url": "https://www.ine.es/dyngs/Prensa/ICM0826.htm",
-   "caduca": 45,
-   "nota": "agosto · índice general a precios constantes CVEC (29-sep). El INE dice que julio también fue −0,4 %"
-  },
-  "consumo_discrecional": {
-   "n": "Consumo discrecional",
-   "grupo": "inflacion",
-   "v": 2.4,
-   "u": "% i.a.",
-   "f": "2026-08-01",
-   "src": "eldebate.com",
-   "url": "https://www.eldebate.com/economia/20260929/pequeno-comercio-hunde-mientras-grandes-cadenas-disparan-ventas_463924.html",
-   "slider": "CONSD",
-   "caduca": 45,
-   "nota": "ICM rama «resto», agosto; interanual de prensa (El Debate, 29-sep), serie sin confirmar en el anexo del INE"
-  },
-  "consumo_defensivo": {
-   "n": "Consumo defensivo",
-   "grupo": "inflacion",
-   "v": -1.7,
-   "u": "% i.a.",
-   "f": "2026-08-01",
-   "src": "eldebate.com",
-   "url": "https://www.eldebate.com/economia/20260929/pequeno-comercio-hunde-mientras-grandes-cadenas-disparan-ventas_463924.html",
-   "slider": "CONSB",
-   "caduca": 45,
-   "nota": "ICM rama «alimentación», agosto; interanual de prensa (El Debate, 29-sep), serie sin confirmar en el anexo del INE"
-  },
-  "eur_brl": {
-   "n": "EUR/BRL",
-   "grupo": "divisas",
-   "v": 5.6485,
-   "f": "2026-10-23",
-   "d": 0.71,
-   "dU": "%",
-   "dPer": "frente al 9-oct",
-   "src": "ecb.europa.eu",
-   "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
-   "nota": "referencia BCE previa a la segunda vuelta del 25-oct"
-  },
-  "fed": {
-   "n": "Fed · tipo oficial",
-   "grupo": "otros",
-   "v": 3.875,
-   "u": "%",
-   "f": "2026-09-17",
-   "src": "federalreserve.gov",
-   "url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
-   "caduca": 60,
-   "nota": "rango 3,75–4,00 % desde el 17-sep; reunión 27-28 oct: ~91 % mantener; diciembre: 76-80 % de subida de 25 pb (tradingeconomics.com, 23-oct)"
-  },
-  "hipoteca_30a_us": {
-   "n": "Hipoteca 30A EE.UU.",
-   "grupo": "otros",
-   "v": 7.32,
-   "u": "%",
-   "f": "2026-10-22",
-   "d": -8,
-   "dU": "pb",
-   "dPer": "semana",
-   "src": "freddiemac.com",
-   "url": "https://www.freddiemac.com/pmms",
-   "nota": "PMMS de Freddie Mac (7,40 % la semana anterior)"
-  },
-  "afiliacion": {
-   "n": "Afiliación Seguridad Social",
-   "grupo": "otros",
-   "v": 22480000,
-   "u": "personas",
-   "f": "2026-09-01",
-   "src": "lamoncloa.gob.es",
-   "url": "https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/inclusion/Paginas/2026/021026-balance-afiliados-septiembre.aspx",
-   "caduca": 75,
-   "nota": "Afiliados MEDIOS de septiembre ≈22,48 M (+92.327 en el mes, mejor septiembre de la serie; +3,41 % interanual). Cifra redondeada a la decena de millar"
-  }
- },
- "lectura": {
-  "titulo": "Coyuntura Macro a 26/10/2026",
-  "generadoEl": "2026-10-26",
+  "schemaVersion": 1,
+  "generadoEl": "2026-11-02",
   "fuente": "informe-semanal-cartera",
-  "refrescados": 12,
-  "total": 18,
-  "nota": "Sólo comenta lo que este pase ha refrescado. Explica a quién afecta y a quién beneficia; no recomienda ninguna acción sobre la cartera.",
-  "puntos": [
-   {
-    "t": "El gas TTF, a 94 €/MWh: máximo desde 2022",
-    "txt": "El TTF cierra el 23-oct en 93,86 €/MWh, +25 % en un mes y cuarta semana al alza, con el GNL del Golfo cortado y los almacenes de la UE al 74,6 %, el nivel más bajo para la fecha desde 2009. El pool eléctrico promedia 160 €/MWh del 19 al 24-oct, 14 € por encima de la semana anterior.",
-    "beneficia": "Naturgy y Repsol, que venden gas; las eléctricas con generación sin gas (Iberdrola, Endesa) cuando el pool marca precio con gas",
-    "perjudica": "los procesos intensivos en gas: Vidrala, Viscofan y Miquel y Costas"
-   },
-   {
-    "t": "La prima de riesgo sube a 71 pb por el refugio en el Bund",
-    "txt": "El bono español se queda en el 4,05 % en la semana, pero el Bund cae 7 pb, al 3,34 %, y la prima pasa de 64 a 71 pb. Coincide con el bono francés tocando el 5 % el 21-oct.",
-    "beneficia": "poco a nadie en la cartera; algo la reinversión en renta fija de Mapfre y Línea Directa",
-    "perjudica": "el coste de financiación de las reguladas y apalancadas (Redeia, Enagás, Merlin) y la percepción de riesgo país sobre la banca"
-   },
-   {
-    "t": "El Euríbor 12M vuelve a subir: 3,267 %",
-    "txt": "Recupera 9 pb desde el 13-oct, aunque el mercado da un 98 % a que el BCE deje el depósito en el 2,50 % el 29-oct: descuenta subidas más adelante.",
-    "beneficia": "el margen de intereses de la banca con hipoteca variable (CaixaBank, Bankinter, Unicaja, Santander, BBVA)",
-    "perjudica": "las compañías con deuda a tipo variable y las hipotecas de las familias"
-   },
-   {
-    "t": "La hipoteca en EE.UU. baja al 7,32 %",
-    "txt": "Freddie Mac la sitúa en el 7,32 % el 22-oct (−8 pb), sin salir de niveles altos. La Fed decide el 28-oct con un ~91 % de mantener y mayoría de subida en diciembre.",
-    "beneficia": "algo la obra nueva residencial en EE.UU. (Fluidra)",
-    "perjudica": "—"
-   }
-  ]
- }
+  "nota": "Pase parcial del informe semanal del 2-nov-2026: SOLO los indicadores refrescados hoy. No se refrescan (conservan valor y fecha del pase anterior): wacc_cnmc (no re-verificado esta semana), consumo_discrecional y consumo_defensivo (la nota del INE de septiembre sólo da variaciones mensuales por producto, no la anual CVEC) y afiliacion (media de octubre aún no publicada a la hora del pase). Pool: precio diario OMIE de un solo día (2-nov), no media semanal.",
+  "ind": {
+    "bce_deposito": {
+      "n": "BCE · facilidad de depósito",
+      "grupo": "tipos",
+      "v": 2.5,
+      "u": "%",
+      "f": "2026-10-29",
+      "src": "ecb.europa.eu",
+      "url": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html",
+      "slider": "TIPOS",
+      "nota": "29-oct: mantiene los tres tipos (depósito 2,50 %, MRO 2,65 %, marginal 2,90 %); «los precios de la energía siguen subiendo y suponen riesgos al alza para la inflación»; sin compromiso de senda, reunión a reunión"
+    },
+    "euribor_12m": {
+      "n": "Euríbor 12M",
+      "grupo": "tipos",
+      "v": 3.306,
+      "u": "%",
+      "f": "2026-10-30",
+      "d": 3.9,
+      "dU": "pb",
+      "dPer": "semana",
+      "src": "euribor-rates.eu",
+      "url": "https://www.euribor-rates.eu/en/current-euribor-rates/4/euribor-rate-12-months/",
+      "nota": "frente a 3,267 % el 23-oct; máximo semanal 3,308 % el 29-oct (día del BCE)"
+    },
+    "euribor_3m": {
+      "n": "Euríbor 3M",
+      "grupo": "tipos",
+      "v": 2.676,
+      "u": "%",
+      "f": "2026-10-30",
+      "d": 1.0,
+      "dU": "pb",
+      "dPer": "semana",
+      "src": "euribor-rates.eu",
+      "url": "https://www.euribor-rates.eu/en/current-euribor-rates/2/euribor-rate-3-months/"
+    },
+    "bono_10a_es": {
+      "n": "Bono 10A España",
+      "grupo": "tipos",
+      "v": 3.95,
+      "u": "%",
+      "f": "2026-10-30",
+      "d": -10,
+      "dU": "pb",
+      "dPer": "semana",
+      "src": "countryeconomy.com",
+      "url": "https://countryeconomy.com/bonds/spain",
+      "nota": "frente a 4,05 % el 23-oct"
+    },
+    "bund_10a": {
+      "n": "Bund 10A Alemania",
+      "grupo": "tipos",
+      "v": 3.32,
+      "u": "%",
+      "f": "2026-10-30",
+      "d": -2,
+      "dU": "pb",
+      "dPer": "semana",
+      "src": "countryeconomy.com",
+      "url": "https://countryeconomy.com/bonds/germany",
+      "nota": "frente a 3,34 % el 23-oct; 3,38 % el 28-oct"
+    },
+    "prima_riesgo": {
+      "n": "Prima de riesgo",
+      "grupo": "tipos",
+      "v": 63,
+      "u": "pb",
+      "f": "2026-10-30",
+      "d": -8,
+      "dU": "pb",
+      "dPer": "semana",
+      "src": "calculada",
+      "url": "https://countryeconomy.com/risk-premium/spain",
+      "slider": "CRED",
+      "sliderV": 0.63,
+      "nota": "(3,95 − 3,32) × 100 con bonos de countryeconomy del mismo día; la propia fuente da 63 pb. Baja por el bono español (−10 pb)"
+    },
+    "wacc_cnmc": {
+      "v": 6.58,
+      "u": "%",
+      "f": "2025-12-22",
+      "nota": "Tasa de retribución financiera de las redes ELÉCTRICAS, Circular 9/2025, periodo 2026-2031. Verificado sin cambios el 28-sep-2026",
+      "src": "cnmc.es",
+      "url": "https://www.cnmc.es/prensa/circulares-retribucion-electrica-20251222",
+      "n": "Retribución de redes · WACC CNMC",
+      "grupo": "tipos",
+      "slider": "REG",
+      "caduca": 1900
+    },
+    "gas_ttf": {
+      "n": "Gas TTF",
+      "grupo": "energia",
+      "v": 102.53,
+      "u": "€/MWh",
+      "f": "2026-11-02",
+      "d": 39.47,
+      "dU": "%",
+      "dPer": "mes",
+      "src": "tradingeconomics.com",
+      "url": "https://tradingeconomics.com/commodity/eu-natural-gas",
+      "slider": "GAS",
+      "nota": "cotización a la consulta del 2-nov (−1,36 % sobre el cierre anterior); +9,2 % frente a 93,86 el 23-oct; almacenes UE 74,89 % el 29-oct (media 5 años ~86 %)"
+    },
+    "pool_omie": {
+      "n": "Pool eléctrico OMIE",
+      "grupo": "energia",
+      "v": 177.06,
+      "u": "€/MWh",
+      "f": "2026-11-02",
+      "src": "selectra.es (datos OMIE)",
+      "url": "https://selectra.es/energia/mercado",
+      "nota": "precio medio diario OMIE para el 2-nov (un solo día, no media semanal); 196,86 el 26-oct según omie.es; media de 90 días 143,55"
+    },
+    "ipc": {
+      "n": "IPC España",
+      "grupo": "inflacion",
+      "v": 4.9,
+      "u": "% i.a.",
+      "f": "2026-10-01",
+      "src": "ine.es",
+      "url": "https://www.ine.es/dyngs/Prensa/adIPC1026.pdf",
+      "caduca": 45,
+      "nota": "octubre ADELANTADO (30-oct), igual que septiembre; subyacente 3,1 %; IPCA 4,9 %; +0,6 % mensual"
+    },
+    "pib": {
+      "n": "PIB España",
+      "grupo": "inflacion",
+      "v": 2.7,
+      "u": "% i.a.",
+      "f": "2026-07-01",
+      "src": "ine.es (vía fashionunited.es)",
+      "url": "https://fashionunited.es/noticias/empresas/el-pib-crece-un-2-7-por-ciento-en-el-tercer-trimestre/2026103051081",
+      "slider": "PIB",
+      "caduca": 225,
+      "nota": "3T-2026 avance (30-oct): +0,6 % trimestral (0,7 % el 2T), 2,7 % interanual (2,6 % el 2T); consumo de los hogares +3,1 % i.a., inversión +2,1 % i.a."
+    },
+    "ventas_minoristas": {
+      "n": "Ventas minoristas",
+      "grupo": "inflacion",
+      "v": -1.4,
+      "u": "% i.a.",
+      "f": "2026-09-01",
+      "src": "ine.es",
+      "url": "https://www.ine.es/dyngs/Prensa/ICM0926.pdf",
+      "caduca": 45,
+      "nota": "septiembre · índice general a precios constantes CVEC (29-oct); original −1,6 %; mensual CVEC: alimentación +1,1 %, resto −0,9 %"
+    },
+    "consumo_discrecional": {
+      "n": "Consumo discrecional",
+      "grupo": "inflacion",
+      "v": 2.4,
+      "u": "% i.a.",
+      "f": "2026-08-01",
+      "src": "eldebate.com",
+      "url": "https://www.eldebate.com/economia/20260929/pequeno-comercio-hunde-mientras-grandes-cadenas-disparan-ventas_463924.html",
+      "slider": "CONSD",
+      "caduca": 45,
+      "nota": "ICM rama «resto», agosto; interanual de prensa (El Debate, 29-sep), serie sin confirmar en el anexo del INE"
+    },
+    "consumo_defensivo": {
+      "n": "Consumo defensivo",
+      "grupo": "inflacion",
+      "v": -1.7,
+      "u": "% i.a.",
+      "f": "2026-08-01",
+      "src": "eldebate.com",
+      "url": "https://www.eldebate.com/economia/20260929/pequeno-comercio-hunde-mientras-grandes-cadenas-disparan-ventas_463924.html",
+      "slider": "CONSB",
+      "caduca": 45,
+      "nota": "ICM rama «alimentación», agosto; interanual de prensa (El Debate, 29-sep), serie sin confirmar en el anexo del INE"
+    },
+    "eur_brl": {
+      "n": "EUR/BRL",
+      "grupo": "divisas",
+      "v": 6.0692,
+      "f": "2026-10-30",
+      "d": 7.45,
+      "dU": "%",
+      "dPer": "semana",
+      "src": "ecb.europa.eu",
+      "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+      "nota": "referencia BCE; 5,6485 el 23-oct, antes de la segunda vuelta. El real se hundió hasta un 12 % al contado el 26-oct tras la reelección de Lula"
+    },
+    "fed": {
+      "n": "Fed · tipo oficial",
+      "grupo": "otros",
+      "v": 3.875,
+      "u": "%",
+      "f": "2026-10-28",
+      "src": "federalreserve.gov",
+      "url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+      "caduca": 60,
+      "nota": "28-oct: mantiene el rango 3,75–4,00 % por 10-2 (Cook y Hammack votan +25 pb); futuros ~85 % de subida el 9-dic (admiralmarkets.com)"
+    },
+    "hipoteca_30a_us": {
+      "n": "Hipoteca 30A EE.UU.",
+      "grupo": "otros",
+      "v": 7.24,
+      "u": "%",
+      "f": "2026-10-29",
+      "d": -8,
+      "dU": "pb",
+      "dPer": "semana",
+      "src": "freddiemac.com",
+      "url": "https://www.freddiemac.com/pmms",
+      "nota": "PMMS de Freddie Mac (7,32 % la semana anterior); 15 años 6,60 %"
+    },
+    "afiliacion": {
+      "n": "Afiliación Seguridad Social",
+      "grupo": "otros",
+      "v": 22480000,
+      "u": "personas",
+      "f": "2026-09-01",
+      "src": "lamoncloa.gob.es",
+      "url": "https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/inclusion/Paginas/2026/021026-balance-afiliados-septiembre.aspx",
+      "caduca": 75,
+      "nota": "Afiliados MEDIOS de septiembre ≈22,48 M (+92.327 en el mes, mejor septiembre de la serie; +3,41 % interanual). Cifra redondeada a la decena de millar"
+    }
+  },
+  "lectura": {
+    "titulo": "Coyuntura Macro a 02/11/2026",
+    "generadoEl": "2026-11-02",
+    "fuente": "informe-semanal-cartera",
+    "refrescados": 14,
+    "total": 18,
+    "nota": "Sólo comenta lo que este pase ha refrescado. Explica a quién afecta y a quién beneficia; no recomienda ninguna acción sobre la cartera.",
+    "puntos": [
+      {
+        "t": "El gas TTF, a 102,5 €/MWh",
+        "txt": "El TTF sube a 102,53 €/MWh el 2-nov (+39 % en un mes) por el riesgo de ataques a Irán; el pool eléctrico marca 177 €/MWh ese día (dato de un solo día, no media semanal).",
+        "beneficia": "Naturgy y Repsol, que venden gas; las eléctricas con generación sin gas cuando el pool marca precio con gas",
+        "perjudica": "los procesos intensivos en gas: Vidrala, Viscofan y Miquel y Costas"
+      },
+      {
+        "t": "El real brasileño se hunde tras la reelección de Lula",
+        "txt": "El EUR/BRL de referencia del BCE pasa a 6,0692 el 30-oct, un 7,4 % más que una semana antes.",
+        "beneficia": "a nadie en la cartera de forma directa",
+        "perjudica": "lo que se cuenta en reales: Santander, Telefónica, Mapfre, Iberdrola"
+      },
+      {
+        "t": "BCE y Fed mantienen tipos",
+        "txt": "El BCE deja el depósito en el 2,50 % el 29-oct y avisa de riesgo al alza por la energía; la Fed mantiene el 3,75-4,00 % el 28-oct. El Euríbor 12M sube a 3,306 % (+3,9 pb) y la prima española baja a 63 pb (bono 3,95 %, Bund 3,32 %).",
+        "beneficia": "el margen de intereses de la banca (Santander, BBVA, CaixaBank, Bankinter, Unicaja)",
+        "perjudica": "el coste de la deuda de reguladas e inmobiliarias (Redeia, Enagás, Merlin)"
+      },
+      {
+        "t": "España: PIB del 3T +2,7 % y IPC de octubre 4,9 %",
+        "txt": "El INE adelanta un PIB del 3T de +0,6 % trimestral y +2,7 % interanual, y un IPC de octubre del 4,9 %; las ventas minoristas de septiembre caen un 1,4 %.",
+        "beneficia": "la actividad doméstica (banca, Aena)",
+        "perjudica": "el consumo discrecional por la inflación alta (Inditex, Atresmedia)"
+      }
+    ]
+  }
 }
