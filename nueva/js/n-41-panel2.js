@@ -50,16 +50,17 @@
       if(d&&(!c||!(+d.cot>0)||c<=+d.cot*1.10)) return 's3d';   /* decidida: vuelve si sube más de un 10 % desde la decisión */
       return 'dec';
     }
-    if(x.tipo==='hallazgo') return 'ext';
+    /* 2-nov (Carlos): un hecho no es una propuesta. Los de tus analizadas, como aviso; los del resto del universo, plegados */
+    if(x.tipo==='hallazgo'){ var th=String(x.tick||'').toUpperCase(); return (th&&typeof _mcAna==='function'&&_mcAna(th))?'ext':'uni'; }
     if(x.tipo==='dividendo') return 'div';
     if(x.tipo==='hogar') return 'hog';
     if(x.sig==='S5'||x.sig==='S4') return 'tri';
     if((x.sig&&/^S[1-6]$/.test(x.sig)&&!x.noApunte)||x.cls==='r') return 'dec';
     return 'inf';
   }
-  var GN={car:'Tu cartera (operaciones)',dec:'Señales que piden decidir',ext:'Revisiones extraordinarias (por un hecho)',tri:'Revisión trimestral',div:'Dividendo en riesgo',hog:'Hogar',inf:'Informativos'};
-  var CHIPN={car:'Cartera',dec:'Decidir',ext:'Revisión extraordinaria',tri:'Trimestral',div:'Dividendo',hog:'Hogar',inf:'Informativos'};
-  function estado(x,g){ if(g==='ext') return ['Propuesta · decides tú','#EDE9FE','#5B21B6']; if(x.cls==='r') return ['Para actuar','#FEE2E2','#B91C1C']; if(g==='tri') return ['Esperando','#F3F5F8','#5B6B7C']; return ['Para revisar','#FEF3C7','#92400E']; }
+  var GN={car:'Tu cartera (operaciones)',dec:'Señales que piden decidir',ext:'Hechos de tus empresas analizadas',tri:'Revisión trimestral',div:'Dividendo en riesgo',hog:'Hogar',inf:'Informativos'};
+  var CHIPN={uni:'Universo',car:'Cartera',dec:'Decidir',ext:'Hechos',tri:'Trimestral',div:'Dividendo',hog:'Hogar',inf:'Informativos'};
+  function estado(x,g){ if(g==='ext') return ['Aviso · informativo','#EDE9FE','#5B21B6']; if(x.cls==='r') return ['Para actuar','#FEE2E2','#B91C1C']; if(g==='tri') return ['Esperando','#F3F5F8','#5B6B7C']; return ['Para revisar','#FEF3C7','#92400E']; }
   function avisos(){
     var A=window._nAv||{lista:[],vis:{}}, vis=A.vis||{}, F=window._avFiltro||{showSeen:false};
     try{ var ops=(typeof nCarteraOps==='function')?nCarteraOps():[]; ops.forEach(function(o){ if(!A.lista.some(function(x){ return x.key===o.key; })) A.lista=A.lista.concat([o]); }); }catch(e){}
@@ -67,12 +68,12 @@
     var L=A.lista.filter(function(x){ return (F.showSeen||!vis[x.key]) && !(window.nSenCubre&&window.nSenCubre(x)); });   /* 29-oct: las señales con paquete salen en «Señales por decidir» */
     var nSen=window.nSenCuenta?window.nSenCuenta():0, senH=window.nSenHtml?window.nSenHtml():'';
     var nVis=A.lista.filter(function(x){ return vis[x.key]; }).length;
-    var G={dec:[],ext:[],tri:[],car:[],div:[],hog:[],inf:[],s3d:[],s3i:[]}; L.forEach(function(x){ G[grupo(x)].push(x); });
-    var nInf=G.inf.length+(G.s3i.length?1:0), nDec=L.length-G.inf.length-G.s3d.length-G.s3i.length+nSen;
-    sum('av',(nDec?nDec+' por decidir':'nada por decidir')+(nInf?' · '+nInf+' informativos':''));
+    var G={dec:[],ext:[],tri:[],car:[],div:[],hog:[],inf:[],uni:[],s3d:[],s3i:[]}; L.forEach(function(x){ G[grupo(x)].push(x); });
+    var nInf=G.inf.length+(G.s3i.length?1:0), nDec=L.length-G.inf.length-G.s3d.length-G.s3i.length-G.ext.length-G.uni.length+nSen;
+    sum('av',(nDec?nDec+' por decidir':'nada por decidir')+((nInf+G.ext.length+G.uni.length)?' · '+(nInf+G.ext.length+G.uni.length)+' informativos':''));
     var ex=document.querySelector('#nP_av .n-pextra'); if(ex) ex.innerHTML='<button class="n-prvg" data-nprv="">🔍 Pedir revisión de una empresa</button>'+(L.length?'<span data-avseenall="'+L.map(function(x){return x.key;}).join('~')+'">marcar todos como vistos ✓</span>':'')+(nVis?' · <span data-avshow="1">'+(F.showSeen?'ocultar vistos':'ver vistos ('+nVis+')')+'</span>':'');
     var f=window._nAvF;
-    var chips='<div class="n-avchips"><button data-navf="" class="'+(f?'':'on')+'">Todos</button>'+['dec','ext','tri','car','div','hog','inf'].filter(function(g){return G[g].length||(g==='inf'&&G.s3i.length);}).map(function(g){ return '<button data-navf="'+g+'" class="'+(f===g?'on':'')+'">'+CHIPN[g]+' '+(g==='inf'?nInf:G[g].length)+'</button>'; }).join('')+'</div>';
+    var chips='<div class="n-avchips"><button data-navf="" class="'+(f?'':'on')+'">Todos</button>'+['dec','ext','uni','tri','car','div','hog','inf'].filter(function(g){return G[g].length||(g==='inf'&&G.s3i.length);}).map(function(g){ return '<button data-navf="'+g+'" class="'+(f===g?'on':'')+'">'+CHIPN[g]+' '+(g==='inf'?nInf:G[g].length)+'</button>'; }).join('')+'</div>';
     function fila(x,g){ var st=estado(x,g), v=!!vis[x.key];
       var act=(x.sig&&!x.noApunte)?' data-sig="'+x.sig+'" data-ticker="'+esc(x.tick||'')+'" data-nivel="'+esc(x.nivel||'')+'"':'';
       var bt=g==='ext'?'Pedir revisión':'Ver';
@@ -83,6 +84,8 @@
     window._nAvMas=window._nAvMas||{};
     ['dec','ext','tri','car','div','hog'].forEach(function(g){ if((!G[g].length&&!(g==='dec'&&G.s3d.length))||(f&&f!==g)) return; var todo=f===g||window._nAvMas[g], L2=todo?G[g]:G[g].slice(0,5);
       h+='<div class="n-avg">'+GN[g]+'</div>'+L2.map(function(x){return fila(x,g);}).join('')+(G[g].length>5?'<div class="n-avmas" data-navmas="'+g+'">'+(todo?'ver menos ▴':'ver las '+(G[g].length-5)+' restantes ▾')+'</div>':'')+(g==='dec'?s3dLinea(G.s3d):''); });
+    if(G.uni.length&&(!f||f==='uni')){ window._nUniOpen=window._nUniOpen||false;
+      h+='<div class="n-avinf'+(window._nUniOpen||f==='uni'?' open':'')+'"><div class="n-avg n-avinfh" data-navuni="1">▸ Hechos del resto del universo ('+G.uni.length+') · empresas que no analizas, no piden decisión</div><div class="n-avinfb">'+G.uni.map(function(x){ return '<div class="n-avi">'+x.txt+'<button class="n-avok" data-avseen="'+x.key+'">✓</button></div>'; }).join('')+'</div></div>'; }
     if((G.inf.length||G.s3i.length)&&(!f||f==='inf')){ window._nInfOpen=window._nInfOpen||false;
       h+='<div class="n-avinf'+(window._nInfOpen||f==='inf'?' open':'')+'"><div class="n-avg n-avinfh" data-navinf="1">▸ Informativos ('+nInf+') · no piden decisión</div><div class="n-avinfb">'+s3iLinea(G.s3i)+G.inf.map(function(x){ return '<div class="n-avi">'+x.txt+(x.goto?' <span class="n-avver" data-goto="'+x.goto+'">ver ▸</span>':'')+'<button class="n-avok" data-avseen="'+x.key+'">✓</button></div>'; }).join('')+'</div></div>'; }
     if(!L.length&&!senH) h='<div class="muted" style="padding:6px 0">Nada pendiente ahora mismo. 👌</div>';
@@ -100,6 +103,7 @@
     var c=e.target.closest&&e.target.closest('[data-navf]'); if(c){ window._nAvF=c.getAttribute('data-navf'); avisos(); return; }
     var mm=e.target.closest&&e.target.closest('[data-navmas]'); if(mm){ var g=mm.getAttribute('data-navmas'); window._nAvMas[g]=!window._nAvMas[g]; avisos(); return; }
     var i=e.target.closest&&e.target.closest('[data-navinf]'); if(i){ window._nInfOpen=!window._nInfOpen; i.parentElement.classList.toggle('open'); }
+    var u=e.target.closest&&e.target.closest('[data-navuni]'); if(u){ window._nUniOpen=!window._nUniOpen; u.parentElement.classList.toggle('open'); }
   });
 
   /* ---------------- 2 · Mi cartera: 5 cifras y franja del dividendo ---------------- */
