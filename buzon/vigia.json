@@ -1,133 +1,14 @@
 {
-  "generadoEl": "2026-10-26T13:59:10+01:00",
+  "generadoEl": "2026-11-02T16:47:06+01:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-10-26",
-  "resumenTexto": "⚠️ VENCIDOS (1): CIE Automotive, S.A. (9M, +4d). 📅 ESTA SEMANA (23): Vidrala, S.A. 25-10, Línea Directa 27-10, Aena 29-10, Ebro Foods 29-10, Endesa 29-10, Redeia 29-10, Fluidra 30-10, Repsol 30-10, Acerinox 31-10, BBVA 31-10, CaixaBank 31-10, Faes Farma 31-10, Gestamp 31-10, Inditex 31-10, Mapfre 31-10, Miquel y Costas 31-10, Merlin Properties 31-10, Naturgy 31-10, Prim 31-10, Renta 4 Banco 31-10, Rovi 31-10, Banco Santander 31-10, Unicaja 31-10. 🔜 PRÓXIMOS 14 DÍAS: Telefónica 04-11, Amadeus 07-11. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
-  "vencidos": [
-    {
-      "ticker": "CIE",
-      "empresa": "CIE Automotive, S.A.",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-22",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-20",
-      "diasVencido": 4
-    }
-  ],
+  "fechaReferencia": "2026-11-02",
+  "resumenTexto": "📅 ESTA SEMANA (8): Gestamp Automoción, S.A. 31-10, Industria de Diseño Textil, S.A. 31-10, Miquel y Costas & Miquel, S.A. 31-10, Merlin Properties, SOCIMI, S.A. 31-10, Prim, S.A. 31-10, Laboratorios Farmacéuticos Rovi, S.A. 31-10, Telefónica, S.A. 04-11, Amadeus IT Group, S.A. 07-11. 🔜 PRÓXIMOS 14 DÍAS: ACS, Actividades de Construcción y Servicios, S.A. 14-11. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "vencidos": [],
   "estaSemana": [
     {
-      "ticker": "VID",
-      "empresa": "Vidrala, S.A.",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-25",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-23"
-    },
-    {
-      "ticker": "LDA",
-      "empresa": "Línea Directa",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-27",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-27"
-    },
-    {
-      "ticker": "AENA",
-      "empresa": "Aena",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-29",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-29"
-    },
-    {
-      "ticker": "EBRO",
-      "empresa": "Ebro Foods",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-29",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-29"
-    },
-    {
-      "ticker": "ELE",
-      "empresa": "Endesa",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-29",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-29"
-    },
-    {
-      "ticker": "RED",
-      "empresa": "Redeia",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-29",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-29"
-    },
-    {
-      "ticker": "FDR",
-      "empresa": "Fluidra",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-30",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
-    },
-    {
-      "ticker": "REP",
-      "empresa": "Repsol",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-30",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-23"
-    },
-    {
-      "ticker": "ACX",
-      "empresa": "Acerinox",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-24"
-    },
-    {
-      "ticker": "BBVA",
-      "empresa": "BBVA",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
-    },
-    {
-      "ticker": "CABK",
-      "empresa": "CaixaBank",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
-    },
-    {
-      "ticker": "FAE",
-      "empresa": "Faes Farma",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
-    },
-    {
       "ticker": "GEST",
-      "empresa": "Gestamp",
+      "empresa": "Gestamp Automoción, S.A.",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-31",
@@ -136,7 +17,7 @@
     },
     {
       "ticker": "ITX",
-      "empresa": "Inditex",
+      "empresa": "Industria de Diseño Textil, S.A.",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-31",
@@ -144,17 +25,8 @@
       "ultimaFecha": "2026-07-31"
     },
     {
-      "ticker": "MAP",
-      "empresa": "Mapfre",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-23"
-    },
-    {
       "ticker": "MCM",
-      "empresa": "Miquel y Costas",
+      "empresa": "Miquel y Costas & Miquel, S.A.",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-31",
@@ -163,16 +35,7 @@
     },
     {
       "ticker": "MRL",
-      "empresa": "Merlin Properties",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
-    },
-    {
-      "ticker": "NTGY",
-      "empresa": "Naturgy",
+      "empresa": "Merlin Properties, SOCIMI, S.A.",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-31",
@@ -181,16 +44,7 @@
     },
     {
       "ticker": "PRM",
-      "empresa": "Prim",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
-    },
-    {
-      "ticker": "R4",
-      "empresa": "Renta 4 Banco",
+      "empresa": "Prim, S.A.",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-31",
@@ -199,36 +53,16 @@
     },
     {
       "ticker": "ROVI",
-      "empresa": "Rovi",
+      "empresa": "Laboratorios Farmacéuticos Rovi, S.A.",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
       "ultimaFecha": "2026-07-30"
     },
-    {
-      "ticker": "SAN",
-      "empresa": "Banco Santander",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
-    },
-    {
-      "ticker": "UNI",
-      "empresa": "Unicaja",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
-    }
-  ],
-  "proximos14d": [
     {
       "ticker": "TEF",
-      "empresa": "Telefónica",
+      "empresa": "Telefónica, S.A.",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
       "fechaEstimada": "2026-11-04",
@@ -237,7 +71,7 @@
     },
     {
       "ticker": "AMS",
-      "empresa": "Amadeus",
+      "empresa": "Amadeus IT Group, S.A.",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
       "fechaEstimada": "2026-11-07",
@@ -245,14 +79,25 @@
       "ultimaFecha": "2026-07-31"
     }
   ],
+  "proximos14d": [
+    {
+      "ticker": "ACS",
+      "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-11-14",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-29"
+    }
+  ],
   "siguienteEvento": {
-    "ticker": "LDA",
-    "empresa": "Línea Directa",
+    "ticker": "TEF",
+    "empresa": "Telefónica, S.A.",
     "periodoEsperado": "2026-Q3",
     "periodoLabel": "9M",
-    "fechaEstimada": "2026-10-27",
+    "fechaEstimada": "2026-11-04",
     "ultimoPeriodo": "2026-Q2",
-    "ultimaFecha": "2026-07-27"
+    "ultimaFecha": "2026-07-29"
   },
   "sinDeterminar": [],
   "totalEmpresas": 35
