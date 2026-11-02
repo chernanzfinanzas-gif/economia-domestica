@@ -40,12 +40,12 @@
     inp=inp||{};
     if(t==='ficha'){ var tk=String(inp.ticker||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
       return json('fichas/'+tk+'.json').then(function(F){ var o={ticker:tk,empresa:F.empresa,generado:F.generado,datos_hasta:F.datos_hasta,ultimo_ejercicio:F.ultimo_ejercicio};
-        (inp.apartados||['tesis']).forEach(function(a){ if(APARTADOS.indexOf(a)>=0&&F[a]!==undefined) o[a]=F[a]; }); return corta(o,90000); })
+        (inp.apartados||['tesis']).forEach(function(a){ if(APARTADOS.indexOf(a)>=0&&F[a]!==undefined) o[a]=F[a]; }); return corta(o,40000); })
         .catch(function(){ return 'No hay ficha de '+tk+': no es una de las 35 analizadas del método.'; }); }
     if(t==='hallazgos') return json('hallazgos.json').then(function(H){ var tk=inp.ticker&&String(inp.ticker).toUpperCase(), out={};
       Object.keys(H.empresas||{}).forEach(function(k){ if(tk&&k!==tk) return; var e=H.empresas[k], a=(e.hallazgos||[]).filter(function(h){ return tk||h.estado==='activa'; });
         if(a.length) out[k]={empresa:e.empresa,cobertura:e.cobertura,hallazgos:a.map(function(h){ return {tipo:h.tipo,estado:h.estado,severidad:h.severidad,fecha:h.fecha,resumen:h.resumen,fuente:h.fuente,ultimaNovedad:h.ultimaNovedad}; })}; });
-      return corta({generadoEl:H.generadoEl,empresas:out},60000); });
+      return corta({generadoEl:H.generadoEl,empresas:out},30000); });
     if(t==='decisiones') return json('recogida/decisiones-v3.json').then(function(D){ return corta(filtraTk(D,inp.ticker),40000); });
     if(t==='agenda'){ var R={calendario:'recogida/calendario.json',historico_resultados:'recogida/historico-resultados.json',anuncios_dividendo:'recogida/anuncios-dividendo.json',novedades:'recogida/novedades.json'}[inp.que];
       if(!R) return Promise.resolve('Apartado desconocido');
@@ -108,7 +108,9 @@
       var ctx=await contexto();
       var sys=[{type:'text',text:sistema()},{type:'text',text:ctx,cache_control:{type:'ephemeral'}}];
       for(var i=0;i<8;i++){
-        var R=await api({model:MODELO,max_tokens:4000,system:sys,tools:TOOLS,messages:conv});
+        var envio=conv.map(function(m,ix){ if(ix!==conv.length-1) return m; var c=typeof m.content==='string'?[{type:'text',text:m.content}]:m.content.slice();
+          var u=c.length-1; c[u]=Object.assign({},c[u],{cache_control:{type:'ephemeral'}}); return {role:m.role,content:c}; });
+        var R=await api({model:MODELO,max_tokens:4000,system:sys,tools:TOOLS,messages:envio});
         total+=coste(R.usage||{});
         conv.push({role:'assistant',content:R.content});
         var tu=(R.content||[]).filter(function(c){ return c.type==='tool_use'; });
