@@ -7,7 +7,7 @@
       "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
       "cobertura": {
         "semanal": "2026-11-02",
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -119,7 +119,7 @@
       "cobertura": {
         "semanal": "2026-11-02",
         "trimestral": "2026-07-29",
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -195,7 +195,7 @@
       "empresa": "Amadeus IT Group, S.A.",
       "cobertura": {
         "semanal": "2026-11-02",
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -294,7 +294,7 @@
       "empresa": "Azkoyen, S.A.",
       "cobertura": {
         "semanal": "2026-11-02",
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -641,7 +641,7 @@
       "empresa": "Faes Farma, S.A.",
       "cobertura": {
         "semanal": "2026-11-02",
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -934,7 +934,7 @@
       "empresa": "Miquel y Costas & Miquel, S.A.",
       "cobertura": {
         "semanal": "2026-11-02",
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -1349,7 +1349,7 @@
     "SAB": {
       "empresa": "SAB.MC",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -1366,6 +1366,21 @@
           "fecha": "2026-07-01",
           "fuente": "https://www.eldiario.es/economia/bbva-fracasa-opa-banco-sabadell-no-llegar-30-capital_1_12682412.html",
           "exigeAccion": false
+        },
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-11-02",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "BPCE compra cerca del 7 % de Banco Sabadell (en mercado e instrumentos financieros) como accionista estable y de largo plazo, quiere entrar en el consejo y ambos explorarán una cooperación estratégica. Comunicado conjunto, carácter amistoso.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "repaso universo 2026-11-02 (lista de comunicaciones CNMV/BME del PC, 3-oct a 2-nov)",
+          "fecha": "2026-10-06",
+          "fuente": "CNMV IP 3360 (6-oct-2026)",
+          "exigeAccion": false
         }
       ]
     },
@@ -1373,7 +1388,7 @@
       "empresa": "Banco Santander, S.A.",
       "cobertura": {
         "semanal": "2026-11-02",
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -1580,7 +1595,7 @@
     "TLGO": {
       "empresa": "TLGO.MC",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -2085,7 +2100,7 @@
     "OLE": {
       "empresa": "Deoleo, S.A.",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -2108,15 +2123,15 @@
     "AEDAS": {
       "empresa": "AEDAS Homes, S.A.",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
           "id": "soc-otro",
           "abiertoEl": "2026-10-05",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-11-02",
+          "desenlace": "Sustituido por la OPA de exclusión anunciada el 30-oct-2026 (soc-opa): la posible exclusión ya está en trámite.",
           "resumen": "Tras dos OPAs (la segunda a 24 €, liquidada el 5-mar-2026) Neinor tiene el 96,8 % de AEDAS. Sigue cotizando con un flotante de ~3 %; Neinor habló de venta forzosa y también de mantener la cotización o lanzar una OPA de exclusión a 24 € como máximo. No consta anuncio en la ventana: liquidez mínima y posible exclusión.",
           "tipo": "otro",
           "naturaleza": "situacion",
@@ -2125,6 +2140,24 @@
           "fecha": "2026-03-05",
           "fuente": "https://forbes.es/economia/884989/neinor-se-hace-con-un-968-del-capital-de-aedas-por-923-millones-de-euros-tras-concluir-su-segunda-opa/",
           "exigeAccion": false
+        },
+        {
+          "id": "soc-opa",
+          "abiertoEl": "2026-11-02",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "OPA DE EXCLUSIÓN de Neinor Homes sobre AEDAS a 24 €/acción en efectivo, anunciada el 30-oct-2026. Neinor ya tiene el 98,15 % y la oferta va al 1,85 % restante. Pendiente de autorización de la CNMV y de la Junta Extraordinaria del 17-nov (18-nov en segunda). Informe de KPMG: 21,82-24 €. Exclusión prevista entre dic-2026 y ene-2027.",
+          "tipo": "opa",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "repaso universo 2026-11-02 (tandas de la nube)",
+          "fecha": "2026-10-30",
+          "fuente": "https://www.idealista.com/news/inmobiliario/empresas/2026/10/30/921619-neinor-lanza-una-opa-sobre-aedas-a-24-euros-por-accion-para-excluirla-de-bolsa",
+          "exigeAccion": false,
+          "precioIntervenido": "opa-sobre-la-empresa",
+          "precioIntervenidoPorque": "OPA de exclusión de Neinor SOBRE AEDAS a 24 € en efectivo (30-oct-2026): la oferta fija el precio y la cotización deja de ser libre.",
+          "precioIntervenidoDesde": "2026-10-30"
         }
       ]
     },
@@ -2218,7 +2251,7 @@
     "MEL": {
       "empresa": "Meliá Hotels International, S.A.",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -2242,7 +2275,7 @@
     "NYE": {
       "empresa": "Nyesa Valores Corporación, S.A.",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -2255,10 +2288,14 @@
           "tipo": "otro",
           "naturaleza": "situacion",
           "severidad": "media",
-          "origen": "barrido universo 2026-10-05",
-          "fecha": "2026-07-21",
-          "fuente": "https://www.nyesa.com/accionistas-e-inversores/",
-          "exigeAccion": false
+          "origen": "repaso universo 2026-11-02 (lista de comunicaciones CNMV/BME del PC, 3-oct a 2-nov)",
+          "fecha": "2026-10-21",
+          "fuente": "CNMV OIR 43249 (21-oct-2026)",
+          "exigeAccion": false,
+          "ultimaNovedad": {
+            "fecha": "2026-10-21",
+            "texto": "Siguen las conversiones de los bonos de LDA Capital: novena y décima conversión a 0,0027 €/acción, 4.592.500 acciones nuevas (dilución continua)."
+          }
         }
       ]
     },
@@ -2289,7 +2326,7 @@
     "CEV": {
       "empresa": "Compañía Española de Viviendas en Alquiler, S.A. (Cevasa)",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": [
         {
@@ -2313,7 +2350,7 @@
     "R4": {
       "empresa": "Renta 4 Banco",
       "cobertura": {
-        "universo": "2026-10-05",
+        "universo": "2026-11-01",
         "semanal": "2026-11-02"
       },
       "hallazgos": [],
@@ -2331,7 +2368,7 @@
     "FCC": {
       "empresa": "FCC",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
@@ -2409,7 +2446,7 @@
     "AIR": {
       "empresa": "AIR",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
@@ -2486,7 +2523,7 @@
     "MAKS": {
       "empresa": "MAKS",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
@@ -2507,28 +2544,28 @@
     "RLIA": {
       "empresa": "RLIA",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
     "MVC": {
       "empresa": "MVC",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
     "PHM": {
       "empresa": "PHM",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
     "PSG": {
       "empresa": "PSG",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
@@ -2549,7 +2586,7 @@
     "TUB": {
       "empresa": "TUB",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
@@ -2563,7 +2600,7 @@
     "ALNT": {
       "empresa": "ALNT",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
@@ -2577,7 +2614,7 @@
     "RJF": {
       "empresa": "RJF",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
@@ -2591,14 +2628,14 @@
     "AI": {
       "empresa": "AI",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
     "NEA": {
       "empresa": "NEA",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
@@ -2633,7 +2670,7 @@
     "CCEP": {
       "empresa": "CCEP",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
@@ -2647,21 +2684,21 @@
     "IBG": {
       "empresa": "IBG",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
     "ORY": {
       "empresa": "ORY",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
     "DIA": {
       "empresa": "DIA",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-01"
       },
       "hallazgos": []
     },
@@ -2788,23 +2825,314 @@
         "universo": "2026-11-01"
       },
       "hallazgos": []
+    },
+    "CBAV": {
+      "empresa": "CBAV",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "CLR": {
+      "empresa": "Clerhp Estructuras, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-11-02",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Según prensa (El Confidencial Digital, 11-oct-2026), Clerhp prepara su salto de BME Growth al Mercado Continuo para 2027, ligado al proyecto Larimar City. Sin folleto, colocadora ni otro trámite comunicado.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "baja",
+          "origen": "repaso universo 2026-11-02 (tandas de la nube)",
+          "fecha": "2026-10-11",
+          "fuente": "https://www.elconfidencialdigital.com/articulo/dinero/clerhp-prepara-salto-mercado-continuo-2027-larimar-city/20261011221905149270.html",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "CMO": {
+      "empresa": "Cementos Molins, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-11-02",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Salto al Mercado Continuo: la junta del 26-jun-2026 aprobó pedir la admisión en la Bolsa de Madrid y en el SIBE (venía del mercado de corros de Barcelona). Comunicaciones a la CNMV del 1 y 13-jul sobre la admisión. Fecha efectiva sin confirmar: comprobar que la app usa la cotización del mercado correcto.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "repaso universo 2026-11-02 (tandas de la nube)",
+          "fecha": "2026-07-13",
+          "fuente": "https://www.diariosigloxxi.com/texto-ep/mostrar/20260626181409/cementos-molins-aprueba-dar-salto-mercado-continuo-reelige-consejeros",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "DOM": {
+      "empresa": "GLOBAL DOMINION ACCESS, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "EDR": {
+      "empresa": "EDREAMS ODIGEO, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "COXG": {
+      "empresa": "Cox Infrastructure Group, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-litigio",
+          "abiertoEl": "2026-11-02",
+          "estado": "caducada",
+          "resueltoEl": "2026-11-02",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
+          "resumen": "Laudos arbitrales firmes A FAVOR por la desaladora de Accra (Ghana): 235 M$ netos más intereses a cobrar de Ghana Water Company, con garantía de la República de Ghana. Importes brutos; el cobro sigue en negociación.",
+          "tipo": "litigio",
+          "naturaleza": "hecho",
+          "severidad": "baja",
+          "origen": "repaso universo 2026-11-02 (tandas de la nube)",
+          "fecha": "2026-09-21",
+          "fuente": "https://grupocox.com/wp-content/uploads/2026/09/20260921-OIR-Ghana-ENG.pdf",
+          "exigeAccion": false,
+          "caducaEl": "2026-10-21"
+        }
+      ]
+    },
+    "GGR": {
+      "empresa": "Grupo Greening 2022, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-11-02",
+          "estado": "caducada",
+          "resueltoEl": "2026-11-02",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
+          "resumen": "Greening cerró como OFERENTE su OPA sobre Energy Solar Tech (más del 92 % de aceptación); quedaban la liquidación y una ampliación de capital no monetaria.",
+          "tipo": "otro",
+          "naturaleza": "hecho",
+          "severidad": "baja",
+          "origen": "repaso universo 2026-11-02 (tandas de la nube)",
+          "fecha": "2026-07-27",
+          "fuente": "https://www.greening-group.com/greening-culmina-con-exito-su-opa-sobre-energy-solar-tech-y-acelera-la-ejecucion-de-su-plan-estrategico/",
+          "exigeAccion": false,
+          "caducaEl": "2026-08-26"
+        }
+      ]
+    },
+    "GIGA": {
+      "empresa": "Gigas Hosting, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "IAG": {
+      "empresa": "International Consolidated Airlines Group, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "INDXA": {
+      "empresa": "Indexa Capital Group, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-11-02",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Salto de BME Growth al Mercado Continuo en marcha: el consejo del 30-abr-2026 acordó los trámites (CNMV, Iberclear, cuatro Bolsas, SIBE) y la salida simultánea de BME Growth; el 10-jul dijo que prevé completarlo antes de fin de 2026 y que reformula sus cuentas a NIIF. Sin ampliación de capital. Falta el folleto y la fecha de cotización.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "repaso universo 2026-11-02 (tandas de la nube)",
+          "fecha": "2026-07-10",
+          "fuente": "https://forbes.es/ultima-hora/977420/indexa-capital-preve-completar-el-proceso-para-saltar-al-mercado-continuo-antes-de-finales-de-ano/",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "IZER": {
+      "empresa": "IZERTIS",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "LLYC": {
+      "empresa": "Llorente Y Cuenca",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "ATSI": {
+      "empresa": "Knowmad Mood",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "EBROM": {
+      "empresa": "Ebro EV Motors, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-11-02",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Semestrales a 30-jun-2026: fondo de maniobra NEGATIVO de 83 M€ (positivo de 15 M€ a cierre de 2025); cuentas formuladas en empresa en funcionamiento apoyadas en subvenciones PERTE, préstamos y la póliza ampliada a 60 M€. Nuevas previsiones 2026: 26.000-29.000 vehículos y 650-700 M€ de ingresos.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "baja",
+          "origen": "repaso universo 2026-11-02 (lista de comunicaciones CNMV/BME del PC, 3-oct a 2-nov)",
+          "fecha": "2026-10-28",
+          "fuente": "BME OIR 120682 (28-oct-2026)",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "MDF": {
+      "empresa": "MDF",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "NAT": {
+      "empresa": "Natac Natural",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "PRS": {
+      "empresa": "Promotora de Informaciones, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "PVA": {
+      "empresa": "Pescanova, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "SEC": {
+      "empresa": "Secuoya Grupo de Comunicación, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-litigio",
+          "abiertoEl": "2026-11-02",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Disputa entre accionistas: Sacromonte Inversiones dio por resuelto el pacto de accionistas con Simres Trade y esta no lo acepta; la vigencia del pacto es controvertida.",
+          "tipo": "litigio",
+          "naturaleza": "situacion",
+          "severidad": "baja",
+          "origen": "repaso universo 2026-11-02 (lista de comunicaciones CNMV/BME del PC, 3-oct a 2-nov)",
+          "fecha": "2026-10-05",
+          "fuente": "BME OIR 120441 (5-oct-2026)",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "SLR": {
+      "empresa": "Solaria Energía y Medioambiente, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "SNG": {
+      "empresa": "Sngular People",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
+    },
+    "TSK": {
+      "empresa": "TSK Electrónica y Electricidad, S.A.",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-litigio",
+          "abiertoEl": "2026-11-02",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Avales del proyecto Temane (Mozambique): TSK aclara que no es parte del pleito de dos bancos en Reino Unido; tiene un arbitraje propio en la CCI de Londres (resolución a finales de 2027 o inicios de 2028), la ejecución de los avales está paralizada en España por medidas cautelares y negocia un acuerdo que, dice, no tendría impacto adverso significativo.",
+          "tipo": "litigio",
+          "naturaleza": "situacion",
+          "severidad": "baja",
+          "origen": "repaso universo 2026-11-02 (lista de comunicaciones CNMV/BME del PC, 3-oct a 2-nov)",
+          "fecha": "2026-10-14",
+          "fuente": "CNMV OIR 43161 (14-oct-2026)",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "VYT": {
+      "empresa": "Vytrus Biotech",
+      "cobertura": {
+        "universo": "2026-11-01"
+      },
+      "hallazgos": []
     }
   },
   "resumen": {
-    "empresasConHallazgo": 34,
-    "hallazgosActivos": 46,
+    "empresasConHallazgo": 41,
+    "hallazgosActivos": 53,
     "porTipo": {
       "sancion": 3,
       "coyuntura": 17,
-      "otro": 19,
-      "opa": 3,
-      "litigio": 2,
+      "otro": 23,
+      "opa": 4,
+      "litigio": 4,
       "concurso": 2
     },
     "exigenAccion": 0,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 26,
-    "hechosCaducadosHoy": 0
+    "situacionesAbiertas": 33,
+    "hechosCaducadosHoy": 2
   },
   "reproyectadoEl": "2026-09-26"
 }

@@ -1,15 +1,76 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-02T08:45",
+ "generado": "2026-11-02T18:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "AENA señales 2026-11-02",
+   "ticker": "AENA",
+   "periodos": [],
+   "tipo": "senales",
+   "creada": "2026-11-02T17:00",
+   "semaforo": null,
+   "frase": "EXT · REAFIRMAR propuesta. La decisión de la tesis ya es ESPERAR y no hay posición: cotiza a 26,78 €, un 64 % sobre el PO (16,34 €) y por encima del PO bull (20,98 €). Con la tarifa del DORA III por debajo del +2 %, el escenario A pesa más:",
+   "senales": [
+    {
+     "senal": "EXT",
+     "motivo": "informe semanal 02-11-2026: se cumple la señal de salida del escenario A del pre-mortem: DORA III aprobado el 15-sep con +0,33 % anual, por debajo del +2 % (informe de resultados 9M de Aena, 28-oct); el 9M salió en rojo (margen −1,96 puntos), S2 ya reafirmada el 28-oct.",
+     "desde": "2026-11-02",
+     "origen": "informe semanal 02-11-2026"
+    }
+   ],
+   "propuesta": [
+    {
+     "senal": "EXT",
+     "decision": "REAFIRMAR",
+     "motivo": "La decisión de la tesis ya es ESPERAR y no hay posición: cotiza a 26,78 €, un 64 % sobre el PO (16,34 €) y por encima del PO bull (20,98 €). Con la tarifa del DORA III por debajo del +2 %, el escenario A pesa más: no comprar. Queda por comprobar en la revisión anual si la valoración ya recoge esa tarifa. Propuesta de informe semanal 02-11-2026 (método v3)."
+    }
+   ],
+   "datos": [
+    "Decisión vigente de la tesis: ESPERAR",
+    "Cotización 26,78 € · PO bear 13,28 € · PO 16,34 € · PO bull 20,98 € · 63,9 % sobre el PO",
+    "Banda de entrada 13,28–14,21 € · stop 8,82 €",
+    "Semáforo de empresa: ÁMBAR · revisado hasta 2026-9M",
+    "Tesis escrita el 2026-10-27 · valoración generada el 2026-10-29"
+   ]
+  },
+  {
+   "carpeta": "SAN señales 2026-11-02",
+   "ticker": "SAN",
+   "periodos": [],
+   "tipo": "senales",
+   "creada": "2026-11-02T17:00",
+   "semaforo": null,
+   "frase": "EXT · REAFIRMAR propuesta. Es un golpe de mercado por el riesgo Brasil, no un deterioro de las cifras: el 9M salió en verde (beneficio atribuido +20,0 %, RoTE 17,4 %). Sigue en ESPERAR: mantener sin ampliar y vigilar el CET1 frente al 13 % ",
+   "senales": [
+    {
+     "senal": "EXT",
+     "motivo": "pase de novedades 30-10-2026: −12,1 % en 5 sesiones (cierre 10,12 € el 30-oct): −4,6 % el 26-oct tras la reelección de Lula en Brasil y −6 % el 28-oct con los resultados del 9M pese a ganar 12.405 M€; CET1 12,7 %, por debajo del 13 %.",
+     "desde": "2026-11-02",
+     "origen": "pase de novedades 30-10-2026"
+    }
+   ],
+   "propuesta": [
+    {
+     "senal": "EXT",
+     "decision": "REAFIRMAR",
+     "motivo": "Es un golpe de mercado por el riesgo Brasil, no un deterioro de las cifras: el 9M salió en verde (beneficio atribuido +20,0 %, RoTE 17,4 %). Sigue en ESPERAR: mantener sin ampliar y vigilar el CET1 frente al 13 % y el peso de Brasil. Propuesta de pase de novedades 30-10-2026 (método v3)."
+    }
+   ],
+   "datos": [
+    "Decisión vigente de la tesis: ESPERAR",
+    "Cotización 10,64 € · PO bear 5,74 € · PO 6,97 € · PO bull 8,69 € · 52,6 % sobre el PO",
+    "Banda de entrada 5,74–6,06 € · stop 3,59 €",
+    "Semáforo de empresa: VERDE · revisado hasta 2026-9M",
+    "Tesis escrita el 2026-10-27 · valoración generada el 2026-10-29"
+   ]
+  }
+ ],
+ "n_pendientes": 2,
  "ultima_subida": {
-  "cuando": "2026-11-02T08:45",
+  "cuando": "2026-11-02T18:45",
   "ficheros": [
-   "hallazgos.json",
-   "informes-semanales/Informe Semanal de Cartera - 2026-11-02.pdf",
-   "macro.json"
+   "hallazgos.json"
   ]
  },
  "rechazos": [],
