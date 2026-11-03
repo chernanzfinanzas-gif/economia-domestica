@@ -30,6 +30,16 @@
   function filas(wb,n){ var ws=wb.Sheets[n]; return ws?XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:''}):[]; }
   function leer(buf,nombre){
     var wb=XLSX.read(buf,{type:'array'}), N=wb.SheetNames, out={fichero:nombre,lineas:[],tipo:null};
+    /* 3-nov-2026 (Carlos: «que rellene foncuenta, movimientos y caja bróker»): Excel «extractosFndIntegrados…» de R4, hoja «Operaciones».
+       Trae cada suscripción y reembolso del Foncuenta con sus participaciones, valor liquidativo y retención, y la valoración de hoy. */
+    if(N.indexOf('Operaciones')>=0){ var RF=filas(wb,'Operaciones');
+      if(RF.some(function(r){ return /EXTRACTOS DE FONDOS INTEGRADOS/i.test(String(r[0]||'')); })){ out.tipo='R4F'; out.fmovs=[]; var enF=false;
+        RF.forEach(function(r){ var c0=String(r[0]||'').trim();
+          if(/FONCUENTA/i.test(c0)){ enF=true; return; } if(/^RENTA 4 |^VALORACI/i.test(sinAc(c0).toUpperCase())){ enF=false; return; } if(!enF) return;
+          var f=serial(r[0]); if(!f) return; var con=sinAc(String(r[1]||'')).toUpperCase();
+          var t=/^VALORACI/.test(con)?'valoracion':/^SUSCRIPCI/.test(con)?'suscripcion':/^REEMBOLSO/.test(con)?'reembolso':/^SALDO ANT/.test(con)?'saldo':null; if(!t) return;
+          out.fmovs.push({fecha:f,tipo:t,part:nn(r[2])||0,vl:nn(r[3])||0,bruto:nn(r[4])||0,reten:nn(r[6])||0,efectivo:nn(r[8])||0}); });
+        return out; } }
     if(N.indexOf('Rdos.')>=0||N.indexOf('Saldo en Divisa')>=0){ out.tipo='R4'; out.r4=[];
       try{ if(typeof window.nR4XlsDesdeImport==='function') window.nR4XlsDesdeImport(buf,nombre); }catch(e){ console.warn('[importar] R4 para Fondo/Caja',e); }   /* solo para cotejar los recibos que pagan los bancos a R4 */
       out.r4cash=[]; filas(wb,'Saldo en Divisa').forEach(function(r){ var f=serial(r[0]), c=String(r[1]||'').toUpperCase(), im=nn(r[2]), sl=nn(r[3]); if(f&&im!=null&&/^(INGRESO RECIBO|TRANSF\. RECIBIDA)/.test(c)) out.r4.push({fecha:f,imp:im}); if(f&&sl!=null) out.r4cash.push({fecha:f,saldo:sl}); if(f&&im!=null) (out.r4l=out.r4l||[]).push({f:f,c:c,imp:im}); });
@@ -56,7 +66,7 @@
           for(var j3=i+1;j3<R.length;j3++){ var w=R[j3], f3=serial(w[0]), im3=nn(w[3]); if(!f3||im3==null) continue; out.lineas.push({src:'SAN',f:f3,txt:String(w[2]).trim(),imp:im3,saldo:nn(w[4]),bcat:''}); }
           return out; }
       } }
-    throw new Error(nombre+': no reconozco este Excel (sirven los de movimientos de ING —cuenta o tarjeta— y el de Santander)');
+    throw new Error(nombre+': no reconozco este Excel (sirven los de movimientos de ING —cuenta o tarjeta—, el de Santander y los de Renta 4: patrimonio y extracto de fondos)');
   }
   /* 1-nov-2026 (Carlos): de R4 entran como movimientos los DIVIDENDOS (netos de comisión e IVA), la CUSTODIA (con su IVA) y la VENTA DE DERECHOS
      (neta de retención). Lo demás del extracto (recibos, Foncuenta, compras de acciones) no es gasto ni ingreso del hogar. */
@@ -379,7 +389,41 @@
     inp.click();
   };
   window.nImpLeer=function(buf,nombre){ return leer(buf,nombre); };
+  /* ---------- Foncuenta: une el extracto nuevo con lo guardado y, si cuadra, rehace Fondo R4 (y con él la Caja bróker) ---------- */
+  function fondoUnir(X){
+    var K=function(m){ return m.fecha+'|'+m.tipo+'|'+(+m.part).toFixed(6); }, ops={}, val=null, saldo=null;
+    var G=(DB.easyExtracto&&DB.easyExtracto.movs)||[];
+    G.concat(X.fmovs).forEach(function(m){ if(m.tipo==='saldo'){ if(X.fmovs.indexOf(m)>=0&&(!saldo||m.fecha<saldo.fecha)) saldo=m; return; }
+      if(m.tipo==='valoracion'){ if(!val||m.fecha>val.fecha) val=m; return; } ops[K(m)]=m; });
+    var L=Object.keys(ops).map(function(k){ return ops[k]; }).sort(function(a,b){ return a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0; });
+    if(!val) return {ok:false,msg:'el extracto del fondo no trae la valoración'};
+    var pt=0; L.forEach(function(m){ if(m.fecha<=val.fecha) pt+=(m.tipo==='suscripcion'?1:-1)*m.part; });
+    if(Math.abs(pt-val.part)>0.00001){
+      var falta=saldo&&!G.length?'Es el primero que recibo y empieza a mitad (con «saldo anterior» el '+saldo.fecha.split('-').reverse().join('/')+'): bájalo una vez con todo el histórico.'
+        :'Falta un trozo entre el extracto guardado y este: bájalo con fechas que empalmen con el anterior.';
+      return {ok:false,msg:'las participaciones no cuadran ('+pt.toFixed(6)+' calculadas, '+val.part.toFixed(6)+' según R4). '+falta}; }
+    var movs=L.concat([val]), nuevo=movs.length-G.length;
+    var vieja=G.filter(function(m){ return m.tipo==='valoracion'; })[0];
+    if(vieja&&vieja.fecha===val.fecha&&nuevo<=0&&DB.easy&&DB.easy.length) return {ok:true,sin:true,val:val};
+    if(typeof pushSnapshot==='function') pushSnapshot('antes de actualizar el Fondo R4 con el extracto de fondos');
+    DB.easyExtracto={guardado:new Date().toISOString().slice(0,19),fuente:'Renta 4 · Extracto de fondos (Excel)',movs:movs};
+    var rec=false; if(typeof r4RecConstruir==='function'){ var nv=r4RecConstruir(movs), d=(typeof r4RecDiff==='function')?r4RecDiff(nv):{};
+      if(!d.recorta){ DB.easy=nv; rec=true; } }
+    try{ var BS=DB.bancoSaldos=DB.bancoSaldos||{}, pv=BS.R4; if(pv&&pv.fecha<=val.fecha&&pv.cash!=null){ BS.R4={fecha:val.fecha,saldo:r2(val.efectivo+pv.cash),fondo:r2(val.efectivo),cash:pv.cash,leido:hoy(),fondoDe:'extracto de fondos'}; } }catch(e){}
+    return {ok:true,val:val,n:L.length,rec:rec};
+  }
+  window.nImpFondo=fondoUnir;
   window.nImpProcesar=function(XS){ var s=document.getElementById('nImpMsg');
+    var FX=XS.filter(function(x){ return x.tipo==='R4F'; }), fmsg='';
+    if(FX.length){ FX.sort(function(a,b){ var fa=(a.fmovs[0]||{}).fecha||'', fb=(b.fmovs[0]||{}).fecha||''; return fa<fb?-1:1; });
+      FX.forEach(function(x){ try{ var r=fondoUnir(x);
+        fmsg+=r.ok?(r.sin?'Foncuenta: ya estaba al día ('+r.val.fecha.split('-').reverse().join('/')+'). ':'✓ Foncuenta al '+r.val.fecha.split('-').reverse().join('/')+': '+r.val.part.toFixed(6).replace('.',',')+' participaciones, '+r2(r.val.efectivo).toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' € · '+r.n+' operaciones'+(r.rec?'; movimientos del fondo y caja bróker rehechos. ':'. '))
+          :'✗ Foncuenta sin actualizar: '+r.msg+' '; }catch(e){ fmsg+='✗ Foncuenta: '+e.message+' '; console.warn('[importar] fondo',e); } });
+      if(typeof scheduleSave==='function') scheduleSave();
+      try{ if(typeof renderFondoR4==='function') renderFondoR4(); if(typeof renderCaja==='function') renderCaja(); }catch(e){}
+      XS=XS.filter(function(x){ return x.tipo!=='R4F'; });
+      window._nImpFmsg=fmsg;
+      if(!XS.length){ if(s) s.textContent=fmsg; return; } }
     var L=[], fic=[], r4=false, r4ing=[], porSrc={};
     XS.forEach(function(x){ if(x.tipo==='R4'&&(x.lineas||[]).length){ claves(x.lineas); x.lineas.forEach(function(l){ if(!porSrc[l.key]){ porSrc[l.key]=1; L.push(l); } }); }
       if(x.tipo==='R4'){ r4=true; r4ing=r4ing.concat(x.r4||[]);
@@ -387,11 +431,11 @@
         var fh=x.r4hasta>hoy()?hoy():x.r4hasta;
         if(!pv||pv.fecha<=fh) DB.bancoSaldos.R4={fecha:fh,saldo:r2(x.r4fondo+cs),fondo:x.r4fondo,cash:cs,leido:hoy()}; } }catch(e){} fic.push('Renta 4 (para cotejar)'); return; }
       claves(x.lineas); var nv=x.lineas.filter(function(l){ if(porSrc[l.key]) return false; porSrc[l.key]=1; return true; }); L=L.concat(nv); fic.push(CTA[x.tipo]+' ('+x.lineas.length+')'); });
-    if(!L.length){ if(s) s.textContent=r4?'Con el extracto de R4 solo se cotejan los recibos: elígelo junto a los del banco.':'No había movimientos en esos ficheros.'; return; }
+    if(!L.length){ if(s) s.textContent=fmsg?fmsg:r4?'Con el extracto de R4 solo se cotejan los recibos: elígelo junto a los del banco.':'No había movimientos en esos ficheros.'; return; }
     var u0=(DB.bancoUltImport||''), desde=u0?addD(u0,-10):addD(hoy(),-92);
     ST={lineas:L,ficheros:fic,r4:r4,r4ing:r4ing,desde:desde};
     analizar(); if(!DB.bancoUltImport||ST.hasta>DB.bancoUltImport) DB.bancoUltImport=ST.hasta; pintar(); ult();
-    if(s) s.textContent='';
+    if(s) s.textContent=fmsg;
   };
   window._nImpST=function(){ return ST; };
   /* 1-nov-2026: la venta de derechos también sale del extracto de R4 que la app ya tiene guardado (sin volver a importar) */
@@ -404,7 +448,7 @@
      Descargas se sincroniza con Drive (Google Drive para escritorio) o guardas el extracto en Drive desde el móvil: la app busca en
      TODO tu Drive los ficheros con nombre de extracto (movements-…, transactions_…, extractosPatrimonio…) modificados en los últimos
      120 días y que no haya leído ya (DB.bancoFicheros: id → fecha de modificación). Necesita el permiso de LEER Drive. */
-  var PAT=/^(movements-|transactions_|extractosPatrimonio)/i, _busc=false, _ultB=0, _permOk=null;
+  var PAT=/^(movements-|transactions_|extractosPatrimonio|extractosFndIntegrados)/i, _busc=false, _ultB=0, _permOk=null;
   function hayDrive(){ return !window._demoOn && typeof gfetch==='function' && typeof accessToken!=='undefined' && !!accessToken; }
   function permiso(){ if(_permOk!=null) return Promise.resolve(_permOk);
     return fetch('https://oauth2.googleapis.com/tokeninfo?access_token='+encodeURIComponent(accessToken)).then(function(r){ return r.ok?r.json():null; })
@@ -413,7 +457,7 @@
     if(!hayDrive()||_busc) return Promise.resolve(0); if(!manual&&Date.now()-_ultB<10*60e3) return Promise.resolve(0);
     _busc=true; _ultB=Date.now(); var s=document.getElementById('nImpMsg'); if(manual&&s) s.textContent='Buscando extractos en tu Drive…';
     var F=DB.bancoFicheros=DB.bancoFicheros||{}, desde=new Date(Date.now()-120*864e5).toISOString().slice(0,19);
-    var q="trashed=false and modifiedTime > '"+desde+"' and (name contains 'movements-' or name contains 'transactions_' or name contains 'extractosPatrimonio')";
+    var q="trashed=false and modifiedTime > '"+desde+"' and (name contains 'movements-' or name contains 'transactions_' or name contains 'extractosPatrimonio' or name contains 'extractosFndIntegrados')";
     return permiso().then(function(ok){ if(!ok) throw new Error('permiso');
       return gfetch('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+'&fields=files(id,name,modifiedTime)&orderBy=modifiedTime%20desc&pageSize=50'); })
      .then(function(r){ if(r.status===401||r.status===403) throw new Error('permiso'); return r.ok?r.json():{files:[]}; })
