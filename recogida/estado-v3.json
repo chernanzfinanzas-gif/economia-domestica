@@ -1,18 +1,16 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-03T20:27",
+ "generado": "2026-11-03T20:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-03T20:27",
+  "cuando": "2026-11-02T21:45",
   "ficheros": [
-   "fichas/_evolucion.json"
+   "fichas/_resumen.json"
   ]
  },
- "rechazos": [
-  "NO SUBE ultimo_error.txt: ruta fuera de la lista blanca"
- ],
+ "rechazos": [],
  "descargas_pendientes": [
   {
    "clase": "fallido",
