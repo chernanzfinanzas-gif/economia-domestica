@@ -19,7 +19,7 @@
 
   function cargar(){
     fetch('recogida/estado-v3.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(j){
-      window._nSen=((j&&j.revisiones_pendientes)||[]).filter(function(p){ return p.tipo==='senales'; }); rep();
+      window._nSen=((j&&j.revisiones_pendientes)||[]).filter(function(p){ return p.tipo==='senales'; }); window._nDescargas=(j&&j.descargas_pendientes)||[]; rep();
     }).catch(function(){ window._nSen=[]; });
     cargarDrive();
   }

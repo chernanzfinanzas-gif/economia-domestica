@@ -4,7 +4,7 @@
    Datos: fichas/_evolucion.json (motor/evolucion.py del Método v3, sube solo cada hora). La cartera y el plan se cruzan
    aquí, en el aparato: el fichero del repositorio no sabe qué tienes. Pinchar una analizada → su Ficha. */
 (function(){
-  var R=null, tab=null, peorPrimero=false;
+  var R=null, tab=null, peorPrimero=false, modo='anio';   /* 3-nov: 'anio' o 'semestre' (S1 frente a S1) */
   function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   function n(v,d){ if(v==null||!isFinite(+v)) return '—'; return (+v).toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d,useGrouping:'always'}); }
   function cargar(){ if(R) return Promise.resolve(R);
@@ -33,20 +33,20 @@
   function pintar(){
     var v=document.getElementById('view-evolucion'); if(!v) return; css();
     if(!R){ v.innerHTML='<div class="nf-mu" style="padding:20px">Cargando la evolución…</div>'; cargar().then(function(){ if(R) pintar(); else v.innerHTML='<div class="nf-card" style="padding:20px">Todavía no hay tabla de evolución publicada. La deja el Método v3 en la subida de datos de cada hora.</div>'; }); return; }
-    var C=cartera(), P=plan(C), A=analizadas(), E=R.empresas||[];
+    var C=cartera(), P=plan(C), A=analizadas(), E=(modo==='semestre'?R.semestre:R.empresas)||[];
     var G={cartera:E.filter(function(e){ return C[e.ticker]; }), plan:E.filter(function(e){ return P[e.ticker]; }), analizadas:E.filter(function(e){ return A[e.ticker]; }), universo:E};
     if(!tab) tab=G.cartera.length?'cartera':'universo';
     var L=G[tab].slice().sort(function(a,b){ if(a.pocos_datos!==b.pocos_datos) return a.pocos_datos?1:-1; var d=(b.nota||0)-(a.nota||0); return peorPrimero?-d:d; });
     var ok=L.filter(function(e){ return !e.pocos_datos; }), bien=ok.filter(function(e){ return e.nota>=16; }).length, mal=ok.filter(function(e){ return e.nota<10; }).length;
     var M=R.metricas||[], TT={cartera:'Cartera',plan:'Plan de compras',analizadas:'Analizadas',universo:'Universo'};
-    var h='<div class="vhero g-violet"><div class="vhero-main"><span class="vhero-ic">📊</span><div class="vhero-txt"><h2>Evolución de las empresas</h2><p>Último ejercicio frente al anterior, en 8 métricas. Verde 3 puntos, ámbar 1, rojo 0: nota sobre 24.</p></div></div></div>'+
+    var h='<div class="vhero g-violet"><div class="vhero-main"><span class="vhero-ic">📊</span><div class="vhero-txt"><h2>Evolución de las empresas</h2><p>'+(modo==='semestre'?'Primer semestre frente al del año anterior (caja, dividendos y deuda, a 12 meses)':'Último ejercicio frente al anterior')+', en 8 métricas. Verde 3 puntos, ámbar 1, rojo 0: nota sobre 24.</p></div></div></div>'+
       '<div class="n-ctrl">'+
       nKpi({c:'#16A34A',bg:'#DCFCE7',ic:'🟢',t:'Van bien',v:String(bien),vCls:'n-pos',s:'nota 16 o más de '+ok.length+' en '+TT[tab]})+
       nKpi({c:'#F59E0B',bg:'#FEF3C7',ic:'🟡',t:'Regular',v:String(ok.length-bien-mal),s:'nota entre 10 y 16'})+
       nKpi({c:'#DC2626',bg:'#FEE2E2',ic:'🔴',t:'Van mal',v:String(mal),vCls:mal?'n-neg':'',s:'nota por debajo de 10'})+
       nKpi({c:'#1F4A9A',bg:'#EAF1FD',ic:'🗓️',t:'Datos',v:(R.generado||'').slice(8,10)+'/'+(R.generado||'').slice(5,7),s:'cuentas oficiales de la CNMV (nivel base del Método v3) · '+E.length+' empresas'})+'</div>'+
       '<div class="ev-bar2"><div class="ev-tabs">'+['cartera','plan','analizadas','universo'].map(function(k){ return '<button class="ev-tab'+(tab===k?' on':'')+'" data-evtab="'+k+'">'+TT[k]+'<i>'+G[k].length+'</i></button>'; }).join('')+'</div>'+
-      '<button class="ev-ord" data-evord="1">'+(peorPrimero?'↑ Mejores primero':'↓ Peores primero')+'</button></div>';
+      '<span class="ev-tabs" style="margin:0 0 0 auto">'+(R.semestre&&R.semestre.length?['anio','semestre'].map(function(k){ return '<button class="ev-tab'+(modo===k?' on':'')+'" data-evmodo="'+k+'">'+(k==='anio'?'Año':'Semestre')+'</button>'; }).join(''):'')+'</span><button class="ev-ord" style="margin-left:8px" data-evord="1">'+(peorPrimero?'↑ Mejores primero':'↓ Peores primero')+'</button></div>';
     if(!L.length){ h+='<div class="nf-card" style="padding:16px">No hay empresas en '+TT[tab]+(tab==='plan'?' (el plan de compras está en Plan → Asignación).':'.')+'</div>'; v.innerHTML=h; return; }
     h+='<div class="ev-w"><table><thead><tr><th class="ev-e">Empresa</th><th>Nota</th>'+M.map(function(m){ return '<th title="'+esc(m.t+': va bien si '+m.q)+'">'+esc(CORTO[m.k]||m.t)+'</th>'; }).join('')+'</tr></thead><tbody>'+
       L.map(function(e){ var K=e.kpi||{};
@@ -64,6 +64,7 @@
   document.addEventListener('click',function(e){ if(!e.target.closest) return;
     var t=e.target.closest('[data-evtab]'); if(t){ tab=t.getAttribute('data-evtab'); pintar(); return; }
     if(e.target.closest('[data-evord]')){ peorPrimero=!peorPrimero; pintar(); return; }
+    var mo=e.target.closest('[data-evmodo]'); if(mo){ modo=mo.getAttribute('data-evmodo'); pintar(); return; }
     var f=e.target.closest('[data-evfi]'); if(f&&window.nfAbrir){ window.nfAbrir(f.getAttribute('data-evfi')); } });
   function enganchar(){ if(typeof activarVista!=='function'||activarVista._nev) return; var oa=activarVista; activarVista=function(v){ var r=oa.apply(this,arguments); if(v==='evolucion') pintar(); return r; }; activarVista._nev=1; }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',enganchar); else setTimeout(enganchar,0);

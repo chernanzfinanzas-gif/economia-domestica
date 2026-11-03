@@ -43,6 +43,7 @@
   window._nAvF=window._nAvF||'';
   function cotDe(t){ try{ return (typeof _mcCot==='function')?(+_mcCot(t)||0):0; }catch(e){ return 0; } }
   function grupo(x){
+    if(x.tipo==='documento') return 'doc';   /* 3-nov: documentos que la recogida no consigue bajar */
     if(x.tipo==='cartera') return 'car';
     /* 30-oct (Carlos): precio por encima del PO → pide decisión solo si la tienes; en las demás, informativo */
     if(x.sig==='S3'){
@@ -60,22 +61,29 @@
     if((x.sig&&/^S[1-6]$/.test(x.sig)&&!x.noApunte)||x.cls==='r') return 'dec';
     return 'inf';
   }
-  var GN={car:'Tu cartera (operaciones)',dec:'Señales que piden decidir',ext:'Hechos de tus empresas analizadas',tri:'Revisión trimestral',div:'Dividendo en riesgo',hog:'Hogar',inf:'Informativos'};
-  var CHIPN={uni:'Universo',car:'Cartera',dec:'Decidir',ext:'Hechos',tri:'Trimestral',div:'Dividendo',hog:'Hogar',inf:'Informativos'};
+  var GN={doc:'Documentos que tienes que bajar tú',car:'Tu cartera (operaciones)',dec:'Señales que piden decidir',ext:'Hechos de tus empresas analizadas',tri:'Revisión trimestral',div:'Dividendo en riesgo',hog:'Hogar',inf:'Informativos'};
+  var CHIPN={doc:'Documentos',uni:'Universo',car:'Cartera',dec:'Decidir',ext:'Hechos',tri:'Trimestral',div:'Dividendo',hog:'Hogar',inf:'Informativos'};
   function estado(x,g){ if(g==='ext') return ['Aviso · informativo','#EDE9FE','#5B21B6']; if(x.cls==='r') return ['Para actuar','#FEE2E2','#B91C1C']; if(g==='tri') return ['Esperando','#F3F5F8','#5B6B7C']; return ['Para revisar','#FEF3C7','#92400E']; }
+  /* 3-nov-2026 (Carlos: «los archivos que no bajan bien, que salga el aviso en el Panel para que los baje yo»): lista que publica
+     la subida de datos del método (estado-v3.json → descargas_pendientes). Desaparece sola cuando el fichero está en su carpeta. */
+  function docsAvisos(){ return (window._nDescargas||[]).map(function(d){
+      var tx=d.clase==='falta'?'📄 <b>'+esc(d.empresa||d.ticker)+'</b> comunicó resultados el '+esc(String(d.desde||'').split('-').reverse().join('/'))+' y el documento no ha llegado en '+d.dias+' días. Bájalo de su web de inversores y déjalo en <b>Biblioteca CNMV › '+esc(d.ticker)+' › Resultados</b>.'
+        :'📄 <b>'+esc(d.ticker)+'</b> · '+esc(d.que)+': la CNMV lo sirve dañado (3 intentos). '+(d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">Ábrelo en la CNMV</a> o búscalo en la web de la empresa, y ':'Búscalo en la web de la empresa y ')+'déjalo en <b>Biblioteca CNMV › '+esc(d.carpeta)+'</b> con el mismo nombre.';
+      return {key:'doc-'+d.ticker+'-'+(d.que||'').slice(0,40),tipo:'documento',cls:'a',tick:d.ticker,txt:tx}; }); }
   function avisos(){
     var A=window._nAv||{lista:[],vis:{}}, vis=A.vis||{}, F=window._avFiltro||{showSeen:false};
     try{ var ops=(typeof nCarteraOps==='function')?nCarteraOps():[]; ops.forEach(function(o){ if(!A.lista.some(function(x){ return x.key===o.key; })) A.lista=A.lista.concat([o]); }); }catch(e){}
+    try{ docsAvisos().forEach(function(o){ if(!A.lista.some(function(x){ return x.key===o.key; })) A.lista=A.lista.concat([o]); }); }catch(e){}
     try{ var r4a=(typeof nR4XlsAviso==='function')?nR4XlsAviso():null; if(r4a&&!A.lista.some(function(x){ return x.key===r4a.key; })) A.lista=A.lista.concat([r4a]); }catch(e){}
     var L=A.lista.filter(function(x){ return (F.showSeen||!vis[x.key]) && !(window.nSenCubre&&window.nSenCubre(x)); });   /* 29-oct: las señales con paquete salen en «Señales por decidir» */
     var nSen=window.nSenCuenta?window.nSenCuenta():0, senH=window.nSenHtml?window.nSenHtml():'';
     var nVis=A.lista.filter(function(x){ return vis[x.key]; }).length;
-    var G={dec:[],ext:[],tri:[],car:[],div:[],hog:[],inf:[],uni:[],s3d:[],s3i:[]}; L.forEach(function(x){ G[grupo(x)].push(x); });
+    var G={dec:[],doc:[],ext:[],tri:[],car:[],div:[],hog:[],inf:[],uni:[],s3d:[],s3i:[]}; L.forEach(function(x){ G[grupo(x)].push(x); });
     var nInf=G.inf.length+(G.s3i.length?1:0), nDec=L.length-G.inf.length-G.s3d.length-G.s3i.length-G.ext.length-G.uni.length+nSen;
     sum('av',(nDec?nDec+' por decidir':'nada por decidir')+((nInf+G.ext.length+G.uni.length)?' · '+(nInf+G.ext.length+G.uni.length)+' informativos':''));
     var ex=document.querySelector('#nP_av .n-pextra'); if(ex) ex.innerHTML='<button class="n-prvg" data-nprv="">🔍 Pedir revisión de una empresa</button>'+(L.length?'<span data-avseenall="'+L.map(function(x){return x.key;}).join('~')+'">marcar todos como vistos ✓</span>':'')+(nVis?' · <span data-avshow="1">'+(F.showSeen?'ocultar vistos':'ver vistos ('+nVis+')')+'</span>':'');
     var f=window._nAvF;
-    var chips='<div class="n-avchips"><button data-navf="" class="'+(f?'':'on')+'">Todos</button>'+['dec','ext','uni','tri','car','div','hog','inf'].filter(function(g){return G[g].length||(g==='inf'&&G.s3i.length);}).map(function(g){ return '<button data-navf="'+g+'" class="'+(f===g?'on':'')+'">'+CHIPN[g]+' '+(g==='inf'?nInf:G[g].length)+'</button>'; }).join('')+'</div>';
+    var chips='<div class="n-avchips"><button data-navf="" class="'+(f?'':'on')+'">Todos</button>'+['dec','doc','ext','uni','tri','car','div','hog','inf'].filter(function(g){return G[g].length||(g==='inf'&&G.s3i.length);}).map(function(g){ return '<button data-navf="'+g+'" class="'+(f===g?'on':'')+'">'+CHIPN[g]+' '+(g==='inf'?nInf:G[g].length)+'</button>'; }).join('')+'</div>';
     function fila(x,g){ var st=estado(x,g), v=!!vis[x.key];
       var act=(x.sig&&!x.noApunte)?' data-sig="'+x.sig+'" data-ticker="'+esc(x.tick||'')+'" data-nivel="'+esc(x.nivel||'')+'"':'';
       var bt=g==='ext'?'Pedir revisión':'Ver';
@@ -84,7 +92,7 @@
         ((g==='ext'&&x.tick)?'<button class="n-avbt" data-nprv="'+esc(String(x.tick).toUpperCase())+'" data-nprvh="'+esc((function(t){ t=String(t||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim(); if(t.length<=180) return t; t=t.slice(0,180); return t.slice(0,t.lastIndexOf(' '))+'…'; })(x.txt))+'">Pedir revisión</button>':(x.goto?'<button class="n-avbt" data-goto="'+x.goto+'"'+act+'>'+bt+'</button>':''))+'<button class="n-avok" data-avseen="'+x.key+'" title="'+(v?'Volver a mostrar':'Marcar como visto')+'">✓</button></div>'; }
     var h=chips+senH;
     window._nAvMas=window._nAvMas||{};
-    ['dec','ext','tri','car','div','hog'].forEach(function(g){ if((!G[g].length&&!(g==='dec'&&G.s3d.length))||(f&&f!==g)) return; var todo=f===g||window._nAvMas[g], L2=todo?G[g]:G[g].slice(0,5);
+    ['dec','doc','ext','tri','car','div','hog'].forEach(function(g){ if((!G[g].length&&!(g==='dec'&&G.s3d.length))||(f&&f!==g)) return; var todo=f===g||window._nAvMas[g], L2=todo?G[g]:G[g].slice(0,5);
       h+='<div class="n-avg">'+GN[g]+'</div>'+L2.map(function(x){return fila(x,g);}).join('')+(G[g].length>5?'<div class="n-avmas" data-navmas="'+g+'">'+(todo?'ver menos ▴':'ver las '+(G[g].length-5)+' restantes ▾')+'</div>':'')+(g==='dec'?s3dLinea(G.s3d):''); });
     if(G.uni.length&&(!f||f==='uni')){ window._nUniOpen=window._nUniOpen||false;
       h+='<div class="n-avinf'+(window._nUniOpen||f==='uni'?' open':'')+'"><div class="n-avg n-avinfh" data-navuni="1">▸ Hechos del resto del universo ('+G.uni.length+') · empresas que no analizas, no piden decisión</div><div class="n-avinfb">'+G.uni.map(function(x){ return '<div class="n-avi">'+x.txt+'<button class="n-avok" data-avseen="'+x.key+'">✓</button></div>'; }).join('')+'</div></div>'; }
