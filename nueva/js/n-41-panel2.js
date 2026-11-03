@@ -67,8 +67,8 @@
   /* 3-nov-2026 (Carlos: «los archivos que no bajan bien, que salga el aviso en el Panel para que los baje yo»): lista que publica
      la subida de datos del método (estado-v3.json → descargas_pendientes). Desaparece sola cuando el fichero está en su carpeta. */
   function docsAvisos(){ return (window._nDescargas||[]).map(function(d){
-      var tx=d.clase==='falta'?'📄 <b>'+esc(d.empresa||d.ticker)+'</b> comunicó resultados el '+esc(String(d.desde||'').split('-').reverse().join('/'))+' y el documento no ha llegado en '+d.dias+' días. Bájalo de su web de inversores y déjalo en <b>Biblioteca CNMV › '+esc(d.ticker)+' › Resultados</b>.'
-        :'📄 <b>'+esc(d.ticker)+'</b> · '+esc(d.que)+': la CNMV lo sirve dañado (3 intentos). '+(d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">Ábrelo en la CNMV</a> o búscalo en la web de la empresa, y ':'Búscalo en la web de la empresa y ')+'déjalo en <b>Biblioteca CNMV › '+esc(d.carpeta)+'</b> con el mismo nombre.';
+      var tx=d.clase==='falta'?'📄 <b>'+esc(d.empresa||d.ticker)+'</b> comunicó resultados el '+esc(String(d.desde||'').split('-').reverse().join('/'))+' y el documento no ha llegado en '+d.dias+' días. Bájalo de su web de inversores y déjalo en su carpeta <b>Resultados</b> de la Biblioteca CNMV, con el nombre que traiga.'
+        :'📄 <b>'+esc(d.ticker)+'</b> · '+esc(d.que)+': la CNMV lo sirve dañado (3 intentos). '+(d.url?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener">Ábrelo en la CNMV</a> o búscalo en la web de la empresa, y ':'Búscalo en la web de la empresa y ')+'déjalo en su carpeta (<b>Biblioteca CNMV › '+esc(String(d.carpeta||'').split('/')[0])+'</b>, en Resultados, Intermedios o Anuales) con el nombre que traiga: la recogida lo detecta sola y el aviso desaparece.';
       return {key:'doc-'+d.ticker+'-'+(d.que||'').slice(0,40),tipo:'documento',cls:'a',tick:d.ticker,txt:tx}; }); }
   function avisos(){
     var A=window._nAv||{lista:[],vis:{}}, vis=A.vis||{}, F=window._avFiltro||{showSeen:false};
