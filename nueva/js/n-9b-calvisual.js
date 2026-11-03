@@ -10,6 +10,10 @@
      mapa de calor, logo de iniciales y el mes en curso marcado. Los cálculos son los de siempre. */
 (function(){
   if(typeof _calMensualHTML!=='function'||window._nCalVis) return; window._nCalVis=true;
+  /* 3-nov-2026 (Carlos: «la tabla de Evolución del dividendo se queda sin poder mostrar todo»): la app de siempre ajustaba
+     la tabla a la altura de la ventana (_evoFit) y dentro de la app nueva se recortaba. Ahora crece con todas las filas que
+     cumplen la selección y se baja con la página. */
+  if(typeof _evoFit==='function') _evoFit=function(){ var h=document.getElementById('evoApp'); if(h){ h.style.display=''; h.style.height=''; } };
   var INF=null, RES=null, PR={}, cargando=null;
   function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   function n(v,d){ if(v==null||!isFinite(+v)) return '—'; return (+v).toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d,useGrouping:'always'}); }
