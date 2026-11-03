@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-03T20:45",
+ "generado": "2026-11-03T21:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -11,34 +11,6 @@
   ]
  },
  "rechazos": [],
- "descargas_pendientes": [
-  {
-   "clase": "fallido",
-   "ticker": "CMO",
-   "que": "2017 Q3 Anexo Anexo del informe financiero trimestral CMO",
-   "carpeta": "CMO - CEMENTOS MOLINS, S.A/Intermedios",
-   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=glHO0jFa7j7yeumsjJQ%2bEDtMnCuiAOEbP4HKknlHM%2bBUEAeRxZR3srt1mVLkRHmQ",
-   "motivo": "el fichero llega danado dos veces",
-   "desde": "2026-10"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "FDR",
-   "que": "2022 ESEF (ZIP) FDR",
-   "carpeta": "FDR - Fluidra, S.A/Anuales",
-   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=VBkzUWQVcv2o9QRLfIrgFuUI3MytjNtoCr3CkuvEbTuze5HLI2BThe6mgBjw3Gx%2f",
-   "motivo": "el fichero llega danado dos veces",
-   "desde": "2026-10"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "VIS",
-   "que": "2019-07-31 La sociedad remite presentación explicativa de los resultados del prim (2)",
-   "carpeta": "VIS - Viscofan, S.A/Resultados",
-   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=QPg2DqRyaSsN2yazu103Q7ojc5caDaczWitwUsYwRmRQSRh0dt1K2vXNhAR3mLSV",
-   "motivo": "el fichero llega danado dos veces",
-   "desde": "2026-10"
-  }
- ],
+ "descargas_pendientes": [],
  "decisiones": "recogida/decisiones-v3.json"
 }
