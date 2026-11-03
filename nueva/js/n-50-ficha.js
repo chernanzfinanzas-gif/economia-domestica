@@ -226,6 +226,8 @@
         chartg(Y,[['Beneficio por acción',BP,'#1F4A9A']],['Dividendo por acción',DP,'#8B5CF6'],function(v){ return n(v,2)+' €'; }),leg([['Beneficio por acción (barras)','#1F4A9A'],['Dividendo por acción (línea)','#8B5CF6']])); }
     var C=[c1,c2,c3,c7,c4,c5,c6].filter(Boolean), h='';
     for(var i=0;i<C.length;i+=2) h+='<div class="nf-g2">'+C[i]+(C[i+1]||'<div></div>')+'</div>';
+    h+=evHost(F);
+    out=GUIA('')+out;
     return out+h+'<span class="nf-ws">Las mismas gráficas para todas las empresas, de sus fichas del método (diez años hasta '+esc(dh||'')+'). El color de cada una lo pone una regla fija; las notas, el analista con su fecha.</span>';
   }
 
@@ -322,6 +324,87 @@
     return h;
   }
 
+  /* ---------------- 3-nov-2026 (Carlos): COTIZACIÓN Y EV/EBITDA, con su lectura ----------------
+     Del método: valoracion.serie_multiplos (por ejercicio: capitalización, valor de empresa con deuda neta, híbridos y minoritarios,
+     EBITDA después de alquileres) y la media/mín/máx de 10 años (valoracion.multiplos.ev_ebitda). Cada mes: precio de cierre de
+     mes × acciones del último ejercicio cerrado + (valor de empresa − capitalización) de ese ejercicio, entre su EBITDA. La app no
+     razona: la lectura sale de reglas fijas sobre esas cifras. */
+  var GUIA_URL='guias/como-leer-como-va-la-empresa.pdf';
+  function GUIA(k){ return '<div style="margin-top:8px;font-size:12.5px"><a href="'+GUIA_URL+(k==='ev'?'#page=9':'')+'" target="_blank" rel="noopener" style="color:#1F4A9A;font-weight:700;text-decoration:none">📘 Guía: qué se ve y cómo interpretar estas gráficas (PDF)</a></div>'; }
+  function evHost(F){
+    var V=F.valoracion||{}, SM=V.serie_multiplos, M=(V.multiplos||{}).ev_ebitda;
+    if(!SM||!M||!M.media) return /BAN|SEG/.test(String(F.modelo||''))?card('¿Está cara o barata frente a lo que gana su negocio?','',vd('n','En bancos y aseguradoras el EV/EBITDA no tiene sentido: la deuda es su materia prima. Para ellos se miran el PER y el precio / valor contable (pestaña Resumen).')):'';
+    return '<div class="nf-card" id="nfEvHost"><h2>¿Sube la cotización porque gana más o porque se paga más cara?</h2><div class="nf-mu" style="padding:16px">Cargando la cotización…</div></div>'; }
+  function montarEv(F,t){
+    var host=document.getElementById('nfEvHost'); if(!host) return;
+    var V=F.valoracion||{}, SM=V.serie_multiplos||{}, M=V.multiplos.ev_ebitda, acc=((F.series||{}).flujos||{}).acciones||{}, cf=String(F.cierre_fiscal||'12-31');
+    fetch('precios/'+encodeURIComponent(t)+'.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }).then(function(P){
+      if(!document.getElementById('nfEvHost')) return;
+      var D=(P&&P.data)||[], Ys=Object.keys(SM).filter(function(y){ var s=SM[y]; return s&&s.ev!=null&&s.ebitda>0&&s.cap>0&&+acc[y]>0; }).sort();
+      if(!D.length||Ys.length<2){ host.innerHTML='<h2>¿Sube la cotización porque gana más o porque se paga más cara?</h2>'+vd('a','Faltan datos de cotización o de las cuentas para dibujarla.'); return; }
+      var cierre=function(y){ return y+'-'+cf; };
+      var pxEn=function(f){ var lo=0,hi=D.length; while(lo<hi){ var m=(lo+hi)>>1; if(D[m][0]<=f) lo=m+1; else hi=m; } return lo?D[lo-1]:null; };
+      var anioDe=function(f){ var y=null; Ys.forEach(function(z){ if(cierre(z)<=f) y=z; }); return y; };
+      var multEn=function(f,px){ var y=anioDe(f); if(!y) return null; var s=SM[y]; return (px*(+acc[y])+(s.ev-s.cap))/s.ebitda; };
+      /* serie mensual desde el cierre del primer ejercicio */
+      var ini=cierre(Ys[0]), L=[], ult={};
+      D.forEach(function(d){ if(d[0]<ini) return; ult[d[0].slice(0,7)]=d; });
+      Object.keys(ult).sort().forEach(function(k){ var d=ult[k]; L.push({f:d[0],p:+d[1],x:multEn(d[0],+d[1])}); });
+      var hoyP=+(D[D.length-1][1]), hoyF=D[D.length-1][0], xHoy=multEn(hoyF,hoyP); if(L.length&&L[L.length-1].f!==hoyF) L.push({f:hoyF,p:hoyP,x:xHoy}); else if(L.length) L[L.length-1].x=xHoy;
+      var med=M.media, mn=M.min, mx=M.max;
+      /* lectura 1: dónde está hoy frente a su historia */
+      var dif=(xHoy/med-1)*100, cic=(F.modulos||[]).indexOf('CICLICA')>=0, col=xHoy<=med?(cic?'a':'v'):(xHoy<=med*1.15?'a':'r');
+      var t1='Hoy cotiza a <b>'+n(xHoy,1)+'x</b> EV/EBITDA; su media de '+M.n+' años es <b>'+n(med,1)+'x</b> (entre '+n(mn,1)+'x y '+n(mx,1)+'x). '+
+        (xHoy<=med?'Se paga <b>menos que de costumbre</b> ('+pc(dif,0)+').':(xHoy<=med*1.15?'Se paga <b>algo más que de costumbre</b> ('+pc(dif,0)+').':'Se paga <b>bastante más que de costumbre</b> ('+pc(dif,0)+').'))+
+        (xHoy>mx?' Está por encima del máximo de estos años.':(xHoy<mn?' Está por debajo del mínimo de estos años.':''))+
+        (M.vpa?' Con su múltiplo medio, el método valora la acción en <b>'+n(M.vpa,2)+' €</b> (hoy '+n(hoyP,2)+' €).':'');
+      /* lectura 2: de dónde viene lo que ha hecho la cotización (5 ejercicios atrás o los que haya) */
+      var Yok=Ys.slice(Math.max(0,Ys.length-6)).filter(function(y){ return !SM[y].fuera; }), y0=Yok.length>1?Yok[0]:Ys[Math.max(0,Ys.length-6)], y1=Ys[Ys.length-1], s0=SM[y0], s1=SM[y1], p0=pxEn(cierre(y0)), t2='';
+      if(p0&&s0.x>0){ var rp=hoyP/p0[1], re=s1.ebitda/s0.ebitda, rx=xHoy/s0.x, lp=Math.log(rp), le=Math.log(re), lx=Math.log(rx), dom;
+        if(Math.abs(lp)<0.05) dom='La cotización está casi igual.';
+        else if(lp>0) dom=(le>0&&le>=lx)?'La subida viene sobre todo de que <b>gana más</b>: es la buena.':(lx>0?'La subida viene sobre todo de que el mercado <b>paga más por lo mismo</b>: si el múltiplo volviera a su media, la cotización lo notaría.':'Sube por el negocio pese a que el múltiplo baja.');
+        else dom=(lx<0&&lx<=le)?'La bajada viene sobre todo de que el mercado <b>paga menos por ella</b>, no de que gane menos: es el caso que puede abrir oportunidad si el negocio aguanta.':'La bajada viene sobre todo de que <b>gana menos</b>: hay que mirar por qué.';
+        t2='Desde el cierre de '+y0+' ('+fe(p0[0])+'): cotización '+pc((rp-1)*100,0)+' ('+n(p0[1],2)+' → '+n(hoyP,2)+' €), EBITDA después de alquileres '+pc((re-1)*100,0)+' ('+n(s0.ebitda,0)+' → '+n(s1.ebitda,0)+' M€) y múltiplo de '+n(s0.x,1)+'x a '+n(xHoy,1)+'x. '+dom; }
+      /* 3-nov (Carlos, guía EV/EBITDA): dos avisos de regla fija.
+         CÍCLICA (módulo del método): el múltiplo se lee al revés; se compara el EBITDA del último ejercicio con su media de estos
+         años y se da el múltiplo sobre el EBITDA medio. DEUDA: si la deuda neta / EBITDA del método ha subido ≥ 1 vez desde el
+         ejercicio de partida y acaba ≥ 2 veces, el múltiplo no baja aunque caiga la acción: alarma, no oportunidad. */
+      var avisos='', so=((F.series||{}).solvencia)||{}, dne=so.dn_ebitda||{}, dnn=so.deuda_neta||{};
+      if((F.modulos||[]).indexOf('CICLICA')>=0){ var ebs=Ys.map(function(y){ return SM[y].ebitda; }), ebm=ebs.reduce(function(a,b){return a+b;},0)/ebs.length, eb1=SM[y1].ebitda, s1y=SM[y1], evHoy=hoyP*(+acc[y1])+(s1y.ev-s1y.cap), xNorm=evHoy/ebm, dEb=(eb1/ebm-1)*100;
+        avisos+=vd('a','<b>Cuidado, es cíclica: el múltiplo se lee al revés.</b> En lo alto del ciclo el EBITDA está inflado y el múltiplo sale bajo (parece barata y no lo es); en el fondo, el EBITDA casi desaparece y el múltiplo se dispara (parece cara y suele ser el momento de comprar). '+
+          'Su EBITDA de '+y1+' ('+n(eb1,0)+' M€) está '+(Math.abs(dEb)<10?'cerca de':(dEb>0?'<b>'+n(dEb,0)+' % por encima</b> de':'<b>'+n(-dEb,0)+' % por debajo</b> de'))+' su media de estos años ('+n(ebm,0)+' M€)'+(dEb>=20?': probablemente cerca de lo alto del ciclo.':(dEb<=-20?': probablemente cerca del fondo.':'.'))+
+          ' Con el EBITDA medio del ciclo, hoy cotizaría a <b>'+n(xNorm,1)+'x</b> (frente a '+n(xHoy,1)+'x con el último año).');
+        if(dEb>=20&&t2&&xHoy<=med) t2+=' <b>Pero ojo:</b> es cíclica y su EBITDA está alto, así que lo «barato» puede ser engañoso (aviso de abajo).'; }
+      var d0=dne[y0], d1=dne[y1];
+      if(d0!=null&&d1!=null&&d1-d0>=1&&d1>=2) avisos+=vd('r','<b>Trampa de la deuda.</b> La deuda neta ha pasado de '+n(dnn[y0],0)+' a '+n(dnn[y1],0)+' M€ ('+n(d0,1)+'x → '+n(d1,1)+'x el EBITDA). Parte del valor de empresa es deuda, no acciones: si la cotización cae y el EV/EBITDA no baja, es por esto. Es una alarma, no una oportunidad.');
+      else if(d0!=null&&d1!=null) avisos+='<div class="nf-mu" style="font-size:12px;margin:2px 0 6px">Deuda neta / EBITDA: '+n(d0,1)+'x en '+y0+' → '+n(d1,1)+'x en '+y1+(d1-d0>=1?' (sube, pero aún por debajo de 2x).':' (sin trampa de deuda).')+'</div>';
+      /* gráfica */
+      var nar=(host.clientWidth||1000)<640, W=nar?520:1000,H=nar?340:330,x0=nar?44:62,x1=nar?484:930,yt=16,yb=H-30, N=L.length, X=function(i){ return x0+(N>1?i/(N-1):0)*(x1-x0); };
+      var pv=L.map(function(o){return o.p;}), pmx=Math.max.apply(null,pv)*1.06, pmn=Math.min.apply(null,pv)*0.9; if(pmn<0) pmn=0;
+      var xv=L.map(function(o){return o.x;}).filter(function(v){return v!=null&&isFinite(v);}).concat([mn,mx]), xmx=Math.min(Math.max.apply(null,xv),Math.max(mx,xHoy)*1.5)*1.06, xmn=Math.min.apply(null,xv)*0.9;
+      var YP=function(v){ return yt+(pmx-v)/(pmx-pmn)*(yb-yt); }, YX=function(v){ return yt+(xmx-Math.min(v,xmx))/(xmx-xmn)*(yb-yt); };
+      var h='<svg viewBox="0 0 '+W+' '+H+'" class="nf-chs" style="width:100%">';
+      h+='<rect x="'+x0+'" y="'+YX(mx).toFixed(1)+'" width="'+(x1-x0)+'" height="'+(YX(mn)-YX(mx)).toFixed(1)+'" fill="#7C3AED" fill-opacity=".06"/>';
+      var sp=niceStep((pmx-pmn)/5); for(var v=Math.ceil(pmn/sp)*sp; v<=pmx; v+=sp) h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+YP(v).toFixed(1)+'" y2="'+YP(v).toFixed(1)+'" stroke="#EEF1F5"/><text x="'+(x0-6)+'" y="'+(YP(v)+4).toFixed(1)+'" font-size="11" text-anchor="end" fill="#1F4A9A">'+n(v,v<10?1:0)+(nar?'':' €')+'</text>';
+      var sx=niceStep((xmx-xmn)/5); for(var w=Math.ceil(xmn/sx)*sx; w<=xmx; w+=sx) h+='<text x="'+(x1+6)+'" y="'+(YX(w)+4).toFixed(1)+'" font-size="11" fill="#7C3AED">'+n(w,w%1?1:0)+'x</text>';
+      h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+YX(med).toFixed(1)+'" y2="'+YX(med).toFixed(1)+'" stroke="#7C3AED" stroke-dasharray="6 5" stroke-opacity=".7"/><text x="'+(x0+6)+'" y="'+(YX(med)-5).toFixed(1)+'" font-size="11" fill="#7C3AED">media '+n(med,1)+'x</text>';
+      var ya=''; L.forEach(function(o,i){ var y=o.f.slice(0,4); if(y!==ya&&o.f.slice(5,7)==='01'){ ya=y; h+='<line x1="'+X(i).toFixed(1)+'" x2="'+X(i).toFixed(1)+'" y1="'+yb+'" y2="'+(yb+4)+'" stroke="#94A3B8"/><text x="'+X(i).toFixed(1)+'" y="'+(H-10)+'" font-size="11" text-anchor="middle" fill="#5B6B7C">'+y+'</text>'; } });
+      h+='<polyline fill="none" stroke="#1F4A9A" stroke-width="2.2" points="'+L.map(function(o,i){ return X(i).toFixed(1)+','+YP(o.p).toFixed(1); }).join(' ')+'"/>';
+      var seg='', pts=[]; L.forEach(function(o,i){ if(o.x!=null&&isFinite(o.x)) pts.push(X(i).toFixed(1)+','+YX(o.x).toFixed(1)); });
+      h+='<polyline fill="none" stroke="#7C3AED" stroke-width="2.2" points="'+pts.join(' ')+'"/>';
+      Ys.forEach(function(y){ var s=SM[y]; if(!(s.x>0)) return; var i=-1; L.forEach(function(o,k){ if(i<0&&o.f>=cierre(y)) i=k; }); if(i<0) return; h+='<circle cx="'+X(i).toFixed(1)+'" cy="'+YX(s.x).toFixed(1)+'" r="4" fill="#fff" stroke="#7C3AED" stroke-width="2"><title>Cierre '+y+': '+n(s.x,1)+'x (dato del método)</title></circle>'; });
+      var lx_=X(N-1); h+='<circle cx="'+lx_.toFixed(1)+'" cy="'+YP(hoyP).toFixed(1)+'" r="4.5" fill="#1F4A9A"/><circle cx="'+lx_.toFixed(1)+'" cy="'+YX(xHoy).toFixed(1)+'" r="4.5" fill="#7C3AED"/>';
+      var bw=(x1-x0)/Math.max(1,N); L.forEach(function(o,i){ h+='<rect class="nf-hv" x="'+(X(i)-bw/2).toFixed(1)+'" y="'+yt+'" width="'+bw.toFixed(1)+'" height="'+(yb-yt)+'" fill="transparent" data-tip="'+esc(fe(o.f)+'|Cotización: '+n(o.p,2)+' €'+(o.x!=null?'|EV/EBITDA: '+n(o.x,1)+'x':'')+'|Cuentas de '+(anioDe(o.f)||'—'))+'"/>'; });
+      h+='</svg>';
+      var lg='<div class="nf-lg"><span><i style="background:#1F4A9A"></i>Cotización (€, eje izquierdo)</span><span><i style="background:#7C3AED"></i>EV/EBITDA (veces, eje derecho)</span><span><i style="background:#EDE9FE"></i>Banda: mínimo y máximo de '+M.n+' años</span><span><i style="background:#fff;border:2px solid #7C3AED;box-sizing:border-box"></i>Cierre de cada ejercicio (dato del método)</span></div>';
+      var que='<details class="nf-det" style="margin-top:10px"><summary style="cursor:pointer;font-weight:700;color:#1F4A9A">Qué significa y cómo leerla</summary><div style="font-size:13px;color:#334155;line-height:1.55;margin-top:6px">'+
+        '<p><b>EV/EBITDA</b> = lo que costaría comprar la empresa entera (sus acciones más la deuda neta) dividido entre lo que gana su negocio cada año antes de amortizaciones, impuestos e intereses. Es «cuántos años de ganancias del negocio pagas». Al incluir la deuda, compara bien empresas muy endeudadas con otras sin deuda.</p>'+
+        '<p><b>Cómo leer las dos líneas juntas:</b> si la cotización sube y el EV/EBITDA se mantiene, la subida la paga el negocio (gana más). Si la cotización sube y el EV/EBITDA también, estás pagando más por lo mismo: más riesgo si vuelve a su media. Si la cotización baja con el EV/EBITDA bajando y el negocio aguantando, puede ser oportunidad.</p>'+
+        '<p><b>La banda</b> es lo caro o barato que ha estado en estos años. Fuera de ella, algo ha cambiado (en la empresa o en el mercado) y conviene saber qué.</p>'+
+        '<p style="color:#64748B">EBITDA después de alquileres, el mismo del método. Cada mes usa las cuentas del último ejercicio cerrado, así que el salto de cada cierre es el negocio nuevo, no la bolsa.'+(t==='LOG'?' En Logista deja fuera el ingreso por la caja que presta a Imperial, que es una parte importante de su beneficio.':'')+'</p></div></details>';
+      host.innerHTML='<h2>¿Sube la cotización porque gana más o porque se paga más cara?</h2>'+vd(col,t1)+(t2?vd('n',t2):'')+avisos+h+lg+que+GUIA('ev');
+    });
+  }
   /* ---------------- montaje ---------------- */
   var TABS=[['res','Resumen'],['emp','La empresa'],['neg','Cómo va la empresa'],['cot','Cotización'],['div','Dividendo'],['pos','Mi posición'],['his','Revisiones e historial'],['not','Noticias y coyuntura']];
   function pintar(){
@@ -338,6 +421,7 @@
       v.innerHTML=pick+hero(F,t)+'<div class="nf-tabs">'+TABS.map(function(x){ return '<span data-nftab="'+x[0]+'" class="'+(x[0]===tab?'on':'')+'">'+x[1]+'</span>'; }).join('')+'</div><div class="nf-body">'+body+'</div>'+
         (F._evNota?'<div class="nf-pie" style="color:#1F4A9A">↔️ '+esc(F._evNota)+'</div>':'')+'<div class="nf-pie">Ficha generada por el método el '+esc(String(F.generado||'').replace('T',' '))+(F.datos_hasta?' · cuentas hasta '+esc(F.datos_hasta):'')+'</div>';
       if(tab==='cot') montarCot(t);
+      if(tab==='neg') try{ montarEv(F,t); }catch(e){ console.error('n-ficha ev',e); }
     });
   }
   window.nfAbrir=function(t){ if(t) cur=String(t).toUpperCase(); tab='res'; if(typeof activarVista==='function') activarVista('fichaemp'); pintar(); window.scrollTo(0,0); };
