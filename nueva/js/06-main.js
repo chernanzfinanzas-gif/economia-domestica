@@ -161,7 +161,7 @@ const GROUPS={
   fin:[['movimientos','Movimientos'],['presupuesto','Presupuesto'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['caja','Caja bróker']],
   plan:[['independencia','Independencia'],['asignacion','Asignación'],['simulador','Simulador'],['riesgo','Riesgo'],['fiscalidad','Fiscalidad'],['opciones','Opciones de futuro']],
   cartera:[['inversiones','Cartera'],['rentabilidad','Rentabilidad'],['dividendos','Dividendos']],
-  empresas:[['unin','Universo'],['analizadas','Analizadas'],['fichaemp','Ficha de empresa']],
+  empresas:[['unin','Universo'],['analizadas','Analizadas'],['evolucion','Evolución'],['fichaemp','Ficha de empresa']],
   sistema:[['cobertura','Cobertura'],['diario','Mis Decisiones'],['estado','Estado del método'],['informes','Informes'],['graficas','Gráficas'],['monitor','Tareas']]
 };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
