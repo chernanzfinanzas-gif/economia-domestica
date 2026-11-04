@@ -171,7 +171,7 @@
     for(var v=Math.ceil(mn/st)*st; v<=mx+1e-9; v+=st) h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Yp(v).toFixed(1)+'" y2="'+Yp(v).toFixed(1)+'" stroke="'+(Math.abs(v)<1e-9?'#94A3B8':'#EEF1F5')+'"/><text x="'+(x0-6)+'" y="'+(Yp(v)+4).toFixed(1)+'" font-size="10.5" text-anchor="end" fill="#5B6B7C">'+fmt(v)+'</text>';
     Y.forEach(function(y,k){ h+='<text x="'+(x0+k*bw+bw/2).toFixed(1)+'" y="'+(H-6)+'" font-size="10.5" text-anchor="middle" fill="#5B6B7C">'+y+'</text>'; });
     series.forEach(function(s){ var pts=[]; Y.forEach(function(_,k){ if(s[1][k]!=null) pts.push([x0+k*bw+bw/2,Yp(s[1][k]),s[1][k]]); }); if(!pts.length) return;
-      h+='<polyline fill="none" stroke="'+s[2]+'" stroke-width="2.5"'+(/^Coste/.test(s[0])?' stroke-dasharray="5 4"':'')+' points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+'"/>'+pts.map(function(p){ return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3" fill="#fff" stroke="'+s[2]+'" stroke-width="2"/>'; }).join('');
+      h+='<polyline fill="none" stroke="'+s[2]+'" stroke-width="2.5"'+(/^(Coste del capital|Mínimo)/.test(s[0])?' stroke-dasharray="5 4"':'')+' points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+'"/>'+pts.map(function(p){ return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3" fill="#fff" stroke="'+s[2]+'" stroke-width="2"/>'; }).join('');
       var l=pts[pts.length-1]; h+='<text x="'+(l[0]-4).toFixed(1)+'" y="'+(l[1]-8).toFixed(1)+'" font-size="10.5" font-weight="800" text-anchor="end" fill="'+s[2]+'">'+fmt(l[2])+'</text>'; });
     Y.forEach(function(y,k){ var parts=series.filter(function(s){return s[1][k]!=null;}).map(function(s){ return s[0]+': '+fmt(s[1][k]); }); h+='<rect class="nf-hv" x="'+(x0+k*bw).toFixed(1)+'" y="'+yt+'" width="'+bw.toFixed(1)+'" height="'+(yb-yt)+'" fill="transparent" data-tip="'+esc(y+'|'+parts.join('|'))+'"/>'; });
     return h+'</svg>';
@@ -226,6 +226,7 @@
         chartg(Y,[['Beneficio por acción',BP,'#1F4A9A']],['Dividendo por acción',DP,'#8B5CF6'],function(v){ return n(v,2)+' €'; }),leg([['Beneficio por acción (barras)','#1F4A9A'],['Dividendo por acción (línea)','#8B5CF6']])); }
     var C=[c1,c2,c3,c7,c4,c5,c6].filter(Boolean), h='';
     for(var i=0;i<C.length;i+=2) h+='<div class="nf-g2">'+C[i]+(C[i+1]||'<div></div>')+'</div>';
+    h+=propias(F);
     h+=evHost(F);
     out=GUIA('')+out;
     return out+h+'<span class="nf-ws">Las mismas gráficas para todas las empresas, de sus fichas del método (diez años hasta '+esc(dh||'')+'). El color de cada una lo pone una regla fija; las notas, el analista con su fecha.</span>';
@@ -329,8 +330,25 @@
      EBITDA después de alquileres) y la media/mín/máx de 10 años (valoracion.multiplos.ev_ebitda). Cada mes: precio de cierre de
      mes × acciones del último ejercicio cerrado + (valor de empresa − capitalización) de ese ejercicio, entre su EBITDA. La app no
      razona: la lectura sale de reglas fijas sobre esas cifras. */
+  /* 4-nov-2026 · GRÁFICAS PROPIAS de cada empresa (ficha.graficas_propias: las define el pase anual, las cifras las pone el
+     motor desde serie.json). Se dibujan con las mismas piezas que las generales; la lectura es juicio con fecha. */
+  function fmtU(u){ return function(v){ if(v==null) return '—'; if(Math.abs(v)<1e-9) v=0; return u==='x'?n(v,2)+'x':u==='%'?n(v,1)+' %':(u==='€'?n(v,2)+' €':(n(v,Math.abs(v)<10&&v%1?1:0)+(u?' '+u:''))); }; }
+  function propias(F){
+    var GP=F.graficas_propias; if(!GP) return '';
+    var nom=esc(F.empresa||F.ticker||'');
+    if(!(GP.graficas||[]).length) return GP.sin_graficas?'<h3 class="nf-gph">Lo propio de '+nom+'</h3>'+vd('n','Todavía sin gráficas propias: '+esc(GP.sin_graficas)):'';
+    var vieja=GP.lectura_hasta&&GP.datos_hasta&&String(GP.datos_hasta)>String(GP.lectura_hasta);
+    var C=GP.graficas.map(function(g){ var Y=g.anios, f=fmtU(g.unidad), ser=g.series.map(function(s){ return [s.nombre,s.v,s.color||'#1F4A9A']; });
+      var svg=g.tipo==='lineas'?lines(Y,ser,f):chartg(Y,ser,g.linea?[g.linea.nombre,g.linea.v,g.linea.color||'#0F172A']:null,f,g.arriba?[g.arriba.v,fmtU(g.arriba.unidad),'#475569',g.arriba.nombre+': ']:null);
+      var it=ser.map(function(s){ return [s[0],s[2]]; }); if(g.linea) it.push([g.linea.nombre+' (línea)',g.linea.color||'#0F172A']); if(g.arriba) it.push(['Arriba: '+g.arriba.nombre,'#475569']);
+      return '<div class="nf-card"><h2>'+esc(g.pregunta)+'</h2>'+vd('n',esc(g.lectura||''))+svg+leg(it)+(g.nota?'<div class="nf-mu" style="font-size:11.5px;margin-top:4px">'+esc(g.nota)+'</div>':'')+'</div>'; });
+    var h='<h3 class="nf-gph">Lo propio de '+nom+'</h3><div class="nf-mu" style="font-size:12.5px;margin:-4px 0 8px">Gráficas que solo tienen sentido para esta empresa, con los datos propios del método. Lecturas escritas el '+esc(fe(GP.escrito))+(GP.lectura_hasta?' con cuentas hasta '+esc(GP.lectura_hasta):'')+'.'+(vieja?' <b style="color:#B45309">Hay cuentas de '+esc(GP.datos_hasta)+': lecturas pendientes de revisar.</b>':'')+'</div>';
+    for(var i=0;i<C.length;i+=2) h+='<div class="nf-g2">'+C[i]+(C[i+1]||'<div></div>')+'</div>';
+    h+=GUIA('propias');
+    if((GP.avisos||[]).length) h+='<div class="nf-mu" style="font-size:11.5px;color:#B45309">Pendiente para el pase anual: '+GP.avisos.map(esc).join(' · ')+'</div>';
+    return h; }
   var GUIA_URL='guias/como-leer-como-va-la-empresa.pdf';
-  function GUIA(k){ return '<div style="margin-top:8px;font-size:12.5px"><a href="'+GUIA_URL+(k==='ev'?'#page=9':'')+'" target="_blank" rel="noopener" style="color:#1F4A9A;font-weight:700;text-decoration:none">📘 Guía: qué se ve y cómo interpretar estas gráficas (PDF)</a></div>'; }
+  function GUIA(k){ return '<div style="margin-top:8px;font-size:12.5px"><a href="'+GUIA_URL+(k==='ev'?'#page=9':(k==='propias'?'#page=13':''))+'" target="_blank" rel="noopener" style="color:#1F4A9A;font-weight:700;text-decoration:none">📘 Guía: qué se ve y cómo interpretar estas gráficas (PDF)</a></div>'; }
   function evHost(F){
     var V=F.valoracion||{}, SM=V.serie_multiplos, M=(V.multiplos||{}).ev_ebitda;
     if(!SM||!M||!M.media) return /BAN|SEG/.test(String(F.modelo||''))?card('¿Está cara o barata frente a lo que gana su negocio?','',vd('n','En bancos y aseguradoras el EV/EBITDA no tiene sentido: la deuda es su materia prima. Para ellos se miran el PER y el precio / valor contable (pestaña Resumen).')):'';
