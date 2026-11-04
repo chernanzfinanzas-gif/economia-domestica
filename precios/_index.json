@@ -462,8 +462,8 @@
 "ticker": "IBEX",
 "symbol": "^IBEX",
 "desde": "1999-01-04",
-"hasta": "2026-11-02",
-"n": 7054
+"hasta": "2026-11-03",
+"n": 7055
 },
 {
 "ticker": "IBG",
@@ -922,7 +922,14 @@
 }
 ],
 "fallos": [],
-"corregidos": [],
+"corregidos": [
+{
+"ticker": "SAN",
+"fecha": "2026-11-03",
+"anterior": 10.23,
+"nuevo": 10.232
+}
+],
 "revisar": [],
 "eventos": []
 }
