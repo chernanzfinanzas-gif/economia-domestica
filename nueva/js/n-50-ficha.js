@@ -1,7 +1,7 @@
 /* APP NUEVA · EMPRESAS → FICHA DE EMPRESA (boceto v30, 30-oct-2026, Carlos: «es una maravilla, me encanta»).
    Regla del diseño (30-oct): todo sale de la ficha de la empresa (fichas/TK.json, que deja el método con exportar_ficha.py);
    la app NO razona: pinta las cifras y aplica reglas fijas. Las notas de juicio llevan su fecha y la app avisa si se quedan viejas.
-   Pestañas: Resumen · La empresa · Cómo va la empresa · Cotización · Dividendo · Mi posición · Revisiones e historial ·
+   Pestañas: Resumen · La empresa · Cómo va la empresa · Ratios (4-nov) · Cotización · Dividendo · Mi posición · Revisiones e historial ·
    Noticias y coyuntura. De la app salen el precio de hoy, tu posición, tus dividendos cobrados y la gráfica de cotización. */
 (function(){
   var C={}, cur=null, tab='res';
@@ -171,7 +171,7 @@
     for(var v=Math.ceil(mn/st)*st; v<=mx+1e-9; v+=st) h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Yp(v).toFixed(1)+'" y2="'+Yp(v).toFixed(1)+'" stroke="'+(Math.abs(v)<1e-9?'#94A3B8':'#EEF1F5')+'"/><text x="'+(x0-6)+'" y="'+(Yp(v)+4).toFixed(1)+'" font-size="10.5" text-anchor="end" fill="#5B6B7C">'+fmt(v)+'</text>';
     Y.forEach(function(y,k){ h+='<text x="'+(x0+k*bw+bw/2).toFixed(1)+'" y="'+(H-6)+'" font-size="10.5" text-anchor="middle" fill="#5B6B7C">'+y+'</text>'; });
     series.forEach(function(s){ var pts=[]; Y.forEach(function(_,k){ if(s[1][k]!=null) pts.push([x0+k*bw+bw/2,Yp(s[1][k]),s[1][k]]); }); if(!pts.length) return;
-      h+='<polyline fill="none" stroke="'+s[2]+'" stroke-width="2.5"'+(/^(Coste del capital|Mínimo)/.test(s[0])?' stroke-dasharray="5 4"':'')+' points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+'"/>'+pts.map(function(p){ return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3" fill="#fff" stroke="'+s[2]+'" stroke-width="2"/>'; }).join('');
+      h+='<polyline fill="none" stroke="'+s[2]+'" stroke-width="2.5"'+(/^(Coste del capital|Mínimo|Mediana)/.test(s[0])?' stroke-dasharray="5 4"':'')+' points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+'"/>'+pts.map(function(p){ return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3" fill="#fff" stroke="'+s[2]+'" stroke-width="2"/>'; }).join('');
       var l=pts[pts.length-1]; h+='<text x="'+(l[0]-4).toFixed(1)+'" y="'+(l[1]-8).toFixed(1)+'" font-size="10.5" font-weight="800" text-anchor="end" fill="'+s[2]+'">'+fmt(l[2])+'</text>'; });
     Y.forEach(function(y,k){ var parts=series.filter(function(s){return s[1][k]!=null;}).map(function(s){ return s[0]+': '+fmt(s[1][k]); }); h+='<rect class="nf-hv" x="'+(x0+k*bw).toFixed(1)+'" y="'+yt+'" width="'+bw.toFixed(1)+'" height="'+(yb-yt)+'" fill="transparent" data-tip="'+esc(y+'|'+parts.join('|'))+'"/>'; });
     return h+'</svg>';
@@ -348,7 +348,7 @@
     if((GP.avisos||[]).length) h+='<div class="nf-mu" style="font-size:11.5px;color:#B45309">Pendiente para el pase anual: '+GP.avisos.map(esc).join(' · ')+'</div>';
     return h; }
   var GUIA_URL='guias/como-leer-como-va-la-empresa.pdf';
-  function GUIA(k){ return '<div style="margin-top:8px;font-size:12.5px"><a href="'+GUIA_URL+(k==='ev'?'#page=9':(k==='propias'?'#page=13':''))+'" target="_blank" rel="noopener" style="color:#1F4A9A;font-weight:700;text-decoration:none">📘 Guía: qué se ve y cómo interpretar estas gráficas (PDF)</a></div>'; }
+  function GUIA(k){ return '<div style="margin-top:8px;font-size:12.5px"><a href="'+GUIA_URL+(k==='ev'?'#page=9':(k==='propias'?'#page=13':(k==='ratios'?'#page=16':'')))+'" target="_blank" rel="noopener" style="color:#1F4A9A;font-weight:700;text-decoration:none">📘 Guía: qué se ve y cómo interpretar estas gráficas (PDF)</a></div>'; }
   function evHost(F){
     var V=F.valoracion||{}, SM=V.serie_multiplos, M=(V.multiplos||{}).ev_ebitda;
     if(!SM||!M||!M.media) return /BAN|SEG/.test(String(F.modelo||''))?card('¿Está cara o barata frente a lo que gana su negocio?','',vd('n','En bancos y aseguradoras el EV/EBITDA no tiene sentido: la deuda es su materia prima. Para ellos se miran el PER y el precio / valor contable (pestaña Resumen).')):'';
@@ -423,8 +423,91 @@
       host.innerHTML='<h2>¿Sube la cotización porque gana más o porque se paga más cara?</h2>'+vd(col,t1)+(t2?vd('n',t2):'')+avisos+h+lg+que+GUIA('ev');
     });
   }
+  /* ---------------- RATIOS (4-nov-2026) ----------------
+     Carlos: «una hoja de ratios (liquidez, endeudamiento y solvencia, gestión o actividad, rentabilidad)… comparativas
+     sectoriales o algo que ayude a vigilar»; aprobado: cada ratio frente a sus diez años y frente a la mediana de las de su
+     tipo, y el DuPont ampliado. Las cifras vienen de la ficha (ratios.py); aquí solo reglas fijas:
+     · Frente a su historia: el último año contra los anteriores. Fuera de su rango con holgura (más del 10 % del ancho del rango
+       o del 3 % del valor) por lo malo → rojo; por lo bueno → verde; sin holgura, «en el borde», neutro. EBIT/intereses ≥ 10x y
+       deuda neta/EBITDA ≤ 1x no se marcan nunca como riesgo;
+       dentro, en su tercio peor → ámbar; si no, neutro. Ratios sin «mejor» (días de acreedores): fuera de rango → ámbar.
+     · Frente a su tipo: más de un 10 % mejor o peor que la mediana; con color solo rentabilidad, deuda neta/EBITDA y EBIT/intereses.
+       Liquidez, estructura del balance y circulante dependen del negocio (Logista vive del impuesto que cobra antes de pagarlo):
+       se dice si está por encima o por debajo, sin color.
+     · DuPont: de su primer año legible al último, qué pieza ha movido más el ROE (en términos multiplicativos). */
+  function ratiosTab(F,t){
+    var R=F.ratios||{};
+    if(!R.valores) return card('Ratios','',vd('n',esc(R.no_aplica||'Esta empresa aún no tiene la hoja de ratios: llegará en la próxima ficha que genere el método.')));
+    var SIN_RIESGO={ebit_int:function(v){ return v>=10; }, dn_ebitda:function(v){ return v<=1; }};   // zonas donde moverse no es un riesgo
+    var Y=(R.anios||[]).slice(-10), y=Y[Y.length-1], S=R.sector||{}, M=S.mediana||{}, CON_COLOR={roe:1,roa:1,roic:1,margen_ebitda:1,margen_neto:1,dn_ebitda:1,ebit_int:1};   // frente a su tipo: color solo donde comparar negocios distintos tiene sentido
+    var h=vd('n','Cada ratio de <b>'+esc(y)+'</b> se compara con <b>sus diez años</b> ('+esc(Y[0])+'-'+esc(y)+') y con la <b>mediana de las de su tipo</b>'+
+      (S.pocas?' — pero en «'+esc(S.grupo||'su tipo')+'» hay menos de tres analizadas, así que aquí solo vale su propia historia.':' («'+esc(S.grupo)+'»: '+esc((S.empresas||[]).join(', '))+').')+
+      ' Pulsa un ratio para ver sus diez años.');
+    function hist(r){ var o=(R.valores||{})[r.id]||{}, v=o[y]; if(v==null) return null;
+      var prev=Y.slice(0,-1).map(function(k){ return o[k]; }).filter(function(x){ return x!=null; }); if(prev.length<3) return {v:v,txt:'pocos años',c:''};
+      var mn=Math.min.apply(null,prev), mx=Math.max.apply(null,prev), m=r.mejor, f=fmtU(r.unidad), rg=f(mn)+' a '+f(mx);
+      var hol=Math.max(0.10*(mx-mn),0.03*Math.abs(v)), tranq=SIN_RIESGO[r.id]&&SIN_RIESGO[r.id](v);
+      if(v>mx+hol||v<mn-hol){ var arriba=v>mx, bueno=m===0?null:(arriba?m>0:m<0);
+        return {v:v,mn:mn,mx:mx,rg:rg,txt:(arriba?'Por encima':'Por debajo')+' de todo su histórico',c:tranq?'':(bueno==null?'a':(bueno?'v':'r'))}; }
+      if(v>mx||v<mn) return {v:v,mn:mn,mx:mx,rg:rg,txt:'En el borde de su rango ('+(v>mx?'máximo':'mínimo')+')',c:''};
+      var p=(mx>mn)?(v-mn)/(mx-mn):0.5, zona=p>2/3?'zona alta':(p<1/3?'zona baja':'zona media'), peor=m===0?false:(m>0?p<1/3:p>2/3);
+      return {v:v,mn:mn,mx:mx,rg:rg,txt:'Dentro de su rango, '+zona,c:peor&&!tranq?'a':''}; }
+    function tipo(r,v){ var md=(M[r.id]||{})[y]; if(S.pocas||md==null||v==null) return {md:null,txt:'—',c:''};
+      var d=md!==0?(v-md)/Math.abs(md):0, f=fmtU(r.unidad);
+      if(Math.abs(d)<=0.10) return {md:md,txt:'En la media',c:''};
+      var arriba=v>md, txt=(arriba?'Por encima':'Por debajo');
+      if(!CON_COLOR[r.id]) return {md:md,txt:txt+' (cada negocio tiene la suya)',c:''};
+      return {md:md,txt:txt,c:(arriba?r.mejor>0:r.mejor<0)?'v':'r'}; }
+    function barra(o){ if(!o||o.mn==null) return ''; var lo=Math.min(o.mn,o.v), hi=Math.max(o.mx,o.v), sp=hi-lo||1, X=function(x){ return 4+(x-lo)/sp*92; };
+      return '<svg viewBox="0 0 100 14" width="100" height="14" style="vertical-align:middle"><line x1="'+X(o.mn).toFixed(1)+'" x2="'+X(o.mx).toFixed(1)+'" y1="7" y2="7" stroke="#CBD5E1" stroke-width="5" stroke-linecap="round"/><circle cx="'+X(o.v).toFixed(1)+'" cy="7" r="4.5" fill="'+(o.c==='r'?'#B91C1C':o.c==='v'?'#15803D':o.c==='a'?'#B45309':'#1F4A9A')+'"/></svg>'; }
+    var K={v:'#15803D',r:'#B91C1C',a:'#B45309','':'#334155'}, alertas=[];
+    (R.familias||[]).forEach(function(fa){
+      var filas='';
+      var movil='';
+      fa.ratios.forEach(function(r){ var o=hist(r); if(!o) return; var tp=tipo(r,o.v), f=fmtU(r.unidad), id='nfrt-'+r.id;
+        if(o.c==='r'||o.c==='a'&&/Por (encima|debajo)/.test(o.txt)) alertas.push([o.c,r.nombre+': '+o.txt.toLowerCase()+' ('+f(o.v)+'; antes, '+o.rg+')']);
+        var ser=Y.map(function(k){ var x=((R.valores||{})[r.id]||{})[k]; return x==null?null:+x; }), med=Y.map(function(k){ var x=(M[r.id]||{})[k]; return S.pocas||x==null?null:+x; });
+        filas+='<tr data-nfrt="'+id+'" style="cursor:pointer"><td><b>'+esc(r.nombre)+'</b> <span style="color:#94A3B8">▸</span></td><td><b>'+f(o.v)+'</b></td><td>'+barra(o)+' <span style="color:#64748B;font-size:11.5px">'+(o.rg||'')+'</span></td>'+
+          '<td style="color:'+K[o.c]+';font-weight:'+(o.c?'700':'400')+'">'+esc(o.txt)+'</td><td>'+(tp.md!=null?f(tp.md):'—')+'</td><td style="color:'+K[tp.c]+';font-weight:'+(tp.c?'700':'400')+'">'+esc(tp.txt)+'</td></tr>'+
+          '<tr id="'+id+'" style="display:none"><td colspan="6" style="background:#FBFCFE"><div style="font-size:12px;color:#475569;margin:2px 0 4px">'+esc(r.formula)+'</div>'+
+          '<div style="max-width:620px">'+lines(Y,[[r.nombre,ser,'#1F4A9A']].concat(med.some(function(x){return x!=null;})?[['Mediana de su tipo',med,'#94A3B8']]:[]),f)+'</div>'+
+          leg([[r.nombre,'#1F4A9A']].concat(med.some(function(x){return x!=null;})?[['Mediana de su tipo (discontinua)','#94A3B8']]:[]))+'</td></tr>';
+        movil+='<div class="nf-rtm" data-nfrt="'+id+'m"><div class="nf-rtm1"><b>'+esc(r.nombre)+' <span style="color:#94A3B8">▸</span></b><b>'+f(o.v)+'</b></div>'+
+          '<div class="nf-rtm2">'+barra(o)+' <span>'+(o.rg||'')+'</span></div>'+
+          '<div class="nf-rtm2">Su historia: <b style="color:'+K[o.c]+';font-weight:'+(o.c?'700':'500')+'">'+esc(o.txt)+'</b></div>'+
+          (tp.md!=null?'<div class="nf-rtm2">Su tipo ('+f(tp.md)+'): <b style="color:'+K[tp.c]+';font-weight:'+(tp.c?'700':'500')+'">'+esc(tp.txt)+'</b></div>':'')+'</div>'+
+          '<div id="'+id+'m" style="display:none;margin:0 0 8px"><div style="font-size:12px;color:#475569;margin:2px 0 4px">'+esc(r.formula)+'</div>'+
+          lines(Y,[[r.nombre,ser,'#1F4A9A']].concat(med.some(function(x){return x!=null;})?[['Mediana de su tipo',med,'#94A3B8']]:[]),f)+'</div>'; });
+      if(!filas) return;
+      var nt=fa.id==='gestion'?'<div class="nf-mu" style="margin-top:6px;font-size:12px">⚠️ '+esc(R.nota_circulante||'')+(R.nota_ventas?' '+esc(R.nota_ventas):'')+'</div>':'';
+      h+=card(esc(fa.nombre),esc(fa.pregunta),'<div class="nf-rt-m">'+movil+'</div><div class="nf-tw nf-rt-d"><table class="nf-t"><tr><th>Ratio</th><th>'+esc(y)+'</th><th>Sus diez años</th><th>Frente a su historia</th><th>Mediana de su tipo</th><th>Frente a su tipo</th></tr>'+filas+'</table></div>'+nt);
+    });
+    if(alertas.length) h=h.replace('</div>','</div>'+vd(alertas.some(function(a){return a[0]==='r';})?'r':'a','<b>Lo que se sale de lo normal en ella:</b><br>'+alertas.map(function(a){ return '· '+esc(a[1]); }).join('<br>')));
+    else h=h.replace('</div>','</div>'+vd('v','Ningún ratio se sale de lo que ha sido normal en ella estos diez años.'));
+    h+=dupont(R,Y);
+    return h+GUIA('ratios');
+  }
+  function dupont(R,Y){
+    var D=R.dupont||{}, V=D.valores||{}, P=D.piezas||[], ok=Y.filter(function(y){ return (V.roe||{})[y]!=null; });
+    if(ok.length<2) return card('¿De dónde sale su rentabilidad?','DuPont ampliado',vd('n','No hay años suficientes con beneficio para leer el DuPont.'));
+    var a=ok[0], b=ok[ok.length-1], cols=ok.slice(-6).reverse(), f=function(p){ return fmtU(p.unidad); };
+    var rows=P.map(function(p){ return '<tr><td><b>'+esc(p.nombre)+'</b><div style="font-size:11px;color:#94A3B8">'+esc(p.formula)+'</div></td>'+cols.map(function(y){ return '<td>'+f(p)((V[p.id]||{})[y])+'</td>'; }).join('')+'</tr>'; }).join('');
+    rows+='<tr style="background:#F1F5F9"><td><b>= ROE</b></td>'+cols.map(function(y){ return '<td><b>'+fmtU('%')((V.roe||{})[y])+'</b></td>'; }).join('')+'</tr>';
+    var lr=Math.log(V.roe[b]/V.roe[a]), mv=P.map(function(p){ var x=(V[p.id]||{})[a], z=(V[p.id]||{})[b]; return [p, x>0&&z>0?Math.log(z/x):0, x, z]; }).sort(function(u,w){ return Math.abs(w[1])-Math.abs(u[1]); });
+    var top=mv.filter(function(m){ return Math.abs(m[1])>=0.05; }).slice(0,3);
+    var txt='Su ROE pasa de <b>'+fmtU('%')(V.roe[a])+'</b> ('+esc(a)+') a <b>'+fmtU('%')(V.roe[b])+'</b> ('+esc(b)+').';
+    txt+=top.length?' Lo que más lo ha movido: '+top.map(function(m){ return '<b>'+esc(m[0].nombre.toLowerCase())+'</b> ('+f(m[0])(m[2])+' → '+f(m[0])(m[3])+', '+(m[1]>0?'empuja hacia arriba':'tira hacia abajo')+')'; }).join('; ')+'.':' Las piezas apenas se han movido.';
+    var ap=(V.apalancamiento||{})[b], mg=(V.margen||{})[b];
+    var lee=ap!=null&&ap>=5?'Gran parte de su ROE sale de trabajar con dinero ajeno (cada euro propio sostiene '+n(ap,1)+' de activo): un ROE así no se compara con el de una empresa sin deuda ni circulante a favor.':
+      (mg!=null&&mg>=15?'Su ROE sale sobre todo del margen: gana mucho con cada venta, sin necesidad de apalancarse.':'');
+    var Ys=ok, gr=lines(Ys,[['ROE',Ys.map(function(y){ return V.roe[y]; }),'#1F4A9A']],fmtU('%'));
+    var av=Object.keys(D.avisos||{}).length?'<div class="nf-mu" style="font-size:12px;margin-top:4px">Años sin leer: '+Object.keys(D.avisos).sort().map(function(y){ return esc(y)+' ('+esc(D.avisos[y])+')'; }).join(', ')+'.</div>':'';
+    return card('¿De dónde sale su rentabilidad?','DuPont ampliado: el ROE en seis piezas que se multiplican',vd('n',txt)+(lee?vd('n',lee):'')+'<div style="max-width:620px">'+gr+'</div>'+
+      '<div class="nf-tw"><table class="nf-t"><tr><th>Pieza</th>'+cols.map(function(y){ return '<th>'+esc(y)+'</th>'; }).join('')+'</tr>'+rows+'</table></div>'+
+      '<div class="nf-mu" style="font-size:12px;margin-top:6px">'+esc(D.nota||'')+(R.nota_ventas?' '+esc(R.nota_ventas):'')+'</div>'+av);
+  }
   /* ---------------- montaje ---------------- */
-  var TABS=[['res','Resumen'],['emp','La empresa'],['neg','Cómo va la empresa'],['cot','Cotización'],['div','Dividendo'],['pos','Mi posición'],['his','Revisiones e historial'],['not','Noticias y coyuntura']];
+  var TABS=[['res','Resumen'],['emp','La empresa'],['neg','Cómo va la empresa'],['rat','Ratios'],['cot','Cotización'],['div','Dividendo'],['pos','Mi posición'],['his','Revisiones e historial'],['not','Noticias y coyuntura']];
   function pintar(){
     var v=document.getElementById('view-fichaemp'); if(!v) return;
     var L=lista(); if(!cur) cur=(L[0]||[])[0]; if(!cur){ v.innerHTML='<div class="nf-mu">Sin empresas analizadas.</div>'; return; }
@@ -434,7 +517,7 @@
     var t=cur;
     cargar(t).then(function(F){ if(t!==cur) return;
       if(!F){ v.innerHTML=pick+'<div class="nf-card">'+vd('a','La ficha de '+esc(t)+' todavía no está publicada (fichas/'+esc(t)+'.json).')+'</div>'; return; }
-      var b={res:resumen,emp:empresa,neg:comoVa,cot:cotizacion,div:dividendo,pos:posicion,his:revisiones,not:noticias}[tab];
+      var b={res:resumen,emp:empresa,neg:comoVa,rat:ratiosTab,cot:cotizacion,div:dividendo,pos:posicion,his:revisiones,not:noticias}[tab];
       var body=''; try{ body=b(F,t); }catch(e){ console.error('n-ficha',e); body=vd('r','No se pudo pintar esta pestaña: '+esc(e.message)); }
       v.innerHTML=pick+hero(F,t)+'<div class="nf-tabs">'+TABS.map(function(x){ return '<span data-nftab="'+x[0]+'" class="'+(x[0]===tab?'on':'')+'">'+x[1]+'</span>'; }).join('')+'</div><div class="nf-body">'+body+'</div>'+
         (F._evNota?'<div class="nf-pie" style="color:#1F4A9A">↔️ '+esc(F._evNota)+'</div>':'')+'<div class="nf-pie">Ficha generada por el método el '+esc(String(F.generado||'').replace('T',' '))+(F.datos_hasta?' · cuentas hasta '+esc(F.datos_hasta):'')+'</div>';
@@ -444,6 +527,7 @@
   }
   window.nfAbrir=function(t){ if(t) cur=String(t).toUpperCase(); tab='res'; if(typeof activarVista==='function') activarVista('fichaemp'); pintar(); window.scrollTo(0,0); };
   document.addEventListener('click',function(e){
+    var rt=e.target.closest&&e.target.closest('[data-nfrt]'); if(rt){ var row=document.getElementById(rt.getAttribute('data-nfrt')); if(row) row.style.display=row.style.display==='none'?'':'none'; return; }
     var a=e.target.closest&&e.target.closest('[data-nftab]'); if(a){ tab=a.getAttribute('data-nftab'); pintar(); return; }
     var g=e.target.closest&&e.target.closest('[data-nfgo]'); if(g){ cur=g.getAttribute('data-nfgo'); tab=tab==='cot'?'cot':tab; pintar(); return; }
   });
