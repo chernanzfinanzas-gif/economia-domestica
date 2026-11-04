@@ -3,7 +3,7 @@
  "ticker": "GEST",
  "empresa": "Gestamp Automoción, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-29",
+ "generado": "2026-11-04",
  "revisiones": [
   {
    "periodo": "2017-Q4",
@@ -1542,6 +1542,56 @@
     {
      "nombre": "Margen EBITDA de Norteamérica (%)",
      "valor": 8.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -0,6 %, EBITDA +1,2 %, beneficio neto +35,6 %, margen 11,1 % (+0,20 pp), margen EBITDA +11,1 % frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. **Qué ha pasado** — En los 9M-2026 Gestamp factura 8.432 M€ (−0,6 %), con un EBITDA de 936 M€ (+1,2 %) y un margen del 11,1 % (+0,2 pp; 11,3 % sin el Plan Phoenix). El beneficio neto sube a 141 M€ (+35,6 %) y la deuda neta baja a 1.908 M€ (−9,4 %), 1,4x EBITDA frente a 1,6x hace un año. Norteamérica sube su margen EBITDA al 8,7 % (7,2 %) y al 10,5 % solo en el tercer trimestre.\n\n**Por qué** — Los ingresos caen por las divisas: la nota de prensa habla de «un leve descenso interanual del 0,6% … condicionado por el impacto del comportamiento de las divisas». El salto del beneficio es en parte de comparación: 2025 sufrió «el fuerte impacto de la evolución desfavorable de la divisa» y hay «ciertos efectos no recurrentes». El EBIT de los nueve meses baja un 4,3 % (381,8 frente a 398,8 M€) porque las amortizaciones suben un 5,3 % por los activos que entraron en servicio en el primer semestre; en el tercer trimestre el EBIT ya sube (+3,5 %).\n\n**Semáforo** — Verde bien puesto: solo los ingresos van a la baja, por divisa, y el margen y la deuda mejoran.\n\n**Qué vigilar** — El objetivo de 2026 es un margen EBITDA superior al 11,7 %; a septiembre va en 11,1 % (11,3 % sin Phoenix), así que el cuarto trimestre tiene que ser fuerte. Norteamérica a doble dígito (catalizador de la tesis): 10,5 % en el 3T, 8,7 % acumulado. La deuda (1.908 M€) aún está lejos de los 1.700 M€ de la tesis.\n\n**Lectura** — Aprobar. No toca la tesis: los dos catalizadores (Norteamérica y deuda) avanzan.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 8432.0
+    },
+    {
+     "nombre": "Frente a la producción de su huella (p.p.)",
+     "valor": 0.2
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 936.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 382.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 141.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1908.0
+    },
+    {
+     "nombre": "Deuda neta / EBITDA (12 meses)",
+     "valor": 1.4
+    },
+    {
+     "nombre": "Margen EBITDA de Norteamérica (%)",
+     "valor": 8.7
     }
    ],
    "hechos": [],
