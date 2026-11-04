@@ -829,3 +829,4 @@ select.n-brk.n-brk-auto{border-style:dashed;color:#64748b}
 /* 4-nov-2026 · pestaña Ratios: tabla en pantalla ancha, tarjetas en el móvil */
 .nf-rt-m{display:none}.nf-rtm{border-top:1px solid #EEF1F5;padding:8px 2px;cursor:pointer}.nf-rtm1{display:flex;justify-content:space-between;font-size:14px}.nf-rtm2{font-size:12.5px;color:#475569;margin-top:3px}
 @media(max-width:640px){.nf-rt-m{display:block}.nf-rt-d{display:none}}
+.nf-dpb{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}.nf-dpc{display:inline-flex;white-space:nowrap;align-items:center;gap:6px;border:1px solid #CBD5E1;background:#fff;color:#64748B;border-radius:16px;padding:4px 10px;font-size:12.5px;cursor:pointer}.nf-dpc i{width:12px;height:3px;border-radius:2px;background:#CBD5E1}.nf-dpc span{font-size:11.5px;color:#94A3B8}.nf-dpc.on{border-color:var(--c);color:#0F172A;font-weight:600}.nf-dpc.on i{background:var(--c)}.nf-dpc.on span{color:var(--c)}

@@ -490,7 +490,7 @@
   function dupont(R,Y){
     var D=R.dupont||{}, V=D.valores||{}, P=D.piezas||[], ok=Y.filter(function(y){ return (V.roe||{})[y]!=null; });
     if(ok.length<2) return card('¿De dónde sale su rentabilidad?','DuPont ampliado',vd('n','No hay años suficientes con beneficio para leer el DuPont.'));
-    var a=ok[0], b=ok[ok.length-1], cols=ok.slice(-6).reverse(), f=function(p){ return fmtU(p.unidad); };
+    var a=ok[0], b=ok[ok.length-1], cols=ok.slice().reverse(), f=function(p){ return fmtU(p.unidad); };
     var rows=P.map(function(p){ return '<tr><td><b>'+esc(p.nombre)+'</b><div style="font-size:11px;color:#94A3B8">'+esc(p.formula)+'</div></td>'+cols.map(function(y){ return '<td>'+f(p)((V[p.id]||{})[y])+'</td>'; }).join('')+'</tr>'; }).join('');
     rows+='<tr style="background:#F1F5F9"><td><b>= ROE</b></td>'+cols.map(function(y){ return '<td><b>'+fmtU('%')((V.roe||{})[y])+'</b></td>'; }).join('')+'</tr>';
     var lr=Math.log(V.roe[b]/V.roe[a]), mv=P.map(function(p){ var x=(V[p.id]||{})[a], z=(V[p.id]||{})[b]; return [p, x>0&&z>0?Math.log(z/x):0, x, z]; }).sort(function(u,w){ return Math.abs(w[1])-Math.abs(u[1]); });
@@ -502,9 +502,58 @@
       (mg!=null&&mg>=15?'Su ROE sale sobre todo del margen: gana mucho con cada venta, sin necesidad de apalancarse.':'');
     var Ys=ok, gr=lines(Ys,[['ROE',Ys.map(function(y){ return V.roe[y]; }),'#1F4A9A']],fmtU('%'));
     var av=Object.keys(D.avisos||{}).length?'<div class="nf-mu" style="font-size:12px;margin-top:4px">Años sin leer: '+Object.keys(D.avisos).sort().map(function(y){ return esc(y)+' ('+esc(D.avisos[y])+')'; }).join(', ')+'.</div>':'';
-    return card('¿De dónde sale su rentabilidad?','DuPont ampliado: el ROE en seis piezas que se multiplican',vd('n',txt)+(lee?vd('n',lee):'')+'<div style="max-width:620px">'+gr+'</div>'+
+    return card('¿De dónde sale su rentabilidad?','DuPont ampliado: el ROE en seis piezas que se multiplican',vd('n',txt)+(lee?vd('n',lee):'')+(dupontPiezas(V,P,ok)||'<div style="max-width:620px">'+gr+'</div>')+
       '<div class="nf-tw"><table class="nf-t"><tr><th>Pieza</th>'+cols.map(function(y){ return '<th>'+esc(y)+'</th>'; }).join('')+'</tr>'+rows+'</table></div>'+
       '<div class="nf-mu" style="font-size:12px;margin-top:6px">'+esc(D.nota||'')+(R.nota_ventas?' '+esc(R.nota_ventas):'')+'</div>'+av);
+  }
+  /* DuPont: cada pieza junto al ROE (Carlos, 4-nov: «la gráfica de cada componente del roe para que se vea cuál es el que más
+     se parece al ROE»). Cada mini-gráfica dibuja la FORMA: pieza y ROE escalados cada uno entre su mínimo y su máximo.
+     «Cuánto explica»: de las subidas y bajadas del ROE (en escala logarítmica, donde las piezas se suman), la parte que va con
+     cada pieza = cov(ln pieza, ln ROE) / var(ln ROE). Las seis suman 100 %; negativa = se mueve al revés que el ROE. */
+  function dupontPiezas(V,P,ok){
+    function pesos(ys){ var lr=ys.map(function(y){ return Math.log(V.roe[y]); }), m=lr.reduce(function(s,x){return s+x;},0)/lr.length, vr=lr.reduce(function(s,x){return s+(x-m)*(x-m);},0);
+      if(ys.length<4||vr<1e-6) return null;
+      return P.map(function(p){ var s=ys.map(function(y){ var x=(V[p.id]||{})[y]; return x!=null&&x>0?Math.log(x):null; });
+        var ii=s.map(function(x,i){return x==null?-1:i;}).filter(function(i){return i>=0;}); if(ii.length<4) return [p,null];
+        var ms=ii.reduce(function(a,i){return a+s[i];},0)/ii.length, mr=ii.reduce(function(a,i){return a+lr[i];},0)/ii.length, vv=ii.reduce(function(a,i){return a+(lr[i]-mr)*(lr[i]-mr);},0);
+        return [p, vv>1e-9?ii.reduce(function(a,i){return a+(s[i]-ms)*(lr[i]-mr);},0)/vv:null]; }); }
+    var esRaro=function(L){ return L.some(function(l){ return l[1]!=null&&Math.abs(l[1])>1.05; }); };
+    var L=pesos(ok); if(!L) return '';
+    var raro=esRaro(L), sin=null;
+    /* si un año raro lo desbarata (ACS 2021: venta extraordinaria), se prueba sin él */
+    if(raro&&ok.length>=6){ var best=null; ok.forEach(function(y){ var L2=pesos(ok.filter(function(z){return z!==y;})); if(!L2||esRaro(L2)) return;
+        var mx=Math.max.apply(null,L2.map(function(l){ return Math.abs(l[1]||0); })); if(!best||mx<best[2]) best=[y,L2,mx]; });
+      if(best){ sin=best[0]; L=best[1]; raro=false; } }
+    L.sort(function(a,b){ return (b[1]==null?-9:b[1])-(a[1]==null?-9:a[1]); });
+    var pc=function(x){ return x==null?'—':Math.round(x*100)+' %'; };
+    var top=L[0], seg=L[1];
+    var txt=raro?'Aquí no hay una pieza que mande sola: unas piezas se disparan algunos años y otras las compensan, así que «explica» sale por encima del 100 % o negativo.':
+      (sin?'Sin contar <b>'+esc(sin)+'</b>, un año raro en el que unas piezas se disparan y otras las compensan: ':'')+
+      (sin?'la':'La')+' que más se parece a su ROE es <b>'+esc(top[0].nombre.toLowerCase())+'</b>, que va con el '+pc(top[1])+' de sus subidas y bajadas'+(seg&&seg[1]!=null&&seg[1]>=0.15?'; le sigue <b>'+esc(seg[0].nombre.toLowerCase())+'</b> ('+pc(seg[1])+')':'')+'. '+
+      'Las que rondan el 0 % apenas cambian o no tienen que ver con cómo se mueve su ROE.';
+    var roe=ok.map(function(y){ return V.roe[y]; }), CP=['#B45309','#15803D','#7C3AED','#0891B2','#DB2777','#65A30D'];
+    var W=600,H=260,x0=56,x1=590,yt=14,yb=H-24,nn=ok.length,bw=(x1-x0)/nn;
+    var rv=roe.filter(function(x){return x!=null;}), rlo=Math.min.apply(null,rv), rhi=Math.max.apply(null,rv), pad=(rhi-rlo)*0.08||1, mx=rhi+pad, mn=rlo-pad;
+    var Yp=function(v){ return yt+(mx-v)/(mx-mn)*(yb-yt); }, st=niceStep((mx-mn)/4), fr=fmtU('%');
+    var h='<svg viewBox="0 0 '+W+' '+H+'" class="nf-chs">';
+    for(var v=Math.ceil(mn/st)*st; v<=mx+1e-9; v+=st) h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Yp(v).toFixed(1)+'" y2="'+Yp(v).toFixed(1)+'" stroke="#EEF1F5"/><text x="'+(x0-6)+'" y="'+(Yp(v)+4).toFixed(1)+'" font-size="10.5" text-anchor="end" fill="#5B6B7C">'+fr(v)+'</text>';
+    ok.forEach(function(y,k){ h+='<text x="'+(x0+k*bw+bw/2).toFixed(1)+'" y="'+(H-6)+'" font-size="10.5" text-anchor="middle" fill="#5B6B7C">'+esc(y)+'</text>'; });
+    var vis={}; L.forEach(function(l,i){ vis[l[0].id]=i<2&&l[1]!=null&&l[1]>0.1&&!raro; });
+    L.forEach(function(l,i){ var p=l[0], s=ok.map(function(y){ var x=(V[p.id]||{})[y]; return x==null?null:+x; }), sv=s.filter(function(x){return x!=null;});
+      if(sv.length<2) return; var lo=Math.min.apply(null,sv), hi=Math.max.apply(null,sv), sp=hi-lo;
+      /* la pieza se lleva al rango del ROE: su mínimo a la altura del mínimo del ROE y su máximo a la del máximo */
+      var pts=[]; s.forEach(function(x,k){ if(x!=null) pts.push((x0+k*bw+bw/2).toFixed(1)+','+Yp(sp>1e-12?rlo+(x-lo)/sp*(rhi-rlo):(rlo+rhi)/2).toFixed(1)); });
+      h+='<g data-dp="'+p.id+'" style="display:'+(vis[p.id]?'':'none')+'"><polyline fill="none" stroke="'+CP[i%6]+'" stroke-width="2" points="'+pts.join(' ')+'"/></g>'; });
+    var rp=[]; roe.forEach(function(x,k){ if(x!=null) rp.push([x0+k*bw+bw/2,Yp(x)]); });
+    h+='<polyline fill="none" stroke="#1F4A9A" stroke-width="3.5" points="'+rp.map(function(q){return q[0].toFixed(1)+','+q[1].toFixed(1);}).join(' ')+'"/>'+rp.map(function(q){ return '<circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="3.5" fill="#fff" stroke="#1F4A9A" stroke-width="2"/>'; }).join('');
+    ok.forEach(function(y,k){ var parts=['ROE: '+fr(roe[k])].concat(L.map(function(l){ var x=(V[l[0].id]||{})[y]; return l[0].nombre+': '+fmtU(l[0].unidad)(x); }));
+      h+='<rect class="nf-hv" x="'+(x0+k*bw).toFixed(1)+'" y="'+yt+'" width="'+bw.toFixed(1)+'" height="'+(yb-yt)+'" fill="transparent" data-tip="'+esc(y+'|'+parts.join('|'))+'"/>'; });
+    h+='</svg>';
+    var chips=L.map(function(l,i){ var on=vis[l[0].id];
+      return '<button type="button" class="nf-dpc'+(on?' on':'')+'" data-nfdp="'+l[0].id+'" style="--c:'+CP[i%6]+'"><i></i>'+esc(l[0].nombre)+' <span>'+(l[1]==null?'—':'explica '+pc(l[1]))+'</span></button>'; }).join('');
+    return '<h3 style="font-size:14px;margin:14px 0 4px">¿Qué pieza se parece más a su ROE?</h3>'+vd('n',txt)+
+      '<div class="nf-dpb">'+chips+'</div><div style="max-width:620px">'+h+'</div>'+
+      '<div class="nf-mu" style="font-size:12px;margin-top:4px">La línea gruesa azul es su ROE. Pulsa cada pieza para ponerla encima o quitarla. Como cada pieza tiene su unidad (veces, %), se dibuja estirada al alto del ROE: su peor año a la altura del ROE más bajo y su mejor año a la del más alto; así se ve si suben y bajan a la vez. Los valores reales salen al pasar el ratón. «Explica» es la parte de las subidas y bajadas del ROE que va con esa pieza; las seis suman 100 %.</div>';
   }
   /* ---------------- montaje ---------------- */
   var TABS=[['res','Resumen'],['emp','La empresa'],['neg','Cómo va la empresa'],['rat','Ratios'],['cot','Cotización'],['div','Dividendo'],['pos','Mi posición'],['his','Revisiones e historial'],['not','Noticias y coyuntura']];
@@ -527,6 +576,7 @@
   }
   window.nfAbrir=function(t){ if(t) cur=String(t).toUpperCase(); tab='res'; if(typeof activarVista==='function') activarVista('fichaemp'); pintar(); window.scrollTo(0,0); };
   document.addEventListener('click',function(e){
+    var dp=e.target.closest&&e.target.closest('[data-nfdp]'); if(dp){ var id=dp.getAttribute('data-nfdp'), cd=dp.closest('.nf-card'), g=cd&&cd.querySelector('g[data-dp="'+id+'"]'); if(g){ var on=g.style.display==='none'; g.style.display=on?'':'none'; dp.classList.toggle('on',on); } return; }
     var rt=e.target.closest&&e.target.closest('[data-nfrt]'); if(rt){ var row=document.getElementById(rt.getAttribute('data-nfrt')); if(row) row.style.display=row.style.display==='none'?'':'none'; return; }
     var a=e.target.closest&&e.target.closest('[data-nftab]'); if(a){ tab=a.getAttribute('data-nftab'); pintar(); return; }
     var g=e.target.closest&&e.target.closest('[data-nfgo]'); if(g){ cur=g.getAttribute('data-nfgo'); tab=tab==='cot'?'cot':tab; pintar(); return; }
