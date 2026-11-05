@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-05T14:45",
+ "generado": "2026-11-05T16:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -26,7 +26,8 @@
    "detalle": "Aprobada el 30-oct. EBIT, beneficio y deuda neta están en «2026-10-30 Resultados Tercer Trimestre 2026.pdf» pero el lector no los leyó. Rehacer la revisión con el documento y que Carlos la apruebe de nuevo.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:52",
-   "como": "Revisión ACX 9M-2026 rehecha con las cuatro cifras (EBIT 315/176 y beneficio 162/7 leídos a mano en la tabla de cinco columnas del informe, que el lector no lee entera) y con nota. Queda en «Revisión» para que la apruebes."
+   "como": "Revisión ACX 9M-2026 rehecha con las cuatro cifras (EBIT 315/176 y beneficio 162/7 leídos a mano en la tabla de cinco columnas del informe, que el lector no lee entera) y con nota. Queda en «Revisión» para que la apruebes.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "Pcc87789a",
@@ -37,7 +38,8 @@
    "detalle": "El documento está en la Biblioteca (información financiera del primer trimestre, 8-may-2026).",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:52",
-   "como": "El lector lo leía bien; nadie lo había pasado porque el documento es de mayo, antes del método nuevo. Corregido a mano el EBIT (el lector cogía el ajustado, 500,0; el bueno es 474,9). Revisión AMS 1T-2026 en «Revisión» para que la apruebes."
+   "como": "El lector lo leía bien; nadie lo había pasado porque el documento es de mayo, antes del método nuevo. Corregido a mano el EBIT (el lector cogía el ajustado, 500,0; el bueno es 474,9). Revisión AMS 1T-2026 en «Revisión» para que la apruebes.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P6373adf2",
@@ -48,7 +50,8 @@
    "detalle": "Documentos en la Biblioteca: «Informe de negocio del primer trimestre» de 2025 (6-may) y 2026 (30-abr).",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:52",
-   "como": "La tabla estaba en la columna derecha de la página. Arreglado el lector (comprobado que las otras 18 empresas leen igual que antes). Revisión FAE con el 1T-2025 y el 1T-2026, cifras comprobadas en los documentos, en «Revisión» para que la apruebes."
+   "como": "La tabla estaba en la columna derecha de la página. Arreglado el lector (comprobado que las otras 18 empresas leen igual que antes). Revisión FAE con el 1T-2025 y el 1T-2026, cifras comprobadas en los documentos, en «Revisión» para que la apruebes.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "Pcd5c2b7b",
@@ -59,7 +62,8 @@
    "detalle": "Documentos en la Biblioteca: informe y presentación de resultados del 14-may-2025.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:52",
-   "como": "El lector la leía pero no podía confirmarla con otro informe (cambio de perímetro). Cifras comprobadas a mano en el documento y apuntadas. Revisión TEF 1T-2025 en «Revisión» para que la apruebes."
+   "como": "El lector la leía pero no podía confirmarla con otro informe (cambio de perímetro). Cifras comprobadas a mano en el documento y apuntadas. Revisión TEF 1T-2025 en «Revisión» para que la apruebes.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "Paa5923bf",
@@ -70,7 +74,8 @@
    "detalle": "Documentos en la Biblioteca: informe y presentación de resultados 1T26 (29-abr-2026).",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:52",
-   "como": "Igual que Telefónica: sin otro informe con el que cruzarla. Cifras comprobadas a mano. Revisión NTGY 1T-2026 en «Revisión»; ojo, al aprobar la decisión pasa a MANTENER por la bajada del precio tras el dividendo."
+   "como": "Igual que Telefónica: sin otro informe con el que cruzarla. Cifras comprobadas a mano. Revisión NTGY 1T-2026 en «Revisión»; ojo, al aprobar la decisión pasa a MANTENER por la bajada del precio tras el dividendo.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P7fef3dd4",
@@ -81,7 +86,8 @@
    "detalle": "Prim publica 1T y 3T como presentación (4-nov-2024, 28-oct-2025, 4-may-2026); su web tiene además un «Informe Financiero Trimestral» del 1T-2026. El 3T-2026 aún no se ha publicado.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:55",
-   "como": "Leídos a mano el 9M-2024, el 9M-2025 y el 1T-2026 en sus presentaciones (cifras en texto); solo lo que el documento escribe, sin calcular nada a partir de porcentajes. Revisión PRM en «Revisión» para que la apruebes, con el 1T-2026 propuesto en ámbar (el EBITDA baja un 13,8 % según el documento)."
+   "como": "Leídos a mano el 9M-2024, el 9M-2025 y el 1T-2026 en sus presentaciones (cifras en texto); solo lo que el documento escribe, sin calcular nada a partir de porcentajes. Revisión PRM en «Revisión» para que la apruebes, con el 1T-2026 propuesto en ámbar (el EBITDA baja un 13,8 % según el documento).",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P67c6a1b8",
@@ -92,7 +98,8 @@
    "detalle": "Se aprobaron el 28-oct, pero sin la marca de fecha que usa la app para saber cuándo se analizó por última vez.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:52",
-   "como": "Puesta la marca de fecha (aprobados el 28-oct) y rehechas sus tres fichas; suben en la próxima subida."
+   "como": "Puesta la marca de fecha (aprobados el 28-oct) y rehechas sus tres fichas; suben en la próxima subida.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P70c383ab",
@@ -103,7 +110,8 @@
    "detalle": "",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:52",
-   "como": "Nota del 1S-2026 escrita con la nota de prensa de Merlin. En «Revisión» como «MRL nota 1S-2026» para que la apruebes."
+   "como": "Nota del 1S-2026 escrita con la nota de prensa de Merlin. En «Revisión» como «MRL nota 1S-2026» para que la apruebes.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P6d7904a7",
@@ -114,7 +122,8 @@
    "detalle": "Sale en el resumen de la revisión 9M; la cifra del margen está bien (11,1 %), el texto la repite como si fuera una variación.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:52",
-   "como": "El margen EBITDA es un nivel, no una variación, y en Gestamp e Iberdrola faltaba marcarlo así. Corregido; ahora sale «Margen EBITDA: 11,1 %». Fichas de las dos rehechas."
+   "como": "El margen EBITDA es un nivel, no una variación, y en Gestamp e Iberdrola faltaba marcarlo así. Corregido; ahora sale «Margen EBITDA: 11,1 %». Fichas de las dos rehechas.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "Pcf9aa037",
@@ -125,7 +134,8 @@
    "detalle": "No se sabe por qué: la búsqueda a mano no dejaba constancia de lo que hacía (ya la deja). La revisión la preparé yo a mano.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T10:19",
-   "como": "No se pudo saber la causa: aquella búsqueda no dejó registro. Lo que se ha cambiado es que ahora toda búsqueda, a mano o programada, escribe en el registro, también si se corta. Si vuelve a pasar, se verá por qué."
+   "como": "No se pudo saber la causa: aquella búsqueda no dejó registro. Lo que se ha cambiado es que ahora toda búsqueda, a mano o programada, escribe en el registro, también si se corta. Si vuelve a pasar, se verá por qué.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P187af1d4",
@@ -136,7 +146,8 @@
    "detalle": "Endesa, Vidrala y Merlin del 2-nov salían como «no bajadas» y sí lo están: ese fichero de la nube es antiguo y no trae números de registro.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:20",
-   "como": "La comparación ya no tiene en cuenta los avisos sin número de registro. Repetida con los ficheros del 2 al 5-nov: ningún falso aviso."
+   "como": "La comparación ya no tiene en cuenta los avisos sin número de registro. Repetida con los ficheros del 2 al 5-nov: ningún falso aviso.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P3d3c4e0f",
@@ -147,7 +158,8 @@
    "detalle": "El aviso del 5-nov lo dejó escrito en la bitácora sin decírtelo. Todo fallo debe entrar en esta lista.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:21",
-   "como": "Creada esta lista (Sistema › Tareas en la app). Los programas apuntan solos sus fallos (búsqueda fallida, documentos que el lector no lee, comunicaciones que no se han bajado) y el aviso automático apunta el resto. Al móvil solo llega una línea con cuántos avisos nuevos hay."
+   "como": "Creada esta lista (Sistema › Tareas en la app). Los programas apuntan solos sus fallos (búsqueda fallida, documentos que el lector no lee, comunicaciones que no se han bajado) y el aviso automático apunta el resto. Al móvil solo llega una línea con cuántos avisos nuevos hay.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "Pd5fa58ac",
@@ -158,7 +170,8 @@
    "detalle": "Publicado el 5-nov 7:38; el pase lo tomó por «documentos sin cifras».",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:11",
-   "como": "Ahora todo documento que parezca de resultados se lee, y si el lector no saca el periodo te sale aviso de «falta documento» en vez de darlo por visto. Revisión de Rovi 9M con cifras comprobadas en la nota de prensa; aprobada por ti el 5-nov a las 9:11."
+   "como": "Ahora todo documento que parezca de resultados se lee, y si el lector no saca el periodo te sale aviso de «falta documento» en vez de darlo por visto. Revisión de Rovi 9M con cifras comprobadas en la nota de prensa; aprobada por ti el 5-nov a las 9:11.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P3c266024",
@@ -169,7 +182,8 @@
    "detalle": "Se rompió al arrancar por un dato raro de Cox en el calendario de resultados.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:11",
-   "como": "Arreglada la recogida (no se rompe por un dato raro; si el calendario falla, busca igual las 35) y el cruce con la nube avisa de lo que falte. GEST 9M recogida a las 22:59, revisada y aprobada (publicada a las 23:45)."
+   "como": "Arreglada la recogida (no se rompe por un dato raro; si el calendario falla, busca igual las 35) y el cruce con la nube avisa de lo que falte. GEST 9M recogida a las 22:59, revisada y aprobada (publicada a las 23:45).",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P4aa00ee9",
@@ -180,7 +194,8 @@
    "detalle": "",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:11",
-   "como": "Ahora solo cuenta el nombre exacto; los parecidos se apuntan aparte sin avisarte. Probado con 45 nombres."
+   "como": "Ahora solo cuenta el nombre exacto; los parecidos se apuntan aparte sin avisarte. Probado con 45 nombres.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P98c21f04",
@@ -191,7 +206,8 @@
    "detalle": "",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:11",
-   "como": "Ahora junta las dos pasadas por número de registro y comprueba la cuenta sobre el conjunto."
+   "como": "Ahora junta las dos pasadas por número de registro y comprueba la cuenta sobre el conjunto.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P73696d00",
@@ -202,7 +218,8 @@
    "detalle": "",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:11",
-   "como": "Ahora escribe en la ventana y en el registro, también lo que hacen los programas que lanza. Probado."
+   "como": "Ahora escribe en la ventana y en el registro, también lo que hacen los programas que lanza. Probado.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P3dbe20b0",
@@ -213,7 +230,8 @@
    "detalle": "",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:24",
-   "como": "Ahora, si una empresa falla, se apunta y la búsqueda sigue con las demás. Si falla un paso entero, se apunta, se sube igual lo aprobado y se pasa el pase de novedades. Si una pasada se corta, la siguiente lo dice. Todo acaba en esta lista. Probado forzando un error."
+   "como": "Ahora, si una empresa falla, se apunta y la búsqueda sigue con las demás. Si falla un paso entero, se apunta, se sube igual lo aprobado y se pasa el pase de novedades. Si una pasada se corta, la siguiente lo dice. Todo acaba en esta lista. Probado forzando un error.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P7a3bfeac",
@@ -224,7 +242,8 @@
    "detalle": "",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:52",
-   "como": "Ahora las cifras comprobadas a mano quedan en un fichero por empresa, con su fuente, y mandan sobre lo que lea el lector en cada pasada."
+   "como": "Ahora las cifras comprobadas a mano quedan en un fichero por empresa, con su fuente, y mandan sobre lo que lea el lector en cada pasada.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "Pca3873c0",
@@ -235,7 +254,8 @@
    "detalle": "",
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:52",
-   "como": "Solo se dan por vistos los periodos anteriores al inicio de la serie trimestral de cada empresa; dentro de la serie, un hueco es un aviso."
+   "como": "Solo se dan por vistos los periodos anteriores al inicio de la serie trimestral de cada empresa; dentro de la serie, un hueco es un aviso.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P174dc943",
@@ -246,7 +266,8 @@
    "detalle": "El lector lo hace así desde el 29-oct (por ejemplo, Prim 1T-2025: 61,5 ÷ 1,094 = 56,2157). Afecta a AENA, RED, VID, PRM, ACX, ITX, VIS, ROVI, AMS, ACS y ELE. Choca con la regla de no calcular cifras por otra vía. Opciones: dejarlas, o quitarlas y que esos periodos queden sin año anterior. Desde hoy, las cifras que leo a mano no se calculan.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T11:23",
-   "como": "Carlos eligió dejarlas (5-nov). Se quedan, y su fuente dice que están despejadas del % del propio informe. En la ficha llevan un * junto al % y la tabla lo explica. Las del lector se marcan solas desde ahora."
+   "como": "Carlos eligió dejarlas (5-nov). Se quedan, y su fuente dice que están despejadas del % del propio informe. En la ficha llevan un * junto al % y la tabla lo explica. Las del lector se marcan solas desde ahora.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P1676adde",
@@ -257,7 +278,8 @@
    "detalle": "Visto por Carlos el 5-nov. R4 sacó el efectivo el 04/11 y el extracto aún no lo pone dentro del fondo.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T10:09",
-   "como": "La caja cuenta ese dinero como «en camino al fondo» y lo suma al disponible. Cuando el extracto lo muestre dentro del Plan Easy, la línea desaparece sola. Publicar con el .bat (build 20261105b)."
+   "como": "La caja cuenta ese dinero como «en camino al fondo» y lo suma al disponible. Cuando el extracto lo muestre dentro del Plan Easy, la línea desaparece sola. Publicar con el .bat (build 20261105b).",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P312761cd",
@@ -268,7 +290,8 @@
    "detalle": "Visto al comprobar las siete aprobaciones del 5-nov.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T10:19",
-   "como": "Restauradas las cinco fechas (TEF y PRM y AMS: S1-2026; NTGY y FAE: 9M-2026), rehechas sus fichas y sin señales abiertas. El programa de aprobar se queda ahora con el periodo más reciente."
+   "como": "Restauradas las cinco fechas (TEF y PRM y AMS: S1-2026; NTGY y FAE: 9M-2026), rehechas sus fichas y sin señales abiertas. El programa de aprobar se queda ahora con el periodo más reciente.",
+   "comprobado": "2026-11-05T16:19"
   },
   {
    "id": "P8b1e90ce",
@@ -279,7 +302,8 @@
    "detalle": "Ejemplo: beneficio 1T-2026 guardado 232, el lector lee 239; varias cifras del año anterior guardadas como escritas en el documento, el lector hoy las despejaría del %. No se ha reescrito ACS: se queda lo guardado hasta comprobarlo con el documento.",
    "estado": "resuelto",
    "resuelto": "2026-11-05T13:51",
-   "como": "Las 11 cuentas de 1T y 9M de ACS (2021-2026) leídas a mano en sus documentos y guardadas con su fuente. Lo guardado estaba bien en 2026 (232 es el beneficio neto; 239 es el «operativo»). Completados los huecos de 2021-2025; 2024-3M ahora compara contra el 1T-2023 reexpresado que usa ACS. Ningún semáforo cambia."
+   "como": "Las 11 cuentas de 1T y 9M de ACS (2021-2026) leídas a mano en sus documentos y guardadas con su fuente. Lo guardado estaba bien en 2026 (232 es el beneficio neto; 239 es el «operativo»). Completados los huecos de 2021-2025; 2024-3M ahora compara contra el 1T-2023 reexpresado que usa ACS. Ningún semáforo cambia.",
+   "comprobado": "2026-11-05T16:19"
   }
  ],
  "decisiones": "recogida/decisiones-v3.json"
