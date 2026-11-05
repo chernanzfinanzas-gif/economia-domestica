@@ -17,24 +17,36 @@
     var ex=L.filter(function(x){ return x.t===Q; })[0]; if(ex) return ex.t;
     var m=L.filter(function(x){ return (x.t+' '+x.n).toUpperCase().indexOf(Q)>=0; }); return m.length?m[0].t:''; }
   var D=['dom','lun','mar','mié','jue','vie','sáb'], P=['1T','1S','3T','Anual'];
+  /* empresas con ejercicio partido (empresa.json del método: Logista cierra en septiembre; Inditex cierra en enero y cuadra con el calendario) */
+  var FISCAL={LOG:9};
+  /* temporada de calendario → hueco fiscal (oct-sep) y al revés */
+  function calDe(y,p){ var Y=+y; return {'1T':(Y-1)+' Anual','1S':Y+' 1T','3T':Y+' 1S','Anual':Y+' 3T'}[p]; }
+  function fisNom(tt){ var p=tt.split(' '), Y=+p[0], m={'Anual':[Y+1,'1T (oct-dic)'],'1T':[Y,'1S (oct-mar)'],'1S':[Y,'9M (oct-jun)'],'3T':[Y,'anual (oct-sep)']}[p[1]]; return m?('ejercicio '+m[0]+' · '+m[1]):tt; }
   function celda(f,k,extra){ if(!f) return '<td class="mu">—</td>'; var d=new Date(f+'T12:00:00');
     return '<td><b>'+f.slice(8,10)+'/'+f.slice(5,7)+'</b>'+(f.slice(0,4)!==extra?'<span class="y">/'+f.slice(2,4)+'</span>':'')+' <span class="w">'+D[d.getDay()]+'</span>'+(k==='Nota'?' <span class="k" title="nota o presentación de la empresa (sin IPP a la CNMV en esa fecha)">nota</span>':'')+'</td>'; }
   function tabla(t){
     var F=((H&&H.empresas)||{})[t]||[], by={}; F.forEach(function(r){ var p=r[0].split(' '); (by[p[0]]=by[p[0]]||{})[p[1]]={f:r[1],k:r[2]}; });
-    var cal=((C&&C.empresas)||{})[t]||{}, enCurso={}; Object.keys(cal).forEach(function(tt){ var e=cal[tt]; if(!e) return; var p=tt.split(' '); enCurso[tt]=e;
+    var FIS=FISCAL[t], cal=((C&&C.empresas)||{})[t]||{}, enCurso={}; Object.keys(cal).forEach(function(tt){ var e=cal[tt]; if(!e) return; var p=tt.split(' '); enCurso[tt]=e;
       if(e.estado==='publicado'&&e.publicado){ (by[p[0]]=by[p[0]]||{}); if(!by[p[0]][p[1]]) by[p[0]][p[1]]={f:e.publicado,k:'',cur:1}; } });
+    /* 5-nov-2026 (Carlos: «Logista lo que viene es el anual»): Logista cierra el 30 de septiembre. Su tabla va por EJERCICIO
+       FISCAL (oct-sep), no por temporadas de calendario: lo de noviembre es su anual, lo de febrero su 1T (oct-dic), lo de
+       abril-mayo su 1S (oct-mar) y lo de julio sus 9M (oct-jun). */
+    if(FIS){ var by2={}, mv=function(yS,pS,yD,pD){ var x=(by[yS]||{})[pS]; if(x){ (by2[yD]=by2[yD]||{})[pD]=x; } };
+      Object.keys(by).forEach(function(y){ var Y=+y; mv(y,'Anual',String(Y+1),'1T'); mv(y,'1T',y,'1S'); mv(y,'1S',y,'3T'); mv(y,'3T',y,'Anual'); });
+      by=by2; }
+    var COLN=FIS?['1T <span class="mu">(oct-dic)</span>','1S <span class="mu">(oct-mar)</span>','9M <span class="mu">(oct-jun)</span>','Anual <span class="mu">(oct-sep)</span>']:['1T','1S','3T','Anual <span class="mu">(se publica al año siguiente)</span>'];
     var anios=Object.keys(by).sort().reverse();
     var h='<div class="n-hr-tit"><b>'+E(t)+'</b> '+E(nombre(t))+' <span class="mu">· '+F.length+' temporadas en la Biblioteca CNMV'+(F.length?' desde '+F[0][0]:'')+'</span></div>';
     /* temporada en curso */
     var cur=Object.keys(enCurso).filter(function(tt){ return enCurso[tt].estado!=='publicado'&&enCurso[tt].fecha; });
-    cur.forEach(function(tt){ var e=enCurso[tt], conf=(e.fuente==='aviso'||e.fuente==='yahoo'), d=new Date(e.fecha+'T12:00:00');
-      h+='<div class="n-hr-cur">⏳ <b>'+E(tt)+'</b>: previsto el <b>'+D[d.getDay()]+' '+e.fecha.slice(8,10)+'/'+e.fecha.slice(5,7)+'</b> <span class="sv3-src '+(conf?'conf':'est')+'">'+(conf?'confirmada':'estimada')+'</span>'+(e.momento?' · '+E(e.momento):'')+(e.fuente==='anio_ant'&&e.base?' <span class="mu">(el año pasado publicó el '+e.base.slice(8,10)+'/'+e.base.slice(5,7)+')</span>':'')+(e.fecha<new Date().toISOString().slice(0,10)?' · <b style="color:#B45309">ya pasó y aún no está en la Biblioteca</b>':'')+'</div>'; });
+    cur.forEach(function(tt){ var e=enCurso[tt], ttN=FIS?fisNom(tt):tt, conf=(e.fuente==='aviso'||e.fuente==='yahoo'), d=new Date(e.fecha+'T12:00:00');
+      h+='<div class="n-hr-cur">⏳ <b>'+E(ttN)+'</b>: previsto el <b>'+D[d.getDay()]+' '+e.fecha.slice(8,10)+'/'+e.fecha.slice(5,7)+'</b> <span class="sv3-src '+(conf?'conf':'est')+'">'+(conf?'confirmada':'estimada')+'</span>'+(e.momento?' · '+E(e.momento):'')+(e.fuente==='anio_ant'&&e.base?' <span class="mu">(el año pasado publicó el '+e.base.slice(8,10)+'/'+e.base.slice(5,7)+')</span>':'')+(e.fecha<new Date().toISOString().slice(0,10)?' · <b style="color:#B45309">ya pasó y aún no está en la Biblioteca</b>':'')+'</div>'; });
     if(!anios.length) return h+'<div class="mu" style="padding:8px 0">No hay resultados de esta empresa en la Biblioteca CNMV.</div>';
-    h+='<div class="n-hr-wrap"><table class="n-hr"><thead><tr><th class="l">Ejercicio</th><th>1T</th><th>1S</th><th>3T</th><th>Anual <span class="mu">(se publica al año siguiente)</span></th></tr></thead><tbody>';
+    h+='<div class="n-hr-wrap"><table class="n-hr"><thead><tr><th class="l">'+(FIS?'Ejercicio fiscal':'Ejercicio')+'</th>'+COLN.map(function(c){ return '<th>'+c+'</th>'; }).join('')+'</tr></thead><tbody>';
     anios.forEach(function(y){ var r=by[y]; h+='<tr><td class="l"><b>'+y+'</b></td>'+P.map(function(p){ var x=r[p];
-      if(!x){ var e=enCurso[y+' '+p]; if(e&&e.estado!=='publicado'&&e.fecha) return '<td class="pend">previsto '+e.fecha.slice(8,10)+'/'+e.fecha.slice(5,7)+'</td>'; return '<td class="mu">—</td>'; }
-      return celda(x.f,x.k,p==='Anual'?String(+y+1):y); }).join('')+'</tr>'; });
-    return h+'</tbody></table></div><div class="n-hr-nota">Fecha = primer informe de resultados o IPP de esa temporada guardado en tu Biblioteca CNMV. «—» = no publicó (o no está en la Biblioteca). Desde 2021 el 1T y el 3T ya no son obligatorios: muchas solo sacan nota. Las temporadas son de calendario, como el calendario del universo: en empresas con ejercicio partido (Logista cierra en septiembre) no coinciden con su trimestre.</div>'; }
+      if(!x){ var e=enCurso[FIS?calDe(y,p):(y+' '+p)]; if(e&&e.estado!=='publicado'&&e.fecha) return '<td class="pend">previsto '+e.fecha.slice(8,10)+'/'+e.fecha.slice(5,7)+'</td>'; return '<td class="mu">—</td>'; }
+      return celda(x.f,x.k,FIS?y:(p==='Anual'?String(+y+1):y)); }).join('')+'</tr>'; });
+    return h+'</tbody></table></div><div class="n-hr-nota">Fecha = primer informe de resultados o IPP de esa temporada guardado en tu Biblioteca CNMV. «—» = no publicó (o no está en la Biblioteca). Desde 2021 el 1T y el 3T ya no son obligatorios: muchas solo sacan nota. '+(FIS?'<b>Logista cierra su ejercicio el 30 de septiembre</b>: cada fila es un ejercicio fiscal (el 2026 va de octubre de 2025 a septiembre de 2026) y lo que publica en noviembre es su anual.':'Las temporadas son de calendario, como el calendario del universo.')+'</div>'; }
   function pinta(box){ var L=lista();
     box.innerHTML='<div class="sv3-h3">🔎 Histórico de resultados de una empresa</div>'+
       '<div class="n-hr-bar"><input id="nHrQ" list="nHrL" placeholder="Escribe la empresa o el ticker (p. ej. Prim)" value="'+E(sel)+'"><datalist id="nHrL">'+L.map(function(x){ return '<option value="'+E(x.t)+'">'+E(x.n)+'</option>'; }).join('')+'</datalist>'+
