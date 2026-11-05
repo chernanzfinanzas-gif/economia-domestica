@@ -386,6 +386,18 @@
     "revision": "MCM señales 2026-10-28",
     "origen": "metodo-v3",
     "sinPosicion": true
+   },
+   {
+    "fecha": "5-nov-2026",
+    "fechaIso": "2026-11-05",
+    "senal": "EXT",
+    "cot": 9.94,
+    "decision": "REBAJA",
+    "motivo": "Deterioro que deja de parecer puntual: cuatro periodos seguidos en rojo y el tercer trimestre peor que el primer semestre; la empresa espera «una presión mayor» de la energía en el 4T. El primer catalizador de la tesis (EBITDA 2026 por encima de 80 M€) pediría 32,6 M€ en el 4T con 47,4 M€ en nueve meses. La decisión COMPRAR sale de la cotización (9,94 € frente a un PO bear de 11,33 €), pero ese PO no recoge aún este 9M: propongo REBAJA (COMPRAR → MANTENER) hasta rehacer valoración y tesis; si prefieres rehacer ya la valoración, AJUSTA PO. Stop 8,18 €. Propuesta de Carlos en el chat 05-11-2026 (método v3).",
+    "revision": "MCM señales 2026-11-05",
+    "origen": "metodo-v3",
+    "veredictoAntes": "COMPRAR",
+    "veredictoTope": "MANTENER"
    }
   ],
   "MRL": [
@@ -475,5 +487,5 @@
    }
   ]
  },
- "actualizado": "2026-11-02"
+ "actualizado": "2026-11-05"
 }
