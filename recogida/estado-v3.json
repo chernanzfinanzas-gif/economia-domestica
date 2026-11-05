@@ -1,21 +1,256 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-04T23:45",
+ "generado": "2026-11-05T09:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "AMS 2026-3M",
+   "ticker": "AMS",
+   "periodos": [
+    "2026-3M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-11-05T08:39",
+   "semaforo": "V",
+   "frase": "2026-3M. Periodo histórico que faltaba. El 1T-2026 de Amadeus estaba en la Biblioteca desde el 8-may pero el lector nunca lo pasó. Cifras comprobadas en el documento: ingresos 1.682,6 M€ (+3,1 %), EBITDA 661,4 M€ (+5,3 %), resultado de expl"
+  },
+  {
+   "carpeta": "FAE 2026-3M",
+   "ticker": "FAE",
+   "periodos": [
+    "2025-3M",
+    "2026-3M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-11-05T08:40",
+   "semaforo": "V",
+   "frase": "2025-3M. Periodo histórico que faltaba. El lector no leía este informe porque la tabla está en la columna derecha de la página (arreglado el 5-nov). Cifras comprobadas en el documento: ingresos 153,0 M€ (+9,7 %), EBITDA 39,3 M€ (−4,1 %; el "
+  },
+  {
+   "carpeta": "TEF 2025-3M",
+   "ticker": "TEF",
+   "periodos": [
+    "2025-3M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-11-05T08:44",
+   "semaforo": "A",
+   "frase": null
+  }
+ ],
+ "n_pendientes": 3,
  "ultima_subida": {
-  "cuando": "2026-11-04T23:45",
+  "cuando": "2026-11-05T09:45",
   "ficheros": [
-   "dossiers/GEST.html",
-   "dossiers/GEST.json",
-   "dossiers/trimestral/GEST-trim.json",
-   "dossiers/v3/GEST.html",
-   "fichas/GEST.json",
+   "dossiers/ROVI.html",
+   "dossiers/ROVI.json",
+   "dossiers/trimestral/ROVI-trim.json",
+   "dossiers/v3/ROVI.html",
+   "fichas/ROVI.json",
    "fichas/_resumen.json"
   ]
  },
  "rechazos": [],
  "descargas_pendientes": [],
+ "pendientes_sistema": [
+  {
+   "id": "P9c315054",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "ACX",
+   "que": "Revisión 9M-2026 aprobada sin nota y con solo ingresos y EBITDA",
+   "detalle": "Aprobada el 30-oct. EBIT, beneficio y deuda neta están en «2026-10-30 Resultados Tercer Trimestre 2026.pdf» pero el lector no los leyó. Rehacer la revisión con el documento y que Carlos la apruebe de nuevo.",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null
+  },
+  {
+   "id": "Pcc87789a",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "AMS",
+   "que": "El lector no ha leído el 1T-2026",
+   "detalle": "El documento está en la Biblioteca (información financiera del primer trimestre, 8-may-2026).",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null
+  },
+  {
+   "id": "P6373adf2",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "FAE",
+   "que": "El lector no ha leído el 1T-2025 ni el 1T-2026",
+   "detalle": "Documentos en la Biblioteca: «Informe de negocio del primer trimestre» de 2025 (6-may) y 2026 (30-abr).",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null
+  },
+  {
+   "id": "Pcd5c2b7b",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "TEF",
+   "que": "El lector no ha leído el 1T-2025",
+   "detalle": "Documentos en la Biblioteca: informe y presentación de resultados del 14-may-2025.",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null
+  },
+  {
+   "id": "Paa5923bf",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "NTGY",
+   "que": "El lector no ha leído el 1T-2026",
+   "detalle": "Documentos en la Biblioteca: informe y presentación de resultados 1T26 (29-abr-2026).",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null
+  },
+  {
+   "id": "P7fef3dd4",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "PRM",
+   "que": "El lector no ha leído el 9M-2024, el 9M-2025 ni el 1T-2026",
+   "detalle": "Prim publica 1T y 3T como presentación (4-nov-2024, 28-oct-2025, 4-may-2026); su web tiene además un «Informe Financiero Trimestral» del 1T-2026. El 3T-2026 aún no se ha publicado.",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null
+  },
+  {
+   "id": "P67c6a1b8",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "",
+   "que": "A3M, ENG y VIS: 9M aprobados sin la marca de fecha de revisión",
+   "detalle": "Se aprobaron el 28-oct, pero sin la marca de fecha que usa la app para saber cuándo se analizó por última vez.",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null
+  },
+  {
+   "id": "P70c383ab",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "MRL",
+   "que": "Falta la nota del analista del 1S-2026",
+   "detalle": "",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null
+  },
+  {
+   "id": "P6d7904a7",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "GEST",
+   "que": "Texto automático del semáforo mal formado («margen EBITDA +11,1 %»)",
+   "detalle": "Sale en el resumen de la revisión 9M; la cifra del margen está bien (11,1 %), el texto la repite como si fuera una variación.",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null
+  },
+  {
+   "id": "Pcf9aa037",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "GEST",
+   "que": "La recogida a mano del 4-nov bajó los 9M pero no preparó la revisión",
+   "detalle": "No se sabe por qué: la búsqueda a mano no dejaba constancia de lo que hacía (ya la deja). La revisión la preparé yo a mano.",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null
+  },
+  {
+   "id": "P187af1d4",
+   "creado": "2026-11-05T09:11",
+   "origen": "pase de novedades 5-nov",
+   "ticker": "",
+   "que": "El cruce da falsos avisos con el fichero de la nube del 2-nov (sin números de registro)",
+   "detalle": "Endesa, Vidrala y Merlin del 2-nov salían como «no bajadas» y sí lo están: ese fichero de la nube es antiguo y no trae números de registro.",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:20",
+   "como": "La comparación ya no tiene en cuenta los avisos sin número de registro. Repetida con los ficheros del 2 al 5-nov: ningún falso aviso."
+  },
+  {
+   "id": "P3d3c4e0f",
+   "creado": "2026-11-05T09:11",
+   "origen": "pase de novedades 5-nov",
+   "ticker": "",
+   "que": "Los fallos que no son revisión (como Rovi 9M dado por visto) no llegaban a Carlos",
+   "detalle": "El aviso del 5-nov lo dejó escrito en la bitácora sin decírtelo. Todo fallo debe entrar en esta lista.",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:21",
+   "como": "Creada esta lista (Sistema › Tareas en la app). Los programas apuntan solos sus fallos (búsqueda fallida, documentos que el lector no lee, comunicaciones que no se han bajado) y el aviso automático apunta el resto. Al móvil solo llega una línea con cuántos avisos nuevos hay."
+  },
+  {
+   "id": "Pd5fa58ac",
+   "creado": "2026-11-05T09:11",
+   "origen": "pase de novedades 5-nov",
+   "ticker": "ROVI",
+   "que": "9M-2026 dado por visto sin leer (nombres de fichero cortados)",
+   "detalle": "Publicado el 5-nov 7:38; el pase lo tomó por «documentos sin cifras».",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:11",
+   "como": "Ahora todo documento que parezca de resultados se lee, y si el lector no saca el periodo te sale aviso de «falta documento» en vez de darlo por visto. Revisión de Rovi 9M con cifras comprobadas en la nota de prensa; aprobada por ti el 5-nov a las 9:11."
+  },
+  {
+   "id": "P3c266024",
+   "creado": "2026-11-05T09:11",
+   "origen": "Carlos 4-nov",
+   "ticker": "GEST",
+   "que": "La recogida de las 20:00 del 4-nov falló y no buscó los 9M de Gestamp",
+   "detalle": "Se rompió al arrancar por un dato raro de Cox en el calendario de resultados.",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:11",
+   "como": "Arreglada la recogida (no se rompe por un dato raro; si el calendario falla, busca igual las 35) y el cruce con la nube avisa de lo que falte. GEST 9M recogida a las 22:59, revisada y aprobada (publicada a las 23:45)."
+  },
+  {
+   "id": "P4aa00ee9",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "",
+   "que": "La comparación con la nube confundía nombres (BBVA Argentina, Banco Sabadell, filiales de emisión)",
+   "detalle": "",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:11",
+   "como": "Ahora solo cuenta el nombre exacto; los parecidos se apuntan aparte sin avisarte. Probado con 45 nombres."
+  },
+  {
+   "id": "P98c21f04",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "",
+   "que": "La búsqueda de la nube a dos pasadas tiraba una de las dos listas del día",
+   "detalle": "",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:11",
+   "como": "Ahora junta las dos pasadas por número de registro y comprueba la cuenta sobre el conjunto."
+  },
+  {
+   "id": "P73696d00",
+   "creado": "2026-11-05T09:11",
+   "origen": "auditoría 4-nov",
+   "ticker": "",
+   "que": "La búsqueda lanzada a mano no dejaba nada en el registro",
+   "detalle": "",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:11",
+   "como": "Ahora escribe en la ventana y en el registro, también lo que hacen los programas que lanza. Probado."
+  },
+  {
+   "id": "P3dbe20b0",
+   "creado": "2026-11-05T09:24",
+   "origen": "Carlos 5-nov",
+   "ticker": "",
+   "que": "La recogida se paraba entera si fallaba una empresa o un paso, y si se cortaba no avisaba",
+   "detalle": "",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:24",
+   "como": "Ahora, si una empresa falla, se apunta y la búsqueda sigue con las demás. Si falla un paso entero, se apunta, se sube igual lo aprobado y se pasa el pase de novedades. Si una pasada se corta, la siguiente lo dice. Todo acaba en esta lista. Probado forzando un error."
+  }
+ ],
  "decisiones": "recogida/decisiones-v3.json"
 }
