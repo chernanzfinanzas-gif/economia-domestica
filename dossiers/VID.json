@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "VID",
  "empresa": "Vidrala, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-05",
  "revisadoEl": "2026-10-27",
  "rating": "AA",
  "score": 76.1,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 25 % · DCF optimista 10 % · EV/EBITDA 15 % · EV/EBIT 10 % · PER 10 % · P/VC 5 % · P/FCL 10 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl",
- "poBear": 81.47,
- "poBase": 102.83,
- "poBull": 123.7,
- "entMin": 81.47,
- "entMax": 89.42,
- "stop": 34.79,
+ "poBear": 79.17,
+ "poBase": 100.12,
+ "poBull": 120.62,
+ "entMin": 79.17,
+ "entMax": 87.06,
+ "stop": 33.7,
  "dpaPrevisto": 1.7505,
  "moat": "51,2 sobre 100 · MOAT ESTRECHO. El vidrio es un producto sin diferenciación; la ventaja es de costes y de proximidad al cliente",
  "catalizadores": [
@@ -34,9 +34,9 @@
   "Traslación de libra y real brasileño (Media): Ventas −5,1 % y −12,8 %.",
   "Interrupción de sistemas o de suministro crítico con daño al horno (Media): Margen −0,6 pp y volumen −1 %; duro: −2 pp, −5 % y FCL −10 %."
  ],
- "bull": "123,70 € — escenario optimista: Vidroporto a plena carga y el precio acompaña a la energía",
- "bear": "81,47 € — escenario pesimista: volumen plano, sin recuperar precio y con el capital más caro",
- "resumen": "MANTENER, a un paso de COMPRAR. A 90,00 € (26-oct) el margen es del +14 %: pasa el 5 % de MANTENER pero no el 15 % de COMPRAR, por 0,58 €. Las otras tres condiciones se cumplen: pérdida al bear desde la entrada máxima del 8,9 %, rating AA (76,1) y moat 51,2, y la robustez no vetaría la compra. Pasa a COMPRAR por debajo de 89,42 € (techo de la banda 81,47-89,42 €). El precio objetivo (102,83 €) sale de corregir el 27-oct las liberadas en las acciones y en la cotización; el COMPRAR que se publicó ese día con 107,87 € tenía la cotización mal ajustada y no vale.",
+ "bull": "120,62 € — escenario optimista: Vidroporto a plena carga y el precio acompaña a la energía",
+ "bear": "79,17 € — escenario pesimista: volumen plano, sin recuperar precio y con el capital más caro",
+ "resumen": "MANTENER con la cotización de 90,20 € (2026-11-04): precio objetivo 100,12 € (bear 79,17 · bull 120,62), margen +11,0 %. Banda de entrada 79,17–87,06 €, stop de tesis 33,70 €.",
  "dividendSafety": {
   "score": 90,
   "banda": "Muy seguro",
@@ -56,9 +56,9 @@
   "motivos": [
    "Muy seguro: cobertura OE 4.00x · payout 29 % · 0 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja, recompras recortadas"
   ],
-  "calculadoEl": "2026-10-28",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
-  "shareholderYield": 1.98
+  "shareholderYield": 2.08
  },
  "forense": {
   "aplica": true,
@@ -97,29 +97,29 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-28",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 4.08,
+  "gImplicito": 3.83,
   "gIntrinseco": 7.34,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 7.3 %)",
-  "calculadoEl": "2026-10-28",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 165.9178,
-   "wacc": 7.6453,
+   "wacc": 7.6389,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 35.1834,
    "deudaNeta": 154.561,
    "modo": "EV",
-   "precioBase": 91.7,
-   "gBase": 4.08,
-   "fechaBase": "2026-10-28",
-   "congeladoEl": "2026-10-28",
+   "precioBase": 90.2,
+   "gBase": 3.83,
+   "fechaBase": "2026-11-04",
+   "congeladoEl": "2026-11-05",
    "validado": true,
    "desviacion": 0.0
   }

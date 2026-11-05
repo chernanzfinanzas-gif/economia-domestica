@@ -15,7 +15,7 @@
  "poBull": 21.55,
  "entMin": 13.63,
  "entMax": 15.49,
- "stop": 11.87,
+ "stop": 11.88,
  "dpaPrevisto": 1.0,
  "moat": "59,7 sobre 100 · MOAT ESTRECHO. Monopolio regulado, pero la base de activos se vacía y el regulador fija el retorno",
  "catalizadores": [
@@ -105,7 +105,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -2.97,
+  "gImplicito": -2.95,
   "gIntrinseco": -7.76,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
@@ -119,9 +119,9 @@
    "acciones": 262.8775,
    "deudaNeta": 2695.932,
    "modo": "EV",
-   "precioBase": 17.68,
-   "gBase": -2.97,
-   "fechaBase": "2026-10-28",
+   "precioBase": 17.72,
+   "gBase": -2.95,
+   "fechaBase": "2026-11-04",
    "congeladoEl": "2026-11-05",
    "validado": true,
    "desviacion": 0.0

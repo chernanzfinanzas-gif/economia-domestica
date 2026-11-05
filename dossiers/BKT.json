@@ -13,7 +13,7 @@
  "poBear": 10.37,
  "poBase": 11.89,
  "poBull": 13.94,
- "entMin": 8.07,
+ "entMin": 8.08,
  "entMax": 10.34,
  "stop": 7.34,
  "dpaPrevisto": 0.6015,
@@ -48,7 +48,7 @@
   "motivos": [
    "Muy seguro · payout del dividendo 50 % → 30/30 · CET1 12.7 % → 20/25 · RoTE 20.0 % → 20/20 · 1 recorte(s) en 10 años → 9/15 · predictores: ninguno → 10/10"
   ],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "shareholderYield": 4.61
  },
@@ -56,17 +56,17 @@
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 4.95,
+  "gImplicito": 4.97,
   "gIntrinseco": null,
   "veredicto": "PLAUSIBLE",
-  "motivo": "PLAUSIBLE (exige un RoTE de 19.0 %, no más que el último publicado, 20.0 %)",
-  "calculadoEl": "2026-10-29",
+  "motivo": "PLAUSIBLE (exige un RoTE de 19.1 %, no más que el último publicado, 20.0 %)",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
-  "roteImplicito": 19.03
+  "roteImplicito": 19.06
  }
 }

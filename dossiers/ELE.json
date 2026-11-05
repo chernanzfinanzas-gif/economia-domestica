@@ -15,7 +15,7 @@
  "poBull": 37.89,
  "entMin": 22.39,
  "entMax": 22.92,
- "stop": 17.96,
+ "stop": 17.98,
  "dpaPrevisto": 1.5802,
  "moat": "65,3 sobre 100 · MOAT MODERADO. La distribución regulada es todo el foso y las huellas ya la recogen casi entera",
  "catalizadores": [
@@ -56,7 +56,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.67x · payout 85 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "shareholderYield": 6.87
  },
@@ -99,31 +99,31 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 10.8,
+  "gImplicito": 11.08,
   "gIntrinseco": 7.09,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1385.1819,
-   "wacc": 6.5839,
+   "wacc": 6.534,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 1046.6667,
    "deudaNeta": 10396.0,
    "modo": "EV",
-   "precioBase": 43.19,
-   "gBase": 12.09,
-   "fechaBase": "2026-10-28",
-   "congeladoEl": "2026-10-29",
+   "precioBase": 44.85,
+   "gBase": 12.59,
+   "fechaBase": "2026-11-04",
+   "congeladoEl": "2026-11-05",
    "validado": false,
-   "desviacion": 1.29
+   "desviacion": 1.52
   }
  }
 }

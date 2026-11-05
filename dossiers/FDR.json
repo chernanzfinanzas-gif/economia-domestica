@@ -7,7 +7,7 @@
  "fecha": "2026-10-27",
  "revisadoEl": "2026-10-27",
  "rating": "BBB",
- "score": 53.8,
+ "score": 54.6,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 20 % · DCF optimista 10 % · EV/EBITDA 12 % · EV/EBIT 12 % · PER 10 % · P/VC 4 % · P/FCL 12 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl",
  "poBear": 17.11,
@@ -15,9 +15,9 @@
  "poBull": 32.22,
  "entMin": 17.11,
  "entMax": 19.44,
- "stop": 13.1,
+ "stop": 13.45,
  "dpaPrevisto": 0.65,
- "moat": "52,2 sobre 100 · MOAT ESTRECHO. Líder mundial de equipamiento de piscina con red de distribución y marca, que las huellas del ROIC no recogen",
+ "moat": "57,4 sobre 100 · MOAT ESTRECHO. Líder mundial de equipamiento de piscina con red de distribución y marca, que las huellas del ROIC no recogen",
  "catalizadores": [
   "La guía de 2026 se cumple: Punto medio: ventas +5 % y margen +0,9 pp. En 2025 el BPA ajustado quedó por debajo del rango. (2026)",
   "El plan de eficiencia 2026-2030 llega a la cuenta: La mitad (60 M€) llega al EBITDA; la otra mitad se la come la inflación. (2026-2030)",
@@ -35,7 +35,7 @@
  ],
  "bull": "32,22 € — escenario optimista: orgánico del 6 % como en 2025, sin bajar el WACC del suelo",
  "bear": "17,11 € — escenario pesimista: el WACC que la propia Fluidra usa en sus pruebas de deterioro, con poco crecimiento",
- "resumen": "Buen precio, calidad justa. La cotización (18,10 €, 23-oct) está dentro de la banda de entrada (17,11-19,44 €) con un margen del +27 %. Tres de las cuatro condiciones de compra se cumplen. Falla el rating: BBB (53,8) cuando se exige A. El dossier de septiembre decía COMPRAR con rating A. Ahora el método no deja comprar hasta que la calidad suba, y parte de esa nota se debe a la amortización sin depurar (Bloque 5). El veredicto no depende del supuesto: con WACC ±1 y terminal ±0,5 el margen va del +17 % al +46 %.",
+ "resumen": "MANTENER con la cotización de 19,86 € (2026-11-04): precio objetivo 23,05 € (bear 17,11 · bull 32,22), margen +16,1 %. Banda de entrada 17,11–19,44 €, stop de tesis 13,45 €.",
  "dividendSafety": {
   "score": 51,
   "banda": "Vigilar",
@@ -55,7 +55,7 @@
   "motivos": [
    "Vigilar: cobertura OE 1.27x · payout 80 % · 3 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "shareholderYield": 5.27
  },
@@ -96,29 +96,29 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 3.49,
+  "gImplicito": 0.51,
   "gIntrinseco": 5.31,
   "veredicto": "PLAUSIBLE",
-  "motivo": "PLAUSIBLE (≤ g intrínseco 5.3 %)",
-  "calculadoEl": "2026-10-29",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 237.5103,
-   "wacc": 7.6526,
+   "wacc": 6.3871,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 189.2753,
    "deudaNeta": 1103.454,
    "modo": "EV",
-   "precioBase": 18.71,
-   "gBase": 3.49,
-   "fechaBase": "2026-10-28",
-   "congeladoEl": "2026-10-29",
+   "precioBase": 19.86,
+   "gBase": 0.51,
+   "fechaBase": "2026-11-04",
+   "congeladoEl": "2026-11-05",
    "validado": true,
    "desviacion": 0.0
   }

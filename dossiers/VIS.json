@@ -15,7 +15,7 @@
  "poBull": 64.24,
  "entMin": 41.14,
  "entMax": 46.14,
- "stop": 29.08,
+ "stop": 29.05,
  "dpaPrevisto": 3.282,
  "moat": "74,0 sobre 100 · MOAT MODERADO. Líder mundial de envolturas con cuatro tecnologías, pero el precio de la envoltura ya cede",
  "catalizadores": [
@@ -101,7 +101,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 8.52,
+  "gImplicito": 9.01,
   "gIntrinseco": 7.43,
   "veredicto": "EXIGENTE",
   "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 7.4 %)",
@@ -115,9 +115,9 @@
    "acciones": 45.6906,
    "deudaNeta": 253.528,
    "modo": "EV",
-   "precioBase": 53.9,
-   "gBase": 8.52,
-   "fechaBase": "2026-10-28",
+   "precioBase": 55.9,
+   "gBase": 9.01,
+   "fechaBase": "2026-11-04",
    "congeladoEl": "2026-11-05",
    "validado": true,
    "desviacion": 0.0

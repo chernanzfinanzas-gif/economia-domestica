@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "MAP",
  "empresa": "Mapfre, S.A.",
- "fecha": "2026-10-25",
+ "fecha": "2026-11-05",
  "revisadoEl": "2026-10-25",
  "rating": "A",
  "score": 67.9,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): ptbv_pesimista 6 % · ptbv_base 18 % · ptbv_optimista 6 % · ptbv_estructural 12 % · m_ptbv 11 % · m_per 7 % · m_pvc 5 % · ddm_pesimista 5 % · ddm_base 15 % · ddm_optimista 5 % · m_rpd 10 % · flujo base del DCF: P/TBV justificado y DDM (seguros)",
- "poBear": 2.83,
- "poBase": 3.36,
- "poBull": 3.88,
- "entMin": 2.83,
- "entMax": 2.93,
- "stop": 2.59,
+ "poBear": 2.82,
+ "poBase": 3.35,
+ "poBull": 3.86,
+ "entMin": 2.82,
+ "entMax": 2.91,
+ "stop": 2.57,
  "dpaPrevisto": 0.18,
  "moat": "52,4 sobre 100 · MOAT ESTRECHO. El RoTE supera al coste del capital por un suelo bajo, no por una barrera",
  "catalizadores": [
@@ -35,8 +35,8 @@
   "Fundación Mapfre controla el 69,7 % y el free float es del 30 % (Baja-Media): La prima de gobernanza y de iliquidez se mide en el coste del capital: +0,5 pp o +1 pp.",
   "Ciberataque sobre una base de datos de más de cuarenta países (Baja-Media): Golpe puntual (no baja el RoTE sostenible): suave −150 M€ (valor tangible −1,9 %); duro −400 M€ (−5,0 %) y +0,3 pp de coste del capital por pérdida de confianza. Hay precedente propio: el ransomware de agosto de 2020."
  ],
- "bull": "3,88 € — escenario optimista: el RoTE de 2025 se sostiene (combinado del 90 %); el coste del capital, en el suelo del 8 %",
- "bear": "2,83 € — escenario pesimista: media de los diez años (2016-2025): el combinado vuelve a donde estuvo 2016-2020",
+ "bull": "3,86 € — escenario optimista: el RoTE de 2025 se sostiene (combinado del 90 %); el coste del capital, en el suelo del 8 %",
+ "bear": "2,82 € — escenario pesimista: media de los diez años (2016-2025): el combinado vuelve a donde estuvo 2016-2020",
  "resumen": "ESPERAR, como en octubre. Calidad A y moat estrecho, pero a 4,39 € cotiza un 23 % por encima del precio objetivo y un 13 % por encima del bull (3,88 €): ni con el combinado de 2025 sostenido, más dividendo y menos descuento llega a lo que cuesta. Zona de compra: 2,83 – 2,93 €.",
  "dividendSafety": {
   "score": 94,
@@ -51,7 +51,7 @@
   "motivos": [
    "Muy seguro · payout 49 % → 30/30 · Solvencia II 205 % → 25/25 · ratio combinado 90.2 % → 20/20 · 1 recorte(s) en 10 años → 9/15 · predictores: ninguno → 10/10"
   ],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "shareholderYield": null
  },
@@ -59,17 +59,17 @@
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -1.43,
+  "gImplicito": -1.17,
   "gIntrinseco": null,
   "veredicto": "PLAUSIBLE",
-  "motivo": "PLAUSIBLE (exige un RoTE de 13.2 %, no más que el último, 16.0 %)",
-  "calculadoEl": "2026-10-29",
+  "motivo": "PLAUSIBLE (exige un RoTE de 13.4 %, no más que el último, 16.0 %)",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
-  "roteImplicito": 13.23
+  "roteImplicito": 13.4
  }
 }
