@@ -13,7 +13,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -10,6 %, EBITDA -4,1 %, margen 5,1 % (+0,35 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "resumen": "Ingresos -10,6 %, EBITDA -4,1 %, beneficio neto +3,7 %, margen 5,1 % (+0,35 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -30,6 +30,10 @@
     {
      "nombre": "EBIT",
      "valor": 205.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 195.0
     }
    ],
    "hechos": [],
@@ -77,11 +81,27 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +8,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +8,4 %, EBITDA +21,3 %, beneficio neto +60,0 %, margen 5,8 % (+0,61 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
      "valor": 6926.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 399.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 283.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 136.0
     }
    ],
    "hechos": [],
@@ -133,11 +153,27 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +20,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +20,4 %, EBITDA +8,4 %, beneficio neto +106,9 %, margen 5,1 % (-0,57 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
      "valor": 24526.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1263.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 839.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 480.0
     }
    ],
    "hechos": [],
@@ -189,7 +225,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +17,1 %, EBITDA +15,6 %, beneficio neto +20,0 %, margen 5,7 % (-0,07 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +17,1 %, EBITDA +15,8 %, beneficio neto +19,9 %, margen 5,7 % (-0,06 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -202,6 +238,10 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 5.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 328.0
     },
     {
      "nombre": "Beneficio neto",
@@ -348,7 +388,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +7,3 %, EBITDA -0,2 %, beneficio neto +8,6 %, margen 5,3 % (-0,40 pp) frente al mismo periodo del año anterior. Verde: solo EBITDA a la baja, sin más señales.",
+   "resumen": "Ingresos +7,6 %, EBITDA +5,5 %, beneficio neto +8,6 %, margen 5,3 % (-0,11 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -420,7 +460,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +12,5 %, EBITDA +17,8 %, margen 5,7 % (+0,25 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +12,5 %, EBITDA +17,8 %, beneficio neto +5,0 %, margen 5,7 % (+0,25 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -437,6 +477,10 @@
     {
      "nombre": "EBIT",
      "valor": 1079.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 605.0
     }
    ],
    "hechos": [],
@@ -560,7 +604,7 @@
    "fechaOrigen": "portada",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +23,7 %, EBITDA +32,0 %, margen 6,0 % (+0,38 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +23,7 %, EBITDA +32,0 %, beneficio neto +8,3 %, margen 6,0 % (+0,38 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -577,6 +621,10 @@
     {
      "nombre": "EBIT",
      "valor": 1497.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 655.0
     }
    ],
    "hechos": [],
