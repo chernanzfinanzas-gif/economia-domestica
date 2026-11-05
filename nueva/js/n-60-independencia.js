@@ -26,18 +26,23 @@
     return {nec:nec,pre:pre,min:nec+0.4*pre}; }
 
   function gastoAnio(c,anio){ var base=c.anioBase||new Date().getFullYear(); return (+c.gastoMes||0)*12*Math.pow(1+window._nIndInf,Math.max(0,anio-base)); }
-  function conGasto(c,ser){ ser.forEach(function(r){ r._g=gastoAnio(c,r.anio); }); return ser; }
+  /* 5-nov-2026 (Carlos: «la misma previsión de gastos esenciales y ver cuándo los dividendos cubren estos gastos esenciales»):
+     el gasto esencial del Presupuesto del año (categorías marcadas como esenciales, el mismo de Hogar · «Esencial vs
+     discrecional»), con la misma inflación que el gasto total. Sin categorías esenciales marcadas, no se pinta. */
+  function esencialMes(){ try{ var v=(typeof gastoEsencialPresu==='function')?gastoEsencialPresu():null; return v>0?v:null; }catch(e){ return null; } }
+  function conGasto(c,ser){ var es=esencialMes(), base=c.anioBase||new Date().getFullYear();
+    ser.forEach(function(r){ r._g=gastoAnio(c,r.anio); r._e=es!=null?es*12*Math.pow(1+window._nIndInf,Math.max(0,r.anio-base)):null; }); return ser; }
   function kpis(c,ser){
     var base=c.anioBase||new Date().getFullYear(), y0=ser.filter(function(r){ return r.anio===new Date().getFullYear(); })[0]||ser[0];
     var at=function(ed){ return ser.filter(function(r){ return r.edad===ed; })[0]||ser[ser.length-1]; };
     var r70=at(Math.round(c.edadFinAportar||70)), r80=at(80);
-    var cubre=ser.filter(function(r){ return r._g>0&&r.dividendoAnual>=r._g; })[0];
+    var cubre=ser.filter(function(r){ return r._g>0&&r.dividendoAnual>=r._g; })[0], cubreE=ser.filter(function(r){ return r._e>0&&r.dividendoAnual>=r._e; })[0];
     var hoyPct=y0&&y0._g>0?y0.dividendoAnual/y0._g:null;
     var pens=r70.rentaMes*12-r70.dividendoAnual;
     var tg=window._nIndHoy?' <span class="ni-hoy">en euros de '+base+'</span>':'';
     var k=[
       ['Tu gasto que ya paga el dividendo',hoyPct!=null?pc(hoyPct):'—','dividendo '+EU(y0.dividendoAnual)+' de un gasto de '+EU(y0._g)+' en '+y0.anio,1],
-      ['El dividendo paga todo el gasto en',cubre?String(cubre.anio):'después de '+ser[ser.length-1].anio,cubre?('a tus '+cubre.edad+(cubre.edad<(c.edadFinAportar||70)?', '+((c.edadFinAportar||70)-cubre.edad)+' años antes de dejar de aportar':'')):''],
+      ['El dividendo paga todo el gasto en',cubre?String(cubre.anio):'después de '+ser[ser.length-1].anio,(cubre?('a tus '+cubre.edad+(cubre.edad<(c.edadFinAportar||70)?', '+((c.edadFinAportar||70)-cubre.edad)+' años antes de dejar de aportar':'')):'')+(cubreE?'<br>lo <b>esencial</b>, en <b>'+cubreE.anio+'</b> (a tus '+cubreE.edad+')':(ser[0]&&ser[0]._e!=null?'<br>lo <b>esencial</b>, después de '+ser[ser.length-1].anio:''))],
       ['Renta al mes a los '+r70.edad,EU(def(r70.rentaMes,r70.anio,base))+tg,'pensiones '+EU(def(pens/12,r70.anio,base))+' + dividendo '+EU(def(r70.dividendoAnual/12,r70.anio,base))],
       ['Dividendo a los '+r70.edad+' · '+r80.edad,E(def(r70.dividendoAnual,r70.anio,base))+' · '+EU(def(r80.dividendoAnual,r80.anio,base)),'al año, con tus hipótesis'+(window._nIndHoy?' (euros de '+base+')':'')],
       ['Patrimonio a los '+r70.edad+' · '+r80.edad,E(def(r70.patrimonio,r70.anio,base))+' · '+EU(def(r80.patrimonio,r80.anio,base)),'informativo: lo que dejarías']];
@@ -50,17 +55,19 @@
     var base=c.anioBase||new Date().getFullYear(), L=ser.filter(function(r){ return r.edad<=Math.max(80,(c.edadFinAportar||70)+10); });
     if(L.length<3) return '';
     var W=900,H=230,x0=60,x1=890,yt=12,yb=H-26,n=L.length,bw=(x1-x0)/n;
-    var D=L.map(function(r){ return def(r.dividendoAnual,r.anio,base); }), G=L.map(function(r){ return def(r._g,r.anio,base); });
+    var D=L.map(function(r){ return def(r.dividendoAnual,r.anio,base); }), G=L.map(function(r){ return def(r._g,r.anio,base); }), ES=L.map(function(r){ return r._e!=null?def(r._e,r.anio,base):null; }), hayE=ES[0]!=null;
     var mx=Math.max.apply(null,D.concat(G).concat([1]))*1.08, Y=function(v){ return yb-(v/mx)*(yb-yt); };
     var st=Math.pow(10,Math.floor(Math.log10(mx/4))); st=[1,2,2.5,5,10].map(function(m){ return m*st; }).filter(function(s){ return s>=mx/4; })[0];
     var h='<svg viewBox="0 0 '+W+' '+H+'" class="nf-chs">';
     for(var v=0; v<=mx; v+=st) h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'" stroke="#EEF1F5"/><text x="'+(x0-6)+'" y="'+(Y(v)+4).toFixed(1)+'" font-size="10.5" text-anchor="end" fill="#5B6B7C">'+E(v/1000)+' k</text>';
-    L.forEach(function(r,i){ var x=x0+i*bw+bw*0.15, w=bw*0.7, ok=D[i]>=G[i]; h+='<rect x="'+x.toFixed(1)+'" y="'+Y(D[i]).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+(yb-Y(D[i])).toFixed(1)+'" fill="'+(ok?'#16A34A':'#8B5CF6')+'" rx="2"/>';
+    L.forEach(function(r,i){ var x=x0+i*bw+bw*0.15, w=bw*0.7, ok=D[i]>=G[i], okE=hayE&&D[i]>=ES[i]; h+='<rect x="'+x.toFixed(1)+'" y="'+Y(D[i]).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+(yb-Y(D[i])).toFixed(1)+'" fill="'+(ok?'#16A34A':(okE?'#5EEAD4':'#8B5CF6'))+'" rx="2"/>';
       if(i%2===0||n<20) h+='<text x="'+(x+w/2).toFixed(1)+'" y="'+(H-8)+'" font-size="10" text-anchor="middle" fill="#5B6B7C">'+String(r.anio).slice(2)+'</text>';
-      h+='<rect class="nf-hv" x="'+(x0+i*bw).toFixed(1)+'" y="'+yt+'" width="'+bw.toFixed(1)+'" height="'+(yb-yt)+'" fill="transparent" data-tip="'+r.anio+' · '+r.edad+' años|Dividendo: '+EU(D[i])+'|Gasto: '+EU(G[i])+'|Cubre: '+(G[i]>0?pc(D[i]/G[i]):'—')+'"/>'; });
-    h+='<polyline fill="none" stroke="#DC2626" stroke-width="2.5" points="'+L.map(function(r,i){ return (x0+i*bw+bw/2).toFixed(1)+','+Y(G[i]).toFixed(1); }).join(' ')+'"/></svg>';
+      h+='<rect class="nf-hv" x="'+(x0+i*bw).toFixed(1)+'" y="'+yt+'" width="'+bw.toFixed(1)+'" height="'+(yb-yt)+'" fill="transparent" data-tip="'+r.anio+' · '+r.edad+' años|Dividendo: '+EU(D[i])+'|Gasto: '+EU(G[i])+'|Cubre: '+(G[i]>0?pc(D[i]/G[i]):'—')+(hayE?'|Gasto esencial: '+EU(ES[i])+'|Cubre lo esencial: '+pc(D[i]/ES[i]):'')+'"/>'; });
+    h+='<polyline fill="none" stroke="#DC2626" stroke-width="2.5" points="'+L.map(function(r,i){ return (x0+i*bw+bw/2).toFixed(1)+','+Y(G[i]).toFixed(1); }).join(' ')+'"/>';
+    if(hayE) h+='<polyline fill="none" stroke="#EA580C" stroke-width="2.5" stroke-dasharray="6 4" points="'+L.map(function(r,i){ return (x0+i*bw+bw/2).toFixed(1)+','+Y(ES[i]).toFixed(1); }).join(' ')+'"/>';
+    h+='</svg>';
     return '<div class="nf-card ni-chart"><h2>Año a año'+(window._nIndHoy?' <span class="nf-sub">en euros de '+base+'</span>':'')+'</h2>'+h+
-      '<div class="nf-lg"><span><i style="background:#8B5CF6"></i>Dividendo</span><span><i style="background:#16A34A"></i>Dividendo que ya paga todo</span><span><i style="background:#DC2626"></i>Gasto de hoy + inflación (línea)</span></div><span class="nf-ws">Donde la barra pasa la línea, el dividendo paga todo el gasto.</span></div>';
+      '<div class="nf-lg"><span><i style="background:#8B5CF6"></i>Dividendo</span>'+(hayE?'<span><i style="background:#5EEAD4"></i>Dividendo que ya paga lo esencial</span>':'')+'<span><i style="background:#16A34A"></i>Dividendo que ya paga todo</span><span><i style="background:#DC2626"></i>Gasto de hoy + inflación (línea)</span>'+(hayE?'<span><i style="background:#EA580C"></i>Gasto esencial + inflación (discontinua)</span>':'')+'</div><span class="nf-ws">Donde la barra pasa la línea roja, el dividendo paga todo el gasto; donde pasa la naranja, paga lo esencial'+(hayE?' (el gasto esencial del Presupuesto de este año, '+EU(esencialMes())+' al mes)':'')+'.</span></div>';
   }
   function columnaCubre(ser){
     var t=document.querySelector('#proyTabla .proy-desk table'); if(!t||t.querySelector('.ni-cub')) return;
