@@ -224,7 +224,16 @@
     if(BP.some(function(v){return v!=null;})){ var cbp=cg(BP[0],BP[BP.length-1]), col7=cbp!=null&&cbp>=5?'v':(cbp!=null&&cbp>=0?'a':'r');
       c7=gcard('¿Y por acción, que es lo que cobras tú?',col7,'Beneficio por acción de '+n(BP[0],2)+' a '+n(BP[BP.length-1],2)+' € ('+(cbp!=null?pc(cbp):'—')+' al año); dividendo de '+n(DP[0],2)+' a '+n(DP[DP.length-1],2)+' €.',
         chartg(Y,[['Beneficio por acción',BP,'#1F4A9A']],['Dividendo por acción',DP,'#8B5CF6'],function(v){ return n(v,2)+' €'; }),leg([['Beneficio por acción (barras)','#1F4A9A'],['Dividendo por acción (línea)','#8B5CF6']])); }
-    var C=[c1,c2,c3,c7,c4,c5,c6].filter(Boolean), h='';
+    /* 5-nov-2026 (Carlos: «tenemos un hueco al lado de cuánta deuda tiene… podríamos meter otro gráfico» → eligió «beneficio → caja»).
+       ¿El beneficio se convierte en caja? Caja libre RECURRENTE (barras: la misma del método, sin los vaivenes del circulante; con la caja libre a secas Logista sale negativa en 2021 por el calendario del impuesto del tabaco), beneficio neto (línea) y, arriba, caja libre / beneficio. El color, con los tres últimos años juntos (un año suelto lo mueve el circulante): ≥ 80 % verde, ≥ 50 % ámbar. */
+    var c8='', FCL=g(fl,'fcl_recurrente'), FB=g(fl,'fcl_bn');
+    if(!banca&&FCL.some(function(v){return v!=null;})&&BN.some(function(v){return v!=null;})){
+      var k3=Y.map(function(_,k){ return k; }).filter(function(k){ return FCL[k]!=null&&BN[k]!=null; }).slice(-3), sf=k3.reduce(function(a,k){ return a+FCL[k]; },0), sb=k3.reduce(function(a,k){ return a+BN[k]; },0),
+          r3=sb>0?sf/sb*100:null, col8=r3!=null&&r3>=80?'v':(r3!=null&&r3>=50?'a':'r');
+      c8=gcard('¿El beneficio se convierte en caja?',r3==null?'n':col8,(r3==null?'Sin beneficio positivo en los últimos años para comparar.':'En los tres últimos años ('+Y[k3[0]]+'-'+Y[k3[k3.length-1]]+') la caja libre recurrente sumó '+n(sf,0)+' M€ frente a '+n(sb,0)+' M€ de beneficio: el '+n(r3,0)+' %. '+(col8==='v'?'El beneficio es caja de verdad.':(col8==='a'?'Parte del beneficio no llega a caja.':'Buena parte del beneficio no llega a caja.'))),
+        chartg(Y,[['Caja libre recurrente',FCL,'#0EA5E9']],['Beneficio neto',BN,'#15803D'],function(v){ return n(v,0)+' M€'; },[FB,function(v){ return n(v,0)+'%'; },'#475569','Caja libre / beneficio: ']),
+        leg([['Caja libre recurrente (barras)','#0EA5E9'],['Beneficio neto (línea)','#15803D'],['Arriba: caja libre / beneficio','#475569']])); }
+    var C=[c1,c2,c3,c7,c4,c5,c6,c8].filter(Boolean), h='';
     for(var i=0;i<C.length;i+=2) h+='<div class="nf-g2">'+C[i]+(C[i+1]||'<div></div>')+'</div>';
     h+=propias(F);
     h+=evHost(F);
