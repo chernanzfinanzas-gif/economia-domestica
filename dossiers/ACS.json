@@ -15,7 +15,7 @@
  "poBull": 82.65,
  "entMin": 57.51,
  "entMax": 59.8,
- "stop": 45.17,
+ "stop": 45.2,
  "dpaPrevisto": 2.323,
  "moat": "42,9 sobre 100 · SIN MOAT CLARO. La escala no se ve en el margen: EBIT del 4 %, el último de sus comparables",
  "catalizadores": [
@@ -54,7 +54,7 @@
   "motivos": [
    "Seguro: cobertura OE 2.39x · payout 64 % · 1 recorte(s) del DPA · señales: recompras recortadas"
   ],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "shareholderYield": 3.04
  },
@@ -97,29 +97,29 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 2.57,
+  "gImplicito": 1.93,
   "gIntrinseco": 0.63,
-  "veredicto": "HEROICO",
-  "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-29",
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1475.4617,
-   "wacc": 7.9185,
+   "wacc": 7.8789,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 257.5447,
    "deudaNeta": 2424.785,
    "modo": "EV",
-   "precioBase": 91.15,
-   "gBase": 2.57,
-   "fechaBase": "2026-10-28",
-   "congeladoEl": "2026-10-29",
+   "precioBase": 87.6,
+   "gBase": 1.93,
+   "fechaBase": "2026-11-04",
+   "congeladoEl": "2026-11-05",
    "validado": true,
    "desviacion": -0.0
   }

@@ -3,7 +3,7 @@
  "ticker": "IBE",
  "empresa": "Iberdrola, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-29",
+ "generado": "2026-11-05",
  "revisiones": [
   {
    "periodo": "2017-Q2",
@@ -13,7 +13,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +1,8 %, EBITDA -3,6 %, beneficio neto +4,2 %, margen 24,7 % (-1,39 pp), margen EBITDA +24,7 % frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, margen EBITDA por debajo del umbral.",
+   "resumen": "Cifra de ventas +1,8 %, EBITDA -3,6 %, beneficio neto +4,2 %, margen 24,7 % (-1,39 pp) frente al mismo periodo del año anterior. Margen EBITDA: 24,7 %. Ámbar por: EBITDA a la baja, el margen empeora, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -55,7 +55,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +17,5 %, EBITDA +17,1 %, beneficio neto -7,1 %, margen 25,2 % (-0,08 pp), margen EBITDA +25,2 % frente al mismo periodo del año anterior. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
+   "resumen": "Cifra de ventas +17,5 %, EBITDA +17,1 %, beneficio neto -7,1 %, margen 25,2 % (-0,08 pp) frente al mismo periodo del año anterior. Margen EBITDA: 25,2 %. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -97,7 +97,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +3,9 %, EBITDA +12,5 %, beneficio neto +20,2 %, margen 27,3 % (+2,07 pp), margen EBITDA +27,3 % frente al mismo periodo del año anterior. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
+   "resumen": "Cifra de ventas +3,9 %, EBITDA +12,5 %, beneficio neto +20,2 %, margen 27,3 % (+2,07 pp) frente al mismo periodo del año anterior. Margen EBITDA: 27,3 %. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -139,7 +139,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +3,9 %, EBITDA +8,1 %, beneficio neto +13,0 %, margen 27,7 % (+1,08 pp), margen EBITDA +27,7 % frente al mismo periodo del año anterior. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
+   "resumen": "Cifra de ventas +3,9 %, EBITDA +8,1 %, beneficio neto +13,0 %, margen 27,7 % (+1,08 pp) frente al mismo periodo del año anterior. Margen EBITDA: 27,7 %. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -185,7 +185,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas -9,9 %, EBITDA -1,4 %, beneficio neto +12,2 %, margen 29,9 % (+2,57 pp), margen EBITDA +29,9 % frente al mismo periodo del año anterior. Ámbar por: cifra de ventas a la baja, EBITDA a la baja, margen EBITDA por debajo del umbral.",
+   "resumen": "Cifra de ventas -9,9 %, EBITDA -1,4 %, beneficio neto +12,2 %, margen 29,9 % (+2,57 pp) frente al mismo periodo del año anterior. Margen EBITDA: 29,9 %. Ámbar por: cifra de ventas a la baja, EBITDA a la baja, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -235,7 +235,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +7,0 %, EBITDA +1,5 %, beneficio neto -19,4 %, margen 27,9 % (-1,51 pp), margen EBITDA +27,9 % frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Cifra de ventas +7,0 %, EBITDA +1,5 %, beneficio neto -19,4 %, margen 27,9 % (-1,51 pp) frente al mismo periodo del año anterior. Margen EBITDA: 27,9 %. Ámbar por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -281,7 +281,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +13,9 %, EBITDA +10,2 %, beneficio neto -18,4 %, margen 29,0 % (-0,96 pp), margen EBITDA +29,0 % frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Cifra de ventas +13,9 %, EBITDA +10,2 %, beneficio neto -18,4 %, margen 29,0 % (-0,96 pp) frente al mismo periodo del año anterior. Margen EBITDA: 29,0 %. Rojo por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -323,7 +323,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +15,5 %, EBITDA +10,7 %, beneficio neto -10,2 %, margen 29,2 % (-1,26 pp), margen EBITDA +29,2 % frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Cifra de ventas +15,5 %, EBITDA +10,7 %, beneficio neto -10,2 %, margen 29,2 % (-1,26 pp) frente al mismo periodo del año anterior. Margen EBITDA: 29,2 %. Rojo por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -365,7 +365,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +18,0 %, EBITDA +19,6 %, margen 30,7 % (+0,41 pp), margen EBITDA +30,7 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Cifra de ventas +18,0 %, EBITDA +19,6 %, margen 30,7 % (+0,41 pp) frente al mismo periodo del año anterior. Margen EBITDA: 30,7 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -395,7 +395,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +20,4 %, EBITDA +4,9 %, beneficio neto +3,2 %, margen 24,3 % (-3,61 pp), margen EBITDA +24,3 % frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Cifra de ventas +20,4 %, EBITDA +4,9 %, beneficio neto +3,2 %, margen 24,3 % (-3,61 pp) frente al mismo periodo del año anterior. Margen EBITDA: 24,3 %. Ámbar por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -441,7 +441,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +30,3 %, EBITDA +18,4 %, beneficio neto +35,5 %, margen 26,4 % (-2,65 pp), margen EBITDA +26,4 % frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Cifra de ventas +30,3 %, EBITDA +18,4 %, beneficio neto +35,5 %, margen 26,4 % (-2,65 pp) frente al mismo periodo del año anterior. Margen EBITDA: 26,4 %. Rojo por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -491,7 +491,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +35,4 %, EBITDA +16,7 %, beneficio neto +28,9 %, margen 25,1 % (-4,02 pp), margen EBITDA +25,1 % frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Cifra de ventas +35,4 %, EBITDA +16,7 %, beneficio neto +28,9 %, margen 25,1 % (-4,02 pp) frente al mismo periodo del año anterior. Margen EBITDA: 25,1 %. Rojo por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -541,7 +541,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +37,9 %, EBITDA +10,2 %, beneficio neto +11,7 %, margen 24,5 % (-6,18 pp), margen EBITDA +24,5 % frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Cifra de ventas +37,9 %, EBITDA +10,2 %, beneficio neto +11,7 %, margen 24,5 % (-6,18 pp) frente al mismo periodo del año anterior. Margen EBITDA: 24,5 %. Rojo por: el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -595,7 +595,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +27,2 %, EBITDA +37,7 %, beneficio neto +40,4 %, margen 26,3 % (+2,00 pp), margen EBITDA +26,3 % frente al mismo periodo del año anterior. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
+   "resumen": "Cifra de ventas +27,2 %, EBITDA +37,7 %, beneficio neto +40,4 %, margen 26,3 % (+2,00 pp) frente al mismo periodo del año anterior. Margen EBITDA: 26,3 %. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -649,7 +649,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +7,5 %, EBITDA +17,3 %, beneficio neto +21,5 %, margen 28,8 % (+2,41 pp), margen EBITDA +28,8 % frente al mismo periodo del año anterior. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
+   "resumen": "Cifra de ventas +7,5 %, EBITDA +17,3 %, beneficio neto +21,5 %, margen 28,8 % (+2,41 pp) frente al mismo periodo del año anterior. Margen EBITDA: 28,8 %. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -703,7 +703,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas -1,9 %, EBITDA +13,2 %, beneficio neto +17,2 %, margen 29,0 % (+3,85 pp), margen EBITDA +29,0 % frente al mismo periodo del año anterior. Ámbar por: cifra de ventas a la baja, margen EBITDA por debajo del umbral.",
+   "resumen": "Cifra de ventas -1,9 %, EBITDA +13,2 %, beneficio neto +17,2 %, margen 29,0 % (+3,85 pp) frente al mismo periodo del año anterior. Margen EBITDA: 29,0 %. Ámbar por: cifra de ventas a la baja, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -757,7 +757,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas -8,6 %, EBITDA +9,0 %, beneficio neto +10,7 %, margen 29,2 % (+4,70 pp), margen EBITDA +29,2 % frente al mismo periodo del año anterior. Ámbar por: cifra de ventas a la baja, margen EBITDA por debajo del umbral.",
+   "resumen": "Cifra de ventas -8,6 %, EBITDA +9,0 %, beneficio neto +10,7 %, margen 29,2 % (+4,70 pp) frente al mismo periodo del año anterior. Margen EBITDA: 29,2 %. Ámbar por: cifra de ventas a la baja, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -799,7 +799,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas -18,0 %, EBITDA +44,1 %, beneficio neto +85,8 %, margen 46,2 % (+19,91 pp), margen EBITDA +46,2 % frente al mismo periodo del año anterior. Verde: solo cifra de ventas a la baja, sin más señales.",
+   "resumen": "Cifra de ventas -18,0 %, EBITDA +44,1 %, beneficio neto +85,8 %, margen 46,2 % (+19,91 pp) frente al mismo periodo del año anterior. Margen EBITDA: 46,2 %. Verde: solo cifra de ventas a la baja, sin más señales.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -860,7 +860,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas -13,8 %, EBITDA +27,2 %, beneficio neto +64,0 %, margen 42,5 % (+13,68 pp), margen EBITDA +42,5 % frente al mismo periodo del año anterior. Verde: solo cifra de ventas a la baja, sin más señales.",
+   "resumen": "Cifra de ventas -13,8 %, EBITDA +27,2 %, beneficio neto +64,0 %, margen 42,5 % (+13,68 pp) frente al mismo periodo del año anterior. Margen EBITDA: 42,5 %. Verde: solo cifra de ventas a la baja, sin más señales.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -914,7 +914,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas -11,0 %, EBITDA +23,0 %, beneficio neto +50,4 %, margen 40,1 % (+11,07 pp), margen EBITDA +40,1 % frente al mismo periodo del año anterior. Verde: solo cifra de ventas a la baja, sin más señales.",
+   "resumen": "Cifra de ventas -11,0 %, EBITDA +23,0 %, beneficio neto +50,4 %, margen 40,1 % (+11,07 pp) frente al mismo periodo del año anterior. Margen EBITDA: 40,1 %. Verde: solo cifra de ventas a la baja, sin más señales.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -968,7 +968,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas -9,3 %, EBITDA +16,9 %, beneficio neto +16,8 %, margen 37,7 % (+8,43 pp), margen EBITDA +37,7 % frente al mismo periodo del año anterior. Verde: solo cifra de ventas a la baja, sin más señales.",
+   "resumen": "Cifra de ventas -9,3 %, EBITDA +16,9 %, beneficio neto +16,8 %, margen 37,7 % (+8,43 pp) frente al mismo periodo del año anterior. Margen EBITDA: 37,7 %. Verde: solo cifra de ventas a la baja, sin más señales.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -1022,7 +1022,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +1,5 %, EBITDA -20,7 %, beneficio neto -27,4 %, margen 36,1 % (-10,11 pp), margen EBITDA +36,1 % frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El EBITDA reportado cae por partidas extraordinarias del año anterior (plusvalías por venta de activos y la salida de México), no por el negocio: el EBITDA ajustado y el de Redes suben, como explicó el método actual en su monitor. Se baja un escalón; si se repite, hay que usar el EBITDA ajustado en el monitor.",
+   "resumen": "Cifra de ventas +1,5 %, EBITDA -20,7 %, beneficio neto -27,4 %, margen 36,1 % (-10,11 pp) frente al mismo periodo del año anterior. Margen EBITDA: 36,1 %. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El EBITDA reportado cae por partidas extraordinarias del año anterior (plusvalías por venta de activos y la salida de México), no por el negocio: el EBITDA ajustado y el de Redes suben, como explicó el método actual en su monitor. Se baja un escalón; si se repite, hay que usar el EBITDA ajustado en el monitor.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -1083,7 +1083,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +0,5 %, EBITDA -13,8 %, beneficio neto -13,8 %, margen 36,4 % (-6,03 pp), margen EBITDA +36,4 % frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El EBITDA reportado cae por partidas extraordinarias del año anterior (plusvalías por venta de activos y la salida de México), no por el negocio: el EBITDA ajustado y el de Redes suben, como explicó el método actual en su monitor. Se baja un escalón; si se repite, hay que usar el EBITDA ajustado en el monitor.",
+   "resumen": "Cifra de ventas +0,5 %, EBITDA -13,8 %, beneficio neto -13,8 %, margen 36,4 % (-6,03 pp) frente al mismo periodo del año anterior. Margen EBITDA: 36,4 %. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El EBITDA reportado cae por partidas extraordinarias del año anterior (plusvalías por venta de activos y la salida de México), no por el negocio: el EBITDA ajustado y el de Redes suben, como explicó el método actual en su monitor. Se baja un escalón; si se repite, hay que usar el EBITDA ajustado en el monitor.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -1144,7 +1144,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +2,3 %, EBITDA -6,3 %, beneficio neto -3,0 %, margen 36,7 % (-3,34 pp), margen EBITDA +36,7 % frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El EBITDA reportado cae por partidas extraordinarias del año anterior (plusvalías por venta de activos y la salida de México), no por el negocio: el EBITDA ajustado y el de Redes suben, como explicó el método actual en su monitor. Se baja un escalón; si se repite, hay que usar el EBITDA ajustado en el monitor.",
+   "resumen": "Cifra de ventas +2,3 %, EBITDA -6,3 %, beneficio neto -3,0 %, margen 36,7 % (-3,34 pp) frente al mismo periodo del año anterior. Margen EBITDA: 36,7 %. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El EBITDA reportado cae por partidas extraordinarias del año anterior (plusvalías por venta de activos y la salida de México), no por el negocio: el EBITDA ajustado y el de Redes suben, como explicó el método actual en su monitor. Se baja un escalón; si se repite, hay que usar el EBITDA ajustado en el monitor.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -1211,7 +1211,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +1,8 %, EBITDA -1,5 %, beneficio neto +12,0 %, margen 36,4 % (-1,23 pp), margen EBITDA +36,4 % frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora.",
+   "resumen": "Cifra de ventas +1,8 %, EBITDA -1,5 %, beneficio neto +12,0 %, margen 36,4 % (-1,23 pp) frente al mismo periodo del año anterior. Margen EBITDA: 36,4 %. Rojo por: EBITDA a la baja, el margen empeora.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -1265,7 +1265,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas -4,5 %, EBITDA -9,7 %, beneficio neto -14,6 %, margen 33,8 % (-1,95 pp), margen EBITDA +33,8 % frente al mismo periodo del año anterior. Rojo por: cifra de ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El EBITDA reportado cae por partidas extraordinarias del año anterior (plusvalías por venta de activos y la salida de México), no por el negocio: el EBITDA ajustado y el de Redes suben, como explicó el método actual en su monitor. Se baja un escalón; si se repite, hay que usar el EBITDA ajustado en el monitor.",
+   "resumen": "Cifra de ventas -4,5 %, EBITDA -9,7 %, beneficio neto -14,6 %, margen 33,8 % (-1,95 pp) frente al mismo periodo del año anterior. Margen EBITDA: 33,8 %. Rojo por: cifra de ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El EBITDA reportado cae por partidas extraordinarias del año anterior (plusvalías por venta de activos y la salida de México), no por el negocio: el EBITDA ajustado y el de Redes suben, como explicó el método actual en su monitor. Se baja un escalón; si se repite, hay que usar el EBITDA ajustado en el monitor.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -1326,7 +1326,7 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +1,7 %, EBITDA +0,3 %, beneficio neto +21,7 %, margen 35,8 % (-0,49 pp), margen EBITDA +35,8 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Cifra de ventas +1,7 %, EBITDA +0,3 %, beneficio neto +21,7 %, margen 35,8 % (-0,49 pp) frente al mismo periodo del año anterior. Margen EBITDA: 35,8 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",
@@ -1393,7 +1393,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de ventas +6,2 %, EBITDA -0,7 %, beneficio neto +9,6 %, margen 34,6 % (-2,40 pp), margen EBITDA +34,6 % frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El ámbar sale del EBITDA reportado (−0,7 %), torcido por dos ingresos de 2025 que no se repiten (costes pasados en EE. UU., 530 M€, y venta de contadores en Reino Unido, 382 M€). Ajustado: EBITDA +7,5 %, margen 34,6 % frente a 34,1 %, beneficio ajustado +8,8 % y guía mejorada (>10 %). Es el quinto periodo con la misma distorsión; la corrección anterior ya pedía usar el EBITDA ajustado si se repetía. **Qué ha pasado** — Ventas 34.405 M€ (+6,2 %). EBITDA reportado 11.891 M€ (−0,7 %), pero ajustado +7,5 %. EBITDA de Redes 6.430 M€: +4,9 % reportado y +14,9 % ajustado; base de activos de Redes 56.323 M€ (+14 %). Margen EBITDA 34,6 % (−2,4 puntos; umbral de la tesis, 30). Beneficio neto 5.816 M€ (+9,6 %); ajustado 5.141 M€ (+8,8 %). Deuda neta 56.984 M€ (+5.229 desde diciembre), 3,5 veces el EBITDA. Mejoran la guía 2026: beneficio neto ajustado «>10%».\n\n**Por qué** — Puntual: el EBITDA reportado baja por el año anterior, «por el impacto del reconocimiento de costes pasados en Estados Unidos (530 M Eur) y la venta de los contadores inteligentes de Reino Unido (382 M EUR) en 2025»; el beneficio de 2026 lleva la plusvalía de México (953 M€). Recurrente: Redes crece por «la mayor base de activos regulados en todas las geografías» y las tarifas de EE. UU. y Brasil; Generación y Clientes cae un 1,5 % por costes de aprovisionamiento con ventas a precios fijados en 2025. El resultado financiero empeora 524 M€.\n\n**Semáforo** — El ámbar es mecánico. Es el quinto periodo seguido con la comparación torcida por los extraordinarios de 2025, y la corrección de esos periodos ya decía «si se repite, hay que usar el EBITDA ajustado». Con el ajustado (EBITDA +7,5 %, margen 34,6 % frente a 34,1 % ajustado de 2025, beneficio ajustado +8,8 %, guía al alza) sale verde. Propongo VERDE. No abre señales; sigue la S3 (21,97 € frente al PO de 19,87 €).\n\n**Qué vigilar** — Coste de la deuda con Neoenergia: 4,93 % (+22 pb), cerca de la red flag de 5,5 %. Deuda neta / EBITDA 3,5 frente a la alarma de 4,5, subiendo por inversiones (10.087 M€, +13 %) y la compra de minoritarios de Neoenergia.\n\n**Lectura** — Aprobar, pero en verde. La tesis (crecer por Redes reguladas) sale reforzada; el problema sigue siendo el precio.",
+   "resumen": "Cifra de ventas +6,2 %, EBITDA -0,7 %, beneficio neto +9,6 %, margen 34,6 % (-2,40 pp) frente al mismo periodo del año anterior. Margen EBITDA: 34,6 %. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El ámbar sale del EBITDA reportado (−0,7 %), torcido por dos ingresos de 2025 que no se repiten (costes pasados en EE. UU., 530 M€, y venta de contadores en Reino Unido, 382 M€). Ajustado: EBITDA +7,5 %, margen 34,6 % frente a 34,1 %, beneficio ajustado +8,8 % y guía mejorada (>10 %). Es el quinto periodo con la misma distorsión; la corrección anterior ya pedía usar el EBITDA ajustado si se repetía. **Qué ha pasado** — Ventas 34.405 M€ (+6,2 %). EBITDA reportado 11.891 M€ (−0,7 %), pero ajustado +7,5 %. EBITDA de Redes 6.430 M€: +4,9 % reportado y +14,9 % ajustado; base de activos de Redes 56.323 M€ (+14 %). Margen EBITDA 34,6 % (−2,4 puntos; umbral de la tesis, 30). Beneficio neto 5.816 M€ (+9,6 %); ajustado 5.141 M€ (+8,8 %). Deuda neta 56.984 M€ (+5.229 desde diciembre), 3,5 veces el EBITDA. Mejoran la guía 2026: beneficio neto ajustado «>10%».\n\n**Por qué** — Puntual: el EBITDA reportado baja por el año anterior, «por el impacto del reconocimiento de costes pasados en Estados Unidos (530 M Eur) y la venta de los contadores inteligentes de Reino Unido (382 M EUR) en 2025»; el beneficio de 2026 lleva la plusvalía de México (953 M€). Recurrente: Redes crece por «la mayor base de activos regulados en todas las geografías» y las tarifas de EE. UU. y Brasil; Generación y Clientes cae un 1,5 % por costes de aprovisionamiento con ventas a precios fijados en 2025. El resultado financiero empeora 524 M€.\n\n**Semáforo** — El ámbar es mecánico. Es el quinto periodo seguido con la comparación torcida por los extraordinarios de 2025, y la corrección de esos periodos ya decía «si se repite, hay que usar el EBITDA ajustado». Con el ajustado (EBITDA +7,5 %, margen 34,6 % frente a 34,1 % ajustado de 2025, beneficio ajustado +8,8 %, guía al alza) sale verde. Propongo VERDE. No abre señales; sigue la S3 (21,97 € frente al PO de 19,87 €).\n\n**Qué vigilar** — Coste de la deuda con Neoenergia: 4,93 % (+22 pb), cerca de la red flag de 5,5 %. Deuda neta / EBITDA 3,5 frente a la alarma de 4,5, subiendo por inversiones (10.087 M€, +13 %) y la compra de minoritarios de Neoenergia.\n\n**Lectura** — Aprobar, pero en verde. La tesis (crecer por Redes reguladas) sale reforzada; el problema sigue siendo el precio.",
    "metricas": [
     {
      "nombre": "Cifra de ventas",

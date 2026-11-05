@@ -3,7 +3,7 @@
  "ticker": "ACX",
  "empresa": "Acerinox, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-30",
+ "generado": "2026-11-05",
  "revisiones": [
   {
    "periodo": "2021-Q1",
@@ -59,21 +59,13 @@
    "periodoV3": "2022-3M",
    "fecha": "2022-03-31",
    "fechaOrigen": "cierre",
-   "semaforoGlobal": "A",
+   "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +59,0 %, EBITDA +33,0 %, margen 18,5 % (-3,61 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos +58,7 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
      "valor": 2287.0
-    },
-    {
-     "nombre": "EBITDA",
-     "valor": 422.0
-    },
-    {
-     "nombre": "Margen EBITDA",
-     "valor": 18.5
     }
    ],
    "hechos": [],
@@ -187,21 +179,13 @@
    "periodoV3": "2023-3M",
    "fecha": "2023-04-27",
    "fechaOrigen": "portada",
-   "semaforoGlobal": "R",
+   "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -22,1 %, EBITDA -46,4 %, margen 12,7 % (-5,77 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos -22,1 % frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
      "valor": 1782.0
-    },
-    {
-     "nombre": "EBITDA",
-     "valor": 226.0
-    },
-    {
-     "nombre": "Margen EBITDA",
-     "valor": 12.7
     }
    ],
    "hechos": [],
@@ -526,6 +510,10 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 7.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 176.0
     }
    ],
    "hechos": [],
@@ -645,7 +633,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +1,9 %, EBITDA +46,4 %, margen 10,3 % (+3,14 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +1,9 %, EBITDA +46,4 %, beneficio neto +2214,3 %, margen 10,3 % (+3,14 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Revisión rehecha el 5-nov: la del 30-oct se aprobó sin nota y con solo dos cifras leídas. En los 9M-2026 Acerinox factura 4.556 M€ (+1,9 %), con un EBITDA de 470 M€ (+46 %) y un EBIT de 315 M€ (+79 %). El beneficio después de impuestos y minoritarios sube a 162 M€, frente a 7 M€ un año antes. La deuda financiera neta sube a 1.535 M€ (1.243 M€ en la columna del año anterior). EBIT y beneficio los he leído a mano en la tabla del informe, porque tiene cinco columnas y el lector no la lee entera.\n\n**Por qué** — El salto del beneficio es sobre todo de comparación: 2025 fue un año muy flojo (7 M€ en nueve meses). El tercer trimestre es el mejor del año: EBITDA de 199 M€, «un 85% superior al mismo periodo de 2025». La deuda sube por «una subida del capital circulante de €152 millones y un pago del dividendo de €77 millones».\n\n**Semáforo** — Verde bien puesto.\n\n**Qué vigilar** — La propia empresa espera que «el EBITDA del cuarto trimestre del Grupo sea inferior al del tercero» y que la recuperación europea se retrase: «tendremos que esperar a principios de 2027». La deuda debería bajar a final de año con el circulante, según la empresa; si no baja, vigilarla.\n\n**Lectura** — Aprobar. No toca la tesis.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -658,6 +646,14 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 10.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 315.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 162.0
     }
    ],
    "hechos": [],

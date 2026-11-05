@@ -13,9 +13,9 @@
  "poBear": 18.53,
  "poBase": 19.87,
  "poBull": 22.71,
- "entMin": 15.71,
+ "entMin": 15.72,
  "entMax": 17.28,
- "stop": 14.28,
+ "stop": 14.29,
  "dpaPrevisto": 0.6802,
  "moat": "45,4 sobre 100 · MOAT ESTRECHO. La concesión de redes no se ve en el exceso de retorno",
  "catalizadores": [
@@ -55,7 +55,7 @@
   "motivos": [
    "Seguro: cobertura OE 2.10x · payout 73 % · 0 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "shareholderYield": 6.13
  },
@@ -98,31 +98,31 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 3.7,
+  "gImplicito": 3.9,
   "gIntrinseco": 6.63,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 6.6 %)",
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 7633.421,
-   "wacc": 6.0668,
+   "wacc": 6.0516,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 6681.228,
    "deudaNeta": 64228.098,
    "modo": "EV",
-   "precioBase": 22.03,
-   "gBase": 3.7,
-   "fechaBase": "2026-10-28",
-   "congeladoEl": "2026-10-29",
+   "precioBase": 22.6,
+   "gBase": 3.9,
+   "fechaBase": "2026-11-04",
+   "congeladoEl": "2026-11-05",
    "validado": true,
-   "desviacion": 0.0
+   "desviacion": -0.0
   }
  }
 }

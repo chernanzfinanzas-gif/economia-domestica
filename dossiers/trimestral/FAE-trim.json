@@ -3,7 +3,7 @@
  "ticker": "FAE",
  "empresa": "Faes Farma, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-29",
+ "generado": "2026-11-05",
  "revisiones": [
   {
    "periodo": "2022-Q1",
@@ -269,11 +269,19 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +7,2 %, beneficio neto +10,3 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +7,2 %, EBITDA +10,2 %, beneficio neto +10,3 %, margen 29,4 % (+0,81 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
      "valor": 139.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 41.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 29.4
     },
     {
      "nombre": "EBIT",
@@ -400,55 +408,36 @@
   {
    "periodo": "2025-Q1",
    "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
    "fecha": "2025-03-31",
-   "fechaOrigen": "portada",
-   "fechaOrigenNota": "La fecha de cada periodo sale de la PORTADA del informe de negocio de Faes, que trae el mes de publicación impreso —«Abril 2024», «Octubre 2024», «Julio 2026»—, comprobado informe a informe en los catorce: Q1 en abril, S1 en julio, 9M en octubre y el del ejercicio en febrero del año siguiente. Se toma la de portada y no la de cierre contable porque es cuando el mercado tiene el dato, que es lo que el monitor necesita para ordenar señales: con la de cierre parecería que el 9M-2025 se conocía el 30 de septiembre.",
-   "semaforoGlobal": "A",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +9.7 %, EBITDA -4.1 %, Licencias +12.5 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA del periodo en 25.7 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El crecimiento interanual de LICENCIAS sube 12.5 %, que es la señal única de la tesis.",
+   "resumen": "Ingresos +9,7 %, EBITDA -4,1 %, beneficio neto -6,9 %, margen 25,7 % (-3,70 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. **Periodo histórico que faltaba.** El lector no leía este informe porque la tabla está en la columna derecha de la página (arreglado el 5-nov). Cifras comprobadas en el documento: ingresos 153,0 M€ (+9,7 %), EBITDA 39,3 M€ (−4,1 %; el documento lo achaca a «gastos duplicados por la nueva planta de Derio de 2.9M»; sin ellos, EBITDA ajustado +3 %), beneficio 28,4 M€ (−6,9 %). El rojo automático es por ese gasto puntual de Derio. **Lectura:** aprobar.",
    "metricas": [
     {
-     "nombre": "Ingresos totales (M€)",
-     "valor": 152.999
+     "nombre": "Ingresos",
+     "valor": 153.0
     },
     {
-     "nombre": "EBITDA (M€)",
-     "valor": 39.282
+     "nombre": "EBITDA",
+     "valor": 39.3
     },
     {
-     "nombre": "Resultado de explotación (M€)",
-     "valor": 33.664
+     "nombre": "Margen EBITDA",
+     "valor": 25.7
     },
     {
-     "nombre": "Beneficio consolidado (M€)",
-     "valor": 28.385
+     "nombre": "EBIT",
+     "valor": 33.7
     },
     {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 25.67
-    },
-    {
-     "nombre": "LICENCIAS · ingresos del área (M€)",
-     "valor": 39.5
-    },
-    {
-     "nombre": "LICENCIAS · crecimiento interanual (%)",
-     "valor": 12.54
-    },
-    {
-     "nombre": "Bilastina dentro de licencias (M€)",
-     "valor": 30.1
-    },
-    {
-     "nombre": "Segmento Farma (M€)",
-     "valor": 136.3
-    },
-    {
-     "nombre": "Nutrición y Salud Animal (M€)",
-     "valor": 16.7
+     "nombre": "Beneficio neto",
+     "valor": 28.4
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2025-Q2",
@@ -511,6 +500,10 @@
      "valor": 24.8
     },
     {
+     "nombre": "EBIT",
+     "valor": 87.9
+    },
+    {
      "nombre": "Beneficio neto",
      "valor": 73.6
     }
@@ -559,55 +552,36 @@
   {
    "periodo": "2026-Q1",
    "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
    "fecha": "2026-03-31",
-   "fechaOrigen": "portada",
-   "fechaOrigenNota": "La fecha de cada periodo sale de la PORTADA del informe de negocio de Faes, que trae el mes de publicación impreso —«Abril 2024», «Octubre 2024», «Julio 2026»—, comprobado informe a informe en los catorce: Q1 en abril, S1 en julio, 9M en octubre y el del ejercicio en febrero del año siguiente. Se toma la de portada y no la de cierre contable porque es cuando el mercado tiene el dato, que es lo que el monitor necesita para ordenar señales: con la de cierre parecería que el 9M-2025 se conocía el 30 de septiembre.",
-   "semaforoGlobal": "A",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +30.8 %, EBITDA +22.7 %, Licencias +1.8 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA del periodo en 24.1 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El crecimiento interanual de LICENCIAS sube 1.8 %, que es la señal única de la tesis.",
+   "resumen": "Ingresos +30,8 %, EBITDA +22,7 %, beneficio neto +8,5 %, margen 24,1 % (-1,59 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. **Periodo histórico que faltaba.** Cifras comprobadas en el documento: ingresos 200,1 M€ (+30,8 %, con las compras de SIFI y Edol), EBITDA 48,2 M€ (+22,7 %), EBIT 38,4 M€ (+13,9 %), beneficio 30,8 M€ (+8,5 %). El rojo automático es por el margen, que baja del 25,7 % al 24,1 %; el documento lo explica por la reestructuración de las integraciones (3,2 M€). Los 9M-2026, ya aprobados, siguen en verde. **Lectura:** aprobar.",
    "metricas": [
     {
-     "nombre": "Ingresos totales (M€)",
-     "valor": 200.07
+     "nombre": "Ingresos",
+     "valor": 200.0
     },
     {
-     "nombre": "EBITDA (M€)",
-     "valor": 48.183
+     "nombre": "EBITDA",
+     "valor": 48.2
     },
     {
-     "nombre": "Resultado de explotación (M€)",
-     "valor": 38.35
+     "nombre": "Margen EBITDA",
+     "valor": 24.1
     },
     {
-     "nombre": "Beneficio consolidado (M€)",
-     "valor": 30.869
+     "nombre": "EBIT",
+     "valor": 38.4
     },
     {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 24.08
-    },
-    {
-     "nombre": "LICENCIAS · ingresos del área (M€)",
-     "valor": 40.2
-    },
-    {
-     "nombre": "LICENCIAS · crecimiento interanual (%)",
-     "valor": 1.77
-    },
-    {
-     "nombre": "Bilastina dentro de licencias (M€)",
-     "valor": 30.5
-    },
-    {
-     "nombre": "Segmento Farma (M€)",
-     "valor": 175.3
-    },
-    {
-     "nombre": "Nutrición y Salud Animal (M€)",
-     "valor": 21.9
+     "nombre": "Beneficio neto",
+     "valor": 30.8
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2026-Q2",
@@ -660,6 +634,10 @@
     {
      "nombre": "Ingresos",
      "valor": 564.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 94.5
     },
     {
      "nombre": "Beneficio neto",

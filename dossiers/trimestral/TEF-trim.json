@@ -3,7 +3,7 @@
  "ticker": "TEF",
  "empresa": "Telefónica, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-28",
+ "generado": "2026-11-05",
  "revisiones": [
   {
    "periodo": "2021-Q1",
@@ -436,55 +436,32 @@
   {
    "periodo": "2025-Q1",
    "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
    "fecha": "2025-05-14",
    "fechaOrigen": "portada",
-   "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 salen también del informe de resultados en castellano (1T: 14-may-2026 · 2T: 29-jul-2026). BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos de España +1.7 %, Ingresos de Brasil -7.3 %, Ingresos de Alemania -2.0 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA ajustado en 32.7 % (banda del §10.1: verde ≥ 32.0, rojo < 30.0). El margen EBITDA ajustado del grupo sube un 3.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).  ·  QUIEBRE DE PERÍMETRO: desde este periodo Hispam es actividad discontinuada (NIIF 5): ingresos, EBITDA, FCF y accesos del grupo pasan a operaciones continuadas y no se comparan con los de 2024 publicados en su día. Los ingresos por país (España, Brasil, Alemania) no cambian de perímetro.",
+   "resumen": "Ingresos -2,9 %, EBITDA -2,8 %, margen 33,2 % (+0,04 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja. **Periodo histórico que faltaba.** El 1T-2025 de Telefónica estaba en la Biblioteca, pero el lector no podía confirmar sus cifras con otro informe porque el 1T-2024 y el 1T-2026 cambian de perímetro (salida de Hispanoamérica). Las he comprobado una a una en el documento: cifra de negocio 9.221 M€ (−2,9 %), EBITDA 3.058 M€ (−2,8 %) y resultado operativo 1.109 M€ (−1,7 %). El beneficio no se ha leído y no lo pongo. Ámbar automático por ingresos y EBITDA a la baja. La empresa ya estaba en ámbar; no cambia la tesis. **Lectura:** aprobar.",
    "metricas": [
     {
-     "nombre": "Ingresos (M€)",
+     "nombre": "Ingresos",
      "valor": 9221.0
     },
     {
-     "nombre": "EBITDA ajustado (M€)",
-     "valor": 3014.0
+     "nombre": "EBITDA",
+     "valor": 3058.0
     },
     {
-     "nombre": "Margen EBITDA ajustado (%)",
-     "valor": 32.69
+     "nombre": "Margen EBITDA",
+     "valor": 33.2
     },
     {
-     "nombre": "FCF (M€)",
-     "valor": -205.0
-    },
-    {
-     "nombre": "Deuda financiera neta (M€)",
-     "valor": 27049.0
-    },
-    {
-     "nombre": "Ingresos Telefónica España (M€)",
-     "valor": 3170.0
-    },
-    {
-     "nombre": "Ingresos Telefónica Brasil (M€)",
-     "valor": 2337.0
-    },
-    {
-     "nombre": "Ingresos Telefónica Deutschland (M€)",
-     "valor": 2056.0
-    },
-    {
-     "nombre": "Accesos FTTH (miles)",
-     "valor": 15794.0
-    },
-    {
-     "nombre": "Accesos totales (miles)",
-     "valor": 353519.0
+     "nombre": "EBIT",
+     "valor": 1109.0
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2025-Q2",

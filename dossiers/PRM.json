@@ -35,7 +35,7 @@
  ],
  "bull": "12,09 € — escenario optimista: 2024-2025 son el giro: el flujo crece cerca del EBITDA",
  "bear": "9,50 € — escenario pesimista: la erosión de margen sigue y el circulante se come la amortización",
- "resumen": "ESPERAR con la cotización de 12,45 € (2026-10-28): precio objetivo 11,33 € (bear 9,50 · bull 12,09), margen −9,0 %. Banda de entrada 9,50–9,85 €, stop de tesis 7,32 €.",
+ "resumen": "ESPERAR con la cotización de 12,40 € (2026-11-04): precio objetivo 11,33 € (bear 9,50 · bull 12,09), margen −8,6 %. Banda de entrada 9,50–9,85 €, stop de tesis 7,32 €.",
  "dividendSafety": {
   "score": 40,
   "banda": "Vigilar",
@@ -55,7 +55,7 @@
   "motivos": [
    "Vigilar: cobertura OE 0.36x · payout 58 % · 4 recorte(s) del DPA · TOPE en 40 (no se cubre con caja o payout 3 años > 100 %)"
   ],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "shareholderYield": 3.83
  },
@@ -96,16 +96,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 12.69,
+  "gImplicito": 12.63,
   "gIntrinseco": 6.1,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 5.6307,
@@ -115,12 +115,12 @@
    "acciones": 17.0235,
    "deudaNeta": -1.499,
    "modo": "EV",
-   "precioBase": 12.45,
-   "gBase": 14.31,
-   "fechaBase": "2026-10-28",
-   "congeladoEl": "2026-10-29",
+   "precioBase": 12.4,
+   "gBase": 14.21,
+   "fechaBase": "2026-11-04",
+   "congeladoEl": "2026-11-05",
    "validado": false,
-   "desviacion": 1.62
+   "desviacion": 1.59
   }
  }
 }

@@ -3,7 +3,7 @@
  "ticker": "NTGY",
  "empresa": "Naturgy Energy Group, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-29",
+ "generado": "2026-11-05",
  "revisiones": [
   {
    "periodo": "2022-Q2",
@@ -346,55 +346,36 @@
   {
    "periodo": "2026-Q1",
    "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
    "fecha": "2026-03-31",
-   "fechaOrigen": "portada",
-   "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
-   "semaforoGlobal": "A",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "HUECO DE CADENCIA, no falta de dato: la empresa publicó 2025 pero NO publicó su «Q1», así que este periodo no tiene gemelo del ejercicio anterior con el que compararse. No es el primero de la serie ni hay nada que buscar: el periodo con el que se compararía no existe. El color se deja en ámbar porque el crecimiento no se puede razonar, no porque haya deterioro; el margen de este periodo, que sí está, es del 26.7 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). ",
+   "resumen": "Ingresos -6,9 %, EBITDA +6,5 %, beneficio neto +4,7 %, margen 26,7 % (+3,36 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. **Periodo histórico que faltaba.** Cifras comprobadas en el documento, a falta de otro informe con el que cruzarlas: cifra de negocio 5.101 M€ (−6,9 %), EBITDA 1.362 M€ (+6,5 %), EBIT 917 M€ (+5,8 %), beneficio 530 M€ (+4,7 %). Verde. **Ojo, decisión para Carlos:** al rehacer los cálculos con la cotización de hoy, la decisión automática pasa de ESPERAR a MANTENER. No es por este trimestre: la cotización bajó de 30,10 € (29-oct) a 29,46 € porque el 3-nov descontó el dividendo de 0,60 €, y el margen hasta el precio objetivo pasa del 3,5 % al 5,7 %. Si apruebas, queda MANTENER. **Lectura:** aprobar el trimestre; lo de la decisión, tú.",
    "metricas": [
     {
-     "nombre": "Ingresos (M€)",
+     "nombre": "Ingresos",
      "valor": 5101.0
     },
     {
-     "nombre": "EBITDA (M€)",
+     "nombre": "EBITDA",
      "valor": 1362.0
     },
     {
-     "nombre": "Margen EBITDA (%)",
+     "nombre": "Margen EBITDA",
      "valor": 26.7
     },
     {
-     "nombre": "EBIT (M€)",
+     "nombre": "EBIT",
      "valor": 917.0
     },
     {
-     "nombre": "Resultado neto (M€)",
+     "nombre": "Beneficio neto",
      "valor": 530.0
-    },
-    {
-     "nombre": "Deuda neta (M€)",
-     "valor": 12151.0
-    },
-    {
-     "nombre": "Puntos conexión gas España (miles)",
-     "valor": 5302.0
-    },
-    {
-     "nombre": "Var. interanual puntos gas (%)",
-     "valor": -0.43
-    },
-    {
-     "nombre": "EBITDA Gas España (M€)",
-     "valor": 170.0
-    },
-    {
-     "nombre": "EBITDA Electricidad España (M€)",
-     "valor": 186.0
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2026-Q2",

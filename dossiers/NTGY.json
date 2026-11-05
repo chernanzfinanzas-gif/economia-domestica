@@ -8,14 +8,14 @@
  "revisadoEl": "2026-10-27",
  "rating": "A",
  "score": 66.0,
- "decision": "ESPERAR",
+ "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 35 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 6 % · PER 6 % · P/VC 4 % · P/FCL 6 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl",
  "poBear": 25.2,
  "poBase": 31.15,
  "poBull": 33.41,
  "entMin": 25.2,
  "entMax": 27.08,
- "stop": 21.43,
+ "stop": 21.46,
  "dpaPrevisto": 1.77,
  "moat": "60,9 sobre 100 · MOAT MODERADO. La mitad regulada (redes de gas y electricidad en España y LatAm) es una barrera que las huellas del ROIC no recogen",
  "catalizadores": [
@@ -57,7 +57,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.35x · payout 84 % · 1 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "shareholderYield": 17.16
  },
@@ -100,29 +100,29 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 0.77,
+  "gImplicito": 0.41,
   "gIntrinseco": -0.88,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-10-29",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1882.8347,
-   "wacc": 6.1564,
+   "wacc": 6.1123,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 963.1043,
    "deudaNeta": 12394.648,
    "modo": "EV",
-   "precioBase": 30.1,
-   "gBase": 0.77,
-   "fechaBase": "2026-10-28",
-   "congeladoEl": "2026-10-29",
+   "precioBase": 29.46,
+   "gBase": 0.41,
+   "fechaBase": "2026-11-04",
+   "congeladoEl": "2026-11-05",
    "validado": true,
    "desviacion": 0.0
   }

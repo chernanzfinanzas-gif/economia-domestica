@@ -1,52 +1,90 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-05T09:45",
+ "generado": "2026-11-05T10:46",
  "origen": "metodo-v3",
- "revisiones_pendientes": [
-  {
-   "carpeta": "AMS 2026-3M",
-   "ticker": "AMS",
-   "periodos": [
-    "2026-3M"
-   ],
-   "tipo": "pase",
-   "creada": "2026-11-05T08:39",
-   "semaforo": "V",
-   "frase": "2026-3M. Periodo histórico que faltaba. El 1T-2026 de Amadeus estaba en la Biblioteca desde el 8-may pero el lector nunca lo pasó. Cifras comprobadas en el documento: ingresos 1.682,6 M€ (+3,1 %), EBITDA 661,4 M€ (+5,3 %), resultado de expl"
-  },
-  {
-   "carpeta": "FAE 2026-3M",
-   "ticker": "FAE",
-   "periodos": [
-    "2025-3M",
-    "2026-3M"
-   ],
-   "tipo": "pase",
-   "creada": "2026-11-05T08:40",
-   "semaforo": "V",
-   "frase": "2025-3M. Periodo histórico que faltaba. El lector no leía este informe porque la tabla está en la columna derecha de la página (arreglado el 5-nov). Cifras comprobadas en el documento: ingresos 153,0 M€ (+9,7 %), EBITDA 39,3 M€ (−4,1 %; el "
-  },
-  {
-   "carpeta": "TEF 2025-3M",
-   "ticker": "TEF",
-   "periodos": [
-    "2025-3M"
-   ],
-   "tipo": "pase",
-   "creada": "2026-11-05T08:44",
-   "semaforo": "A",
-   "frase": null
-  }
- ],
- "n_pendientes": 3,
+ "revisiones_pendientes": [],
+ "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-05T09:45",
+  "cuando": "2026-11-05T10:46",
   "ficheros": [
-   "dossiers/ROVI.html",
-   "dossiers/ROVI.json",
-   "dossiers/trimestral/ROVI-trim.json",
-   "dossiers/v3/ROVI.html",
-   "fichas/ROVI.json",
+   "dossiers/A3M.html",
+   "dossiers/A3M.json",
+   "dossiers/ACS.html",
+   "dossiers/ACS.json",
+   "dossiers/ACX.html",
+   "dossiers/ACX.json",
+   "dossiers/AENA.html",
+   "dossiers/AENA.json",
+   "dossiers/AMS.html",
+   "dossiers/AMS.json",
+   "dossiers/ART.html",
+   "dossiers/ART.json",
+   "dossiers/AZK.html",
+   "dossiers/AZK.json",
+   "dossiers/ENG.html",
+   "dossiers/ENG.json",
+   "dossiers/FAE.html",
+   "dossiers/FAE.json",
+   "dossiers/GEST.html",
+   "dossiers/GEST.json",
+   "dossiers/IBE.html",
+   "dossiers/IBE.json",
+   "dossiers/MRL.html",
+   "dossiers/MRL.json",
+   "dossiers/NTGY.html",
+   "dossiers/NTGY.json",
+   "dossiers/PRM.html",
+   "dossiers/PRM.json",
+   "dossiers/TEF.html",
+   "dossiers/TEF.json",
+   "dossiers/VIS.html",
+   "dossiers/VIS.json",
+   "dossiers/trimestral/A3M-trim.json",
+   "dossiers/trimestral/ACS-trim.json",
+   "dossiers/trimestral/ACX-trim.json",
+   "dossiers/trimestral/AENA-trim.json",
+   "dossiers/trimestral/AMS-trim.json",
+   "dossiers/trimestral/ART-trim.json",
+   "dossiers/trimestral/AZK-trim.json",
+   "dossiers/trimestral/ENG-trim.json",
+   "dossiers/trimestral/FAE-trim.json",
+   "dossiers/trimestral/GEST-trim.json",
+   "dossiers/trimestral/IBE-trim.json",
+   "dossiers/trimestral/MRL-trim.json",
+   "dossiers/trimestral/NTGY-trim.json",
+   "dossiers/trimestral/PRM-trim.json",
+   "dossiers/trimestral/TEF-trim.json",
+   "dossiers/trimestral/VIS-trim.json",
+   "dossiers/v3/A3M.html",
+   "dossiers/v3/ACS.html",
+   "dossiers/v3/ACX.html",
+   "dossiers/v3/AENA.html",
+   "dossiers/v3/AMS.html",
+   "dossiers/v3/ART.html",
+   "dossiers/v3/AZK.html",
+   "dossiers/v3/FAE.html",
+   "dossiers/v3/GEST.html",
+   "dossiers/v3/IBE.html",
+   "dossiers/v3/MRL.html",
+   "dossiers/v3/NTGY.html",
+   "dossiers/v3/PRM.html",
+   "dossiers/v3/TEF.html",
+   "fichas/A3M.json",
+   "fichas/ACS.json",
+   "fichas/ACX.json",
+   "fichas/AENA.json",
+   "fichas/AMS.json",
+   "fichas/ART.json",
+   "fichas/AZK.json",
+   "fichas/ENG.json",
+   "fichas/FAE.json",
+   "fichas/GEST.json",
+   "fichas/IBE.json",
+   "fichas/MRL.json",
+   "fichas/NTGY.json",
+   "fichas/PRM.json",
+   "fichas/TEF.json",
+   "fichas/VIS.json",
    "fichas/_resumen.json"
   ]
  },
@@ -60,9 +98,9 @@
    "ticker": "ACX",
    "que": "Revisión 9M-2026 aprobada sin nota y con solo ingresos y EBITDA",
    "detalle": "Aprobada el 30-oct. EBIT, beneficio y deuda neta están en «2026-10-30 Resultados Tercer Trimestre 2026.pdf» pero el lector no los leyó. Rehacer la revisión con el documento y que Carlos la apruebe de nuevo.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:52",
+   "como": "Revisión ACX 9M-2026 rehecha con las cuatro cifras (EBIT 315/176 y beneficio 162/7 leídos a mano en la tabla de cinco columnas del informe, que el lector no lee entera) y con nota. Queda en «Revisión» para que la apruebes."
   },
   {
    "id": "Pcc87789a",
@@ -71,9 +109,9 @@
    "ticker": "AMS",
    "que": "El lector no ha leído el 1T-2026",
    "detalle": "El documento está en la Biblioteca (información financiera del primer trimestre, 8-may-2026).",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:52",
+   "como": "El lector lo leía bien; nadie lo había pasado porque el documento es de mayo, antes del método nuevo. Corregido a mano el EBIT (el lector cogía el ajustado, 500,0; el bueno es 474,9). Revisión AMS 1T-2026 en «Revisión» para que la apruebes."
   },
   {
    "id": "P6373adf2",
@@ -82,9 +120,9 @@
    "ticker": "FAE",
    "que": "El lector no ha leído el 1T-2025 ni el 1T-2026",
    "detalle": "Documentos en la Biblioteca: «Informe de negocio del primer trimestre» de 2025 (6-may) y 2026 (30-abr).",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:52",
+   "como": "La tabla estaba en la columna derecha de la página. Arreglado el lector (comprobado que las otras 18 empresas leen igual que antes). Revisión FAE con el 1T-2025 y el 1T-2026, cifras comprobadas en los documentos, en «Revisión» para que la apruebes."
   },
   {
    "id": "Pcd5c2b7b",
@@ -93,9 +131,9 @@
    "ticker": "TEF",
    "que": "El lector no ha leído el 1T-2025",
    "detalle": "Documentos en la Biblioteca: informe y presentación de resultados del 14-may-2025.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:52",
+   "como": "El lector la leía pero no podía confirmarla con otro informe (cambio de perímetro). Cifras comprobadas a mano en el documento y apuntadas. Revisión TEF 1T-2025 en «Revisión» para que la apruebes."
   },
   {
    "id": "Paa5923bf",
@@ -104,9 +142,9 @@
    "ticker": "NTGY",
    "que": "El lector no ha leído el 1T-2026",
    "detalle": "Documentos en la Biblioteca: informe y presentación de resultados 1T26 (29-abr-2026).",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:52",
+   "como": "Igual que Telefónica: sin otro informe con el que cruzarla. Cifras comprobadas a mano. Revisión NTGY 1T-2026 en «Revisión»; ojo, al aprobar la decisión pasa a MANTENER por la bajada del precio tras el dividendo."
   },
   {
    "id": "P7fef3dd4",
@@ -115,9 +153,9 @@
    "ticker": "PRM",
    "que": "El lector no ha leído el 9M-2024, el 9M-2025 ni el 1T-2026",
    "detalle": "Prim publica 1T y 3T como presentación (4-nov-2024, 28-oct-2025, 4-may-2026); su web tiene además un «Informe Financiero Trimestral» del 1T-2026. El 3T-2026 aún no se ha publicado.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:55",
+   "como": "Leídos a mano el 9M-2024, el 9M-2025 y el 1T-2026 en sus presentaciones (cifras en texto); solo lo que el documento escribe, sin calcular nada a partir de porcentajes. Revisión PRM en «Revisión» para que la apruebes, con el 1T-2026 propuesto en ámbar (el EBITDA baja un 13,8 % según el documento)."
   },
   {
    "id": "P67c6a1b8",
@@ -126,9 +164,9 @@
    "ticker": "",
    "que": "A3M, ENG y VIS: 9M aprobados sin la marca de fecha de revisión",
    "detalle": "Se aprobaron el 28-oct, pero sin la marca de fecha que usa la app para saber cuándo se analizó por última vez.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:52",
+   "como": "Puesta la marca de fecha (aprobados el 28-oct) y rehechas sus tres fichas; suben en la próxima subida."
   },
   {
    "id": "P70c383ab",
@@ -137,9 +175,9 @@
    "ticker": "MRL",
    "que": "Falta la nota del analista del 1S-2026",
    "detalle": "",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:52",
+   "como": "Nota del 1S-2026 escrita con la nota de prensa de Merlin. En «Revisión» como «MRL nota 1S-2026» para que la apruebes."
   },
   {
    "id": "P6d7904a7",
@@ -148,9 +186,9 @@
    "ticker": "GEST",
    "que": "Texto automático del semáforo mal formado («margen EBITDA +11,1 %»)",
    "detalle": "Sale en el resumen de la revisión 9M; la cifra del margen está bien (11,1 %), el texto la repite como si fuera una variación.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:52",
+   "como": "El margen EBITDA es un nivel, no una variación, y en Gestamp e Iberdrola faltaba marcarlo así. Corregido; ahora sale «Margen EBITDA: 11,1 %». Fichas de las dos rehechas."
   },
   {
    "id": "Pcf9aa037",
@@ -159,9 +197,9 @@
    "ticker": "GEST",
    "que": "La recogida a mano del 4-nov bajó los 9M pero no preparó la revisión",
    "detalle": "No se sabe por qué: la búsqueda a mano no dejaba constancia de lo que hacía (ya la deja). La revisión la preparé yo a mano.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T10:19",
+   "como": "No se pudo saber la causa: aquella búsqueda no dejó registro. Lo que se ha cambiado es que ahora toda búsqueda, a mano o programada, escribe en el registro, también si se corta. Si vuelve a pasar, se verá por qué."
   },
   {
    "id": "P187af1d4",
@@ -250,6 +288,61 @@
    "estado": "resuelto",
    "resuelto": "2026-11-05T09:24",
    "como": "Ahora, si una empresa falla, se apunta y la búsqueda sigue con las demás. Si falla un paso entero, se apunta, se sube igual lo aprobado y se pasa el pase de novedades. Si una pasada se corta, la siguiente lo dice. Todo acaba en esta lista. Probado forzando un error."
+  },
+  {
+   "id": "P7a3bfeac",
+   "creado": "2026-11-05T09:52",
+   "origen": "Claude 5-nov",
+   "ticker": "",
+   "que": "El lector reescribía cada vez todos los trimestres y borraba las correcciones a mano",
+   "detalle": "",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:52",
+   "como": "Ahora las cifras comprobadas a mano quedan en un fichero por empresa, con su fuente, y mandan sobre lo que lea el lector en cada pasada."
+  },
+  {
+   "id": "Pca3873c0",
+   "creado": "2026-11-05T09:52",
+   "origen": "Claude 5-nov",
+   "ticker": "",
+   "que": "El arreglo de Viscofan 2019 daba por vistos huecos de trimestres dentro de la serie",
+   "detalle": "",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T09:52",
+   "como": "Solo se dan por vistos los periodos anteriores al inicio de la serie trimestral de cada empresa; dentro de la serie, un hueco es un aviso."
+  },
+  {
+   "id": "P174dc943",
+   "creado": "2026-11-05T09:55",
+   "origen": "Claude 5-nov",
+   "ticker": "",
+   "que": "Decisión tuya: unas 69 cifras de «año anterior» de trimestres pasados están calculadas a partir del porcentaje de variación, no escritas en el documento",
+   "detalle": "El lector lo hace así desde el 29-oct (por ejemplo, Prim 1T-2025: 61,5 ÷ 1,094 = 56,2157). Afecta a AENA, RED, VID, PRM, ACX, ITX, VIS, ROVI, AMS, ACS y ELE. Choca con la regla de no calcular cifras por otra vía. Opciones: dejarlas, o quitarlas y que esos periodos queden sin año anterior. Desde hoy, las cifras que leo a mano no se calculan.",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null
+  },
+  {
+   "id": "P1676adde",
+   "creado": "2026-11-05T10:09",
+   "origen": "app",
+   "ticker": "",
+   "que": "Caja bróker: 1.209,79 € de una orden de compra de Foncuenta en vuelo salían como «intereses» negativos",
+   "detalle": "Visto por Carlos el 5-nov. R4 sacó el efectivo el 04/11 y el extracto aún no lo pone dentro del fondo.",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T10:09",
+   "como": "La caja cuenta ese dinero como «en camino al fondo» y lo suma al disponible. Cuando el extracto lo muestre dentro del Plan Easy, la línea desaparece sola. Publicar con el .bat (build 20261105b)."
+  },
+  {
+   "id": "P312761cd",
+   "creado": "2026-11-05T10:19",
+   "origen": "aprobar",
+   "ticker": "",
+   "que": "Aprobar un trimestre atrasado rebajaba la fecha de «revisado hasta» (TEF, NTGY, PRM, AMS, FAE el 5-nov)",
+   "detalle": "Visto al comprobar las siete aprobaciones del 5-nov.",
+   "estado": "resuelto",
+   "resuelto": "2026-11-05T10:19",
+   "como": "Restauradas las cinco fechas (TEF y PRM y AMS: S1-2026; NTGY y FAE: 9M-2026), rehechas sus fichas y sin señales abiertas. El programa de aprobar se queda ahora con el periodo más reciente."
   }
  ],
  "decisiones": "recogida/decisiones-v3.json"

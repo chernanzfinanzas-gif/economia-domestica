@@ -3,7 +3,7 @@
  "ticker": "AMS",
  "empresa": "Amadeus IT Group, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-29",
+ "generado": "2026-11-05",
  "revisiones": [
   {
    "periodo": "2022-Q2",
@@ -312,6 +312,10 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 39.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1315.0
     }
    ],
    "hechos": [],
@@ -363,11 +367,27 @@
    "fechaOrigen": "publicacion",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +9,1 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +9,1 %, EBITDA +8,1 %, beneficio neto +13,3 %, margen 38,5 % (-0,36 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
      "valor": 1632.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 628.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 38.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 478.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 355.0
     }
    ],
    "hechos": [],
@@ -439,6 +459,10 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 39.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1471.0
     }
    ],
    "hechos": [],
@@ -504,50 +528,32 @@
   {
    "periodo": "2026-Q1",
    "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
    "fecha": "2026-05-08",
-   "semaforoGlobal": "A",
+   "fechaOrigen": "publicacion",
+   "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "PRIMER TRIMESTRE CON LAS RESERVAS EN CAÍDA (−0,2 %). Los ingresos crecen sólo un 3,1 %, por debajo de la tendencia decenal, aunque un 7,9 % a tipos de cambio constantes. El margen mejora al 39,3 %. La deuda sube 444,6 M€ por la recompra. Semáforo ámbar: es la primera lectura de la señal que el §9.4 mandó vigilar.",
+   "resumen": "Ingresos +3,1 %, EBITDA +5,3 %, beneficio neto +0,5 %, margen 39,3 % (+0,81 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Periodo histórico que faltaba.** El 1T-2026 de Amadeus estaba en la Biblioteca desde el 8-may pero el lector nunca lo pasó. Cifras comprobadas en el documento: ingresos 1.682,6 M€ (+3,1 %), EBITDA 661,4 M€ (+5,3 %), resultado de explotación 474,9 M€ (+2,8 %; el lector había cogido el EBIT ajustado, 500,0, y lo he corregido a mano), beneficio 356,3 M€ (+0,5 %). Verde. No cambia la empresa: su último periodo es el 1S-2026 y la señal S3 ya estaba decidida. **Lectura:** aprobar.",
    "metricas": [
     {
-     "nombre": "Reservas (m)",
-     "valor": 128
+     "nombre": "Ingresos",
+     "valor": 1683.0
     },
     {
-     "nombre": "Pasajeros embarc. (m)",
-     "valor": 518.5
+     "nombre": "EBITDA",
+     "valor": 661.0
     },
     {
-     "nombre": "Ing. Distr. Aérea (M€)",
-     "valor": 822.1
-    },
-    {
-     "nombre": "Ingresos Grupo (M€)",
-     "valor": 1682.6
-    },
-    {
-     "nombre": "EBITDA aj. (M€)",
-     "valor": 661.4
-    },
-    {
-     "nombre": "Mg. EBITDA (%)",
+     "nombre": "Margen EBITDA",
      "valor": 39.3
     },
     {
-     "nombre": "Bº ajustado (M€)",
-     "valor": 371.4
+     "nombre": "EBIT",
+     "valor": 475.0
     },
     {
-     "nombre": "FCL (M€)",
-     "valor": 273.6
-    },
-    {
-     "nombre": "DFN contratos (M€)",
-     "valor": 2586
-    },
-    {
-     "nombre": "DFN / LTM EBITDA (x)",
-     "valor": 1
+     "nombre": "Beneficio neto",
+     "valor": 356.0
     }
    ],
    "hechos": [
@@ -564,7 +570,7 @@
      "valoracion": "Sigue ensanchando el negocio de Soluciones Tecnológicas, que es el que crece por encima de Distribución Aérea."
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2026-Q2",

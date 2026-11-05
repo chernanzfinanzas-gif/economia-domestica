@@ -3,7 +3,7 @@
  "ticker": "PRM",
  "empresa": "Prim, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-10-29",
+ "generado": "2026-11-05",
  "revisiones": [
   {
    "periodo": "2021-Q1",
@@ -411,9 +411,9 @@
    "periodoV3": "2024",
    "fecha": "2024-12-31",
    "fechaOrigen": "cierre",
-   "semaforoGlobal": "R",
+   "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +7,7 %, EBITDA +2,6 %, beneficio neto -13,8 %, margen 11,5 % (-0,57 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos +7,7 %, EBITDA +2,6 %, beneficio neto -13,8 %, margen 11,5 % (-0,57 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -510,55 +510,32 @@
   {
    "periodo": "2025-Q3",
    "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
    "fecha": "2025-09-30",
    "fechaOrigen": "cierre",
-   "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de negocios +7.4 %, EBITDA +31.0 %, Resultado de explotación +53.3 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 51.0 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 51.0 %, que es la señal única de la tesis, y gana 1.90 pp contra el mismo periodo del ejercicio anterior.",
+   "resumen": "Ingresos +7,4 %, EBITDA +31,0 %, margen 13,5 % (+2,42 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Periodo histórico que faltaba.** Leído a mano: ventas 182,1 M€ frente a 169,5 M€ (+7,4 %), EBITDA 24,5 M€ frente a 18,7 M€ (+31 %) y resultado de explotación 16,1 M€ frente a 10,5 M€ (+53 %). El beneficio solo viene por acción (0,717 €, +56 %). Verde bien puesto.",
    "metricas": [
     {
-     "nombre": "Cifra de negocios (M€)",
-     "valor": 182.1
+     "nombre": "Ingresos",
+     "valor": 182.0
     },
     {
-     "nombre": "Margen bruto (%)",
-     "valor": 51.0
-    },
-    {
-     "nombre": "EBITDA (M€)",
+     "nombre": "EBITDA",
      "valor": 24.5
     },
     {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 13.45
+     "nombre": "Margen EBITDA",
+     "valor": 13.5
     },
     {
-     "nombre": "Resultado de explotación (M€)",
+     "nombre": "EBIT",
      "valor": 16.1
-    },
-    {
-     "nombre": "Amortización (M€)",
-     "valor": 8.4
-    },
-    {
-     "nombre": "Resultado neto (M€)",
-     "valor": null
-    },
-    {
-     "nombre": "BPA (€)",
-     "valor": 0.717
-    },
-    {
-     "nombre": "Ventas Tecnologías Médicas (M€)",
-     "valor": null
-    },
-    {
-     "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-     "valor": null
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2025-Q4",
@@ -601,55 +578,32 @@
   {
    "periodo": "2026-Q1",
    "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
    "fecha": "2026-03-31",
    "fechaOrigen": "cierre",
-   "fechaOrigenNota": "COMPROBADO UNO A UNO en los catorce PDF de Informes/Trimestrales/: ninguno imprime su fecha de publicación. Las presentaciones de 1T y 3T no llevan fecha en portada; los informes semestrales imprimen la fecha de CIERRE del periodo (30/06, 31/12); y la única excepción es la presentación del 1T-2026, que imprime «Abril 2026» —el mes, no el día—. Por eso cada revisión lleva la fecha de cierre de su periodo, que NO es una fecha de mercado.",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Cifra de negocios +0.5 %, EBITDA -12.9 %, Resultado de explotación sin comparativo contra el mismo periodo del ejercicio anterior, con el margen bruto en 50.6 % (banda del §10.1: verde ≥ 49.0, rojo < 47.4). El margen bruto está en 50.6 %, que es la señal única de la tesis, y gana 0.30 pp contra el mismo periodo del ejercicio anterior.",
+   "resumen": "Ingresos +0,2 %, margen 12,0 % frente al mismo periodo del año anterior. Verde: nada que señalar. Corrección del analista: El documento dice que el EBITDA baja un 13,8 % frente al 1T-2025 por el desfase entre ventas y la base de costes del plan de crecimiento; el automático no lo ve porque el documento no da la cifra del año anterior. **Periodo histórico que faltaba.** Leído a mano: ventas 61,8 M€ frente a 61,7 M€ (+0,2 %), EBITDA 7,4 M€ y beneficio 3,2 M€. El documento no da en cifra el EBITDA ni el beneficio del 1T-2025, solo que el EBITDA baja: «EBITDA 7,4 M€ (-13,8% vs Q1 2025), por el desfase temporal entre el nivel de ventas alcanzado en el trimestre y la base de costes asociada al plan de crecimiento». **Semáforo:** el verde automático no ve esa caída porque le falta la cifra del año anterior; propongo **ámbar**. **Lectura:** aprobar con el ámbar.",
    "metricas": [
     {
-     "nombre": "Cifra de negocios (M€)",
+     "nombre": "Ingresos",
      "valor": 61.8
     },
     {
-     "nombre": "Margen bruto (%)",
-     "valor": 50.6
-    },
-    {
-     "nombre": "EBITDA (M€)",
+     "nombre": "EBITDA",
      "valor": 7.4
     },
     {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 11.97
+     "nombre": "Margen EBITDA",
+     "valor": 12.0
     },
     {
-     "nombre": "Resultado de explotación (M€)",
-     "valor": null
-    },
-    {
-     "nombre": "Amortización (M€)",
-     "valor": null
-    },
-    {
-     "nombre": "Resultado neto (M€)",
+     "nombre": "Beneficio neto",
      "valor": 3.2
-    },
-    {
-     "nombre": "BPA (€)",
-     "valor": 0.19
-    },
-    {
-     "nombre": "Ventas Tecnologías Médicas (M€)",
-     "valor": null
-    },
-    {
-     "nombre": "Ventas Movilidad y Cuidados de la Salud (M€)",
-     "valor": null
     }
    ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+   "hechos": [],
+   "origen": "metodo-v3"
   },
   {
    "periodo": "2026-Q2",

@@ -37,7 +37,7 @@
  ],
  "bull": "9,96 € — escenario optimista: el duopolio se convierte en precio",
  "bear": "5,17 € — escenario pesimista: la publicidad se va al vídeo digital y el duopolio deja de defender el precio",
- "resumen": "MANTENER con la cotización de 5,75 € (2026-10-28): precio objetivo 6,90 € (bear 5,17 · bull 9,96), margen +20,1 %. Banda de entrada 5,17–6,00 €, stop de tesis 3,71 €. Veto por dividendo frágil: seguridad del dividendo 38/100 en 2025 (por debajo de 40).",
+ "resumen": "MANTENER por el veto del dividendo frágil. A 5,83 € el 26-oct, con margen del +18 %, la cotización está dentro de la banda (5,17-6,00 €) y se cumplen las cuatro condiciones de compra, ahora con rating AA. Pero la seguridad del dividendo es 38 (Frágil) y el método no deja comprar con un dividendo frágil. Con el dividendo medido ya sobre lo declarado, el veto es de la empresa, no del instrumento: dos años seguidos sin cubrir el dividendo con el FCL. El veredicto además depende del supuesto: con WACC ±1 y terminal ±0,5 el PO va de 6,00 a 8,46 €.",
  "dividendSafety": {
   "score": 38,
   "banda": "Frágil",
@@ -57,7 +57,7 @@
   "motivos": [
    "Frágil: cobertura OE 1.03x · payout 142 % · 4 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja"
   ],
-  "calculadoEl": "2026-10-28",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "shareholderYield": 8.15
  },
@@ -98,29 +98,29 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-10-28",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -8.33,
+  "gImplicito": -7.59,
   "gIntrinseco": 1.59,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-10-28",
+  "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 133.8328,
-   "wacc": 7.2735,
+   "wacc": 7.279,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 225.7333,
    "deudaNeta": -45.431,
    "modo": "EV",
-   "precioBase": 5.75,
-   "gBase": -8.33,
-   "fechaBase": "2026-10-28",
-   "congeladoEl": "2026-10-28",
+   "precioBase": 6.03,
+   "gBase": -7.59,
+   "fechaBase": "2026-11-04",
+   "congeladoEl": "2026-11-05",
    "validado": true,
    "desviacion": -0.0
   }

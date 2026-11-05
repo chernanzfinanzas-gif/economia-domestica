@@ -3,7 +3,7 @@
  "ticker": "GEST",
  "empresa": "Gestamp Automoción, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-04",
+ "generado": "2026-11-05",
  "revisiones": [
   {
    "periodo": "2017-Q4",
@@ -13,7 +13,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +8,6 %, EBITDA +5,8 %, margen 10,9 % (-0,29 pp), margen EBITDA +10,8 % frente al mismo periodo del año anterior. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
+   "resumen": "Ingresos +8,6 %, EBITDA +5,8 %, margen 10,9 % (-0,29 pp) frente al mismo periodo del año anterior. Margen EBITDA: 10,8 %. Verde: solo margen EBITDA por debajo del umbral, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -51,7 +51,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -1,8 %, EBITDA +4,1 %, beneficio neto +14,2 %, margen 11,2 % (+0,64 pp), margen EBITDA +11,2 % frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "resumen": "Ingresos -1,8 %, EBITDA +4,1 %, beneficio neto +14,2 %, margen 11,2 % (+0,64 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,2 %. Verde: solo ingresos a la baja, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -85,7 +85,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +3,6 %, EBITDA +8,0 %, beneficio neto +17,1 %, margen 11,4 % (+0,47 pp), margen EBITDA +11,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +3,6 %, EBITDA +8,0 %, beneficio neto +17,1 %, margen 11,4 % (+0,47 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,4 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -119,7 +119,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +2,5 %, EBITDA +8,6 %, beneficio neto +6,5 %, margen 11,1 % (+0,62 pp), margen EBITDA +11,1 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +2,5 %, EBITDA +8,6 %, beneficio neto +6,5 %, margen 11,1 % (+0,62 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,1 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -153,7 +153,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +4,2 %, EBITDA +8,0 %, beneficio neto +7,5 %, margen 11,2 % (+0,39 pp), margen EBITDA +11,2 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +4,2 %, EBITDA +8,0 %, beneficio neto +7,5 %, margen 11,2 % (+0,39 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,2 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -195,7 +195,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +5,4 %, EBITDA +7,8 %, beneficio neto -34,9 %, margen 11,5 % (+0,25 pp), margen EBITDA +11,5 % frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "resumen": "Ingresos +5,4 %, EBITDA +7,8 %, beneficio neto -34,9 %, margen 11,5 % (+0,25 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,5 %. Verde: solo caída de beneficio o margen, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -237,7 +237,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +5,9 %, EBITDA +7,4 %, beneficio neto -24,2 %, margen 11,5 % (+0,16 pp), margen EBITDA +11,5 % frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "resumen": "Ingresos +5,9 %, EBITDA +7,4 %, beneficio neto -24,2 %, margen 11,5 % (+0,16 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,5 %. Verde: solo caída de beneficio o margen, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -271,7 +271,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +6,8 %, EBITDA +10,9 %, beneficio neto -21,5 %, margen 11,5 % (+0,42 pp), margen EBITDA +11,5 % frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "resumen": "Ingresos +6,8 %, EBITDA +10,9 %, beneficio neto -21,5 %, margen 11,5 % (+0,42 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,5 %. Verde: solo caída de beneficio o margen, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -305,7 +305,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +6,0 %, EBITDA +11,6 %, beneficio neto -17,8 %, margen 11,8 % (+0,58 pp), margen EBITDA +11,8 % frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "resumen": "Ingresos +6,0 %, EBITDA +11,6 %, beneficio neto -17,8 %, margen 11,8 % (+0,58 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,8 %. Verde: solo caída de beneficio o margen, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -347,7 +347,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -7,3 %, EBITDA -22,5 %, beneficio neto -65,9 %, margen 9,6 % (-1,88 pp), margen EBITDA +9,6 % frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Ingresos -7,3 %, EBITDA -22,5 %, beneficio neto -65,9 %, margen 9,6 % (-1,88 pp) frente al mismo periodo del año anterior. Margen EBITDA: 9,6 %. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -389,7 +389,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -32,5 %, EBITDA -58,5 %, beneficio neto -220,0 %, margen 7,1 % (-4,45 pp), margen EBITDA +7,1 % frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Ingresos -32,5 %, EBITDA -58,5 %, beneficio neto -220,0 %, margen 7,1 % (-4,45 pp) frente al mismo periodo del año anterior. Margen EBITDA: 7,1 %. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -423,7 +423,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -22,7 %, EBITDA -39,1 %, beneficio neto -171,9 %, margen 9,0 % (-2,44 pp), margen EBITDA +9,1 % frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Ingresos -22,7 %, EBITDA -39,1 %, beneficio neto -171,9 %, margen 9,0 % (-2,44 pp) frente al mismo periodo del año anterior. Margen EBITDA: 9,1 %. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -457,7 +457,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -17,7 %, EBITDA -29,4 %, beneficio neto -133,5 %, margen 10,2 % (-1,67 pp), margen EBITDA +10,2 % frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Ingresos -17,7 %, EBITDA -29,4 %, beneficio neto -133,5 %, margen 10,2 % (-1,67 pp) frente al mismo periodo del año anterior. Margen EBITDA: 10,2 %. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -499,7 +499,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +4,8 %, EBITDA +33,7 %, beneficio neto +264,3 %, margen 12,2 % (+2,64 pp), margen EBITDA +12,2 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +4,8 %, EBITDA +33,7 %, beneficio neto +264,3 %, margen 12,2 % (+2,64 pp) frente al mismo periodo del año anterior. Margen EBITDA: 12,2 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -541,7 +541,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +33,9 %, EBITDA +130,6 %, beneficio neto +169,2 %, margen 12,2 % (+5,12 pp), margen EBITDA +12,2 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +33,9 %, EBITDA +130,6 %, beneficio neto +169,2 %, margen 12,2 % (+5,12 pp) frente al mismo periodo del año anterior. Margen EBITDA: 12,2 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -583,7 +583,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +15,7 %, EBITDA +52,4 %, beneficio neto +209,8 %, margen 11,9 % (+2,87 pp), margen EBITDA +11,9 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +15,7 %, EBITDA +52,4 %, beneficio neto +209,8 %, margen 11,9 % (+2,87 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,9 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -625,7 +625,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +8,5 %, EBITDA +31,8 %, beneficio neto +318,3 %, margen 12,3 % (+2,18 pp), margen EBITDA +12,3 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +8,5 %, EBITDA +31,8 %, beneficio neto +318,3 %, margen 12,3 % (+2,18 pp) frente al mismo periodo del año anterior. Margen EBITDA: 12,3 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -667,7 +667,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +7,0 %, EBITDA -1,6 %, beneficio neto -11,8 %, margen 11,3 % (-0,98 pp), margen EBITDA +11,3 % frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "resumen": "Ingresos +7,0 %, EBITDA -1,6 %, beneficio neto -11,8 %, margen 11,3 % (-0,98 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,3 %. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -709,7 +709,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +19,5 %, EBITDA +11,2 %, beneficio neto +41,0 %, margen 11,4 % (-0,84 pp), margen EBITDA +11,4 % frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "resumen": "Ingresos +19,5 %, EBITDA +11,2 %, beneficio neto +41,0 %, margen 11,4 % (-0,84 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,4 %. Rojo por: el margen empeora.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -743,7 +743,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +30,9 %, EBITDA +20,8 %, beneficio neto +81,2 %, margen 11,0 % (-0,92 pp), margen EBITDA +11,0 % frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "resumen": "Ingresos +30,9 %, EBITDA +20,8 %, beneficio neto +81,2 %, margen 11,0 % (-0,92 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,0 %. Rojo por: el margen empeora.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -777,7 +777,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +32,5 %, EBITDA +21,2 %, beneficio neto +67,7 %, margen 11,3 % (-1,05 pp), margen EBITDA +11,3 % frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "resumen": "Ingresos +32,5 %, EBITDA +21,2 %, beneficio neto +67,7 %, margen 11,3 % (-1,05 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,3 %. Rojo por: el margen empeora.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -819,7 +819,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +39,4 %, EBITDA +32,3 %, beneficio neto +77,8 %, margen 10,7 % (-0,57 pp), margen EBITDA +10,7 % frente al mismo periodo del año anterior. Rojo por: el margen empeora, margen EBITDA por debajo del umbral. Corrección del analista: Ventas +39 %, EBITDA +32 % y beneficio +78 %: el rojo sale solo de que el margen empeora dos periodos seguidos (ejercicio 2022 y 1T-2023), por la subida de las materias primas que se repercute en ventas sin margen. Con todo lo demás subiendo, se queda en ámbar por el margen por debajo del 11 %.",
+   "resumen": "Ingresos +39,4 %, EBITDA +32,3 %, beneficio neto +77,8 %, margen 10,7 % (-0,57 pp) frente al mismo periodo del año anterior. Margen EBITDA: 10,7 %. Rojo por: el margen empeora, margen EBITDA por debajo del umbral. Corrección del analista: Ventas +39 %, EBITDA +32 % y beneficio +78 %: el rojo sale solo de que el margen empeora dos periodos seguidos (ejercicio 2022 y 1T-2023), por la subida de las materias primas que se repercute en ventas sin margen. Con todo lo demás subiendo, se queda en ámbar por el margen por debajo del 11 %.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -873,7 +873,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +28,8 %, EBITDA +26,4 %, beneficio neto +38,5 %, margen 11,2 % (-0,21 pp), margen EBITDA +11,2 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +28,8 %, EBITDA +26,4 %, beneficio neto +38,5 %, margen 11,2 % (-0,21 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,2 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -923,7 +923,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +17,9 %, EBITDA +19,4 %, beneficio neto +23,0 %, margen 11,1 % (+0,14 pp), margen EBITDA +11,1 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +17,9 %, EBITDA +19,4 %, beneficio neto +23,0 %, margen 11,1 % (+0,14 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,1 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -977,7 +977,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +14,4 %, EBITDA +13,3 %, beneficio neto +8,1 %, margen 11,2 % (-0,11 pp), margen EBITDA +11,2 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +14,4 %, EBITDA +13,3 %, beneficio neto +8,1 %, margen 11,2 % (-0,11 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,2 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -1027,7 +1027,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -3,0 %, EBITDA -7,4 %, beneficio neto -31,2 %, margen 10,2 % (-0,49 pp), margen EBITDA +10,2 % frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Ingresos -3,0 %, EBITDA -7,4 %, beneficio neto -31,2 %, margen 10,2 % (-0,49 pp) frente al mismo periodo del año anterior. Margen EBITDA: 10,2 %. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -1081,7 +1081,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -2,1 %, EBITDA -8,3 %, beneficio neto -34,6 %, margen 10,5 % (-0,70 pp), margen EBITDA +10,5 % frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Ingresos -2,1 %, EBITDA -8,3 %, beneficio neto -34,6 %, margen 10,5 % (-0,70 pp) frente al mismo periodo del año anterior. Margen EBITDA: 10,5 %. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -1131,7 +1131,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -1,6 %, EBITDA -7,4 %, beneficio neto -43,6 %, margen 10,5 % (-0,66 pp), margen EBITDA +10,5 % frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Ingresos -1,6 %, EBITDA -7,4 %, beneficio neto -43,6 %, margen 10,5 % (-0,66 pp) frente al mismo periodo del año anterior. Margen EBITDA: 10,5 %. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -1181,7 +1181,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -2,2 %, EBITDA -5,6 %, beneficio neto -33,1 %, margen 10,8 % (-0,39 pp), margen EBITDA +10,8 % frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Ingresos -2,2 %, EBITDA -5,6 %, beneficio neto -33,1 %, margen 10,8 % (-0,39 pp) frente al mismo periodo del año anterior. Margen EBITDA: 10,8 %. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -1231,7 +1231,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -2,2 %, EBITDA -3,5 %, beneficio neto -50,9 %, margen 10,1 % (-0,14 pp), margen EBITDA +10,1 % frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Ingresos -2,2 %, EBITDA -3,5 %, beneficio neto -50,9 %, margen 10,1 % (-0,14 pp) frente al mismo periodo del año anterior. Margen EBITDA: 10,1 %. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -1285,7 +1285,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -4,8 %, EBITDA -0,2 %, beneficio neto -29,2 %, margen 11,0 % (+0,51 pp), margen EBITDA +11,0 % frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Ingresos -4,8 %, EBITDA -0,2 %, beneficio neto -29,2 %, margen 11,0 % (+0,51 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,0 %. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -1339,7 +1339,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -4,9 %, EBITDA -1,2 %, beneficio neto -18,1 %, margen 10,9 % (+0,42 pp), margen EBITDA +10,9 % frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
+   "resumen": "Ingresos -4,9 %, EBITDA -1,2 %, beneficio neto -18,1 %, margen 10,9 % (+0,42 pp) frente al mismo periodo del año anterior. Margen EBITDA: 10,9 %. Ámbar por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen, margen EBITDA por debajo del umbral.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -1393,7 +1393,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -5,4 %, EBITDA +1,0 %, beneficio neto -19,1 %, margen 11,5 % (+0,73 pp), margen EBITDA +11,5 % frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, caída de beneficio o margen. Rojo: ROIC 8,0 % y cobertura de intereses 2,4 veces en la parte baja de su historia, dividendo por acción −28 % y sin cubrir por el FCL recurrente. Ventas −5,4 % (−1,5 % a tipo constante) con el margen EBITDA subiendo al 11,5 %.",
+   "resumen": "Ingresos -5,4 %, EBITDA +1,0 %, beneficio neto -19,1 %, margen 11,5 % (+0,73 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,5 %. Ámbar por: ingresos a la baja, caída de beneficio o margen. Rojo: ROIC 8,0 % y cobertura de intereses 2,4 veces en la parte baja de su historia, dividendo por acción −28 % y sin cubrir por el FCL recurrente. Ventas −5,4 % (−1,5 % a tipo constante) con el margen EBITDA subiendo al 11,5 %.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -1447,7 +1447,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -5,0 %, EBITDA +1,0 %, beneficio neto +81,5 %, margen 10,7 % (+0,63 pp), margen EBITDA +10,7 % frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, margen EBITDA por debajo del umbral. Ámbar: ingresos −5,0 % (divisa), EBITDA +1,0 %, margen 10,7 %, beneficio +81 %. Señal única por debajo del 11 %.",
+   "resumen": "Ingresos -5,0 %, EBITDA +1,0 %, beneficio neto +81,5 %, margen 10,7 % (+0,63 pp) frente al mismo periodo del año anterior. Margen EBITDA: 10,7 %. Ámbar por: ingresos a la baja, margen EBITDA por debajo del umbral. Ámbar: ingresos −5,0 % (divisa), EBITDA +1,0 %, margen 10,7 %, beneficio +81 %. Señal única por debajo del 11 %.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -1501,7 +1501,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -0,9 %, EBITDA -0,2 %, beneficio neto +46,7 %, margen 11,0 % (+0,08 pp), margen EBITDA +11,1 % frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja. Ámbar: ingresos −0,9 %, EBITDA −0,2 %, margen 11,05 %, beneficio +47 % por diferencias de cambio y gastos financieros puntuales. Deuda neta 1.771 M€ (−17 %). Revisado en este análisis inicial: la tesis sigue en pie (MANTENER).",
+   "resumen": "Ingresos -0,9 %, EBITDA -0,2 %, beneficio neto +46,7 %, margen 11,0 % (+0,08 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,1 %. Ámbar por: ingresos a la baja, EBITDA a la baja. Ámbar: ingresos −0,9 %, EBITDA −0,2 %, margen 11,05 %, beneficio +47 % por diferencias de cambio y gastos financieros puntuales. Deuda neta 1.771 M€ (−17 %). Revisado en este análisis inicial: la tesis sigue en pie (MANTENER).",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -1555,7 +1555,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -0,6 %, EBITDA +1,2 %, beneficio neto +35,6 %, margen 11,1 % (+0,20 pp), margen EBITDA +11,1 % frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. **Qué ha pasado** — En los 9M-2026 Gestamp factura 8.432 M€ (−0,6 %), con un EBITDA de 936 M€ (+1,2 %) y un margen del 11,1 % (+0,2 pp; 11,3 % sin el Plan Phoenix). El beneficio neto sube a 141 M€ (+35,6 %) y la deuda neta baja a 1.908 M€ (−9,4 %), 1,4x EBITDA frente a 1,6x hace un año. Norteamérica sube su margen EBITDA al 8,7 % (7,2 %) y al 10,5 % solo en el tercer trimestre.\n\n**Por qué** — Los ingresos caen por las divisas: la nota de prensa habla de «un leve descenso interanual del 0,6% … condicionado por el impacto del comportamiento de las divisas». El salto del beneficio es en parte de comparación: 2025 sufrió «el fuerte impacto de la evolución desfavorable de la divisa» y hay «ciertos efectos no recurrentes». El EBIT de los nueve meses baja un 4,3 % (381,8 frente a 398,8 M€) porque las amortizaciones suben un 5,3 % por los activos que entraron en servicio en el primer semestre; en el tercer trimestre el EBIT ya sube (+3,5 %).\n\n**Semáforo** — Verde bien puesto: solo los ingresos van a la baja, por divisa, y el margen y la deuda mejoran.\n\n**Qué vigilar** — El objetivo de 2026 es un margen EBITDA superior al 11,7 %; a septiembre va en 11,1 % (11,3 % sin Phoenix), así que el cuarto trimestre tiene que ser fuerte. Norteamérica a doble dígito (catalizador de la tesis): 10,5 % en el 3T, 8,7 % acumulado. La deuda (1.908 M€) aún está lejos de los 1.700 M€ de la tesis.\n\n**Lectura** — Aprobar. No toca la tesis: los dos catalizadores (Norteamérica y deuda) avanzan.",
+   "resumen": "Ingresos -0,6 %, EBITDA +1,2 %, beneficio neto +35,6 %, margen 11,1 % (+0,20 pp) frente al mismo periodo del año anterior. Margen EBITDA: 11,1 %. Verde: solo ingresos a la baja, sin más señales. **Qué ha pasado** — En los 9M-2026 Gestamp factura 8.432 M€ (−0,6 %), con un EBITDA de 936 M€ (+1,2 %) y un margen del 11,1 % (+0,2 pp; 11,3 % sin el Plan Phoenix). El beneficio neto sube a 141 M€ (+35,6 %) y la deuda neta baja a 1.908 M€ (−9,4 %), 1,4x EBITDA frente a 1,6x hace un año. Norteamérica sube su margen EBITDA al 8,7 % (7,2 %) y al 10,5 % solo en el tercer trimestre.\n\n**Por qué** — Los ingresos caen por las divisas: la nota de prensa habla de «un leve descenso interanual del 0,6% … condicionado por el impacto del comportamiento de las divisas». El salto del beneficio es en parte de comparación: 2025 sufrió «el fuerte impacto de la evolución desfavorable de la divisa» y hay «ciertos efectos no recurrentes». El EBIT de los nueve meses baja un 4,3 % (381,8 frente a 398,8 M€) porque las amortizaciones suben un 5,3 % por los activos que entraron en servicio en el primer semestre; en el tercer trimestre el EBIT ya sube (+3,5 %).\n\n**Semáforo** — Verde bien puesto: solo los ingresos van a la baja, por divisa, y el margen y la deuda mejoran.\n\n**Qué vigilar** — El objetivo de 2026 es un margen EBITDA superior al 11,7 %; a septiembre va en 11,1 % (11,3 % sin Phoenix), así que el cuarto trimestre tiene que ser fuerte. Norteamérica a doble dígito (catalizador de la tesis): 10,5 % en el 3T, 8,7 % acumulado. La deuda (1.908 M€) aún está lejos de los 1.700 M€ de la tesis.\n\n**Lectura** — Aprobar. No toca la tesis: los dos catalizadores (Norteamérica y deuda) avanzan.",
    "metricas": [
     {
      "nombre": "Ingresos",
