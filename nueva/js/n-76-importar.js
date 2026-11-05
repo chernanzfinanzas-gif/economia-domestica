@@ -394,7 +394,10 @@
     var K=function(m){ return m.fecha+'|'+m.tipo+'|'+(+m.part).toFixed(6); }, ops={}, val=null, saldo=null;
     var G=(DB.easyExtracto&&DB.easyExtracto.movs)||[];
     G.concat(X.fmovs).forEach(function(m){ if(m.tipo==='saldo'){ if(X.fmovs.indexOf(m)>=0&&(!saldo||m.fecha<saldo.fecha)) saldo=m; return; }
-      if(m.tipo==='valoracion'){ if(!val||m.fecha>val.fecha) val=m; return; } ops[K(m)]=m; });
+      /* 5-nov-2026 (Carlos: «he subido este extracto pero la info de Foncuenta no se refleja»): dos extractos del MISMO día traen
+         dos valoraciones con la misma fecha y distintas participaciones (el de por la mañana aún sin la suscripción del 04/11).
+         Se quedaba la guardada (la vieja) y no cuadraba. Con la misma fecha manda la del extracto nuevo. */
+      if(m.tipo==='valoracion'){ if(!val||m.fecha>val.fecha||(m.fecha===val.fecha&&X.fmovs.indexOf(m)>=0)) val=m; return; } ops[K(m)]=m; });
     var L=Object.keys(ops).map(function(k){ return ops[k]; }).sort(function(a,b){ return a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0; });
     if(!val) return {ok:false,msg:'el extracto del fondo no trae la valoración'};
     var pt=0; L.forEach(function(m){ if(m.fecha<=val.fecha) pt+=(m.tipo==='suscripcion'?1:-1)*m.part; });
