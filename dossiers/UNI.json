@@ -5,7 +5,7 @@
  "ticker": "UNI",
  "empresa": "Unicaja Banco, S.A.",
  "fecha": "2026-10-25",
- "revisadoEl": "2026-10-25",
+ "revisadoEl": "2026-10-30",
  "rating": "A",
  "score": 70.1,
  "decision": "ESPERAR",
@@ -62,12 +62,12 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 11.96,
+  "gImplicito": 11.92,
   "gIntrinseco": null,
   "veredicto": "EXIGENTE",
-  "motivo": "EXIGENTE (exige un RoTE de 12.7 %, hasta 3 pp por encima del último, 9.8 %)",
+  "motivo": "EXIGENTE (exige un RoTE de 12.8 %, hasta 3 pp por encima del último, 9.8 %)",
   "calculadoEl": "2026-11-05",
   "origen": "metodo-v3",
-  "roteImplicito": 12.69
+  "roteImplicito": 12.76
  }
 }
