@@ -110,11 +110,18 @@
   /* Con el extracto de patrimonio de R4: efectivo y fondo exactos a su fecha; cada apunte de la caja contra su línea de R4 */
   function conExtracto(C,X,fl,hoy){
     var vlX=X.fondo.valor/X.fondo.part, S=C.S.filter(function(x){ return x[0]<X.fecha; }).concat([[X.fecha,vlX]]);
-    var neto=0; (X.cash||[]).forEach(function(l){ if(!(l.fecha>P.fecha)) return; var c=l.concepto.toUpperCase(); if(/^COMPRA DE RENTA 4 FONCUENTA/.test(c)) neto-=l.imp; else if(/^VENTA DE RENTA 4 FONCUENTA/.test(c)) neto-=l.imp; });
+    var neto=0, compF=[]; (X.cash||[]).forEach(function(l){ if(!(l.fecha>P.fecha)) return; var c=l.concepto.toUpperCase(); if(/^COMPRA DE RENTA 4 FONCUENTA/.test(c)){ neto-=l.imp; compF.push(l); } else if(/^VENTA DE RENTA 4 FONCUENTA/.test(c)) neto-=l.imp; });
     var ef=(X.anotado||0)+(X.pendiente||0), part=X.fondo.part, despues=0;
     fl.forEach(function(x){ if(x.fecha>X.fecha){ var v=vlEst(S,x.fecha); if(v){ part+=x.imp/v; despues+=x.imp; } } });
     var vl=vlEst(S,hoy), fondo=part*vl;
-    C.S=S; C.ef=ef; C.fondo=fondo; C.total=ef+fondo; C.vl=vl; C.interes=fondo-P.fondo-neto-despues; C.X=X; C.lastE=X.fecha; C.fuente='R4';
+    /* [5-nov-2026 · Carlos: «aquí hay un error en la caja bróker»] R4 saca el dinero del efectivo el día que compra Foncuenta, pero las
+       participaciones tardan en aparecer en la hoja del fondo (Carlos 5-nov 10:07: «una orden de compra nueva con el efectivo que había en la
+       cuenta»; la web de R4 lo marca «Traspasos internos en vuelo»): ese dinero no estaba en ningún sitio y salía como «intereses» de −1.208,91 €.
+       Un monetario no pierde más de 1 € en unos días: si el cálculo da eso, las compras de fondo de los últimos días hábiles que lo
+       explican se cuentan «en camino al fondo» (de la más reciente hacia atrás). Cuando el extracto ya las muestre, esto deja de actuar solo. */
+    var transito=0, transL=[], int0=fondo-P.fondo-neto-despues;
+    if(int0<-1){ compF.slice().sort(function(a,b){ return a.fecha<b.fecha?1:-1; }).forEach(function(l){ if(int0+transito>=-1) return; if(dias(l.fecha,X.fecha)>5) return; transito+=-l.imp; transL.push(l); }); }
+    C.S=S; C.ef=ef; C.fondo=fondo; C.transito=transito; C.transL=transL; C.total=ef+fondo+transito; C.vl=vl; C.interes=int0+transito; C.X=X; C.lastE=X.fecha; C.fuente='R4';
     var H=nR4Hechos(X,P.fecha), usado={};
     var TIPO={regla:'fija','Movimientos':'custodia',dividendo:'div'};
     C.filas=fl.map(function(x){
@@ -145,7 +152,7 @@
     var pe=PR.reduce(function(s,x){ return s+x.imp; },0), pin=PR.filter(function(x){ return x.imp>0; }).reduce(function(s,x){ return s+x.imp; },0), pout=pe-pin;
     var anual=null; if(C.S.length>1){ var a=C.S[0], b=C.S[C.S.length-1]; var lo=C.S.filter(function(x){ return dias(x[0],b[0])<=60; })[0]||a; if(lo[0]!==b[0]) anual=(Math.pow(b[1]/lo[1],365/dias(lo[0],b[0]))-1)*100; }
     k.innerHTML='<div class="n-ctrl">'+
-      nKpi({c:'#1F4A9A',bg:'#EAF1FD',ic:'💶',t:'Disponible hoy',v:C.total!=null?E(C.total):'—',s:'efectivo <b>'+E(C.ef)+'</b> + Foncuenta <b>'+(C.fondo!=null?E(C.fondo):'—')+'</b>',p:C.fuente==='R4'?('exacto a '+fd(C.lastE)+' según el extracto de R4'+(C.lastE<C.hoy?'; desde entonces, estimado':'')):(C.lastE?('fondo estimado desde el extracto del '+fd(C.lastE)):'sin extracto del fondo')})+
+      nKpi({c:'#1F4A9A',bg:'#EAF1FD',ic:'💶',t:'Disponible hoy',v:C.total!=null?E(C.total):'—',s:'efectivo <b>'+E(C.ef)+'</b> + Foncuenta <b>'+(C.fondo!=null?E(C.fondo):'—')+'</b>'+(C.transito?' + en camino al fondo <b>'+E(C.transito)+'</b>':''),p:C.fuente==='R4'?('exacto a '+fd(C.lastE)+' según el extracto de R4'+(C.lastE<C.hoy?'; desde entonces, estimado':'')):(C.lastE?('fondo estimado desde el extracto del '+fd(C.lastE)):'sin extracto del fondo')})+
       nKpi({c:'#16A34A',bg:'#DCFCE7',ic:'🌱',t:'Intereses del fondo',v:C.interes!=null?((C.interes>=0?'+':'')+E(C.interes)):'—',vCls:'n-pos',s:'desde el 28/10'+(anual!=null?' · al '+anual.toFixed(2).replace('.',',')+' % anual':'')})+
       nKpi({c:'#D97706',bg:'#FEF3C7',ic:'⏳',t:'Pendiente de traspasar',v:E(C.pendT),s:C.pend.length?C.pend.map(function(x){ return x.tk+' '+E(x.imp); }).join(' · '):'dividendos y ventas cobrados fuera de R4 (otros brókers y la Compartida) desde el 28/10'})+
       nKpi({c:'#7C3AED',bg:'#EDE9FE',ic:'📅',t:'Próximos 30 días',v:(pe>=0?'+':'')+E(pe),vCls:pe>=0?'n-pos':'n-neg',s:'entra <b>'+E(pin)+'</b> · sale <b>'+E(-pout)+'</b>'})+'</div>';
@@ -162,6 +169,7 @@
       ((C.sueltosR4||[]).map(function(h){ return row(h.fecha,h.txt+(h.tipo==='puntual'?' (¿transferencia puntual?)':''),h.imp,h.tipo==='retfondo'?'en R4 · coste fiscal, se recupera':(h.tipo==='pendiente'?'en R4 · pendiente de anotar':'en R4, falta en la app'),h.tipo==='retfondo'||h.tipo==='pendiente'?'#64748B':'#B91C1C',''); }).join(''))+
       (C.interes!=null?row(C.hoy,'Intereses del fondo hasta hoy'+(C.lastE&&C.lastE<C.hoy?' (estimado desde el '+fd(C.lastE)+')':''),C.interes,'','#475569',''):'')+
       '</tbody></table>'+
+      (C.transito?'<div class="n-r4note" style="margin-top:8px">⏳ <b>En camino al Foncuenta: '+E(C.transito)+'</b>. R4 lo sacó del efectivo el '+C.transL.map(function(l){ return fd(l.fecha); }).join(' y el ')+' con una orden de compra de fondo («traspaso interno en vuelo» en la web de R4), pero el extracto aún no lo muestra dentro del Plan Easy. Sigue siendo tuyo y ya está sumado en «Disponible hoy»; con el próximo extracto aparecerá en el Foncuenta y esta línea desaparece sola.</div>':'')+
       (C.acc&&C.acc.length?'<div class="n-r4sub">Tus acciones en R4 frente a la app (cartera Propia)</div><table class="n-r4t"><thead><tr><th>Empresa</th><th class="num">R4</th><th class="num">App</th><th>Cotejo</th></tr></thead><tbody>'+C.acc.map(function(a){ return '<tr><td>'+a.nombre+(a.tk?' <span class="n-org">'+a.tk+'</span>':'')+'</td><td class="num">'+a.r4+'</td><td class="num">'+(a.app==null?'—':a.app)+'</td><td style="color:'+a.st[1]+'">'+a.st[0]+'</td></tr>'; }).join('')+'</tbody></table>':'')+
       (C.prev.length?'<div class="n-r4sub">Próximos 30 días</div><table class="n-r4t"><tbody>'+C.prev.map(function(x){ return row(x.fecha,x.txt,x.imp,'previsto','#64748B',''); }).join('')+'</tbody></table>':'');
     b.innerHTML='<div class="pos-blk-h" data-nr4blk="1"><span class="arw">▶</span><span class="bt">🏦 Cuenta del bróker R4 · cálculo nuevo</span><span class="bsum">'+(C.filas.length+C.sueltos.length)+' apuntes desde el 28/10 · '+(C.fuente==='R4'?'extracto de R4 al '+fd(C.lastE):(C.lastE?'extracto del fondo al '+fd(C.lastE):'sin extracto'))+'</span></div><div class="pos-blk-b"><div class="blk-pad">'+h+'</div></div>';

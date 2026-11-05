@@ -22,7 +22,9 @@
     if(hdr&&cf) out.fondoIni={fecha:iso(hdr[2]),valor:n(cf[2])||0};
     var C=filas(wb,'Saldo en Divisa');
     C.forEach(function(r){ var f=iso(r[0]); if(f&&String(r[1]||'').trim()) out.cash.push({fecha:f,concepto:String(r[1]).trim(),imp:n(r[2]),saldo:n(r[3])}); if(String(r[1]||'').trim()==='SALDO FINAL') out.saldoFinal=n(r[3]); });
-    filas(wb,'Fondos Inv.').forEach(function(r){ if(/FONCUENTA/i.test(String(r[0]||''))) out.fondo={nombre:String(r[0]).trim(),part:n(r[1]),valor:n(r[2]),resultado:n(r[3])}; });
+    /* 5-nov-2026: R4 puede tener Foncuenta en dos sitios (Plan Easy y «Fondos de Inversión» aparte): se suman todas las líneas */
+    filas(wb,'Fondos Inv.').forEach(function(r){ if(!/FONCUENTA/i.test(String(r[0]||''))) return; var f={nombre:String(r[0]).trim(),part:n(r[1]),valor:n(r[2]),resultado:n(r[3])};
+      out.fondos=(out.fondos||[]).concat([f]); if(!out.fondo) out.fondo=f; else out.fondo={nombre:out.fondo.nombre,part:(out.fondo.part||0)+(f.part||0),valor:(out.fondo.valor||0)+(f.valor||0),resultado:(out.fondo.resultado||0)+(f.resultado||0)}; });
     filas(wb,'Bolsa Nac.').forEach(function(r){ var v=String(r[0]||'').trim(); if(!v||v==='VALOR'||v==='TOTAL'||v==='CARLOS HERNANZ BLAZQUEZ') return; var t=n(r[1]); if(t!=null&&typeof r[1]==='number') out.acciones.push({nombre:v,titulos:t,valor:n(r[2])}); });
     if(!out.fecha||!out.fondo||!out.cash.length) throw new Error('no parece un extracto de patrimonio de Renta 4 (faltan las hojas de efectivo o de fondos)');
     if(out.anotado==null) out.anotado=out.saldoFinal; if(out.pendiente==null) out.pendiente=0;
