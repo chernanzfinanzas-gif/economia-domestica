@@ -100,7 +100,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -4.55,
+  "gImplicito": -4.74,
   "gIntrinseco": 5.3,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
@@ -114,9 +114,9 @@
    "acciones": 45.4548,
    "deudaNeta": -65.847,
    "modo": "EV",
-   "precioBase": 10.05,
-   "gBase": -4.55,
-   "fechaBase": "2026-11-04",
+   "precioBase": 9.94,
+   "gBase": -4.74,
+   "fechaBase": "2026-11-05",
    "congeladoEl": "2026-11-05",
    "validado": true,
    "desviacion": 0.0

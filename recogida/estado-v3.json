@@ -1,16 +1,49 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-05T16:45",
+ "generado": "2026-11-05T19:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "MCM señales 2026-11-05",
+   "ticker": "MCM",
+   "periodos": [],
+   "tipo": "senales",
+   "creada": "2026-11-05T18:38",
+   "semaforo": null,
+   "frase": "EXT · REBAJA propuesta. Deterioro que deja de parecer puntual: cuatro periodos seguidos en rojo y el tercer trimestre peor que el primer semestre; la empresa espera «una presión mayor» de la energía en el 4T. El primer catalizador de la tes",
+   "senales": [
+    {
+     "senal": "EXT",
+     "motivo": "Carlos en el chat 05-11-2026: Carlos pide revisión extraordinaria tras los 9M-2026: cuarto rojo seguido; EBITDA 9M 47,4 M€ (−18,6 %), 3T solo 12,4 M€ frente a 17,7 M€ (−30 %); margen 20,6 % (−3,6 pp). Fuente: Declaración intermedia 3T-2026 (CNMV 43506, 5-nov).",
+     "desde": "2026-11-05",
+     "origen": "Carlos en el chat 05-11-2026"
+    }
+   ],
+   "propuesta": [
+    {
+     "senal": "EXT",
+     "decision": "REBAJA",
+     "motivo": "Deterioro que deja de parecer puntual: cuatro periodos seguidos en rojo y el tercer trimestre peor que el primer semestre; la empresa espera «una presión mayor» de la energía en el 4T. El primer catalizador de la tesis (EBITDA 2026 por encima de 80 M€) pediría 32,6 M€ en el 4T con 47,4 M€ en nueve meses. La decisión COMPRAR sale de la cotización (9,94 € frente a un PO bear de 11,33 €), pero ese PO no recoge aún este 9M: propongo REBAJA (COMPRAR → MANTENER) hasta rehacer valoración y tesis; si prefieres rehacer ya la valoración, AJUSTA PO. Stop 8,18 €. Propuesta de Carlos en el chat 05-11-2026 (método v3)."
+    }
+   ],
+   "datos": [
+    "Decisión vigente de la tesis: COMPRAR",
+    "Cotización 9,94 € · PO bear 11,33 € · PO 13,55 € · PO bull 16,56 € · -26,6 % sobre el PO",
+    "Banda de entrada 11,33–11,78 € · stop 8,18 €",
+    "Semáforo de empresa: ROJO · revisado hasta 2026-9M",
+    "Tesis escrita el 2026-10-27 · valoración generada el 2026-11-05"
+   ]
+  }
+ ],
+ "n_pendientes": 1,
  "ultima_subida": {
-  "cuando": "2026-11-05T14:45",
+  "cuando": "2026-11-05T19:45",
   "ficheros": [
-   "dossiers/ACS.html",
-   "dossiers/trimestral/ACS-trim.json",
-   "dossiers/v3/ACS.html",
-   "fichas/ACS.json",
+   "dossiers/MCM.html",
+   "dossiers/MCM.json",
+   "dossiers/trimestral/MCM-trim.json",
+   "dossiers/v3/MCM.html",
+   "fichas/MCM.json",
    "fichas/_resumen.json"
   ]
  },
@@ -304,6 +337,18 @@
    "resuelto": "2026-11-05T13:51",
    "como": "Las 11 cuentas de 1T y 9M de ACS (2021-2026) leídas a mano en sus documentos y guardadas con su fuente. Lo guardado estaba bien en 2026 (232 es el beneficio neto; 239 es el «operativo»). Completados los huecos de 2021-2025; 2024-3M ahora compara contra el 1T-2023 reexpresado que usa ACS. Ningún semáforo cambia.",
    "comprobado": "2026-11-05T16:19"
+  },
+  {
+   "id": "P372479c6",
+   "creado": "2026-11-05T18:55",
+   "origen": "pase de novedades",
+   "ticker": "",
+   "que": "Error en el pase de novedades",
+   "detalle": "MCM trimestral: SystemExit:                     ^^^^^^^^^^^^^^^^^^^^^\n    ...<4 lines>...\n                             cwd,\n                             ^^^^\n                             startupinfo)\n                             ^^^^^^^^^^^^\nFileNotFoundError: [WinError 2] El sistema no puede encontrar el archivo especificado\n",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
   }
  ],
  "decisiones": "recogida/decisiones-v3.json"

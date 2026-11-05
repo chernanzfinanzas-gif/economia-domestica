@@ -1167,6 +1167,56 @@
     }
    ],
    "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Cifra de negocios -4,5 %, EBITDA -18,6 %, BDI -29,4 %, margen 20,6 % (-3,57 pp), ventas de tabaco -4,1 M€ frente al mismo periodo del año anterior. Rojo por: cifra de negocios a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen, ventas de tabaco por debajo del umbral. **Qué ha pasado** — En los 9M-2026 Miquel y Costas vende 230,2 M€ (−4,5 %). El EBITDA baja a 47,4 M€ (−18,6 %), el beneficio antes de impuestos a 31,8 M€ (−30,5 %) y el beneficio después de impuestos a 24,6 M€ (−29,4 %). Margen EBITDA 20,6 % (−3,6 puntos). Sigue con caja neta: 64,5 M€ (65,8 M€ en diciembre).\n\n**Por qué** — Según la empresa, sobre todo por la energía: la tensión en el estrecho de Ormuz ha llevado el gas y la electricidad a niveles «comparables» a los de la guerra de Ucrania y no ha podido trasladarlo a precios. Además, menos ventas: tabaco −4,1 M€ (mix peor y menos volumen), industriales −3,9 M€, «otros» −2,9 M€. El resultado de tabaco cae 10,4 M€; el de industriales solo 1,4 M€, gracias a la máquina reformada de MB.\n\n**Semáforo** — Rojo bien puesto, y es el cuarto periodo seguido en rojo (2025, 1T, S1 y ahora 9M). Abre la señal S2: toca revisión extraordinaria (Bloques 8 y 9).\n\n**Qué vigilar** — La empresa espera «una presión mayor» de la energía en el cuarto trimestre y no prevé cambios en el entorno. Ha empezado a aplicar nuevas políticas comerciales y medidas de eficiencia, mantiene la política de dividendos y el plan de inversiones, y prepara el Plan 2027-2029 «para la recuperación progresiva de los márgenes». Las NOF suben 19,1 M€ en el año. Ojo al comparar por acción: el 28-oct se inscribió una ampliación liberada que lleva el capital a 45 millones de acciones (antes 37,5 millones).\n\n**Lectura** — Las cifras están bien leídas (comprobadas una a una con el documento). Aprobar la revisión registra el periodo; el rojo repetido es lo que pide la revisión extraordinaria de la tesis, que es decisión tuya.",
+   "metricas": [
+    {
+     "nombre": "Cifra de negocios",
+     "valor": 230.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 47.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 20.6
+    },
+    {
+     "nombre": "BAI",
+     "valor": 31.8
+    },
+    {
+     "nombre": "BDI",
+     "valor": 24.6
+    },
+    {
+     "nombre": "CFDI",
+     "valor": 41.5
+    },
+    {
+     "nombre": "Posición financiera neta (caja)",
+     "valor": 64.5
+    },
+    {
+     "nombre": "Capital empleado",
+     "valor": 351.0
+    },
+    {
+     "nombre": "Ventas de tabaco: variación (M€)",
+     "valor": -4.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
   }
  ]
 }
