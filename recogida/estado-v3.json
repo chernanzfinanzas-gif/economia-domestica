@@ -1,11 +1,11 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-06T15:45",
+ "generado": "2026-11-06T16:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-06T15:45",
+  "cuando": "2026-11-06T16:45",
   "ficheros": [
    "dossiers/LOG.html",
    "fichas/LOG.json",
@@ -541,6 +541,18 @@
    "estado": "abierto",
    "resuelto": null,
    "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "Pf2bf9cc1",
+   "creado": "2026-11-06T16:23",
+   "origen": "GitHub Actions",
+   "ticker": "",
+   "que": "Informe del universo falla desde el 6-nov 08:55: la recogida subió universo/base.json vacío (ticker en blanco por la ruta de Windows en exportar_universo_repo.py)",
+   "detalle": "",
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T16:39",
+   "como": "Corregido exportar_universo_repo.py (ruta de Windows) y con freno si sale vacío; base.json rehecho (128 empresas) y publicado por Carlos a las 16:27; el informe del universo se generó bien a las 16:27 (comprobado en el repo).",
    "comprobado": null
   }
  ],
