@@ -23,6 +23,12 @@
     var viejo=datos&&j.escrito&&String(datos)>String(j.escrito).slice(0,4);
     return '<div class="nf-nota"><span>Nota del analista · '+fe(j.escrito)+'</span>'+esc(j.veredicto_texto)+(viejo?'<em>Nota escrita antes de los datos de '+esc(datos)+': pendiente de revisar.</em>':'')+'</div>'; }
   /* markdown sencillo para el perfil corporativo */
+  /* 6-nov-2026 (Carlos: «formato más fácil de leer» para las notas del analista): cada apartado («### Título» o «**Qué ha pasado** —»)
+     empieza en su propio párrafo, y se pinta con md() (títulos, negritas, listas, tablas) */
+  function notaMd(t){
+    t=String(t||'').replace(/\s*(#{2,6} )/g,'\n\n$1').replace(/(#{2,6} [^\n]*?\))\s+/g,'$1\n\n').replace(/([.)»!?])\s+(\*\*[^*\n]{2,70}\*\*\s*[—.:])/g,'$1\n\n$2');
+    return md(t);
+  }
   function md(t){
     var L=String(t||'').split('\n'), h='', inT=false, inL=false, par=false;
     function inl(s){ return esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<i>$1</i>').replace(/`(.+?)`/g,'<code>$1</code>'); }
@@ -309,7 +315,7 @@
     var ord=function(k){ var y=+k.slice(0,4), p=k.slice(5); return y*10+({'3M':1,'S1':2,'9M':3}[p]||4); };
     var ks=Object.keys(H).sort(function(a,b){ return ord(b)-ord(a); }).slice(0,8);
     var bo=function(x){ return esc(x||'').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>'); };
-    if(ks.length) h+=card('Notas del analista de cada periodo','las 8 últimas',ks.map(function(k){ var x=H[k], c={V:'#16A34A',A:'#F59E0B',R:'#DC2626'}[x.semaforo]||'#94A3B8'; return '<div class="nf-np" style="border-left-color:'+c+'"><b>'+esc(k)+'</b> '+bo(x.texto)+(NP[k]?'<div class="nf-mu">'+bo(NP[k])+'</div>':'')+(x.correccion?'<div class="nf-mu">✎ '+bo(x.correccion)+'</div>':'')+'</div>'; }).join(''));
+    if(ks.length) h+=card('Notas del analista de cada periodo','las 8 últimas',ks.map(function(k){ var x=H[k], c={V:'#16A34A',A:'#F59E0B',R:'#DC2626'}[x.semaforo]||'#94A3B8'; return '<div class="nf-np" style="border-left-color:'+c+'"><b>'+esc(k)+'</b> '+bo(x.texto)+(NP[k]?'<div class="nf-mu nf-nota">'+notaMd(NP[k])+'</div>':'')+(x.correccion?'<div class="nf-mu">✎ '+bo(x.correccion)+'</div>':'')+'</div>'; }).join(''));
     var sen=(V.senales||[]).concat(V.senales_cerradas||[]), dec=(window._nDecV3||{})[t]||[];
     if(sen.length||dec.length) h+=card('Señales y decisiones','',(sen.length?'<div class="nf-tw"><table class="nf-t"><tr><th>Señal</th><th>Estado</th><th>Motivo</th></tr>'+sen.map(function(s){ return '<tr><td><b>'+esc(s.senal)+'</b></td><td>'+esc(s.estado||(s.hasta?'cerrada el '+fe(s.hasta):''))+'</td><td>'+esc(s.motivo||'')+'</td></tr>'; }).join('')+'</table></div>':'')+
       (dec.length?'<h3>Tus decisiones</h3>'+dec.slice().reverse().map(function(d){ return '<div class="nf-np" style="border-left-color:#7C3AED"><b>'+esc(d.fecha)+' · '+esc(d.senal)+' · '+esc(d.decision)+'</b> '+esc(d.motivo||'')+'</div>'; }).join(''):''));
