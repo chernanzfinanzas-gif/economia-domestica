@@ -1,9 +1,43 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-05T22:45",
+ "generado": "2026-11-06T09:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "AMS 2026-9M",
+   "ticker": "AMS",
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-11-06T08:20",
+   "semaforo": "V",
+   "frase": "Qué ha pasado — En los 9M-2026 Amadeus ingresa 5.075,7 M€ (+3,7 %; +5,2 % a tipos de cambio constantes). EBITDA 2.028,3 M€ (+5,2 %), beneficio de explotación 1.450,0 M€ (+2,1 %; el EBIT ajustado, 1.546,6 M€, sube un 5,2 %) y beneficio atrib"
+  },
+  {
+   "carpeta": "LOG 2026",
+   "ticker": "LOG",
+   "periodos": [
+    "2026"
+   ],
+   "tipo": "pase",
+   "creada": "2026-11-06T08:57",
+   "semaforo": "V",
+   "frase": "Qué ha pasado — Ejercicio fiscal 2026 (oct-25 a sep-26): ingresos 13.837 M€ (+2,2 %), ventas económicas 1.840 M€ (+1,7 %), EBIT ajustado 391 M€ (+3,3 %), margen sobre ventas económicas 21,2 % (+33 p.b.), EBIT 317 M€ (−0,4 %) y beneficio net"
+  },
+  {
+   "carpeta": "LOG 2026 anual",
+   "ticker": "LOG",
+   "periodos": [
+    "2026"
+   ],
+   "tipo": "anual",
+   "creada": "2026-11-06T08:31",
+   "semaforo": "V",
+   "frase": null
+  }
+ ],
+ "n_pendientes": 3,
  "ultima_subida": {
   "cuando": "2026-11-05T21:47",
   "ficheros": [
@@ -397,6 +431,138 @@
    "estado": "resuelto",
    "resuelto": "2026-11-05T20:09",
    "como": "Falsa alarma de mi primera prueba (buscaba el nombre de la empresa en la página 1 y está en la 2). Corregida; si en el PC falla de verdad, se apuntará de nuevo.",
+   "comprobado": null
+  },
+  {
+   "id": "P8760e3a2",
+   "creado": "2026-11-06T08:58",
+   "origen": "pase de novedades",
+   "ticker": "",
+   "que": "Error en el pase de novedades",
+   "detalle": "LOG anual: SystemExit: pct.py\", line 29, in <module>\n    json.dump({y:{k:v for k,v in r.items()} for y,r in out.items()},open('/tmp/volpct.json','w'))\n                                                                    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/volpct.json'\n",
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T09:23",
+   "como": "leer_volumenes_pct.py escribía en /tmp (no existe en Windows). Ahora usa la carpeta temporal del sistema; también corregido leer_magnitudes_trimestrales.py, el otro con /tmp fijo.",
+   "comprobado": null
+  },
+  {
+   "id": "P34a5ce36",
+   "creado": "2026-11-06T09:01",
+   "origen": "pase de novedades",
+   "ticker": "",
+   "que": "Error en el pase de novedades",
+   "detalle": "LOG anual: FileNotFoundError: [Errno 2] No such file or directory: '/sessions/rcw-01hs37axsjnpbc1wswxht643/tmp/kh_anual_LOG_112gb0q1/datos/LOG/2026.json'",
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T09:23",
+   "como": "El IPP del 2.º semestre 2026 de Logista aún no está en la Biblioteca y sin él no se crea datos/LOG/2026.json. El pase anual ahora espera al IPP igual que al ESEF (lo dice y no hace nada) y, si el nivel base no crea el año, se para con un mensaje claro.",
+   "comprobado": null
+  },
+  {
+   "id": "P63748b98",
+   "creado": "2026-11-06T09:02",
+   "origen": "cruce con la nube",
+   "ticker": "LOG",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (06/11/2026 08:26)",
+   "detalle": "nº 43524: La sociedad remite el Informe Financiero Anual del ejercicio 2026",
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T09:23",
+   "como": "El aviso de Informe Financiero Anual no trae PDF: su contenido es el ESEF, que está en Anuales. El cruce ahora lo da por visto si está el ESEF de ese año.",
+   "comprobado": null
+  },
+  {
+   "id": "Pf0a31d3f",
+   "creado": "2026-11-06T09:02",
+   "origen": "cruce con la nube",
+   "ticker": "FDR",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (06/11/2026 08:14)",
+   "detalle": "nº 43521: Inscripción de escritura de reducción de capital social de Fluidra, S.A. en el Registro Mercantil de Barcelona",
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T09:23",
+   "como": "La CNMV lo publicó sin PDF y comunicaciones_cnmv.py lo descartaba («no es un PDF»). Ahora guarda el contenido con su extensión real (HTML o ZIP) si es de esa comunicación. Se comprobará en la recogida de las 18:30.",
+   "comprobado": null
+  },
+  {
+   "id": "P16e21a46",
+   "creado": "2026-11-06T09:02",
+   "origen": "cruce con la nube",
+   "ticker": "ELE",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (06/11/2026 08:11)",
+   "detalle": "nº 43520: Inscripción en el Registro Mercantil de la reducción de capital",
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T09:23",
+   "como": "La CNMV lo publicó sin PDF y comunicaciones_cnmv.py lo descartaba («no es un PDF»). Ahora guarda el contenido con su extensión real (HTML o ZIP) si es de esa comunicación. Se comprobará en la recogida de las 18:30.",
+   "comprobado": null
+  },
+  {
+   "id": "Pdf618ada",
+   "creado": "2026-11-06T09:05",
+   "origen": "pase de novedades 06-11 08:55",
+   "ticker": "LOG",
+   "que": "El Informe Financiero Anual 2026 de Logista que hay en la Biblioteca es en realidad el de 2025 (copia idéntica)",
+   "detalle": "Resultados/2026-11-06 La sociedad remite el Informe Financiero Anual del ejercicio 2026.pdf tiene el mismo contenido byte a byte (md5 07d59b46…) que el de 2025; se bajó del listado de la CNMV (listadoifa.aspx), que devuelve el informe antiguo. El nº 43524 (registrado 06/11 08:26) sigue sin bajar. Gobierno/2026-04-06 reglamento del Consejo tiene el mismo tamaño (20.260.205 bytes): probablemente el mismo fallo. La revisión anual de LOG no debe usar este PDF.",
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T09:23",
+   "como": "PDF apartado a _diagnostico/apartados. El pase anual descarta además cualquier Informe Financiero Anual idéntico al de otro año y usa las cuentas ESEF (.xhtml). Queda para después corregir buscar_informes_cnmv.py.",
+   "comprobado": null
+  },
+  {
+   "id": "Pb8dba0a8",
+   "creado": "2026-11-06T09:05",
+   "origen": "pase de novedades 06-11 08:55",
+   "ticker": "AMS",
+   "que": "Amadeus 9M-2026: el lector deja vacía la deuda neta y toma el EBIT ajustado en vez del beneficio de explotación; nota sin escribir",
+   "detalle": "Informe de resultados ene-sep 2026 (… tercer trimestre de 2 (3).pdf): deuda financiera neta 2.536,7 M€ (línea 1196), el §10.2 la deja «—» (igual que en 2025-9M). EBIT: el lector coge EBIT ajustado 1.546,6 (línea 180); el beneficio de explotación es 1.450,0 (+2,1 %), y en 2026-3M ya se corrigió a mano por este motivo. Ingresos 5.075,7 y EBITDA 2.028,3 cuadran con el documento; beneficio 1.079,8 (línea 1402) frente a «Beneficio del periodo» 1.081,6 (línea 179): comprobar cuál es el atribuido.",
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T09:23",
+   "como": "Leído a mano en el documento y guardado con su fuente: beneficio de explotación 1.450,0/1.419,6, atribuible 1.082,5/1.088,2 y deuda neta 2.536,7. Revisión AMS 2026-9M rehecha, con nota.",
+   "comprobado": null
+  },
+  {
+   "id": "Pb64132e6",
+   "creado": "2026-11-06T09:06",
+   "origen": "pase de novedades 06-11 08:55",
+   "ticker": "",
+   "que": "La recogida de la nube dio por vacíos nueve números de la CNMV que sí tenían comunicación (Amadeus 9M, Logista resultados anuales, IAG 9M, Cox)",
+   "detalle": "CNMV-2026-11-06.json (pasada de las 8:40) dice que los OIR 43511 a 43519 están vacíos, pero la recogida del PC los bajó: 43511 Cox cambio de CEO (05/11 18:57), 43512-43514 Amadeus 9M (06/11 07:37-07:39), 43515-43516 Logista informe y presentación del ejercicio 2026 (07:53-07:57), 43517-43518 IAG 9M (07:58-08:00), 43519 Logista sostenibilidad (08:07). El cruce solo mira en un sentido (nube → PC), así que este fallo de la nube no lo detecta: hoy el PC ha cubierto a la nube.",
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T09:40",
+   "como": "No los dio por vacíos: la pasada de las 8:40 empezó en el 43520 y no leyó del 43511 al 43519, y su comprobación solo miraba dentro del día. Corregida la tarea de la nube (comprueba la continuidad con el día anterior, no adelanta el ancla y recupera esos nueve a las 18:40). Además, el cruce del PC avisa solo si la nube se salta números (aviso P4529c95e, que se cerrará cuando la nube los recupere).",
+   "comprobado": null
+  },
+  {
+   "id": "P4529c95e",
+   "creado": "2026-11-06T09:40",
+   "origen": "cruce con la nube",
+   "ticker": "",
+   "que": "La recogida de la nube se ha saltado 9 números de registro de la CNMV (otra-informacion-relevante: 43511-43519)",
+   "detalle": "Lo que haya en esos números no se ha cruzado con la recogida del PC.",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P106a51c0",
+   "creado": "2026-11-06T09:40",
+   "origen": "cruce con la nube",
+   "ticker": "FDR",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (06/11/2026 08:14)",
+   "detalle": "nº 43521: Inscripción de escritura de reducción de capital social de Fluidra, S.A. en el Registro Mercantil de Barcelona",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P0db34da5",
+   "creado": "2026-11-06T09:40",
+   "origen": "cruce con la nube",
+   "ticker": "ELE",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (06/11/2026 08:11)",
+   "detalle": "nº 43520: Inscripción en el Registro Mercantil de la reducción de capital",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
    "comprobado": null
   }
  ],
