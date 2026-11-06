@@ -3,7 +3,7 @@
  "ticker": "LOG",
  "empresa": "Logista Integral, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-05",
+ "generado": "2026-11-06",
  "revisiones": [
   {
    "periodo": "2016-Q1",
@@ -2156,6 +2156,60 @@
     {
      "nombre": "VE Francia",
      "valor": 154.0
+    },
+    {
+     "nombre": "Volumen tabaco Iberia",
+     "valor": -1.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2026",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas económicas +1,7 %, EBIT ajustado +3,4 %, beneficio neto +0,4 %, margen 21,2 % (+0,35 pp), volumen de tabaco en Iberia -1,3 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 13837.0
+    },
+    {
+     "nombre": "Ventas económicas",
+     "valor": 1840.0
+    },
+    {
+     "nombre": "EBIT ajustado",
+     "valor": 391.0
+    },
+    {
+     "nombre": "Margen sobre VE",
+     "valor": 21.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 317.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 282.0
+    },
+    {
+     "nombre": "VE Iberia",
+     "valor": 1183.0
+    },
+    {
+     "nombre": "VE Italia",
+     "valor": 457.0
+    },
+    {
+     "nombre": "VE Francia",
+     "valor": 207.0
     },
     {
      "nombre": "Volumen tabaco Iberia",
