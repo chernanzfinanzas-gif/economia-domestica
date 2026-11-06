@@ -3,7 +3,7 @@
  "ticker": "LDA",
  "empresa": "Linea Directa Aseguradora, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-05",
+ "generado": "2026-11-06",
  "revisiones": [
   {
    "periodo": "2022-Q4",
@@ -35,8 +35,8 @@
    "periodo": "2023-Q1",
    "periodoDisplay": "1T",
    "periodoV3": "2023-3M",
-   "fecha": "2023-04-21",
-   "fechaOrigen": "portada",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +5,3 %, resultado técnico -164,8 %, resultado neto -0,2 %, margen -6,8 % (-17,80 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): -6,8 pp. Ámbar por: resultado técnico a la baja, el margen empeora, caída de beneficio o margen, margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral.",
@@ -89,8 +89,8 @@
    "periodo": "2023-Q2",
    "periodoDisplay": "S1",
    "periodoV3": "2023-S1",
-   "fecha": "2023-07-21",
-   "fechaOrigen": "portada",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +3,6 %, resultado técnico -182,9 %, resultado neto +3,0 %, margen -7,9 % (-17,90 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): -9,2 pp. Ámbar por: resultado técnico a la baja, el margen empeora, caída de beneficio o margen, margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral.",
@@ -139,8 +139,8 @@
    "periodo": "2023-Q3",
    "periodoDisplay": "9M",
    "periodoV3": "2023-9M",
-   "fecha": "2023-10-27",
-   "fechaOrigen": "portada",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +3,0 %, resultado técnico -188,0 %, resultado neto -121,4 %, margen -6,0 % (-13,10 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): -6,6 pp. Rojo por: resultado técnico a la baja, el margen empeora, caída de beneficio o margen, margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral.",
@@ -186,64 +186,11 @@
    "origen": "metodo-v3"
   },
   {
-   "periodo": "2023-Q4",
-   "periodoDisplay": "FY",
-   "fecha": "2023-12-31",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "«2023 Q4 Resultados Línea Directa.pdf» no tiene capa de texto y su portada no imprime fecha (comprobado con OCR de las 12 primeras páginas): se usa el cierre del periodo. NO es una fecha de mercado.",
-   "semaforoGlobal": "R",
-   "tesisSigueIntacta": false,
-   "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el margen técnico de Autos está en -4.5 %, por debajo del corte rojo (5.0), y eso basta (regla del §10.1).",
-   "metricas": [
-    {
-     "nombre": "Primas emitidas (M€)",
-     "valor": 973.281
-    },
-    {
-     "nombre": "Resultado técnico (M€)",
-     "valor": -38.225
-    },
-    {
-     "nombre": "Rdo. inversiones (M€)",
-     "valor": 33.992
-    },
-    {
-     "nombre": "Resultado neto (M€)",
-     "valor": -4.39
-    },
-    {
-     "nombre": "Combinado Grupo (%)",
-     "valor": 104.1
-    },
-    {
-     "nombre": "Margen técn. Autos (100 − comb., %)",
-     "valor": -4.5
-    },
-    {
-     "nombre": "Combinado Salud (%)",
-     "valor": 158.2
-    },
-    {
-     "nombre": "Solvencia II (%)",
-     "valor": 180.0
-    },
-    {
-     "nombre": "Asegurados (miles)",
-     "valor": 3319
-    },
-    {
-     "nombre": "Asegurados Autos (miles)",
-     "valor": 2471
-    }
-   ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
-  },
-  {
    "periodo": "2024-Q1",
    "periodoDisplay": "1T",
    "periodoV3": "2024-3M",
-   "fecha": "2024-04-29",
-   "fechaOrigen": "portada",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +3,0 %, resultado técnico +140,4 %, resultado neto +291,1 %, margen 2,7 % (+9,50 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 3,5 pp. Verde: solo margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral, sin más señales.",
@@ -296,8 +243,8 @@
    "periodo": "2024-Q2",
    "periodoDisplay": "S1",
    "periodoV3": "2024-S1",
-   "fecha": "2024-07-24",
-   "fechaOrigen": "portada",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +2,4 %, resultado técnico +159,1 %, resultado neto +268,4 %, margen 4,5 % (+12,40 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 4,4 pp. Verde: solo margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral, sin más señales.",
@@ -350,8 +297,8 @@
    "periodo": "2024-Q3",
    "periodoDisplay": "9M",
    "periodoV3": "2024-9M",
-   "fecha": "2024-10-21",
-   "fechaOrigen": "portada",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +3,5 %, resultado técnico +178,7 %, resultado neto +426,3 %, margen 4,6 % (+10,60 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 4,5 pp. Verde: solo margen técnico de Motor (100 − combinado; la señal única de la tesis) por debajo del umbral, sin más señales.",
@@ -404,8 +351,8 @@
    "periodo": "2024-Q4",
    "periodoDisplay": "FY",
    "periodoV3": "2024",
-   "fecha": "2025-01-29",
-   "fechaOrigen": "portada",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +4,8 %, resultado técnico +234,0 %, resultado neto +1562,8 %, margen 5,3 % frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 5,2 pp. Verde: nada que señalar.",
@@ -458,8 +405,8 @@
    "periodo": "2025-Q1",
    "periodoDisplay": "1T",
    "periodoV3": "2025-3M",
-   "fecha": "2025-04-28",
-   "fechaOrigen": "portada",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +9,5 %, resultado técnico +202,6 %, resultado neto +106,1 %, margen 7,7 % (+5,00 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 8,1 pp. Verde: nada que señalar.",
@@ -512,8 +459,8 @@
    "periodo": "2025-Q2",
    "periodoDisplay": "S1",
    "periodoV3": "2025-S1",
-   "fecha": "2025-07-23",
-   "fechaOrigen": "portada",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +10,8 %, resultado técnico +79,5 %, resultado neto +72,2 %, margen 7,7 % (+3,20 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 8,0 pp. Verde: nada que señalar.",
@@ -566,8 +513,8 @@
    "periodo": "2025-Q3",
    "periodoDisplay": "9M",
    "periodoV3": "2025-9M",
-   "fecha": "2025-10-27",
-   "fechaOrigen": "portada",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +11,4 %, resultado técnico +55,4 %, resultado neto +46,4 %, margen 6,6 % (+2,00 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 6,6 pp. Verde: nada que señalar.",
@@ -620,8 +567,8 @@
    "periodo": "2025-Q4",
    "periodoDisplay": "FY",
    "periodoV3": "2025",
-   "fecha": "2026-02-23",
-   "fechaOrigen": "portada",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +11,3 %, resultado técnico +51,1 %, resultado neto +33,5 %, margen 7,4 % (+2,10 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 7,2 pp. Verde: nada que señalar.",
@@ -674,8 +621,8 @@
    "periodo": "2026-Q1",
    "periodoDisplay": "1T",
    "periodoV3": "2026-3M",
-   "fecha": "2026-04-27",
-   "fechaOrigen": "portada",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +10,2 %, resultado técnico +20,1 %, resultado neto +12,3 %, margen 8,3 % (+0,60 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 8,6 pp. Verde: nada que señalar.",
@@ -728,8 +675,8 @@
    "periodo": "2026-Q2",
    "periodoDisplay": "S1",
    "periodoV3": "2026-S1",
-   "fecha": "2026-07-27",
-   "fechaOrigen": "portada",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
    "resumen": "Primas emitidas +9,2 %, resultado técnico +28,4 %, resultado neto +19,0 %, margen 8,9 % (+1,20 pp) frente al mismo periodo del año anterior. Margen técnico de Motor (100 − combinado; la señal única de la tesis): 8,9 pp. Verde: nada que señalar.",

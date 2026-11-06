@@ -1,18 +1,27 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-06T17:45",
+ "generado": "2026-11-06T18:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-06T17:45",
+  "cuando": "2026-11-06T18:45",
   "ficheros": [
-   "dossiers/AMS.html",
-   "dossiers/trimestral/AMS-trim.json",
-   "dossiers/v3/AMS.html",
-   "fichas/AMS.json",
-   "fichas/_resumen.json",
-   "fichas/_evolucion.json"
+   "dossiers/ITX.html",
+   "dossiers/ITX.json",
+   "dossiers/LDA.html",
+   "dossiers/LDA.json",
+   "dossiers/LOG.html",
+   "dossiers/LOG.json",
+   "dossiers/trimestral/ITX-trim.json",
+   "dossiers/trimestral/LDA-trim.json",
+   "dossiers/trimestral/LOG-trim.json",
+   "dossiers/v3/LDA.html",
+   "dossiers/v3/LOG.html",
+   "fichas/ITX.json",
+   "fichas/LDA.json",
+   "fichas/LOG.json",
+   "fichas/_resumen.json"
   ]
  },
  "rechazos": [],

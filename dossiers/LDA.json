@@ -49,7 +49,7 @@
   "motivos": [
    "Muy seguro · payout 52 % → 24/30 · Solvencia II 183 % → 25/25 · ratio combinado 92.6 % → 20/20 · 2 recorte(s) en 6 años → 3/15 · predictores: ninguno → 10/10"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-06",
   "origen": "metodo-v3",
   "shareholderYield": null
  },
@@ -57,17 +57,17 @@
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-06",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 4.49,
+  "gImplicito": 4.63,
   "gIntrinseco": null,
   "veredicto": "HEROICO",
-  "motivo": "IMPROBABLE (exige un RoTE de 31.4 %, más de 3 pp por encima del último, 24.5 %)",
-  "calculadoEl": "2026-11-05",
+  "motivo": "IMPROBABLE (exige un RoTE de 32.0 %, más de 3 pp por encima del último, 24.5 %)",
+  "calculadoEl": "2026-11-06",
   "origen": "metodo-v3",
-  "roteImplicito": 31.39
+  "roteImplicito": 31.97
  }
 }
