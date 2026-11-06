@@ -1,13 +1,14 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-06T13:45",
+ "generado": "2026-11-06T14:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-06T13:45",
+  "cuando": "2026-11-06T14:45",
   "ficheros": [
    "dossiers/LOG.html",
+   "dossiers/v3/LOG.html",
    "fichas/LOG.json",
    "fichas/_resumen.json"
   ]
@@ -454,6 +455,90 @@
    "ticker": "ELE",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (06/11/2026 08:11)",
    "detalle": "nº 43520: Inscripción en el Registro Mercantil de la reducción de capital",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P1f403a43",
+   "creado": "2026-11-06T14:02",
+   "origen": "revisión-anual-6nov",
+   "ticker": "",
+   "que": "Buscar informes CNMV: no guardar un PDF de la página de listado sin comprobar el año (de ahí salió el IFA 2026 falso de Logista; revisar también el reglamento del Consejo del 6-abr-2026)",
+   "detalle": "",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "Pf50f427a",
+   "creado": "2026-11-06T14:02",
+   "origen": "revisión-anual-6nov",
+   "ticker": "AMS",
+   "que": "Lector de Amadeus: deja vacía la deuda neta y toma el EBIT ajustado en vez del beneficio de explotación (9M se corrigió a mano)",
+   "detalle": "",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P32e86d9a",
+   "creado": "2026-11-06T14:02",
+   "origen": "revisión-anual-6nov",
+   "ticker": "",
+   "que": "Lector de cuentas anuales (lector_anual_documentos.py): dividendo por acción y crédito a Imperial están hechos a la medida de Logista; generalizar al hacer la revisión anual de cada empresa",
+   "detalle": "",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "Pa150fcb4",
+   "creado": "2026-11-06T14:02",
+   "origen": "revisión-anual-6nov",
+   "ticker": "LOG",
+   "que": "Perfil Corporativo de Logista: poner al día las tablas de gobernanza (autocartera, accionistas) con el informe de gobierno 2026; hoy solo lleva «Novedades del ejercicio 2026»",
+   "detalle": "",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P0b2a8e26",
+   "creado": "2026-11-06T14:02",
+   "origen": "revisión-anual-6nov",
+   "ticker": "",
+   "que": "Enseñar en las tablas de los bloques todos los años desde 2016 (los cálculos siguen con los últimos 10); hoy solo la cuenta de resultados del dossier llega a 2016",
+   "detalle": "",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P63207d05",
+   "creado": "2026-11-06T14:02",
+   "origen": "revisión-anual-6nov",
+   "ticker": "LOG",
+   "que": "Comprobar la subida de las 14:45: dossier FY2026 definitivo de Logista en la app (a las 13:45 subió una versión intermedia)",
+   "detalle": "",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "Pdb6c26b0",
+   "creado": "2026-11-06T14:02",
+   "origen": "revisión-anual-6nov",
+   "ticker": "LOG",
+   "que": "Al llegar el informe semestral de la CNMV (ya publicado), completar los 6 datos de 2026 que no traen las cuentas: autocartera, DPA pagado, fondos propios, otros gastos, resultado financiero y variación del circulante",
+   "detalle": "",
    "estado": "abierto",
    "resuelto": null,
    "como": null,
