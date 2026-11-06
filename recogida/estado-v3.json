@@ -1,15 +1,18 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-06T16:45",
+ "generado": "2026-11-06T17:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-06T16:45",
+  "cuando": "2026-11-06T17:45",
   "ficheros": [
-   "dossiers/LOG.html",
-   "fichas/LOG.json",
-   "fichas/_resumen.json"
+   "dossiers/AMS.html",
+   "dossiers/trimestral/AMS-trim.json",
+   "dossiers/v3/AMS.html",
+   "fichas/AMS.json",
+   "fichas/_resumen.json",
+   "fichas/_evolucion.json"
   ]
  },
  "rechazos": [],
@@ -466,9 +469,9 @@
    "ticker": "",
    "que": "Buscar informes CNMV: no guardar un PDF de la página de listado sin comprobar el año (de ahí salió el IFA 2026 falso de Logista; revisar también el reglamento del Consejo del 6-abr-2026)",
    "detalle": "",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T16:46",
+   "como": "buscar_informes_cnmv.py v2.8 y comunicaciones_cnmv.py v1.5: el PDF que se saca de una página intermedia se rechaza (y se aparta a _diagnostico) si es copia exacta de un documento que ya está en la Biblioteca, si se creó antes del año anterior al del aviso o si su texto habla del año anterior y no del suyo. Probado con el IFA falso de 2026 (lo rechaza por copia y, sin la copia, por fecha de creación 2024) y con los documentos buenos de resultados 2025-2026 (ningún falso rechazo). Además se encontró que el «IFA 2025» de Resultados era el mismo PDF (código de conducta del consejo, dic-2024): apartado. El «reglamento del Consejo» del 6-abr-2026 es ese mismo PDF (código de conducta del consejo); no está comprobado si es lo que remitió la empresa: se deja y se apunta para revisarlo.",
    "comprobado": null
   },
   {
@@ -478,9 +481,9 @@
    "ticker": "AMS",
    "que": "Lector de Amadeus: deja vacía la deuda neta y toma el EBIT ajustado en vez del beneficio de explotación (9M se corrigió a mano)",
    "detalle": "",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T16:52",
+   "como": "El lector común cogía el «EBIT ajustado» de la tabla porque el beneficio de explotación de Amadeus solo viene en el texto. Ahora, en Amadeus, descarta las líneas de EBIT ajustado/recurrente y lee el beneficio de explotación del texto: 2025-3M 478,5 → 461,8 y 2025-9M 1.470,6 → 1.419,6, que cuadran con el «año anterior» de los informes de 2026. Ficha rehecha. La deuda neta de los trimestres solo la leen los lectores de Gestamp e Iberdrola; en las demás el método no la usa en 1T/9M (va con el semestre y el año): no es un fallo de Amadeus.",
    "comprobado": null
   },
   {
@@ -502,9 +505,9 @@
    "ticker": "LOG",
    "que": "Perfil Corporativo de Logista: poner al día las tablas de gobernanza (autocartera, accionistas) con el informe de gobierno 2026; hoy solo lleva «Novedades del ejercicio 2026»",
    "detalle": "",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T17:08",
+   "como": "Gobernanza 2026 (consejo, autocartera, participaciones, retribución) puesta en las piezas de fondo del dossier FY2026, marcada como cambio del año.",
    "comprobado": null
   },
   {
@@ -514,9 +517,9 @@
    "ticker": "",
    "que": "Enseñar en las tablas de los bloques todos los años desde 2016 (los cálculos siguen con los últimos 10); hoy solo la cuenta de resultados del dossier llega a 2016",
    "detalle": "",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T17:27",
+   "como": "Ficha con todos los años desde 2016 (paso historico_bloques.py, solo para ver; los cálculos siguen con 10 años). Dossier con los 10 últimos. Falta que Carlos publique n-50-ficha.js con el .bat.",
    "comprobado": null
   },
   {
@@ -538,9 +541,9 @@
    "ticker": "LOG",
    "que": "Al llegar el informe semestral de la CNMV (ya publicado), completar los 6 datos de 2026 que no traen las cuentas: autocartera, DPA pagado, fondos propios, otros gastos, resultado financiero y variación del circulante",
    "detalle": "",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T17:08",
+   "como": "Los seis datos de Logista 2026 están en 2026.json (fondos propios, otros gastos, resultado financiero, circulante, DPA, autocartera). El circulante faltaba y cambió la decisión a ESPERAR (PO 37,65); corregido todo y añadida la comprobación de cifras clave antes de cualquier veredicto.",
    "comprobado": null
   },
   {
@@ -553,6 +556,42 @@
    "estado": "resuelto",
    "resuelto": "2026-11-06T16:39",
    "como": "Corregido exportar_universo_repo.py (ruta de Windows) y con freno si sale vacío; base.json rehecho (128 empresas) y publicado por Carlos a las 16:27; el informe del universo se generó bien a las 16:27 (comprobado en el repo).",
+   "comprobado": null
+  },
+  {
+   "id": "Pdbea7ab2",
+   "creado": "2026-11-06T16:47",
+   "origen": "revisión 6-nov",
+   "ticker": "LOG",
+   "que": "Comprobar si el «reglamento del Consejo» del 6-abr-2026 de la Biblioteca es el documento que remitió Logista (es el código de conducta del consejo de dic-2024, el mismo PDF que salió como IFA 2025)",
+   "detalle": "",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P4ac6010e",
+   "creado": "2026-11-06T16:52",
+   "origen": "revisión 6-nov",
+   "ticker": "",
+   "que": "Revisar en 13 empresas (ACX, CIE, TEF, FDR, AENA, ROVI, FAE, A3M, PRM, ENG, REP, VID, VIS) si el lector trimestral coge el EBIT ajustado/recurrente en vez del reportado, como pasaba en Amadeus",
+   "detalle": "",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P1352fe5e",
+   "creado": "2026-11-06T17:08",
+   "origen": "revisión 6-nov",
+   "ticker": "VARIAS",
+   "que": "Huecos de cifras clave en empresas SIN veredicto (no cambian ninguna decisión): ECR circulante y CAPEX 2024-25; FER CAPEX y dividendos 2023-25 (Ferrovial SE ya no deposita ESEF en la CNMV); IBG circulante 2025 (el ESEF lo da con otra definición que el IPP); MVC y NYE CAPEX 2024-25 (etiquetas propias); LLN beneficio 2020-25, ORY deuda y patrimonio 2025 (y ceros sospechosos de años anteriores), PVA dividendos 2024-25. Y años viejos de empresas con veredicto: ART dividendos 2018-20, MAP flujo de explotación 2016-23, bancos tesorería 2016-18. Comprobar con datos_criticos.py antes de analizar cualquiera.",
+   "detalle": "",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
    "comprobado": null
   }
  ],
