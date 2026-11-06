@@ -187,10 +187,11 @@
   function comoVa(F){
     var S=F.series||{}, s=S.serie||{}, de=S.desempeno||{}, fl=S.flujos||{}, so=S.solvencia||{};
     var yy={}; [fl.fcl_recurrente,fl.cfo,fl.dpa,de.margen_ebit,de.roe,s.ingresos,s.bpa_basico].forEach(function(o){ Object.keys(o||{}).forEach(function(y){ if(/^\d{4}$/.test(y)) yy[y]=1; }); });
-    var Y=Object.keys(yy).sort().slice(-10);
+    /* 6-nov-2026 (Carlos): se ven todos los años desde 2016; los colores y las frases se calculan con los diez últimos (k0) */
+    var Y=Object.keys(yy).sort().filter(function(y){ return y>='2016'; }), k0=Math.max(0,Y.length-10);
     if(Y.length<3) return card('Cómo va la empresa','',vd('a','Esta empresa aún no tiene las series de diez años del método.'));
     var g=function(o,k){ var x=o[k]||{}; return Y.map(function(y){ var v=x[y]; return v==null?null:+v; }); }, z=function(L){ return L.map(function(v){ return v==null?0:v; }); };
-    var banca=/BAN|SEG/.test(String(F.modelo||'')), paso=(F.modulos||[]).indexOf('PASO')>=0, J=F.juicios||{}, dh=F.datos_hasta, ny=+Y[Y.length-1]-(+Y[0]);
+    var banca=/BAN|SEG/.test(String(F.modelo||'')), paso=(F.modulos||[]).indexOf('PASO')>=0, J=F.juicios||{}, dh=F.datos_hasta, ny=+Y[Y.length-1]-(+Y[k0]);
     var cg=function(a,b){ return (a>0&&b>0&&ny>0)?(Math.pow(b/a,1/ny)-1)*100:null; }, out='';
     if(banca) out+=vd('a','Bancos y aseguradoras: su base propia de gráficas está pendiente (se hará con Santander). Abajo, lo que se puede leer igual que en las demás.');
     var BASE=paso?g(s,'ventas_economicas'):g(s,'ingresos'), bn=paso?'Ventas económicas':'Ventas', AP=paso?Y.map(function(){return null;}):g(s,'aprovisionamientos'), PE=g(s,'gastos_personal'), AM=g(s,'amortizaciones'), EB=g(s,'beneficio_explotacion'), BN=g(s,'beneficio_neto_atribuible');
@@ -198,14 +199,14 @@
     if(!banca&&BASE.some(function(v){return v!=null;})){
       var RE=Y.map(function(_,k){ return -(z(BASE)[k]-z(EB)[k]+z(AP)[k]+z(PE)[k]+z(AM)[k]); }).map(function(v){ return Math.min(0,v); });
       var neg=function(L){ return L.map(function(v){ return v==null?null:-Math.abs(v); }); };
-      var cv=cg(BASE[0],BASE[BASE.length-1]), col=cv!=null&&cv>=5?'v':(cv!=null&&cv>=0?'a':'r');
-      c1=gcard('¿Crecen las ventas y cuánto se comen los gastos?',col,bn+' de '+n(BASE[0],0)+' a '+n(BASE[BASE.length-1],0)+' M€ ('+(cv!=null?pc(cv):'—')+' al año); beneficio neto de '+n(BN[0],0)+' a '+n(BN[BN.length-1],0)+' M€.',
+      var cv=cg(BASE[k0],BASE[BASE.length-1]), col=cv!=null&&cv>=5?'v':(cv!=null&&cv>=0?'a':'r');
+      c1=gcard('¿Crecen las ventas y cuánto se comen los gastos?',col,bn+' de '+n(BASE[k0],0)+' en '+Y[k0]+' a '+n(BASE[BASE.length-1],0)+' M€ ('+(cv!=null?pc(cv):'—')+' al año); beneficio neto de '+n(BN[k0],0)+' a '+n(BN[BN.length-1],0)+' M€.',
         chartg(Y,[[bn,BASE,'#3B82F6']].concat(paso?[]:[['Compras y aprovisionamientos',neg(AP),'#FDBA74']]).concat([['Personal',neg(PE),'#F59E0B'],['Amortizaciones',neg(AM),'#94A3B8'],['Resto de gastos',RE,'#FCA5A5']]),['Beneficio neto',BN,'#15803D'],function(v){ return n(v,0); }),
         leg([[bn,'#3B82F6']].concat(paso?[]:[['Compras','#FDBA74']]).concat([['Personal','#F59E0B'],['Amortizaciones','#94A3B8'],['Resto de gastos','#FCA5A5'],['Beneficio neto (línea)','#15803D']])),nota(J.solvencia&&null,dh));
     }
     var ME=g(de,'margen_ebitda'), MB=g(de,'margen_ebit'), MN=g(de,'margen_neto');
-    if(MB.some(function(v){return v!=null;})){ var mb=MB.filter(function(v){return v!=null;}).slice().sort(function(a,b){return a-b;}), med=mb[Math.floor(mb.length/2)], lst=MB[MB.length-1], col2=lst>=med-0.5?'v':(lst>=med-3?'a':'r');
-      c2=gcard('¿Los márgenes crecen o se reducen?',col2,'Margen EBIT de '+n(lst,1)+' % en '+Y[Y.length-1]+', frente a una mediana de '+n(med,1)+' % en estos años: '+(col2==='v'?'en su nivel o mejor':'por debajo de lo habitual')+'.',
+    if(MB.some(function(v){return v!=null;})){ var mb=MB.slice(k0).filter(function(v){return v!=null;}).slice().sort(function(a,b){return a-b;}), med=mb[Math.floor(mb.length/2)], lst=MB[MB.length-1], col2=lst>=med-0.5?'v':(lst>=med-3?'a':'r');
+      c2=gcard('¿Los márgenes crecen o se reducen?',col2,'Margen EBIT de '+n(lst,1)+' % en '+Y[Y.length-1]+', frente a una mediana de '+n(med,1)+' % en sus diez últimos años: '+(col2==='v'?'en su nivel o mejor':'por debajo de lo habitual')+'.',
         lines(Y,[['Margen EBITDA',ME,'#7C3AED'],['Margen EBIT',MB,'#2563EB'],['Margen neto',MN,'#15803D']]),leg([['EBITDA','#7C3AED'],['EBIT','#2563EB'],['Neto','#15803D']]),nota(J.desempeno,dh)); }
     var RO=g(de,'roic'), RE2=g(de,'roe'), WA=g(de,'wacc');
     if(RO.some(function(v){return v!=null;})||RE2.some(function(v){return v!=null;})){ var r0=RO[RO.length-1]!=null?RO[RO.length-1]:RE2[RE2.length-1], w0=WA[WA.length-1], sp=(r0!=null&&w0!=null)?r0-w0:null, col3=sp!=null&&sp>=5?'v':(sp!=null&&sp>=0?'a':'r');
@@ -227,8 +228,8 @@
         chartg(Y,[['Deuda financiera',DBt,'#DC2626'],['Caja',CJ,'#16A34A']],['Deuda neta',DN,'#0F172A'],function(v){ return n(v,0)+' M€'; },[DE,fx,'#475569','Deuda neta / EBITDA: ']),
         leg([['Deuda (arriba)','#DC2626'],['Caja (abajo)','#16A34A'],['Deuda neta (línea)','#0F172A'],['Arriba: veces el EBITDA','#475569']]),nota(J.solvencia,dh)); }
     var BP=g(s,'bpa_basico'), DP=g(fl,'dpa');
-    if(BP.some(function(v){return v!=null;})){ var cbp=cg(BP[0],BP[BP.length-1]), col7=cbp!=null&&cbp>=5?'v':(cbp!=null&&cbp>=0?'a':'r');
-      c7=gcard('¿Y por acción, que es lo que cobras tú?',col7,'Beneficio por acción de '+n(BP[0],2)+' a '+n(BP[BP.length-1],2)+' € ('+(cbp!=null?pc(cbp):'—')+' al año); dividendo de '+n(DP[0],2)+' a '+n(DP[DP.length-1],2)+' €.',
+    if(BP.some(function(v){return v!=null;})){ var cbp=cg(BP[k0],BP[BP.length-1]), col7=cbp!=null&&cbp>=5?'v':(cbp!=null&&cbp>=0?'a':'r');
+      c7=gcard('¿Y por acción, que es lo que cobras tú?',col7,'Beneficio por acción de '+n(BP[k0],2)+' en '+Y[k0]+' a '+n(BP[BP.length-1],2)+' € ('+(cbp!=null?pc(cbp):'—')+' al año); dividendo de '+n(DP[k0],2)+' a '+n(DP[DP.length-1],2)+' €.',
         chartg(Y,[['Beneficio por acción',BP,'#1F4A9A']],['Dividendo por acción',DP,'#8B5CF6'],function(v){ return n(v,2)+' €'; }),leg([['Beneficio por acción (barras)','#1F4A9A'],['Dividendo por acción (línea)','#8B5CF6']])); }
     /* 5-nov-2026 (Carlos: «tenemos un hueco al lado de cuánta deuda tiene… podríamos meter otro gráfico» → eligió «beneficio → caja»).
        ¿El beneficio se convierte en caja? Caja libre RECURRENTE (barras: la misma del método, sin los vaivenes del circulante; con la caja libre a secas Logista sale negativa en 2021 por el calendario del impuesto del tabaco), beneficio neto (línea) y, arriba, caja libre / beneficio. El color, con los tres últimos años juntos (un año suelto lo mueve el circulante): ≥ 80 % verde, ≥ 50 % ámbar. */
@@ -244,7 +245,7 @@
     h+=propias(F);
     h+=evHost(F);
     out=GUIA('')+out;
-    return out+h+'<span class="nf-ws">Las mismas gráficas para todas las empresas, de sus fichas del método (diez años hasta '+esc(dh||'')+'). El color de cada una lo pone una regla fija; las notas, el analista con su fecha.</span>';
+    return out+h+'<span class="nf-ws">Las mismas gráficas para todas las empresas, de sus fichas del método (desde 2016 hasta '+esc(dh||'')+'; el color y las frases, con los diez últimos años). El color de cada una lo pone una regla fija; las notas, el analista con su fecha.</span>';
   }
 
   /* ---------------- COTIZACIÓN (la gráfica de la app, con banda/PO/stop por revisión) ---------------- */
