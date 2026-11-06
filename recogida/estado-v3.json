@@ -1,14 +1,13 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-06T14:45",
+ "generado": "2026-11-06T15:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-06T14:45",
+  "cuando": "2026-11-06T15:45",
   "ficheros": [
    "dossiers/LOG.html",
-   "dossiers/v3/LOG.html",
    "fichas/LOG.json",
    "fichas/_resumen.json"
   ]
@@ -527,9 +526,9 @@
    "ticker": "LOG",
    "que": "Comprobar la subida de las 14:45: dossier FY2026 definitivo de Logista en la app (a las 13:45 subió una versión intermedia)",
    "detalle": "",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-06T14:49",
+   "como": "Comprobado a las 14:50 en la web publicada: dossier FY2026 de Logista con los 12 recuadros «Qué cambia» y «Revisiones anuales» (1.114.133 bytes) y el FY2025 en dossiers/anteriores (1.128.463 bytes, idéntico al guardado). La publicación de GitHub tardó unos 5 minutos en reflejar las subidas de las 14:45-14:46.",
    "comprobado": null
   },
   {
