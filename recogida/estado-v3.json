@@ -1,42 +1,22 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-06T10:45",
+ "generado": "2026-11-06T11:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [
-  {
-   "carpeta": "AMS 2026-9M",
-   "ticker": "AMS",
-   "periodos": [
-    "2026-9M"
-   ],
-   "tipo": "pase",
-   "creada": "2026-11-06T08:20",
-   "semaforo": "V",
-   "frase": "Qué ha pasado — En los 9M-2026 Amadeus ingresa 5.075,7 M€ (+3,7 %; +5,2 % a tipos de cambio constantes). EBITDA 2.028,3 M€ (+5,2 %), beneficio de explotación 1.450,0 M€ (+2,1 %; el EBIT ajustado, 1.546,6 M€, sube un 5,2 %) y beneficio atrib"
-  },
-  {
-   "carpeta": "LOG 2026",
-   "ticker": "LOG",
-   "periodos": [
-    "2026"
-   ],
-   "tipo": "pase",
-   "creada": "2026-11-06T08:57",
-   "semaforo": "V",
-   "frase": "Qué ha pasado — Ejercicio fiscal 2026 (oct-25 a sep-26): ingresos 13.837 M€ (+2,2 %), ventas económicas 1.840 M€ (+1,7 %), EBIT ajustado 391 M€ (+3,3 %), margen sobre ventas económicas 21,2 % (+33 p.b.), EBIT 317 M€ (−0,4 %) y beneficio net"
-  }
- ],
- "n_pendientes": 2,
+ "revisiones_pendientes": [],
+ "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-06T10:45",
+  "cuando": "2026-11-06T11:45",
   "ficheros": [
+   "dossiers/AMS.html",
+   "dossiers/AMS.json",
    "dossiers/LOG.html",
-   "dossiers/LOG.json",
+   "dossiers/trimestral/AMS-trim.json",
    "dossiers/trimestral/LOG-trim.json",
+   "dossiers/v3/AMS.html",
    "dossiers/v3/LOG.html",
+   "fichas/AMS.json",
    "fichas/LOG.json",
-   "fichas/_resumen.json",
-   "fichas/_evolucion.json"
+   "fichas/_resumen.json"
   ]
  },
  "rechazos": [],
