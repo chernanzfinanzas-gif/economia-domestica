@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-06T19:45",
+ "generado": "2026-11-07T09:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -626,6 +626,18 @@
    "ticker": "",
    "que": "Semana del 9-nov (decidido por Carlos): evitar que se repita lo del piloto en las próximas revisiones anuales. 1) Que ningún proceso automático cambie en silencio datos de un año ya aprobado: si cambia algo, revisión con «esto cambiaría» y decide Carlos. 2) Ensayo de la revisión anual con las cuentas de 2025 en las 35 empresas, comparando cifra a cifra con los datos buenos, antes de febrero.",
    "detalle": "",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P1cc7c9ef",
+   "creado": "2026-11-07T08:58",
+   "origen": "cruce con la nube",
+   "ticker": "",
+   "que": "La recogida de la nube se ha saltado 21 números de registro de la CNMV (otra-informacion-relevante: 43492-43519)",
+   "detalle": "Lo que haya en esos números no se ha cruzado con la recogida del PC.",
    "estado": "abierto",
    "resuelto": null,
    "como": null,
