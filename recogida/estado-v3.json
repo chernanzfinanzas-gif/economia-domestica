@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-07T09:45",
+ "generado": "2026-11-07T10:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -17,7 +17,26 @@
   ]
  },
  "rechazos": [],
- "descargas_pendientes": [],
+ "descargas_pendientes": [
+  {
+   "clase": "fallido",
+   "ticker": "AI",
+   "que": "2022 S1 Anexo Anexo del informe financiero semestral AI",
+   "carpeta": "AI - Airtificial Intelligence Structures, S.A\\Intermedios",
+   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=j72G3%2fn2I3qnToCafO88mqmXZV1vcuoSKtZyoxqWa7BUEAeRxZR3srt1mVLkRHmQ",
+   "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
+   "desde": "2026-10"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "AI",
+   "que": "2022 S2 Anexo Anexo del informe financiero semestral AI",
+   "carpeta": "AI - Airtificial Intelligence Structures, S.A\\Intermedios",
+   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=obQonWR8CA8sX7ds7KOcbcBEdSPIK4%2bhVV5zxSvL1AhUEAeRxZR3srt1mVLkRHmQ",
+   "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
+   "desde": "2026-10"
+  }
+ ],
  "pendientes_sistema": [
   {
    "id": "P9c315054",
