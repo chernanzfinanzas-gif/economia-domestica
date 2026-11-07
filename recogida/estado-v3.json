@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-07T19:45",
+ "generado": "2026-11-07T20:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -480,9 +480,9 @@
    "ticker": "",
    "que": "La recogida de la nube se ha saltado 9 números de registro de la CNMV (otra-informacion-relevante: 43511-43519)",
    "detalle": "Lo que haya en esos números no se ha cruzado con la recogida del PC.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-07T20:41",
+   "como": "Resuelto el 7-nov: la nube leía páginas guardadas (caché) y daba números por vacíos. Con el arreglo anticaché la serie 43443-43537 está entera, y el PC sí tenía estas comunicaciones. Detalle en el documento del proyecto «Recogida CNMV - el caché de las páginas de detalle (7-nov-2026)».",
    "comprobado": null
   },
   {
@@ -648,9 +648,9 @@
    "ticker": "",
    "que": "La recogida de la nube se ha saltado 24 números de registro de la CNMV (otra-informacion-relevante: 43481-43519)",
    "detalle": "Lo que haya en esos números no se ha cruzado con la recogida del PC.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-07T20:41",
+   "como": "Misma causa y mismo arreglo que P4529c95e (caché de la nube, 7-nov). Serie entera.",
    "comprobado": null
   },
   {
@@ -660,9 +660,9 @@
    "ticker": "LOG",
    "que": "La revisión «LOG cuentas anuales» rehace la Logista ya aprobada con cifras que no cuadran: dividendo 2026 de 0,56 € en vez de 2,17 € y CAPEX que pasa de 42 a 56 M€; baja el PO de 37,65 a 34,87 € y abre una S3",
    "detalle": "Paquete «Revisión/LOG cuentas anuales - pendiente» (creado 06-11 18:01 al llegar el IPP S2 2026, CNMV 43528). flujos.json: DPA 2026 2,17 € («declarado con cargo al ejercicio (serie)») → 0,56 € («calendario de la app asignado al ejercicio (a cuenta + complementario)»); el IPP S2 da DPA pagado 2,11 € y dividendos pagados 278,8 M€. Con 0,56 € el payout sale 26 % y la rentabilidad por dividendo 1,6 %, y el múltiplo de rentabilidad por dividendo de la valoración pasa de 32,11 a 8,86 €. CAPEX 2026 42,06 (material, ESEF) → 56,17 (material + intangible, IPP S2): FCL recurrente 421,0 → 406,9. Resultado: PO 37,65 → 34,87 €, banda 30,53-32,74 → 27,78-30,33 €, stop 27,02 → 24,77 €, y S3 (cotización 36,6 ≥ PO 34,87). juicio_vigilancia.json igual al bueno. Sin periodo nuevo (periodos_nuevos vacío). Nota del analista sin escribir. No aprobar hasta revisarlo en el chat.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-07T20:41",
+   "como": "Hecho el 6-nov por la tarde. Esa revisión estaba mal y se descartó. El CAPEX de 56 sí era el bueno, así que se corrigió la Logista aprobada: PO 37,19 y sigue ESPERAR. El dividendo de 2,17 se ha devuelto, y el informe semestral ya no puede borrar lo que leen otros lectores.",
    "comprobado": null
   },
   {
@@ -684,9 +684,9 @@
    "ticker": "",
    "que": "La recogida de la nube se ha saltado 21 números de registro de la CNMV (otra-informacion-relevante: 43492-43519)",
    "detalle": "Lo que haya en esos números no se ha cruzado con la recogida del PC.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-07T20:41",
+   "como": "Misma causa y mismo arreglo que P4529c95e (caché de la nube, 7-nov). Serie entera.",
    "comprobado": null
   },
   {
@@ -708,9 +708,9 @@
    "ticker": "LOG",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (06/11/2026 09:32)",
    "detalle": "nº 43528: La sociedad remite información financiera del segundo semestre de 2025 - 2026",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-07T20:41",
+   "como": "Es el informe semestral oficial de Logista. Lo bajó la búsqueda de informes el 6-nov a las 18:51 y está en la Biblioteca (Intermedios, 2026 S2). El aviso no trae PDF: enlaza a una página de consulta.",
    "comprobado": null
   },
   {
