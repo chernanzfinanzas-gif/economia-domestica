@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-07T10:45",
+ "generado": "2026-11-07T11:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -33,6 +33,33 @@
    "que": "2022 S2 Anexo Anexo del informe financiero semestral AI",
    "carpeta": "AI - Airtificial Intelligence Structures, S.A\\Intermedios",
    "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=obQonWR8CA8sX7ds7KOcbcBEdSPIK4%2bhVV5zxSvL1AhUEAeRxZR3srt1mVLkRHmQ",
+   "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
+   "desde": "2026-10"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "LGT",
+   "que": "2016 S1 Anexo Anexo de las notas explicativas estados fina LGT",
+   "carpeta": "LGT - Lingotes Especiales, S.A\\Intermedios",
+   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=M23gBDW5NXuBMlNMcR6pJ37C1xx%2b3xyVJEOPD6KJlbWhUFgrkk%2fhEZzWRbwiPkSI",
+   "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
+   "desde": "2026-10"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "LGT",
+   "que": "2017 S1 Anexo Anexo de las notas explicativas estados fina LGT",
+   "carpeta": "LGT - Lingotes Especiales, S.A\\Intermedios",
+   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=vl7%2fO%2fq7dCNbIEJTLkSFTxzKdlCZSvpwmoAaC%2brFX%2bmhUFgrkk%2fhEZzWRbwiPkSI",
+   "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
+   "desde": "2026-10"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "LGT",
+   "que": "2018 S1 Anexo Anexo de las notas explicativas estados fina LGT",
+   "carpeta": "LGT - Lingotes Especiales, S.A\\Intermedios",
+   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=FWpndKCb8ezODyA4jwPmJcxjKdhZ965VtYrpkC%2bDgj%2bhUFgrkk%2fhEZzWRbwiPkSI",
    "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
    "desde": "2026-10"
   }
