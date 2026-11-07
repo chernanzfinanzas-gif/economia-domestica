@@ -1,4 +1,4 @@
-/* APP NUEVA · Sistema › Cobertura rediseñada (1-nov-2026, boceto v2 aprobado por Carlos: «el diseño me parece bien»).
+/* APP NUEVA · Sistema › Cobertura rediseñada (1-nov-2026; 7-nov: tarjeta «¿Están todas revisadas?» arriba de «Qué toca», boceto v2 aprobado por Carlos: «el diseño me parece bien»).
    Las piezas de siempre siguen haciendo su trabajo (calendario de cobertura con sus casillas ✓, cola con ▲▼, cadencia,
    calendario de resultados y novedades de la recogida); aquí se reordenan y se pintan con el aspecto nuevo:
      · 4 cifras: requieren acción · próximos 14 días · temporada (publicadas de N) · analizadas de universo y cola.
@@ -51,11 +51,32 @@
     var ck=r.ck&&!r.v3?r.ck.outerHTML:'', sel=r.sel?r.sel.outerHTML:'';
     return '<div class="n-cb-it '+cls+'"><div class="ck">'+ck+'</div><div class="f">'+(r.f?fd(r.f):'—')+'<small>'+E(r.v3?'':r.dtx)+'</small></div>'+
       '<div class="e"><b data-ficha="'+E(r.tk)+'">'+E(r.tk)+'</b>'+E(r.nm)+'</div><div class="tp">'+E(r.lbl)+(r.conf?' <span class="cf">conf.</span>':'')+'</div><div class="st">'+(sel||'<span>'+E(st)+'</span>')+'</div></div>'; }
+  /* 7-nov-2026 (Carlos: «una tabla de verificación que se ponía en rojo si una iba atrasada y se veía fácilmente si estaban
+     todas hechas»): las empresas analizadas frente al informe de la temporada, cada una con su color. */
+  function vAlDia(){ var E2=((RES&&RES.empresas)||[]); if(!E2.length||!CAL||!CAL.empresas) return '';
+    var t=(CAL.temporadas||[])[0]||'', mt=/^(20\d\d)\s+(\S+)/.exec(t); if(!mt) return '';
+    var q={'1T':1,'2T':2,'1S':2,'3T':3,'ANUAL':4}[mt[2].toUpperCase()]||0, y=+mt[1]-(q===4?1:0), nomT=q===4?'Anual '+y:({1:'1T',2:'1S',3:'9M'}[q]+' '+y), hoy=iso(hoyD());
+    var R=E2.map(function(e){ var c=((CAL.empresas[e.ticker]||{})[t])||{}, a=perRank(e.revisado_hasta);
+      var cub=(a&&(a[0]>y||(a[0]===y&&a[1]>=q)))||(c.estado==='publicado'&&c.publicado&&e.revisado_fecha&&e.revisado_fecha>=c.publicado);
+      var k,txt; if(cub){ k='ok'; txt='revisada el '+fd(e.revisado_fecha); }
+      else if(c.estado==='publicado'){ k='rojo'; txt='publicó el '+fd(c.publicado)+' y está sin revisar ('+(-diasA(c.publicado))+' días)'; }
+      else if(c.fecha&&c.fecha<hoy){ k='ambar'; txt='se esperaba el '+fd(c.fecha)+' y no ha salido ('+(-diasA(c.fecha))+' días)'; }
+      else if(c.fecha){ k='prox'; txt='sale el '+fd(c.fecha)+' (en '+diasA(c.fecha)+' días)'+(c.fuente==='aviso'||c.fuente==='yahoo'?'':' · estimada'); }
+      else { k='na'; txt='no publica este informe (solo semestral o sin fecha)'; }
+      return {t:e.ticker,n:e.empresa||'',k:k,txt:txt,rev:e.revisado_hasta}; });
+    var C={ok:['#DCFCE7','#166534','al día'],rojo:['#FEE2E2','#B91C1C','sin revisar'],ambar:['#FEF3C7','#92400E','no ha salido'],prox:['#EAF1FD','#1F4A9A','por salir'],na:['#F1F5F9','#64748B','no publica']};
+    var N={}; R.forEach(function(r){ N[r.k]=(N[r.k]||0)+1; }); var ord={rojo:0,ambar:1,prox:2,na:3,ok:4};
+    R.sort(function(a,b){ return ord[a.k]-ord[b.k]||a.t.localeCompare(b.t); });
+    var cab=(N.rojo?'<b style="color:#B91C1C">'+N.rojo+' sin revisar</b>':'<b style="color:#166534">ninguna sin revisar</b>')+' · '+(N.ok||0)+' al día'+(N.ambar?' · '+N.ambar+' no ha salido':'')+(N.prox?' · '+N.prox+' por salir':'')+(N.na?' · '+N.na+' no publican':'');
+    var chips=R.map(function(r){ var c=C[r.k]; return '<span data-ficha="'+E(r.t)+'" title="'+E(r.t+' · '+r.n+': '+r.txt)+'" style="cursor:pointer;display:inline-block;margin:2px;padding:3px 8px;border-radius:8px;font-size:12px;font-weight:700;background:'+c[0]+';color:'+c[1]+'">'+E(r.t)+'</span>'; }).join('');
+    var lista=R.filter(function(r){ return r.k!=='ok'; }).map(function(r){ var c=C[r.k]; return '<div style="display:flex;gap:8px;align-items:baseline;padding:4px 0;border-top:1px solid #EEF2F7;font-size:12.5px"><span style="min-width:86px"><span style="padding:1px 7px;border-radius:20px;font-size:10px;font-weight:700;background:'+c[0]+';color:'+c[1]+'">'+c[2]+'</span></span><b data-ficha="'+E(r.t)+'" style="cursor:pointer;min-width:44px">'+E(r.t)+'</b><span>'+E(r.txt)+'</span></div>'; }).join('');
+    return '<div class="n-cb-card"><div class="ct">¿Están todas revisadas? <span>informe '+E(nomT)+' · las '+R.length+' analizadas</span></div><div style="font-size:13px;margin:2px 0 8px">'+cab+'</div><div>'+chips+'</div>'+
+      (lista?'<div style="margin-top:8px">'+lista+'</div>':'')+'<div class="n-cb-nota">Verde: la revisión aprobada ya cubre ese informe. Rojo: el informe salió y falta revisarlo. Ámbar: la fecha esperada pasó y la empresa aún no lo ha publicado.</div></div>'; }
   function vToca(L){ if(!L) return '<div class="n-cb-vacio">Cargando el calendario de cobertura…</div>';
     var ahora=L.filter(function(r){ return !r.done&&r.band===0; }), cola=L.filter(function(r){ return !r.done&&r.band===1; }),
         pronto=L.filter(function(r){ return !r.done&&r.band===2&&r.dias!=null&&r.dias<=14; }), luego=L.filter(function(r){ return !r.done&&r.band===2&&!(r.dias!=null&&r.dias<=14); }),
         hechas=L.filter(function(r){ return r.done; });
-    var h='<div class="n-cb-card"><div class="ct">Ahora <span>lo que pide que hagas algo ya</span></div>'+(ahora.length?ahora.map(item).join(''):'<div class="n-cb-vacio">Nada pendiente ahora mismo. 👌</div>')+'</div>';
+    var h=vAlDia()+'<div class="n-cb-card"><div class="ct">Ahora <span>lo que pide que hagas algo ya</span></div>'+(ahora.length?ahora.map(item).join(''):'<div class="n-cb-vacio">Nada pendiente ahora mismo. 👌</div>')+'</div>';
     if(cola.length) h+='<div class="n-cb-card"><div class="ct">De tu cola <span>pendientes de analizar</span></div>'+cola.map(item).join('')+'</div>';
     h+='<div class="n-cb-card"><div class="ct">Próximos 14 días <span>informes que salen pronto</span></div>'+(pronto.length?pronto.map(item).join(''):'<div class="n-cb-vacio">Nada en las dos próximas semanas.</div>')+'</div>';
     var pm={}; luego.forEach(function(r){ var k=r.f?r.f.slice(0,7):'9999-99'; (pm[k]=pm[k]||[]).push(r); });

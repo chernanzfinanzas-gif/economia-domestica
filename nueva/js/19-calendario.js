@@ -469,10 +469,29 @@ function _calChip(tipo,periodo){
   var lbl=_CAL_TT[tipo]||tipo; if(tipo==='res'&&periodo) lbl+=' '+(_CAL_QL[periodo]||periodo);
   return '<span style="display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;color:#fff;background:'+col+'">'+lbl+'</span>';
 }
+/* 7-nov-2026 (Carlos: «se podrían marcar los ya analizados»): en los resultados de las empresas con análisis, si la revisión del
+   método nuevo ya cubre ese informe sale «✓ revisado»; si el informe salió y no está revisado, en rojo; si la fecha pasó y no ha
+   salido, en ámbar. Datos: fichas/_resumen.json (revisado_hasta) y recogida/calendario.json (publicado). */
+var _calRev=null, _calRevPid=0;
+function _calCargarRev(){ if(_calRev||_calRevPid) return; _calRevPid=1;
+  var get=function(u){ return fetch(u,{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }); };
+  Promise.all([get('fichas/_resumen.json'),get('recogida/calendario.json')]).then(function(a){ var M={};
+    ((a[0]&&a[0].empresas)||[]).forEach(function(x){ M[x.ticker]=x; }); _calRev={res:M,cal:(a[1]&&a[1].empresas)||{}};
+    try{ if(_calVistaActiva()) _calBodyRepaint(); }catch(e){} }); }
+function _calRevEstado(e){ if(e.tipo!=='res') return ''; _calCargarRev(); if(!_calRev) return ''; var R=_calRev.res[e.t]; if(!R) return '';
+  var rk={Q1:1,Q2:2,Q3:3,Q4:4}[e.periodo]; if(!rk) return ''; var y=+String(e.fecha).slice(0,4); if(rk===4&&+String(e.fecha).slice(5,7)<=6) y-=1;
+  var m=/^(20\d\d)(?:-(\w+))?$/.exec(String(R.revisado_hasta||'')), a=m?[+m[1],m[2]?({'3M':1,Q1:1,S1:2,H1:2,'9M':3,Q3:3,FY:4}[m[2].toUpperCase()]||0):4]:null;
+  var pub=null; Object.keys(_calRev.cal[e.t]||{}).forEach(function(k){ var c=_calRev.cal[e.t][k]; if(c&&c.estado==='publicado'&&c.publicado&&Math.abs(Date.parse(c.publicado)-Date.parse(e.fecha))<=40*864e5) pub=c.publicado; });
+  var cub=(a&&(a[0]>y||(a[0]===y&&a[1]>=rk)))||(pub&&R.revisado_fecha&&R.revisado_fecha>=pub);
+  var sp=function(bg,co,t){ return ' <span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;background:'+bg+';color:'+co+'">'+t+'</span>'; };
+  if(cub) return sp('#dcfce7','#166534','✓ revisado'+(R.revisado_fecha?' '+_calFmtF(R.revisado_fecha):''));
+  if(pub) return sp('#fee2e2','#b91c1c','publicado el '+_calFmtF(pub)+' · sin revisar');
+  if(e.fecha<_calHoy()) return sp('#fef3c7','#92400e','se esperaba · aún no ha salido');
+  return ''; }
 function _calDetalle(e){
   if(e.tipo==='pago') return '<span class="muted" style="font-size:12px">'+(_calNum(e.sh)).toLocaleString('es-ES')+' acc × '+_calDps(e.imp)+' = <b>'+_calEur(e.sh*e.imp)+'</b> bruto · <b style="color:#166534">'+_calEur(e.sh*e.imp*0.81)+'</b> neto</span>';
   if(e.tipo==='exdiv') return '<span class="muted" style="font-size:12px">último día con derecho · '+_calDps(e.imp)+' €/acc</span>';
-  if(e.tipo==='res') return '<span class="muted" style="font-size:12px">'+(e.periodo==='Q4'?'resultados anuales':'informe '+(_CAL_QL[e.periodo]||e.periodo))+'</span>';
+  if(e.tipo==='res') return '<span class="muted" style="font-size:12px">'+(e.periodo==='Q4'?'resultados anuales':'informe '+(_CAL_QL[e.periodo]||e.periodo))+'</span>'+_calRevEstado(e);
   if(e.tipo==='junta') return '<span class="muted" style="font-size:12px">junta general</span>';
   return '';
 }
@@ -496,7 +515,7 @@ function _calAgendaHTML(){
     var pasado=(y>=nowY)&&(e.fecha<hoy); if(pasado)nPas++;
     var bg=e.grp==='cartera'?'background:#fffbeb':'background:#f6f8fc';
     var tag=e.grp==='cartera'?'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#fde68a;color:#92400e">cartera</span>':(e.grp==='analizada'?'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#e0e7ff;color:#3730a3">analizada</span>':(e.grp==='universo'?'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#e2e8f0;color:#334155">universo</span>':'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#dbe4f5;color:#1e3a63">radar</span>'));
-    return '<tr style="'+bg+(pasado?';opacity:.4':'')+'"><td style="white-space:nowrap;font-weight:600;color:#334155;font-variant-numeric:tabular-nums">'+_calFmtF(e.fecha)+(pasado?' <span style="font-size:9px;color:#94a3b8;font-weight:700">✓</span>':'')+'</td>'
+    return '<tr style="'+bg+(pasado?';opacity:.4':'')+'"><td style="white-space:nowrap;font-weight:600;color:#334155;font-variant-numeric:tabular-nums">'+_calFmtF(e.fecha)+(pasado&&e.tipo!=='res'?' <span style="font-size:9px;color:#94a3b8;font-weight:700">✓</span>':'')+'</td>'
       +'<td>'+_calChip(e.tipo,e.periodo)+'</td>'
       +'<td><span data-ficha="'+_calEsc(e.t)+'" style="cursor:pointer;font-weight:700;color:var(--brand)">'+_calEsc(e.t)+'</span> '+tag+_calBadge(e)+' <span class="muted" style="font-size:11px">'+_calEsc((_calNombre(e.t)||'').slice(0,22))+'</span></td>'
       +'<td>'+_calDetalle(e)+'</td></tr>';
@@ -504,7 +523,7 @@ function _calAgendaHTML(){
   var mob=ev.map(function(e){
     var pasado=(y>=nowY)&&(e.fecha<hoy);
     var tag=e.grp==='cartera'?'<span class="cal-gtag cart">cartera</span>':(e.grp==='analizada'?'<span class="cal-gtag ana">analizada</span>':(e.grp==='universo'?'<span class="cal-gtag uni">universo</span>':'<span class="cal-gtag rad">radar</span>'));
-    return '<div class="cal-ecard '+(e.grp==='cartera'?'e-cart':'e-rad')+(pasado?' e-past':'')+'"><div class="ec-h"><span class="cal-fdate">'+_calFmtF(e.fecha)+(pasado?' ✓':'')+'</span>'+_calChip(e.tipo,e.periodo)+tag+_calBadge(e)+'</div><div class="ec-t"><span class="tk" data-ficha="'+_calEsc(e.t)+'" style="cursor:pointer">'+_calEsc(e.t)+'</span> <span class="muted" style="font-size:11px">'+_calEsc((_calNombre(e.t)||'').slice(0,24))+'</span></div><div class="cal-det">'+_calDetalle(e)+'</div></div>';
+    return '<div class="cal-ecard '+(e.grp==='cartera'?'e-cart':'e-rad')+(pasado?' e-past':'')+'"><div class="ec-h"><span class="cal-fdate">'+_calFmtF(e.fecha)+(pasado&&e.tipo!=='res'?' ✓':'')+'</span>'+_calChip(e.tipo,e.periodo)+tag+_calBadge(e)+'</div><div class="ec-t"><span class="tk" data-ficha="'+_calEsc(e.t)+'" style="cursor:pointer">'+_calEsc(e.t)+'</span> <span class="muted" style="font-size:11px">'+_calEsc((_calNombre(e.t)||'').slice(0,24))+'</span></div><div class="cal-det">'+_calDetalle(e)+'</div></div>';
   }).join('');
   var notaPas=(nPas&&y===nowY)?(' Los <b>'+nPas+'</b> eventos ya pasados van atenuados (✓) para resaltar lo pendiente.'):'';
   return '<div class="card"><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px">'+amb+'<span style="width:1px;height:18px;background:var(--line);margin:0 4px"></span>'+tip+'<span style="width:1px;height:18px;background:var(--line);margin:0 4px"></span>'+empDD+'</div>'
