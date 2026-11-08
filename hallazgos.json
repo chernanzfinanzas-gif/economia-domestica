@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-11-02",
+  "generadoEl": "2026-11-08",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "A3M": {
@@ -2029,11 +2029,18 @@
           "resumen": "Según prensa (elEconomista, 19-ago-2026), Dcoop negocia comprar por unos 470 M€ el ~57 % que CVC tiene en Deoleo; también habría otros interesados. Deoleo comunicó que esos accionistas analizan alternativas sin decisión. Si se cierra puede obligar a una OPA; no consta firma ni cierre a 5-oct.",
           "tipo": "otro",
           "naturaleza": "situacion",
-          "severidad": "media",
-          "origen": "barrido universo 2026-10-05",
-          "fecha": "2026-08-19",
-          "fuente": "https://www.bolsamania.com/noticias/empresas/deoleo-dispara-bolsa-posible-oferta-dcoop-470-millones-euros--23302618.html",
-          "exigeAccion": false
+          "severidad": "alta",
+          "origen": "revisión de alertas 2026-11-08 (semanal)",
+          "fecha": "2026-11-05",
+          "fuente": "CNMV Información Privilegiada nº 3407 (05-nov-2026)",
+          "exigeAccion": false,
+          "ultimaNovedad": {
+            "fecha": "2026-11-05",
+            "texto": "Deoleo firmó el 5-nov-2026 un contrato vinculante para vender, junto con otros socios, ~91,99 % de su filial Deoleo Holding, S.L. (todo el negocio del grupo) a Aceites del Sur–COOSUR y Dcoop, con valor de empresa de 520 M€ al 100 %. A Deoleo, S.A. (50,99 %) le corresponderían, a título orientativo, 190-200 M€ de fondos propios antes de un depósito (escrow) de hasta ~40,8 M€ por la contingencia fiscal italiana de Carapelli. Sujeta a condiciones suspensivas y a la Junta General de Deoleo. Tras el cierre la sociedad cotizada quedaría sin negocio operativo: qué hará con el dinero, Pte. Revisión."
+          },
+          "precioIntervenido": null,
+          "precioIntervenidoPorque": "",
+          "precioIntervenidoDesde": null
         }
       ]
     },
