@@ -1,18 +1,12 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-07T21:45",
+ "generado": "2026-11-08T20:29",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-06T19:45",
+  "cuando": "2026-11-08T20:29",
   "ficheros": [
-   "dossiers/LOG.html",
-   "dossiers/LOG.json",
-   "dossiers/trimestral/LOG-trim.json",
-   "dossiers/v3/LOG.html",
-   "fichas/LOG.json",
-   "fichas/_resumen.json",
    "fichas/_evolucion.json"
   ]
  },
@@ -540,9 +534,9 @@
    "ticker": "",
    "que": "Lector de cuentas anuales (lector_anual_documentos.py): dividendo por acción y crédito a Imperial están hechos a la medida de Logista; generalizar al hacer la revisión anual de cada empresa",
    "detalle": "",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-08T20:03",
+   "como": "8-nov: el dividendo del ejercicio ya no depende de nada hecho a la medida de Logista. lector_dpa_ejercicio.py lo lee en cualquier empresa: el calendario si está completo; si no, la frase del total o lo pagado + el complementario propuesto. Con Logista 2026 da 2,17 sin nada propio. El crédito a Imperial sigue siendo solo de Logista, porque solo existe allí.",
    "comprobado": null
   },
   {
@@ -636,9 +630,9 @@
    "ticker": "VARIAS",
    "que": "Huecos de cifras clave en empresas SIN veredicto (no cambian ninguna decisión): ECR circulante y CAPEX 2024-25; FER CAPEX y dividendos 2023-25 (Ferrovial SE ya no deposita ESEF en la CNMV); IBG circulante 2025 (el ESEF lo da con otra definición que el IPP); MVC y NYE CAPEX 2024-25 (etiquetas propias); LLN beneficio 2020-25, ORY deuda y patrimonio 2025 (y ceros sospechosos de años anteriores), PVA dividendos 2024-25. Y años viejos de empresas con veredicto: ART dividendos 2018-20, MAP flujo de explotación 2016-23, bancos tesorería 2016-18. Comprobar con datos_criticos.py antes de analizar cualquiera.",
    "detalle": "",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-08T20:06",
+   "como": "8-nov. Rellenados con su fuente: ATRY dividendos 2023-25 = 0, DOM CAPEX 2024-25, ECR CAPEX 2020-25, NYE CAPEX 2024-25 y LDA flujo de explotación 2023-25 (la única con veredicto). ECR no falta nada: desde 2018 hace los flujos por el método directo y no publica el circulante. La comprobación ya distingue eso, y también un año entero a medias (16 partidas, como LLN). Quedan cinco empresas del universo sin veredicto, que no se pueden cerrar sin decidir algo o sin otros documentos: FER (Ferrovial SE ya no deposita en la CNMV), LLN/ORY/PVA (solo PDF), IBG y MVC (el circulante y el EBIT del ESEF no miden lo mismo que la serie). Si un día se analiza alguna, la comprobación de cifras clave para su veredicto hasta completarla. En las 35 analizadas no queda ningún hueco.",
    "comprobado": null
   },
   {
@@ -803,6 +797,30 @@
    "origen": "ensayo anual 7-nov",
    "ticker": "VARIAS",
    "que": "Antes de febrero: que la revisión anual encuentre sola lo que hoy viene del Excel del método viejo. En el ensayo, 8 empresas se quedarían sin una cifra clave y la comprobación pararía su veredicto: DPA declarado en BBVA, CABK, SAN, UNI, R4, LDA, MAP y MRL; CAPEX de TEF (sale de un lector de las cuentas que el nivel base no pasa); EBIT y tesorería de R4. Faltarían además datos propios: CET1, morosidad y coste del riesgo en bancos; ratio combinado y primas en seguros; 30 datos inmobiliarios de MRL; MW y GWh de IBE; cartera de pedidos de ACS y ART.",
+   "detalle": "",
+   "estado": "resuelto",
+   "resuelto": "2026-11-08T20:03",
+   "como": "8-nov: resuelto el dividendo declarado, lo que más empresas bloqueaba. Se lee sin el Excel (lector_dpa_ejercicio.py). Simulando febrero en las 35: 18 bien, 17 se paran sin inventar (la comprobación para el veredicto y lo lee Claude en la revisión) y ninguna mal. Lo demás sigue en el pendiente nuevo.",
+   "comprobado": null
+  },
+  {
+   "id": "P6b9b9b10",
+   "creado": "2026-11-08T20:03",
+   "origen": "ensayo anual 7-nov",
+   "ticker": "VARIAS",
+   "que": "Antes de febrero, lo que aún venía del Excel o de otra lectura: CAPEX de TEF (lector de las cuentas que el nivel base no pasa); EBIT y tesorería de R4; métricas propias (CET1, morosidad y coste del riesgo en bancos; ratio combinado y primas en seguros; 30 datos inmobiliarios de MRL; MW y GWh de IBE; cartera de pedidos de ACS y ART). Y, opcional, que el lector del dividendo encuentre también los 17 que hoy se paran.",
+   "detalle": "",
+   "estado": "resuelto",
+   "resuelto": "2026-11-08T20:09",
+   "como": "8-nov. CAPEX de Telefónica: nuevo paso completar_flujos_pdf, que lee el estado de flujos de las cuentas consolidadas cuando el informe de la CNMV viene vacío; en el ensayo TEF y PRM se rehacen al 100 %. EBIT y caja de Renta 4: el nivel base de los bancos se rompía (abs de un dato vacío) y no terminaba; arreglado, y R4 ya no pierde ninguna cifra clave. Las métricas propias siguen en el pendiente nuevo.",
+   "comprobado": null
+  },
+  {
+   "id": "P43f32602",
+   "creado": "2026-11-08T20:09",
+   "origen": "ensayo anual 8-nov",
+   "ticker": "VARIAS",
+   "que": "Métricas propias que aún vienen del Excel viejo (no son cifras clave del veredicto, pero las usan los bloques de banca, seguros e inmobiliaria): CET1, apalancamiento, morosidad, cobertura y coste del riesgo en BBVA, CABK, SAN, UNI, BKT y R4; ratio combinado y primas en LDA y MAP; unos 30 datos inmobiliarios de MRL; MW y GWh de IBE; cartera de pedidos de ACS y ART. Hacer lectores del informe de resultados antes de febrero.",
    "detalle": "",
    "estado": "abierto",
    "resuelto": null,
