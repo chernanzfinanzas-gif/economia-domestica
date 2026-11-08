@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-08T20:45",
+ "generado": "2026-11-08T21:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -822,9 +822,9 @@
    "ticker": "VARIAS",
    "que": "Métricas propias que aún vienen del Excel viejo (no son cifras clave del veredicto, pero las usan los bloques de banca, seguros e inmobiliaria): CET1, apalancamiento, morosidad, cobertura y coste del riesgo en BBVA, CABK, SAN, UNI, BKT y R4; ratio combinado y primas en LDA y MAP; unos 30 datos inmobiliarios de MRL; MW y GWh de IBE; cartera de pedidos de ACS y ART. Hacer lectores del informe de resultados antes de febrero.",
    "detalle": "",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-08T20:57",
+   "como": "8-nov. Medido: estas métricas no tienen un sitio fijo legible a máquina (cuadros con las etiquetas en una línea y las cifras en otra, y la maqueta cambia cada año). Aprendiendo de años anteriores no se acertaba con garantías. Montado: 1) lector_banca, que en los bancos rellena solo las cifras que salen iguales en dos documentos (22 de 90 bien y ninguna mal frente al banco); 2) ayuda_lectura, que en la revisión anual le pone a Claude delante las frases con cifras de cada métrica que falte: hay pistas para 78 de 136 métricas propias de las 12 empresas, y Claude las apunta con su fuente en minutos. Lo que el Excel calculaba (p. ej. la mora de Renta 4) lo calcula Claude con su fuente. Sin trabajo para Carlos.",
    "comprobado": null
   }
  ],
