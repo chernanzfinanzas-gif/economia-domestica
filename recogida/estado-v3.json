@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-08T20:29",
+ "generado": "2026-11-08T20:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -486,9 +486,9 @@
    "ticker": "FDR",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (06/11/2026 08:14)",
    "detalle": "nº 43521: Inscripción de escritura de reducción de capital social de Fluidra, S.A. en el Registro Mercantil de Barcelona",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-08T20:31",
+   "como": "8-nov: el aviso no tiene documento. Su enlace da error 404 en la propia web de la CNMV (página de capital). La recogida deja una nota en la Biblioteca con el aviso (título, fecha, enlace y motivo) y ya no guarda la página de error como si fuera el documento.",
    "comprobado": null
   },
   {
@@ -498,9 +498,9 @@
    "ticker": "ELE",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (06/11/2026 08:11)",
    "detalle": "nº 43520: Inscripción en el Registro Mercantil de la reducción de capital",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-08T20:31",
+   "como": "8-nov: el aviso no tiene documento. Su enlace da error 404 en la propia web de la CNMV (página de capital). La recogida deja una nota en la Biblioteca con el aviso (título, fecha, enlace y motivo) y ya no guarda la página de error como si fuera el documento.",
    "comprobado": null
   },
   {
@@ -690,9 +690,9 @@
    "ticker": "MCM",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (06/11/2026 09:49)",
    "detalle": "nº 43529: Nuevo capital social tras la ampliación de capital llevada a cabo.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-08T20:31",
+   "como": "8-nov: el aviso no tiene documento. Su enlace da error 404 en la propia web de la CNMV (página de capital). La recogida deja una nota en la Biblioteca con el aviso (título, fecha, enlace y motivo) y ya no guarda la página de error como si fuera el documento.",
    "comprobado": null
   },
   {
@@ -714,9 +714,9 @@
    "ticker": "ACS",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (07/11/2026 12:37)",
    "detalle": "nº 3413: El Grupo ACS niega la OPA sobre Hochtief y la venta de Turner",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-08T20:31",
+   "como": "Bajado el 8-nov con la recogida a mano: comunicado de información privilegiada de ACS del 7-nov que niega la OPA sobre Hochtief y la venta de Turner. Está en la Biblioteca (ACS/Comunicaciones).",
    "comprobado": null
   },
   {
