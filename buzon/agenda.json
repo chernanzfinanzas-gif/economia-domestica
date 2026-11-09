@@ -1,48 +1,16 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-11-02T16:42:11+01:00",
+  "generadoEl": "2026-11-09T17:09:05+01:00",
   "generadoPor": "agenda.py (GitHub Actions) — fechas confirmadas de Yahoo Finance",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-11-02",
-  "resumenTexto": "📌 RESULTADOS confirmados (9): Acerinox, S.A. 30-10, Unicaja Banco, S.A. 30-10, Laboratorios Farmacéuticos Rovi, S.A. 05-11, Amadeus IT Group, S.A. 06-11, Logista Integral, S.A. 06-11, ACS, Actividades de Construcción y Servicios, S.A. 12-11, Merlin Properties, SOCIMI, S.A. 12-11, Telefónica, S.A. 12-11. 💶 Ex-dividend (orientativo, 8): Naturgy Energy Group, S.A. 03-11, Mapfre, S.A. 24-11, Viscofan, S.A. 25-11, Fluidra, S.A. 08-12, Atresmedia Corporación de Medios de Comunicación, S.A. 14-12, Redeia Corporación, S.A. 05-01, Iberdrola, S.A. 12-01, Repsol, S.A. 12-01. Sin fecha de resultados confirmada: 5 (rige la estimación del Vigía).",
+  "fechaReferencia": "2026-11-09",
+  "resumenTexto": "📌 RESULTADOS confirmados (6): Amadeus IT Group, S.A. 06-11, ACS, Actividades de Construcción y Servicios, S.A. 12-11, Merlin Properties, SOCIMI, S.A. 12-11, Telefónica, S.A. 12-11, Industria de Diseño Textil, S.A. 02-12, Bankinter, S.A. 21-01. 💶 Ex-dividend (orientativo, 8): Mapfre, S.A. 24-11, Viscofan, S.A. 25-11, Fluidra, S.A. 08-12, Atresmedia Corporación de Medios de Comunicación, S.A. 14-12, Unicaja Banco, S.A. 15-12, Redeia Corporación, S.A. 05-01, Iberdrola, S.A. 12-01, Repsol, S.A. 12-01. Sin fecha de resultados confirmada: 6 (rige la estimación del Vigía).",
   "resultados": [
-    {
-      "ticker": "ACX",
-      "empresa": "Acerinox, S.A.",
-      "fecha": "2026-10-30",
-      "dias": -3,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "UNI",
-      "empresa": "Unicaja Banco, S.A.",
-      "fecha": "2026-10-30",
-      "dias": -3,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "ROVI",
-      "empresa": "Laboratorios Farmacéuticos Rovi, S.A.",
-      "fecha": "2026-11-05",
-      "dias": 3,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
     {
       "ticker": "AMS",
       "empresa": "Amadeus IT Group, S.A.",
       "fecha": "2026-11-06",
-      "dias": 4,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "LOG",
-      "empresa": "Logista Integral, S.A.",
-      "fecha": "2026-11-06",
-      "dias": 4,
+      "dias": -3,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -50,7 +18,7 @@
       "ticker": "ACS",
       "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
       "fecha": "2026-11-12",
-      "dias": 10,
+      "dias": 3,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -58,7 +26,7 @@
       "ticker": "MRL",
       "empresa": "Merlin Properties, SOCIMI, S.A.",
       "fecha": "2026-11-12",
-      "dias": 10,
+      "dias": 3,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -66,7 +34,7 @@
       "ticker": "TEF",
       "empresa": "Telefónica, S.A.",
       "fecha": "2026-11-12",
-      "dias": 10,
+      "dias": 3,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -74,26 +42,25 @@
       "ticker": "ITX",
       "empresa": "Industria de Diseño Textil, S.A.",
       "fecha": "2026-12-02",
-      "dias": 30,
+      "dias": 23,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "BKT",
+      "empresa": "Bankinter, S.A.",
+      "fecha": "2027-01-21",
+      "dias": 73,
       "confirmada": true,
       "fuente": "calendar"
     }
   ],
   "exDividendos": [
     {
-      "ticker": "NTGY",
-      "empresa": "Naturgy Energy Group, S.A.",
-      "exFecha": "2026-11-03",
-      "dias": 1,
-      "pagoFecha": null,
-      "importe": 0.6,
-      "fuente": "calendar"
-    },
-    {
       "ticker": "MAP",
       "empresa": "Mapfre, S.A.",
       "exFecha": "2026-11-24",
-      "dias": 22,
+      "dias": 15,
       "pagoFecha": null,
       "importe": 0.08,
       "fuente": "calendar"
@@ -102,7 +69,7 @@
       "ticker": "VIS",
       "empresa": "Viscofan, S.A.",
       "exFecha": "2026-11-25",
-      "dias": 23,
+      "dias": 16,
       "pagoFecha": null,
       "importe": 1.4,
       "fuente": "calendar"
@@ -111,7 +78,7 @@
       "ticker": "FDR",
       "empresa": "Fluidra, S.A.",
       "exFecha": "2026-12-08",
-      "dias": 36,
+      "dias": 29,
       "pagoFecha": null,
       "importe": 0.33,
       "fuente": "calendar"
@@ -120,16 +87,25 @@
       "ticker": "A3M",
       "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
       "exFecha": "2026-12-14",
-      "dias": 42,
+      "dias": 35,
       "pagoFecha": null,
       "importe": 0.83,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "UNI",
+      "empresa": "Unicaja Banco, S.A.",
+      "exFecha": "2026-12-15",
+      "dias": 36,
+      "pagoFecha": null,
+      "importe": 0.0642,
       "fuente": "calendar"
     },
     {
       "ticker": "RED",
       "empresa": "Redeia Corporación, S.A.",
       "exFecha": "2027-01-05",
-      "dias": 64,
+      "dias": 57,
       "pagoFecha": null,
       "importe": 0.204,
       "fuente": "calendar"
@@ -138,7 +114,7 @@
       "ticker": "IBE",
       "empresa": "Iberdrola, S.A.",
       "exFecha": "2027-01-12",
-      "dias": 71,
+      "dias": 64,
       "pagoFecha": null,
       "importe": 0.275,
       "fuente": "calendar"
@@ -147,7 +123,7 @@
       "ticker": "REP",
       "empresa": "Repsol, S.A.",
       "exFecha": "2027-01-12",
-      "dias": 71,
+      "dias": 64,
       "pagoFecha": null,
       "importe": 0.56,
       "fuente": "calendar"
@@ -162,6 +138,11 @@
     {
       "ticker": "AZK",
       "empresa": "Azkoyen, S.A.",
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
+    },
+    {
+      "ticker": "CBAV",
+      "empresa": "CLINICA BAVIERA, S.A.",
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     },
     {
@@ -180,6 +161,6 @@
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     }
   ],
-  "totalConsultadas": 35,
+  "totalConsultadas": 36,
   "fallos": []
 }
