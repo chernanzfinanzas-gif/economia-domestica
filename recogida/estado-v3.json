@@ -1,26 +1,23 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-09T12:45",
+ "generado": "2026-11-09T13:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [
-  {
-   "carpeta": "CBAV análisis inicial",
-   "ticker": "CBAV",
-   "periodos": [],
-   "tipo": "inicial",
-   "creada": "2026-11-09T12:37+01:00",
-   "semaforo": null,
-   "frase": null
-  }
- ],
- "n_pendientes": 1,
+ "revisiones_pendientes": [],
+ "n_pendientes": 0,
  "ultima_subida": {
   "cuando": "2026-11-09T12:45",
   "ficheros": [
    "fichas/_evolucion.json"
   ]
  },
- "rechazos": [],
+ "rechazos": [
+  "NO SUBE dossiers/CBAV.html: CBAV no es una empresa del v3",
+  "NO SUBE dossiers/CBAV.json: CBAV no es una empresa del v3",
+  "NO SUBE dossiers/trimestral/CBAV-trim.json: CBAV no es una empresa del v3",
+  "NO SUBE dossiers/v3/CBAV.html: CBAV no es una empresa del v3",
+  "NO SUBE fichas/CBAV.json: CBAV no es una empresa del v3",
+  "NO SUBE fichas/_resumen.json: lista de empresas rara"
+ ],
  "descargas_pendientes": [
   {
    "clase": "fallido",
