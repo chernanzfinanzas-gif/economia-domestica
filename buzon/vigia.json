@@ -1,19 +1,19 @@
 {
-  "generadoEl": "2026-11-02T16:47:06+01:00",
+  "generadoEl": "2026-11-09T17:14:50+01:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-11-02",
-  "resumenTexto": "📅 ESTA SEMANA (8): Gestamp Automoción, S.A. 31-10, Industria de Diseño Textil, S.A. 31-10, Miquel y Costas & Miquel, S.A. 31-10, Merlin Properties, SOCIMI, S.A. 31-10, Prim, S.A. 31-10, Laboratorios Farmacéuticos Rovi, S.A. 31-10, Telefónica, S.A. 04-11, Amadeus IT Group, S.A. 07-11. 🔜 PRÓXIMOS 14 DÍAS: ACS, Actividades de Construcción y Servicios, S.A. 14-11. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
-  "vencidos": [],
-  "estaSemana": [
+  "fechaReferencia": "2026-11-09",
+  "resumenTexto": "⚠️ VENCIDOS (5): CLINICA BAVIERA, S.A. (9M, +9d), Industria de Diseño Textil, S.A. (9M, +9d), Merlin Properties, SOCIMI, S.A. (9M, +9d), Prim, S.A. (9M, +9d), Telefónica, S.A. (9M, +5d). 📅 ESTA SEMANA (1): ACS, Actividades de Construcción y Servicios, S.A. 14-11. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "vencidos": [
     {
-      "ticker": "GEST",
-      "empresa": "Gestamp Automoción, S.A.",
+      "ticker": "CBAV",
+      "empresa": "CLINICA BAVIERA, S.A.",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
+      "ultimaFecha": "2026-07-30",
+      "diasVencido": 9
     },
     {
       "ticker": "ITX",
@@ -22,16 +22,8 @@
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-31"
-    },
-    {
-      "ticker": "MCM",
-      "empresa": "Miquel y Costas & Miquel, S.A.",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
+      "ultimaFecha": "2026-07-31",
+      "diasVencido": 9
     },
     {
       "ticker": "MRL",
@@ -40,7 +32,8 @@
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
+      "ultimaFecha": "2026-07-30",
+      "diasVencido": 9
     },
     {
       "ticker": "PRM",
@@ -49,16 +42,8 @@
       "periodoLabel": "9M",
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
-    },
-    {
-      "ticker": "ROVI",
-      "empresa": "Laboratorios Farmacéuticos Rovi, S.A.",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30"
+      "ultimaFecha": "2026-07-30",
+      "diasVencido": 9
     },
     {
       "ticker": "TEF",
@@ -67,19 +52,11 @@
       "periodoLabel": "9M",
       "fechaEstimada": "2026-11-04",
       "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-29"
-    },
-    {
-      "ticker": "AMS",
-      "empresa": "Amadeus IT Group, S.A.",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-11-07",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-31"
+      "ultimaFecha": "2026-07-29",
+      "diasVencido": 5
     }
   ],
-  "proximos14d": [
+  "estaSemana": [
     {
       "ticker": "ACS",
       "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
@@ -90,15 +67,16 @@
       "ultimaFecha": "2026-07-29"
     }
   ],
+  "proximos14d": [],
   "siguienteEvento": {
-    "ticker": "TEF",
-    "empresa": "Telefónica, S.A.",
+    "ticker": "ACS",
+    "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
     "periodoEsperado": "2026-Q3",
     "periodoLabel": "9M",
-    "fechaEstimada": "2026-11-04",
+    "fechaEstimada": "2026-11-14",
     "ultimoPeriodo": "2026-Q2",
     "ultimaFecha": "2026-07-29"
   },
   "sinDeterminar": [],
-  "totalEmpresas": 35
+  "totalEmpresas": 36
 }
