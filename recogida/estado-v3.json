@@ -1,15 +1,23 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-09T08:45",
+ "generado": "2026-11-09T12:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "CBAV análisis inicial",
+   "ticker": "CBAV",
+   "periodos": [],
+   "tipo": "inicial",
+   "creada": "2026-11-09T12:37+01:00",
+   "semaforo": null,
+   "frase": null
+  }
+ ],
+ "n_pendientes": 1,
  "ultima_subida": {
-  "cuando": "2026-11-09T08:45",
+  "cuando": "2026-11-09T12:45",
   "ficheros": [
-   "hallazgos.json",
-   "informes-semanales/Informe Semanal de Cartera - 2026-11-09.pdf",
-   "macro.json"
+   "fichas/_evolucion.json"
   ]
  },
  "rechazos": [],
