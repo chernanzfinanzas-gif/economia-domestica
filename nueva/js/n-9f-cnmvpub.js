@@ -10,17 +10,17 @@
   function fdia(f){ return /^\d{4}-\d{2}-\d{2}$/.test(f||'')?f.slice(8,10)+'-'+f.slice(5,7)+'-'+f.slice(0,4):esc(f||''); }
   var DS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
   function grupoTipo(t){ return /privilegiada/i.test(t)?'ip':(/Otra informaci/i.test(t)?'oir':({'Resultados':'res','Informe periódico':'ipp','Cuentas anuales':'anu','Gobierno':'gob','Capital':'cap'})[t]||'otr'); }
-  var FILTROS=[['','Todas'],['com','Comunicaciones'],['res','Resultados'],['ipp','Informes periódicos'],['anu','Cuentas anuales'],['gob','Gobierno'],['cap','Capital']];
-  function pasa(x){ if(!st.tipo) return true; var g=grupoTipo(x.t), g2=x.t2?grupoTipo(x.t2):''; if(st.tipo==='com') return g==='ip'||g==='oir'||g2==='ip'||g2==='oir'; return g===st.tipo; }
+  var FILTROS=[['','Todas'],['com','Comunicaciones'],['res','Resultados'],['ipp','Informes periódicos'],['anu','Cuentas anuales'],['gob','Gobierno'],['cap','Capital'],['div','Dividendos']];
+  function pasa(x){ if(!st.tipo) return true; if(st.tipo==='div') return !!x.dv; var g=grupoTipo(x.t), g2=x.t2?grupoTipo(x.t2):''; if(st.tipo==='com') return g==='ip'||g==='oir'||g2==='ip'||g2==='oir'; return g===st.tipo; }
   function chip(x){ var g=grupoTipo(x.t), L={ip:'Inf. privilegiada',oir:'Otra inf. relevante',res:'Resultados',ipp:'Informe periódico',anu:'Cuentas anuales',gob:'Gobierno',cap:'Capital',otr:x.t}[g];
-    return '<span class="cp-ch cp-'+g+'">'+esc(L)+'</span>'+(x.t2?'<span class="cp-ch cp-'+grupoTipo(x.t2)+'">'+(grupoTipo(x.t2)==='ip'?'Inf. privilegiada':'OIR')+'</span>':''); }
+    return '<span class="cp-ch cp-'+g+'">'+esc(L)+'</span>'+(x.t2?'<span class="cp-ch cp-'+grupoTipo(x.t2)+'">'+(grupoTipo(x.t2)==='ip'?'Inf. privilegiada':'OIR')+'</span>':'')+(x.dv?'<span class="cp-ch cp-div">Dividendo</span>':''); }
   function fila(x,conTk){ var nom=conTk?((IDX&&(IDX.empresas||[]).find(function(e){ return e.ticker===x.tk; }))||{}).empresa:'';
     return '<div class="cp-it"><div class="cp-fh">'+(conTk?'':fdia(x.f)+'<br>')+'<span>'+esc(x.h||'')+'</span></div><div class="cp-tx">'+
       (conTk?'<a class="cp-tk" data-cptk="'+esc(x.tk)+'">'+esc(x.tk)+'</a> <span class="cp-nm">'+esc(nom||'')+'</span><br>':'')+
       chip(x)+' <a href="'+esc(x.u)+'" target="_blank" rel="noopener">'+esc(x.a||'(sin título)')+'</a>'+(x.c?'<small>'+esc(x.c)+'</small>':'')+'</div></div>'; }
   function css(){ if(document.getElementById('cp-css')) return; var s=document.createElement('style'); s.id='cp-css'; s.textContent=
     '#view-cnmvpub{padding:4px 2px 40px}#view-cnmvpub h1{font-size:22px;margin:4px 0 2px;color:#1B3260}#view-cnmvpub .cp-sub{color:#64748B;font-size:13px;margin:0 0 12px}'+
-    '.cp-tabs{display:flex;gap:6px;margin:0 0 10px;flex-wrap:wrap}.cp-tabs button,.cp-fl span{border:1px solid #CBD5E1;background:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:13px;font-weight:600;color:#334155;cursor:pointer}'+
+    '.cp-ch.cp-div{background:#FEF3C7!important;color:#92400E!important}.cp-tabs{display:flex;gap:6px;margin:0 0 10px;flex-wrap:wrap}.cp-tabs button,.cp-fl span{border:1px solid #CBD5E1;background:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:13px;font-weight:600;color:#334155;cursor:pointer}'+
     '.cp-tabs button.on,.cp-fl span.on{background:#1F4A9A;border-color:#1F4A9A;color:#fff}.cp-fl{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.cp-fl span{padding:4px 11px;font-size:12px}'+
     '.cp-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#fff;border-radius:14px;padding:10px 12px;box-shadow:0 1px 3px rgba(15,23,42,.08)}'+
     '.cp-bar input,.cp-bar select{font:inherit;font-size:14px;padding:7px 10px;border:1px solid #CBD5E1;border-radius:10px;background:#fff;max-width:100%}.cp-bar input[type=search]{flex:1;min-width:180px}'+
