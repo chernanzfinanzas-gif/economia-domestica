@@ -1,12 +1,20 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-09T16:45",
+ "generado": "2026-11-09T17:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-09T16:45",
+  "cuando": "2026-11-09T17:45",
   "ficheros": [
+   "dossiers/CBAV.html",
+   "dossiers/NEA.html",
+   "dossiers/NEA.json",
+   "dossiers/trimestral/NEA-trim.json",
+   "dossiers/v3/NEA.html",
+   "fichas/CBAV.json",
+   "fichas/NEA.json",
+   "fichas/_resumen.json",
    "_indice.json"
   ]
  },

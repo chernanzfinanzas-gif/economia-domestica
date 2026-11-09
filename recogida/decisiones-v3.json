@@ -485,7 +485,19 @@
     "origen": "metodo-v3",
     "sinPosicion": true
    }
+  ],
+  "NEA": [
+   {
+    "fecha": "9-nov-2026",
+    "fechaIso": "2026-11-09",
+    "senal": "S2",
+    "cot": 9.96,
+    "decision": "REAFIRMAR",
+    "motivo": "Análisis inicial 9-nov-2026: el rojo del S1-2026 (EBITDA −11,4 %, margen 11,8 %) ya está en el riesgo 2 y en la decisión (ESPERAR); cartera récord de 126,5 M€. Alarma si el margen baja del 10 %.",
+    "revision": "NEA análisis inicial",
+    "origen": "metodo-v3"
+   }
   ]
  },
- "actualizado": "2026-11-05"
+ "actualizado": "2026-11-09"
 }

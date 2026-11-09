@@ -1,0 +1,351 @@
+{
+ "schemaVersion": 2,
+ "ticker": "NEA",
+ "empresa": "Nicolás Correa, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-09",
+ "revisiones": [
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +19,2 %, EBITDA -4,7 %, beneficio neto +0,2 %, margen 9,6 % (-2,41 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 45.2
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4.3
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 9.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 3.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 2.7
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -6.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +28,2 %, EBITDA +33,7 %, beneficio neto +62,2 %, margen 12,3 % (+0,50 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 98.2
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 12.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 10.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 9.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -10.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +11,2 %, EBITDA +46,8 %, beneficio neto +55,2 %, margen 12,7 % (+3,08 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 50.3
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 6.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 5.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 4.2
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -5.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +11,9 %, EBITDA +16,8 %, beneficio neto +16,6 %, margen 12,9 % (+0,53 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 110.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 14.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 12.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 10.5
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -10.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +20,9 %, EBITDA +39,0 %, beneficio neto +62,2 %, margen 14,6 % (+1,90 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 60.8
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 8.9
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 7.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 6.8
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -9.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,6 %, EBITDA +29,5 %, beneficio neto +30,0 %, margen 15,1 % (+2,20 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 121.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 18.3
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 15.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 16.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 13.7
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -18.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -5,1 %, EBITDA -5,3 %, beneficio neto -9,7 %, margen 14,6 % (-0,02 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 57.7
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 8.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 7.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 6.1
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -12.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -2,0 %, EBITDA -10,0 %, beneficio neto -12,1 %, margen 13,8 % (-1,23 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 119.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 16.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 14.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 12.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -8.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,8 %, EBITDA -11,4 %, beneficio neto +3,1 %, margen 11,8 % (-2,81 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo por margen: ventas +9,8 % (casi todo por la entrada de Correa Kunming; sin ella, planas), EBITDA −11,4 % y margen del 11,8 % (−2,8 puntos). La empresa habla de «creciente presión sobre los márgenes del sector». En contra del rojo: captación de pedidos +57 % (+44 % comparable) y cartera récord de 126,5 M€. S2 atendida en este análisis inicial: el precio ya cuenta con el margen bajo (riesgo 2) y la decisión es ESPERAR.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 63.4
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 7.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 5.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 6.3
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -15.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

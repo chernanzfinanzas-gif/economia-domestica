@@ -1,0 +1,126 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
+ "ticker": "NEA",
+ "empresa": "Nicolás Correa, S.A.",
+ "fecha": "2026-11-09",
+ "revisadoEl": "2026-11-09",
+ "rating": "AA",
+ "score": 79.3,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 11 % · EV/EBIT 11 % · PER 14 % · P/VC 8 % · P/FCL 11 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
+ "poBear": 8.46,
+ "poBase": 10.22,
+ "poBull": 12.83,
+ "entMin": 8.46,
+ "entMax": 8.89,
+ "stop": 5.02,
+ "dpaPrevisto": 0.3,
+ "moat": "59,5 sobre 100 · MOAT ESTRECHO. Sin ajuste: las huellas cuentan bien un nicho cíclico",
+ "catalizadores": [
+  "La cartera récord se convierte en ventas: La cartera es de 126,5 M€ a junio de 2026 (+45 % en el semestre; +30 % a perímetro comparable), cerca de un año de ventas. Se mide como un 10 % más de ventas. (12-18 meses)",
+  "Kunming suma ventas y beneficio: Correa Kunming pasa de asociada (45 %) a consolidarse entera desde 2026; en 2025 facturó 11,8 M€. (feb-2027 (resultados de 2026))",
+  "Mezcla de producto más cara: Defensa, aeronáutica y semiconductores piden máquinas multifunción de más valor; recuperar el margen de 2024 (15,1 %) frente al 13,8 % de 2025 son unos 1,5 M€ de EBITDA. (12-24 meses)"
+ ],
+ "riesgos": [
+  "El ciclo de inversión industrial se da la vuelta (Media-Alta): Vende máquinas-herramienta de gran tamaño: sus clientes las compran cuando invierten, y dejan de hacerlo en las recesiones. Las ventas cayeron un 10 % en 2020 y un 2 % en 2025; la cartera llegó a bajar a 28 M€ (2020).",
+  "El margen se estrecha (Media): El margen EBITDA bajó del 15,1 % (2024) al 13,8 % (2025) y a cerca del 12 % en el S1-2026; la propia empresa habla de «creciente presión sobre los márgenes del sector». Un punto de margen sobre 119 M€ son 1,2 M€ de EBITDA.",
+  "Defensa y aeronáutica dejan de tirar (Media): La empresa dice que defensa y aeronáutica son hoy los principales motores de los pedidos (S1-2026). Si ese gasto se frena, la cartera récord no se repone.",
+  "La ampliación de Burgos no se llena (Media): El CAPEX de 2025 fue de 11,4 M€ (9,6 % de las ventas, frente al 2-4 % habitual) por la ampliación de instalaciones. Si no llega volumen para llenarla, sube la amortización sin más EBITDA.",
+  "China y los aranceles (Media): China ha sido uno de sus primeros mercados y desde 2026 consolida Correa Kunming (antes asociada al 45 %). Aranceles, controles a la exportación de maquinaria sensible o una caída de China restan ventas.",
+  "Pequeña, familiar y poco líquida (Baja-Media): Capitalización de unos 121 M€; Sancor Capital (familia Nicolás-Correa) tiene el 29,01 %. Con poco volumen, el precio puede caer mucho sin que cambie el negocio."
+ ],
+ "bull": "12,83 € — escenario optimista: ",
+ "bear": "8,46 € — escenario pesimista: ",
+ "resumen": "Buena empresa, sin margen de seguridad y con un semestre flojo. Cumple tres de las cuatro condiciones (rating AA, moat 59,5 y pérdida al bear acotada), pero a 9,96 € el margen es solo del +2,6 % sobre el PO de 10,22 €. COMPRAR exige bajar a 8,89 € (−11 %); la banda de entrada es 8,46-8,89 €. La cartera récord (126,5 M€) es el argumento a favor; el margen a la baja del S1-2026 (11,8 %), el argumento en contra. Stop de tesis 5,02 €.",
+ "dividendSafety": {
+  "score": 94,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 20,
+   "C4": 15,
+   "C5": 9
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 3.65x · payout 30 % · 0 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja"
+  ],
+  "calculadoEl": "2026-11-09",
+  "origen": "metodo-v3",
+  "shareholderYield": 3.36
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 3,
+   "banda": "débil",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 0,
+    "lever_dn": 0,
+    "liquid_up": 0,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 5.77,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.16,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": 1.1,
+   "senal": "normal"
+  },
+  "flags": [
+   "Piotroski débil (3/9): fundamentales flojos"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-09",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -1.22,
+  "gIntrinseco": 7.79,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-11-09",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 7.8179,
+   "wacc": 7.598,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 12.1606,
+   "deudaNeta": -8.871,
+   "modo": "EV",
+   "precioBase": 9.96,
+   "gBase": -1.22,
+   "fechaBase": "2026-11-06",
+   "congeladoEl": "2026-11-09",
+   "validado": true,
+   "desviacion": -0.0
+  }
+ }
+}
