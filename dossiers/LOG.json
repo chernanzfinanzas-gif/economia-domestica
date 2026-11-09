@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "LOG",
  "empresa": "Logista Integral, S.A.",
- "fecha": "2026-11-06",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-11-06",
  "rating": "AA",
  "score": 86.9,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 30 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 8 % · PER 10 % · P/VC 6 % · P/FCL 8 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl recurrente",
- "poBear": 30.09,
- "poBase": 37.19,
- "poBull": 41.26,
- "entMin": 30.09,
- "entMax": 32.34,
- "stop": 26.66,
+ "poBear": 31.24,
+ "poBase": 38.33,
+ "poBull": 42.4,
+ "entMin": 31.24,
+ "entMax": 33.33,
+ "stop": 27.76,
  "dpaPrevisto": 2.17,
  "moat": "78,5 sobre 100 · MOAT ANCHO. Transporte sin moat y plan de Francia a la baja",
  "catalizadores": [
@@ -35,9 +35,9 @@
   "Compras que no rinden (Media): Unos 200 M€ en compras de transporte desde 2022; la empresa dice que El Mosca y Carbó van por debajo. El incentivo del equipo no mide el retorno del capital.",
   "Ciberataque o caída prolongada de sistemas (Baja-Media): La empresa lo declara su primer riesgo operacional: reparto diario con depósito fiscal y cobro a pocos días, todo por sistemas. El modelo valora flujos perpetuos, así que el golpe supone daño sostenido y exagera un incidente puntual."
  ],
- "bull": "41,26 € — escenario optimista: La diversificación (transporte, farma) sustituye el volumen de tabaco que se pierde y el grupo sigue comprando con la caja que genera.",
- "bear": "30,09 € — escenario pesimista: El volumen de tabaco en Europa cae de forma estructural y el precio deja de compensarlo; los intereses del crédito a Imperial se encogen con la bajada de tipos. Sin crecimiento real ni terminal.",
- "resumen": "Buena empresa a precio justo, sin margen. Con la cotización del 6-nov (36,60 €) queda un 1,6 % por debajo del precio objetivo de la revisión anual (37,19 €): no llega para MANTENER con holgura y COMPRAR exige el 15 %, así que ESPERAR; la banda de compra está entre 30,09 y 32,34 €. Las otras condiciones se cumplen (rating AA, moat 78,5) y desde el techo de la banda el bear resta un 6,9 %. Stop de tesis 26,66 €. Frente a octubre (ESPERAR, PO 36,25 €), el PO sube algo con los datos de 2026; las hipótesis no cambian. Los dos catalizadores de 2026 se cumplieron (guidance y subida del dividendo). Corregido el 6-nov por la tarde: la primera versión no restaba el circulante de 2026 y daba MANTENER con PO 38,49 €.",
+ "bull": "42,40 € — escenario optimista: La diversificación (transporte, farma) sustituye el volumen de tabaco que se pierde y el grupo sigue comprando con la caja que genera.",
+ "bear": "31,24 € — escenario pesimista: El volumen de tabaco en Europa cae de forma estructural y el precio deja de compensarlo; los intereses del crédito a Imperial se encogen con la bajada de tipos. Sin crecimiento real ni terminal.",
+ "resumen": "Buena empresa a precio justo, sin margen. Con la cotización del 6-nov (36,60 €) queda un 4,5 % por debajo del precio objetivo (38,33 €): no llega para MANTENER con holgura y COMPRAR exige el 15 %, así que ESPERAR; la banda de compra está entre 31,24 y 33,33 €. Las otras condiciones se cumplen (rating AA, moat 78,5) y desde el techo de la banda el bear resta un 6,3 %. Stop de tesis 27,76 €. Frente a octubre (ESPERAR, PO 36,25 €), el PO sube con los datos de 2026 y, el 9-nov, con la corrección del alquiler contado dos veces en el DCF; las hipótesis no cambian. Los dos catalizadores de 2026 se cumplieron (guidance y subida del dividendo). Corregido el 6-nov por la tarde: la primera versión no restaba el circulante de 2026 y daba MANTENER con PO 38,49 €.",
  "dividendSafety": {
   "score": 56,
   "banda": "Vigilar",
@@ -57,7 +57,7 @@
   "motivos": [
    "Vigilar: cobertura OE 1.50x · payout 102 % · 1 recorte(s) del DPA · señales: DN/EBITDA al alza, recompras recortadas"
   ],
-  "calculadoEl": "2026-11-06",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 6.28
  },
@@ -98,7 +98,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-06",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -107,7 +107,7 @@
   "gIntrinseco": 5.71,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-06",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 323.9606,
@@ -120,7 +120,7 @@
    "precioBase": 36.6,
    "gBase": -1.48,
    "fechaBase": "2026-11-06",
-   "congeladoEl": "2026-11-06",
+   "congeladoEl": "2026-11-09",
    "validado": true,
    "desviacion": -0.0
   }

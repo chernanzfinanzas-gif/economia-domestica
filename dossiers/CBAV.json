@@ -1,0 +1,124 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
+ "ticker": "CBAV",
+ "empresa": "CLINICA BAVIERA, S.A.",
+ "fecha": "2026-11-09",
+ "revisadoEl": "2026-11-09",
+ "rating": "AA",
+ "score": 80.1,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 11 % · EV/EBIT 11 % · PER 14 % · P/VC 8 % · P/FCL 11 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
+ "poBear": 34.3,
+ "poBase": 40.51,
+ "poBull": 46.98,
+ "entMin": 34.3,
+ "entMax": 35.22,
+ "stop": 27.42,
+ "dpaPrevisto": 1.57,
+ "moat": "71,6 sobre 100 · MOAT MODERADO. El moat es el de España; fuera todavía no se ha demostrado",
+ "catalizadores": [
+  "Las aperturas maduran: Abrió 11 clínicas en 2025 y 8 en el S1-2026 (156 en total). Una clínica nueva tarda unos años en llenarse; en España el 25 % del aumento de ventas del S1-2026 ya viene de las aperturas de 2025-26. Se mide como un 5 % más de ventas con el beneficio en proporción. (12-24 meses)",
+  "Reino Unido deja de perder dinero: Reino Unido perdió 5,5 M€ de EBITDA en 2025 y 1,6 M€ en el S1-2026 (frente a −3,0 M€ un año antes), con ventas +28 %. Llegar a cero son unos 4 M€ más de EBITDA al año. (feb-2028 (resultados de 2027))",
+  "Alemania se estabiliza: El nuevo CEO (desde marzo de 2026) dirigía Alemania y Reino Unido. Volver al margen de 2024 (30 %) con las ventas de 2025 son unos 1,1 M€ más de EBITDA; recuperar el EBITDA de 2024-25 (16,7-16,9 M€) desde el ritmo del S1-2026, unos 2 M€. (12-18 meses)"
+ ],
+ "riesgos": [
+  "España deja de crecer (Media): España es el 68 % de las ventas (204,4 de 301,8 M€) y el 83 % del EBITDA (70,5 de 84,5 M€) en 2025. La cirugía refractiva la paga el paciente de su bolsillo: es un gasto que se aplaza cuando el consumo se enfría, como ya pasa en Alemania. Se mide como caída de las ventas del grupo con el beneficio en proporción, que se queda corto: España pesa más en el beneficio que en las ventas.",
+  "Alemania sigue cayendo (Alta): Alemania (con Viena) es el 20 % de las ventas y dio 16,7 M€ de EBITDA en 2025. Ya se está deteriorando: margen del 30 % al 28 % en 2025 y EBITDA −11 % en el S1-2026 con ventas +2 %, por la debilidad del consumo y la subida de costes de personal.",
+  "Reino Unido no llega a ganar dinero (Media): Optimax se compró en junio de 2024 por 10,8 M€ más pagos aplazados. Perdió 5,5 M€ de EBITDA en 2025 y 1,6 M€ en el S1-2026 (mejora, pero sigue en negativo). Si no se da la vuelta, resta EBITDA y obliga a deteriorar el fondo de comercio.",
+  "Faltan médicos y suben los sueldos (Media): El negocio depende de oftalmólogos y optometristas. En 2025 subió el coste de personal para retener talento en Alemania e Italia (márgenes del 30 al 28 % y del 17 al 14 %). Un punto de margen sobre 302 M€ de ventas son 3 M€ de EBITDA.",
+  "El accionista de control cambia las reglas (Baja-Media): Aier Eye Hospital (China) tiene el 73,23 % y la familia Baviera (Vito Gestión) el 6,83 %: flota alrededor del 20 %. La política de reparto (pay-out del 60-80 %) y la permanencia en bolsa las decide Aier. Un recorte del dividendo o una OPA de exclusión a un precio bajo dejaría al minoritario sin defensa.",
+  "El precio vuelve a su múltiplo (Media): La acción subió un 59 % en 2025 y cotiza a unas 19,5 veces el beneficio frente a 15,2 de media en diez años. Con poco capital flotante, el precio se mueve mucho: la peor caída desde un máximo fue del −61,7 % (2014-2015). El golpe mide múltiplos por debajo de su media."
+ ],
+ "bull": "46,98 € — escenario optimista: Mantiene el ritmo de 2025-26 sin compras (unas 10 aperturas al año, Reino Unido llega a beneficio e Italia sigue mejorando el margen)",
+ "bear": "34,30 € — escenario pesimista: España se enfría como Alemania en 2025-26 (ventas +2 % y EBITDA −11 % en el S1-2026) y Reino Unido sigue en pérdidas: el crecimiento queda en lo que aportan las aperturas",
+ "resumen": "Buena empresa a precio caro. Cumple tres de las cuatro condiciones (rating AA, moat 71,6 y pérdida al bear acotada), pero le falta la principal: a 51,40 € cotiza un 21 % por encima del precio objetivo (40,51 €) y un 9 % por encima incluso del PO bull (46,98 €). Para COMPRAR tendría que bajar a 35,22 € (−31 %). Se apunta en vigilancia con la banda de entrada 34,30-35,22 €.",
+ "dividendSafety": {
+  "score": 72,
+  "banda": "Seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 27,
+   "C2": 10,
+   "C3": 20,
+   "C4": 3,
+   "C5": 12
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Seguro: cobertura OE 1.69x · payout 65 % · 2 recorte(s) del DPA · señales: recompras recortadas"
+  ],
+  "calculadoEl": "2026-11-09",
+  "origen": "metodo-v3",
+  "shareholderYield": 3.35
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 5,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 3.85,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -3.19,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -15.0,
+   "senal": "muy conservador"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-09",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 10.6,
+  "gIntrinseco": 12.29,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (≤ g intrínseco 12.3 %)",
+  "calculadoEl": "2026-11-09",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 27.1312,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 16.3035,
+   "deudaNeta": 43.709,
+   "modo": "EV",
+   "precioBase": 51.4,
+   "gBase": 10.6,
+   "fechaBase": "2026-11-06",
+   "congeladoEl": "2026-11-09",
+   "validado": true,
+   "desviacion": -0.0
+  }
+ }
+}

@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "AZK",
  "empresa": "Azkoyen, S.A.",
- "fecha": "2026-10-26",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-10-27",
  "rating": "AA",
  "score": 76.0,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 14 % · EV/EBIT 12 % · PER 14 % · P/FCL 10 % · P/VC 10 % · flujo base del DCF: owner earnings",
- "poBear": 8.08,
- "poBase": 10.49,
- "poBull": 12.78,
- "entMin": 8.08,
- "entMax": 9.12,
- "stop": 7.36,
+ "poBear": 8.2,
+ "poBase": 10.6,
+ "poBull": 12.9,
+ "entMin": 8.2,
+ "entMax": 9.22,
+ "stop": 7.48,
  "dpaPrevisto": 0.356,
  "moat": "50,2 sobre 100 · MOAT ESTRECHO. Homologaciones en nichos pequeños, no escala",
  "catalizadores": [
@@ -32,9 +32,9 @@
   "El fondo de comercio ya se está deteriorando (Media): El fondo de comercio es el 45,7 % del patrimonio: deterioro del 15 % y del 30 % del patrimonio. El modelo apenas lo ve (solo el P/VC).",
   "De-rating del múltiplo si la OPA decae (Media): Múltiplos −15 % y −25 %."
  ],
- "bull": "12,78 € — escenario optimista: el mix sigue rotando hacia medios de pago; el WACC no baja del suelo del arquetipo",
- "bear": "8,08 € — escenario pesimista: el vending se frena; WACC al 8,85 %, la tasa que la propia Azkoyen aplica a su fondo de comercio",
- "resumen": "ESPERAR con la cotización de 10,30 € (2026-11-04): precio objetivo 10,49 € (bear 8,08 · bull 12,78), margen +1,8 %. Banda de entrada 8,08–9,12 €, stop de tesis 7,36 €.",
+ "bull": "12,90 € — escenario optimista: el mix sigue rotando hacia medios de pago; el WACC no baja del suelo del arquetipo",
+ "bear": "8,20 € — escenario pesimista: el vending se frena; WACC al 8,85 %, la tasa que la propia Azkoyen aplica a su fondo de comercio",
+ "resumen": "ESPERAR: a 10,15 € el 26-oct, el margen sobre el PO (10,60 €) es solo del +3 %, y la cotización está un 11 % por encima del techo de la banda (9,22 €). Se cumplen tres de las cuatro condiciones (pérdida al bear, rating AA y moat 50,2); falla el margen. Pasaría a MANTENER por debajo de 9,99 € y a COMPRAR por debajo de 9,22 €. El veredicto sí depende del supuesto: con WACC ±1 y terminal ±0,5 el PO va de 9,67 a 12,06 €, y en el extremo alto sería MANTENER o COMPRAR. Mientras viva la OPA de exclusión a 10,00 €, la cotización está intervenida y la banda es teórica.",
  "dividendSafety": {
   "score": 76,
   "banda": "Seguro",
@@ -54,7 +54,7 @@
   "motivos": [
    "Seguro: cobertura OE 2.43x · payout 50 % · 3 recorte(s) del DPA · señales: beneficio a la baja"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 4.11
  },
@@ -95,7 +95,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -104,7 +104,7 @@
   "gIntrinseco": 4.02,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 16.6294,
@@ -117,7 +117,7 @@
    "precioBase": 10.3,
    "gBase": -0.72,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": true,
    "desviacion": 0.0
   }

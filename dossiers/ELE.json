@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "ELE",
  "empresa": "Endesa, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-10-29",
  "rating": "A",
  "score": 69.2,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 35 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 6 % · PER 6 % · P/VC 4 % · P/FCL 6 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl",
- "poBear": 22.39,
- "poBase": 26.35,
- "poBull": 37.89,
- "entMin": 22.39,
- "entMax": 22.92,
- "stop": 17.98,
+ "poBear": 22.81,
+ "poBase": 26.77,
+ "poBull": 38.31,
+ "entMin": 22.81,
+ "entMax": 23.28,
+ "stop": 18.37,
  "dpaPrevisto": 1.5802,
  "moat": "65,3 sobre 100 · MOAT MODERADO. La distribución regulada es todo el foso y las huellas ya la recogen casi entera",
  "catalizadores": [
@@ -34,9 +34,9 @@
   "El arbitraje del GNL y los contratos de aprovisionamiento (Alta): El laudo solo: 185 M€ de caja de una vez; duro: el laudo más 120 M€ al año de aprovisionamiento más caro.",
   "Infraestructura crítica: ciberataque (Media): Incidente contenido: ingresos −1 % y 80 M€ al año de remediación; grave: −2 %, 150 M€ al año y múltiplos −5 %."
  ],
- "bull": "37,89 € — escenario optimista: el Plan 2026-2028 se ejecuta entero, con la retribución de redes reconocida",
- "bear": "22,39 € — escenario pesimista: su propia década: el FCL por acción de 2025 es el de 2016",
- "resumen": "ESPERAR: a 43,70 € (cotización del 23-oct), el PO (26,35 €) queda un 40 % por debajo de la cotización, y la cotización casi dobla el techo de la banda (22,92 €). Se cumplen tres de las cuatro condiciones de compra (pérdida al bear, rating A y moat 65,3); falla el margen, y por mucho. El veredicto no depende del supuesto: con WACC ±1 y terminal ±0,5 el PO va de 22,56 a 34,40 €, siempre muy por debajo. Está abierta la señal S3: la cotización ha pasado el PO bull (37,89 €). Obliga a revisar la tesis, no a vender.",
+ "bull": "38,31 € — escenario optimista: el Plan 2026-2028 se ejecuta entero, con la retribución de redes reconocida",
+ "bear": "22,81 € — escenario pesimista: su propia década: el FCL por acción de 2025 es el de 2016",
+ "resumen": "ESPERAR: a 43,70 € (cotización del 23-oct), el PO (26,77 €) queda un 40 % por debajo de la cotización, y la cotización casi dobla el techo de la banda (23,28 €). Se cumplen tres de las cuatro condiciones de compra (pérdida al bear, rating A y moat 65,3); falla el margen, y por mucho. El veredicto no depende del supuesto: con WACC ±1 y terminal ±0,5 el PO va de 22,56 a 34,82 €, siempre muy por debajo. Está abierta la señal S3: la cotización ha pasado el PO bull (38,31 €). Obliga a revisar la tesis, no a vender.",
  "dividendSafety": {
   "score": 66,
   "banda": "Seguro",
@@ -56,7 +56,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.67x · payout 85 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 6.87
  },
@@ -99,7 +99,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -108,7 +108,7 @@
   "gIntrinseco": 7.09,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1385.1819,
@@ -121,7 +121,7 @@
    "precioBase": 44.85,
    "gBase": 12.59,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": false,
    "desviacion": 1.52
   }

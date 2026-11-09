@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "FAE",
  "empresa": "Faes Farma, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-11-05",
  "rating": "AA",
  "score": 79.4,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 10 % · EV/EBIT 9 % · PER 12 % · P/VC 6 % · P/FCL 8 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl",
- "poBear": 1.87,
- "poBase": 2.79,
- "poBull": 5.55,
- "entMin": 1.87,
- "entMax": 2.42,
- "stop": 1.81,
+ "poBear": 1.89,
+ "poBase": 2.8,
+ "poBull": 5.56,
+ "entMin": 1.89,
+ "entMax": 2.43,
+ "stop": 1.82,
  "dpaPrevisto": 0.128,
  "moat": "54,2 sobre 100 · MOAT ESTRECHO. Las licencias y la bilastina caducan: las huellas de la década miran una franquicia que se repone a medias",
  "catalizadores": [
@@ -35,8 +35,8 @@
   "Nutrición y salud animal, y la peste porcina africana (Baja-Media): El segmento es el 13 % de los ingresos: −20 % y −40 %.",
   "Ciberseguridad, que la empresa declara como riesgo principal (Baja-Media): Ingresos −3 % y 5 M€ de coste; parada larga: −8 % y 15 M€."
  ],
- "bull": "5,55 € — escenario optimista: SIFI y Edol alcanzan el margen del grupo y la planta de Derio devuelve",
- "bear": "1,87 € — escenario pesimista: el ciclo de patentes se come la franquicia y la integración no rinde",
+ "bull": "5,56 € — escenario optimista: SIFI y Edol alcanzan el margen del grupo y la planta de Derio devuelve",
+ "bear": "1,89 € — escenario pesimista: el ciclo de patentes se come la franquicia y la integración no rinde",
  "resumen": "Buena empresa, precio muy alto. A 4,68 € (26-oct) la cotización está un 61 % por encima del precio objetivo (2,79 €) y un 85 % por encima del techo de la banda (1,87-2,42 €). La calidad cumple (AA, moat 54), pero el margen es del −37,7 %. Lo que cambiaría la decisión es que SIFI, Edol y Derio rindan y suban el flujo, no la cotización. La señal S3 (cotización por encima del PO) obliga a revisar el PO, no a vender.",
  "dividendSafety": {
   "score": 65,
@@ -57,7 +57,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.93x · payout 52 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja, beneficio a la baja"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 2.48
  },
@@ -100,7 +100,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -109,7 +109,7 @@
   "gIntrinseco": 11.52,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 32.196,
@@ -122,7 +122,7 @@
    "precioBase": 4.89,
    "gBase": 25.37,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": false,
    "desviacion": 6.06
   }

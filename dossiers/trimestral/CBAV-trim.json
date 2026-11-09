@@ -1,0 +1,651 @@
+{
+ "schemaVersion": 2,
+ "ticker": "CBAV",
+ "empresa": "CLINICA BAVIERA, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-09",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +40,1 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 41.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +27,2 %, EBITDA +27,9 %, beneficio neto +41,9 %, margen 35,5 % (+0,21 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 52.4
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 18.6
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 35.5
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 11.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +18,7 %, EBITDA +15,4 %, beneficio neto +19,1 %, margen 33,0 % (-0,95 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 103.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 33.9
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 33.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 26.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 19.1
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 37.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +15,9 %, EBITDA +8,8 %, beneficio neto +10,5 %, margen 30,6 % (-1,97 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: El rojo viene solo de la regla «el margen empeora dos periodos seguidos», con bajadas de 0,5 a 2,5 puntos mientras las ventas crecían un 13-16 % y el EBITDA un 5-11 %: es el coste de arranque de las clínicas nuevas, no un deterioro. Ámbar, como se hizo en Gestamp (1T-2023).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 145.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 44.3
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 30.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 33.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 24.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +14,9 %, EBITDA +5,5 %, beneficio neto +7,8 %, margen 28,5 % (-2,52 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen. Corrección del analista: El rojo viene solo de la regla «el margen empeora dos periodos seguidos», con bajadas de 0,5 a 2,5 puntos mientras las ventas crecían un 13-16 % y el EBITDA un 5-11 %: es el coste de arranque de las clínicas nuevas, no un deterioro. Ámbar, como se hizo en Gestamp (1T-2023).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 198.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 56.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 41.5
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 29.5
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 35.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +13,4 %, EBITDA +6,3 %, beneficio neto +4,5 %, margen 33,3 % (-2,23 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen. Corrección del analista: El rojo viene solo de la regla «el margen empeora dos periodos seguidos», con bajadas de 0,5 a 2,5 puntos mientras las ventas crecían un 13-16 % y el EBITDA un 5-11 %: es el coste de arranque de las clínicas nuevas, no un deterioro. Ámbar, como se hizo en Gestamp (1T-2023).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 59.4
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 19.8
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 33.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 11.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +12,9 %, EBITDA +10,2 %, beneficio neto +9,6 %, margen 32,2 % (-0,81 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: El rojo viene solo de la regla «el margen empeora dos periodos seguidos», con bajadas de 0,5 a 2,5 puntos mientras las ventas crecían un 13-16 % y el EBITDA un 5-11 %: es el coste de arranque de las clínicas nuevas, no un deterioro. Ámbar, como se hizo en Gestamp (1T-2023).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 116.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 37.3
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 32.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 29.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 21.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 44.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +13,1 %, EBITDA +11,1 %, beneficio neto +11,4 %, margen 30,1 % (-0,52 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: El rojo viene solo de la regla «el margen empeora dos periodos seguidos», con bajadas de 0,5 a 2,5 puntos mientras las ventas crecían un 13-16 % y el EBITDA un 5-11 %: es el coste de arranque de las clínicas nuevas, no un deterioro. Ámbar, como se hizo en Gestamp (1T-2023).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 164.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 49.2
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 30.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 36.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 26.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +13,3 %, EBITDA +18,6 %, beneficio neto +21,9 %, margen 29,8 % (+1,32 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 225.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 67.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 29.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 50.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 36.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 48.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +11,8 %, EBITDA +8,5 %, beneficio neto +7,0 %, margen 32,3 % (-0,99 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 66.4
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 21.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 32.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 16.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 12.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +13,5 %, EBITDA +12,5 %, beneficio neto +11,6 %, margen 31,9 % (-0,27 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 132.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 42.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 31.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 32.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 23.4
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 77.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +15,5 %, EBITDA +8,1 %, beneficio neto +4,1 %, margen 28,1 % (-1,93 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 189.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 53.2
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 38.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 28.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +16,8 %, EBITDA +14,3 %, beneficio neto +11,8 %, margen 29,1 % (-0,64 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: El rojo viene solo de la regla «el margen empeora dos periodos seguidos», con bajadas de 0,5 a 2,5 puntos mientras las ventas crecían un 13-16 % y el EBITDA un 5-11 %: es el coste de arranque de las clínicas nuevas, no un deterioro. Ámbar, como se hizo en Gestamp (1T-2023).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 263.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 76.6
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 29.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 55.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 40.2
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 69.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +20,8 %, EBITDA +12,5 %, beneficio neto +3,7 %, margen 30,1 % (-2,21 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen. Corrección del analista: Cambio de perímetro: Reino Unido (Optimax) entra en julio de 2024 con pérdidas y gastos de integración, y baja el margen del grupo frente a un periodo sin Reino Unido. Ventas +18-21 % y EBITDA +6-13 %. Ámbar, no rojo.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 80.2
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 24.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 30.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 18.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 12.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +17,6 %, EBITDA +5,8 %, beneficio neto -4,7 %, margen 28,7 % (-3,20 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen. Corrección del analista: Cambio de perímetro: Reino Unido (Optimax) entra en julio de 2024 con pérdidas y gastos de integración, y baja el margen del grupo frente a un periodo sin Reino Unido. Ventas +18-21 % y EBITDA +6-13 %. Ámbar, no rojo.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 155.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 44.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 33.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 22.3
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 79.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +16,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 220.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +14,9 %, EBITDA +10,3 %, beneficio neto +4,6 %, margen 28,0 % (-1,17 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 302.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 84.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 60.5
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 42.1
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 88.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +8,4 %, EBITDA +9,2 %, beneficio neto +14,2 %, margen 30,3 % (+0,22 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde. Ventas +8,4 %, EBITDA +9,2 %, beneficio +14,2 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 87.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 26.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 30.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 19.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 14.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,8 %, EBITDA +13,6 %, beneficio neto +17,4 %, margen 29,7 % (+0,99 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde. Ventas +9,8 %, EBITDA +13,6 % y beneficio +17,4 %; margen 29,7 %. Por dentro: España +11 % en ventas y +15 % en EBITDA; Alemania +2 % en ventas y −11 % en EBITDA (la señal a vigilar); Reino Unido reduce pérdidas (−1,6 M€ frente a −3,0 M€). Nuevo CEO desde el 25-mar-2026 (Luis Grávalos, venía de dirigir Alemania y Reino Unido).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 170.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 50.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 29.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 37.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 26.2
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 84.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

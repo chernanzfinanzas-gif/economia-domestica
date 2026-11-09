@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "IBE",
  "empresa": "Iberdrola, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-10-29",
  "rating": "BBB",
  "score": 62.0,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 11 % · DCF base 33 % · DCF optimista 11 % · EV/EBITDA 6 % · EV/EBIT 6 % · PER 8 % · P/VC 4 % · P/FCL 6 % · rentabilidad por dividendo 15 % · flujo base del DCF: owner earnings",
- "poBear": 18.53,
- "poBase": 19.87,
- "poBull": 22.71,
- "entMin": 15.72,
- "entMax": 17.28,
- "stop": 14.29,
+ "poBear": 18.75,
+ "poBase": 20.08,
+ "poBull": 22.93,
+ "entMin": 15.94,
+ "entMax": 17.46,
+ "stop": 14.49,
  "dpaPrevisto": 0.6802,
  "moat": "45,4 sobre 100 · MOAT ESTRECHO. La concesión de redes no se ve en el exceso de retorno",
  "catalizadores": [
@@ -33,9 +33,9 @@
   "Ciberataque a infraestructura crítica (Baja-Media): Opera redes eléctricas en cuatro países y su informe integrado lista la ciberseguridad entre los riesgos relevantes. Se mide como un año de EBITDA perdido en parte y un descuento del mercado.",
   "Litigios fiscales y regulatorios (Baja-Media): ScottishPower contra la agencia fiscal británica (HMRC), con vista en el Tribunal Supremo el 18-may-2026 según el análisis de septiembre, y litigios en Brasil. Se mide como un pago."
  ],
- "bull": "22,71 € — escenario optimista: El plan 2025-2028 (unos 58.000 M€ de inversión bruta, dos tercios en redes) rinde lo anunciado (libro de octubre)",
- "bear": "18,53 € — escenario pesimista: La revisión regulatoria sale mal y el coste de la deuda no cede; terminal recortado al 1 % (libro de octubre)",
- "resumen": "Lo mismo que en septiembre: ESPERAR. A 21,90 € (23-oct) la cotización está por encima del precio objetivo (19,87 €) y casi en el bull (22,71 €). El rating es BBB por centésimas (62,0; A empieza en 62), así que aunque bajara no sería COMPRAR sino, como mucho, MANTENER. El veredicto depende del supuesto: con el WACC un punto más bajo y el terminal medio punto más alto, el precio objetivo sube a 34,38 € y pasaría a MANTENER. Para una tesis de renta, el dividendo es seguro (76).",
+ "bull": "22,93 € — escenario optimista: El plan 2025-2028 (unos 58.000 M€ de inversión bruta, dos tercios en redes) rinde lo anunciado (libro de octubre)",
+ "bear": "18,75 € — escenario pesimista: La revisión regulatoria sale mal y el coste de la deuda no cede; terminal recortado al 1 % (libro de octubre)",
+ "resumen": "Lo mismo que en septiembre: ESPERAR. A 21,90 € (23-oct) la cotización está por encima del precio objetivo (20,08 €) y casi en el bull (22,71 €). El rating es BBB por centésimas (62,0; A empieza en 62), así que aunque bajara no sería COMPRAR sino, como mucho, MANTENER. El veredicto depende del supuesto: con el WACC un punto más bajo y el terminal medio punto más alto, el precio objetivo sube a 34,38 € y pasaría a MANTENER. Para una tesis de renta, el dividendo es seguro (76).",
  "dividendSafety": {
   "score": 76,
   "banda": "Seguro",
@@ -55,7 +55,7 @@
   "motivos": [
    "Seguro: cobertura OE 2.10x · payout 73 % · 0 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 6.13
  },
@@ -98,7 +98,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -107,7 +107,7 @@
   "gIntrinseco": 6.63,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 6.6 %)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 7633.421,
@@ -120,7 +120,7 @@
    "precioBase": 22.6,
    "gBase": 3.9,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": true,
    "desviacion": -0.0
   }

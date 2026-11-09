@@ -4,17 +4,17 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "A3M",
  "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-10-28",
  "rating": "AA",
  "score": 79.0,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 30 % · DCF optimista 10 % · EV/EBITDA 12 % · EV/EBIT 8 % · PER 10 % · P/VC 5 % · P/FCL 5 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl",
  "poBear": 5.17,
- "poBase": 6.9,
- "poBull": 9.96,
+ "poBase": 6.91,
+ "poBull": 9.97,
  "entMin": 5.17,
- "entMax": 6.0,
+ "entMax": 6.01,
  "stop": 3.71,
  "dpaPrevisto": 0.39,
  "moat": "54,9 sobre 100 · MOAT ESTRECHO. El duopolio protege el soporte, no el mercado publicitario",
@@ -35,7 +35,7 @@
   "El dividendo se corta del todo (Baja-Media): DPA −50 % y −100 %. El daño es a la renta del accionista, no a la valoración (la pata de renta pesa 10).",
   "Parada prolongada de la emisión o de los sistemas de venta (Baja-Media): Ingresos −2 % y 10 M€ de remediación; duro: −5 % y 20 M€."
  ],
- "bull": "9,96 € — escenario optimista: el duopolio se convierte en precio",
+ "bull": "9,97 € — escenario optimista: el duopolio se convierte en precio",
  "bear": "5,17 € — escenario pesimista: la publicidad se va al vídeo digital y el duopolio deja de defender el precio",
  "resumen": "MANTENER por el veto del dividendo frágil. A 5,83 € el 26-oct, con margen del +18 %, la cotización está dentro de la banda (5,17-6,00 €) y se cumplen las cuatro condiciones de compra, ahora con rating AA. Pero la seguridad del dividendo es 38 (Frágil) y el método no deja comprar con un dividendo frágil. Con el dividendo medido ya sobre lo declarado, el veto es de la empresa, no del instrumento: dos años seguidos sin cubrir el dividendo con el FCL. El veredicto además depende del supuesto: con WACC ±1 y terminal ±0,5 el PO va de 6,00 a 8,46 €.",
  "dividendSafety": {
@@ -57,7 +57,7 @@
   "motivos": [
    "Frágil: cobertura OE 1.03x · payout 142 % · 4 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 8.15
  },
@@ -98,7 +98,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -107,7 +107,7 @@
   "gIntrinseco": 1.59,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 133.8328,
@@ -120,7 +120,7 @@
    "precioBase": 6.03,
    "gBase": -7.59,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": true,
    "desviacion": -0.0
   }

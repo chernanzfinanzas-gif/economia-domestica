@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "GEST",
  "empresa": "Gestamp Automoción, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-11-04",
  "rating": "BBB",
  "score": 54.0,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 5 % · DCF base 15 % · DCF optimista 5 % · EV/EBITDA 14 % · EV/EBIT 14 % · PER 18 % · P/VC 10 % · P/FCL 14 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
- "poBear": 3.88,
- "poBase": 4.29,
- "poBull": 6.26,
- "entMin": 3.28,
- "entMax": 3.73,
- "stop": 1.45,
+ "poBear": 4.03,
+ "poBase": 4.43,
+ "poBull": 6.41,
+ "entMin": 3.39,
+ "entMax": 3.85,
+ "stop": 1.59,
  "dpaPrevisto": 0.0803,
  "moat": "47,4 sobre 100 · MOAT ESTRECHO. Pierde cuota y el precio de la pieza lo fija el cliente",
  "catalizadores": [
@@ -34,9 +34,9 @@
   "Deuda que no está en la deuda neta (Media): Factoring sin recurso de 740,5 M€ en 2025 (memoria, análisis de septiembre): financia el circulante y no cuenta como deuda. Si el factoring se cierra, la deuda sube lo mismo.",
   "Control familiar y operaciones vinculadas (Baja-Media): Acek (familia Riberas) controla el 62,5 % y el capital flotante es el 23,8 %; hay operaciones con sociedades del accionista de control (Andrómeda, inmobiliarias). El mercado puede aplicar un descuento de gobierno."
  ],
- "bull": "6,26 € — escenario optimista: Gestamp recupera el ritmo de su década (EBITDA +5,0 % anual) con el coche eléctrico y la estampación en caliente (libro de octubre)",
- "bear": "3,88 € — escenario pesimista: La producción de coches en Europa sigue cayendo y Gestamp repite 2024-2025 (ventas −2,2 % y −5,4 %): flujo plano cinco años y al 1 % otros cinco; perpetuidad al 1 % (libro de octubre, firmado el 2-oct-2026)",
- "resumen": "Falla la calidad, no el precio. A 2,815 € (23-oct) el margen de seguridad es de alrededor del 52 % (pide 15 %). El bear (3,88 €) queda incluso por encima del techo de la banda, y el moat (47,4) pasa por poco. Pero el rating es BBB y el método no deja COMPRAR por debajo de A. Es lo mismo que en septiembre (MANTENER, con BBB y sin moat). Pasaría a COMPRAR solo si el rating sube a A, y eso exige mejorar la rentabilidad o el balance. Si se tiene, con tamaño pequeño: un punto de margen mueve el precio objetivo un 38 %.",
+ "bull": "6,41 € — escenario optimista: Gestamp recupera el ritmo de su década (EBITDA +5,0 % anual) con el coche eléctrico y la estampación en caliente (libro de octubre)",
+ "bear": "4,03 € — escenario pesimista: La producción de coches en Europa sigue cayendo y Gestamp repite 2024-2025 (ventas −2,2 % y −5,4 %): flujo plano cinco años y al 1 % otros cinco; perpetuidad al 1 % (libro de octubre, firmado el 2-oct-2026)",
+ "resumen": "Falla la calidad, no el precio. A 2,815 € (23-oct) el margen de seguridad es de alrededor del 52 % (pide 15 %). El bear (4,03 €) queda incluso por encima del techo de la banda, y el moat (47,4) pasa por poco. Pero el rating es BBB y el método no deja COMPRAR por debajo de A. Es lo mismo que en septiembre (MANTENER, con BBB y sin moat). Pasaría a COMPRAR solo si el rating sube a A, y eso exige mejorar la rentabilidad o el balance. Si se tiene, con tamaño pequeño: un punto de margen mueve el precio objetivo un 38 %.",
  "dividendSafety": {
   "score": 70,
   "banda": "Seguro",
@@ -56,7 +56,7 @@
   "motivos": [
    "Seguro: cobertura OE 4.46x · payout 30 % · 5 recorte(s) del DPA · señales: cobertura de intereses cayendo (<4x), beneficio a la baja"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 3.31
  },
@@ -99,7 +99,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -108,7 +108,7 @@
   "gIntrinseco": 2.52,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 151.3629,
@@ -121,7 +121,7 @@
    "precioBase": 2.97,
    "gBase": 4.18,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": true,
    "desviacion": 0.0
   }

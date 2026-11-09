@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "REP",
  "empresa": "Repsol, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-10-29",
  "rating": "BBB",
  "score": 57.9,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 6 % · DCF base 17 % · DCF optimista 6 % · EV/EBITDA 33 % · P/VC 33 % · rentabilidad por dividendo 6 % · flujo base del DCF: fcl",
- "poBear": 11.69,
- "poBase": 16.49,
- "poBull": 26.65,
- "entMin": 11.69,
- "entMax": 14.34,
- "stop": 4.79,
+ "poBear": 12.38,
+ "poBase": 17.18,
+ "poBull": 27.34,
+ "entMin": 12.38,
+ "entMax": 14.94,
+ "stop": 5.43,
  "dpaPrevisto": 1.051,
  "moat": "39,0 sobre 100 · SIN MOAT CLARO. La escala eficiente del refino y la red de estaciones ibérica",
  "catalizadores": [
@@ -31,9 +31,9 @@
   "Recorte o supresión del dividendo (Baja-Media): Supresión entera; el impacto es contenido porque la renta solo pondera 5. El libro daba un solo golpe por riesgo: es el duro; el suave es el 75 %.",
   "Sanción de competencia y litigio climático (Media): La multa es inmaterial; se mide la pérdida de canal: volumen −10 % como aproximación. El libro daba un solo golpe por riesgo: es el duro; el suave es el 75 %."
  ],
- "bull": "26,65 € — escenario optimista: el ciclo acompaña y el coste de capital cede un punto",
- "bear": "11,69 € — escenario pesimista: el ciclo no acompaña: el FCL normalizado no crece en diez años",
- "resumen": "ESPERAR, y no por poco. A 29,46 € (23-oct) la cotización está un 74 % por encima del precio objetivo (16,49 €) y dobla el techo de la banda de entrada (11,69-14,34 €). Fallan tres de las cuatro condiciones: el margen, el rating (BBB, 57,9) y el moat (39). Solo se cumple la pérdida al bear (−19 %). Aunque el precio bajara a la banda, sin moat ni rating A no sería una compra. La señal S3 está abierta: la cotización ya supera el PO bull (26,65 €).",
+ "bull": "27,34 € — escenario optimista: el ciclo acompaña y el coste de capital cede un punto",
+ "bear": "12,38 € — escenario pesimista: el ciclo no acompaña: el FCL normalizado no crece en diez años",
+ "resumen": "ESPERAR, y no por poco. A 29,46 € (23-oct) la cotización está un 74 % por encima del precio objetivo (17,18 €) y dobla el techo de la banda de entrada (12,38-14,94 €). Fallan tres de las cuatro condiciones: el margen, el rating (BBB, 57,9) y el moat (39). Solo se cumple la pérdida al bear (−19 %). Aunque el precio bajara a la banda, sin moat ni rating A no sería una compra. La señal S3 está abierta: la cotización ya supera el PO bull (27,34 €).",
  "dividendSafety": {
   "score": 73,
   "banda": "Seguro",
@@ -53,7 +53,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.88x · payout 65 % · 1 recorte(s) del DPA · señales: DN/EBITDA al alza"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 10.49
  },
@@ -94,7 +94,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -103,7 +103,7 @@
   "gIntrinseco": 2.47,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1682.4,
@@ -116,7 +116,7 @@
    "precioBase": 29.75,
    "gBase": 3.48,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": true,
    "desviacion": -0.0
   }

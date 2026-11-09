@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "ENG",
  "empresa": "Enagás, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-10-28",
  "rating": "BB",
  "score": 47.8,
- "decision": "ESPERAR",
+ "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 35 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 7 % · PER 8 % · P/VC 4 % · P/FCL 3 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl recurrente",
- "poBear": 15.55,
- "poBase": 17.81,
- "poBull": 21.55,
- "entMin": 13.63,
- "entMax": 15.49,
- "stop": 11.88,
+ "poBear": 16.34,
+ "poBase": 18.61,
+ "poBull": 22.34,
+ "entMin": 14.24,
+ "entMax": 16.18,
+ "stop": 12.64,
  "dpaPrevisto": 1.0,
  "moat": "59,7 sobre 100 · MOAT ESTRECHO. Monopolio regulado, pero la base de activos se vacía y el regulador fija el retorno",
  "catalizadores": [
@@ -34,9 +34,9 @@
   "Ciberataque sobre los sistemas de control de la red (Baja-Media): Ingresos −2 % con CAPEX +20 M€ al año; duro: −6 % y +60 M€.",
   "El Estado gobierna sin ser dueño (Baja): La ley impide una OPA (nadie puede tener más del 5 %) y quita la prima de control; la SEPI está en el consejo. No mueve ninguna palanca del modelo: múltiplos −1 % y −2 % como aproximación."
  ],
- "bull": "21,55 € — escenario optimista: la TRF sube al 6,5 % y el CAPEX de hidrógeno vuelve a hacer crecer la base",
- "bear": "15,55 € — escenario pesimista: el vaciado de la base de activos sigue y el marco 2027-2032 no lo compensa",
- "resumen": "Ni la calidad ni el precio dejan comprar. A 17,54 € (23-oct) el margen es del +1,6 %, y fallan dos condiciones: el margen (pide un 15 %) y el rating, BB (47,8). El moat (59,7) y la pérdida al bear desde la entrada máxima (+0,4 %) se cumplen. Pasa a MANTENER por debajo de unos 16,97 € (PO/1,05); COMPRAR no es posible mientras el rating sea BB, aunque baje la cotización. La señal S2 del 9M se revisó el 26-oct con REAFIRMAR.",
+ "bull": "22,34 € — escenario optimista: la TRF sube al 6,5 % y el CAPEX de hidrógeno vuelve a hacer crecer la base",
+ "bear": "16,34 € — escenario pesimista: el vaciado de la base de activos sigue y el marco 2027-2032 no lo compensa",
+ "resumen": "Calidad baja a precio justo. A 17,72 € (6-nov) el margen es del +5,0 % sobre el precio objetivo de 18,61 €, justo en el umbral de MANTENER (PO/1,05 = 17,72 €). Falla el margen (COMPRAR pide un 15 %) y el rating, BB (47,8): COMPRAR no es posible mientras el rating sea BB, aunque baje la cotización. Hasta el 9-nov era ESPERAR: al corregir el alquiler contado dos veces en el DCF el PO sube un 4,4 % (de 17,81 a 18,61 €). La señal S2 del 9M se revisó el 26-oct con REAFIRMAR.",
  "dividendSafety": {
   "score": 22,
   "banda": "Frágil",
@@ -56,7 +56,7 @@
   "motivos": [
    "Frágil: cobertura OE 0.52x · payout 256 % · 1 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 8.14
  },
@@ -100,7 +100,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -109,7 +109,7 @@
   "gIntrinseco": -7.76,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 371.5084,
@@ -122,7 +122,7 @@
    "precioBase": 17.72,
    "gBase": -2.95,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": true,
    "desviacion": 0.0
   }

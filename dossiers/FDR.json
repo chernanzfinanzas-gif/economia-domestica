@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "FDR",
  "empresa": "Fluidra, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-10-29",
  "rating": "BBB",
  "score": 54.6,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 20 % · DCF optimista 10 % · EV/EBITDA 12 % · EV/EBIT 12 % · PER 10 % · P/VC 4 % · P/FCL 12 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl",
- "poBear": 17.11,
- "poBase": 23.05,
- "poBull": 32.22,
- "entMin": 17.11,
- "entMax": 19.44,
- "stop": 13.45,
+ "poBear": 17.49,
+ "poBase": 23.44,
+ "poBull": 32.61,
+ "entMin": 17.49,
+ "entMax": 19.88,
+ "stop": 13.81,
  "dpaPrevisto": 0.65,
  "moat": "57,4 sobre 100 · MOAT ESTRECHO. Líder mundial de equipamiento de piscina con red de distribución y marca, que las huellas del ROIC no recogen",
  "catalizadores": [
@@ -33,9 +33,9 @@
   "El mercado deja de pagar los múltiplos de la década (Media): Múltiplos −15 % y −25 %.",
   "Caída de sistemas en plena temporada (Baja): Ventas −2 % y −5 %."
  ],
- "bull": "32,22 € — escenario optimista: orgánico del 6 % como en 2025, sin bajar el WACC del suelo",
- "bear": "17,11 € — escenario pesimista: el WACC que la propia Fluidra usa en sus pruebas de deterioro, con poco crecimiento",
- "resumen": "MANTENER con la cotización de 19,86 € (2026-11-04): precio objetivo 23,05 € (bear 17,11 · bull 32,22), margen +16,1 %. Banda de entrada 17,11–19,44 €, stop de tesis 13,45 €.",
+ "bull": "32,61 € — escenario optimista: orgánico del 6 % como en 2025, sin bajar el WACC del suelo",
+ "bear": "17,49 € — escenario pesimista: el WACC que la propia Fluidra usa en sus pruebas de deterioro, con poco crecimiento",
+ "resumen": "Buen precio, calidad justa. La cotización (18,10 €, 23-oct) está dentro de la banda de entrada (17,49-19,88 €) con un margen del +27 %. Tres de las cuatro condiciones de compra se cumplen. Falla el rating: BBB (53,8) cuando se exige A. El dossier de septiembre decía COMPRAR con rating A. Ahora el método no deja comprar hasta que la calidad suba, y parte de esa nota se debe a la amortización sin depurar (Bloque 5). El veredicto no depende del supuesto: con WACC ±1 y terminal ±0,5 el margen va del +17 % al +46 %.",
  "dividendSafety": {
   "score": 51,
   "banda": "Vigilar",
@@ -55,7 +55,7 @@
   "motivos": [
    "Vigilar: cobertura OE 1.27x · payout 80 % · 3 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 5.27
  },
@@ -96,7 +96,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -105,7 +105,7 @@
   "gIntrinseco": 5.31,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 237.5103,
@@ -118,7 +118,7 @@
    "precioBase": 19.86,
    "gBase": 0.51,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": true,
    "desviacion": 0.0
   }

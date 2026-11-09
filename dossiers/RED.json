@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "RED",
  "empresa": "Redeia Corporación, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-10-28",
  "rating": "BBB",
  "score": 55.7,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 36 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 7 % · PER 8 % · P/VC 4 % · rentabilidad por dividendo 15 % · flujo base del DCF: owner earnings",
- "poBear": 15.38,
- "poBase": 18.37,
- "poBull": 22.98,
- "entMin": 15.38,
- "entMax": 15.97,
- "stop": 12.11,
+ "poBear": 15.4,
+ "poBase": 18.38,
+ "poBull": 23.0,
+ "entMin": 15.4,
+ "entMax": 15.99,
+ "stop": 12.12,
  "dpaPrevisto": 0.8,
  "moat": "66,5 sobre 100 · MOAT MODERADO. Monopolio legal del transporte y la operación del sistema eléctrico",
  "catalizadores": [
@@ -32,8 +32,8 @@
   "El Estado es el primer accionista y además fija el precio (Media): Múltiplos −10 % y −20 %.",
   "El operador del sistema eléctrico es infraestructura crítica (Baja-Media): CAPEX +20 M€ al año e ingresos −1 %; duro: +40 M€, −3 % y múltiplos −10 %."
  ],
- "bull": "22,98 € — escenario optimista: la tasa de 2026-2031 se confirma al alza y la base se remunera al ritmo al que crece",
- "bear": "15,38 € — escenario pesimista: la CNMC no reconoce más retribución y el CAPEX en curso engorda la base sin devolver",
+ "bull": "23,00 € — escenario optimista: la tasa de 2026-2031 se confirma al alza y la base se remunera al ritmo al que crece",
+ "bear": "15,40 € — escenario pesimista: la CNMC no reconoce más retribución y el CAPEX en curso engorda la base sin devolver",
  "resumen": "MANTENER. A 14,83 € (23-oct) el margen es del +23,9 % y la cotización está un 4 % por debajo del suelo de la banda de entrada (15,38-15,97 €). Cumple tres de las cuatro condiciones: margen, pérdida al bear (−3,7 %) y moat (66,5). Falla el rating: BBB (55,7). Para COMPRAR haría falta subir a A; el escalón BBB no aplica porque no hay un PO mínimo escrito. El veredicto depende del supuesto: con el WACC un punto más alto y el terminal medio punto más bajo, el precio objetivo baja a 13,62 € y el margen se vuelve negativo.",
  "dividendSafety": {
   "score": 48,
@@ -54,7 +54,7 @@
   "motivos": [
    "Vigilar: cobertura OE 1.25x · payout 91 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 5.27
  },
@@ -97,7 +97,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -106,7 +106,7 @@
   "gIntrinseco": 1.86,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 663.03,
@@ -119,7 +119,7 @@
    "precioBase": 15.61,
    "gBase": -1.15,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": true,
    "desviacion": -0.0
   }

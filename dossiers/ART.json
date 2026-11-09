@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "ART",
  "empresa": "Arteche Lantegi Elkartea, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-10-29",
  "rating": "A",
  "score": 74.4,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 20 % · DCF optimista 10 % · EV/EBITDA 18 % · EV/EBIT 14 % · PER 18 % · P/VC 5 % · rentabilidad por dividendo 5 % · flujo base del DCF: owner earnings",
- "poBear": 10.83,
- "poBase": 13.2,
- "poBull": 22.43,
- "entMin": 10.83,
- "entMax": 11.48,
- "stop": 7.39,
+ "poBear": 11.05,
+ "poBase": 13.42,
+ "poBull": 22.65,
+ "entMin": 11.05,
+ "entMax": 11.67,
+ "stop": 7.6,
  "dpaPrevisto": 0.39,
  "moat": "52,2 sobre 100 · MOAT ESTRECHO. Especialista en medida y protección de red con homologaciones de las eléctricas",
  "catalizadores": [
@@ -33,9 +33,9 @@
   "La mayor compra de su historia (Baja-Media): Deterioro del 10 % y del 25 % del patrimonio. El modelo apenas lo ve: el daño real estaría en margen y caja.",
   "Control concentrado y poco capital flotante (Baja): Descuento por liquidez y control: múltiplos −5 % y −10 %."
  ],
- "bull": "22,43 € — escenario optimista: la inversión en redes y electrificación dura toda la década",
- "bear": "10,83 € — escenario pesimista: el ciclo de inversión en redes se frena y Arteche vuelve a crecer como antes de 2022",
- "resumen": "Buena empresa a un precio que ya descuenta mucho más que la guía. A 30,10 € (23-oct) el margen sobre el precio objetivo (13,20 €) es del −56,1 % y la cotización está un 162 % por encima del techo de la banda de entrada (10,83-11,48 €). Solo falla una de las cuatro condiciones, el margen: calidad A, moat 52,2 y pérdida al bear pequeña. Pasaría a MANTENER por debajo de 12,57 € y a COMPRAR por debajo de 11,48 €. Hay una señal S3 abierta: la cotización supera incluso el PO bull (22,43 €).",
+ "bull": "22,65 € — escenario optimista: la inversión en redes y electrificación dura toda la década",
+ "bear": "11,05 € — escenario pesimista: el ciclo de inversión en redes se frena y Arteche vuelve a crecer como antes de 2022",
+ "resumen": "Buena empresa a un precio que ya descuenta mucho más que la guía. A 30,10 € (23-oct) el margen sobre el precio objetivo (13,42 €) es del −56,1 % y la cotización está un 162 % por encima del techo de la banda de entrada (11,05-11,67 €). Solo falla una de las cuatro condiciones, el margen: calidad A, moat 52,2 y pérdida al bear pequeña. Pasaría a MANTENER por debajo de 12,57 € y a COMPRAR por debajo de 11,67 €. Hay una señal S3 abierta: la cotización supera incluso el PO bull (22,65 €).",
  "dividendSafety": {
   "score": 86,
   "banda": "Muy seguro",
@@ -55,7 +55,7 @@
   "motivos": [
    "Muy seguro: cobertura OE 2.10x · payout 49 % · 1 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 1.74
  },
@@ -96,7 +96,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -105,7 +105,7 @@
   "gIntrinseco": 21.18,
   "veredicto": "EXIGENTE",
   "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 21.2 %)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 20.1074,
@@ -118,7 +118,7 @@
    "precioBase": 29.0,
    "gBase": 30.0,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": false,
    "desviacion": 4.47
   }

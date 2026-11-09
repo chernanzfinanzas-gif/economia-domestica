@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "EBRO",
  "empresa": "Ebro Foods, S.A.",
- "fecha": "2026-10-27",
+ "fecha": "2026-11-09",
  "revisadoEl": "2026-10-29",
  "rating": "BBB",
  "score": 60.8,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 11 % · DCF base 32 % · DCF optimista 11 % · EV/EBITDA 9 % · EV/EBIT 7 % · PER 9 % · P/VC 6 % · P/FCL 5 % · rentabilidad por dividendo 11 % · flujo base del DCF: fcl recurrente",
- "poBear": 12.19,
- "poBase": 14.36,
- "poBull": 17.42,
- "entMin": 12.19,
- "entMax": 12.49,
- "stop": 7.48,
+ "poBear": 10.93,
+ "poBase": 14.54,
+ "poBull": 17.6,
+ "entMin": 10.93,
+ "entMax": 12.64,
+ "stop": 7.65,
  "dpaPrevisto": 0.69,
  "moat": "51,4 sobre 100 · MOAT ESTRECHO. Marcas líderes en arroz y pasta en Norteamérica y Europa, que las huellas del ROIC no recogen enteras",
  "catalizadores": [
@@ -34,9 +34,9 @@
   "Ciberataque o caída prolongada de sistemas críticos (Baja-Media): Parada de expedición y facturación en campaña: ventas −1,4 % y EBITDA −7 M€; duro: −3,4 % y −17 M€. Hay seguro global de ciberseguridad. Tamaño calibrado a la caída que declaraba el libro de octubre, que no traía receta.",
   "Colocación del paquete de SEPI u otro significativo (Baja): Overhang: una colocación acelerada presiona el precio sin cambiar el negocio. Múltiplos −7 % y −16 %. Tamaño calibrado a la caída que declaraba el libro de octubre, que no traía receta."
  ],
- "bull": "17,42 € — escenario optimista: los 34,5 M€ al año de CAPEX de crecimiento rinden: el flujo crece como la inflación",
- "bear": "12,19 € — escenario pesimista: todo el CAPEX es mantenimiento disfrazado y la empresa no crece",
- "resumen": "ESPERAR: es un veredicto de precio, no de empresa. A 18,52 € (23-oct) la cotización está un 29 % por encima del precio objetivo (14,36 €) y un 48 % por encima del techo de la banda de entrada (12,19-12,49 €). Fallan dos condiciones: el margen y el rating (BBB, 60,8); se cumplen la pérdida al bear (−2,4 %) y el moat (51,4). Pasaría a MANTENER por debajo de 13,68 € (margen del 5 %); para COMPRAR haría falta bajar de 12,49 € y además subir a A. Señal S3 abierta: la cotización ya supera el PO bull (17,42 €).",
+ "bull": "17,60 € — escenario optimista: los 34,5 M€ al año de CAPEX de crecimiento rinden: el flujo crece como la inflación",
+ "bear": "10,93 € — escenario pesimista: todo el CAPEX es mantenimiento disfrazado y la empresa no crece",
+ "resumen": "ESPERAR: es un veredicto de precio, no de empresa. A 18,52 € (23-oct) la cotización está un 29 % por encima del precio objetivo (14,54 €) y un 48 % por encima del techo de la banda de entrada (10,93-12,64 €). Fallan dos condiciones: el margen y el rating (BBB, 60,8); se cumplen la pérdida al bear (−2,4 %) y el moat (51,4). Pasaría a MANTENER por debajo de 13,68 € (margen del 5 %); para COMPRAR haría falta bajar de 12,64 € y además subir a A. Señal S3 abierta: la cotización ya supera el PO bull (17,60 €).",
  "dividendSafety": {
   "score": 88,
   "banda": "Muy seguro",
@@ -56,7 +56,7 @@
   "motivos": [
    "Muy seguro: cobertura OE 1.61x · payout 51 % · 0 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "shareholderYield": 3.77
  },
@@ -97,7 +97,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -106,7 +106,7 @@
   "gIntrinseco": -0.3,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-09",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 88.6796,
@@ -119,7 +119,7 @@
    "precioBase": 18.04,
    "gBase": 12.14,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-05",
+   "congeladoEl": "2026-11-09",
    "validado": false,
    "desviacion": 1.08
   }
