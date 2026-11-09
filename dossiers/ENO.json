@@ -1,0 +1,125 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
+ "ticker": "ENO",
+ "empresa": "Elecnor, S.A.",
+ "fecha": "2026-11-09",
+ "revisadoEl": "2026-11-09",
+ "rating": "BB",
+ "score": 49.9,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 11 % · EV/EBIT 11 % · PER 14 % · P/VC 8 % · P/FCL 11 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
+ "poBear": 19.07,
+ "poBase": 25.97,
+ "poBull": 31.55,
+ "entMin": 19.07,
+ "entMax": 21.67,
+ "stop": 16.46,
+ "dpaPrevisto": 0.5225,
+ "moat": "28,4 sobre 100 · SIN MOAT CLARO. +5: las huellas castigan años de otro perímetro",
+ "catalizadores": [
+  "2026 confirma la mejora de márgenes: En 9M-2026 el EBITDA sube un 16,4 % (215,8 M€) y el beneficio un 27,3 % (102,9 M€) con las ventas planas. Si el año cierra igual, son unos 40 M€ más de EBITDA que en 2025. (feb-2027 (resultados de 2026))",
+  "La cartera récord se convierte en ventas: Cartera ejecutable a 12 meses de 2.990,5 M€ a septiembre de 2026 (+5 % sobre el cierre de 2025), con Servicios creciendo un 14 % en ventas. (12-18 meses)"
+ ],
+ "riesgos": [
+  "Un proyecto llave en mano sale mal (Media): Proyectos (parques renovables y líneas de transmisión, sobre todo en Brasil y Australia) se contrata a precio cerrado. Con un margen EBITDA del grupo del 6 %, un sobrecoste en una obra grande se come el beneficio de un año: en 2024 hubo 202 M€ de amortizaciones, deterioros y provisiones y el EBIT fue negativo.",
+  "El margen de Servicios se estrecha (Media): Servicios (61 % de las ventas de 9M-2026) gana margen del 6,0 % en contratos que se vuelven a licitar; la subida de salarios o una puja agresiva de la competencia lo bajan. Un punto de margen sobre unos 2.500 M€ de ventas anuales son 25 M€ de EBITDA.",
+  "La cartera de Proyectos no se repone (Media): Las ventas de Proyectos bajan un 15,7 % en 9M-2026 (1.222,6 M€); si la contratación no compensa, el grupo vende menos el año siguiente. Proyectos es el 59 % de la cartera a 12 meses.",
+  "Celeo vale menos de lo que dice el balance (Baja-Media): El 51 % de Celeo (líneas de transmisión y renovables en Brasil, Chile y Perú, con APG) está en el balance a 552,2 M€ y suma unos 6,5 € por acción al DCF. El real brasileño, la regulación de transmisión en Brasil o una venta por debajo de libros lo bajan.",
+  "La bolsa deja de pagar la subida (Media): A 31,35 € cotiza por encima de sus múltiplos de diez años (PER medio 12,7 veces; hoy unas 24 veces el beneficio de 2025). Si 2026 no confirma la mejora, el mercado puede volver a su media.",
+  "Un accionista manda (Baja): Cantiles XXI tiene el 52,76 %: decide dividendos, consejo y operaciones. Hasta ahora ha devuelto la caja de Enerfín al accionista, pero el minoritario no tiene voz."
+ ],
+ "bull": "31,55 € — escenario optimista: ",
+ "bear": "19,07 € — escenario pesimista: ",
+ "resumen": "El precio ya cuenta con el escenario bueno. A 31,35 € cotiza en el PO bull (31,55 €: 2026 confirma la mejora y la cartera récord se vende), un 17 % por encima del PO de 25,97 €. No cumple tres de las cuatro condiciones: margen (−17 %), rating BB y moat 28,4. COMPRAR exigiría bajar a 21,67 €; la banda de entrada es 19,07-21,67 €. El negocio va bien (9M-2026: beneficio +27 %) y el balance tiene caja, pero lo que se paga hoy es la mejora entera. Stop de tesis 16,46 €. Tras el dividendo extraordinario de 2,89 € (23-dic, si lo aprueba la junta) la cotización y el PO bajan casi lo mismo.",
+ "dividendSafety": {
+  "score": 86,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 19,
+   "C4": 5,
+   "C5": 12
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 3.34x · payout 40 % · 1 recorte(s) del DPA · señales: beneficio a la baja"
+  ],
+  "calculadoEl": "2026-11-09",
+  "origen": "metodo-v3",
+  "shareholderYield": 3.22
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 1.87,
+   "zona": "gris"
+  },
+  "beneish": {
+   "m": -3.02,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -9.7,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=1.87 en zona gris"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-09",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -0.08,
+  "gIntrinseco": -18.61,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-11-09",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 119.289,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 84.5244,
+   "deudaNeta": -215.648,
+   "modo": "EV",
+   "precioBase": 31.35,
+   "gBase": 3.71,
+   "fechaBase": "2026-11-09",
+   "congeladoEl": "2026-11-09",
+   "validado": false,
+   "desviacion": 3.79
+  }
+ }
+}

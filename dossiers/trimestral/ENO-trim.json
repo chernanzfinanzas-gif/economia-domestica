@@ -1,0 +1,607 @@
+{
+ "schemaVersion": 2,
+ "ticker": "ENO",
+ "empresa": "Elecnor, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-09",
+ "revisiones": [
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +20,3 %, beneficio neto +18,0 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 673.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 25.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +19,4 %, EBITDA +23,0 %, beneficio neto +16,5 %, margen 9,6 % (+0,28 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1592.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 153.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 9.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 104.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 43.8
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 665.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +19,4 %, EBITDA +3,5 %, beneficio neto +16,5 %, margen 4,8 % (-0,74 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2371.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 113.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 4.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 70.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +8,7 %, EBITDA -45,7 %, beneficio neto +19,7 %, margen 4,3 % (-4,36 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3393.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 148.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 4.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 96.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 103.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 602.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +14,9 %, EBITDA +18,7 %, beneficio neto +7,7 %, margen 5,8 % (+0,19 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 773.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 45.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 27.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,7 %, EBITDA -23,0 %, beneficio neto +8,2 %, margen 6,7 % (-2,87 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1747.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 118.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 62.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 47.4
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 759.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +16,4 %, EBITDA +45,1 %, beneficio neto +4,0 %, margen 6,0 % (+1,18 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2760.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 164.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 73.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +11,8 %, EBITDA +38,8 %, beneficio neto +7,0 %, margen 5,4 % (+1,05 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3793.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 205.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 121.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 110.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 317.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,2 %, EBITDA +3,3 %, margen 5,8 % (-0,11 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 806.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 46.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,9 %, EBITDA -48,9 %, beneficio neto +1690,1 %, margen 3,5 % (-3,23 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1714.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 60.1
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 3.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 44.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 848.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -29.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -2,8 % frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2682.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +0,5 %, EBITDA -23,8 %, beneficio neto +540,8 %, margen 4,1 % (-1,30 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3810.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 156.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 4.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": -45.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 705.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -166.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +12,0 %, EBITDA +11,7 %, margen 3,6 % (-0,01 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 897.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 32.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 3.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +16,8 %, EBITDA +86,0 %, beneficio neto -94,1 %, margen 5,6 % (+2,08 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2002.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 112.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 58.5
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 50.1
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -28.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +18,1 %, EBITDA +96,4 %, beneficio neto -90,6 %, margen 5,9 % (+2,35 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3150.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 185.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 80.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +15,1 %, EBITDA +71,5 %, beneficio neto -84,3 %, margen 6,1 % (+2,00 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4387.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 268.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 160.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 111.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -216.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,7 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 931.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -0,2 %, EBITDA +28,4 %, beneficio neto +35,7 %, margen 7,2 % (+1,60 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1997.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 144.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 7.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 92.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 68.1
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": -220.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -0,2 %, EBITDA +16,4 %, margen 6,9 % (+0,98 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. Verde: ventas planas (3.143,2 M€, −0,2 %), EBITDA +16,4 % (215,8 M€) y beneficio +27,3 % (102,9 M€). Servicios crece un 14 % en ventas; Proyectos cae un 15,7 % en ventas pero gana margen (EBITDA +38 %). Cartera a 12 meses de 2.990,5 M€.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3143.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 216.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}
