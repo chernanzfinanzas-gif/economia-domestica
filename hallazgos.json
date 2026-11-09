@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-11-08",
+  "generadoEl": "2026-11-09",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "A3M": {
       "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -86,11 +86,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · semana sin documentos en la CNMV. La junta del 18-nov vota 0,83 € en diciembre: 0,67 € de Fever y 0,16 € ordinarios, por debajo de los 0,18 € del año pasado. La publicidad audiovisual sigue perdiendo cuota.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · semana sin documentos en la CNMV. La junta del 18-nov vota 0,83 € en diciembre (0,67 € de Fever y 0,16 € ordinarios, frente a 0,18 € el año pasado). A 6,00 € cotiza en el techo de su zona de compra (5,17–6,00 €) con MANTENER.",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -117,7 +117,7 @@
     "ACS": {
       "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "trimestral": "2026-07-29",
         "universo": "2026-11-01"
       },
@@ -145,7 +145,7 @@
     "AENA": {
       "empresa": "Aena S.M.E., S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -178,11 +178,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · los 9M salen bien (beneficio +12,4 %, deuda 1,47x EBITDA) y la presentación se suspendió solo por duelo tras el accidente ferroviario de Toledo. Lo que pesa es el DORA III a +0,33 % anual, por debajo del umbral del escenario A.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · semana sin documentos en la CNMV. La revisión del escenario A (DORA III a +0,33 % anual, por debajo del +2 %) se decidió el 2-nov: REAFIRMAR. La señal de salida sigue cumplida. Cotiza a 28,28 €, muy por encima del PO bull de 20,98 €.",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -194,7 +194,7 @@
     "AMS": {
       "empresa": "Amadeus IT Group, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -247,21 +247,6 @@
           "plazoDias": 7,
           "vencePlazoEl": "2026-09-06",
           "notaEmitida": true
-        },
-        {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "media",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "Ámbar · semana sin novedad societaria. Los resultados del 3T llegan el 6-nov, con las reservas aéreas como dato clave. La compra de Idemia sigue pendiente de autorizaciones y su cierre se espera hacia mediados de 2027.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
-          "resueltoEl": null,
-          "desenlace": null
         }
       ],
       "revisiones": [
@@ -293,7 +278,7 @@
     "AZK": {
       "empresa": "Azkoyen, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -326,11 +311,11 @@
           "severidad": "alta",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Rojo de situación, no de negocio · la OPA de Ohmnia a 10 € sigue «presentada» en la CNMV desde el 24-ago (listado consultado el 2-nov): sin autorización, sin número de registro y sin plazo de aceptación. El precio sigue intervenido (10,35 €).",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Rojo de situación, no de negocio · sin comunicaciones de Azkoyen en la semana (lista CNMV del PC). La OPA de Ohmnia a 10 € seguía sin autorizar el 2-nov; el listado de OPAs de la CNMV no se ha vuelto a consultar esta semana (Pte. Revisión). Precio intervenido (10,35 €).",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -342,7 +327,7 @@
     "BKT": {
       "empresa": "Bankinter, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [],
@@ -353,7 +338,7 @@
     "CIE": {
       "empresa": "CIE Automotive, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -381,7 +366,7 @@
     "EBRO": {
       "empresa": "Ebro Foods, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "trimestral": "2026-08-23",
         "universo": "2026-11-01"
       },
@@ -412,11 +397,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · los 9M confirman el deterioro de la pasta: EBITDA-A −15,0 % por aranceles, dólar, costes y Garofalo, mientras el arroz sube un 2,4 %. Grupo: ventas −2,3 % y EBITDA-A −1,4 %. Sin tramo arancelario nuevo ni novedad sobre SEPI.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · semana sin comunicaciones a la CNMV ni tramo arancelario nuevo. Sigue el deterioro de la pasta de los 9M (EBITDA-A −15,0 %) frente al arroz (+2,4 %).",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -436,7 +421,7 @@
     "ELE": {
       "empresa": "Endesa, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -506,7 +491,7 @@
     "ENG": {
       "empresa": "Enagás, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -586,11 +571,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · semana sin novedad que mueva las alarmas: el 29-oct comunicó a la CNMV que completa la compra de una participación adicional (sociedad e importe sin verificar). Siguen la deuda en ~4,6x y el payout ≈111 % de la nota 9M. Cotiza a 17,68 €, junto al PO de 17,81 €.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · buena noticia de crédito: S&P pone el BBB+ en vigilancia positiva y sube el perfil de negocio a «Excellent» por el marco del gas 2027-2032. No cambia ninguna alarma escrita: siguen la deuda (~4,6x) y el payout (≈111 %). Cotiza a 17,80 €, en el PO.",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -617,7 +602,7 @@
     "FAE": {
       "empresa": "Faes Farma, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -660,7 +645,7 @@
     "FDR": {
       "empresa": "Fluidra, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -687,7 +672,7 @@
     "IBE": {
       "empresa": "Iberdrola, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -768,7 +753,7 @@
     "ITX": {
       "empresa": "Industria de Diseño Textil, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [],
@@ -779,7 +764,7 @@
     "LOG": {
       "empresa": "Logista Integral, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -837,7 +822,7 @@
     "MAP": {
       "empresa": "Mapfre, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -886,11 +871,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · los 9M dejan el combinado No Vida en el 93,5 % (+0,9 puntos), lejos del 92 % del catalizador, por las catástrofes (Colombia, 83 M€). Autos mejora al 99,0 % y el dividendo a cuenta sube un 13,6 %. Safety sigue en plazo.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · solo trámite: coloca 1.000 M€ en dos emisiones (senior al 3,875 % a 2029 y Tier 2 al 4,875 % a 2041; OIR 43491). Siguen el combinado No Vida del 93,5 % lejos del 92 % y la compra de Safety pendiente del regulador de Massachusetts.",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -910,7 +895,7 @@
     "MCM": {
       "empresa": "Miquel y Costas & Miquel, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -941,14 +926,14 @@
           "id": "coyuntura",
           "tipo": "coyuntura",
           "naturaleza": "estado",
-          "severidad": "media",
+          "severidad": "alta",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · sin comunicaciones a la CNMV ni noticias en la ventana. Siguen abiertos el gas (R2) y la caída del tabaco (R1, a una pata). Cotiza a 9,94 €, por debajo de la zona de compra y por encima del stop.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Rojo · los 9M (5-nov) son el cuarto periodo seguido en rojo: EBITDA −18,6 % y margen del 20,6 % por la energía. La revisión extraordinaria ya está decidida (REBAJA a MANTENER, 5-nov). La semana trae alivio: el gas TTF baja a unos 86 €/MWh. Cotiza a 9,96 €, un 22 % sobre el stop.",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -968,7 +953,7 @@
     "NTGY": {
       "empresa": "Naturgy",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -1030,7 +1015,7 @@
     "PRM": {
       "empresa": "Prim, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -1107,7 +1092,7 @@
     "RED": {
       "empresa": "Redeia Corporación, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -1183,11 +1168,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · 9M con beneficio de 410 M€ (+5,3 %) y dividendo a cuenta de 0,204 €, pero el expediente del apagón sigue sin resolución con cuantía (R5). Cotiza a 15,42 €, dentro de la zona de compra (15,38-15,97 €).",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · semana sin comunicaciones a la CNMV; el expediente del apagón sigue sin resolución con cuantía (R5). Cotiza a 15,66 €, dentro de la zona de compra (15,38–15,97 €) con MANTENER.",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1199,7 +1184,7 @@
     "REP": {
       "empresa": "Repsol",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -1295,11 +1280,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · 9M excelentes (beneficio 5.006 M€, deuda 2.038 M€) y tercera recompra de hasta 950 M€, pero es ciclo de refino, lleva 983 M€ de deterioros (R4) y la fiscalidad sigue abierta ante el 29-nov (R3). Cotiza a 30,73 €, muy por encima del PO bull de 26,65 €.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · solo trámite: avance de la recompra (OIR 43505). El crudo cae en la semana (Brent 97,45 $, −12 %) y la fiscalidad sigue abierta ante el 29-N (R3). Cotiza a 29,90 €, muy por encima del PO bull de 26,65 €.",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1364,7 +1349,7 @@
     "SAN": {
       "empresa": "Banco Santander, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -1447,11 +1432,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · los 9M dejan el CET1 en el 12,7 %, por debajo de la alarma del 13 % (R6), por la compra de Webster; el banco no recorta recompras (la de ~1.800 M€ terminó el 28-oct) y mantiene el 12,8-13 % a cierre. El resto de alarmas, lejos.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · semana sin comunicaciones a la CNMV. Sigue el CET1 del 12,7 % bajo la alarma del 13 % (R6, una pata) y el real se debilita otro 1,25 % (EUR/BRL 6,1449). El impuesto a la banca de 2027 depende del Congreso del 29-N (R4). Cotiza a 10,70 € (+5,7 %).",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1471,7 +1456,7 @@
     "TEF": {
       "empresa": "Telefónica",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -1548,11 +1533,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · semana sin novedad en la CNMV. Cierra a 3,374 €, por debajo del stop de 3,55 € (S1 ya revisada y reafirmada el 26-oct). Publica sus resultados el 12-nov. La venta de México tiene el aval de competencia mexicano, pero no consta que esté cerrada.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · semana sin comunicaciones a la CNMV. Cierra a 3,385 €, por debajo del stop de 3,55 € (S1 ya revisada y reafirmada el 26-oct). Publica los 9M el jueves 12-nov a las 7:30.",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1598,7 +1583,7 @@
     "VID": {
       "empresa": "Vidrala",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -1624,11 +1609,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · los 9M son buenos (margen EBITDA 29,5 %, BPA +6,4 %, guía mantenida y recompra ampliada al 4 %), así que la pata de empresa de R2 no se cumple; sigue en ámbar solo por el gas. Iberia y Europa caen en el 3T (EBITDA −13 %). Cotiza dentro de la zona de compra.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · solo por el gas, que baja en la semana (TTF ≈86 €/MWh) pero sigue por encima de los 50 €/MWh de la alarma (R2). Termina una recompra y lanza otra de hasta el 1 % del capital (30 M€). Cotiza a 89,40 €, justo sobre su zona de compra (79,17–87,06 €).",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1640,7 +1625,7 @@
     "VIS": {
       "empresa": "Viscofan",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "trimestral": "2026-07-29",
         "universo": "2026-11-01"
       },
@@ -1686,11 +1671,11 @@
           "severidad": "alta",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Rojo · nada nuevo desde los 9M del 22-oct: el margen EBITDA del 3T (21,8 %) sigue por debajo del 22 % de la alarma de costes (R1) y la guía de EBITDA está rebajada a 290–295 M€. Cotiza a 54,10 €, por encima del PO de 53,06 €.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Rojo · el negocio sigue igual (margen EBITDA del 3T del 21,8 %, bajo el 22 % de R1, y guía rebajada a 290–295 M€). Novedad: principio de acuerdo para comprar hasta el 85 % de la china Haiaos (ingresos 57,5 M€, EBITDA 16,5 M€), sin precio publicado. El gas baja en la semana.",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1717,7 +1702,7 @@
     "LDA": {
       "empresa": "Línea Directa Aseguradora, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [],
@@ -1728,7 +1713,7 @@
     "BBVA": {
       "empresa": "BBVA",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -1755,11 +1740,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · los 9M son buenos (RoTE 22 %, beneficio del 3T +19 %), pero el coste del riesgo sube al 1,44 %, a 6 pb de la alarma del 1,5 % (R2), con las provisiones de Turquía +74 %. Sigue abierto el juicio de Cenyt (R8) sin provisión conocida.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · semana sin novedad salvo la recompra (OIR 43462). Siguen el coste del riesgo del 1,44 %, a 6 pb de la alarma del 1,5 % (R2), y el juicio de Cenyt sin fecha (R8). Cotiza a 22,73 € (+7,9 % en la semana), muy por encima del PO bull.",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1771,7 +1756,7 @@
     "MRL": {
       "empresa": "Merlin Properties SOCIMI, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -1801,11 +1786,11 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar · el decreto de centros de datos sigue sin aprobar: el 27-oct estaba en el Consejo de Estado y el sector prepara alegaciones y no descarta ir a los tribunales (R2). Sin comunicaciones de la sociedad; los 9M, previstos para el 13-nov.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
+          "resumen": "Ámbar · buena noticia de balance: refinancia con 3.750 M€ a MS+100 pb y alarga la vida media de la deuda de 3,7 a 5,3 años (Santander pone 200 M€ del crédito). Sigue sin aprobarse el decreto de centros de datos (R2). Los 9M, previstos el 13-nov (sin confirmar).",
+          "origen": "informe-semanal 2026-11-09",
+          "fecha": "2026-11-09",
+          "abiertoEl": "2026-11-09",
+          "vigenteHasta": "2026-11-14",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1825,7 +1810,7 @@
     "CABK": {
       "empresa": "CaixaBank, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [],
@@ -1836,7 +1821,7 @@
     "ART": {
       "empresa": "Arteche Lantegi Elkartea, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -1864,7 +1849,7 @@
     "GEST": {
       "empresa": "Gestamp Automoción, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -1886,21 +1871,6 @@
           "plazoDias": 7,
           "vencePlazoEl": "2026-10-14",
           "notaEmitida": true
-        },
-        {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "media",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "Ámbar · sin hechos nuevos en la ventana; la señal única sigue pegada a su umbral (margen EBITDA 1S 11,05 % frente a 11 %, R2). Los 9M salen el 4-nov, tras el cierre, y deciden el color.",
-          "origen": "informe-semanal 2026-11-02",
-          "fecha": "2026-11-02",
-          "abiertoEl": "2026-11-02",
-          "vigenteHasta": "2026-11-07",
-          "resueltoEl": null,
-          "desenlace": null
         }
       ],
       "revisiones": [
@@ -1918,7 +1888,7 @@
     "ROVI": {
       "empresa": "Laboratorios Farmacéuticos Rovi, S.A.",
       "cobertura": {
-        "semanal": "2026-11-02",
+        "semanal": "2026-11-09",
         "universo": "2026-11-01"
       },
       "hallazgos": [
@@ -2275,7 +2245,7 @@
       "empresa": "Renta 4 Banco",
       "cobertura": {
         "universo": "2026-11-01",
-        "semanal": "2026-11-02"
+        "semanal": "2026-11-09"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -2300,7 +2270,7 @@
       "empresa": "Unicaja",
       "cobertura": {
         "universo": "2026-11-01",
-        "semanal": "2026-11-02"
+        "semanal": "2026-11-09"
       },
       "hallazgos": [
         {
@@ -2360,7 +2330,7 @@
       "empresa": "Acerinox",
       "cobertura": {
         "universo": "2026-11-01",
-        "semanal": "2026-11-02"
+        "semanal": "2026-11-09"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -3036,11 +3006,11 @@
     }
   },
   "resumen": {
-    "empresasConHallazgo": 39,
-    "hallazgosActivos": 51,
+    "empresasConHallazgo": 38,
+    "hallazgosActivos": 49,
     "porTipo": {
       "sancion": 3,
-      "coyuntura": 17,
+      "coyuntura": 15,
       "otro": 23,
       "opa": 4,
       "litigio": 4
