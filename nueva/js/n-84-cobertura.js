@@ -55,7 +55,7 @@
      todas hechas»): las empresas analizadas frente al informe de la temporada, cada una con su color. */
   function vAlDia(){ var E2=((RES&&RES.empresas)||[]); if(!E2.length||!CAL||!CAL.empresas) return '';
     var t=(CAL.temporadas||[])[0]||'', mt=/^(20\d\d)\s+(\S+)/.exec(t); if(!mt) return '';
-    var q={'1T':1,'2T':2,'1S':2,'3T':3,'ANUAL':4}[mt[2].toUpperCase()]||0, y=+mt[1]-(q===4?1:0), nomT=q===4?'Anual '+y:({1:'1T',2:'1S',3:'9M'}[q]+' '+y), hoy=iso(hoyD());
+    var q={'1T':1,'2T':2,'1S':2,'3T':3,'ANUAL':4}[mt[2].toUpperCase()]||0, y=+mt[1], nomT=q===4?'Anual '+y:({1:'1T',2:'1S',3:'9M'}[q]+' '+y), hoy=iso(hoyD());
     var R=E2.map(function(e){ var c=((CAL.empresas[e.ticker]||{})[t])||{}, a=perRank(e.revisado_hasta);
       var cub=(a&&(a[0]>y||(a[0]===y&&a[1]>=q)))||(c.estado==='publicado'&&c.publicado&&e.revisado_fecha&&e.revisado_fecha>=c.publicado);
       var k,txt; if(cub){ k='ok'; txt='revisada el '+fd(e.revisado_fecha); }
