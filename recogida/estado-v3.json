@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-10T19:45",
+ "generado": "2026-11-10T23:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -835,9 +835,9 @@
    "ticker": "FDR",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (10/11/2026 08:41)",
    "detalle": "nº 43553: Información sobre segundo pago del dividendo 2026",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-10T23:03",
+   "como": "La recogida de las 18:30 lo bajó (está en la Biblioteca: FDR/Comunicaciones). Además se corrigió la lectura del anuncio: ahora sale 0,33 € con pago el 10-dic y ex-dividendo el 8-dic, marcado como seguro; la app lo confirma sola con la recogida del 11-nov 8:30.",
    "comprobado": null
   },
   {
@@ -847,9 +847,9 @@
    "ticker": "MRL",
    "que": "El lector no lee el 2026-9M con lo que hay en la Biblioteca",
    "detalle": "Documentos: 2026-11-10 MERLIN - Datos conferencia resultados 9M26 (viernes 13 de noviembre @1.pdf",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-10T23:03",
+   "como": "Falso aviso: el documento era el anuncio de la conferencia del 13-nov (sin cifras). El pase ya no cuenta los «datos de conferencia / datos de conexión» como resultados (probado con los 8.858 documentos de la Biblioteca: solo cambian 4, todos avisos de conexión). Cuando Merlin publique sus 9M el 13-nov, el lector los leerá.",
    "comprobado": null
   },
   {
@@ -859,9 +859,9 @@
    "ticker": "MRL",
    "que": "Falso aviso de documento que falta: Merlin aún no ha publicado sus 9M y el pase tomó el anuncio de la conferencia como si fueran resultados",
    "detalle": "El único documento 9M26 en la Biblioteca es 'MERLIN - Datos conferencia resultados 9M26 (viernes 13 de noviembre @15h CET)' (CNMV 10-nov 14:54), que no trae cifras. El aviso P7c0f9a14 no es un fallo del lector ni hay que pedir nada a Carlos: los resultados saldrán hacia el 12-13 de noviembre. Conviene que el pase no cuente los anuncios de conferencia como informe del periodo.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-10T23:03",
+   "como": "Es el mismo caso que el aviso anterior de Merlin; corregido igual.",
    "comprobado": null
   }
  ],
