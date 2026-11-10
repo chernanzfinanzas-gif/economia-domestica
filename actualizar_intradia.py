@@ -35,7 +35,7 @@ DE DONDE SALE LA LISTA
 GUARDIA HORARIA
   El cron de GitHub va en UTC y no entiende de horario de verano, asi que se
   programa una ventana amplia y es ESTE script el que decide si el mercado
-  continuo esta abierto (09:00-17:45 de Madrid, de lunes a viernes). Fuera de
+  continuo esta abierto (09:00-17:55 de Madrid, de lunes a viernes). Fuera de
   esa franja sale sin pedir nada. Asi el mismo .yml vale en invierno y en verano.
 
 Uso:   python actualizar_intradia.py [--forzar] [--salida RUTA]
@@ -85,7 +85,9 @@ EDAD_MAX_MIN  = 35      # una barra mas nueva que esto es, sin discusion, un pre
 EDAD_ILIQUIDA_MAX = 240  # con la fuente viva, hasta 4h sin negociar sigue siendo su precio
 INTENTOS      = 2
 APERTURA      = (9, 0)
-CIERRE        = (17, 45)   # 17:35 + margen para la subasta de cierre
+CIERRE        = (17, 55)   # 10-nov-2026: era 17:45. La barra de 5m de las 17:25 (la ultima del continuo) se publica
+                           # hacia las 17:41-17:45; el 10-nov aun no estaba en el ultimo pase (17:42) y el dia quedo en
+                           # 17:20. Con 17:55 hay dos pases mas; a las 17:55 esa barra tiene 30 min (< EDAD_MAX_MIN 35).
 SALIDA        = "intradia.json"
 
 # ── EL ARCHIVO DE LA SERIE DE 5 MINUTOS (14-ago-2026) ────────────────────────
