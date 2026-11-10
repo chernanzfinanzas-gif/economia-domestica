@@ -1,13 +1,26 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-10T09:45",
+ "generado": "2026-11-10T18:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-10T08:57",
+  "cuando": "2026-11-10T18:45",
   "ficheros": [
+   "recogida/publicaciones/ACS.json",
    "recogida/publicaciones/ADX.json",
+   "recogida/publicaciones/AIR.json",
+   "recogida/publicaciones/AMP.json",
+   "recogida/publicaciones/BBVA.json",
+   "recogida/publicaciones/CAF.json",
+   "recogida/publicaciones/FDR.json",
+   "recogida/publicaciones/MAKS.json",
+   "recogida/publicaciones/MCM.json",
+   "recogida/publicaciones/MRL.json",
+   "recogida/publicaciones/NYE.json",
+   "recogida/publicaciones/ORY.json",
+   "recogida/publicaciones/VOC.json",
+   "recogida/publicaciones/_indice.json",
    "recogida/publicaciones/dias/2026-11.json"
   ]
  },
