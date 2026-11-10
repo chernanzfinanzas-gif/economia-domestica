@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-10T08:57",
+ "generado": "2026-11-10T09:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -826,6 +826,18 @@
    "estado": "resuelto",
    "resuelto": "2026-11-08T20:57",
    "como": "8-nov. Medido: estas métricas no tienen un sitio fijo legible a máquina (cuadros con las etiquetas en una línea y las cifras en otra, y la maqueta cambia cada año). Aprendiendo de años anteriores no se acertaba con garantías. Montado: 1) lector_banca, que en los bancos rellena solo las cifras que salen iguales en dos documentos (22 de 90 bien y ninguna mal frente al banco); 2) ayuda_lectura, que en la revisión anual le pone a Claude delante las frases con cifras de cada métrica que falte: hay pistas para 78 de 136 métricas propias de las 12 empresas, y Claude las apunta con su fuente en minutos. Lo que el Excel calculaba (p. ej. la mora de Renta 4) lo calcula Claude con su fuente. Sin trabajo para Carlos.",
+   "comprobado": null
+  },
+  {
+   "id": "P39106baa",
+   "creado": "2026-11-10T09:02",
+   "origen": "cruce con la nube",
+   "ticker": "FDR",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (10/11/2026 08:41)",
+   "detalle": "nº 43553: Información sobre segundo pago del dividendo 2026",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
    "comprobado": null
   }
  ],
