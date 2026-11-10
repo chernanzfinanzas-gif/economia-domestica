@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-10T18:55",
+ "generado": "2026-11-10T19:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -835,6 +835,30 @@
    "ticker": "FDR",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (10/11/2026 08:41)",
    "detalle": "nº 43553: Información sobre segundo pago del dividendo 2026",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P7c0f9a14",
+   "creado": "2026-11-10T18:56",
+   "origen": "pase de novedades",
+   "ticker": "MRL",
+   "que": "El lector no lee el 2026-9M con lo que hay en la Biblioteca",
+   "detalle": "Documentos: 2026-11-10 MERLIN - Datos conferencia resultados 9M26 (viernes 13 de noviembre @1.pdf",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "Pfa28d91d",
+   "creado": "2026-11-10T19:01",
+   "origen": "pase de novedades 10-11 18:55",
+   "ticker": "MRL",
+   "que": "Falso aviso de documento que falta: Merlin aún no ha publicado sus 9M y el pase tomó el anuncio de la conferencia como si fueran resultados",
+   "detalle": "El único documento 9M26 en la Biblioteca es 'MERLIN - Datos conferencia resultados 9M26 (viernes 13 de noviembre @15h CET)' (CNMV 10-nov 14:54), que no trae cifras. El aviso P7c0f9a14 no es un fallo del lector ni hay que pedir nada a Carlos: los resultados saldrán hacia el 12-13 de noviembre. Conviene que el pase no cuente los anuncios de conferencia como informe del periodo.",
    "estado": "abierto",
    "resuelto": null,
    "como": null,
