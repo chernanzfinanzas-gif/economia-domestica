@@ -1,17 +1,17 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-11T09:45",
+ "generado": "2026-11-11T12:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-11T08:45",
+  "cuando": "2026-11-11T12:45",
   "ficheros": [
-   "recogida/publicaciones/BBVA.json",
-   "recogida/publicaciones/CLNX.json",
-   "recogida/publicaciones/NXT.json",
-   "recogida/publicaciones/_indice.json",
-   "recogida/publicaciones/dias/2026-11.json"
+   "dossiers/MRL.html",
+   "dossiers/MRL.json",
+   "dossiers/trimestral/MRL-trim.json",
+   "fichas/MRL.json",
+   "fichas/_resumen.json"
   ]
  },
  "rechazos": [],

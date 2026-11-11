@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "MRL",
  "empresa": "Merlin Properties, SOCIMI, S.A.",
- "fecha": "2026-11-05",
+ "fecha": "2026-11-11",
  "revisadoEl": "2026-11-05",
  "rating": "BBB",
- "score": 57.2,
+ "score": 57.3,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): nav 40 % · p_ffo 25 % · rentabilidad por dividendo 15 % · DCF base 20 % · flujo base del DCF: flujo de las rentas (EBITDA oficial − CAPEX de mantenimiento, media de 5 años)",
- "poBear": 8.09,
- "poBase": 10.23,
- "poBull": 12.15,
- "entMin": 8.09,
- "entMax": 8.89,
- "stop": 7.19,
+ "poBear": 8.11,
+ "poBase": 10.24,
+ "poBull": 12.17,
+ "entMin": 8.11,
+ "entMax": 8.91,
+ "stop": 7.2,
  "dpaPrevisto": 0.44,
  "moat": "48,4 sobre 100 · MOAT ESTRECHO. La escala y la ubicación existen aunque el ROIC de la renta no cubra el WACC",
  "catalizadores": [
@@ -34,17 +34,17 @@
   "Ciberataque en los edificios o en los centros de datos (Baja): Las cuentas de 2025 lo citan, con póliza y adaptación a NIS2. Suave: un incidente que cuesta el 1 % del EBITDA de un año (4 M€). Duro: el 3 % (12 M€), un centro de datos parado con penalizaciones.",
   "Pérdida o cambio del régimen SOCIMI (Baja): Merlin no paga Impuesto sobre Sociedades sobre las rentas a cambio de repartir. Suave: un impuesto del 10 % sobre el FFO (FFO y dividendo −10 %, flujo del DCF −9,6 %). Duro: el tipo general del 25 % (−25 % y −24,0 %). No mueve el NTA."
  ],
- "bull": "12,15 € — escenario optimista: las rentas comparables repiten su media 2019-2025 (4,2 %), con logística y centros comerciales tirando",
- "bear": "8,09 € — escenario pesimista: las oficinas pierden ocupación y la indexación se frena: el peor año de 2019-2025 (2020, +0,4 % like-for-like) casi permanente",
+ "bull": "12,17 € — escenario optimista: las rentas comparables repiten su media 2019-2025 (4,2 %), con logística y centros comerciales tirando",
+ "bear": "8,11 € — escenario pesimista: las oficinas pierden ocupación y la indexación se frena: el peor año de 2019-2025 (2020, +0,4 % like-for-like) casi permanente",
  "resumen": "ESPERAR, como en octubre. Calidad BBB y moat estrecho; a 11,25 € cotiza un 10 % por encima del precio objetivo y solo un 7 % por debajo del bull (12,13 €). Fallan el margen de seguridad y el rating. Zona de compra: 8,07 – 8,88 €. Stop de tesis: 7,17 €.",
  "dividendSafety": {
-  "score": 35,
-  "banda": "Frágil",
+  "score": 60,
+  "banda": "Seguro",
   "aplica": true,
   "rama": "general",
   "componentes": {
-   "C1": 10,
-   "C2": 7,
+   "C1": 27,
+   "C2": 15,
    "C3": 9,
    "C4": 0,
    "C5": 9
@@ -54,9 +54,9 @@
    "motivo": ""
   },
   "motivos": [
-   "Frágil: cobertura OE 1.11x · payout 76 % · 3 recorte(s) del DPA · señales: DN/EBITDA al alza, recompras recortadas"
+   "Seguro: cobertura OE 1.11x · payout 76 % · 3 recorte(s) del DPA · señales: DN/EBITDA al alza, recompras recortadas · vara de SOCIMI (con la general: 35)"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-11",
   "origen": "metodo-v3",
   "shareholderYield": null
  },
@@ -98,16 +98,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-11",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 5.74,
+  "gImplicito": 5.66,
   "gIntrinseco": null,
   "veredicto": "HEROICO",
   "motivo": "HEROICO (exige 5.7 % al año, más de 1,4 veces el 3 % del caso base)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-11",
   "origen": "metodo-v3"
  }
 }

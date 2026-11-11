@@ -3,7 +3,7 @@
  "ticker": "MRL",
  "empresa": "Merlin Properties, SOCIMI, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-05",
+ "generado": "2026-11-11",
  "revisiones": [
   {
    "periodo": "2022-Q2",
@@ -105,7 +105,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Rentas brutas +6,9 %, EBITDA +7,7 %, FFO -5,5 %, margen 75,8 % (+0,59 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Rentas brutas +6,9 %, EBITDA +7,7 %, FFO -5,5 %, margen 75,8 % (+0,59 pp) frente al mismo periodo del año anterior. Ocupación del peor negocio: 92,2 %; release spread del peor negocio (dos periodos seguidos): 5,1 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -138,6 +138,14 @@
     {
      "nombre": "EPRA NTA por acción",
      "valor": 15.8
+    },
+    {
+     "nombre": "Ocupación del peor negocio (%)",
+     "valor": 92.2
+    },
+    {
+     "nombre": "Release spread del peor negocio (%)",
+     "valor": 2.8
     },
     {
      "nombre": "AFFO",
@@ -205,7 +213,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Rentas brutas +6,4 %, EBITDA +9,9 %, FFO -3,6 %, margen 76,9 % (+2,45 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Rentas brutas +6,4 %, EBITDA +9,9 %, FFO -3,6 %, margen 76,9 % (+2,45 pp) frente al mismo periodo del año anterior. Ocupación del peor negocio: 91,9 %; release spread del peor negocio (dos periodos seguidos): 2,8 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -238,6 +246,14 @@
     {
      "nombre": "EPRA NTA por acción",
      "valor": 15.5
+    },
+    {
+     "nombre": "Ocupación del peor negocio (%)",
+     "valor": 91.9
+    },
+    {
+     "nombre": "Release spread del peor negocio (%)",
+     "valor": 2.1
     },
     {
      "nombre": "AFFO",
@@ -305,7 +321,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Rentas brutas +4,2 %, EBITDA +3,5 %, FFO -4,4 %, margen 75,4 % (-0,48 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Rentas brutas +4,2 %, EBITDA +3,5 %, FFO -4,4 %, margen 75,4 % (-0,48 pp) frente al mismo periodo del año anterior. Ocupación del peor negocio: 92,2 %; release spread del peor negocio (dos periodos seguidos): 3,4 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -338,6 +354,14 @@
     {
      "nombre": "EPRA NTA por acción",
      "valor": 15.2
+    },
+    {
+     "nombre": "Ocupación del peor negocio (%)",
+     "valor": 92.2
+    },
+    {
+     "nombre": "Release spread del peor negocio (%)",
+     "valor": 3.4
     },
     {
      "nombre": "AFFO",
@@ -405,7 +429,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Rentas brutas +4,7 %, EBITDA +4,7 %, FFO +6,7 %, margen 76,9 % (+0,00 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 27,4 %. Verde: nada que señalar.",
+   "resumen": "Rentas brutas +4,7 %, EBITDA +4,7 %, FFO +6,7 %, margen 76,9 % (+0,00 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 27,4 %; ocupación del peor negocio: 92,4 %; release spread del peor negocio (dos periodos seguidos): 3,4 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -438,6 +462,14 @@
     {
      "nombre": "EPRA NTA por acción",
      "valor": 14.3
+    },
+    {
+     "nombre": "Ocupación del peor negocio (%)",
+     "valor": 92.4
+    },
+    {
+     "nombre": "Release spread del peor negocio (%)",
+     "valor": 1.7
     },
     {
      "nombre": "LTV",
@@ -502,59 +534,6 @@
    "origen": "metodo-v3"
   },
   {
-   "periodo": "2025-Q1",
-   "periodoDisplay": "1T",
-   "fecha": "2025-03-31",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "Rentas brutas +6.7 %, EBITDA +9.0 %, FFO por acción +0.0 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 2.7 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción cae un 4.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-   "metricas": [
-    {
-     "nombre": "Ingresos totales (M€)",
-     "valor": 138.0
-    },
-    {
-     "nombre": "Rentas brutas (M€)",
-     "valor": 132.5
-    },
-    {
-     "nombre": "Rentas like-for-like (%)",
-     "valor": 2.7
-    },
-    {
-     "nombre": "EBITDA del informe (M€)",
-     "valor": 102.0
-    },
-    {
-     "nombre": "Margen EBITDA sobre rentas (%)",
-     "valor": 76.9
-    },
-    {
-     "nombre": "FFO (M€)",
-     "valor": 84.2
-    },
-    {
-     "nombre": "FFO por acción (€)",
-     "valor": 0.15
-    },
-    {
-     "nombre": "EPRA NTA por acción (€)",
-     "valor": 14.47
-    },
-    {
-     "nombre": "LTV (%)",
-     "valor": 28.5
-    },
-    {
-     "nombre": "Superficie contratada (m²)",
-     "valor": 274614.0
-    }
-   ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
-  },
-  {
    "periodo": "2025-Q2",
    "periodoDisplay": "S1",
    "periodoV3": "2025-S1",
@@ -616,7 +595,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Rentas brutas +6,6 %, EBITDA +7,4 %, FFO +6,5 %, margen 77,5 % (+0,57 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 28,6 %. Verde: nada que señalar.",
+   "resumen": "Rentas brutas +6,6 %, EBITDA +7,4 %, FFO +6,5 %, margen 77,5 % (+0,57 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 28,6 %; ocupación del peor negocio: 94,2 %; release spread del peor negocio (dos periodos seguidos): 0,2 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -649,6 +628,14 @@
     {
      "nombre": "EPRA NTA por acción",
      "valor": 15.2
+    },
+    {
+     "nombre": "Ocupación del peor negocio (%)",
+     "valor": 94.2
+    },
+    {
+     "nombre": "Release spread del peor negocio (%)",
+     "valor": 0.2
     },
     {
      "nombre": "LTV",
@@ -720,7 +707,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Rentas brutas +10,3 %, EBITDA +11,4 %, FFO +3,8 %, margen 77,7 % (+0,72 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 24,4 %. Verde: nada que señalar.",
+   "resumen": "Rentas brutas +10,3 %, EBITDA +11,4 %, FFO +3,8 %, margen 77,7 % (+0,72 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 24,4 %; ocupación del peor negocio: 93,6 %; release spread del peor negocio (dos periodos seguidos): 2,8 %. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -755,6 +742,14 @@
      "valor": 15.3
     },
     {
+     "nombre": "Ocupación del peor negocio (%)",
+     "valor": 93.6
+    },
+    {
+     "nombre": "Release spread del peor negocio (%)",
+     "valor": 2.8
+    },
+    {
      "nombre": "LTV",
      "valor": 24.4
     },
@@ -774,7 +769,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Rentas brutas +10,2 %, EBITDA +11,7 %, FFO +8,0 %, margen 78,6 % (+1,08 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 24,5 %. Verde: nada que señalar. **Qué ha pasado** — En el 1S-2026 Merlin ingresa 308 M€ en total (+11,7 %), con rentas brutas de 292 M€ (+10,2 %), un EBITDA de 229 M€ (+11,7 %) y un FFO de 180 M€ (+8,0 %). Las rentas comparables crecen un 3,3 %. El valor neto de los activos (EPRA NTA) sube a 15,99 € por acción (15,04 € un año antes) y el endeudamiento (LTV) baja al 24,5 % (28,9 % al cierre de 2025).\n\n**Por qué** — El crecimiento viene de los centros de datos: la nota de prensa dice que son «responsable de aproximadamente el 80% de la creación de valor durante el semestre». La deuda baja por la ampliación de capital de marzo, «para financiar la fase III del Plan MEGA». Por esa misma ampliación, el FFO por acción baja de 0,30 € a 0,29 €, aunque el FFO total sube un 8 %.\n\n**Semáforo** — Verde bien puesto.\n\n**Qué vigilar** — El FFO por acción: la empresa prevé «un FFO de €340 millones en FY26 (€0.55 p.a.)». Hay que ver si el crecimiento de los centros de datos compensa la dilución de la ampliación (de 563,7 a 620 millones de acciones). En logística, la ocupación baja al 95,0 % por «movimientos puntuales de inquilinos en Sevilla ZAL».\n\n**Lectura** — Aprobar. No toca la tesis.",
+   "resumen": "Rentas brutas +10,2 %, EBITDA +11,7 %, FFO +8,0 %, margen 78,6 % (+1,08 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 24,5 %; ocupación del peor negocio: 93,6 %; release spread del peor negocio (dos periodos seguidos): 2,8 %. Verde: nada que señalar. **Qué ha pasado** — En el 1S-2026 Merlin ingresa 308 M€ en total (+11,7 %), con rentas brutas de 292 M€ (+10,2 %), un EBITDA de 229 M€ (+11,7 %) y un FFO de 180 M€ (+8,0 %). Las rentas comparables crecen un 3,3 %. El valor neto de los activos (EPRA NTA) sube a 15,99 € por acción (15,04 € un año antes) y el endeudamiento (LTV) baja al 24,5 % (28,9 % al cierre de 2025).\n\n**Por qué** — El crecimiento viene de los centros de datos: la nota de prensa dice que son «responsable de aproximadamente el 80% de la creación de valor durante el semestre». La deuda baja por la ampliación de capital de marzo, «para financiar la fase III del Plan MEGA». Por esa misma ampliación, el FFO por acción baja de 0,30 € a 0,29 €, aunque el FFO total sube un 8 %.\n\n**Semáforo** — Verde bien puesto.\n\n**Qué vigilar** — El FFO por acción: la empresa prevé «un FFO de €340 millones en FY26 (€0.55 p.a.)». Hay que ver si el crecimiento de los centros de datos compensa la dilución de la ampliación (de 563,7 a 620 millones de acciones). En logística, la ocupación baja al 95,0 % por «movimientos puntuales de inquilinos en Sevilla ZAL».\n\n**Lectura** — Aprobar. No toca la tesis.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -807,6 +802,14 @@
     {
      "nombre": "EPRA NTA por acción",
      "valor": 16.0
+    },
+    {
+     "nombre": "Ocupación del peor negocio (%)",
+     "valor": 93.6
+    },
+    {
+     "nombre": "Release spread del peor negocio (%)",
+     "valor": 1.7
     },
     {
      "nombre": "LTV",
