@@ -3,7 +3,7 @@
  "ticker": "ACS",
  "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-05",
+ "generado": "2026-11-11",
  "revisiones": [
   {
    "periodo": "2021-Q1",
@@ -735,6 +735,40 @@
     {
      "nombre": "Deuda neta",
      "valor": 757.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +12,3 %, EBITDA +13,0 %, beneficio neto +20,5 %, margen 6,1 % (+0,04 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ventas +12,3 % (41.262 M€), EBITDA +13,0 %, EBIT +20,7 % y beneficio neto atribuible +20,5 % (789 M€), con el margen EBITDA en 6,1 % (+0,04 pp). El «+35 %» de los titulares es el beneficio ordinario: 9M-2025 llevaba un resultado extraordinario; el método usa el atribuible. La cartera sube a 110.994 M€ (+24,3 %), con Turner (+44 % de beneficio) tirando del grupo. Nada que corregir.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 41262.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2506.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1807.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 789.0
     }
    ],
    "hechos": [],

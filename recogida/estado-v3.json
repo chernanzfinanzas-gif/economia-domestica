@@ -1,31 +1,18 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-11T19:45",
+ "generado": "2026-11-11T20:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [
-  {
-   "carpeta": "ACS 2026-9M",
-   "ticker": "ACS",
-   "periodos": [
-    "2026-9M"
-   ],
-   "tipo": "pase",
-   "creada": "2026-11-11T19:06",
-   "semaforo": "V",
-   "frase": null
-  }
- ],
- "n_pendientes": 1,
+ "revisiones_pendientes": [],
+ "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-11T18:45",
+  "cuando": "2026-11-11T20:45",
   "ficheros": [
-   "recogida/publicaciones/ACS.json",
-   "recogida/publicaciones/PRS.json",
-   "recogida/publicaciones/REP.json",
-   "recogida/publicaciones/SAN.json",
-   "recogida/publicaciones/VID.json",
-   "recogida/publicaciones/_indice.json",
-   "recogida/publicaciones/dias/2026-11.json"
+   "dossiers/ACS.html",
+   "dossiers/ACS.json",
+   "dossiers/trimestral/ACS-trim.json",
+   "dossiers/v3/ACS.html",
+   "fichas/ACS.json",
+   "fichas/_resumen.json"
   ]
  },
  "rechazos": [],
