@@ -166,6 +166,17 @@
     '#calcPanel.kc.s .kc-ctl button .s2{color:#fff;background:#c2410c;border-radius:3px;padding:0 2px}',
     '#calcPanel.kc .kc-fk button:active,#calcPanel.kc .kc-ctl button:active{transform:scale(.96)}',
     '#calcPanel.kc .calc-close{display:inline-flex;align-items:center;justify-content:center;min-width:40px;min-height:36px;margin:-9px -12px -9px 0;font-size:19px;line-height:1;cursor:pointer;touch-action:manipulation}',
+    '#calcPanel .calc-man{margin-right:10px;padding:3px 9px;border-radius:999px;background:#1d4ed8;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}',
+    '#calcPanel .calc-man:hover{background:#2563eb}',
+    '#calcManOv{position:fixed;inset:0;z-index:10001;background:rgba(15,23,42,.55);display:none;padding:24px;justify-content:center}',
+    '#calcManOv.on{display:flex}',
+    '#calcManOv .cm-caja{width:100%;max-width:900px;display:flex;flex-direction:column;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35)}',
+    '#calcManOv .cm-bar{display:flex;align-items:center;gap:12px;padding:8px 10px 8px 14px;background:#0f172a;color:#fff;font-size:14px}',
+    '#calcManOv .cm-bar b{flex:1}',
+    '#calcManOv .cm-new{color:#93c5fd;font-size:12.5px;text-decoration:none}',
+    '#calcManOv .cm-x{display:inline-flex;align-items:center;justify-content:center;min-width:40px;min-height:34px;font-size:19px;cursor:pointer}',
+    '#calcManOv iframe{flex:1;border:0;width:100%;background:#f8fafc}',
+    '@media (max-width:600px){#calcManOv{padding:0}#calcManOv .cm-caja{border-radius:0}}',
     '@media (max-width:520px){#calcPanel.kc .kc-campos{grid-template-columns:1fr}}'
   ].join('\n');
   document.head.appendChild(st);
@@ -178,6 +189,29 @@
     cerrar.addEventListener('pointerup', function(e){ e.stopPropagation(); e.preventDefault(); panel.classList.add('hidden'); });
   }
 
+  /* ---------- manual de uso: botón «? Manual» en la cabecera; abre el manual por la parte del modo en que estás ---------- */
+  var MANUAL = 'nueva/manual-calculadora.html';
+  if(head && cerrar && !document.getElementById('calcMan')){
+    var bm = document.createElement('span'); bm.id = 'calcMan'; bm.className = 'calc-man'; bm.textContent = '? Manual'; bm.title = 'Manual de uso de la calculadora'; bm.setAttribute('role', 'button');
+    head.insertBefore(bm, cerrar);
+    bm.addEventListener('pointerdown', function(e){ e.stopPropagation(); });
+    bm.addEventListener('click', function(e){ e.stopPropagation(); abreManual(); });
+  }
+  function abreManual(){
+    var anc = {comp:'comp', base:'base', sd:'sd', reg:'reg', mat:'mat', equa:'equa', graph:'graph', table:'table', dyna:'dyna', mem:'mem', option:'mem', menu:'menu'};
+    var a = modo === 'fin' ? 'fin' : (anc[S && S.pant] || 'basico');
+    var ov = document.getElementById('calcManOv');
+    if(!ov){
+      ov = document.createElement('div'); ov.id = 'calcManOv';
+      ov.innerHTML = '<div class="cm-caja"><div class="cm-bar"><b>📘 Manual de la calculadora</b><a target="_blank" rel="noopener" class="cm-new">Abrir aparte ↗</a><span class="cm-x" role="button" aria-label="Cerrar el manual">✕</span></div><iframe title="Manual de la calculadora"></iframe></div>';
+      document.body.appendChild(ov);
+      ov.querySelector('.cm-x').addEventListener('click', function(){ ov.classList.remove('on'); });
+      ov.addEventListener('click', function(e){ if(e.target === ov) ov.classList.remove('on'); });
+    }
+    var url = MANUAL + '#' + a;
+    ov.querySelector('iframe').src = url; ov.querySelector('.cm-new').href = url; ov.classList.add('on');
+  }
+
   /* ---------- montaje ---------- */
   [].slice.call(panel.children).forEach(function(n){ if(n !== head) n.remove(); });
   panel.classList.add('kc');
@@ -187,7 +221,7 @@
   var sci = document.createElement('div');
   sci.innerHTML = '<div class="kc-lcd"><div class="kc-st"><span class="s">S</span><span class="a">A</span><span class="md"></span><span class="ang" title="Set up: ángulo y formato"></span><span class="sp"></span><span class="ansv"></span></div><div class="kc-scr"></div><div class="kc-fl"></div></div>' +
     '<div class="kc-mem"></div><div class="kc-fk"></div><div class="kc-ctl"></div><div class="kc-keys"></div>' +
-    '<div class="kc-nota"><b>MENU</b> abre los 12 modos de la Casio (flechas + EXE, o 1–9, A, B, C). Escribe la operación y pulsa <b>EXE</b>; <b>AC</b> borra la línea y, otra vez, toda la pantalla. <b>→</b> guarda en una memoria (25→A); <b>ALPHA</b> + tecla escribe la letra roja; <b>SHIFT</b> da la función naranja. <b>F1–F6</b> son las teclas del menú de abajo de la pantalla. <b>EXIT</b> vuelve atrás.</div>';
+    '<div class="kc-nota"><b>MENU</b> abre los 12 modos de la Casio (flechas + EXE, o 1–9, A, B, C). Escribe la operación y pulsa <b>EXE</b>; <b>AC</b> borra la línea; <b>AC AC</b> (dos seguidas) borra toda la pantalla. <b>→</b> guarda en una memoria (25→A); <b>ALPHA</b> + tecla escribe la letra roja; <b>SHIFT</b> da la función naranja. <b>F1–F6</b> son las teclas del menú de abajo de la pantalla. <b>EXIT</b> vuelve atrás.</div>';
   var fin = document.createElement('div'); fin.className = 'kc-fin';
   fin.innerHTML = '<select class="kc-sel" aria-label="Cálculo"></select><div class="kc-ayuda"></div><div class="kc-campos"></div><div class="kc-sal"></div><div class="kc-ansmsg"></div>' +
     '<div class="kc-ayuda" style="font-size:11px;color:#64748b">Cada casilla admite operaciones (1500*12), las memorias (A…Z) y Ans. Pulsa un resultado para guardarlo en Ans. Los impuestos vienen con los porcentajes habituales: compruébalos con tu bróker o tu declaración.</div>';
@@ -1111,7 +1145,7 @@
     ['1','1','','','Y','num'], ['2','2','','','Z','num'], ['3','3','','','','num'], ['+','+','','','','op'], ['−','−','','','','op'],
     ['0','0','','','','num'], [',',',','','','','num'], ['EXP','ᴇ','','','','num'], ['Ans','Ans','⧉','copy','','num'], ['EXE','exe','','','','exe']
   ];
-  var TIT = {copy:'Copiar el último resultado', '→':'Guardar en una memoria: 25→A (luego ALPHA + tecla de la letra)', '%':'200+10% = 220 · 200×10% = 20', 'ᴇ':'×10 elevado a: 1,5ᴇ3 = 1500', 'del':'Borrar a la izquierda del cursor (Retroceso)', ac:'Borrar la línea; con la línea vacía, borra toda la pantalla', exe:'Calcular (Intro)', menu:'Menú principal (los 12 modos)', exit:'Volver atrás (Esc con la línea vacía)', X:'La X de las funciones (en COMP es la memoria X)'};
+  var TIT = {copy:'Copiar el último resultado', '→':'Guardar en una memoria: 25→A (luego ALPHA + tecla de la letra)', '%':'200+10% = 220 · 200×10% = 20', 'ᴇ':'×10 elevado a: 1,5ᴇ3 = 1500', 'del':'Borrar a la izquierda del cursor (Retroceso)', ac:'Borrar la línea; dos veces seguidas, toda la pantalla', exe:'Calcular (Intro)', menu:'Menú principal (los 12 modos)', exit:'Volver atrás (Esc con la línea vacía)', X:'La X de las funciones (en COMP es la memoria X)'};
   function teclasHTML(arr, g){ return arr.map(function(k, i){
     return '<button type="button" data-g="' + g + '" data-i="' + i + '" class="' + k[5] + '"' + (TIT[k[1]] ? ' title="' + esc(TIT[k[1]]) + '"' : '') + '>' +
       (k[2] ? '<span class="s2">' + esc(k[2]) + '</span>' : '') + (k[4] ? '<span class="al">' + k[4] + '</span>' : '') + esc(k[0]) + '</button>'; }).join(''); }
@@ -1137,7 +1171,8 @@
     else if(a === 'exit') abreModo(CS.pant && CS.pant !== 'menu' ? CS.pant : 'comp', true);
     else { var k = String(a).toUpperCase(), t = TILES.filter(function(x){ return x.k === k; })[0]; if(t) abreModo(t.id); }
   }
-  function accion(a){
+  function accion(a){ S.acPrev = S.ultAC; S.ultAC = false; accion0(a); S.ultAC = (a === 'ac'); }
+  function accion0(a){
     if(a === 'shift'){ shift = !shift; return; }
     if(a === 'alpha'){ alpha = !alpha; if(!alpha) alphaLock = false; return; }
     if(a === 'alock'){ alphaLock = !alphaLock; alpha = alphaLock; return; }
@@ -1162,7 +1197,7 @@
       if(M.exit && M.exit()) return;
       menu(); return; }
     if(a === 'ac'){
-      if(!P.length && !errMsg && S.vista === 'run' && (S.pant === 'comp' || ROLL[S.pant])){   /* AC con la línea vacía borra toda la pantalla, como la Casio */
+      if(S.acPrev && S.vista === 'run' && (S.pant === 'comp' || ROLL[S.pant])){   /* dos AC seguidas borran toda la pantalla; una sola, solo la línea */
         if(S.pant === 'comp'){ H = []; guarda(LS.hist, H); } else ROLL[S.pant] = [];
       }
       P = []; cur = 0; hecho = false; errMsg = ''; flash = ''; replay = -1; if(S.fm === 'dyn'){ dynaPara(); S.vista = 'var'; S.fm = 'var'; } return; }

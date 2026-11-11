@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="es">
+<head>
+<script>try{if(window.self!==window.top)document.documentElement.className='emb';}catch(e){document.documentElement.className='emb';}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual de la calculadora</title>
+<style>
+:root{--tinta:#0f172a;--suave:#475569;--linea:#e2e8f0;--azul:#1e3a8a;--naranja:#c2410c;--lcd:#dde6c7;--fondo:#f8fafc}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:104px}
+html.emb{scroll-padding-top:56px}
+html.emb header{display:none}
+html.emb nav{top:0}
+body{margin:0;background:var(--fondo);color:var(--tinta);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#0f172a;color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+header b{font-size:15px}
+header span{font-size:12px;color:#94a3b8}
+nav{display:flex;gap:6px;overflow-x:auto;padding:8px 16px;background:#fff;border-bottom:1px solid var(--linea);position:sticky;top:42px;z-index:4;scrollbar-width:thin}
+nav a{flex:0 0 auto;font-size:12.5px;font-weight:600;color:var(--azul);text-decoration:none;background:#eef2ff;border-radius:999px;padding:4px 10px;white-space:nowrap}
+nav a:hover{background:var(--azul);color:#fff}
+main{max-width:820px;margin:0 auto;padding:8px 16px 48px}
+.intro{background:var(--lcd);border:2px solid #4b5563;border-radius:10px;padding:12px 14px;margin:16px 0 4px;color:var(--azul);font-weight:600}
+h2{font-size:20px;margin:32px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--azul);color:var(--azul)}
+h3{font-size:16px;margin:20px 0 6px;color:var(--naranja)}
+p,li{color:#1e293b}
+code{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;background:var(--lcd);color:var(--azul);padding:1px 5px;border-radius:4px;white-space:nowrap}
+table{border-collapse:collapse;width:auto;max-width:100%;margin:8px 0 14px;font-size:14px;background:#fff;display:block;overflow-x:auto}
+th,td{border:1px solid var(--linea);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:#f1f5f9;font-size:12.5px;color:var(--suave);text-transform:uppercase;letter-spacing:.03em}
+tr:nth-child(even) td{background:#fbfcfe}
+a.arriba{display:inline-block;margin-top:24px;font-size:13px;color:var(--suave)}
+@media (max-width:560px){body{font-size:14.5px} h2{font-size:18px}}
+</style>
+</head>
+<body>
+<header><b>🧮 Manual de la calculadora</b><span>Científica (Casio CFX-9800G) y Financiera</span></header>
+<nav><a href="#basico">Lo básico</a><a href="#teclas">Las teclas</a><a href="#memorias">Memorias A–Z</a><a href="#menu">El menú principal y el set up</a><a href="#comp">COMP y BASE</a><a href="#sd">SD y REG: estadística</a><a href="#mat">MAT y EQUA</a><a href="#graph">GRAPH, TABLE y DYNA</a><a href="#mem">MEM y OPTION</a><a href="#fin">La financiera</a><a href="#teclado">Teclado del ordenador</a></nav>
+<main>
+<div class="intro">La calculadora de la app tiene dos pestañas: <b>Científica</b>, que copia la Casio CFX-9800G con sus 12 modos, y <b>Financiera</b>, con 13 cálculos de ahorro, préstamos, vivienda, divisas e inversión.</div>
+<h2 id="basico">Lo básico</h2>
+<p>Se escribe la operación entera, como en el papel, y se pulsa <strong>EXE</strong>: el resultado sale debajo, a la derecha, y la cuenta queda arriba en la pantalla.</p>
+<ul>
+<li><strong>Abrir y cerrar:</strong> botón 🧮 de la cabecera de la app; se cierra con el ✕ o volviendo a pulsar 🧮. El panel se puede arrastrar por su barra de título.</li>
+<li><strong>Mientras escribes</strong> ves debajo, en gris, el resultado provisional.</li>
+<li><strong>Coma decimal:</strong> la tecla <code>,</code> (en el teclado del ordenador también vale el punto).</li>
+<li><strong>Borrar:</strong> <strong>DEL</strong> quita lo que hay a la izquierda del cursor; <strong>AC</strong> borra la línea; <strong>AC AC</strong> (dos seguidas) borra toda la pantalla.</li>
+<li><strong>Corregir:</strong> con ◀ ▶ mueves el cursor dentro de la línea. Si un resultado ya salió, ◀ recupera la última operación para editarla.</li>
+<li><strong>Recuperar operaciones anteriores:</strong> ▲ las trae una a una. También puedes pulsar una operación de arriba (vuelve a la línea) o su resultado (se mete donde está el cursor).</li>
+<li><strong>Ans</strong> es el último resultado. Si tras EXE pulsas un operador (+ − × ÷ ^), la calculadora sigue con Ans: <code>2+3</code> EXE <code>×4</code> EXE da 20.</li>
+</ul>
+<h3>Cómo calcula</h3>
+<table>
+<thead>
+<tr>
+<th>Escribes</th>
+<th>Resultado</th>
+<th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>2+3×4</code></td>
+<td>14</td>
+<td>Primero multiplica</td>
+</tr>
+<tr>
+<td><code>2(3+4)²</code></td>
+<td>98</td>
+<td>La multiplicación sin signo vale</td>
+</tr>
+<tr>
+<td><code>1÷2π</code></td>
+<td>0,159…</td>
+<td>La multiplicación sin signo va antes que ÷, como en la Casio: 1÷(2π)</td>
+</tr>
+<tr>
+<td><code>−2²</code></td>
+<td>−4</td>
+<td>El signo va fuera de la potencia</td>
+</tr>
+<tr>
+<td><code>200+10%</code></td>
+<td>220</td>
+<td>El % se aplica sobre la cifra, como en el móvil</td>
+</tr>
+<tr>
+<td><code>200−10%</code></td>
+<td>180</td>
+<td></td>
+</tr>
+<tr>
+<td><code>200×10%</code></td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td><code>1,5ᴇ3</code></td>
+<td>1500</td>
+<td>EXP = ×10 elevado a</td>
+</tr>
+<tr>
+<td><code>(1+2</code></td>
+<td>3</td>
+<td>Los paréntesis sin cerrar se cierran solos</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Errores:</strong> «Syn ERROR» = la operación está mal escrita; «Ma ERROR» = no se puede calcular (dividir por 0, raíz de un negativo…). La línea se queda para que la corrijas.</p>
+<h2 id="teclas">Las teclas</h2>
+<p>Cada tecla tiene tres funciones: la blanca (normal), la naranja de arriba a la izquierda (con <strong>SHIFT</strong>) y la letra roja de arriba a la derecha (con <strong>ALPHA</strong>).</p>
+<table>
+<thead>
+<tr>
+<th>Tecla</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>F1–F6</strong></td>
+<td>Las teclas del menú que sale abajo en la pantalla; cambian en cada modo. También puedes pulsar el rótulo en la pantalla</td>
+</tr>
+<tr>
+<td><strong>SHIFT</strong></td>
+<td>La siguiente tecla hace su función naranja (√, ˣ√, 10ˣ, eˣ, sin⁻¹, x!, ∛, Abs…)</td>
+</tr>
+<tr>
+<td><strong>ALPHA</strong></td>
+<td>La siguiente tecla escribe su letra roja (A…Z). SHIFT + ALPHA la deja fija (A-LOCK)</td>
+</tr>
+<tr>
+<td><strong>EXIT</strong></td>
+<td>Vuelve atrás: borra la línea, cierra el submenú o sale de la vista; al final, al menú</td>
+</tr>
+<tr>
+<td><strong>SHIFT EXIT (QUIT)</strong></td>
+<td>Vuelve a la pantalla inicial del modo</td>
+</tr>
+<tr>
+<td><strong>MENU</strong></td>
+<td>El menú principal con los 12 modos</td>
+</tr>
+<tr>
+<td><strong>SHIFT MENU (SET UP)</strong></td>
+<td>Cambia el set up del modo (ángulo, formato…)</td>
+</tr>
+<tr>
+<td><strong>◀ ▶ ▲ ▼</strong></td>
+<td>Mueven el cursor, eligen en listas y tablas, recuperan operaciones; en una gráfica la desplazan</td>
+</tr>
+<tr>
+<td><strong>X,θ,T</strong></td>
+<td>La X de las funciones (en COMP es la memoria X)</td>
+</tr>
+<tr>
+<td><strong>(−)</strong></td>
+<td>Signo negativo de un número</td>
+</tr>
+<tr>
+<td><strong>→</strong></td>
+<td>Guarda en una memoria</td>
+</tr>
+<tr>
+<td><strong>EXP</strong></td>
+<td>×10 elevado a (1,5ᴇ3 = 1500)</td>
+</tr>
+<tr>
+<td><strong>Ans</strong></td>
+<td>El último resultado; con SHIFT lo copia al portapapeles</td>
+</tr>
+<tr>
+<td><strong>EXE</strong></td>
+<td>Calcula o confirma</td>
+</tr>
+</tbody>
+</table>
+<h2 id="memorias">Memorias A–Z</h2>
+<p>Hay 26 memorias, de la A a la Z, que se quedan guardadas en ese navegador aunque cierres la app.</p>
+<ol>
+<li><strong>Guardar:</strong> escribe el valor o la operación, pulsa <strong>→</strong>, luego <strong>ALPHA</strong> y la tecla de la letra (la A está en x², la B en ^, la C en log…) y <strong>EXE</strong>. En pantalla queda <code>25→A</code>.</li>
+<li><strong>Guardar el último resultado:</strong> pulsa <strong>→</strong> nada más terminar una cuenta; aparece <code>Ans→</code> y solo falta la letra.</li>
+<li><strong>Usar:</strong> escribe la letra en cualquier operación (<code>A×2</code>) o pulsa su ficha bajo la pantalla (A = 25).</li>
+<li><strong>Cambiar:</strong> guarda otro valor en la misma letra.</li>
+<li><strong>Ver todas, cambiarlas o borrarlas:</strong> modo <strong>MEM</strong> (tecla B del menú).</li>
+</ol>
+<p>Con el teclado del ordenador es más rápido: <code>25&gt;A</code> e Intro. Las memorias también valen en las casillas de la Financiera.</p>
+<h2 id="menu">El menú principal y el set up</h2>
+<p><strong>MENU</strong> muestra los 12 iconos; se elige con las flechas + <strong>EXE</strong>, pulsando el icono o con su número o letra.</p>
+<table>
+<thead>
+<tr>
+<th>Tecla</th>
+<th>Modo</th>
+<th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>COMP</td>
+<td>Cálculo normal y científico</td>
+</tr>
+<tr>
+<td>2</td>
+<td>BASE</td>
+<td>Decimal, hexadecimal, binario y octal; operaciones lógicas</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SD</td>
+<td>Estadística de una variable (media, desviación, mediana…)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>REG</td>
+<td>Regresión de dos variables (recta, logarítmica, exponencial, potencial)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>MAT</td>
+<td>Matrices A–F</td>
+</tr>
+<tr>
+<td>6</td>
+<td>GRAPH</td>
+<td>Gráficas de hasta 6 funciones</td>
+</tr>
+<tr>
+<td>7</td>
+<td>DYNA</td>
+<td>Gráfica que se mueve al cambiar un coeficiente</td>
+</tr>
+<tr>
+<td>8</td>
+<td>TABLE</td>
+<td>Tabla de valores de las funciones</td>
+</tr>
+<tr>
+<td>9</td>
+<td>EQUA</td>
+<td>Sistemas de 2 a 6 incógnitas y ecuaciones de 2.º y 3.er grado</td>
+</tr>
+<tr>
+<td>A</td>
+<td>FIN</td>
+<td>Abre la pestaña Financiera</td>
+</tr>
+<tr>
+<td>B</td>
+<td>MEM</td>
+<td>Las memorias A–Z</td>
+</tr>
+<tr>
+<td>C</td>
+<td>OPTION</td>
+<td>Contraste de la pantalla y borrados</td>
+</tr>
+</tbody>
+</table>
+<p>En la Casio original, A y B eran PRGM (programas) y LINK (cable); aquí no tienen sentido y en su sitio van FIN y MEM.</p>
+<h3>El set up</h3>
+<p>Al entrar en un modo sale primero su <strong>set up</strong>: cómo está configurado. Pulsa <strong>EXE</strong> o empieza a escribir para pasar al modo. Para cambiarlo, <strong>F6 (SET)</strong> o <strong>SHIFT MENU</strong>, elige línea con ▲▼ y pulsa la F que corresponda:</p>
+<ul>
+<li><strong>Angle:</strong> Deg (grados), Rad (radianes) o Gra (gradianes).</li>
+<li><strong>Display:</strong> Nrm (normal, hasta 10 cifras), Fix (número fijo de decimales: pulsa Fix y luego una cifra, 0–9) o Sci (notación científica con esas cifras significativas). Fix 2 es cómodo para euros.</li>
+<li><strong>BASE</strong> (en BASE) y <strong>Tipo</strong> (en REG: LIN, LOG, EXP, PWR).</li>
+</ul>
+<p>La barra de arriba de la pantalla muestra siempre el modo, el ángulo y Ans; pulsar el ángulo abre el set up.</p>
+<h2 id="comp">COMP y BASE</h2>
+<h3>COMP: cálculo normal</h3>
+<p>Es la calculadora de siempre: todo lo de «Lo básico» y «Las teclas». Las funciones se escriben con su tecla y se cierran con <code>)</code> (o se quedan abiertas): <code>sin(30)</code> = 0,5 en Deg; <code>log(1000)</code> = 3; <code>5ˣ√32</code> = 2 (raíz quinta); <code>3!</code> = 6. El historial de COMP se guarda en el navegador.</p>
+<h3 id="base">BASE: bases numéricas</h3>
+<p>Trabaja con enteros de 32 bits. La base en uso sale arriba (Dec, Hex, Bin, Oct) y cada resultado se ve también en las otras tres, en pequeño.</p>
+<table>
+<thead>
+<tr>
+<th>Tecla F</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F1–F4 Dec / Hex / Bin / Oct</td>
+<td>Cambia la base en la que escribes y ves los resultados</td>
+</tr>
+<tr>
+<td>F5 d~o</td>
+<td>Pone la base de un solo número: d, h, b u o delante (<code>d10+hA</code>)</td>
+</tr>
+<tr>
+<td>F6 LOG</td>
+<td>Neg, Not, and, or, xor, xnor</td>
+</tr>
+</tbody>
+</table>
+<p>Las cifras hexadecimales A–F se escriben con ALPHA (o con el teclado del ordenador). Ejemplo: en Dec, <code>12 and 5</code> EXE = 4; en Hex, <code>FF</code> EXE = 000000FF y debajo d 255.</p>
+<h2 id="sd">SD y REG: estadística</h2>
+<p>Los dos modos usan la misma línea de cálculo que COMP: se meten los datos con <strong>DT</strong> y luego se usan sus símbolos (x̄, Σx, A, B…) dentro de cualquier operación. Los datos se guardan en el navegador.</p>
+<h3>SD: una variable</h3>
+<ol>
+<li>Escribe un dato y pulsa <strong>F1 (DT)</strong>. Para un dato que se repite: valor, <strong>F3 (;)</strong>, frecuencia y DT (<code>30;2</code>).</li>
+<li><strong>F2 (EDIT)</strong> muestra la tabla: ▲▼◀▶ para moverte, escribe + EXE para cambiar, DEL borra la fila, INS mete una, ERS borra todo (pide YES).</li>
+<li>Pide el resultado con su símbolo y EXE:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Menú</th>
+<th>Símbolos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F4 DEV</td>
+<td>x̄ (media), xσn (desviación de la población), xσn−1 (de la muestra); ▽ lleva a Mod, Med, Max, Min</td>
+</tr>
+<tr>
+<td>F5 Σ</td>
+<td>Σx², Σx, n (número de datos)</td>
+</tr>
+<tr>
+<td>F6 PQR</td>
+<td>P(t), Q(t), R(t): áreas de la normal; t(x) = (x − x̄) ÷ xσn</td>
+</tr>
+</tbody>
+</table>
+<p>Ejemplo: datos 10, 20 y 30 con frecuencia 2 → <code>x̄</code> = 22,5 y <code>n</code> = 4.</p>
+<h3 id="reg">REG: dos variables</h3>
+<ol>
+<li>En el set up (F6) elige el tipo: LIN (y = A + Bx), LOG (y = A + B·ln x), EXP (y = A·e^Bx) o PWR (y = A·x^B).</li>
+<li>Mete cada par como <code>x ; y</code> y <strong>F1 (DT)</strong>. <strong>F2 (CL)</strong> borra el último par.</li>
+<li>Resultados con su símbolo y EXE:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Menú</th>
+<th>Símbolos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F4 DEV</td>
+<td>x̄, xσn, xσn−1, ȳ, yσn, yσn−1</td>
+</tr>
+<tr>
+<td>F5 Σ</td>
+<td>Σx², Σx, n, Σy², Σy, Σxy</td>
+</tr>
+<tr>
+<td>F6 REG</td>
+<td>A, B, r (correlación), x̂ y ŷ (estimaciones); EDIT abre la tabla de pares</td>
+</tr>
+</tbody>
+</table>
+<p>La estimación se escribe detrás del valor: <code>5ŷ</code> = la y que da la recta para x = 5; <code>10x̂</code> = la x que da y = 10.</p>
+<p>Ejemplo: pares (1;2), (2;4), (3;6), (4;8,2) en LIN → A = −0,1, B = 2,06, r = 0,9997 y <code>5ŷ</code> = 10,2.</p>
+<h2 id="mat">MAT y EQUA</h2>
+<h3>MAT: matrices</h3>
+<p>Hay seis matrices, de Mat A a Mat F, de hasta 6×6, más Mat Ans (el último resultado que sea una matriz).</p>
+<ol>
+<li><strong>F5 (EDIT)</strong> abre la lista. Elige una con ▲▼ y pulsa <strong>F2 (DIM)</strong>: filas, EXE, columnas, EXE.</li>
+<li><strong>F1 (EDIT)</strong> o EXE abre la cuadrícula: escribe cada número + EXE (avanza solo). EXIT vuelve.</li>
+<li>En la línea de cálculo, <strong>F1 (Mat)</strong> da el submenú A…E y Ans; <strong>F2 (Det)</strong> el determinante y <strong>F3 (Trn)</strong> la traspuesta.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Escribes</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Mat A + Mat B</code>, <code>Mat A × Mat B</code></td>
+<td>Suma y producto</td>
+</tr>
+<tr>
+<td><code>3Mat A</code></td>
+<td>Cada elemento por 3</td>
+</tr>
+<tr>
+<td><code>Mat A⁻¹</code> (tecla x⁻¹)</td>
+<td>Inversa</td>
+</tr>
+<tr>
+<td><code>Mat A²</code>, <code>Mat A^3</code></td>
+<td>Potencias</td>
+</tr>
+<tr>
+<td><code>Det Mat A</code></td>
+<td>Determinante</td>
+</tr>
+<tr>
+<td><code>Trn Mat A</code></td>
+<td>Traspuesta</td>
+</tr>
+</tbody>
+</table>
+<p><strong>F6 (SEE)</strong> muestra Mat Ans y la copia a A o B. ERS borra una matriz y ER·A todas (pulsando dos veces).</p>
+<h3 id="equa">EQUA: ecuaciones</h3>
+<p><strong>F1 (SIM)</strong>: sistemas lineales. Elige con F1–F5 el número de incógnitas (2 a 6), escribe los coeficientes fila a fila (a, b… y el término independiente en la última columna) y pulsa <strong>F1 (SOL)</strong>.</p>
+<p>Ejemplo: 2x + 3y = 8 y x − y = 1 → filas <code>2 3 8</code> y <code>1 −1 1</code> → x = 2,2, y = 1,2.</p>
+<p><strong>F2 (PLY)</strong>: ecuaciones de grado 2 (aX²+bX+c=0) o 3 (aX³+bX²+cX+d=0). Escribe a, b, c (y d) y <strong>F1 (SOL)</strong>. Da también las raíces complejas.</p>
+<table>
+<thead>
+<tr>
+<th>Ecuación</th>
+<th>Raíces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X² − 3X + 2 = 0</td>
+<td>2 y 1</td>
+</tr>
+<tr>
+<td>X² + 2X + 5 = 0</td>
+<td>−1 + 2i y −1 − 2i</td>
+</tr>
+<tr>
+<td>X³ − 6X² + 11X − 6 = 0</td>
+<td>3, 2 y 1</td>
+</tr>
+</tbody>
+</table>
+<p>En los resultados, <strong>F6 (REPT)</strong> vuelve a los coeficientes para cambiarlos; F3 (CLR) los pone a cero. Pulsar un resultado lo guarda en Ans.</p>
+<h2 id="graph">GRAPH, TABLE y DYNA</h2>
+<p>GRAPH y TABLE comparten las mismas seis funciones, Y1 a Y6. Se escriben con X (tecla X,θ,T) y cualquier operación de COMP: <code>sin(X)</code>, <code>X²−1</code>, <code>A·X+B</code> (usa las memorias).</p>
+<h3>GRAPH: gráficas</h3>
+<table>
+<thead>
+<tr>
+<th>Tecla F</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F1 EDIT</td>
+<td>Trae la función elegida a la línea para corregirla</td>
+</tr>
+<tr>
+<td>F2 DEL</td>
+<td>Borra la función</td>
+</tr>
+<tr>
+<td>F3 COLR</td>
+<td>Cambia el color: azul, naranja o verde</td>
+</tr>
+<tr>
+<td>F4 SEL</td>
+<td>Activa o desactiva la función (el «=» remarcado = se dibuja)</td>
+</tr>
+<tr>
+<td>F5 RNG</td>
+<td>Ventana: Xmin, max, scl, Ymin, max, scl. INIT = la normal; TRG = la de trigonometría</td>
+</tr>
+<tr>
+<td>F6 DRAW</td>
+<td>Dibuja (también EXE con la línea vacía)</td>
+</tr>
+</tbody>
+</table>
+<p>En la gráfica: <strong>F1 (Trace)</strong> pone un cursor sobre la curva; ◀▶ lo mueven, ▲▼ cambian de función y se ven X e Y (EXE guarda la Y en Ans). Sin Trace, las flechas desplazan la gráfica. <strong>F2 (Zoom)</strong>: AUTO ajusta la altura, ×2 acerca, ÷2 aleja y ORIG vuelve a la ventana inicial. EXIT o G↔T vuelve a la lista.</p>
+<p>Ojo con el ángulo: en Deg, <code>sin(X)</code> entre −4,7 y 4,7 sale casi plana. Usa Rad o RNG → TRG.</p>
+<h3 id="table">TABLE: tabla de valores</h3>
+<p>La lista de funciones es la misma, con las mismas teclas. <strong>F5 (RNG)</strong> fija Start, End y Pitch (desde, hasta y paso; máximo 200 filas). <strong>F6 (TBL)</strong> saca la tabla con X y hasta tres funciones. En la tabla, <strong>G·CON</strong> la dibuja con líneas y <strong>G·PLT</strong> con puntos.</p>
+<h3 id="dyna">DYNA: gráfica dinámica</h3>
+<p>Dibuja una función una y otra vez cambiando un coeficiente, para ver cómo se mueve. Trae las 7 ecuaciones de fábrica de la Casio (AX+B, A(X+B)²+C, AX²+BX+C…).</p>
+<ol>
+<li>Elige una con ▲▼ (o <strong>F1 NEW</strong> para escribir otra, <strong>F2 EDIT</strong> para cambiarla) y pulsa EXE o <strong>F6 (VAR)</strong>.</li>
+<li>En VAR salen sus coeficientes: el marcado ◆ es el que se mueve (cámbialo con <strong>F1 SEL</strong>); a los demás dales valor con número + EXE. Pon Start, End y Pitch del que se mueve.</li>
+<li><strong>F6 (DYNA)</strong> arranca la animación; <strong>STOP</strong> o EXIT la para. Los coeficientes son las memorias A–Z y al parar recuperan su valor.</li>
+</ol>
+<h2 id="mem">MEM y OPTION</h2>
+<p><strong>MEM</strong> lista las 26 memorias con su valor. Elige con ▲▼, escribe un número y EXE para cambiarla; <strong>F1 (DEL)</strong> la borra; <strong>F2 (ER·A)</strong> borra todas (pulsando dos veces). Pulsar un valor lo guarda en Ans.</p>
+<p><strong>OPTION</strong>:</p>
+<ul>
+<li><strong>CONTRAST:</strong> con ◀▶ aclara u oscurece la pantalla; F1 (INIT) la deja como estaba.</li>
+<li><strong>Borrar historial de COMP</strong>, <strong>Borrar memorias A–Z</strong>, <strong>Borrar datos de los modos</strong> (SD, REG, MAT, gráficas, DYNA y EQUA) y <strong>RESET</strong> (todo lo anterior y el set up): elige la línea y pulsa EXE dos veces.</li>
+</ul>
+<h2 id="fin">La financiera</h2>
+<p>Se abre con la pestaña <strong>Financiera</strong> o con <strong>A (FIN)</strong> del menú. Eliges el cálculo en el desplegable, rellenas las casillas y el resultado sale solo. Cada casilla admite operaciones (<code>1500*12</code>), memorias (<code>A</code>) y <code>Ans</code>; pulsar un resultado lo guarda en Ans para usarlo en la científica. Las casillas se recuerdan para la próxima vez.</p>
+<table>
+<thead>
+<tr>
+<th>Grupo</th>
+<th>Cálculo</th>
+<th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ahorro y préstamos</td>
+<td>Interés compuesto</td>
+<td>Capital final con aportaciones periódicas; deja vacío el dato que quieras despejar (capital, aportación, interés o años)</td>
+</tr>
+<tr>
+<td>Ahorro y préstamos</td>
+<td>Préstamo: cuota, plazo o interés</td>
+<td>Cuota mensual o lo que falte, cuadro por años y amortización anticipada (reducir cuota o plazo)</td>
+</tr>
+<tr>
+<td>Ahorro y préstamos</td>
+<td>TAE ↔ TIN</td>
+<td>Pasa de uno a otro según las liquidaciones al año</td>
+</tr>
+<tr>
+<td>Ahorro y préstamos</td>
+<td>VAN y TIR</td>
+<td>Rentabilidad de una serie de pagos y cobros, con fechas o por años</td>
+</tr>
+<tr>
+<td>Ahorro y préstamos</td>
+<td>Rentabilidad anual compuesta</td>
+<td>Crecimiento medio por año entre dos valores</td>
+</tr>
+<tr>
+<td>Ahorro y préstamos</td>
+<td>Inflación y rentabilidad real</td>
+<td>Lo que pierde el dinero y la rentabilidad descontada la inflación</td>
+</tr>
+<tr>
+<td>Vivienda</td>
+<td>Simulador de hipoteca</td>
+<td>Desde el precio: hipoteca a pedir, cuota, intereses, esfuerzo sobre ingresos y qué pasa si el tipo sube; fijo o variable con el Euríbor 12M de la app</td>
+</tr>
+<tr>
+<td>Divisas</td>
+<td>Conversión euro ↔ divisa</td>
+<td>Con el cambio del día para dólar y real (los demás, a mano) y la comisión del banco</td>
+</tr>
+<tr>
+<td>Inversor</td>
+<td>Rentabilidad de una inversión</td>
+<td>Cotización + dividendos, total y por año; se rellena con una posición de tu cartera</td>
+</tr>
+<tr>
+<td>Inversor</td>
+<td>Scrip</td>
+<td>¿Acciones nuevas o vender los derechos?</td>
+</tr>
+<tr>
+<td>Inversor</td>
+<td>Precio medio al comprar más</td>
+<td>Nuevo precio medio, o cuántas comprar para llegar a uno objetivo</td>
+</tr>
+<tr>
+<td>Inversor</td>
+<td>Dividendo neto</td>
+<td>Lo que llega tras retenciones, y lo que se recupera en la renta si es extranjera</td>
+</tr>
+<tr>
+<td>Inversor</td>
+<td>Plusvalía al vender</td>
+<td>Ganancia FIFO e impuesto por tramos, con aviso de la regla de los dos meses</td>
+</tr>
+</tbody>
+</table>
+<p>Los porcentajes de impuestos vienen con los habituales (19 % de retención, tramos del ahorro): compruébalos con tu bróker o tu declaración.</p>
+<h2 id="teclado">Teclado del ordenador</h2>
+<p>Con la calculadora abierta en la pestaña Científica, el teclado escribe directamente:</p>
+<table>
+<thead>
+<tr>
+<th>Tecla</th>
+<th>Hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Números, <code>+ - * / ^ ( ) % !</code></td>
+<td>Lo mismo que en pantalla (<code>*</code> = ×, <code>/</code> = ÷)</td>
+</tr>
+<tr>
+<td><code>,</code> o <code>.</code></td>
+<td>Coma decimal</td>
+</tr>
+<tr>
+<td>Letras</td>
+<td>Memorias A–Z; también escribe funciones (<code>sin</code>, <code>log</code>, <code>ln</code>)</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>→ (guardar en memoria)</td>
+</tr>
+<tr>
+<td><code>;</code></td>
+<td>Separador de SD y REG</td>
+</tr>
+<tr>
+<td>Intro o <code>=</code></td>
+<td>EXE</td>
+</tr>
+<tr>
+<td>Retroceso</td>
+<td>DEL</td>
+</tr>
+<tr>
+<td>Supr</td>
+<td>AC</td>
+</tr>
+<tr>
+<td>Esc</td>
+<td>AC si hay línea; si no, EXIT</td>
+</tr>
+<tr>
+<td>Flechas, Inicio, Fin</td>
+<td>Como las de la calculadora</td>
+</tr>
+</tbody>
+</table>
+<p>En la Financiera el teclado escribe en las casillas, como en cualquier formulario.</p>
+<a class="arriba" href="#top" onclick="window.scrollTo(0,0);return false;">↑ Volver arriba</a>
+</main>
+</body>
+</html>
