@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-11T08:45",
+ "generado": "2026-11-11T09:10",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -33,6 +33,51 @@
    "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=obQonWR8CA8sX7ds7KOcbcBEdSPIK4%2bhVV5zxSvL1AhUEAeRxZR3srt1mVLkRHmQ",
    "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
    "desde": "2026-10"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "COL",
+   "que": "2026-06-25 La sociedad comunica la inscripción de la reducción de capital en el r",
+   "carpeta": "COL - Colonial SFL, SOCIMI, S.A\\Capital",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/derechos-voto-capital.aspx?Nif=A-28027399",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (ACS - ACS, A",
+   "desde": "2026-11-09"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "COL",
+   "que": "2026-03-23 La sociedad remite el reglamento del Consejo de Administración",
+   "carpeta": "COL - Colonial SFL, SOCIMI, S.A\\Gobierno",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A-28027399",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (ACS - ACS, A",
+   "desde": "2026-11-09"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "COL",
+   "que": "2026-02-26 La sociedad remite el Informe Financiero Anual del ejercicio 2025",
+   "carpeta": "COL - Colonial SFL, SOCIMI, S.A\\Resultados",
+   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A-28027399",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (ACS - ACS, A",
+   "desde": "2026-11-09"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "EAT",
+   "que": "2023-05-30 La sociedad remite el reglamento del Consejo de Administración",
+   "carpeta": "EAT - AMREST HOLDINGS, S.E\\Gobierno",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A88063979",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (ACS - ACS, A",
+   "desde": "2026-11-09"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "EAT",
+   "que": "2026-02-26 La sociedad remite el Informe Financiero Anual del ejercicio 2025",
+   "carpeta": "EAT - AMREST HOLDINGS, S.E\\Resultados",
+   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A88063979",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (ACS - ACS, A",
+   "desde": "2026-11-09"
   },
   {
    "clase": "fallido",
