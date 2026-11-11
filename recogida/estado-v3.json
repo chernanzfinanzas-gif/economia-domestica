@@ -1,9 +1,21 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-11T18:45",
+ "generado": "2026-11-11T19:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "ACS 2026-9M",
+   "ticker": "ACS",
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-11-11T19:06",
+   "semaforo": "V",
+   "frase": null
+  }
+ ],
+ "n_pendientes": 1,
  "ultima_subida": {
   "cuando": "2026-11-11T18:45",
   "ficheros": [
@@ -957,6 +969,18 @@
    "ticker": "",
    "que": "Falso aviso del cruce: los 31 números «saltados» de la nube son fondos de titulización que este pase quitó al copiar el fichero",
    "detalle": "El aviso P04c33c5c (la nube se ha saltado OIR 43554-43592) no es un fallo de la recogida de la nube: el CNMV-2026-11-10.json de Drive trae los 52 números seguidos (43553-43604) sin huecos. Este pase guardó solo un extracto sin los 31 avisos de fondos de titulización (43554-43582, 43588 y 43592; ninguno de las 35) y el cruce los ve como saltos. Para no repetirlo: copiar el fichero entero o que el cruce acepte extractos.",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P2922fab6",
+   "creado": "2026-11-11T19:09",
+   "origen": "pase de novedades 11-11 18:55",
+   "ticker": "ACS",
+   "que": "ACS 9M-2026: las variaciones de ingresos y beneficio frente al año anterior no cuadran con el informe; nota sin escribir",
+   "detalle": "Revisión «ACS 2026-9M - pendiente». Las cifras del 9M-2026 sí cuadran con la nota de prensa y la presentación del 11-nov (ventas 41.262, EBITDA 2.506, EBIT 1.807, beneficio neto atribuible 789). Pero el lector dice que el documento no trae el año anterior y lo despeja de los %: ingresos +14,0 % (es el % ajustado por tipo de cambio; el informe da 36.753 → +12,3 %) y beneficio neto +35,0 % (es el del beneficio ordinario 585 → 789; el atribuible pasa de 655 a 789, +20,5 %). Margen EBITDA: sale −0,05 pp y con las cifras del informe es +0,04 pp (6,03 % → 6,07 %). EBITDA +13,0 % y EBIT +20,7 % sí cuadran. Los datos buenos de 2025-9M ya tienen 36.753 y 655. El color (verde) no cambiaría. Hay que corregir la lectura del año anterior en el lector y rehacer la revisión.",
    "estado": "abierto",
    "resuelto": null,
    "como": null,
