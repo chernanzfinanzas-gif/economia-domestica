@@ -187,7 +187,7 @@
   var sci = document.createElement('div');
   sci.innerHTML = '<div class="kc-lcd"><div class="kc-st"><span class="s">S</span><span class="a">A</span><span class="md"></span><span class="ang" title="Set up: ángulo y formato"></span><span class="sp"></span><span class="ansv"></span></div><div class="kc-scr"></div><div class="kc-fl"></div></div>' +
     '<div class="kc-mem"></div><div class="kc-fk"></div><div class="kc-ctl"></div><div class="kc-keys"></div>' +
-    '<div class="kc-nota"><b>MENU</b> abre los 12 modos de la Casio (flechas + EXE, o 1–9, A, B, C). Escribe la operación y pulsa <b>EXE</b>. <b>→</b> guarda en una memoria (25→A); <b>ALPHA</b> + tecla escribe la letra roja; <b>SHIFT</b> da la función naranja. <b>F1–F6</b> son las teclas del menú de abajo de la pantalla. <b>EXIT</b> vuelve atrás.</div>';
+    '<div class="kc-nota"><b>MENU</b> abre los 12 modos de la Casio (flechas + EXE, o 1–9, A, B, C). Escribe la operación y pulsa <b>EXE</b>; <b>AC</b> borra la línea y, otra vez, toda la pantalla. <b>→</b> guarda en una memoria (25→A); <b>ALPHA</b> + tecla escribe la letra roja; <b>SHIFT</b> da la función naranja. <b>F1–F6</b> son las teclas del menú de abajo de la pantalla. <b>EXIT</b> vuelve atrás.</div>';
   var fin = document.createElement('div'); fin.className = 'kc-fin';
   fin.innerHTML = '<select class="kc-sel" aria-label="Cálculo"></select><div class="kc-ayuda"></div><div class="kc-campos"></div><div class="kc-sal"></div><div class="kc-ansmsg"></div>' +
     '<div class="kc-ayuda" style="font-size:11px;color:#64748b">Cada casilla admite operaciones (1500*12), las memorias (A…Z) y Ans. Pulsa un resultado para guardarlo en Ans. Los impuestos vienen con los porcentajes habituales: compruébalos con tu bróker o tu declaración.</div>';
@@ -1111,7 +1111,7 @@
     ['1','1','','','Y','num'], ['2','2','','','Z','num'], ['3','3','','','','num'], ['+','+','','','','op'], ['−','−','','','','op'],
     ['0','0','','','','num'], [',',',','','','','num'], ['EXP','ᴇ','','','','num'], ['Ans','Ans','⧉','copy','','num'], ['EXE','exe','','','','exe']
   ];
-  var TIT = {copy:'Copiar el último resultado', '→':'Guardar en una memoria: 25→A (luego ALPHA + tecla de la letra)', '%':'200+10% = 220 · 200×10% = 20', 'ᴇ':'×10 elevado a: 1,5ᴇ3 = 1500', 'del':'Borrar a la izquierda del cursor (Retroceso)', ac:'Borrar la línea', exe:'Calcular (Intro)', menu:'Menú principal (los 12 modos)', exit:'Volver atrás (Esc con la línea vacía)', X:'La X de las funciones (en COMP es la memoria X)'};
+  var TIT = {copy:'Copiar el último resultado', '→':'Guardar en una memoria: 25→A (luego ALPHA + tecla de la letra)', '%':'200+10% = 220 · 200×10% = 20', 'ᴇ':'×10 elevado a: 1,5ᴇ3 = 1500', 'del':'Borrar a la izquierda del cursor (Retroceso)', ac:'Borrar la línea; con la línea vacía, borra toda la pantalla', exe:'Calcular (Intro)', menu:'Menú principal (los 12 modos)', exit:'Volver atrás (Esc con la línea vacía)', X:'La X de las funciones (en COMP es la memoria X)'};
   function teclasHTML(arr, g){ return arr.map(function(k, i){
     return '<button type="button" data-g="' + g + '" data-i="' + i + '" class="' + k[5] + '"' + (TIT[k[1]] ? ' title="' + esc(TIT[k[1]]) + '"' : '') + '>' +
       (k[2] ? '<span class="s2">' + esc(k[2]) + '</span>' : '') + (k[4] ? '<span class="al">' + k[4] + '</span>' : '') + esc(k[0]) + '</button>'; }).join(''); }
@@ -1161,7 +1161,11 @@
       if(S.fm === 'zoom'){ S.fm = 'graf'; return; }
       if(M.exit && M.exit()) return;
       menu(); return; }
-    if(a === 'ac'){ P = []; cur = 0; hecho = false; errMsg = ''; flash = ''; replay = -1; if(S.fm === 'dyn'){ dynaPara(); S.vista = 'var'; S.fm = 'var'; } return; }
+    if(a === 'ac'){
+      if(!P.length && !errMsg && S.vista === 'run' && (S.pant === 'comp' || ROLL[S.pant])){   /* AC con la línea vacía borra toda la pantalla, como la Casio */
+        if(S.pant === 'comp'){ H = []; guarda(LS.hist, H); } else ROLL[S.pant] = [];
+      }
+      P = []; cur = 0; hecho = false; errMsg = ''; flash = ''; replay = -1; if(S.fm === 'dyn'){ dynaPara(); S.vista = 'var'; S.fm = 'var'; } return; }
     if(a === 'del'){ if(hecho) hecho = false; errMsg = ''; if(cur > 0){ P.splice(cur - 1, 1); cur--; } return; }
     var cursorOK = P.length > 0 && (a === 'left' || a === 'right' || a === 'home' || a === 'end');
     if(cursorOK){ hecho = false; if(a === 'left') cur = Math.max(0, cur - 1); if(a === 'right') cur = Math.min(P.length, cur + 1); if(a === 'home') cur = 0; if(a === 'end') cur = P.length; return; }
