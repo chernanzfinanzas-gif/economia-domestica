@@ -46119,25 +46119,1095 @@
     "VIS": 55.6,
     "VYT": 13.0
    },
+   "contraste": {
+    "A3M": {
+     "google": 6.16,
+     "yahooBarra": 6.16,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 6.14,
+     "quoteVsBarra": -0.3247,
+     "quoteVsGoogle": -0.3247
+    },
+    "ACS": {
+     "google": 90.15,
+     "yahooBarra": 90.15,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 90.15,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": 0.0
+    },
+    "ACX": {
+     "google": 15.81,
+     "yahooBarra": 15.81,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 15.79,
+     "quoteVsBarra": -0.1265,
+     "quoteVsGoogle": -0.1265
+    },
+    "ADZ": {
+     "google": 6.85,
+     "yahooBarra": 6.85,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "AEDAS": {
+     "google": 23.75,
+     "yahooBarra": 23.75,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "AENA": {
+     "google": 28.96,
+     "yahooBarra": 28.96,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 29.0,
+     "quoteVsBarra": 0.1381,
+     "quoteVsGoogle": 0.1381
+    },
+    "AIR": {
+     "google": 209.0,
+     "yahooBarra": 209.5,
+     "dif": 0.5,
+     "difPct": 0.2387,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "ALM": {
+     "google": 10.56,
+     "yahooBarra": 10.56,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "ALNT": {
+     "google": 8.84,
+     "yahooBarra": 8.84,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "AMP": {
+     "google": 4.86,
+     "yahooBarra": 4.855,
+     "dif": -0.005,
+     "difPct": -0.103,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "AMS": {
+     "google": 61.62,
+     "yahooBarra": 61.62,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 61.48,
+     "quoteVsBarra": -0.2272,
+     "quoteVsGoogle": -0.2272
+    },
+    "ANA": {
+     "google": 217.0,
+     "yahooBarra": 217.0,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "ANE": {
+     "google": 22.08,
+     "yahooBarra": 22.08,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "APAM": {
+     "google": 33.4,
+     "yahooBarra": 33.4,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "ARM": {
+     "google": 12.3,
+     "yahooBarra": 13.0,
+     "dif": 0.7,
+     "difPct": 5.3846,
+     "grave": true,
+     "el": "2026-11-11"
+    },
+    "ART": {
+     "google": 26.9,
+     "yahooBarra": 26.9,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 27.0,
+     "quoteVsBarra": 0.3717,
+     "quoteVsGoogle": 0.3717
+    },
+    "ATRY": {
+     "google": 2.62,
+     "yahooBarra": 2.62,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "ATSI": {
+     "google": 3.4,
+     "yahooBarra": 3.4,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "AZK": {
+     "google": 10.5,
+     "yahooBarra": 10.45,
+     "dif": -0.05,
+     "difPct": -0.4785,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 10.4,
+     "quoteVsBarra": -0.4785,
+     "quoteVsGoogle": -0.9524
+    },
+    "BBVA": {
+     "google": 23.63,
+     "yahooBarra": 23.63,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 23.75,
+     "quoteVsBarra": 0.5078,
+     "quoteVsGoogle": 0.5078
+    },
+    "BKT": {
+     "google": 14.91,
+     "yahooBarra": 14.91,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 14.935,
+     "quoteVsBarra": 0.1677,
+     "quoteVsGoogle": 0.1677
+    },
+    "CABK": {
+     "google": 12.52,
+     "yahooBarra": 12.515,
+     "dif": -0.005,
+     "difPct": -0.04,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 12.565,
+     "quoteVsBarra": 0.3995,
+     "quoteVsGoogle": 0.3594
+    },
+    "CAF": {
+     "google": 77.5,
+     "yahooBarra": 77.5,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "CBAV": {
+     "google": 52.0,
+     "yahooBarra": 52.0,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 52.0,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": 0.0
+    },
+    "CCEP": {
+     "google": 104.8,
+     "yahooBarra": 104.8,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "CEV": {
+     "google": 8.9,
+     "yahooBarra": 8.9,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "CIE": {
+     "google": 26.25,
+     "yahooBarra": 26.25,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 26.35,
+     "quoteVsBarra": 0.381,
+     "quoteVsGoogle": 0.381
+    },
+    "CIRSA": {
+     "google": 20.15,
+     "yahooBarra": 20.15,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "CLNX": {
+     "google": 26.48,
+     "yahooBarra": 26.48,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "CLR": {
+     "google": 19.9,
+     "yahooBarra": 19.8,
+     "dif": -0.1,
+     "difPct": -0.5051,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "COL": {
+     "google": 5.3,
+     "yahooBarra": 5.3,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "COXG": {
+     "google": 11.2,
+     "yahooBarra": 11.0,
+     "dif": -0.2,
+     "difPct": -1.8182,
+     "grave": true,
+     "el": "2026-11-11"
+    },
+    "DESA": {
+     "google": 22.0,
+     "yahooBarra": 22.0,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "DIA": {
+     "google": 50.8,
+     "yahooBarra": 50.8,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "DOM": {
+     "google": 2.77,
+     "yahooBarra": 2.77,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "EAT": {
+     "google": 2.26,
+     "yahooBarra": 2.255,
+     "dif": -0.005,
+     "difPct": -0.2217,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "EBRO": {
+     "google": 18.1,
+     "yahooBarra": 18.1,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 18.08,
+     "quoteVsBarra": -0.1105,
+     "quoteVsGoogle": -0.1105
+    },
+    "EBROM": {
+     "google": 9.6,
+     "yahooBarra": 9.4,
+     "dif": -0.2,
+     "difPct": -2.1277,
+     "grave": true,
+     "el": "2026-11-11"
+    },
+    "ECO": {
+     "google": 3.27,
+     "yahooBarra": 3.27,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "EDR": {
+     "google": 5.12,
+     "yahooBarra": 5.12,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "ELE": {
+     "google": 44.31,
+     "yahooBarra": 44.31,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 44.41,
+     "quoteVsBarra": 0.2257,
+     "quoteVsGoogle": 0.2257
+    },
+    "ENC": {
+     "google": 2.29,
+     "yahooBarra": 2.29,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "ENG": {
+     "google": 17.83,
+     "yahooBarra": 17.83,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 17.88,
+     "quoteVsBarra": 0.2804,
+     "quoteVsGoogle": 0.2804
+    },
+    "ENO": {
+     "google": 31.0,
+     "yahooBarra": 31.0,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 30.95,
+     "quoteVsBarra": -0.1613,
+     "quoteVsGoogle": -0.1613
+    },
+    "FAE": {
+     "google": 4.92,
+     "yahooBarra": 4.915,
+     "dif": -0.005,
+     "difPct": -0.1017,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 4.925,
+     "quoteVsBarra": 0.2035,
+     "quoteVsGoogle": 0.1016
+    },
+    "FCC": {
+     "google": 10.54,
+     "yahooBarra": 10.54,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "FDR": {
+     "google": 19.41,
+     "yahooBarra": 19.41,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 19.4,
+     "quoteVsBarra": -0.0515,
+     "quoteVsGoogle": -0.0515
+    },
+    "FER": {
+     "google": 54.28,
+     "yahooBarra": 54.28,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "GEST": {
+     "google": 2.86,
+     "yahooBarra": 2.86,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 2.86,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": 0.0
+    },
+    "GIGA": {
+     "google": 2.49,
+     "yahooBarra": 2.43,
+     "dif": -0.06,
+     "difPct": -2.4691,
+     "grave": true,
+     "el": "2026-11-11"
+    },
+    "GRE": {
+     "google": 73.2,
+     "yahooBarra": 73.2,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "GRF": {
+     "google": 11.38,
+     "yahooBarra": 11.375,
+     "dif": -0.005,
+     "difPct": -0.044,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "GSJ": {
+     "google": 7.23,
+     "yahooBarra": 7.23,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "HOME": {
+     "google": 19.02,
+     "yahooBarra": 19.02,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "IAG": {
+     "google": 5.45,
+     "yahooBarra": 5.45,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "IBE": {
+     "google": 22.99,
+     "yahooBarra": 22.99,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 23.07,
+     "quoteVsBarra": 0.348,
+     "quoteVsGoogle": 0.348
+    },
+    "IBG": {
+     "google": 16.35,
+     "yahooBarra": 16.35,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "IDR": {
+     "google": 60.04,
+     "yahooBarra": 60.04,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "IMC": {
+     "google": 3.74,
+     "yahooBarra": 3.8,
+     "dif": 0.06,
+     "difPct": 1.5789,
+     "grave": true,
+     "el": "2026-11-11"
+    },
+    "INDXA": {
+     "google": 17.0,
+     "yahooBarra": 17.0,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "ITX": {
+     "google": 60.14,
+     "yahooBarra": 60.14,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 60.18,
+     "quoteVsBarra": 0.0665,
+     "quoteVsGoogle": 0.0665
+    },
+    "IZER": {
+     "google": 7.18,
+     "yahooBarra": 7.18,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "LGT": {
+     "google": 5.24,
+     "yahooBarra": 5.24,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "LIB": {
+     "google": 3.0,
+     "yahooBarra": 3.1,
+     "dif": 0.1,
+     "difPct": 3.2258,
+     "grave": true,
+     "el": "2026-11-11"
+    },
+    "LLYC": {
+     "google": 3.48,
+     "yahooBarra": 3.5,
+     "dif": 0.02,
+     "difPct": 0.5714,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "LOG": {
+     "google": 37.38,
+     "yahooBarra": 37.38,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 37.32,
+     "quoteVsBarra": -0.1605,
+     "quoteVsGoogle": -0.1605
+    },
+    "MAKS": {
+     "google": 5.4,
+     "yahooBarra": 5.3,
+     "dif": -0.1,
+     "difPct": -1.8868,
+     "grave": true,
+     "el": "2026-11-11"
+    },
+    "MAP": {
+     "google": 4.24,
+     "yahooBarra": 4.244,
+     "dif": 0.004,
+     "difPct": 0.0943,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 4.236,
+     "quoteVsBarra": -0.1885,
+     "quoteVsGoogle": -0.0943
+    },
+    "MCM": {
+     "google": 9.9,
+     "yahooBarra": 9.9,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 9.98,
+     "quoteVsBarra": 0.8081,
+     "quoteVsGoogle": 0.8081
+    },
+    "MEL": {
+     "google": 11.1,
+     "yahooBarra": 11.1,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "MRL": {
+     "google": 11.83,
+     "yahooBarra": 11.83,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 11.8,
+     "quoteVsBarra": -0.2536,
+     "quoteVsGoogle": -0.2536
+    },
+    "MTS": {
+     "google": 58.5,
+     "yahooBarra": 58.5,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "MVC": {
+     "google": 11.68,
+     "yahooBarra": 11.68,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "NEA": {
+     "google": 10.0,
+     "yahooBarra": 10.0,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 9.82,
+     "quoteVsBarra": -1.8,
+     "quoteVsGoogle": -1.8
+    },
+    "NTGY": {
+     "google": 29.66,
+     "yahooBarra": 29.66,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 29.66,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": 0.0
+    },
+    "NTH": {
+     "google": 2.09,
+     "yahooBarra": 2.09,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "ORY": {
+     "google": 2.43,
+     "yahooBarra": 2.426,
+     "dif": -0.004,
+     "difPct": -0.1649,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "PHM": {
+     "google": 69.0,
+     "yahooBarra": 69.0,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "PRM": {
+     "google": 12.4,
+     "yahooBarra": 12.4,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 12.4,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": 0.0
+    },
+    "PRS": {
+     "google": 2.25,
+     "yahooBarra": 2.26,
+     "dif": 0.01,
+     "difPct": 0.4425,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "PSG": {
+     "google": 3.09,
+     "yahooBarra": 3.09,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "PUIG": {
+     "google": 19.95,
+     "yahooBarra": 19.95,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "R4": {
+     "google": 21.6,
+     "yahooBarra": 21.5,
+     "dif": -0.1,
+     "difPct": -0.4651,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 21.6,
+     "quoteVsBarra": 0.4651,
+     "quoteVsGoogle": 0.0
+    },
+    "RED": {
+     "google": 15.6,
+     "yahooBarra": 15.6,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 15.61,
+     "quoteVsBarra": 0.0641,
+     "quoteVsGoogle": 0.0641
+    },
+    "REP": {
+     "google": 28.69,
+     "yahooBarra": 28.69,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 28.69,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": 0.0
+    },
+    "RJF": {
+     "google": 2.6,
+     "yahooBarra": 2.58,
+     "dif": -0.02,
+     "difPct": -0.7752,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "ROVI": {
+     "google": 69.4,
+     "yahooBarra": 69.4,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 69.5,
+     "quoteVsBarra": 0.1441,
+     "quoteVsGoogle": 0.1441
+    },
+    "SAB": {
+     "google": 3.77,
+     "yahooBarra": 3.767,
+     "dif": -0.003,
+     "difPct": -0.0796,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "SAN": {
+     "google": 11.26,
+     "yahooBarra": 11.256,
+     "dif": -0.004,
+     "difPct": -0.0355,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 11.288,
+     "quoteVsBarra": 0.2843,
+     "quoteVsGoogle": 0.2487
+    },
+    "SCYR": {
+     "google": 4.22,
+     "yahooBarra": 4.216,
+     "dif": -0.004,
+     "difPct": -0.0949,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "SLR": {
+     "google": 16.49,
+     "yahooBarra": 16.485,
+     "dif": -0.005,
+     "difPct": -0.0303,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "SQRL": {
+     "google": 2.01,
+     "yahooBarra": 2.02,
+     "dif": 0.01,
+     "difPct": 0.495,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "TEF": {
+     "google": 3.43,
+     "yahooBarra": 3.432,
+     "dif": 0.002,
+     "difPct": 0.0583,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 3.442,
+     "quoteVsBarra": 0.2914,
+     "quoteVsGoogle": 0.3499
+    },
+    "TLGO": {
+     "google": 2.17,
+     "yahooBarra": 2.17,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "TRE": {
+     "google": 31.9,
+     "yahooBarra": 31.9,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "TSK": {
+     "google": 6.45,
+     "yahooBarra": 6.445,
+     "dif": -0.005,
+     "difPct": -0.0776,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "TUB": {
+     "google": 2.84,
+     "yahooBarra": 2.84,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    },
+    "UNI": {
+     "google": 3.47,
+     "yahooBarra": 3.468,
+     "dif": -0.002,
+     "difPct": -0.0577,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 3.472,
+     "quoteVsBarra": 0.1153,
+     "quoteVsGoogle": 0.0576
+    },
+    "VID": {
+     "google": 89.1,
+     "yahooBarra": 89.1,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 89.2,
+     "quoteVsBarra": 0.1122,
+     "quoteVsGoogle": 0.1122
+    },
+    "VIS": {
+     "google": 55.6,
+     "yahooBarra": 55.6,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11",
+     "yahooQuote": 55.6,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": 0.0
+    },
+    "VYT": {
+     "google": 13.0,
+     "yahooBarra": 13.0,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-11-11"
+    }
+   },
+   "yahooQuote": {
+    "A3M": 6.14,
+    "ACS": 90.15,
+    "ACX": 15.79,
+    "AENA": 29.0,
+    "AMS": 61.48,
+    "ART": 27.0,
+    "AZK": 10.4,
+    "BBVA": 23.75,
+    "BKT": 14.935,
+    "CABK": 12.565,
+    "CBAV": 52.0,
+    "CIE": 26.35,
+    "EBRO": 18.08,
+    "ELE": 44.41,
+    "ENG": 17.88,
+    "ENO": 30.95,
+    "FAE": 4.925,
+    "FDR": 19.4,
+    "GEST": 2.86,
+    "IBE": 23.07,
+    "ITX": 60.18,
+    "LDA": 1.224,
+    "LOG": 37.32,
+    "MAP": 4.236,
+    "MCM": 9.98,
+    "MRL": 11.8,
+    "NEA": 9.82,
+    "NTGY": 29.66,
+    "PRM": 12.4,
+    "R4": 21.6,
+    "RED": 15.61,
+    "REP": 28.69,
+    "ROVI": 69.5,
+    "SAN": 11.288,
+    "TEF": 3.442,
+    "UNI": 3.472,
+    "VID": 89.2,
+    "VIS": 55.6
+   }
+  },
+  "2026-11-11": {
+   "sembradoEl": "2026-11-11",
+   "fuente": "Google Finance · hoja «Cierres KH» · captura post-subasta",
+   "selloUTC": "2026-11-11 18:31:07",
+   "google": {
+    "A3M": 6.16,
+    "ACS": 92.95,
+    "ACX": 15.97,
+    "ADZ": 6.8,
+    "AEDAS": 23.75,
+    "AENA": 28.58,
+    "AIR": 210.25,
+    "ALM": 10.78,
+    "ALNT": 9.08,
+    "AMP": 4.82,
+    "AMS": 62.3,
+    "ANA": 220.6,
+    "ANE": 21.92,
+    "APAM": 35.12,
+    "ARM": 13.0,
+    "ART": 27.8,
+    "ATRY": 2.72,
+    "ATSI": 3.44,
+    "AZK": 10.4,
+    "BBVA": 23.61,
+    "BKT": 14.87,
+    "CABK": 12.46,
+    "CAF": 68.3,
+    "CBAV": 52.6,
+    "CCEP": 105.4,
+    "CEV": 8.8,
+    "CIE": 26.45,
+    "CIRSA": 20.1,
+    "CLNX": 26.5,
+    "CLR": 20.0,
+    "COL": 5.26,
+    "COXG": 11.0,
+    "DESA": 21.6,
+    "DIA": 50.1,
+    "DOM": 2.75,
+    "EAT": 2.23,
+    "EBRO": 17.96,
+    "EBROM": 9.4,
+    "ECO": 3.31,
+    "EDR": 5.08,
+    "ELE": 44.75,
+    "ENC": 2.28,
+    "ENG": 17.92,
+    "ENO": 31.3,
+    "FAE": 5.0,
+    "FCC": 10.6,
+    "FDR": 19.34,
+    "FER": 54.74,
+    "GEST": 2.87,
+    "GIGA": 2.49,
+    "GRE": 72.1,
+    "GRF": 11.48,
+    "GSJ": 7.3,
+    "HOME": 18.8,
+    "IAG": 5.48,
+    "IBE": 23.2,
+    "IBG": 16.4,
+    "IDR": 59.68,
+    "IMC": 3.72,
+    "INDXA": 16.8,
+    "ISUR": 16.5,
+    "ITX": 60.08,
+    "IZER": 7.2,
+    "LGT": 5.26,
+    "LIB": 3.01,
+    "LLYC": 3.44,
+    "LOG": 37.08,
+    "MAKS": 5.4,
+    "MAP": 4.26,
+    "MCM": 10.1,
+    "MEL": 11.23,
+    "MRL": 11.9,
+    "MTS": 59.48,
+    "MVC": 11.6,
+    "NEA": 9.96,
+    "NTGY": 29.92,
+    "NTH": 2.2,
+    "ORY": 2.47,
+    "PHM": 69.3,
+    "PRM": 12.3,
+    "PRS": 2.3,
+    "PSG": 3.09,
+    "PUIG": 20.14,
+    "R4": 21.5,
+    "RED": 15.65,
+    "REP": 29.56,
+    "RJF": 2.64,
+    "ROVI": 70.7,
+    "SAB": 3.75,
+    "SAN": 11.29,
+    "SCYR": 4.25,
+    "SLR": 16.6,
+    "SQRL": 2.0,
+    "TEF": 3.51,
+    "TLGO": 2.15,
+    "TRE": 31.18,
+    "TSK": 6.57,
+    "TUB": 2.9,
+    "UNI": 3.48,
+    "VID": 89.3,
+    "VIS": 55.6,
+    "VYT": 12.8
+   },
    "contraste": {}
   }
  },
- "actualizado": "2026-11-10",
+ "actualizado": "2026-11-11",
  "resumen": {
-  "sesiones": 52,
-  "contrastes": 4379,
+  "sesiones": 53,
+  "contrastes": 4480,
   "medianaAbsPct": 0.0,
   "maxAbsPct": 20.0004,
   "gravesPct": 1.0,
-  "graves": 193,
+  "graves": 200,
   "quoteVsBarra": {
-   "n": 1502,
-   "medianaAbsPct": 0.189,
+   "n": 1539,
+   "medianaAbsPct": 0.1885,
    "maxAbsPct": 3.5088
   },
   "quoteVsGoogle": {
-   "n": 1502,
-   "medianaAbsPct": 0.1898,
+   "n": 1539,
+   "medianaAbsPct": 0.1893,
    "maxAbsPct": 16.6669
   },
   "nota": "Tres numeros para la MISMA sesion: `google` (captura post-subasta de la hoja), `yahooBarra` (la que Yahoo confirma en el T+1 en el historico) y `yahooQuote` (el `cierreAnt` del quote, que es lo que la app usa hoy como cierre de ayer). `difPct` mide google contra la barra confirmada; `quoteVsBarra` mide el quote contra esa misma barra. Si la segunda es mayor que la primera, el raro es el quote. Esto no decide quien gana: mide, que es lo que hacia falta para poder decidirlo."
