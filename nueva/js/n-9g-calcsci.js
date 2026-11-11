@@ -33,6 +33,7 @@
   st.textContent = [
     '#calcPanel.kc{width:344px;max-width:calc(100vw - 16px);max-height:calc(100vh - 80px);display:flex;flex-direction:column}',
     '#calcPanel.kc.fin{width:500px}',
+    '@supports (height:100dvh){#calcPanel.kc{max-height:calc(100dvh - 80px)}}',
     '#calcPanel.kc.hidden{display:none}',
     '#calcPanel.kc .kc-body{overflow:auto;flex:1 1 auto;min-height:0}',
     '#calcPanel.kc .kc-tabs{display:flex;gap:4px;padding:6px 8px;background:#1e293b}',
@@ -177,7 +178,15 @@
     '#calcManOv .cm-x{display:inline-flex;align-items:center;justify-content:center;min-width:40px;min-height:34px;font-size:19px;cursor:pointer}',
     '#calcManOv iframe{flex:1;border:0;width:100%;background:#f8fafc}',
     '@media (max-width:600px){#calcManOv{padding:0}#calcManOv .cm-caja{border-radius:0}}',
-    '@media (max-width:520px){#calcPanel.kc .kc-campos{grid-template-columns:1fr}}'
+    '@media (max-width:520px){#calcPanel.kc .kc-campos{grid-template-columns:1fr}}',
+    /* 11-nov-2026 (Carlos: «la calculadora se corta en el móvil»): en el móvil ocupa el ancho y el alto VISIBLES (dvh descuenta
+       las barras del navegador) y se compacta: pantalla más baja, teclas más bajas y sin el texto de ayuda (está el botón «? Manual») */
+    '@media (max-width:600px){#calcPanel.kc,#calcPanel.kc.fin{left:4px !important;right:4px !important;top:6px !important;width:auto !important;max-width:none;max-height:calc(100vh - 12px)}'
+      + '#calcPanel.kc .kc-nota{display:none}#calcPanel.kc .kc-scr{height:176px}#calcPanel.kc .kc-lcd{margin:5px 6px 4px}'
+      + '#calcPanel.kc .kc-keys{gap:4px;padding:3px 6px 6px}#calcPanel.kc .kc-keys button{padding:12px 0 4px}'
+      + '#calcPanel.kc .kc-fk,#calcPanel.kc .kc-ctl{padding:2px 6px 2px}#calcPanel.kc .kc-fk button{padding:5px 0}#calcPanel.kc .kc-ctl button{padding:11px 0 3px}'
+      + '#calcPanel.kc .kc-tabs{padding:4px 6px}#calcPanel.kc .kc-tabs button{padding:4px 0}}',
+    '@media (max-width:600px){@supports (height:100dvh){#calcPanel.kc,#calcPanel.kc.fin{max-height:calc(100dvh - 12px)}}}'
   ].join('\n');
   document.head.appendChild(st);
 
