@@ -147,12 +147,16 @@
       mx.insertBefore(c1,mx.firstChild); mx.classList.add('n-max2'); mx.title=notas; }
     /* franja del dividendo en cada posición (primera lista: tus posiciones) */
     var lista=mcb.querySelector('.mc-list'); if(!lista) return;
+    /* 11-nov-2026 (Carlos): acciones y precio medio juntos con su valor de adquisición, y el valor de la posición a la
+       izquierda de la plusvalía. Mismas cifras que la plusvalía (_mcPosiciones: coste = acc × precio medio, valor = acc × cotización). */
+    var PM={}; try{ _mcPosiciones().forEach(function(p){ PM[p.ticker]=p; }); }catch(e){}
     [].forEach.call(lista.querySelectorAll('.mc-row'),function(r){ if(r.querySelector('.n-divf')) return; var tk=r.querySelector('.mc-tk'); if(!tk) return; var d=D[(tk.getAttribute('data-ficha')||'').toUpperCase()]; if(!d) return;
       var pc=function(x){ return x==null?'—':(x*100).toFixed(1).replace('.',',')+' %'; };
       var html='<div class="n-divf"><span>RPD sobre precio de hoy <b>'+pc(d.rpdHoy)+'</b></span><span>RPD sobre tu compra <b>'+pc(d.rpdCompra)+'</b></span>'+
         '<span>Cobrado en '+y+' <b>'+E(d.cob)+(d.meses.length?' · '+d.meses.filter(function(m,i,a){return a.indexOf(m)===i;}).join(' + '):'')+'</b></span>'+
         '<span>Por cobrar hasta dic. <b>'+E(d.pend)+(d.prox?' · '+f2(d.prox):'')+'</b></span></div>';
-      var subs=r.querySelectorAll('.mc-sub'); if(subs.length>1&&/^Compra /.test(subs[1].textContent)){ var mm2=subs[1].textContent.match(/^Compra ([\d.,]+) @ (.+)$/); if(mm2){ subs[0].insertAdjacentHTML('beforeend',' · <b>'+mm2[1]+' acciones</b> · precio medio <b>'+esc(mm2[2])+'</b>'); subs[1].remove(); } }
+      var subs=r.querySelectorAll('.mc-sub'); if(subs.length>1&&/^Compra /.test(subs[1].textContent)){ var mm2=subs[1].textContent.match(/^Compra ([\d.,]+) @ (.+)$/); if(mm2){ var P_=PM[(tk.getAttribute('data-ficha')||'').toUpperCase()]; subs[0].insertAdjacentHTML('beforeend',' · <b>'+mm2[1]+' acc. × '+esc(mm2[2])+'</b>'+(P_?' = <b>'+E(P_.coste)+'</b> <span class="muted">de compra</span>':'')); subs[1].remove(); } }
+      var P2=PM[(tk.getAttribute('data-ficha')||'').toUpperCase()], pl_=r.querySelector('.mc-pl'); if(P2&&pl_&&!pl_.querySelector('.n-valpos')) pl_.insertAdjacentHTML('afterbegin','<span class="n-valpos" title="Valor de la posición a la cotización actual" style="color:var(--text,#1f2937);font-weight:600">'+E(P2.valor)+'</span> · ');
       var top=r.querySelector('.mc-top'); if(top) top.insertAdjacentHTML('afterend',html); else r.insertAdjacentHTML('beforeend',html); });
   }
 
