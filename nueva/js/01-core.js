@@ -204,6 +204,9 @@ function initAuth(){
    guardado). Ahora las dos esperan la misma renovación; y si Google no contesta en un rato, se da por fallida. */
 var _tokP=null, _TOK_ESPERA=60000;
 function getToken(interactive){
+  /* 12-nov-2026 (ensayo de Carlos en modo avión): sin red no se pide sesión. Pedirla abría una pestaña de Google con
+     error que tapaba la app. Con el botón «Conectar» (interactive) sí se intenta siempre. */
+  if(!interactive&&navigator.onLine===false) return Promise.reject(new Error('sesión: sin red'));
   if(_tokP&&!interactive) return _tokP;
   if(_tokP&&_rej){ try{ _rej(new Error('sesión: petición sustituida')); }catch(e){} _res=_rej=null; }
   const p=new Promise((res,rej)=>{ _res=res; _rej=rej;

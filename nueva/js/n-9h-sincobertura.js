@@ -14,6 +14,9 @@
       var u=[location.href.split('#')[0]];
       [].forEach.call(document.querySelectorAll('script[src],link[href]'),function(el){ var s=el.src||el.href; if(s&&s.indexOf(location.origin)===0&&u.indexOf(s)<0) u.push(s); });
       if(reg&&reg.active) reg.active.postMessage({tipo:'guardar',urls:u}); }).catch(function(){}); } }catch(e){}
+  /* La «puerta» (sw.js de la raíz) se pone al día desde aquí cada vez que la app abre con red. No basta con esperar a que
+     el navegador lo haga solo: la raíz reenvía al instante a nueva/ y el móvil de Carlos se quedó con la puerta vieja. */
+  try{ if('serviceWorker' in navigator&&navigator.onLine!==false){ setTimeout(function(){ try{ navigator.serviceWorker.getRegistrations().then(function(rs){ rs.forEach(function(r){ try{ r.update(); }catch(e){} }); }).catch(function(){}); }catch(e){} },4000); } }catch(e){}
   /* ---------- 2 · arrancar con la copia del aparato ---------- */
   if(typeof afterLoad!=='function'||typeof driveSave!=='function'||typeof startSession!=='function'||!window.indexedDB) return;
   var sinRed=false, conectando=false;
