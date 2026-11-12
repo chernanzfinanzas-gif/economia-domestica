@@ -7,7 +7,13 @@
      · listas por empresa (dividendos…): igual, empresa a empresa;
      · lo que existe en los dos: manda lo de esta sesión;
      · lo que esta sesión borró (está en su papelera) no vuelve.
-   Avisa en la barra de estado de cuántos registros ha recuperado del otro aparato. Ya no sale la pregunta. */
+   Avisa en la barra de estado de cuántos registros ha recuperado del otro aparato. Ya no sale la pregunta.
+   12-nov-2026 (Carlos: «prepara así»): la junta pasa a ser en TRES VÍAS cuando n-92 tiene la «base» (lo último que
+   Drive confirmó a este aparato). Con la base se sabe quién cambió qué:
+     · lo que el otro aparato borró queda borrado (antes volvía a aparecer);
+     · lo que el otro corrigió queda corregido (antes se quedaba el valor viejo de esta sesión);
+     · lo que cambió esta sesión se conserva; si los dos cambiaron el mismo registro, manda el que guarda ahora.
+   Sin base (primer arranque, navegador sin almacén), se junta como antes. */
 (function(){
   if(typeof driveSave!=='function'||typeof gfetch!=='function') return;
   function esLista(a){ return Array.isArray(a)&&a.length>0&&a.every(function(x){ return x&&typeof x==='object'&&!Array.isArray(x)&&x.id!=null; }); }
@@ -35,13 +41,21 @@
       var m=await gfetch('https://www.googleapis.com/drive/v3/files/'+fileId+'?fields=modifiedTime'); if(!m.ok) throw new Error('Drive meta '+m.status);
       var mod=(await m.json()).modifiedTime;
       var g=await gfetch('https://www.googleapis.com/drive/v3/files/'+fileId+'?alt=media'); if(!g.ok) throw new Error('Drive read '+g.status);
-      var R=await g.json(), c=juntar(DB,R), n=0; Object.keys(c).forEach(function(k){ n+=c[k]; });
+      var R=await g.json(), c=null, n=0, tres=false;
+      try{ var bt=(typeof window.nBaseDrive==='function')?window.nBaseDrive():null;
+        if(bt&&typeof window.nAplicarPendiente==='function'){
+          var B=JSON.parse(bt), o=window.nAplicarPendiente(JSON.parse(bt),B,R);   /* cuánto ha cambiado el otro aparato */
+          window.nAplicarPendiente(R,B,DB);                                       /* a lo de Drive, lo que cambió esta sesión */
+          Object.keys(R).forEach(function(k){ DB[k]=R[k]; });
+          n=(o.n||0)+(o.s||0); c={cambios:n}; tres=true; } }catch(e){ try{ console.warn('[n-guardado] tres vías',e); }catch(_){} tres=false; }
+      if(!tres){ c=juntar(DB,R); n=0; Object.keys(c).forEach(function(k){ n+=c[k]; }); }
       _lastMod=mod;
-      window._nUltimaJunta={cuando:new Date().toISOString(),cuenta:c};
+      window._nUltimaJunta={cuando:new Date().toISOString(),cuenta:c,tres:tres};
       try{ if(n&&typeof renderAll==='function') renderAll(); }catch(e){}
-      try{ if(typeof setFileStatus==='function') setFileStatus('ok',n?('Juntado con el otro aparato: '+n+' registro'+(n===1?'':'s')+' recuperado'+(n===1?'':'s')+(c.movimientos?' ('+c.movimientos+' movimiento'+(c.movimientos===1?'':'s')+')':'')):'Juntado con la versión de Drive'); }catch(e){}
+      try{ if(tres){ if(typeof setFileStatus==='function') setFileStatus('ok',n?('Juntado con el otro aparato: '+n+' cambio'+(n===1?'':'s')+' suyo'+(n===1?'':'s')+' incorporado'+(n===1?'':'s')):'Juntado con la versión de Drive'); } else if(typeof setFileStatus==='function') setFileStatus('ok',n?('Juntado con el otro aparato: '+n+' registro'+(n===1?'':'s')+' recuperado'+(n===1?'':'s')+(c.movimientos?' ('+c.movimientos+' movimiento'+(c.movimientos===1?'':'s')+')':'')):'Juntado con la versión de Drive'); }catch(e){}
+      try{ window._nTxtTrasJunta=JSON.stringify(DB); }catch(e){}
     }
     return {conflict:true};   /* tras tres intentos seguidos, como antes: pregunta */
   };
-  if(typeof saveNow==='function'){ var oS=saveNow; saveNow=async function(){ var r=await oS.apply(this,arguments); try{ var j=window._nUltimaJunta; if(j&&Date.now()-Date.parse(j.cuando)<15000){ var n=0; Object.keys(j.cuenta).forEach(function(k){ n+=j.cuenta[k]; }); if(n&&typeof setFileStatus==='function') setFileStatus('ok','Guardado ✓ · juntado con el otro aparato: '+n+' registro'+(n===1?'':'s')+' recuperado'+(n===1?'':'s')); } }catch(e){} return r; }; }
+  if(typeof saveNow==='function'){ var oS=saveNow; saveNow=async function(){ var r=await oS.apply(this,arguments); try{ var j=window._nUltimaJunta; if(j&&Date.now()-Date.parse(j.cuando)<15000){ var n=0; Object.keys(j.cuenta).forEach(function(k){ n+=j.cuenta[k]; }); if(n&&typeof setFileStatus==='function') setFileStatus('ok','Guardado ✓ · juntado con el otro aparato: '+n+(j.tres?(' cambio'+(n===1?'':'s')+' suyo'+(n===1?'':'s')+' incorporado'+(n===1?'':'s')):(' registro'+(n===1?'':'s')+' recuperado'+(n===1?'':'s')))); } }catch(e){} return r; }; }
 })();

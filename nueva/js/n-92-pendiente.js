@@ -8,14 +8,17 @@
       en Drive · reintentando», reintento cada 20 s, al recuperar la red y al volver a la app.
    4) Si se cierra o recarga con algo pendiente: al abrir, se carga Drive y se le aplican SOLO los cambios que hizo este
       aparato desde la base (altas, cambios y bajas, registro a registro), y se guarda.
-   Sin botones ni preguntas. En modo demo no hace nada. */
+   Sin botones ni preguntas. En modo demo no hace nada.
+   12-nov-2026: la «base» se guarda también en memoria y se ofrece a n-90 (nBaseDrive) para que, cuando el otro aparato
+   ha guardado entre medias, la junta sea en tres vías: lo que el otro borró queda borrado y lo que corrigió, corregido. */
 (function(){
   if(typeof saveNow!=='function'||typeof driveSave!=='function') return;
   var IDBN='kh-economia-pendiente', ST='kv', db0=null;
   function idb(){ return db0?Promise.resolve(db0):new Promise(function(ok,ko){ try{ var r=indexedDB.open(IDBN,1); r.onupgradeneeded=function(){ r.result.createObjectStore(ST); }; r.onsuccess=function(){ db0=r.result; ok(db0); }; r.onerror=function(){ ko(r.error); }; }catch(e){ ko(e); } }); }
   function put(k,v){ return idb().then(function(d){ return new Promise(function(ok){ try{ var t=d.transaction(ST,'readwrite'); t.objectStore(ST).put(v,k); t.oncomplete=function(){ ok(true); }; t.onerror=function(){ ok(false); }; }catch(e){ ok(false); } }); }).catch(function(){ return false; }); }
   function get(k){ return idb().then(function(d){ return new Promise(function(ok){ try{ var q=d.transaction(ST,'readonly').objectStore(ST).get(k); q.onsuccess=function(){ ok(q.result); }; q.onerror=function(){ ok(null); }; }catch(e){ ok(null); } }); }).catch(function(){ return null; }); }
-  var seq=0, pend=false, tW=null, listo=false;
+  var seq=0, pend=false, tW=null, listo=false, baseMem=null;
+  window.nBaseDrive=function(){ return (listo&&baseMem)?baseMem:null; };
   function activo(){ return !window._demoOn&&typeof DB!=='undefined'&&DB&&listo; }
   /* ---------- franja ---------- */
   function franja(txt,color){ var b=document.getElementById('nPendBar');
@@ -47,10 +50,10 @@
   var dS=driveSave;
   driveSave=async function(force){
     if(!activo()) return dS.apply(this,arguments);
-    var s=seq, txt=JSON.stringify(DB), r;
+    var s=seq, txt=JSON.stringify(DB), r; window._nTxtTrasJunta=null;
     try{ r=await dS.apply(this,arguments); }
     catch(e){ fallo(); throw e; }
-    if(r&&r.ok){ put('base',seq===s?JSON.stringify(DB):txt); if(seq===s){ pend=false; put('meta',{pend:false,seq:s,cuando:new Date().toISOString()}); put('local',null); franja(null); } }
+    if(r&&r.ok){ baseMem=seq===s?JSON.stringify(DB):(window._nTxtTrasJunta||txt); put('base',baseMem); if(seq===s){ pend=false; put('meta',{pend:false,seq:s,cuando:new Date().toISOString()}); put('local',null); franja(null); } }
     else if(r&&r.conflict) fallo();
     return r; };
   function fallo(){ if(!activo()) return; pend=true; escribir(); franja('⚠️ Hay cambios sin guardar en Drive · reintentando (pulsa para reintentar ya)'); }
@@ -70,7 +73,7 @@
     if(window._demoOn){ return; }
     var meta=await get('meta'), loc=await get('local'), base=await get('base');
     if(meta&&meta.pend&&loc&&base){
-      try{ var L=JSON.parse(loc), B=JSON.parse(base), cc=aplicar(DB,B,L), n=cc.n;
+      try{ var L=JSON.parse(loc), B=JSON.parse(base), r0=JSON.stringify(DB), cc=aplicar(DB,B,L), n=cc.n; baseMem=r0;
         listo=true;
         if(n||cc.s){ if(n) franja('🛟 Recuperado'+(n===1?'':'s')+' '+n+' cambio'+(n===1?'':'s')+' de este aparato que no habían llegado a Drive · guardando…','#B45309');
           try{ if(typeof renderAll==='function') renderAll(); }catch(e){}
@@ -78,6 +81,6 @@
           if(!pend&&n) franja('✅ Recuperado'+(n===1?'':'s')+' '+n+' cambio'+(n===1?'':'s')+' pendiente'+(n===1?'':'s')+' y guardado'+(n===1?'':'s')+' en Drive','#15803D'), setTimeout(function(){ if(!pend) franja(null); },8000);
           return; } }catch(e){ console.warn('[n-pendiente]',e); }
     }
-    listo=true; pend=false; put('base',JSON.stringify(DB)); put('meta',{pend:false,seq:seq,cuando:new Date().toISOString()}); put('local',null);
+    listo=true; pend=false; baseMem=JSON.stringify(DB); put('base',baseMem); put('meta',{pend:false,seq:seq,cuando:new Date().toISOString()}); put('local',null);
   }
 })();
