@@ -1,11 +1,23 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-12T09:27",
+ "generado": "2026-11-12T09:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "TEF 2026-9M",
+   "ticker": "TEF",
+   "periodos": [
+    "2026-9M"
+   ],
+   "tipo": "pase",
+   "creada": "2026-11-12T08:38",
+   "semaforo": "V",
+   "frase": "Verde en lo publicado: ingresos +2,8 % (24.825 M€; +1,0 % a tipo constante), EBITDA +4,9 % (8.689 M€; el ajustado +4,6 %), resultado operativo +11,1 % y margen EBITDA 35,0 % (+0,70 pp). El beneficio atribuido pasa de −1.080 a 464 M€ porque "
+  }
+ ],
+ "n_pendientes": 1,
  "ultima_subida": {
-  "cuando": "2026-11-12T09:27",
+  "cuando": "2026-11-12T09:28",
   "ficheros": [
    "recogida/publicaciones/ACS.json",
    "recogida/publicaciones/ADX.json",
@@ -991,6 +1003,18 @@
    "estado": "abierto",
    "resuelto": null,
    "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "Pa9234c09",
+   "creado": "2026-11-12T09:33",
+   "origen": "pase de novedades 12-11 08:55",
+   "ticker": "TEF",
+   "que": "Telefónica 9M-2026: el lector solo ha leído los ingresos; faltan EBITDA, resultado operativo y beneficio, que sí están en el informe",
+   "detalle": "Informe «2026-11-12 Telefónica remite Resultados enero-septiembre 2026.pdf», cuenta de resultados consolidada de los anexos: cifra de negocios 24.825 frente a 24.157 (+2,8 %, cuadra con lo leído); EBITDA 8.689 frente a 8.286 (+4,9 %); EBITDA ajustado 8.846 frente a 8.456 (+4,6 %, margen 35,6 %); resultado operativo 3.485 frente a 3.136; resultado del periodo 707 frente a −949; atribuido 464 frente a −1.080. El semáforo verde automático se ha puesto solo con los ingresos. Nota del analista sin escribir (regla de no estimar). Paquete: Revisión/TEF 2026-9M - pendiente.",
+   "estado": "resuelto",
+   "resuelto": "2026-11-12T09:39",
+   "como": "Cifras del anexo «Cuentas de resultados consolidadas» comprobadas a mano en datos/TEF/_confirmado_a_mano.json (EBITDA 8.689/8.286, OI 3.485/3.136, atribuido 464/−1.080); revisión TEF 2026-9M rehecha con nota. El lector no leía el atribuido porque el número sale separado de su etiqueta · Claude, 12-nov",
    "comprobado": null
   }
  ],
