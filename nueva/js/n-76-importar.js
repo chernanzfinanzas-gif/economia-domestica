@@ -117,13 +117,6 @@
      · titularR4 = fila con el nombre del titular en el extracto de Renta 4 (la usa n-18). ---------- */
   function priv(){ try{ return (DB&&DB.config&&DB.config.privado)||{}; }catch(e){ return {}; } }
   window.nPrivado=priv; window._nImpProponer=function(l){ return proponer(l); };
-  /* MUDANZA DE UNA SOLA VEZ — ESTE BLOQUE SE BORRA EN LA FASE 2. Copia a Drive los tres datos que hasta hoy estaban escritos
-     aquí. Solo actúa sobre el fichero de Carlos (perfil con sus dos titulares) y solo si aún no están en Drive. */
-  (function(){ function mudar(){ try{ if(window._demoOn||window.NUEVA_RO||typeof DB==='undefined'||!DB||!DB.config||DB.config.privado) return;
-        var T=((DB.config.perfil||{}).titulares||[]).map(function(x){ return x&&x.nombre; }); if(T[0]!=='Carlos'||T[1]!=='Susana') return;
-        DB.config.privado={tarjetasT2:(DB.config.tarjetasSusana||['369065']),transfT2:['perez pardillo susana'],titularR4:['CARLOS HERNANZ BLAZQUEZ']};
-        if(typeof scheduleSave==='function') scheduleSave(); }catch(e){} }
-    if(typeof afterLoad==='function'){ var oA=afterLoad; afterLoad=function(){ var r=oA.apply(this,arguments); mudar(); return r; }; } })();
   /* ---------- traspasos ---------- */
   /* tarjetas de Susana (los extractos traen el número): sus retiradas de cajero se apuntan mitad Compras Varios, mitad Ocio (Carlos, 1-nov) */
   function deSusana(txt){ var T=(priv().tarjetasT2||(DB.config&&DB.config.tarjetasSusana)||[]); var m=/pan:?\s*(\d{8,19})/i.exec(txt)||/tarj(?:eta|\.)?\s*:?\s*\*?(\d{4,19})/i.exec(txt); if(!m) return false; var n=m[1];
