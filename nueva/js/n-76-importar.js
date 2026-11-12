@@ -112,9 +112,21 @@
     s=s.replace(/(\s+(madrid|es|lu|us|ie|nl|de|fr|gb|luxembourg|dublin|san francisc\S*))+$/i,'').trim();
     return s.toLowerCase().split(' ').map(function(w){ return w?w.charAt(0).toUpperCase()+w.slice(1):w; }).join(' '); }
 
+  /* ---------- datos privados (12-nov-2026): viven en Drive (DB.config.privado), no en el programa, porque el repo es público.
+     tarjetasT2 = finales de las tarjetas del segundo titular · transfT2 = cómo aparece su nombre en las transferencias
+     · titularR4 = fila con el nombre del titular en el extracto de Renta 4 (la usa n-18). ---------- */
+  function priv(){ try{ return (DB&&DB.config&&DB.config.privado)||{}; }catch(e){ return {}; } }
+  window.nPrivado=priv; window._nImpProponer=function(l){ return proponer(l); };
+  /* MUDANZA DE UNA SOLA VEZ — ESTE BLOQUE SE BORRA EN LA FASE 2. Copia a Drive los tres datos que hasta hoy estaban escritos
+     aquí. Solo actúa sobre el fichero de Carlos (perfil con sus dos titulares) y solo si aún no están en Drive. */
+  (function(){ function mudar(){ try{ if(window._demoOn||window.NUEVA_RO||typeof DB==='undefined'||!DB||!DB.config||DB.config.privado) return;
+        var T=((DB.config.perfil||{}).titulares||[]).map(function(x){ return x&&x.nombre; }); if(T[0]!=='Carlos'||T[1]!=='Susana') return;
+        DB.config.privado={tarjetasT2:(DB.config.tarjetasSusana||['369065']),transfT2:['perez pardillo susana'],titularR4:['CARLOS HERNANZ BLAZQUEZ']};
+        if(typeof scheduleSave==='function') scheduleSave(); }catch(e){} }
+    if(typeof afterLoad==='function'){ var oA=afterLoad; afterLoad=function(){ var r=oA.apply(this,arguments); mudar(); return r; }; } })();
   /* ---------- traspasos ---------- */
   /* tarjetas de Susana (los extractos traen el número): sus retiradas de cajero se apuntan mitad Compras Varios, mitad Ocio (Carlos, 1-nov) */
-  function deSusana(txt){ var T=((DB.config&&DB.config.tarjetasSusana)||['369065']); var m=/pan:?\s*(\d{8,19})/i.exec(txt)||/tarj(?:eta|\.)?\s*:?\s*\*?(\d{4,19})/i.exec(txt); if(!m) return false; var n=m[1];
+  function deSusana(txt){ var T=(priv().tarjetasT2||(DB.config&&DB.config.tarjetasSusana)||[]); var m=/pan:?\s*(\d{8,19})/i.exec(txt)||/tarj(?:eta|\.)?\s*:?\s*\*?(\d{4,19})/i.exec(txt); if(!m) return false; var n=m[1];
     return T.some(function(x){ return n.slice(-x.length)===x; }); }
   function traspaso(l){ if(l.src==='R4') return null; var t=sinAc(l.txt);
     if(/renta 4/.test(t)) return 'Aportación a Renta 4';
@@ -150,7 +162,7 @@
       if(hit){ var m=hit[1]; p.c=m.categoriaId; p.t=m.titular||'Dos'; p.k=m.concepto; p.co=m.comercio; p.d=m.detalle; p.origen='por «'+m.detalle+'»'; }
       else if(l.bcat&&MAPA_ING[sinAc(l.bcat)]){ p.c=catPorNombre(MAPA_ING[sinAc(l.bcat)]); p.origen='por la categoría de ING'; } }
     if(/^bizum de /.test(t)){ p.marcar=false; p.nota='Bizum que te mandan: si es lo que te devuelven de un gasto compartido, normalmente no se apunta'; }
-    if(/^transferencia de perez pardillo susana/.test(t)){ p.r=true; p.t='Susana'; p.k=p.k||'Devolución Susana'; p.nota='Transferencia de Susana → reembolsable'; }
+    if((priv().transfT2||[]).some(function(x){ return x&&t.indexOf('transferencia de '+x)===0; })){ p.r=true; p.t='Susana'; p.k=p.k||'Devolución Susana'; p.nota='Transferencia de Susana → reembolsable'; }
     if(!A&&/abono por evento dividendo/.test(t)){ var em=/\(([^)]+)\)/.exec(l.txt); p.c=catPorNombre('Dividendos'); p.k='Dividendo '+(em?em[1].charAt(0)+em[1].slice(1).toLowerCase():''); p.co='Dividendos'; p.d=em?em[1]:''; p.origen='del extracto de ING valores'; }
     if(!A&&/intereses a tu favor|abono de intereses/.test(t+' '+sinAc(l.bcat))){ p.c=catPorNombre('Intereses Banco'); p.k='Intereses '+CTA[l.src]; p.co='Banco'; p.d=CTA[l.src]; }
     if(/^traspaso:/.test(t)){ p.r=true; p.t='Dos'; p.k='Transferencia Reembolso'; p.c=''; p.nota='Transferencia de reembolsables'; }

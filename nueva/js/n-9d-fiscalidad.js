@@ -1,13 +1,13 @@
 /* APP NUEVA · Plan → FISCALIDAD por titular (3-nov-2026, Carlos 20:47: «aplica fiscalidad»; propuesta de las 20:45 con lo
    aprobado el 28 y 29-oct: barra por titular hasta el mínimo personal, retenciones a recuperar, gastos deducibles y resumen
    fiscal por año).
-   · Hacienda os ve a cada uno por separado: Propia = Carlos y Susana a medias; Compartida = Susana y su hermana a medias
+   · Hacienda os ve a cada uno por separado: Propia = los dos titulares a medias; Compartida = el segundo titular y otra persona a medias
      (la hermana no sale); Foncuenta (cuenta de R4 de la Propia) a medias. Los porcentajes se cambian en «Ajustes».
    · FIFO POR CARTERA (cada titular tiene su cola): la pestaña de antes mezclaba las dos carteras de un mismo valor.
    · Base del ahorro del año = dividendos brutos − gastos deducibles (custodias) + intereses + ganancias de ventas de
      acciones + ganancia del Foncuenta (reembolsos). Saldos negativos: compensación del 25 % entre rendimientos y ganancias.
    · Mínimo personal: 5.550 € + discapacidad (33 %: 3.000 · 65 % o más: 12.000 con asistencia). Lo que no consume la base
-     general reduce la cuota del ahorro (por eso a Carlos le devuelven la retención). Susana: su nómina ya lo consume.
+     general reduce la cuota del ahorro (por eso al primer titular le devuelven la retención). Al segundo, su nómina ya lo consume.
    · Escala del ahorro desde 2025: 19 % hasta 6.000 · 21 % hasta 50.000 · 23 % hasta 200.000 · 27 % hasta 300.000 · 30 %.
      (La pestaña de antes usaba el 28 % para el último tramo: se corrige _impuestoAhorro.)
    · Orientativo: no es la declaración. Debajo se mantienen «Si liquidas hoy», el simulador, los candidatos y lo realizado. */
@@ -99,6 +99,8 @@
     '#nFis .fz-nota{font-size:11.5px;color:#64748B;margin-top:8px;line-height:1.5}';
     document.head.appendChild(s); }
 
+  /* nombres de los titulares: salen del perfil (Drive), no del programa (12-nov-2026) */
+  function NT(i){ var T=[]; try{ T=(typeof perfilTitulares==='function')?perfilTitulares():[]; }catch(e){} return T[i]||('Titular '+(i+1)); }
   function pintar(){
     var V=document.getElementById('view-fiscalidad'); if(!V) return; css();
     var host=document.getElementById('nFis'); if(!host){ host=document.createElement('div'); host.id='nFis'; var k=document.getElementById('fiscalKpis'); (k||V.firstElementChild).insertAdjacentElement(k?'beforebegin':'afterend',host); }
@@ -110,21 +112,21 @@
       Object.keys(Q).forEach(function(k){ var t=k.split('|')[0], cart=k.split('|')[1], pa=(typeof _precioActualDe==='function')?+_precioActualDe(t):0; if(!(pa>0)) return; Q[k].forEach(function(l){ var g=(pa-l.p)*l.acc, pp=partesCart(cart,P); lat.C+=g*pp.C; lat.S+=g*pp.S; }); }); })();
     function linea(lbl,v,cls){ return '<div class="fz-l"><span>'+lbl+'</span><b class="'+(cls||'')+'">'+v+'</b></div>'; }
     var h='<div class="fz-k">'+
-      '<div class="fz-c" style="--c:#1F4A9A"><h4>Renta del ahorro '+y+'</h4>'+linea('Carlos',E(c.base,0))+linea('Susana',E(s.base,0))+'<div class="fz-s">dividendos + Foncuenta + intereses + ventas − gastos (con lo previsto hasta diciembre)</div></div>'+
-      '<div class="fz-c" style="--c:#D97706"><h4>Retenciones pagadas</h4>'+linea('Carlos',E(c.ret,0))+linea('Susana',E(s.ret,0))+'<div class="fz-s">19 % de dividendos, Foncuenta e intereses: es un adelanto, se ajusta en la renta</div></div>'+
-      '<div class="fz-c" style="--c:#16A34A"><h4>Resultado previsto de la renta '+y+'</h4>'+linea('Carlos',c.resultado<=0?'devuelven '+E(-c.resultado,0):'pagas '+E(c.resultado,0),c.resultado<=0?'pos':'neg')+linea('Susana',s.resultado<=0?'devuelven '+E(-s.resultado,0):'pagas '+E(s.resultado,0),s.resultado<=0?'pos':'neg')+'<div class="fz-s">solo la parte del ahorro; la de la nómina o pensión va aparte</div></div>'+
-      '<div class="fz-c" style="--c:#7C3AED"><h4>Plusvalía latente</h4>'+linea('Carlos',S(lat.C),lat.C>=0?'pos':'neg')+linea('Susana',S(lat.S),lat.S>=0?'pos':'neg')+'<div class="fz-s">no tributa hasta vender · FIFO por cartera</div></div></div>';
+      '<div class="fz-c" style="--c:#1F4A9A"><h4>Renta del ahorro '+y+'</h4>'+linea(NT(0),E(c.base,0))+linea(NT(1),E(s.base,0))+'<div class="fz-s">dividendos + Foncuenta + intereses + ventas − gastos (con lo previsto hasta diciembre)</div></div>'+
+      '<div class="fz-c" style="--c:#D97706"><h4>Retenciones pagadas</h4>'+linea(NT(0),E(c.ret,0))+linea(NT(1),E(s.ret,0))+'<div class="fz-s">19 % de dividendos, Foncuenta e intereses: es un adelanto, se ajusta en la renta</div></div>'+
+      '<div class="fz-c" style="--c:#16A34A"><h4>Resultado previsto de la renta '+y+'</h4>'+linea(NT(0),c.resultado<=0?'devuelven '+E(-c.resultado,0):'pagas '+E(c.resultado,0),c.resultado<=0?'pos':'neg')+linea(NT(1),s.resultado<=0?'devuelven '+E(-s.resultado,0):'pagas '+E(s.resultado,0),s.resultado<=0?'pos':'neg')+'<div class="fz-s">solo la parte del ahorro; la de la nómina o pensión va aparte</div></div>'+
+      '<div class="fz-c" style="--c:#7C3AED"><h4>Plusvalía latente</h4>'+linea(NT(0),S(lat.C),lat.C>=0?'pos':'neg')+linea(NT(1),S(lat.S),lat.S>=0?'pos':'neg')+'<div class="fz-s">no tributa hasta vender · FIFO por cartera</div></div></div>';
     /* barra de Carlos hasta su mínimo */
     var pc=(DB.config&&DB.config.proyeccion)||{}, gD=+pc.crecDividendo||0.025, rpd=+pc.rpdNuevas||0.05, sob=c.minSobra, base0=c.div+c.int-c.gastos, pct=sob>0?Math.min(1,base0/sob):1;
     var a1=null, a2=null, b1=base0, b2=base0, yy=y; for(var i=1;i<=40&&(a1==null||a2==null);i++){ b1*=1+gD; b2=b2*(1+gD)+(+C.invAnual||0)*(C.propiaC/100)*rpd; if(a1==null&&b1>=sob) a1=y+i; if(a2==null&&b2>=sob) a2=y+i; }
-    h+='<div class="fz-box"><h3>Tu margen hasta el mínimo personal (Carlos)</h3>'+
+    h+='<div class="fz-box"><h3>Tu margen hasta el mínimo personal ('+NT(0)+')</h3>'+
       '<div class="fz-l"><span>Tu mitad de dividendos e intereses '+y+', menos gastos</span><b>'+E(base0,0)+'</b></div>'+
       '<div class="fz-bar"><b style="width:'+(pct*100).toFixed(1)+'%;background:'+(pct<0.8?'#16A34A':pct<1?'#D97706':'#DC2626')+'"></b></div>'+
       '<div class="fz-l"><span>Mínimo que te queda para el ahorro: '+E(sob,0)+(+C.baseGenC?' ('+E(c.minimo,0)+' − '+E(+C.baseGenC,0)+' de base general)':' (personal 5.550 € + discapacidad)')+'</span><b class="'+(sob-base0>=0?'pos':'neg')+'">'+(sob-base0>=0?'margen '+E(sob-base0,0):'lo pasas en '+E(base0-sob,0))+'</b></div>'+
       '<div class="fz-nota">Mientras no lo pases, la retención del 19 % de tu mitad te la devuelven entera. Al ritmo de subida del dividendo ('+n(gD*100,1)+' %/año) lo pasarías en <b>'+(a1||'más de 40 años')+'</b>; sumando tus compras ('+E(+C.invAnual||0,0)+'/año, tu mitad, al '+n(rpd*100,1)+' % de rentabilidad), en <b>'+(a2||'más de 40 años')+'</b>. Desde ese año, lo que pase del mínimo tributa al 19 %.</div></div>';
     /* tabla del año por titular */
     function fila(lbl,kc,ks,cls,nota){ var vc=typeof kc==='function'?kc(c):c[kc], vs=typeof kc==='function'?kc(s):s[ks||kc]; return '<tr class="'+(cls||'')+'"><td>'+lbl+'</td><td>'+E(vc)+'</td><td>'+E(vs)+'</td><td>'+E(vc+vs)+'</td><td class="m">'+(nota||'')+'</td></tr>'; }
-    h+='<div class="fz-box"><h3>Rendimientos de '+y+' por titular</h3><div class="fz-w"><table><thead><tr><th>Concepto</th><th>Carlos</th><th>Susana</th><th>Total</th><th style="text-align:left">De dónde sale</th></tr></thead><tbody>'+
+    h+='<div class="fz-box"><h3>Rendimientos de '+y+' por titular</h3><div class="fz-w"><table><thead><tr><th>Concepto</th><th>'+NT(0)+'</th><th>'+NT(1)+'</th><th>Total</th><th style="text-align:left">De dónde sale</th></tr></thead><tbody>'+
       fila('Dividendos brutos cobrados','divCob',null,'','Kanban: lo cobrado hasta hoy, con las acciones de cada cartera en cada fecha')+
       fila('Dividendos previstos hasta diciembre','divPrev',null,'','calendario: pagos que quedan del año, por las acciones de hoy')+
       fila('Intereses de cuentas (bruto estimado)','int',null,'','Movimientos «Intereses Banco» (neto) ÷ 0,81')+
@@ -142,21 +144,21 @@
     h+='<div class="fz-box"><h3>Resumen por año (hogar)</h3><div class="fz-w"><table><thead><tr><th>Año</th><th>Dividendos brutos</th><th>Retención dividendos</th><th>Ventas (ganancia)</th><th>Foncuenta</th><th>Intereses (neto)</th><th>Custodias</th><th>Devolución que calcula la pestaña</th><th>Devolución real de Hacienda</th></tr></thead><tbody>'+
       Y.map(function(k){ var a=calcAnio(+k,ctx); var div=a.C.div+a.S.div, ve=a.C.ventas+a.S.ventas, fo=a.C.fondo+a.S.fondo, it=a.C.intNeto+a.S.intNeto, cu=a.C.gastos+a.S.gastos;
         return '<tr><td><b>'+k+'</b></td><td>'+E(div,0)+'</td><td>'+E(div*0.19,0)+'</td><td class="'+(ve>=0?'':'neg')+'">'+S(ve)+'</td><td>'+(fo?S(fo):'·')+'</td><td>'+(it?E(it,0):'·')+'</td><td>'+(cu?E(cu,0):'·')+'</td><td>'+(function(){ var r=a.C.resultado+a.S.resultado; return r<=0?E(-r,0):'pagar '+E(r,0); })()+'</td><td class="pos">'+(dh[k]?E(num_(dh[k]),0):(+k===y?'en la renta de '+(y+1):'·'))+'</td></tr>'; }).join('')+
-      '</tbody></table></div><div class="fz-nota">Hogar = las dos carteras enteras (también la mitad de la hermana de Susana en la Compartida). «Devolución real» es lo que tienes apuntado de cada renta. Si la que calcula la pestaña se aleja de la real, ajusta abajo los datos (sobre todo el de Susana: si a ella también le devuelven su retención, su nómina no agota su mínimo).</div></div>';
+      '</tbody></table></div><div class="fz-nota">Hogar = las dos carteras enteras (también la mitad del otro titular de la Compartida). «Devolución real» es lo que tienes apuntado de cada renta. Si la que calcula la pestaña se aleja de la real, ajusta abajo los datos (sobre todo el de '+NT(1)+': si también le devuelven su retención, su nómina no agota su mínimo).</div></div>';
     /* ajustes */
     h+='<div class="fz-box"><details><summary>⚙ Ajustes de la fiscalidad</summary><div class="fz-aj">'+
       '<label>Tu grado de discapacidad<select data-fz="grado"><option value="33"'+(C.grado==='33'?' selected':'')+'>33 % (incapacidad absoluta): mínimo 8.550 €</option><option value="65"'+(C.grado==='65'?' selected':'')+'>65 % o más: mínimo 17.550 €</option><option value="0"'+(C.grado==='0'?' selected':'')+'>Sin discapacidad: 5.550 €</option></select></label>'+
       '<label>Tus otros ingresos de la base general (€/año)<input type="number" step="100" data-fz="baseGenC" value="'+(+C.baseGenC||0)+'"></label>'+
-      '<label>Susana: su nómina agota su mínimo<select data-fz="susMinAgotado"><option value="1"'+(C.susMinAgotado?' selected':'')+'>Sí (tributa desde el primer euro)</option><option value="0"'+(C.susMinAgotado?'':' selected')+'>No</option></select></label>'+
+      '<label>'+NT(1)+': su nómina agota su mínimo<select data-fz="susMinAgotado"><option value="1"'+(C.susMinAgotado?' selected':'')+'>Sí (tributa desde el primer euro)</option><option value="0"'+(C.susMinAgotado?'':' selected')+'>No</option></select></label>'+
       '<label>Tu parte de la cartera Propia (%)<input type="number" min="0" max="100" data-fz="propiaC" value="'+C.propiaC+'"></label>'+
-      '<label>Parte de Susana en la Compartida (%)<input type="number" min="0" max="100" data-fz="compS" value="'+C.compS+'"></label>'+
+      '<label>Parte de '+NT(1)+' en la Compartida (%)<input type="number" min="0" max="100" data-fz="compS" value="'+C.compS+'"></label>'+
       '<label>Tu parte del Foncuenta (%)<input type="number" min="0" max="100" data-fz="fondoC" value="'+C.fondoC+'"></label>'+
       '<label>Inversión anual prevista (€)<input type="number" step="1000" data-fz="invAnual" value="'+(+C.invAnual||0)+'"></label></div>'+
       '<div class="fz-nota">Mínimo personal 5.550 € + discapacidad (33-65 %: 3.000 €; 65 % o más: 9.000 € + 3.000 € de asistencia). Escala del ahorro desde 2025: 19 / 21 / 23 / 27 / 30 %. Fuente: Agencia Tributaria. Orientativo, no es asesoramiento fiscal.</div></details></div>';
     host.innerHTML=h;
     /* textos de la pestaña de siempre: escala desde 2025 y cabecera */
     try{ [].forEach.call(V.querySelectorAll('div,p,span'),function(el){ if(el.children.length<=3&&/19% \/ 21% \/ 23% \/ 27% \/ 28%/.test(el.innerHTML)) el.innerHTML=el.innerHTML.replace('19% / 21% / 23% / 27% / 28%','19 % / 21 % / 23 % / 27 % / 30 % (desde 2025). Estas herramientas cuentan el hogar entero, sin repartir por titular'); });
-      var hp=V.querySelector('.vhero-txt p, .vhero p'); if(hp) hp.textContent='Lo que tributáis tú y Susana por el ahorro (dividendos, Foncuenta, intereses y ventas), tu margen hasta el mínimo personal, la renta prevista y las herramientas de venta.'; }catch(e){}
+      var hp=V.querySelector('.vhero-txt p, .vhero p'); if(hp) hp.textContent='Lo que tributáis tú y '+NT(1)+' por el ahorro (dividendos, Foncuenta, intereses y ventas), tu margen hasta el mínimo personal, la renta prevista y las herramientas de venta.'; }catch(e){}
   }
   var o=renderFiscalidad; renderFiscalidad=function(){ var r=o.apply(this,arguments); try{ pintar(); }catch(e){ console.error('[fiscalidad]',e); } return r; };
   document.addEventListener('change',function(e){ var el=e.target.closest&&e.target.closest('[data-fz]'); if(!el) return; var C=cfg(), k=el.getAttribute('data-fz'), v=el.value;

@@ -25,7 +25,7 @@
     /* 5-nov-2026: R4 puede tener Foncuenta en dos sitios (Plan Easy y «Fondos de Inversión» aparte): se suman todas las líneas */
     filas(wb,'Fondos Inv.').forEach(function(r){ if(!/FONCUENTA/i.test(String(r[0]||''))) return; var f={nombre:String(r[0]).trim(),part:n(r[1]),valor:n(r[2]),resultado:n(r[3])};
       out.fondos=(out.fondos||[]).concat([f]); if(!out.fondo) out.fondo=f; else out.fondo={nombre:out.fondo.nombre,part:(out.fondo.part||0)+(f.part||0),valor:(out.fondo.valor||0)+(f.valor||0),resultado:(out.fondo.resultado||0)+(f.resultado||0)}; });
-    filas(wb,'Bolsa Nac.').forEach(function(r){ var v=String(r[0]||'').trim(); if(!v||v==='VALOR'||v==='TOTAL'||v==='CARLOS HERNANZ BLAZQUEZ') return; var t=n(r[1]); if(t!=null&&typeof r[1]==='number') out.acciones.push({nombre:v,titulos:t,valor:n(r[2])}); });
+    filas(wb,'Bolsa Nac.').forEach(function(r){ var v=String(r[0]||'').trim(); if(!v||v==='VALOR'||v==='TOTAL'||(((DB&&DB.config&&DB.config.privado)||{}).titularR4||[]).indexOf(v)>=0) return;   /* la fila con el nombre del titular: sale de Drive, no del programa */ var t=n(r[1]); if(t!=null&&typeof r[1]==='number') out.acciones.push({nombre:v,titulos:t,valor:n(r[2])}); });
     if(!out.fecha||!out.fondo||!out.cash.length) throw new Error('no parece un extracto de patrimonio de Renta 4 (faltan las hojas de efectivo o de fondos)');
     if(out.anotado==null) out.anotado=out.saldoFinal; if(out.pendiente==null) out.pendiente=0;
     return out;
