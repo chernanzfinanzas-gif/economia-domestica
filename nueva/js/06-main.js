@@ -24,6 +24,7 @@ const VIEW_FNS={
   proyeccion:['renderProy'], diversif:['renderPlanLote'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'],
   informes:['renderInformesCenter'], hemero:['renderHemero'], graficas:['renderGraficas'], backtest:['renderBacktest'], embudo:['renderEmbudo'], divcomp:['renderDiversifComp'], diario:['renderDiario']
 };
+const VIEW_SIN_REPINTAR={unin:1,analizadas:1,fichaemp:1,evolucion:1,metodo:1,salud:1,hemeroteca:1,hemeroanalisis:1};
 function _activeViewId(){ const el=document.querySelector('.view.active'); return el? el.id.replace(/^view-/,'') : null; }
 function _khMemoRun(fn){ if(window._khMemo) return fn(); window._khMemo={}; try{ return fn(); } finally{ window._khMemo=null; } }
 /* [27-sep-2026 · auditoría, fallo 2] Si una parte de la pantalla falla al pintarse, se DICE con una franja
@@ -196,7 +197,15 @@ function activarVista(view){
   if(view==='diario' && window._diListOpen===undefined) window._diListOpen=true;
   if(view==='hechos' && window._diaFeedOpen===undefined) window._diaFeedOpen=true;
   /* Render selectivo: repinta la vista que se abre (o completo si no está en el mapa) */
-  if(!renderView(view)) renderAllFull();
+  /* [12-nov-2026 · Carlos: «tardan en cargar»] Ocho pantallas no están en VIEW_FNS (las nuevas: Universo, Analizadas, Ficha,
+     Evolución, y las de Sistema) y por eso, cada vez que se entraba en ellas, se repintaba la app ENTERA (~40 funciones).
+     De ese repintado no usan nada: se pintan con sus propias capas (medido: ninguna función del repintado escribe en ellas).
+     Ahora el repintado completo se hace solo la PRIMERA vez de la sesión (carga datos que usan los Avisos y Cobertura:
+     quitarlo del todo cambiaba sus cifras) y las siguientes entradas no repintan nada más.
+     renderAll() —al cambiar datos— no cambia. */
+  if(!renderView(view)){ let conDatos=false; try{ conDatos=!!DB; }catch(_){}
+    if(VIEW_SIN_REPINTAR[view]&&window._khRepintadoCompleto&&conDatos){ /* nada: la pinta su capa */ }
+    else { renderAllFull(); if(conDatos) window._khRepintadoCompleto=true; } }
   if(typeof renderInfoBoxes==='function') renderInfoBoxes();
   /* Botón «desplegar/plegar todo»: solo si la vista tiene bloques colapsables */
   if(sn){ const _sa=sn.querySelector('.sn-all'); if(_sa){ const _hb=el&&el.querySelector('.pos-blk,.rz-blk,.mos-blk,.p7blk,.blk,.psec,.inf-catg'); _sa.style.display=_hb?'':'none'; } }
