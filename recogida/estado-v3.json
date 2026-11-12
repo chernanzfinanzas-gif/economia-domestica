@@ -1,22 +1,42 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-11T20:45",
+ "generado": "2026-11-12T09:27",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-11T20:45",
+  "cuando": "2026-11-12T09:27",
   "ficheros": [
-   "dossiers/ACS.html",
-   "dossiers/ACS.json",
-   "dossiers/trimestral/ACS-trim.json",
-   "dossiers/v3/ACS.html",
-   "fichas/ACS.json",
-   "fichas/_resumen.json"
+   "recogida/publicaciones/ACS.json",
+   "recogida/publicaciones/ADX.json",
+   "recogida/publicaciones/ATRY.json",
+   "recogida/publicaciones/GGR.json",
+   "recogida/publicaciones/SAN.json",
+   "recogida/publicaciones/TEF.json",
+   "recogida/publicaciones/_indice.json",
+   "recogida/publicaciones/dias/2026-11.json"
   ]
  },
  "rechazos": [],
  "descargas_pendientes": [
+  {
+   "clase": "fallido",
+   "ticker": "ADZ",
+   "que": "2025-09-18 La sociedad remite el reglamento del Consejo de Administración",
+   "carpeta": "ADZ - Adolfo Domínguez, S.A\\Gobierno",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A-32104226",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (TEF - Telefó",
+   "desde": "2026-11-10"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "ADZ",
+   "que": "2026-04-30 La sociedad remite el Informe Financiero Anual del ejercicio 2026",
+   "carpeta": "ADZ - Adolfo Domínguez, S.A\\Resultados",
+   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A-32104226",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (TEF - Telefó",
+   "desde": "2026-11-10"
+  },
   {
    "clase": "fallido",
    "ticker": "AI",
