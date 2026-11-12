@@ -356,6 +356,16 @@
     "revision": "ITX señales 2026-10-28",
     "origen": "metodo-v3",
     "sinPosicion": true
+   },
+   {
+    "fecha": "12-nov-2026",
+    "fechaIso": "2026-11-12",
+    "senal": "S3",
+    "cot": 59.06,
+    "decision": "AJUSTA PO",
+    "motivo": "Corrección de un fallo del programa, no cambio de tesis: el precio objetivo de 48,71 € estaba calculado con una tasa de descuento del 7,0 % (suelo por faltar el bono a 10 años de 2026 en la tabla). Con la correcta (9,46 %, la del dossier de octubre) el precio objetivo es 41,68 €, el bull 48,62 € y el stop 25,78 €. Decisión: ESPERAR, sin cambio; la señal S3 se refuerza (cotiza un 21 % sobre el PO bull). Revisión del método v3.",
+    "revision": "ITX tasa de descuento corregida",
+    "origen": "metodo-v3"
    }
   ],
   "LDA": [

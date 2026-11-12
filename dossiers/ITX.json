@@ -1,21 +1,21 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte de rating en BBB)",
  "ticker": "ITX",
  "empresa": "Industria de Diseño Textil, S.A.",
- "fecha": "2026-10-27",
- "revisadoEl": "2026-10-29",
+ "fecha": "2026-11-12",
+ "revisadoEl": "2026-11-12",
  "rating": "AA",
  "score": 82.1,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 30 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 8 % · PER 10 % · P/VC 6 % · P/FCL 8 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl recurrente",
- "poBear": 41.86,
- "poBase": 48.71,
- "poBull": 56.52,
- "entMin": 41.86,
- "entMax": 42.36,
- "stop": 30.19,
+ "poBear": 36.21,
+ "poBase": 41.68,
+ "poBull": 48.62,
+ "entMin": 36.21,
+ "entMax": 36.24,
+ "stop": 25.78,
  "dpaPrevisto": 1.75,
  "moat": "66,3 sobre 100 · MOAT MODERADO. Es moda: la ventaja de la proximidad y la logística se vuelve a jugar cada temporada",
  "catalizadores": [
@@ -35,9 +35,9 @@
   "Vende en más de 200 mercados y reporta en euros (Alta): Volumen −2 % y −4 % por traslación. Comparte canal con el riesgo 2.",
   "Parada prolongada de sistemas en un negocio que ya es un cuarto digital (Baja): Margen −0,5 pp y −1 pp como aproximación de una campaña perdida y la remediación."
  ],
- "bull": "56,52 € — escenario optimista: la reforma de tiendas y el online devuelven el crecimiento a la media de la década",
- "bear": "41,86 € — escenario pesimista: la desaceleración de la serie continúa: +35,9 %, +17,5 %, +10,4 %, +7,5 % y +3,2 % de 2021 a 2025",
- "resumen": "La mejor empresa del universo a un precio por encima de su valor. A 57,24 € (26-oct) el margen es del −14,9 %; las otras tres condiciones se cumplen (bear a −1,2 % desde la entrada máxima, rating AA y moat 66,3). Pasa a MANTENER por debajo de unos 46,39 € (PO/1,05) y a COMPRAR por debajo de 42,36 €. Hay una señal S3 abierta, ahora más fuerte: la cotización supera incluso el PO bull (56,52 €), y el método lo lee como salida parcial razonable y revisión del precio objetivo, no como venta total. Antes, revisar el WACC del Bloque 6.",
+ "bull": "48,62 € — escenario optimista: la reforma de tiendas y el online devuelven el crecimiento a la media de la década",
+ "bear": "36,21 € — escenario pesimista: la desaceleración de la serie continúa: +35,9 %, +17,5 %, +10,4 %, +7,5 % y +3,2 % de 2021 a 2025",
+ "resumen": "La mejor empresa del universo a un precio muy por encima de su valor. A 59,06 € (4-nov) el margen es del −29,4 %; las otras tres condiciones se cumplen (bear a −0,1 % desde la entrada máxima, rating AA y moat 66,3). Pasa a MANTENER por debajo de unos 39,69 € (PO/1,05) y a COMPRAR por debajo de 36,24 €. La señal S3 (revisada el 29-oct: REAFIRMAR) sale reforzada: la cotización está un 21 % por encima del PO bull (48,62 €), y el método lo lee como salida parcial razonable, no como venta total. Revisión del 12-nov: corregida la tasa de descuento (del 7,0 % al 9,46 %), el precio objetivo baja de 48,71 a 41,68 € y con él el bear, el bull, la banda y el stop; la decisión no cambia.",
  "dividendSafety": {
   "score": 64,
   "banda": "Seguro",
@@ -57,7 +57,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.22x · payout 89 % · 1 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-06",
+  "calculadoEl": "2026-11-12",
   "origen": "metodo-v3",
   "shareholderYield": 3.18
  },
@@ -98,31 +98,31 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-06",
+  "calculadoEl": "2026-11-12",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 11.26,
+  "gImplicito": 18.52,
   "gIntrinseco": 13.05,
-  "veredicto": "PLAUSIBLE",
-  "motivo": "PLAUSIBLE (≤ g intrínseco 13.1 %)",
-  "calculadoEl": "2026-11-06",
+  "veredicto": "HEROICO",
+  "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
+  "calculadoEl": "2026-11-12",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 4732.5256,
-   "wacc": 7.0,
+   "wacc": 9.4625,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 3110.045,
    "deudaNeta": -5246.639,
    "modo": "EV",
-   "precioBase": 59.06,
-   "gBase": 12.46,
-   "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-06",
+   "precioBase": 60.08,
+   "gBase": 21.94,
+   "fechaBase": "2026-11-11",
+   "congeladoEl": "2026-11-12",
    "validado": false,
-   "desviacion": 1.2
+   "desviacion": 3.42
   }
  }
 }
