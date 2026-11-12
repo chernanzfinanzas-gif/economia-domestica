@@ -1,22 +1,13 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-12T18:47",
+ "generado": "2026-11-12T18:57",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-12T18:47",
+  "cuando": "2026-11-12T18:57",
   "ficheros": [
-   "recogida/publicaciones/ACS.json",
-   "recogida/publicaciones/ATRY.json",
-   "recogida/publicaciones/COL.json",
-   "recogida/publicaciones/DIA.json",
    "recogida/publicaciones/EAT.json",
-   "recogida/publicaciones/MAP.json",
-   "recogida/publicaciones/OHLA.json",
-   "recogida/publicaciones/SAN.json",
-   "recogida/publicaciones/VIS.json",
-   "recogida/publicaciones/_indice.json",
    "recogida/publicaciones/dias/2026-11.json"
   ]
  },
