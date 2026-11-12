@@ -199,8 +199,18 @@ function initAuth(){
     error_callback:(err)=>{ if(_rej){_rej(err);_res=_rej=null;} }
   });
 }
+/* 12-nov-2026: UNA sola petición de sesión a la vez. Antes, si dos peticiones a Drive caducaban a la vez, la segunda
+   pisaba la «casilla» (_res/_rej) de la primera y esa se quedaba esperando para siempre (y con ella el reintento de
+   guardado). Ahora las dos esperan la misma renovación; y si Google no contesta en un rato, se da por fallida. */
+var _tokP=null, _TOK_ESPERA=60000;
 function getToken(interactive){
-  return new Promise((res,rej)=>{ _res=res; _rej=rej; try{ tokenClient.requestAccessToken({prompt: interactive?'consent':''}); }catch(e){ rej(e); } });
+  if(_tokP&&!interactive) return _tokP;
+  if(_tokP&&_rej){ try{ _rej(new Error('sesión: petición sustituida')); }catch(e){} _res=_rej=null; }
+  const p=new Promise((res,rej)=>{ _res=res; _rej=rej;
+    if(!interactive) setTimeout(()=>{ if(_tokP===p&&_rej===rej){ _res=_rej=null; rej(new Error('sesión: Google no contesta')); } },_TOK_ESPERA);
+    try{ tokenClient.requestAccessToken({prompt: interactive?'consent':''}); }catch(e){ _res=_rej=null; rej(e); } });
+  _tokP=p; const fin=()=>{ if(_tokP===p) _tokP=null; }; p.then(fin,fin);
+  return p;
 }
 function login(){ getToken(true).then(startSession).catch(e=>{ console.error(e); setFileStatus('warn','No se pudo conectar'); }); }
 function logout(){ try{ if(accessToken) google.accounts.oauth2.revoke(accessToken,()=>{}); }catch(e){} accessToken=null; location.reload(); }
@@ -243,8 +253,13 @@ async function driveSave(force){
   } else {
     /* chequeo de concurrencia: ¿alguien (p. ej. el móvil) guardó desde que cargamos? */
     if(!force && _lastMod){
-      try{ const rc=await gfetch('https://www.googleapis.com/drive/v3/files/'+fileId+'?fields=modifiedTime');
-        if(rc.ok){ const jc=await rc.json(); if(jc.modifiedTime && jc.modifiedTime!==_lastMod) return {conflict:true}; } }catch(e){}
+      /* 12-nov-2026: si la pregunta no se puede contestar (corte, error de Google, sesión caducada) NO se guarda:
+         guardar sin saber qué hay en Drive es por donde un aparato pisa al otro. El error sube, queda como
+         pendiente y el reintento automático (n-92) lo vuelve a intentar. */
+      let rc; try{ rc=await gfetch('https://www.googleapis.com/drive/v3/files/'+fileId+'?fields=modifiedTime'); }
+      catch(e){ throw new Error('Drive: sin comprobar, no se guarda ('+((e&&e.message)||e)+')'); }
+      if(!rc.ok) throw new Error('Drive: sin comprobar, no se guarda ('+rc.status+')');
+      const jc=await rc.json(); if(jc.modifiedTime && jc.modifiedTime!==_lastMod) return {conflict:true};
     }
     const r=await gfetch('https://www.googleapis.com/upload/drive/v3/files/'+fileId+'?uploadType=media&fields=id,modifiedTime',{method:'PATCH',headers:{'Content-Type':'application/json'},body});
     if(!r.ok) throw new Error('Drive save '+r.status);
@@ -253,7 +268,17 @@ async function driveSave(force){
   return {ok:true};
 }
 function scheduleSave(){ if(typeof _planRepartoInval==='function')_planRepartoInval(); if(window._demoOn) return; clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,600); }
-async function saveNow(){
+/* 12-nov-2026: CANDADO. Nunca dos guardados a la vez: si llega otro mientras hay uno en marcha, espera a que acabe
+   y entonces se hace UNO más (aunque hayan llegado varios), que ya lleva todo lo cambiado entre medias. */
+var _savEnCurso=null, _savOtra=null;
+function saveNow(){
+  if(_savEnCurso){
+    if(!_savOtra){ const sig=()=>{ _savOtra=null; _savEnCurso=null; return saveNow(); }; _savOtra=_savEnCurso.then(sig,sig); }
+    return _savOtra; }
+  const p=_saveNow1(); _savEnCurso=p; const fin=()=>{ if(_savEnCurso===p) _savEnCurso=null; }; p.then(fin,fin);
+  return p;
+}
+async function _saveNow1(){
   if(!DB) return;
   if(window.NUEVA_RO){ setFileStatus('warn','Solo lectura — no se guarda'); return; }
   if(typeof _planRepartoInval==='function')_planRepartoInval();
@@ -268,7 +293,7 @@ async function saveNow(){
     }
     setFileStatus('ok','Guardado en Drive ✓');
     driveSaveBridge();   /* puente privado para el informe semanal (fire-and-forget) */
-  }catch(e){ setFileStatus('warn','Error al guardar'); console.error(e); }
+  }catch(e){ setFileStatus('warn',/sin comprobar/.test((e&&e.message)||'')?'Sin respuesta de Drive · no se ha guardado, se reintentará':'Error al guardar'); console.error(e); }
 }
 /* Respaldo automático: una copia fechada al mes en Drive, con retención de las 12 más recientes */
 async function driveMonthlyBackup(){
