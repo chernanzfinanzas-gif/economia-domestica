@@ -242,7 +242,7 @@ async function driveLoad(){
 async function driveSave(force){
   if(window.NUEVA_RO) return {ro:true};
   if(window._demoOn) return {demo:true};   /* MODO DEMO: nunca escribir en Drive */
-  const body=JSON.stringify(DB,null,2);
+  const body=JSON.stringify(DB);   /* 12-nov-2026: sin sangrías. Son los mismos datos y el fichero pesa un 39 % menos (2,4 → 1,5 MB en cada guardado). Las copias mensuales siguen con sangría. */
   if(!fileId){
     const meta={name:FNAME};
     const b='-----econ'+Date.now();
