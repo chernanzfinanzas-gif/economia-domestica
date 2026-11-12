@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-12T18:57",
+ "generado": "2026-11-12T19:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -997,6 +997,18 @@
    "estado": "resuelto",
    "resuelto": "2026-11-12T09:39",
    "como": "Cifras del anexo «Cuentas de resultados consolidadas» comprobadas a mano en datos/TEF/_confirmado_a_mano.json (EBITDA 8.689/8.286, OI 3.485/3.136, atribuido 464/−1.080); revisión TEF 2026-9M rehecha con nota. El lector no leía el atribuido porque el número sale separado de su etiqueta · Claude, 12-nov",
+   "comprobado": null
+  },
+  {
+   "id": "P311fa2f1",
+   "creado": "2026-11-12T19:00",
+   "origen": "pase de novedades",
+   "ticker": "MRL",
+   "que": "El lector no lee el 2026-9M con lo que hay en la Biblioteca",
+   "detalle": "Documentos: 2026-11-10 MERLIN - Datos conferencia resultados 9M26 (viernes 13 de noviembre @1.pdf",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
    "comprobado": null
   }
  ],
