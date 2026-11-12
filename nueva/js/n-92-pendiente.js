@@ -45,7 +45,7 @@
         if(todoListas){ sub.forEach(function(s){ if(J(l[s])===J(b[s])) return; c.k=k; R[k][s]=aplicaLista(l[s],b[s],R[k][s],c); }); return; } }
       if(l===undefined) return; R[k]=l; c.s=(c.s||0)+1; });
     return {n:c.v||0,s:(c.s||0)+(c.n-(c.v||0))}; }
-  window.nAplicarPendiente=aplicar; window._nPendDbg=function(){ return {listo:listo,pend:pend,seq:seq}; };
+  window.nAplicarPendiente=aplicar; window.nPendMarcar=marcar;   /* 12-nov: n-9h (sin cobertura) apunta así lo cambiado mientras el guardado está cerrado */ window._nPendDbg=function(){ return {listo:listo,pend:pend,seq:seq}; };
   /* ---------- guardar: saber si Drive lo ha recibido ---------- */
   var dS=driveSave;
   driveSave=async function(force){
