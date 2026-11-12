@@ -17,6 +17,11 @@
   /* ---------- 2 · arrancar con la copia del aparato ---------- */
   if(typeof afterLoad!=='function'||typeof driveSave!=='function'||typeof startSession!=='function'||!window.indexedDB) return;
   var sinRed=false, conectando=false;
+  /* ¿hay red DE VERDAD? No vale navigator.onLine: en un PC dice «sí» con cualquier adaptador activo aunque no haya
+     salida a internet (así falló el primer ensayo de Carlos, 12-nov). Se pregunta a Google: si contesta algo, hay red. */
+  function hayRed(){ return new Promise(function(ok){ var fin=false, t=setTimeout(function(){ if(!fin){ fin=true; ok(false); } },5000);
+      function r(v){ if(!fin){ fin=true; clearTimeout(t); ok(v); } }
+      try{ fetch('https://www.googleapis.com/drive/v3/about?fields=kind&_='+Date.now(),{mode:'no-cors',cache:'no-store'}).then(function(){ r(true); },function(){ r(false); }); }catch(e){ r(false); } }); }
   function hayGoogle(){ return !!(window.google&&google.accounts&&google.accounts.oauth2); }
   function cargado(){ try{ return !!DB; }catch(e){ return false; } }
   function leer(){ return new Promise(function(ok){ try{ var r=indexedDB.open('kh-economia-pendiente',1);
@@ -30,7 +35,7 @@
     b.textContent=txt; b.onclick=fn||null; b.style.display=''; }
   function arrancar(){ return leer().then(function(txt){ if(cargado()||window._demoOn) return false;
       var d=null; try{ d=txt?JSON.parse(txt):null; }catch(e){}
-      if(!d){ try{ setFileStatus('warn','Sin conexión y sin copia en este aparato'); }catch(e){} return false; }
+      if(!d){ try{ setFileStatus('warn','Sin conexión y sin copia en este aparato'); }catch(e){} barra('📴 Sin conexión, y este aparato aún no tiene copia de tus datos. Ábrela una vez con red.','#B91C1C',null); return false; }
       sinRed=true; window._nSinRed=true; DB=d;
       try{ var w=document.getElementById('welcome'); if(w) w.style.display='none'; }catch(e){}
       afterLoad();
@@ -45,22 +50,29 @@
   /* en cuanto Drive carga de verdad (hay sesión y fichero), se sale del modo sin conexión ANTES de que n-92 aplique lo pendiente */
   var oA=afterLoad; afterLoad=function(){ var con=false; try{ con=!!(accessToken&&fileId); }catch(e){} if(sinRed&&con){ sinRed=false; window._nSinRed=false; barra(null); } return oA.apply(this,arguments); };
   /* ---------- 3 · volver a conectar ---------- */
-  function conectar(gesto){ if(!sinRed||conectando||navigator.onLine===false) return Promise.resolve(false); conectando=true;
+  function conectar(gesto){ if(!sinRed||conectando) return Promise.resolve(false); conectando=true;
+    return hayRed().then(function(v){ if(!v){ conectando=false; return false; } return conectar2(gesto); }); }
+  function conectar2(gesto){
     var g=hayGoogle()?Promise.resolve(true):new Promise(function(ok){ var s=document.createElement('script'); s.src='https://accounts.google.com/gsi/client'; s.onload=function(){ ok(true); }; s.onerror=function(){ ok(false); }; document.head.appendChild(s); })
       .then(function(v){ return (v&&typeof waitGoogle==='function')?waitGoogle():v; });
     return g.then(function(v){ if(!v||!hayGoogle()) throw new Error('Google no carga');
         var tc=null; try{ tc=tokenClient; }catch(e){} if(!tc) initAuth();
+        /* una petición de sesión hecha cuando no había red está muerta: se descarta para pedir una nueva ahora */
+        try{ if(_tokP){ var rj=_rej; _res=_rej=null; _tokP=null; if(rj) rj(new Error('sesión: reintento al volver la red')); } }catch(e){}
         return getToken(!!gesto); })
       .then(function(){ return startSession(); })
       .then(function(){ conectando=false; if(sinRed) barra('⚠️ Hay red pero no se han podido cargar los datos de Drive · pulsa para reintentar','#B91C1C',function(){ conectar(true); }); return !sinRed; })
-      .catch(function(e){ conectando=false; if(sinRed&&navigator.onLine!==false) barra('🔌 Ha vuelto la red · pulsa aquí para entrar en Google y subir lo apuntado','#1D4ED8',function(){ conectar(true); }); return false; }); }
+      .catch(function(e){ conectando=false; if(sinRed) barra('🔌 Ha vuelto la red · pulsa aquí para entrar en Google y subir lo apuntado','#1D4ED8',function(){ conectar(true); }); return false; }); }
   window.nSinRedConectar=conectar;
   window.addEventListener('online',function(){ conectar(false); });
   document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible') conectar(false); });
-  setInterval(function(){ if(sinRed&&navigator.onLine!==false) conectar(false); },30000);
-  /* ---------- ¿hace falta arrancar sin conexión? Se espera a ver si el arranque normal carga los datos ---------- */
-  var t0=Date.now(), iv=setInterval(function(){ var dt=Date.now()-t0;
-    if(cargado()||window._demoOn||dt>90000){ clearInterval(iv); return; }
-    if(dt<1200) return;
-    if(navigator.onLine===false||(dt>7500&&!hayGoogle())){ clearInterval(iv); arrancar(); } },400);
+  setInterval(function(){ if(sinRed) conectar(false); },30000);
+  /* ---------- ¿hace falta arrancar sin conexión? Mientras el arranque normal no haya cargado los datos, se comprueba la red ---------- */
+  var mirando=false;
+  function comprobar(){ if(mirando||sinRed||cargado()||window._demoOn) return Promise.resolve(false); mirando=true;
+    return (navigator.onLine===false?Promise.resolve(false):hayRed()).then(function(v){ mirando=false; if(v||cargado()) return false; return arrancar(); },function(){ mirando=false; return false; }); }
+  window.nSinRedComprobar=comprobar;
+  var t0=Date.now(), ult=0, iv=setInterval(function(){ var dt=Date.now()-t0;
+    if(sinRed||cargado()||window._demoOn||dt>120000){ clearInterval(iv); return; }
+    if(dt<1200||Date.now()-ult<4000) return; ult=Date.now(); comprobar(); },400);
 })();

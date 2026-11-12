@@ -1,15 +1,24 @@
-// Service worker de Economia Domestica  (v3 - network-only, sin cache - 20260720).
-// Habilita la instalacion como app (PWA) y, ademas, fuerza que TODOS los
-// archivos propios de la app se carguen siempre desde la red (cache:'no-store').
-// Asi la app instalada se autoactualiza: en cuanto subes una version nueva al
-// repo, al reabrir la app ya la coge (no hay que limpiar cache ni reinstalar).
+// Service worker de Economia Domestica  (v4 - 20261112).
+// Como hasta ahora: habilita la instalacion como app (PWA) y fuerza que los archivos
+// propios se carguen SIEMPRE desde la red (cache:'no-store'), para que la app
+// instalada se autoactualice al reabrirla.
+// Novedad v4 (12-nov-2026): la PUERTA sin red. El icono instalado abre la raiz, que
+// solo sirve para llevar a nueva/. Sin cobertura la raiz no se puede bajar y la app
+// no llegaba a abrirse. Ahora, si la raiz no se puede bajar, se manda directamente a
+// nueva/, que si esta guardada en el aparato (la sirve nueva/sw.js).
 self.addEventListener('install', function(e){ self.skipWaiting(); });
 self.addEventListener('activate', function(e){ e.waitUntil(self.clients.claim()); });
 self.addEventListener('fetch', function(e){
-  if(e.request.method !== 'GET') return;
-  if(e.request.url.indexOf(self.registration.scope) === 0){
-    e.respondWith(
-      fetch(e.request, {cache:'no-store'}).catch(function(){ return fetch(e.request); })
-    );
-  }
+  var r = e.request;
+  if(r.method !== 'GET') return;
+  var ambito = self.registration.scope;
+  if(r.url.indexOf(ambito) !== 0) return;
+  var limpia = r.url.split('#')[0].split('?')[0];
+  var puerta = r.mode === 'navigate' && (limpia === ambito || limpia === ambito + 'index.html');
+  e.respondWith(
+    fetch(r, {cache:'no-store'}).catch(function(){ return fetch(r); }).catch(function(err){
+      if(puerta) return Response.redirect(ambito + 'nueva/', 302);
+      throw err;
+    })
+  );
 });
