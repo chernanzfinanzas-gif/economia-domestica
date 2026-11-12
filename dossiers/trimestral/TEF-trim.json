@@ -3,7 +3,7 @@
  "ticker": "TEF",
  "empresa": "Telefónica, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-05",
+ "generado": "2026-11-12",
  "revisiones": [
   {
    "periodo": "2021-Q1",
@@ -590,7 +590,7 @@
    "fecha": "2026-07-29",
    "fechaOrigen": "portada",
    "semaforoGlobal": "A",
-   "tesisSigueIntacta": false,
+   "tesisSigueIntacta": true,
    "resumen": "Ingresos +1,7 %, EBITDA -1,6 %, beneficio neto +75,0 %, margen 33,6 % (-1,12 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora. Ámbar. El EBITDA publicado cae un 1,6 % por una provisión de reestructuración de 265 M€ en Alemania; el ajustado crece un 3,8 % (un 2,3 % a tipo constante). El beneficio no cae: la pérdida se reduce de −1.355 a −338 M€ (el «−75 %» del monitor es un efecto del signo). Lo preocupante es Alemania: ingresos −8,6 % en el 1T y −11,1 % en el 2T, y el resultado neto ajustado del grupo cae un 21,0 % (documento: «2026-07-29 Telefónica remite Informe de Resultados del Primer Semestre de 2026»). · REVISIÓN EXTRAORDINARIA del 26-oct-2026 (S1, stop tocado; aprobada por Carlos): la cotización cerró hoy en 3,198 € (−6,4 % en el día) tras la victoria de Lula en Brasil, un 10 % por debajo del stop (3,57 €) y por debajo de la peor cadena del pre-mortem (3,76 €). Se activa el riesgo nº 2 («Brasil y el real») y la cadena C; su señal formal (el real pierde más de un 10 % frente al euro en un semestre) no se puede medir hoy: Pte. Revisión. Se suma a Alemania (tesis tocada). Prueba anti-anclaje: a 3,20 € y sin tenerla, no la compraría (rating BB, tesis tocada, riesgo abierto cumpliéndose). Decisión: seguir fuera, sin comprar; NO se baja el stop para acomodarlo al precio. Revisión de verdad con el 9M-2026 (12-nov): si se confirma la caída del real o Alemania sigue empeorando, rehacer la valoración con el golpe de Brasil y rebajar el PO.",
    "metricas": [
     {
@@ -616,6 +616,40 @@
     {
      "nombre": "Deuda neta",
      "valor": 26528.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": false,
+   "resumen": "Ingresos +2,8 %, EBITDA +4,9 %, beneficio neto +143,0 %, margen 35,0 % (+0,70 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde en lo publicado: ingresos +2,8 % (24.825 M€; +1,0 % a tipo constante), EBITDA +4,9 % (8.689 M€; el ajustado +4,6 %), resultado operativo +11,1 % y margen EBITDA 35,0 % (+0,70 pp). El beneficio atribuido pasa de −1.080 a 464 M€ porque 9M-2025 cargaba las pérdidas por la salida de Hispanoamérica; el de operaciones continuadas sube un 21,6 % (1.333 M€), así que el «+143 %» del monitor es un efecto del signo. La deuda financiera neta baja 1.638 M€ en el año, hasta 25.186 M€. Telefónica rebaja la previsión de ingresos (1-1,5 %, antes 1,5-2,5 %), sube la de EBITDA ajustado (algo más del 2,5 %) y mantiene el dividendo.\n\nLo que pide decisión: la revisión del 26-oct (señales S1 y S2, reafirmar sin comprar) dejó una condición para este 9M: si el real caía o Alemania seguía peor, rehacer la valoración y rebajar el PO. Brasil no la cumple (ingresos +13,5 %, +7,4 % constante; EBITDA ajustado +16,2 %). Alemania sí: ingresos −7,6 % y EBITDA ajustado −8,5 % en 9M, con el 3T peor (−9,9 %). Propongo aprobar este 9M (las cifras son correctas) y abrir después la revisión extraordinaria de la valoración por Alemania.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 24825.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 8689.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 35.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 3485.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 464.0
     }
    ],
    "hechos": [],

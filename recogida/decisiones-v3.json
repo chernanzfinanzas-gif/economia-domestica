@@ -146,6 +146,26 @@
     "motivo": "Tesis tocada por Alemania (ingresos −8,6 % en el 1T y −11,1 % en el 2T; resultado neto ajustado del grupo −21 %). Se revisa junto con el S1 del 26-oct; siguiente revisión con el 9M del 12-nov. Revisión extraordinaria del método v3.",
     "revision": "TEF revisión extraordinaria S1",
     "origen": "metodo-v3"
+   },
+   {
+    "fecha": "12-nov-2026",
+    "fechaIso": "2026-11-12",
+    "senal": "S1",
+    "cot": 3.51,
+    "decision": "AJUSTA PO",
+    "motivo": "Revisión con el 9M-2026 que dejaron las señales S1 y S2 del 26-oct: Alemania sigue peor (ingresos −7,6 %, EBITDA ajustado −8,5 % en 9M; 3T −9,9 %), Brasil no (ingresos +13,5 %). Se rebaja el precio objetivo de 5,50 € a 5,33 € (base: ventas planas cinco años; pesimista: −3 %). Decisión: MANTENER, seguir fuera sin comprar; el stop no se toca (3,56 €). Revisión extraordinaria del método v3.",
+    "revision": "TEF valoración por Alemania 9M",
+    "origen": "metodo-v3"
+   },
+   {
+    "fecha": "12-nov-2026",
+    "fechaIso": "2026-11-12",
+    "senal": "S2",
+    "cot": 3.51,
+    "decision": "AJUSTA PO",
+    "motivo": "Revisión con el 9M-2026 que dejaron las señales S1 y S2 del 26-oct: Alemania sigue peor (ingresos −7,6 %, EBITDA ajustado −8,5 % en 9M; 3T −9,9 %), Brasil no (ingresos +13,5 %). Se rebaja el precio objetivo de 5,50 € a 5,33 € (base: ventas planas cinco años; pesimista: −3 %). Decisión: MANTENER, seguir fuera sin comprar; el stop no se toca (3,56 €). Revisión extraordinaria del método v3.",
+    "revision": "TEF valoración por Alemania 9M",
+    "origen": "metodo-v3"
    }
   ],
   "AZK": [
@@ -499,5 +519,5 @@
    }
   ]
  },
- "actualizado": "2026-11-09"
+ "actualizado": "2026-11-12"
 }
