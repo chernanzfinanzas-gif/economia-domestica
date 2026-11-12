@@ -34,16 +34,17 @@
   function barra(txt,color,fn){ var b=document.getElementById('nSinRedBar');
     if(!txt){ if(b) b.style.display='none'; return; }
     if(!b){ b=document.createElement('div'); b.id='nSinRedBar'; document.body.appendChild(b); }
-    b.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:10001;padding:8px 14px;text-align:center;font:700 13px system-ui,sans-serif;color:#fff;cursor:pointer;background:'+(color||'#B45309');
+    /* 12-nov (ensayo de Carlos): era una franja ancha abajo y tapaba el menú del móvil. Ahora es una pastilla pequeña arriba, centrada, que no tapa nada. */
+    b.style.cssText='position:fixed;top:4px;left:50%;transform:translateX(-50%);z-index:10001;max-width:92vw;padding:3px 12px;border-radius:999px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;font:700 11.5px system-ui,sans-serif;color:#fff;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.25);background:'+(color||'#B45309');
     b.textContent=txt; b.onclick=fn||null; b.style.display=''; }
   function arrancar(){ return leer().then(function(txt){ if(cargado()||window._demoOn) return false;
       var d=null; try{ d=txt?JSON.parse(txt):null; }catch(e){}
-      if(!d){ try{ setFileStatus('warn','Sin conexión y sin copia en este aparato'); }catch(e){} barra('📴 Sin conexión, y este aparato aún no tiene copia de tus datos. Ábrela una vez con red.','#B91C1C',null); return false; }
+      if(!d){ try{ setFileStatus('warn','Sin conexión y sin copia en este aparato'); }catch(e){} barra('📴 Sin conexión y sin copia en este aparato','#B91C1C',null); return false; }
       sinRed=true; window._nSinRed=true; DB=d;
       try{ var w=document.getElementById('welcome'); if(w) w.style.display='none'; }catch(e){}
       afterLoad();
       try{ setFileStatus('warn','Sin conexión · copia de este aparato'); }catch(e){}
-      barra('📴 Sin conexión · estás viendo la última copia de este aparato. Lo que apuntes se subirá al volver la red.','#B45309',function(){ conectar(true); });
+      barra('📴 Sin conexión · copia de este aparato','#B45309',function(){ conectar(true); });
       return true; }); }
   window.nSinRedArrancar=arrancar; window.nSinRedEstado=function(){ return {sinRed:sinRed,conectando:conectando}; };
   /* el guardado en Drive, cerrado mientras no se haya cargado Drive; cada intento deja lo cambiado apuntado en el aparato (n-92) */
@@ -64,8 +65,8 @@
         try{ if(_tokP){ var rj=_rej; _res=_rej=null; _tokP=null; if(rj) rj(new Error('sesión: reintento al volver la red')); } }catch(e){}
         return getToken(!!gesto); })
       .then(function(){ return startSession(); })
-      .then(function(){ conectando=false; if(sinRed) barra('⚠️ Hay red pero no se han podido cargar los datos de Drive · pulsa para reintentar','#B91C1C',function(){ conectar(true); }); return !sinRed; })
-      .catch(function(e){ conectando=false; if(sinRed) barra('🔌 Ha vuelto la red · pulsa aquí para entrar en Google y subir lo apuntado','#1D4ED8',function(){ conectar(true); }); return false; }); }
+      .then(function(){ conectando=false; if(sinRed) barra('⚠️ No se pudo cargar Drive · pulsa para reintentar','#B91C1C',function(){ conectar(true); }); return !sinRed; })
+      .catch(function(e){ conectando=false; if(sinRed) barra('🔌 Hay red · pulsa aquí para subir lo apuntado','#1D4ED8',function(){ conectar(true); }); return false; }); }
   window.nSinRedConectar=conectar;
   window.addEventListener('online',function(){ conectar(false); });
   document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible') conectar(false); });
