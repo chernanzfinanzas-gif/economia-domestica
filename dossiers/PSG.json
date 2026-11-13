@@ -1,0 +1,127 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "PSG",
+ "empresa": "Prosegur, Compañía de Seguridad, S.A.",
+ "fecha": "2026-11-13",
+ "revisadoEl": "2026-11-13",
+ "rating": "BBB",
+ "score": 54.9,
+ "decision": "MANTENER",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 11 % · EV/EBIT 11 % · PER 14 % · P/VC 8 % · P/FCL 11 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
+ "poBear": 2.6,
+ "poBase": 3.37,
+ "poBull": 3.75,
+ "entMin": 2.6,
+ "entMax": 2.93,
+ "stop": 2.15,
+ "dpaPrevisto": 0.1593,
+ "moat": "50,4 sobre 100 · MOAT ESTRECHO. Los últimos cinco años no crean valor",
+ "catalizadores": [
+  "El margen vuelve al 6,4 %: El margen EBIT de los nueve meses de 2026 es del 5,8 % (6,4 % un año antes), con seguridad mejorando (EBITA +9 %) y más amortizaciones. Recuperar medio punto sobre las ventas de 2025 son +25 M€. (12-18 meses)",
+  "El dividendo sigue subiendo: Tercer año de subida: 0,1523 € (2024), 0,1593 € (2025) y 0,1651 € aprobado para diciembre de 2026 según la prensa (+3,6 %; no está en los documentos de la Biblioteca). (1-2 meses)"
+ ],
+ "riesgos": [
+  "Casi la mitad de las ventas está en divisas latinoamericanas (Alta): Latinoamérica es el 47 % de las ventas (2.312 M€ de 4.930 M€ en 2025; 50 % en 2024). En 2025 las ventas en euros crecieron un 0,5 % y las de Latinoamérica cayeron un 5,1 %; en los nueve meses de 2025 la divisa restó 9,2 puntos a un crecimiento orgánico del 11,2 %. Suave: otra devaluación del 10 % sobre el 47 % del EBITDA (560 M€): −26 M€. Duro: 20 %: −53 M€ (cuenta derivada: la empresa no da el EBITDA por región).",
+  "El margen baja mientras las ventas suben (Media): Negocio de mano de obra (175.311 empleados de media) con poco poder de precio: margen EBIT del 6,6 % en 2025 y del 5,8 % en los nueve meses de 2026 (6,4 % un año antes), con las amortizaciones subiendo de 151 a 181 M€. Suave: medio punto menos de margen sobre las ventas de 2025 (−25 M€). Duro: un punto (−49 M€).",
+  "El efectivo, que da dos tercios del resultado, es un negocio que encoge (Media): Cash (transporte y gestión de efectivo) es el 40 % de las ventas (1.987 M€) pero el 68 % del EBITA de los negocios (238 de 349 M€ en 2025), y Prosegur solo tiene el 81,45 % de Prosegur Cash. Sus ventas cayeron un 4,9 % en 2025 y su EBITA un 5,0 %. En Australia la filial Armaguard necesita aportaciones extraordinarias de los bancos, prorrogadas hasta junio de 2026. Suave: EBITA de Cash −10 % (−24 M€). Duro: −20 % (−48 M€).",
+  "La deuda se renueva más cara (Alta): Deuda neta de 1.603 M€ con la medida del método (2,9 veces el EBITDA; la empresa da 1.356 M€ y 2,4 veces porque resta sus acciones de Telefónica, 173 M€). El bono de 600 M€ al 1,38 % venció el 4-feb-2026 y el último emitido (300 M€, oct-2025) paga el 3,38 %: dos puntos más sobre 600 M€ son 12 M€ de intereses al año. Duro: además, 100 puntos básicos más en la deuda a tipo variable (5,0 M€ después de impuestos según las cuentas, unos 7 M€ antes): 19 M€.",
+  "El dividendo sale de reservas y se lleva casi todo el beneficio (Media): Desde 2022 el dividendo se paga «con cargo a reservas voluntarias», una vez al año en diciembre (0,1593 € en 2025). El payout medio de tres años es del 78 % del beneficio y en 2024 superó el 100 %. La caja lo cubre (2,8 veces con el FCL recurrente; 2,1 veces después de alquileres), pero esa caja es del grupo entero y parte es de los minoritarios de Cash. Ya lo recortó casi a la mitad en 2022 (de 0,124 a 0,0656 €). Suave: −25 %. Duro: −50 %.",
+  "La familia tiene el 74 % y queda poca acción libre (Media): Helena Revoredo controla 398,6 millones de acciones (73,1 % del capital) a través de Gubel y Yirayira, tras la OPA parcial de Gubel a 1,83 € por acción (marzo de 2024, aceptada por el 13,23 %); el consejo en conjunto suma el 73,88 %. Con Mirta Giesso (6,6 %) queda en torno a un 20 % en bolsa: menos liquidez y el minoritario depende de lo que decida la familia (otra oferta, exclusión). Se mide como una rebaja de múltiplos.",
+  "Competencia, pleitos laborales e impuestos en Latinoamérica (Media): Cuentas de 2025: provisiones de 169 M€ (laborales 50, fiscales 56, jurídicas 21). La fiscalía de la competencia de Chile pide hasta 22 M€ de multa a una filial (provisionados 10 M€; juicio en fase de prueba); en Brasil hay 3.559 causas laborales abiertas; y 211 M€ de avales por pleitos fiscales y laborales. La autoridad portuguesa archivó su investigación en enero de 2026. Suave: los 12 M€ de multa de Chile sin provisionar. Duro: 50 M€ (un tercio más de lo provisionado), como salida de caja.",
+  "Ataque informático o robo relevante (Baja): Custodia efectivo, gestiona centrales de alarmas y vende ciberseguridad: un ataque que pare la operación o un robo grande daña el servicio y la marca. Se mide como el 1 % y el 3 % del EBITDA de 2025 (560 M€)."
+ ],
+ "bull": "3,75 € — escenario optimista: Las divisas dejan de restar y Estados Unidos (+32 % orgánico), alarmas y defensa compensan el efectivo: algo por encima del g intrínseco",
+ "bear": "2,60 € — escenario pesimista: Las divisas de Latinoamérica (47 % de las ventas) se comen el crecimiento, como en 2025 (ventas +0,5 % en euros), y el efectivo sigue encogiendo",
+ "resumen": "MANTENER. No es para comprar: fallan dos de las cuatro condiciones, el margen (9,0 %; pide 15 %) y el rating (BBB; pide A). Tampoco hay motivo para vender si se tuviera: cotiza un 9 % por debajo del precio objetivo (3,37 €), paga un dividendo del 5 % cubierto por la caja y el último trimestre está en verde. Lo que la frena es de fondo: gana lo justo sobre el capital que emplea, casi la mitad de las ventas depende de divisas débiles, dos tercios del resultado vienen de mover efectivo y la deuda es alta. Para comprar tendría que bajar de 2,93 € y, aun así, el rating lo impediría. El escalón de media posición con BBB tampoco aplica (pide un margen del 40 %).",
+ "dividendSafety": {
+  "score": 63,
+  "banda": "Seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 7,
+   "C3": 9,
+   "C4": 3,
+   "C5": 9
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Seguro: cobertura OE 3.08x · payout 78 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja"
+  ],
+  "calculadoEl": "2026-11-13",
+  "origen": "metodo-v3",
+  "shareholderYield": 6.69
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 6,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 0,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 1.6,
+   "zona": "gris"
+  },
+  "beneish": {
+   "m": -2.79,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -4.9,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=1.6 en zona gris"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-13",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 2.35,
+  "gIntrinseco": 4.25,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (≤ g intrínseco 4.2 %)",
+  "calculadoEl": "2026-11-13",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 174.6751,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 532.732,
+   "deudaNeta": 1602.516,
+   "modo": "EV",
+   "precioBase": 3.095,
+   "gBase": 2.35,
+   "fechaBase": "2026-11-12",
+   "congeladoEl": "2026-11-13",
+   "validado": true,
+   "desviacion": -0.0
+  }
+ }
+}
