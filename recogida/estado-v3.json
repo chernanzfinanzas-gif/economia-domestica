@@ -1,20 +1,18 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-13T09:45",
+ "generado": "2026-11-13T10:46",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-13T09:26",
+  "cuando": "2026-11-13T10:46",
   "ficheros": [
-   "recogida/publicaciones/ANA.json",
-   "recogida/publicaciones/ANE.json",
-   "recogida/publicaciones/EAT.json",
-   "recogida/publicaciones/MRL.json",
-   "recogida/publicaciones/PRS.json",
-   "recogida/publicaciones/TLGO.json",
-   "recogida/publicaciones/TRE.json",
-   "recogida/publicaciones/dias/2026-11.json"
+   "dossiers/MRL.html",
+   "dossiers/MRL.json",
+   "dossiers/trimestral/MRL-trim.json",
+   "dossiers/v3/MRL.html",
+   "fichas/MRL.json",
+   "fichas/_resumen.json"
   ]
  },
  "rechazos": [],
@@ -1012,9 +1010,9 @@
    "ticker": "MRL",
    "que": "El lector no lee el 2026-9M con lo que hay en la Biblioteca",
    "detalle": "Documentos: 2026-11-10 MERLIN - Datos conferencia resultados 9M26 (viernes 13 de noviembre @1.pdf",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-13T10:13",
+   "como": "Lector de Merlin arreglado el 13-nov (leía en castellano solo si el nombre decía «actividad» y no reconocía la tabla con texto pegado). Revisión «MRL 2026-9M - pendiente» preparada el 13-nov para que Carlos la apruebe.",
    "comprobado": null
   },
   {
@@ -1024,9 +1022,9 @@
    "ticker": "MRL",
    "que": "Merlin 9M-2026: el informe de resultados ya está en la Biblioteca y el lector no lo lee; no se ha preparado la revisión",
    "detalle": "Documento: Resultados/2026-11-12 MERLIN - Resultados 9M26.pdf (17 págs., «Informe de actividad»). Trae la «Cuenta de resultados consolidada» del apéndice (€ miles, 30/09/2026 frente a 30/09/2025): total ingresos de explotación 466.245 / 413.042; EBITDA contable 332.202 / 299.520. El aviso P311fa2f1 citaba aún el anuncio de la conferencia; el documento bueno es este.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-13T10:13",
+   "como": "Lector de Merlin arreglado el 13-nov (leía en castellano solo si el nombre decía «actividad» y no reconocía la tabla con texto pegado). Revisión «MRL 2026-9M - pendiente» preparada el 13-nov para que Carlos la apruebe.",
    "comprobado": null
   },
   {

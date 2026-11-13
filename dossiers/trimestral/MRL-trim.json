@@ -3,7 +3,7 @@
  "ticker": "MRL",
  "empresa": "Merlin Properties, SOCIMI, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-11",
+ "generado": "2026-11-13",
  "revisiones": [
   {
    "periodo": "2022-Q2",
@@ -534,6 +534,59 @@
    "origen": "metodo-v3"
   },
   {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "Ninguno de los 14 «Informes de actividad» de Merlin imprime su fecha de publicación (comprobado en las primeras 120 líneas de cada uno: la única fecha que aparece es la de pago de dividendos). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +6.7 %, EBITDA +9.0 %, FFO por acción +0.0 % contra el mismo periodo del ejercicio anterior, con el crecimiento comparable de las rentas en 2.7 % (banda del §10.1: verde ≥ 2.0, rojo < 0.5). El NTA por acción cae un 4.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+   "metricas": [
+    {
+     "nombre": "Ingresos totales (M€)",
+     "valor": 138.0
+    },
+    {
+     "nombre": "Rentas brutas (M€)",
+     "valor": 132.5
+    },
+    {
+     "nombre": "Rentas like-for-like (%)",
+     "valor": 2.7
+    },
+    {
+     "nombre": "EBITDA del informe (M€)",
+     "valor": 102.0
+    },
+    {
+     "nombre": "Margen EBITDA sobre rentas (%)",
+     "valor": 76.9
+    },
+    {
+     "nombre": "FFO (M€)",
+     "valor": 84.2
+    },
+    {
+     "nombre": "FFO por acción (€)",
+     "valor": 0.15
+    },
+    {
+     "nombre": "EPRA NTA por acción (€)",
+     "valor": 14.47
+    },
+    {
+     "nombre": "LTV (%)",
+     "valor": 28.5
+    },
+    {
+     "nombre": "Superficie contratada (m²)",
+     "valor": 274614.0
+    }
+   ],
+   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
+  },
+  {
    "periodo": "2025-Q2",
    "periodoDisplay": "S1",
    "periodoV3": "2025-S1",
@@ -818,6 +871,68 @@
     {
      "nombre": "AFFO",
      "valor": 175.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas brutas +11,1 %, EBITDA +12,5 %, FFO +11,9 %, margen 78,5 % (+1,00 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 24,9 %; ocupación del peor negocio: 93,7 %; release spread del peor negocio (dos periodos seguidos): 1,7 %. Verde: nada que señalar. **Qué ha pasado** — En los nueve primeros meses de 2026 Merlin ingresa 466 M€ en total (+12,9 %), con rentas brutas de 442 M€ (+11,1 %), un EBITDA de 347 M€ (+12,5 %) y un FFO de 274,5 M€ (+11,9 %). Las rentas comparables crecen un 3,4 % y la ocupación media es del 95,0 %. El FFO por acción sube a 0,44 € (+1,7 %) y el EPRA NTA queda en 16,13 € por acción, sin nueva tasación en el trimestre. El endeudamiento (LTV) es del 24,9 %.\n\n**Por qué** — Los activos de siempre aguantan (oficinas: release spread +1,0 % y ocupación 93,7 %; logística +4,3 % y 95,7 %; centros comerciales +5,1 % y 97,2 %) y los centros de datos empujan: la nota dice que los ingresos crecen «impulsados por los data centers». El FFO total crece mucho más que por acción por la ampliación de capital de marzo.\n\n**Semáforo** — Verde bien puesto.\n\n**Qué vigilar** — (1) La empresa «eleva su previsión de FFO para 2026 a €0,58 por acción», frente a 0,55 € en julio; la valoración no lo recoge hasta la revisión anual. (2) «Los 162 MW de Bilbao-Arasur 04-05 […] pasan a la cartera de proyectos futuros por retrasos administrativos en las infraestructuras eléctricas»: retraso en la fase III del Plan MEGA. (3) Oficinas sigue siendo el negocio más flojo (93,7 % de ocupación). Dividendo a cuenta de 0,20 € el 10-dic-2026.\n\n**Lectura** — Aprobar. No toca la tesis: sigue en ESPERAR, con la cotización (11,78 €) un 32 % por encima del techo de la banda de entrada (8,91 €).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 466.0
+    },
+    {
+     "nombre": "Rentas brutas",
+     "valor": 442.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 3.4
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 347.0
+    },
+    {
+     "nombre": "Margen EBITDA / rentas",
+     "valor": 78.5
+    },
+    {
+     "nombre": "FFO",
+     "valor": 274.0
+    },
+    {
+     "nombre": "FFO por acción",
+     "valor": 0.4
+    },
+    {
+     "nombre": "EPRA NTA por acción",
+     "valor": 16.1
+    },
+    {
+     "nombre": "Ocupación del peor negocio (%)",
+     "valor": 93.7
+    },
+    {
+     "nombre": "Release spread del peor negocio (%)",
+     "valor": 1.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 24.9
+    },
+    {
+     "nombre": "AFFO",
+     "valor": 266.0
     }
    ],
    "hechos": [],

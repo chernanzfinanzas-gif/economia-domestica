@@ -1,11 +1,11 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
  "ticker": "MRL",
  "empresa": "Merlin Properties, SOCIMI, S.A.",
  "fecha": "2026-11-11",
- "revisadoEl": "2026-11-05",
+ "revisadoEl": "2026-11-13",
  "rating": "BBB",
  "score": 57.3,
  "decision": "ESPERAR",
@@ -56,7 +56,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.11x · payout 76 % · 3 recorte(s) del DPA · señales: DN/EBITDA al alza, recompras recortadas · vara de SOCIMI (con la general: 35)"
   ],
-  "calculadoEl": "2026-11-11",
+  "calculadoEl": "2026-11-13",
   "origen": "metodo-v3",
   "shareholderYield": null
  },
@@ -98,16 +98,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-11",
+  "calculadoEl": "2026-11-13",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 5.66,
+  "gImplicito": 5.72,
   "gIntrinseco": null,
   "veredicto": "HEROICO",
   "motivo": "HEROICO (exige 5.7 % al año, más de 1,4 veces el 3 % del caso base)",
-  "calculadoEl": "2026-11-11",
+  "calculadoEl": "2026-11-13",
   "origen": "metodo-v3"
  }
 }
