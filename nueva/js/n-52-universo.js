@@ -183,7 +183,8 @@
 
   /* ---------- eventos ---------- */
   document.addEventListener('input',function(e){ var x=e.target; if(x&&x.getAttribute&&x.getAttribute('data-nuf')==='q'){ F.q=x.value; abierto=null; filas(); } });
-  document.addEventListener('change',function(e){ var x=e.target; if(x&&x.getAttribute&&x.hasAttribute('data-nuf')){ F[x.getAttribute('data-nuf')]=x.value; abierto=null; filas(); [].forEach.call(document.querySelectorAll('#view-unin select[data-nuf]'),function(s){ s.classList.toggle('act',s.selectedIndex>0); }); } });
+  document.addEventListener('change',function(e){ var x=e.target; if(x&&x.getAttribute&&x.getAttribute('data-nuf')==='q') return;   /* [13-nov-2026] el buscador ya se aplica al teclear («input»); su «change» salta al salir del cuadro, justo al pinchar una fila, y repintar ahí se comía ese clic */
+    if(x&&x.getAttribute&&x.hasAttribute('data-nuf')){ F[x.getAttribute('data-nuf')]=x.value; abierto=null; filas(); [].forEach.call(document.querySelectorAll('#view-unin select[data-nuf]'),function(s){ s.classList.toggle('act',s.selectedIndex>0); }); } });
   document.addEventListener('click',function(e){
     if(!e.target.closest||!e.target.closest('#view-unin')) return;
     var st=e.target.closest('[data-nustar]'); if(st){ var tk=String(st.getAttribute('data-nustar')||'').toUpperCase(); if(!tk) return;   /* [31-oct-2026 · Fase 3] ★ = cola de análisis (la misma de la app de siempre) */
