@@ -551,6 +551,28 @@
     "revision": "/sessions/rcw-01sxnfcirhz28bq44vt2lahr/mnt/CoWork Análisis Financiero/Análisis Financiero KH&Claude/Método v3 (paralelo)/Revisión/SAB análisis inicial",
     "origen": "metodo-v3"
    }
+  ],
+  "CEV": [
+   {
+    "fecha": "13-nov-2026",
+    "fechaIso": "2026-11-13",
+    "senal": "S1",
+    "cot": 9.1,
+    "decision": "REAFIRMAR",
+    "motivo": "Análisis inicial 13-nov-2026: la cotización (9,10 €) nace por debajo del stop de tesis (9,13 €), como pasó en Colonial. No hay posición que proteger. Pendiente de la revisión de las varas de la rama inmobiliaria: el precio objetivo sale alto porque el descuento de flujos usa un coste del capital del 4,8 %.",
+    "revision": "/sessions/rcw-01sxnfcirhz28bq44vt2lahr/mnt/CoWork Análisis Financiero/Análisis Financiero KH&Claude/Método v3 (paralelo)/Revisión/CEV análisis inicial",
+    "origen": "metodo-v3"
+   },
+   {
+    "fecha": "13-nov-2026",
+    "fechaIso": "2026-11-13",
+    "senal": "S6",
+    "cot": 9.1,
+    "decision": "REAFIRMAR",
+    "motivo": "Análisis inicial 13-nov-2026: los tres ámbar de 2026 vienen de que en 2025 hubo ventas de pisos de una promoción (7,8 M€ de ingresos en nueve meses) y este año no; las rentas suben un 7,1 %.",
+    "revision": "/sessions/rcw-01sxnfcirhz28bq44vt2lahr/mnt/CoWork Análisis Financiero/Análisis Financiero KH&Claude/Método v3 (paralelo)/Revisión/CEV análisis inicial",
+    "origen": "metodo-v3"
+   }
   ]
  },
  "actualizado": "2026-11-13"

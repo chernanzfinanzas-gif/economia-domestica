@@ -1,0 +1,109 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "CEV",
+ "empresa": "Compañía Española de Viviendas en Alquiler, S.A.",
+ "fecha": "2026-11-13",
+ "revisadoEl": "2026-11-13",
+ "rating": "A",
+ "score": 63.8,
+ "decision": "COMPRAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): nav 40 % · p_ffo 25 % · rentabilidad por dividendo 15 % · DCF base 20 % · flujo base del DCF: flujo de las rentas (EBITDA oficial − CAPEX de mantenimiento, media de 5 años)",
+ "poBear": 10.24,
+ "poBase": 12.05,
+ "poBull": 12.29,
+ "entMin": 10.24,
+ "entMax": 10.48,
+ "stop": 9.13,
+ "dpaPrevisto": 0.23,
+ "moat": "49,2 sobre 100 · MOAT ESTRECHO. Sin ajuste",
+ "catalizadores": [
+  "Las rentas siguen creciendo: En los nueve meses de 2026 las rentas suben un 7,1 % (18,6 M€ frente a 17,4 M€) por contratos nuevos más caros y actualizaciones. Trasladado al FFO: +7 %. (6-12 meses)",
+  "La tasación vuelve a subir: A igualdad de cartera el valor subió un 2,85 % en 2025; otro tanto sobre 611 M€ son 17 M€, un 3,7 % del NTA. Depende del tasador y de los tipos: fuera del bull. (12 meses)"
+ ],
+ "riesgos": [
+  "La ley limita lo que puede cobrar por más de la mitad de sus viviendas (Alta): De sus 2.378 viviendas, el 36,1 % es de protección oficial con precio limitado y el 22,3 % de renta antigua; el resto está en Cataluña, con la Ley 12/2023 y las zonas tensionadas, y con actualizaciones por un índice (IRAV) por debajo de la inflación. Además, la bonificación del impuesto de sociedades por alquilar viviendas pasa del 85 % al 40 % (informe de gestión de 2025). Suave: rentas un 5 % por debajo (−1,2 M€: −10 % de FFO y −6,5 % del flujo de rentas). Duro: un 10 % (−2,3 M€).",
+  "El valor de los pisos depende de la rentabilidad que pida el tasador (Media): La cartera está tasada en 611 M€ con una rentabilidad inicial del 3,74 % (EPRA Net Initial Yield). Si la rentabilidad exigida sube 25 puntos básicos, el valor baja un 6,3 % (38 M€, un 8,1 % del NTA); si sube 50, un 11,8 % (72 M€, un 15,2 % del NTA). Cuenta derivada de la rentabilidad publicada: el informe no da una tabla de sensibilidad.",
+  "Casi toda la deuda es a tipo variable (Media): Deuda pequeña (LTV del 12,8 %) pero variable: 77,1 M€ de los 88,2 M€ de préstamos a largo plazo van a Euribor o IRPH, y las coberturas (31,6 M€) vencen en 2026. Un punto más de tipos son 0,77 M€ al año (−6,9 % de FFO); dos puntos, 1,54 M€ (−13,7 %).",
+  "La acción apenas se negocia (Alta): Nueve accionistas tienen el 92,76 % (Banco Santander 24,07 %; familias Vaqué, Boix y Víctor, y Taller de Turisme i Medi Ambient, el resto). En todo 2025 se negociaron 160.568 acciones en 114 sesiones: unos 1,2 M€ en el año. Por eso cotiza al 45 % de su NTA desde hace años. Quien compra puede tardar semanas en vender, y el descuento puede no cerrarse nunca. Se mide como rebaja de múltiplos.",
+  "Todo está en Barcelona y un solo complejo pesa mucho (Baja): Casi todo el patrimonio está en Barcelona y su área. El complejo Meridiano Cero aportó 7,9 M€ de los 19,3 M€ de rentas de 2023 (41 %) y 531 de sus viviendas siguen en renta antigua. Un problema en ese complejo (obras, siniestro, conflicto con inquilinos) pesa mucho. Suave: 5 % de sus rentas (0,4 M€). Duro: 10 % (0,85 M€).",
+  "El dividendo es pequeño y ya bajó una vez (Media): Paga un dividendo al año, con cargo a reservas, de alrededor de la mitad del resultado corriente: 0,23 € en 2025. En 2024 lo bajó de 0,25 a 0,22 € (−12 %) el mismo año en que compró un edificio por 35,3 M€. Prefiere retener e invertir. Suave: otro −12 %. Duro: −25 %.",
+  "Fallo informático o de gestión de cobros (Baja): Gestiona 2.378 contratos de alquiler con plantilla pequeña. Se mide como el 1 % y el 3 % del EBITDA de 2025 (18,0 M€)."
+ ],
+ "bull": "12,29 € — escenario optimista: ",
+ "bear": "10,24 € — escenario pesimista: ",
+ "resumen": "El cálculo da COMPRAR: cumple las cuatro condiciones (margen del 32,4 %, rating A con 63,8, moat de 49,2 y dividendo muy seguro). Mi lectura es que no hay que tomarlo como una compra clara, por tres motivos medidos. Uno: todo el margen viene del descuento de flujos (24,06 € con un coste del capital del 4,8 %); por sus propios múltiplos vale 9,05 €, lo que cotiza. En las empresas generales el método ya exige que los dos caminos den un 15 % para comprar; en las inmobiliarias esa regla no se aplica. Dos: la cotización (9,10 €) nace por debajo del stop (9,13 €) y de la banda de entrada, igual que Colonial. Tres: casi no se negocia; entrar y salir puede llevar semanas. Lo bueno es real —poca deuda, rentas que suben todos los años, pisos en Barcelona al 45 % de su tasación—, pero el descuento lleva diez años ahí.",
+ "dividendSafety": {
+  "score": 85,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 15,
+   "C4": 5,
+   "C5": 15
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 1.34x · payout 52 % · 1 recorte(s) del DPA · vara de SOCIMI (con la general: 64)"
+  ],
+  "calculadoEl": "2026-11-13",
+  "origen": "metodo-v3",
+  "shareholderYield": null
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 6,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 0,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": null,
+   "zona": "Pte. Revisión"
+  },
+  "beneish": {
+   "m": -1.96,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": 3.5,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-13",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -7.44,
+  "gIntrinseco": null,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (exige -7.4 % al año, no más que el 3 % del caso base)",
+  "calculadoEl": "2026-11-13",
+  "origen": "metodo-v3"
+ }
+}

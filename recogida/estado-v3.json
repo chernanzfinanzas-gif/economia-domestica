@@ -1,24 +1,21 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-13T20:45",
+ "generado": "2026-11-13T21:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [
-  {
-   "carpeta": "CEV análisis inicial",
-   "ticker": "CEV",
-   "periodos": [],
-   "tipo": "inicial",
-   "creada": "2026-11-13T22:30+01:00",
-   "semaforo": null,
-   "frase": null
-  }
- ],
- "n_pendientes": 1,
+ "revisiones_pendientes": [],
+ "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-13T20:45",
+  "cuando": "2026-11-13T21:45",
   "ficheros": [
-   "recogida/publicaciones/CEV.json",
-   "recogida/publicaciones/_indice.json"
+   "dossiers/CEV.html",
+   "dossiers/CEV.json",
+   "dossiers/trimestral/CEV-trim.json",
+   "dossiers/v3/CEV.html",
+   "fichas/CEV.json",
+   "fichas/_resumen.json",
+   "universo/base.json",
+   "universo/matriz.json",
+   "_indice.json"
   ]
  },
  "rechazos": [],

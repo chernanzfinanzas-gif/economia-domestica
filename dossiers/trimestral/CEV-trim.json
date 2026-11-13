@@ -1,0 +1,675 @@
+{
+ "schemaVersion": 2,
+ "ticker": "CEV",
+ "empresa": "Compañía Española de Viviendas en Alquiler, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-13",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas -1,6 %, resultado corriente +14,6 %, beneficio neto +52,2 %, margen 91,4 % (+12,85 pp) frente al mismo periodo del año anterior. Verde: solo rentas a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4.8
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 4.2
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 3.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 3.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2021-S1",
+   "fecha": "2021-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas -0,9 %, resultado corriente +2,0 %, beneficio neto +157,1 %, margen 83,0 % (+2,36 pp) frente al mismo periodo del año anterior. Verde: solo rentas a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 9.5
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 8.4
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 7.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 9.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2021-9M",
+   "fecha": "2021-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +0,2 %, resultado corriente +0,8 %, beneficio neto +98,7 %, margen 80,7 % (+0,53 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 14.5
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 12.7
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 10.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 12.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2021",
+   "fecha": "2021-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +1,3 %, beneficio neto +164,9 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 17.3
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 17.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 24.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +5,5 %, resultado corriente -18,7 %, beneficio neto -42,7 %, margen 70,4 % (-20,93 pp) frente al mismo periodo del año anterior. Rojo por: resultado corriente a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5.2
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 4.5
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 3.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 2.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +6,4 %, resultado corriente +115,9 %, beneficio neto +144,8 %, margen 168,3 % (+85,35 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 23.1
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 9.0
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 15.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 23.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +6,3 %, resultado corriente +81,8 %, beneficio neto +113,0 %, margen 138,0 % (+57,33 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 29.2
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 13.5
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 18.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 25.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +6,1 %, beneficio neto +17,1 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 32.3
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 18.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 28.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +5,1 %, resultado corriente +1,5 %, beneficio neto +3,8 %, margen 68,0 % (-2,42 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5.2
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 4.7
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 3.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 2.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +5,7 %, resultado corriente -53,9 %, beneficio neto -78,3 %, margen 73,4 % (-94,90 pp) frente al mismo periodo del año anterior. Rojo por: resultado corriente a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 10.5
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 9.5
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 7.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 5.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +5,9 %, beneficio neto -70,0 % frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 16.0
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 14.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 7.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +5,8 %, beneficio neto -62,0 % frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 19.4
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 19.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 10.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +6,4 %, resultado corriente +13,7 %, beneficio neto +3,0 %, margen 72,6 % (+4,63 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5.5
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 5.0
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 3.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 2.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +6,7 %, resultado corriente +10,1 %, beneficio neto +124,3 %, margen 75,8 % (+2,39 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 11.1
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 10.1
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 7.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 11.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +6,7 %, resultado corriente +7,2 %, beneficio neto +78,4 %, margen 77,4 % (+0,41 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 16.9
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 15.3
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 11.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 13.9
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +8,4 %, beneficio neto +116,6 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 37.6
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 20.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 23.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +13,6 %, resultado corriente +33,9 %, beneficio neto +32,5 %, margen 85,7 % (+13,02 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 11.7
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 5.7
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 4.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 2.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +13,3 %, resultado corriente +24,6 %, beneficio neto -15,9 %, margen 83,3 % (+7,53 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 19.9
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 11.5
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 9.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 9.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +13,6 %, resultado corriente +20,7 %, beneficio neto -10,5 %, margen 82,3 % (+4,87 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 26.8
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 17.4
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 14.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 12.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +12,0 %, beneficio neto +25,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 31.3
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 23.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 29.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +7,3 %, resultado corriente -11,0 %, beneficio neto -11,3 %, margen 71,1 % (-14,56 pp) frente al mismo periodo del año anterior. Ámbar por: resultado corriente a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 6.9
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 6.1
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 4.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 2.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +7,2 %, resultado corriente -10,5 %, beneficio neto +48,7 %, margen 69,6 % (-13,73 pp) frente al mismo periodo del año anterior. Ámbar por: resultado corriente a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 13.6
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 12.3
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 8.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 14.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Rentas +7,1 %, resultado corriente -5,0 %, beneficio neto +42,8 %, margen 73,0 % (-9,26 pp) frente al mismo periodo del año anterior. Ámbar por: resultado corriente a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — En los nueve meses de 2026 las rentas son de 18,6 M€ (+7,1 %), los ingresos totales de 20,5 M€ (−23,4 %), el resultado corriente de 13,6 M€ (−5,0 %) y el beneficio atribuido de 17,7 M€ (+42,8 %).\n\n**Por qué** — Los ingresos y el resultado corriente bajan porque en 2025 hubo ventas de pisos de una promoción (7,8 M€) y este año casi ninguna (0,3 M€). El beneficio sube por la revalorización de los inmuebles (11,4 M€ frente a 4,3 M€). Los gastos de personal suben un 7,5 %.\n\n**Semáforo** — Ámbar por la caída del resultado corriente. No es el negocio de alquiler: las rentas suben.\n\n**Qué vigilar** — Las rentas trimestre a trimestre y cualquier norma nueva sobre alquileres en Cataluña. Las coberturas de tipos vencen en 2026.\n\n**Lectura** — No toca la tesis.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 20.5
+    },
+    {
+     "nombre": "Rentas",
+     "valor": 18.6
+    },
+    {
+     "nombre": "Resultado corriente",
+     "valor": 13.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 17.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}
