@@ -1,0 +1,873 @@
+{
+ "schemaVersion": 2,
+ "ticker": "SAB",
+ "empresa": "Banco de Sabadell, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-13",
+ "revisiones": [
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +3,1 %, margen antes de dotaciones +33,7 %, beneficio neto +62,1 %, margen 44,4 % (+10,16 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 7,8 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 12,5 %. Verde: solo RoTE publicado (la señal de la tesis) y CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 3799.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 5180.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 2298.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 859.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 7.76
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 55.65
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.41
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 55.0
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.54
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 156130.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +2,0 %, margen antes de dotaciones +3,8 %, beneficio neto -3,8 %, margen 44,3 % (+0,74 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 9,9 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 12,8 %. Verde: solo RoTE publicado (la señal de la tesis) y CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 1100.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1311.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 581.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 205.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 9.9
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 53.59
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.52
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 54.6
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.78
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 152637.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +12,0 %, margen antes de dotaciones +24,7 %, beneficio neto +43,5 %, margen 47,4 % (+4,82 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 10,8 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 12,9 %. Verde: solo RoTE publicado (la señal de la tesis) y CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 2270.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 2809.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 1331.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 564.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 10.78
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 52.03
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.5
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 55.7
+    },
+    {
+     "nombre": "CET1",
+     "valor": 12.87
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 153834.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +13,8 %, margen antes de dotaciones +27,1 %, beneficio neto +45,0 %, margen 49,8 % (+5,20 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 11,6 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,1 %. Verde: solo RoTE publicado (la señal de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 3512.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 4448.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 2217.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1028.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 11.59
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 50.87
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.54
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 56.5
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.13
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 151627.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +13,2 %, margen antes de dotaciones +23,9 %, beneficio neto +55,1 %, margen 48,6 % (+4,20 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 11,5 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,2 %. Verde: solo RoTE publicado (la señal de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 4723.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 5862.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 2847.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1332.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 11.49
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 51.44
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.52
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 58.3
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.21
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 149798.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +10,1 %, margen antes de dotaciones +19,3 %, beneficio neto +50,2 %, margen 48,0 % (+3,67 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 12,2 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,3 %. Verde: solo RoTE publicado (la señal de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 1231.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1444.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 693.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 308.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 12.2
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 47.6
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.46
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 58.5
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.3
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 150796.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +9,0 %, margen antes de dotaciones +16,2 %, beneficio neto +40,2 %, margen 50,5 % (+3,12 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 13,1 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,5 %. Verde: solo RoTE publicado (la señal de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 2493.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 3061.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 1546.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 791.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 13.1
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 48.3
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.21
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 59.7
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.48
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 155164.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +6,2 %, margen antes de dotaciones +9,1 %, beneficio neto +26,0 %, margen 51,2 % (+1,33 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 13,2 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,8 %. Verde: solo RoTE publicado (la señal de la tesis) por debajo del umbral, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 3746.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 4725.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 2418.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1295.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 13.2
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 48.6
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 3.14
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 60.8
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.8
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 154364.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +8,1 %, margen antes de dotaciones +14,3 %, beneficio neto +37,2 %, margen 51,3 % (+2,78 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 14,9 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,0 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 5021.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 6337.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 3254.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1827.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 14.9
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 48.7
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.84
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 61.7
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.02
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 156913.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +13,6 %, margen antes de dotaciones +27,4 %, beneficio neto +58,8 %, margen 53,8 % (+5,82 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 15,0 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,3 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 1216.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1641.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 883.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 489.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 15.0
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 46.2
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.67
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 62.7
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.31
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 158308.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +5,0 %, margen antes de dotaciones +10,2 %, beneficio neto +23,3 %, margen 53,0 % (+2,51 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 15,3 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,6 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 2425.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 3214.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 1704.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 975.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 15.3
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 47.0
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.47
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 63.6
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.56
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 160806.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +0,3 %, margen antes de dotaciones +1,7 %, beneficio neto +7,3 %, margen 51,9 % (+0,68 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 15,0 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,7 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 3628.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 4740.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 2458.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1390.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 15.0
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 48.1
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.45
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 63.8
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.74
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 161070.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto -0,8 %, margen antes de dotaciones -2,2 %, beneficio neto -2,8 %, margen 50,7 % (-0,68 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 14,3 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,1 %. Ámbar por: margen bruto a la baja, margen antes de dotaciones a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 4837.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 6284.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 3184.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1775.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 14.3
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 49.3
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.37
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 63.8
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.11
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 160708.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto -6,9 %, margen antes de dotaciones -22,0 %, beneficio neto -27,9 %, margen 47,9 % (-9,27 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 13,3 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,2 %. Rojo por: margen bruto a la baja, margen antes de dotaciones a la baja, el margen empeora, caída de beneficio o margen, RoTE publicado (la señal de la tesis) por debajo del umbral.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 872.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 1195.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 572.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 284.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 13.3
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 52.2
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.55
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 70.7
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.18
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 121587.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto -2,8 %, margen antes de dotaciones -14,7 %, beneficio neto +10,9 %, margen 50,2 % (-7,00 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 14,9 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,1 %. Ámbar por: margen bruto a la baja, margen antes de dotaciones a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 1774.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 2463.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 1236.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 892.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 14.9
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 49.8
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.47
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 68.7
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.11
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 125184.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen bruto +1,0 %, margen antes de dotaciones -5,3 %, beneficio neto +13,0 %, margen 52,4 % (-3,52 pp) frente al mismo periodo del año anterior. RoTE publicado (la señal de la tesis): 15,5 %; CET1 fully-loaded (por debajo del 13 % deja de repartir excedentes): 13,1 %. Ámbar por: margen antes de dotaciones a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — En los nueve meses de 2026, ya sin TSB, el banco tiene un margen de intereses de 2.694 M€ (−0,6 %), un margen bruto de 3.777 M€ (+1,0 %), un margen antes de dotaciones de 1.981 M€ (−5,3 %) y un beneficio de 1.297 M€ (+13,0 %); con los cuatro meses de TSB y la plusvalía de su venta, 1.376 M€ (−1 %). RoTE del 15,5 %, morosidad del 2,40 %, CET1 fully-loaded del 13,12 %.\n\n**Por qué** — Los costes suben un 9,1 % por un plan de prejubilaciones (88 M€ no recurrentes); el margen de intereses aún baja en el año, pero repunta en el tercer trimestre (+2 % sobre el segundo). El crédito crece un 4 %.\n\n**Semáforo** — Ámbar bien puesto: el margen antes de dotaciones cae y la eficiencia empeora, aunque por un coste de una vez.\n\n**Qué vigilar** — El coste del riesgo de crédito sube a 32 puntos básicos (21 un año antes). El CET1 está a 12 puntos básicos del 13 % a partir del cual reparte excedentes. Dividendo a cuenta de 0,07 € el 29-dic-2026; en mayo pagó el extraordinario de 0,50 € por la venta de TSB.\n\n**Lectura** — No toca la tesis: ESPERAR.",
+   "metricas": [
+    {
+     "nombre": "M. intereses",
+     "valor": 2694.0
+    },
+    {
+     "nombre": "M. bruto",
+     "valor": 3777.0
+    },
+    {
+     "nombre": "M. antes de dotaciones",
+     "valor": 1981.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 1297.0
+    },
+    {
+     "nombre": "RoTE",
+     "valor": 15.5
+    },
+    {
+     "nombre": "Eficiencia",
+     "valor": 47.6
+    },
+    {
+     "nombre": "Morosidad",
+     "valor": 2.4
+    },
+    {
+     "nombre": "Cobertura",
+     "valor": 70.1
+    },
+    {
+     "nombre": "CET1",
+     "valor": 13.12
+    },
+    {
+     "nombre": "Inversión crediticia",
+     "valor": 124913.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

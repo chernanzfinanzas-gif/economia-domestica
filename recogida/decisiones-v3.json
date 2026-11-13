@@ -539,6 +539,18 @@
     "revision": "COL análisis inicial",
     "origen": "metodo-v3"
    }
+  ],
+  "SAB": [
+   {
+    "fecha": "13-nov-2026",
+    "fechaIso": "2026-11-13",
+    "senal": "S6",
+    "cot": 3.754,
+    "decision": "REAFIRMAR",
+    "motivo": "Análisis inicial 13-nov-2026: los dos ámbar seguidos (S1 y 9M de 2026) son el primer año del banco sin TSB: el margen de intereses baja un 0,6 % y los costes suben un 9,1 % por 88 M€ de prejubilaciones de una vez, pero el RoTE es del 15,5 % y el CET1 del 13,12 %. No hay posición y la decisión ya es ESPERAR por precio.",
+    "revision": "/sessions/rcw-01sxnfcirhz28bq44vt2lahr/mnt/CoWork Análisis Financiero/Análisis Financiero KH&Claude/Método v3 (paralelo)/Revisión/SAB análisis inicial",
+    "origen": "metodo-v3"
+   }
   ]
  },
  "actualizado": "2026-11-13"

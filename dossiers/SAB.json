@@ -1,0 +1,71 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "SAB",
+ "empresa": "Banco de Sabadell, S.A.",
+ "fecha": "2026-11-13",
+ "revisadoEl": "2026-11-13",
+ "rating": "A",
+ "score": 71.0,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): ptbv_pesimista 8 % · ptbv_base 26 % · ptbv_optimista 8 % · m_ptbv 11 % · m_per 7 % · m_pvc 5 % · m_rpd 35 % · flujo base del DCF: P/TBV justificado (banca)",
+ "poBear": 2.27,
+ "poBase": 2.78,
+ "poBull": 2.97,
+ "entMin": 2.27,
+ "entMax": 2.42,
+ "stop": 1.44,
+ "dpaPrevisto": 0.14,
+ "moat": "33,2 sobre 100 · SIN MOAT CLARO. Sin ajuste",
+ "catalizadores": [
+  "Cumple el plan: RoTE del 16 % en 2027: El plan 2025-2027 promete un RoTE del 16 % en 2027 (14,3 % en 2025; 15,5 % en los nueve meses de 2026, según el informe del tercer trimestre): +1,7 pp sobre el último ejercicio. (12-24 meses)",
+  "El dividendo en efectivo vuelve por encima de 0,2044 €: El banco dice que su remuneración recurrente será «superior a los 20,44 céntimos por acción en efectivo abonados en 2024»; en 2025 pagó 0,14 € en efectivo y el resto en recompras. Volver a 0,2044 € es +46 % de dividendo. No hay compromiso de que sea en efectivo: fuera del bull. (12-24 meses)"
+ ],
+ "riesgos": [
+  "El margen de intereses depende del tipo del BCE (Media): El margen de intereses es el 72 % del margen bruto. Ya baja: −3,7 % en 2025 (4.837 M€ con TSB) y −0,6 % en los nueve meses de 2026 (2.694 M€, ya sin TSB), aunque el tercer trimestre repunta. Suave: otro −5 % sobre el margen anualizado del banco sin TSB (unos 3.590 M€: −180 M€ antes de impuestos). Duro: −10 % (−359 M€).",
+  "Un ciclo de crédito en las pymes españolas (Media): Su negocio central es el crédito a empresas en España (45.599 M€ en pymes y grandes empresas de 106.434 M€ de crédito en España, septiembre de 2026). El coste del riesgo de crédito está en mínimos: 0,21 % en 2025 (0,32 % en los nueve meses de 2026). Suave: vuelve a la media de 2019-2023 (0,57 %): +0,36 pp. Duro: al pico de 2020 (0,86 %): +0,65 pp.",
+  "El efectivo del dividendo depende de repartir el exceso de capital (Media): El dividendo en efectivo bajó de 0,2044 € (2024) a 0,14 € (2025): el resto se repartió en recompras (800 M€). El CET1 (13,11 %) está a 11 puntos básicos del 13 % que el banco se fija para repartir excedentes: cualquier consumo de capital recorta primero las recompras y después el dividendo. Suave: payout en efectivo −25 %. Duro: −50 %.",
+  "Sin TSB es un banco de un solo país (Media): Con la venta de TSB todo el negocio queda en España (más México y oficinas en el exterior, pequeños). Menos diversificación = más prima de riesgo exigible: +0,5 pp de coste del capital en el extremo suave y +1 pp en el duro.",
+  "El precio ya no tiene el suelo de una OPA (Media): La OPA de BBVA fracasó en octubre de 2025 (25,47 % de aceptación). Cotiza a 1,6 veces su valor tangible, por encima de toda su década (media 0,6). Si el mercado retira parte de esa prima, los múltiplos bajan.",
+  "Reclamaciones de clientes y contingencias legales (Baja): Cuentas de 2025: provisiones por contingencias legales de 29 M€ y otros 134 M€ por reclamaciones de clientes sobre condiciones generales de contratos (cláusulas suelo, tarjetas revolving). Suave: una dotación igual a lo ya provisionado (163 M€). Duro: el doble (326 M€).",
+  "Interrupción prolongada de los sistemas (Baja): Precedente propio: la migración informática de TSB en 2018 hundió el RoTE del grupo al 3,2 %. Sin TSB el riesgo es menor. Se mide como el 1 % y el 3 % del margen antes de dotaciones anualizado del banco sin TSB (unos 2.640 M€)."
+ ],
+ "bull": "2,97 € — escenario optimista: RoTE del último año (o +1 pp sobre el base)",
+ "bear": "2,27 € — escenario pesimista: RoTE medio de 5 años",
+ "resumen": "ESPERAR. Buen banco hoy —rating A, capital de sobra y dividendo muy seguro (82)—, pero caro: a 3,75 € cotiza un 35 % por encima del precio objetivo (2,78 €) y un 26 % por encima del bull (2,97 €). Fallan el margen y el moat (33,2; la regla pide 45). Para comprar tendría que bajar a 2,42 €. Sería además el séptimo banco analizado.",
+ "dividendSafety": {
+  "score": 82,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "banca",
+  "componentes": {},
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro · payout del dividendo 44 % → 30/30 · CET1 13.1 % → 25/25 · RoTE 14.3 % → 20/20 · 4 recorte(s) en 10 años (reciente) → 0/15 · predictores: beneficio a la baja → 7/10"
+  ],
+  "calculadoEl": "2026-11-13",
+  "origen": "metodo-v3",
+  "shareholderYield": 10.32
+ },
+ "forense": {
+  "aplica": false,
+  "motivo": "rama financiera (banca/seguros)",
+  "flags": [],
+  "calculadoEl": "2026-11-13",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 5.59,
+  "gIntrinseco": null,
+  "veredicto": "EXIGENTE",
+  "motivo": "EXIGENTE (exige un RoTE de 16.5 %, hasta 3 pp por encima del último, 14.3 %)",
+  "calculadoEl": "2026-11-13",
+  "origen": "metodo-v3",
+  "roteImplicito": 16.54
+ }
+}
