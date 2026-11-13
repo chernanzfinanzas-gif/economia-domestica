@@ -65,6 +65,7 @@
   function filas(){ var B=document.getElementById('nuB'); if(!B) return; var Hs=held(), L=lista();
     B.innerHTML=L.map(function(e){ return fila(e,Hs); }).join('')||'<tr><td colspan="12" class="l">Ninguna empresa con esos filtros.</td></tr>';
     var n=document.getElementById('nuN'); if(n) n.textContent=L.length+' de '+todas().length;
+    if(abierto) cotCarga(abierto);
     [].forEach.call(document.querySelectorAll('#nuT th.so'),function(th,i){ var a=th.querySelector('.ar'); if(a) a.textContent=S.c===i?(S.d>0?'▲':'▼'):''; });
     [].forEach.call(document.querySelectorAll('.gs'),function(c){ c.classList.toggle('sel',F.grp===c.getAttribute('data-nugrp')); });
     var gb=document.getElementById('nuGrowth'); if(gb) gb.style.display=F.seg==='BME Growth'?'block':'none';
@@ -126,6 +127,38 @@
         '<div class="dt-fs"><div>Ventas al año<b>'+P(cg(f[1],l[1]))+'</b>'+f[0]+'–'+l[0]+'</div><div>Beneficio al año<b>'+P(cg(f[2],l[2]))+'</b>'+f[0]+'–'+l[0]+'</div><div>Años con beneficio<b>'+pos+' de '+ben.length+'</b></div><div>Años pagando dividendo<b>'+(dv.length?pd+' de '+dv.length:'—')+'</b></div>'+(emp?'<div>Empleados<b>'+Math.round(emp[4]).toLocaleString('es-ES')+'</b>'+emp[0]+'</div>':'')+mfs+'</div>'+
         (me.fuente?'<div style="color:#94A3B8;font-size:11px;margin-top:6px">Cifras «típicas»: mediana de varios años ('+esc(me.fuente)+'). Crecimiento anual compuesto del primer al último año.</div>':'')+'</div>'; }
     return {d:d,c:c}; }
+  /* [13-nov-2026 · Carlos: «echo de menos gráfica de cotización de las empresas de universo»] Gráfico de cotización en el
+     detalle: bloque de 2 columnas abajo a la izquierda. Los precios son los de siempre (precios/TK.json del repo, en acciones
+     de hoy); se piden al abrir la fila y se guardan en memoria. Botones de plazo: 1, 3, 5 años y todo. */
+  var PC={}, cotA=5;
+  function cotCard(tk){ return '<div class="dt-c w2 dt-cot" data-nucot="'+esc(tk)+'"><h4>Cotización</h4><div class="cot-b" style="color:#94A3B8;padding:30px 0;text-align:center">Cargando cotización…</div></div>'; }
+  function cotPinta(tk){ var el=document.querySelector('.dt-cot[data-nucot="'+tk+'"] .cot-b'); if(!el) return; var j=PC[tk];
+    if(!j||!j.data||j.data.length<2){ el.innerHTML='Sin histórico de cotización para '+esc(tk)+'.'; return; }
+    var all=j.data, ult=all[all.length-1], d0='0000';
+    if(cotA){ var f=new Date(ult[0]+'T00:00:00'); f.setFullYear(f.getFullYear()-cotA); d0=f.toISOString().slice(0,10); }
+    var D=all.filter(function(x){ return x[0]>=d0&&x[1]!=null; }); if(D.length<2) D=all.slice();
+    var paso=Math.max(1,Math.ceil(D.length/420)), Q=D.filter(function(x,i){ return i%paso===0||i===D.length-1; });
+    var mn=D[0], mx=D[0]; D.forEach(function(x){ if(x[1]<mn[1]) mn=x; if(x[1]>mx[1]) mx=x; });
+    var W=620,Hh=230,L=46,R=12,T=10,B=22, lo=mn[1], hi=mx[1], pad=(hi-lo)*0.06||hi*0.05||1; lo=Math.max(0,lo-pad); hi=hi+pad;
+    var t0=Date.parse(Q[0][0]), t1=Date.parse(Q[Q.length-1][0])||t0+1, X_=function(d){ return L+(Date.parse(d)-t0)/((t1-t0)||1)*(W-L-R); }, Y_=function(v){ return T+(1-(v-lo)/((hi-lo)||1))*(Hh-T-B); };
+    var var_=D[D.length-1][1]/D[0][1]-1, col=var_>=0?'#15803D':'#DC2626';
+    var g='<svg viewBox="0 0 '+W+' '+Hh+'" style="width:100%;height:auto;display:block" role="img" aria-label="Cotización de '+esc(tk)+'">';
+    for(var i=0;i<=3;i++){ var v=lo+(hi-lo)*i/3, yy=Y_(v); g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy+'" y2="'+yy+'" stroke="#EEF2F7"/><text x="'+(L-6)+'" y="'+(yy+3.5)+'" font-size="10" text-anchor="end" fill="#94A3B8">'+N(v,v>=100?0:2)+'</text>'; }
+    var visto={}, cada=cotA===1?'m':'a', nA=(+Q[Q.length-1][0].slice(0,4))-(+Q[0][0].slice(0,4)), salto=nA>12?2:1;
+    Q.forEach(function(x){ var k=cada==='m'?x[0].slice(0,7):x[0].slice(0,4); if(visto[k]) return; visto[k]=1; if(x===Q[0]) return;
+      if(cada==='a'&&(+k)%salto) return; if(cada==='m'&&(+x[0].slice(5,7))%2===0) return;
+      var xx=X_(x[0]); g+='<line x1="'+xx+'" x2="'+xx+'" y1="'+T+'" y2="'+(Hh-B)+'" stroke="#F4F6FA"/><text x="'+xx+'" y="'+(Hh-6)+'" font-size="10" text-anchor="middle" fill="#64748B">'+(cada==='m'?['','ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][+x[0].slice(5,7)]+' '+x[0].slice(2,4):k)+'</text>'; });
+    var pts=Q.map(function(x){ return X_(x[0]).toFixed(1)+','+Y_(x[1]).toFixed(1); });
+    g+='<polygon points="'+L+','+(Hh-B)+' '+pts.join(' ')+' '+(W-R)+','+(Hh-B)+'" fill="'+col+'" opacity=".08"/><polyline points="'+pts.join(' ')+'" fill="none" stroke="'+col+'" stroke-width="1.8" stroke-linejoin="round"/>';
+    g+='<circle cx="'+X_(D[D.length-1][0]).toFixed(1)+'" cy="'+Y_(D[D.length-1][1]).toFixed(1)+'" r="3.2" fill="'+col+'"/></svg>';
+    var bt=[[1,'1 año'],[3,'3 años'],[5,'5 años'],[0,'Todo']].map(function(b){ return '<span data-nucotr="'+b[0]+'" style="cursor:pointer;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;margin-left:4px;'+(cotA===b[0]?'background:#1F4A9A;color:#fff':'background:#EEF2F7;color:#475569')+'">'+b[1]+'</span>'; }).join('');
+    var fe=function(d){ return d.slice(8,10)+'/'+d.slice(5,7)+'/'+d.slice(0,4); };
+    el.style.cssText='';
+    el.innerHTML='<div style="display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;margin-bottom:4px"><b style="font-size:18px">'+N(ult[1],2)+' €</b><span style="color:'+col+';font-weight:700">'+(var_>=0?'+':'')+P(var_)+'</span><span style="color:#94A3B8;font-size:11.5px">desde el '+fe(D[0][0])+' · último '+fe(ult[0])+(j.provisional?' (provisional)':'')+'</span><span style="margin-left:auto">'+bt+'</span></div>'+g+
+      '<div style="display:flex;gap:18px;flex-wrap:wrap;color:#64748B;font-size:11.5px;margin-top:2px"><span>Mínimo <b style="color:#0F172A">'+N(mn[1],2)+' €</b> ('+fe(mn[0])+')</span><span>Máximo <b style="color:#0F172A">'+N(mx[1],2)+' €</b> ('+fe(mx[0])+')</span><span>Del máximo: <b style="color:#0F172A">'+P(ult[1]/mx[1]-1)+'</b></span></div>'+
+      '<div style="color:#94A3B8;font-size:11px;margin-top:4px">Cierres diarios, ajustados a desdoblamientos (acciones de hoy). Sin dividendos.</div>'; }
+  function cotCarga(tk){ if(PC[tk]!==undefined){ cotPinta(tk); return; }
+    fetch('precios/'+encodeURIComponent(tk)+'.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(j){ PC[tk]=j; cotPinta(tk); }).catch(function(){ PC[tk]=null; cotPinta(tk); }); }
   function detalle(tk){
     var r=todas().filter(function(e){ return e.ticker===tk; })[0]; if(!r) return '<i>Sin datos del informe para '+esc(tk)+'.</i>';
     var Cr=I.criterios||{}, gen=r.modelo==='GEN', st=est(r,held());
@@ -138,9 +171,10 @@
     var why={Calidad:'ROE mediano 5 años '+P(r.roe_med5)+' · años con pérdidas '+(r.perdidas5!=null?r.perdidas5:'—')+' de '+(r.anios5!=null?r.anios5:5)+(gen?' · deuda/EBITDA '+(r.dn_ebitda==null?'—':(r.deuda_neta<0?'caja neta':X(r.dn_ebitda))):''),
       Barata:'PER '+(r.per==null?'—':N(r.per))+' · P/VC '+(r.pvc==null?'—':N(r.pvc,2)), Crecimiento:'ventas '+P(r.cagr_ing)+' al año'+(r.cagr_tramo?' ('+esc(r.cagr_tramo)+')':''),
       Riesgo:'beneficio '+Mi(r.beneficio)+' M · EBITDA '+Mi(r.ebitda)+' M'+(gen?' · deuda/EBITDA '+(r.dn_ebitda==null?'—':X(r.dn_ebitda)):(r.ltv!=null?' · deuda/activo '+P(r.ltv):''))};
+    h+=cotCard(tk);   /* 13-nov-2026: gráfico de cotización, 2 columnas, abajo a la izquierda */
     h+='<div class="dt-c"><h4>Etiquetas: cuáles tiene y por qué</h4>'+['Calidad','Barata','Crecimiento','Riesgo'].map(function(e){ return '<div class="et"><span class="mk" style="color:'+(has(e)?(e==='Riesgo'?'#B91C1C':'#15803D'):'#CBD5E1')+'">'+(has(e)?'✓':'·')+'</span><div><b style="color:'+(has(e)?'#0F172A':'#94A3B8')+'">'+e+'</b> — sus datos: '+why[e]+(Cr[e]?'<small>Regla: '+esc(Cr[e])+'</small>':'')+'</div></div>'; }).join('')+'</div>';
-    h+='<div class="dt-c"><h4>Cuentas '+esc(r.ultimo||'')+'</h4>'+kv(r.modelo==='BAN'?'Margen de intereses':'Ventas',Mi(r.ingresos)+' M')+(r.ebitda!=null?kv('EBITDA',Mi(r.ebitda)+' M'):'')+(r.mg_ebit!=null?kv('Margen EBIT',P(r.mg_ebit)):'')+kv('Beneficio',Mi(r.beneficio)+' M')+(r.deuda_neta!=null?kv('Deuda neta',r.deuda_neta<0?'caja neta '+Mi(-r.deuda_neta)+' M':Mi(r.deuda_neta)+' M'+(r.dn_ebitda!=null?' ('+X(r.dn_ebitda)+' EBITDA)':'')):'')+(r.ltv!=null?kv('Deuda / activo',P(r.ltv)):'')+(r.fcf!=null?kv('Caja libre (FCF)',Mi(r.fcf)+' M'):'')+kv('ROE · mediana 5 años',P(r.roe)+' · '+P(r.roe_med5))+(r.cagr_ing!=null?kv('Crecimiento ventas',P(r.cagr_ing)+' al año'):'')+(r.s1?kv(esc(r.s1)+' vs año antes','ventas '+(r.s1_ing==null?'—':(r.s1_ing>0?'+':'')+P(r.s1_ing))+' · benef. '+(r.s1_ben==null?'—':(r.s1_ben>0?'+':'')+P(r.s1_ben))):'')+'</div>';
-    h+='<div class="dt-c"><h4>En bolsa</h4>'+(r.precio!=null?kv('Precio',N(r.precio,2)+' € <small style="color:#94A3B8;font-weight:400">('+esc(r.fecha_precio||'')+')</small>'):'')+(r.var_1a!=null?kv('En un año',(r.var_1a>0?'+':'')+P(r.var_1a)):'')+(r.vs_max52!=null?kv('Desde su máximo de 52 sem.',P(r.vs_max52)):'')+kv('Capitalización',Mi(r.cap)+' M€')+kv('PER',(r.per==null?'—':N(r.per))+(r.per_grupo?' <small style="color:#94A3B8;font-weight:400">(su grupo '+N(r.per_grupo)+')</small>':''))+(r.pvc!=null?kv('Precio / valor contable',N(r.pvc,2)):'')+(r.ev_ebitda!=null?kv('EV / EBITDA',X(r.ev_ebitda)):'')+(r.fcf_yield!=null?kv('Rentab. caja libre',P(r.fcf_yield)):'')+kv('RPD 12 meses',P(r.rpd)+(r.dpa_12m?' ('+N(r.dpa_12m,2)+' €/acc.)':''))+(r.payout!=null?kv('Reparte del beneficio',P(r.payout)):'')+(r.paga_scrip?kv('Paga en acciones (scrip)','sí'+(r.dilucion?' · diluye '+P(r.dilucion)+'/año':'')):'')+(r.recompra?kv('Recompra',P(r.recompra)+' al año'):'')+'</div>';
+    h+='<div class="dt-c"><h4>Cuentas '+esc(r.ultimo||'')+'</h4>'+kv(r.modelo==='BAN'?'Margen de intereses':'Ventas',Mi(r.ingresos)+' M')+(r.ebitda!=null?kv('EBITDA',Mi(r.ebitda)+' M'):'')+(r.mg_ebit!=null?kv('Margen EBIT',P(r.mg_ebit)):'')+kv('Beneficio',Mi(r.beneficio)+' M')+(r.deuda_neta!=null?kv('Deuda neta',r.deuda_neta<0?'caja neta '+Mi(-r.deuda_neta)+' M':Mi(r.deuda_neta)+' M'+(r.dn_ebitda!=null?' ('+X(r.dn_ebitda)+' EBITDA)':'')):'')+(r.ltv!=null?kv('Deuda / activo',P(r.ltv)):'')+(r.fcf!=null?kv('Caja libre (FCF)',Mi(r.fcf)+' M'):'')+kv('ROE · mediana 5 años',P(r.roe)+' · '+P(r.roe_med5))+(r.cagr_ing!=null?kv('Crecimiento ventas',P(r.cagr_ing)+' al año'):'')+(r.s1?kv(esc(r.s1)+' vs año antes','ventas '+(r.s1_ing==null?'—':(r.s1_ing>0?'+':'')+P(r.s1_ing))+' · benef. '+(r.s1_ben==null?'—':(r.s1_ben>0?'+':'')+P(r.s1_ben))):'')+'<h4 style="margin-top:12px">En bolsa</h4>'+   /* 13-nov-2026: «En bolsa» va en la misma tarjeta que las cuentas */
+      (r.precio!=null?kv('Precio',N(r.precio,2)+' € <small style="color:#94A3B8;font-weight:400">('+esc(r.fecha_precio||'')+')</small>'):'')+(r.var_1a!=null?kv('En un año',(r.var_1a>0?'+':'')+P(r.var_1a)):'')+(r.vs_max52!=null?kv('Desde su máximo de 52 sem.',P(r.vs_max52)):'')+kv('Capitalización',Mi(r.cap)+' M€')+kv('PER',(r.per==null?'—':N(r.per))+(r.per_grupo?' <small style="color:#94A3B8;font-weight:400">(su grupo '+N(r.per_grupo)+')</small>':''))+(r.pvc!=null?kv('Precio / valor contable',N(r.pvc,2)):'')+(r.ev_ebitda!=null?kv('EV / EBITDA',X(r.ev_ebitda)):'')+(r.fcf_yield!=null?kv('Rentab. caja libre',P(r.fcf_yield)):'')+kv('RPD 12 meses',P(r.rpd)+(r.dpa_12m?' ('+N(r.dpa_12m,2)+' €/acc.)':''))+(r.payout!=null?kv('Reparte del beneficio',P(r.payout)):'')+(r.paga_scrip?kv('Paga en acciones (scrip)','sí'+(r.dilucion?' · diluye '+P(r.dilucion)+'/año':'')):'')+(r.recompra?kv('Recompra',P(r.recompra)+' al año'):'')+'</div>';
     if(r.salto){ h+='<div class="dt-c"><h4>Termómetro del salto: '+r.salto_n+' de 5</h4>'+(I.salto||[]).map(function(s){ return '<div class="et"><span class="mk" style="color:'+(r.salto[s[0]]?'#15803D':'#B91C1C')+'">'+(r.salto[s[0]]?'✓':'✗')+'</span><div><b>'+esc(s[0])+'</b><small>'+esc(s[1])+'</small></div></div>'; }).join('')+'<div style="color:#94A3B8;font-size:11.5px;margin-top:4px">Hipótesis: aún no se ha probado con casos pasados de empresas que dieron el salto.</div></div>'; }
     h+='</div>';
     var av=r.avisos||[];
@@ -158,6 +192,7 @@
       if(typeof scheduleSave==='function') scheduleSave(); filas(); if(typeof showToast==='function') showToast(enCola(tk)?(tk+' añadida a la cola de análisis'):(tk+' quitada de la cola')); return; }
     var g=e.target.closest('.gs'); if(g){ var k=g.getAttribute('data-nugrp'); F.grp=F.grp===k?'':k; var s=document.querySelector('#view-unin select[data-nuf="grp"]'); if(s) s.value=F.grp; abierto=null; filas(); if(F.grp){ var t=document.getElementById('nuT'); if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); } return; }
     var th=e.target.closest('#nuT th.so'); if(th){ var i=[].indexOf.call(th.parentNode.children,th); S.d=(S.c===i)?-S.d:-1; S.c=i; abierto=null; filas(); return; }
+    var cr=e.target.closest('[data-nucotr]'); if(cr){ cotA=+cr.getAttribute('data-nucotr'); if(abierto) cotPinta(abierto); return; }
     if(e.target.closest('[data-nuclose]')){ abierto=null; filas(); return; }
     if(e.target.closest('tr.det')||e.target.closest('[data-nfopen]')) return;
     var r=e.target.closest('[data-nuni]'); if(r){ var t2=r.getAttribute('data-nuni');
