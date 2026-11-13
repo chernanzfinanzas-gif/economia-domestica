@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-13T18:00",
+ "generado": "2026-11-13T20:45",
  "eur_usd": {
   "v": 1.1244,
   "f": "2026-10-16",
@@ -2046,7 +2046,7 @@
    "empresa": "Cevasa",
    "modelo": "INM",
    "modulos": [],
-   "grupo": "universo",
+   "grupo": "analizada",
    "descripcion": "SOCIMI Residencial",
    "n_anios": 11,
    "avisos": [],
@@ -2096,7 +2096,7 @@
     "Barata",
     "Crecimiento"
    ],
-   "estado": "universo",
+   "estado": "analizada",
    "puntos": {
     "total": 69.5,
     "dividendo": 46,
