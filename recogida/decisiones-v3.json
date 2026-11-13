@@ -527,7 +527,19 @@
     "revision": "NEA análisis inicial",
     "origen": "metodo-v3"
    }
+  ],
+  "COL": [
+   {
+    "fecha": "13-nov-2026",
+    "fechaIso": "2026-11-13",
+    "senal": "S1",
+    "cot": 5.215,
+    "decision": "REAFIRMAR",
+    "motivo": "Análisis inicial 13-nov-2026: la cotización (5,22 €) nace por debajo del stop de tesis (5,34 €). No hay posición que proteger y la decisión ya es MANTENER (no comprar). Pendiente de la revisión de las varas de la rama inmobiliaria con las dos SOCIMI.",
+    "revision": "COL análisis inicial",
+    "origen": "metodo-v3"
+   }
   ]
  },
- "actualizado": "2026-11-12"
+ "actualizado": "2026-11-13"
 }

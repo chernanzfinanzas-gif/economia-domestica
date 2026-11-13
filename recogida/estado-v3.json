@@ -1,18 +1,21 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-13T10:46",
+ "generado": "2026-11-13T16:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-13T10:46",
+  "cuando": "2026-11-13T16:45",
   "ficheros": [
-   "dossiers/MRL.html",
-   "dossiers/MRL.json",
-   "dossiers/trimestral/MRL-trim.json",
-   "dossiers/v3/MRL.html",
-   "fichas/MRL.json",
-   "fichas/_resumen.json"
+   "dossiers/COL.html",
+   "dossiers/COL.json",
+   "dossiers/trimestral/COL-trim.json",
+   "dossiers/v3/COL.html",
+   "fichas/COL.json",
+   "fichas/_resumen.json",
+   "recogida/publicaciones/COL.json",
+   "recogida/publicaciones/_indice.json",
+   "_indice.json"
   ]
  },
  "rechazos": [],

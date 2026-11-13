@@ -1,0 +1,679 @@
+{
+ "schemaVersion": 2,
+ "ticker": "COL",
+ "empresa": "Colonial SFL, SOCIMI, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-13",
+ "revisiones": [
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +9,8 %, EBITDA de rentas +13,2 %, resultado neto recurrente +5,6 %, margen 85,6 % (+2,63 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 36,8 %; ocupación EPRA del grupo: 97,0 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 90.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 77.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 85.6
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 65.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 38.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.1
+    },
+    {
+     "nombre": "Ocupación (%)",
+     "valor": 97.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 36.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +7,6 %, EBITDA de rentas +11,1 %, resultado neto recurrente +14,5 %, margen 92,9 % (+2,90 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 39,0 %; ocupación EPRA del grupo: 97,0 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 183.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 10.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 170.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 92.9
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 152.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 87.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.2
+    },
+    {
+     "nombre": "Ocupación (%)",
+     "valor": 97.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 39.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +6,5 %, EBITDA de rentas +10,1 %, resultado neto recurrente +8,4 %, margen 93,5 % (+3,09 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 39,0 %; ocupación EPRA del grupo: 97,0 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 279.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 261.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 93.5
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 232.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 129.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.2
+    },
+    {
+     "nombre": "Ocupación (%)",
+     "valor": 97.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 39.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +6,5 %, EBITDA de rentas +8,3 %, resultado neto recurrente +6,8 %, margen 93,6 % (+1,54 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 39,5 %; ocupación EPRA del grupo: 97,0 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 377.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 8.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 353.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 93.6
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 316.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 172.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.3
+    },
+    {
+     "nombre": "Ocupación (%)",
+     "valor": 97.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 39.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +6,7 %, EBITDA de rentas +11,7 %, resultado neto recurrente +23,9 %, margen 89,6 % (+4,03 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 39,1 %; ocupación EPRA del grupo: 97,0 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 96.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 86.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 89.6
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 72.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 47.1
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.1
+    },
+    {
+     "nombre": "Ocupación (%)",
+     "valor": 97.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 39.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +4,9 %, EBITDA de rentas +4,7 %, resultado neto recurrente +5,7 %, margen 92,7 % (-0,19 pp) frente al mismo periodo del año anterior. Ocupación EPRA del grupo: 97,0 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 192.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 6.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 178.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 92.7
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 154.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 92.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.2
+    },
+    {
+     "nombre": "Ocupación (%)",
+     "valor": 97.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +5,0 %, EBITDA de rentas +5,4 %, resultado neto recurrente +14,0 %, margen 93,9 % (+0,31 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 36,5 %; ocupación EPRA del grupo: 96,0 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 293.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 6.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 275.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 93.9
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 241.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 147.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.3
+    },
+    {
+     "nombre": "Ocupación (%)",
+     "valor": 96.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 36.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +3,7 %, EBITDA de rentas +4,2 %, resultado neto recurrente +12,2 %, margen 94,1 % (+0,48 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 36,0 %; ocupación EPRA del grupo: 95,0 %. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 391.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 6.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 368.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 94.1
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 322.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 193.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.3
+    },
+    {
+     "nombre": "Ocupación (%)",
+     "valor": 95.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 36.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +1,0 %, EBITDA de rentas -2,3 %, resultado neto recurrente +16,8 %, margen 86,6 % (-2,99 pp) frente al mismo periodo del año anterior. Ocupación EPRA del grupo: 95,0 %. Ámbar por: EBITDA de rentas a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 97.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 4.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 84.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 86.6
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 74.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 55.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.1
+    },
+    {
+     "nombre": "Ocupación (%)",
+     "valor": 95.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +2,6 %, EBITDA de rentas +1,7 %, resultado neto recurrente +16,3 %, margen 91,9 % (-0,83 pp) frente al mismo periodo del año anterior. Ocupación EPRA del grupo: 95,0 %. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 197.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 5.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 181.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 91.9
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 159.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 107.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.2
+    },
+    {
+     "nombre": "Ocupación (%)",
+     "valor": 95.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +1,0 %, EBITDA de rentas -0,4 %, resultado neto recurrente +6,1 %, margen 92,6 % (-1,29 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA de rentas a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 296.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 5.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 274.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 92.6
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 243.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 156.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +2,0 %, EBITDA de rentas +0,8 %, resultado neto recurrente +9,3 %, margen 93,0 % (-1,14 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 37,1 %. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 399.0
+    },
+    {
+     "nombre": "Rentas LfL (%)",
+     "valor": 6.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 371.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 93.0
+    },
+    {
+     "nombre": "EBITDA del grupo",
+     "valor": 333.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 211.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.3
+    },
+    {
+     "nombre": "LTV",
+     "valor": 37.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +7,2 %, EBITDA de rentas +4,8 %, resultado neto recurrente +0,0 %, margen 84,6 % (-1,98 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 36,7 %. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 104.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 88.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 84.6
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 55.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.1
+    },
+    {
+     "nombre": "LTV",
+     "valor": 36.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +5,1 %, EBITDA de rentas +3,9 %, resultado neto recurrente +3,7 %, margen 90,8 % (-1,06 pp) frente al mismo periodo del año anterior. LTV (deuda neta / valor de los activos): 36,7 %. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 207.0
+    },
+    {
+     "nombre": "EBITDA de rentas",
+     "valor": 188.0
+    },
+    {
+     "nombre": "Margen EBITDA de rentas",
+     "valor": 90.8
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 111.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.2
+    },
+    {
+     "nombre": "LTV",
+     "valor": 36.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos por rentas +5,1 %, resultado neto recurrente +3,8 % frente al mismo periodo del año anterior. Ocupación EPRA del grupo: 94,0 %. Verde: nada que señalar. **Qué ha pasado** — En los nueve meses de 2026 Colonial ingresa 311 M€ por rentas (+5,1 %) y gana 162 M€ de resultado neto recurrente (+3,8 %), 0,26 € por acción (+4,4 %). La ocupación es del 94 %.\n\n**Por qué** — Las rentas suben por encima de la inflación en las tres ciudades y entran en renta los proyectos rehabilitados; el resultado recurrente crece menos que las rentas porque sube el coste financiero.\n\n**Semáforo** — Verde bien puesto.\n\n**Qué vigilar** — El informe no da en el texto el EBITDA ni el LTV de septiembre (las tablas son imágenes): según la prensa, deuda neta de 4.907 M€ y LTV EPRA del 46,4 %. La empresa confirma su previsión de 0,34-0,35 € por acción para 2026.\n\n**Lectura** — No toca la tesis: MANTENER.",
+   "metricas": [
+    {
+     "nombre": "Ingresos por rentas",
+     "valor": 311.0
+    },
+    {
+     "nombre": "Resultado neto recurrente",
+     "valor": 162.0
+    },
+    {
+     "nombre": "Recurrente por acción",
+     "valor": 0.3
+    },
+    {
+     "nombre": "Ocupación (%)",
+     "valor": 94.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}
