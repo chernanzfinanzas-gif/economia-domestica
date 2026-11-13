@@ -56,7 +56,7 @@
   function lista(){
     var Hs=held(), q=F.q.toLowerCase();
     var L=todas().filter(function(e){ if(F.seg&&e._seg!==F.seg) return false; if(F.mod&&e.modelo!==F.mod) return false; if(F.grp&&e.grupo_comp!==F.grp) return false;
-      var s=est(e,Hs); if(F.est&&(F.est==='universo'?(s!=='universo'&&s!=='growth'):s!==F.est)) return false;
+      var s=est(e,Hs); if(F.est&&(F.est==='universo'?(s!=='universo'&&s!=='growth'):(F.est==='analizada'?e.estado!=='analizada':s!==F.est))) return false;   /* 13-nov-2026: «Analizadas» incluye las de cartera (Carlos) */
       if(q&&((e.ticker||'')+' '+(e.empresa||'')+' '+(e.descripcion||'')).toLowerCase().indexOf(q)<0) return false; return true; });
     if(S.c!=null){ L.sort(function(a,b){ var x=valor(a,S.c), y=valor(b,S.c); if(x===y) return 0; if(x==null) return 1; if(y==null) return -1; return (x>y?1:-1)*S.d; }); }
     else L.sort(function(a,b){ return (a.puesto||999)-(b.puesto||999)||String(a.empresa).localeCompare(String(b.empresa),'es'); });
