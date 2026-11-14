@@ -57,7 +57,7 @@
   "motivos": [
    "Frágil: cobertura OE 1.03x · payout 142 % · 4 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja"
   ],
-  "calculadoEl": "2026-11-09",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "shareholderYield": 8.15
  },
@@ -98,7 +98,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-09",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -107,7 +107,7 @@
   "gIntrinseco": 1.59,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-09",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 133.8328,
@@ -120,7 +120,7 @@
    "precioBase": 6.03,
    "gBase": -7.59,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-09",
+   "congeladoEl": "2026-11-14",
    "validado": true,
    "desviacion": -0.0
   }

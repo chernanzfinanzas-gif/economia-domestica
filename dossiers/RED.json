@@ -54,7 +54,7 @@
   "motivos": [
    "Vigilar: cobertura OE 1.25x · payout 91 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-09",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "shareholderYield": 5.27
  },
@@ -97,7 +97,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-09",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -106,7 +106,7 @@
   "gIntrinseco": 1.86,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-09",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 663.03,
@@ -119,7 +119,7 @@
    "precioBase": 15.61,
    "gBase": -1.15,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-09",
+   "congeladoEl": "2026-11-14",
    "validado": true,
    "desviacion": -0.0
   }

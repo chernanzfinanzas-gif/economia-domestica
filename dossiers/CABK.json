@@ -47,7 +47,7 @@
   "motivos": [
    "Seguro · payout del dividendo 63 % → 16/30 · CET1 12.6 % → 20/25 · RoTE 17.5 % → 20/20 · 2 recorte(s) en 10 años → 3/15 · predictores: ninguno → 10/10"
   ],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "shareholderYield": 5.98
  },
@@ -55,7 +55,7 @@
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -64,7 +64,7 @@
   "gIntrinseco": null,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (exige un RoTE de 22.1 %, más de 3 pp por encima del último, 17.5 %)",
-  "calculadoEl": "2026-11-05",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "roteImplicito": 22.12
  }

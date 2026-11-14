@@ -55,7 +55,7 @@
   "motivos": [
    "Vigilar: cobertura OE 2.53x · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja · sin C2 (renormalizado)"
   ],
-  "calculadoEl": "2026-11-12",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "shareholderYield": 8.59
  },
@@ -98,7 +98,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-12",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -107,7 +107,7 @@
   "gIntrinseco": -1.65,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-12",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 3547.6667,
@@ -120,7 +120,7 @@
    "precioBase": 3.51,
    "gBase": -5.44,
    "fechaBase": "2026-11-11",
-   "congeladoEl": "2026-11-12",
+   "congeladoEl": "2026-11-14",
    "validado": true,
    "desviacion": -0.0
   }

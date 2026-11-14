@@ -54,7 +54,7 @@
   "motivos": [
    "Seguro: cobertura OE 3.08x · payout 78 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja"
   ],
-  "calculadoEl": "2026-11-13",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "shareholderYield": 6.69
  },
@@ -97,7 +97,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-13",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -106,7 +106,7 @@
   "gIntrinseco": 4.25,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 4.2 %)",
-  "calculadoEl": "2026-11-13",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 174.6751,
@@ -119,7 +119,7 @@
    "precioBase": 3.095,
    "gBase": 2.35,
    "fechaBase": "2026-11-12",
-   "congeladoEl": "2026-11-13",
+   "congeladoEl": "2026-11-14",
    "validado": true,
    "desviacion": -0.0
   }
