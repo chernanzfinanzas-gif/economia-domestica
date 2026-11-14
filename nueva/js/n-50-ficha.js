@@ -368,7 +368,7 @@
   function evHost(F){
     var V=F.valoracion||{}, SM=V.serie_multiplos, M=(V.multiplos||{}).ev_ebitda;
     if(!SM||!M||!M.media) return /BAN|SEG/.test(String(F.modelo||''))?card('¿Está cara o barata frente a lo que gana su negocio?','',vd('n','En bancos y aseguradoras el EV/EBITDA no tiene sentido: la deuda es su materia prima. Para ellos se miran el PER y el precio / valor contable (pestaña Resumen).')):'';
-    return '<div class="nf-card" id="nfEvHost"><h2>¿Sube la cotización porque gana más o porque se paga más cara?</h2><div class="nf-mu" style="padding:16px">Cargando la cotización…</div></div>'; }
+    return '<div class="nf-card" id="nfEvHost"><h2>¿Sube la cotización porque gana más o porque se paga más cara?</h2><div class="nf-mu" style="padding:16px">Cargando la cotización…</div></div><div class="nf-card" id="nfCmpHost" style="display:none"></div>'; }
   function montarEv(F,t){
     var host=document.getElementById('nfEvHost'); if(!host) return;
     var V=F.valoracion||{}, SM=V.serie_multiplos||{}, M=V.multiplos.ev_ebitda, acc=((F.series||{}).flujos||{}).acciones||{}, cf=String(F.cierre_fiscal||'12-31');
@@ -437,8 +437,59 @@
         '<p><b>La banda</b> es lo caro o barato que ha estado en estos años. Fuera de ella, algo ha cambiado (en la empresa o en el mercado) y conviene saber qué.</p>'+
         '<p style="color:#64748B">EBITDA después de alquileres, el mismo del método. Cada mes usa las cuentas del último ejercicio cerrado, así que el salto de cada cierre es el negocio nuevo, no la bolsa.'+(t==='LOG'?' En Logista deja fuera el ingreso por la caja que presta a Imperial, que es una parte importante de su beneficio.':'')+'</p></div></details>';
       host.innerHTML='<h2>¿Sube la cotización porque gana más o porque se paga más cara?</h2>'+vd(col,t1)+(t2?vd('n',t2):'')+avisos+h+lg+que+GUIA('ev');
+      try{ montarCmp(F,t,L); }catch(e){ console.error('n-ficha cmp',e); }
     });
   }
+  /* ---------------- 14-nov-2026 (Carlos): COMPARADOR de EV/EBITDA ----------------
+     «cuando veo el gráfico de ev/ebitda, puedo compararlo con otras empresas.. naturgy con endesa, con iberdrola».
+     Tarjeta bajo la de EV/EBITDA: hasta dos empresas analizadas más, cada una con sus cuentas y su cotización (misma cuenta
+     que montarEv). La elección se recuerda por empresa en este navegador (localStorage 'nfCmp'); si falla, en memoria. */
+  var _PX={}, _cmpMem={}, CMPC=['#7C3AED','#0F766E','#D97706'];
+  function preciosDe(t){ if(_PX[t]) return Promise.resolve(_PX[t]); return fetch('precios/'+encodeURIComponent(t)+'.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }).then(function(P){ if(P) _PX[t]=P; return P; }); }
+  function evSerie(F,P){
+    if(!F) return null; var V=F.valoracion||{}, SM=V.serie_multiplos||{}, M=(V.multiplos||{}).ev_ebitda, acc=((F.series||{}).flujos||{}).acciones||{}, cf=String(F.cierre_fiscal||'12-31'), D=(P&&P.data)||[];
+    var Ys=Object.keys(SM).filter(function(y){ var s=SM[y]; return s&&s.ev!=null&&s.ebitda>0&&s.cap>0&&+acc[y]>0; }).sort();
+    if(!M||!M.media||!D.length||Ys.length<2) return null;
+    var mult=function(f,px){ var y=null; Ys.forEach(function(z){ if(z+'-'+cf<=f) y=z; }); if(!y) return null; var s=SM[y]; return (px*(+acc[y])+(s.ev-s.cap))/s.ebitda; };
+    var ult={}, m={}; D.forEach(function(d){ ult[d[0].slice(0,7)]=d; }); Object.keys(ult).forEach(function(k){ var x=mult(ult[k][0],+ult[k][1]); if(x!=null&&isFinite(x)) m[k]=x; });
+    var u=D[D.length-1]; return {m:m, hoy:mult(u[0],+u[1]), M:M};
+  }
+  function cmpSel(t){ if(_cmpMem[t]) return _cmpMem[t]; try{ var o=JSON.parse(localStorage.getItem('nfCmp')||'{}'); return (o[t]||[]).slice(0,2); }catch(e){ return []; } }
+  function cmpGuarda(t,a){ _cmpMem[t]=a; try{ var o=JSON.parse(localStorage.getItem('nfCmp')||'{}'); o[t]=a; localStorage.setItem('nfCmp',JSON.stringify(o)); }catch(e){} }
+  function montarCmp(F,t,L){
+    var host=document.getElementById('nfCmpHost'); if(!host||!L||L.length<2) return; host.style.display='';
+    var LS=lista().filter(function(a){ return a[0]!==t; }), nom={}; lista().forEach(function(a){ nom[a[0]]=a[1]; }); if(!nom[t]) nom[t]=F.empresa||t;
+    var sel=cmpSel(t).filter(function(x){ return x&&x!==t; });
+    var sl=function(i){ return '<select class="nf-cmps" data-i="'+i+'" style="padding:6px 8px;border:1px solid #CBD5E1;border-radius:8px;font-size:13px;max-width:240px;background:#fff"><option value="">— ninguna —</option>'+LS.map(function(a){ return '<option value="'+esc(a[0])+'"'+(sel[i]===a[0]?' selected':'')+'>'+esc(a[1])+'</option>'; }).join('')+'</select>'; };
+    var cab='<h2>¿Y frente a otras empresas?</h2><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0 10px;font-size:13px;color:#334155"><span>Comparar el EV/EBITDA de <b>'+esc(nom[t])+'</b> con</span>'+sl(0)+'<span>y</span>'+sl(1)+'</div>';
+    var engancha=function(){ Array.prototype.forEach.call(host.querySelectorAll('.nf-cmps'),function(s){ s.onchange=function(){ var a=[0,1].map(function(i){ var e=host.querySelector('.nf-cmps[data-i="'+i+'"]'); return e?e.value:''; }).filter(function(x,i,arr){ return x&&arr.indexOf(x)===i; }); cmpGuarda(t,a); montarCmp(F,t,L); }; }); };
+    if(!sel.length){ host.innerHTML=cab+'<div class="nf-mu" style="padding:4px 0 2px">Elige una o dos empresas analizadas para ver sus líneas junto a la de '+esc(nom[t])+'.</div>'; engancha(); return; }
+    Promise.all(sel.map(function(s){ return Promise.all([cargar(s),preciosDe(s)]).then(function(a){ return evSerie(a[0],a[1]); }).catch(function(){ return null; }); })).then(function(R){
+      if(!document.getElementById('nfCmpHost')||cur!==t) return;
+      var N=L.length, S=[{t:t,M:((F.valoracion||{}).multiplos||{}).ev_ebitda,hoy:L[N-1].x,v:L.map(function(o){ return o.x; })}], sin=[];
+      sel.forEach(function(s,i){ var r=R[i]; if(!r){ sin.push(nom[s]||s); return; } S.push({t:s,M:r.M,hoy:r.hoy,v:L.map(function(o,k){ var x=k===N-1?r.hoy:r.m[o.f.slice(0,7)]; return x==null?null:x; })}); });
+      var aviso=sin.length?vd('a','Sin EV/EBITDA para comparar: <b>'+sin.map(esc).join(', ')+'</b>. En bancos y aseguradoras no tiene sentido; en otras pueden faltar datos.'):'';
+      if(S.length<2){ host.innerHTML=cab+aviso; engancha(); return; }
+      var all=[]; S.forEach(function(s){ s.v.forEach(function(x){ if(x!=null&&isFinite(x)) all.push(x); }); });
+      var tope=Math.max.apply(null,S.map(function(s){ return Math.max(s.M.max||s.M.media,s.hoy||0); }))*1.5, vmx=Math.min(Math.max.apply(null,all),tope)*1.06, vmn=Math.max(0,Math.min.apply(null,all)*0.9);
+      var nar=(host.clientWidth||1000)<640, W=nar?520:1000,H=nar?320:300,x0=nar?40:54,x1=nar?500:980,yt=14,yb=H-30, X=function(i){ return x0+(N>1?i/(N-1):0)*(x1-x0); }, Y=function(v){ return yt+(vmx-Math.min(Math.max(v,vmn),vmx))/(vmx-vmn)*(yb-yt); };
+      var h='<svg viewBox="0 0 '+W+' '+H+'" class="nf-chs" style="width:100%">', sp=niceStep((vmx-vmn)/5);
+      for(var v=Math.ceil(vmn/sp)*sp; v<=vmx; v+=sp) h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'" stroke="#EEF1F5"/><text x="'+(x0-6)+'" y="'+(Y(v)+4).toFixed(1)+'" font-size="11" text-anchor="end" fill="#5B6B7C">'+n(v,v%1?1:0)+'x</text>';
+      var ya=''; L.forEach(function(o,i){ var y=o.f.slice(0,4); if(y!==ya&&o.f.slice(5,7)==='01'){ ya=y; h+='<line x1="'+X(i).toFixed(1)+'" x2="'+X(i).toFixed(1)+'" y1="'+yb+'" y2="'+(yb+4)+'" stroke="#94A3B8"/><text x="'+X(i).toFixed(1)+'" y="'+(H-10)+'" font-size="11" text-anchor="middle" fill="#5B6B7C">'+y+'</text>'; } });
+      S.forEach(function(s,j){ var c=CMPC[j], seg=[]; var suelta=function(){ if(seg.length>1) h+='<polyline fill="none" stroke="'+c+'" stroke-width="'+(j?2:2.6)+'" points="'+seg.join(' ')+'"/>'; seg=[]; };
+        s.v.forEach(function(x,i){ if(x==null||!isFinite(x)){ suelta(); return; } seg.push(X(i).toFixed(1)+','+Y(x).toFixed(1)); }); suelta();
+        if(s.M&&s.M.media) h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(s.M.media).toFixed(1)+'" y2="'+Y(s.M.media).toFixed(1)+'" stroke="'+c+'" stroke-dasharray="5 6" stroke-opacity=".45"/>';
+        if(s.hoy!=null&&isFinite(s.hoy)) h+='<circle cx="'+X(N-1).toFixed(1)+'" cy="'+Y(s.hoy).toFixed(1)+'" r="4.5" fill="'+c+'"/>'; });
+      var bw=(x1-x0)/Math.max(1,N); L.forEach(function(o,i){ h+='<rect class="nf-hv" x="'+(X(i)-bw/2).toFixed(1)+'" y="'+yt+'" width="'+bw.toFixed(1)+'" height="'+(yb-yt)+'" fill="transparent" data-tip="'+esc(fe(o.f)+S.map(function(s){ return '|'+(nom[s.t]||s.t)+': '+(s.v[i]!=null&&isFinite(s.v[i])?n(s.v[i],1)+'x':'—'); }).join(''))+'"/>'; });
+      h+='</svg>';
+      var lg='<div class="nf-lg">'+S.map(function(s,j){ return '<span><i style="background:'+CMPC[j]+'"></i>'+esc(nom[s.t]||s.t)+'</span>'; }).join('')+'<span style="color:#64748B">Línea de puntos: la media de cada una</span></div>';
+      var tb='<div style="overflow-x:auto;margin-top:10px"><table class="nf-tb" style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="text-align:right;color:#5B6B7C;border-bottom:1px solid #E2E8F0"><th style="text-align:left;padding:5px 6px">Empresa</th><th style="padding:5px 6px">Hoy</th><th style="padding:5px 6px">Su media</th><th style="padding:5px 6px">Mín – máx</th><th style="padding:5px 6px">Hoy frente a su media</th></tr></thead><tbody>'+
+        S.map(function(s,j){ var d=(s.hoy!=null&&s.M.media)?(s.hoy/s.M.media-1)*100:null; return '<tr style="text-align:right;border-bottom:1px solid #F1F5F9"><td style="text-align:left;padding:5px 6px"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;background:'+CMPC[j]+'"></i>'+esc(nom[s.t]||s.t)+'</td><td style="padding:5px 6px"><b>'+(s.hoy!=null?n(s.hoy,1)+'x':'—')+'</b></td><td style="padding:5px 6px">'+n(s.M.media,1)+'x <span style="color:#94A3B8">('+s.M.n+' años)</span></td><td style="padding:5px 6px">'+n(s.M.min,1)+' – '+n(s.M.max,1)+'x</td><td style="padding:5px 6px;color:'+(d==null?'#334155':(d>15?'#B91C1C':(d<0?'#15803D':'#B45309')))+'">'+(d==null?'—':pc(d,0))+'</td></tr>'; }).join('')+'</tbody></table></div>';
+      var nt='<span class="nf-ws">Cada línea usa las cuentas de su último ejercicio cerrado y su propia cotización. El nivel entre empresas solo se compara bien si los negocios se parecen; lo más fiable es mirar cada una contra su propia media.</span>';
+      host.innerHTML=cab+aviso+h+lg+tb+nt; engancha();
+    });
+  }
+
   /* ---------------- RATIOS (4-nov-2026) ----------------
      Carlos: «una hoja de ratios (liquidez, endeudamiento y solvencia, gestión o actividad, rentabilidad)… comparativas
      sectoriales o algo que ayude a vigilar»; aprobado: cada ratio frente a sus diez años y frente a la mediana de las de su
