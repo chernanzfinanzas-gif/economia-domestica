@@ -210,6 +210,29 @@ function _coyDivData(){
   return {coste:coste,valor:valor,div:div,filas:filas,
           rpdCoste:coste>0?div/coste*100:null, rpdValor:valor>0?div/valor*100:null};
 }
+/* ===== Bloque «Tipos reales» (14-nov-2026, Carlos: «lo demás me parece bien») =====
+   Tipo real = tipo nominal − inflación del último año (IPC interanual del puente). Tres tipos que ya están en el
+   puente: bono español a 10 años, Euríbor a 12 meses y depósito del BCE. No se busca ningún dato nuevo y, si falta
+   el IPC o los tres tipos, el bloque no se pinta. Es una foto aproximada (tipo a futuro contra inflación pasada) y
+   así se dice. Sin color de juicio en el texto: explica a quién afecta, no qué hacer. */
+function _coyRealHTML(I){
+  const ipc=I['ipc']; if(!ipc||ipc.v==null) return '';
+  const p=num(ipc.v), f1=x=>x.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const L=[['bono_10a_es','Bono español a 10 años'],['euribor_12m','Euríbor a 12 meses'],['bce_deposito','Depósito del BCE']]
+    .filter(a=>I[a[0]]&&I[a[0]].v!=null);
+  if(!L.length) return '';
+  const mes=ipc.f?(['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'][+String(ipc.f).slice(5,7)-1]+' de '+String(ipc.f).slice(0,4)):'';
+  const neg=L.filter(a=>num(I[a[0]].v)-p<0).length;
+  return '<div class="coy-ind">'+L.map(a=>{ const o=I[a[0]], t=num(o.v), r=t-p;
+      return '<div class="coy-i"><div class="n">'+a[1]+' · real</div>'
+        +'<div class="v" style="color:'+(r<0?'#B91C1C':'#15803D')+'">'+(r>0?'+':'')+f1(r).replace('-','−')+' pp</div>'
+        +'<div class="d">'+f1(t)+' % − '+f1(p)+' % de inflación</div>'
+        +'<div class="f">'+(o.f?('tipo del '+ddmmyyyy(o.f)):'')+'</div></div>'; }).join('')+'</div>'
+    +'<div class="coy-note">'+(neg===L.length?'Los tres están por debajo de la inflación: el dinero en renta fija o en depósito pierde poder de compra. '
+        :(neg?'Parte de los tipos está por debajo de la inflación. ':'Los tipos están por encima de la inflación: la renta fija conserva el poder de compra. '))
+      +'Con tipos reales negativos sale beneficiado quien debe a tipo fijo (empresas endeudadas a largo plazo, el Estado) y los negocios que suben precios con el IPC; sale perjudicado el ahorro en depósitos y bonos, y el dividendo que crece menos que los precios. '
+      +'Es una foto aproximada: compara un tipo que mira al futuro con la inflación del último año'+(mes?' (IPC de '+mes+')':'')+'.</div>';
+}
 function _coyDivHTML(bono){
   /* «Sin posiciones» y «todavía no han cargado» no son lo mismo: con DB aún vacía decir
      «no tienes posiciones» es mentir durante medio segundo, justo al abrir la app. */
@@ -434,7 +457,8 @@ function renderCoyuntura(){
       +'<span class="t">'+t+'</span><span class="cnt">'+cnt+'</span><span class="arw">▶</span></div>'
       +'<div class="coy-blk-b">'+(sub?'<div class="coy-note">'+sub+'</div>':'')+inner+'</div></div>';
   };
-  window._coyOpen=window._coyOpen||{div:true,tipos:true,energia:true,bolsa:true,inflacion:false,divisas:false,otros:false};
+  window._coyOpen=window._coyOpen||{div:true,real:true,tipos:true,energia:true,bolsa:true,inflacion:false,divisas:false,otros:false};
+  if(window._coyOpen.real===undefined) window._coyOpen.real=true;
 
   const tarjetas=g=>{
     const lista=ks.filter(k=>I[k].grupo===g);
@@ -453,6 +477,9 @@ function renderCoyuntura(){
 
   let html=cab+_coyLectura()
     +blk('div','💶','Tu dividendo contra el bono',(bono!=null?('bono 10A '+bono.toLocaleString('es-ES',{minimumFractionDigits:2})+' %'):'sin bono en el puente'),'',_coyDivHTML(bono));
+  const real=_coyRealHTML(I);
+  if(real){ const rb=(bono!=null&&I['ipc']&&I['ipc'].v!=null)?(bono-num(I['ipc'].v)):null;
+    html+=blk('real','⚖️','Tipos reales',(rb!=null?('bono menos inflación: '+(rb>0?'+':'')+rb.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2}).replace('-','−')+' pp'):''),'',real); }
   COY_GRUPOS.forEach(g=>{ const inner=tarjetas(g.id); if(inner) html+=blk(g.id,g.ic,g.t,cnt(g.id),g.sub,inner); });
   const otros=tarjetas('otros');
   if(otros) html+=blk('otros','🔭','Otros · contexto',cnt('otros'),
