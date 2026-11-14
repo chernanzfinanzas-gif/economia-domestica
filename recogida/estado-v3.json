@@ -1,14 +1,29 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-13T22:45",
+ "generado": "2026-11-14T03:14",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-13T20:45",
+  "cuando": "2026-11-14T03:14",
   "ficheros": [
-   "recogida/publicaciones/CEV.json",
-   "recogida/publicaciones/_indice.json"
+   "dossiers/CEV.html",
+   "dossiers/CEV.json",
+   "dossiers/COL.html",
+   "dossiers/COL.json",
+   "dossiers/MRL.html",
+   "dossiers/MRL.json",
+   "dossiers/anteriores/MRL-FY2025.html",
+   "dossiers/trimestral/CEV-trim.json",
+   "dossiers/trimestral/COL-trim.json",
+   "dossiers/trimestral/MRL-trim.json",
+   "dossiers/v3/CEV.html",
+   "dossiers/v3/COL.html",
+   "dossiers/v3/MRL.html",
+   "fichas/CEV.json",
+   "fichas/COL.json",
+   "fichas/MRL.json",
+   "fichas/_resumen.json"
   ]
  },
  "rechazos": [],

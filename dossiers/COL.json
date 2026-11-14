@@ -7,15 +7,15 @@
  "fecha": "2026-11-13",
  "revisadoEl": "2026-11-13",
  "rating": "BBB",
- "score": 54.4,
+ "score": 55.6,
  "decision": "MANTENER",
- "metodoValoracion": "Síntesis ponderada (método v3): nav 40 % · p_ffo 25 % · rentabilidad por dividendo 15 % · DCF base 20 % · flujo base del DCF: flujo de las rentas (EBITDA oficial − CAPEX de mantenimiento, media de 5 años)",
- "poBear": 7.42,
- "poBase": 8.43,
- "poBull": 8.83,
- "entMin": 6.45,
- "entMax": 7.33,
- "stop": 5.34,
+ "metodoValoracion": "Síntesis ponderada (método v3): nav 50 % · p_ffo 31 % · rentabilidad por dividendo 19 % · flujo base del DCF: flujo de las rentas (EBITDA oficial − CAPEX de mantenimiento, media de 5 años)",
+ "poBear": 7.05,
+ "poBase": 8.31,
+ "poBull": 8.81,
+ "entMin": 7.05,
+ "entMax": 7.23,
+ "stop": 5.94,
  "dpaPrevisto": 0.32,
  "moat": "50,1 sobre 100 · MOAT ESTRECHO. Edificios irrepetibles en el centro de París, Madrid y Barcelona, con poder de precio medido",
  "catalizadores": [
@@ -32,9 +32,9 @@
   "Ciberataque en los edificios o los sistemas (Baja): Parada de sistemas de gestión de edificios o de facturación. Sin precedente publicado: se mide como el 1 % y el 3 % del EBITDA de 2025 (333,1 M€).",
   "Pérdida o cambio del régimen SOCIMI (Baja): Hoy casi no paga impuesto de sociedades. Suave: un 10 % sobre el resultado recurrente. Duro: el tipo general del 25 %. Desde 2025, con SFL integrada, toda la cartera está bajo una sola sociedad española."
  ],
- "bull": "8,83 € — escenario optimista: las rentas comparables repiten el +4 % de 2026 y entran en renta Madnum y Haussmann (objetivo de la empresa: BPA recurrente de 0,39-0,41 € en 2028)",
- "bear": "7,42 € — escenario pesimista: París (60 % de las rentas) se estanca y la indexación se frena: algo por encima del peor tramo de la ventana (2020-2021, rentas −3,4 % y −7,7 % con ventas de activos)",
- "resumen": "MANTENER. Cumple tres de las cuatro condiciones: margen del +61,7 %, pérdida al bear acotada (1,3 %) y moat presente (50,1). Falla el rating: BBB, y la regla pide A. El escalón BBB (media posición) no aplica: el margen sobre el precio objetivo más bajo del rango es del 39,5 % (pide 40 %) y la solvencia es VIGILAR, no sólida (Carlos, 13-nov-2026: «ok a lo de mantener por la solvencia»). La cotización (5,22 €) está por debajo de la banda de entrada (6,45-7,33 €) y del stop de tesis (5,34 €): nace con la señal S1 abierta.",
+ "bull": "8,81 € — escenario optimista: las rentas comparables repiten el +4 % de 2026 y entran en renta Madnum y Haussmann (objetivo de la empresa: BPA recurrente de 0,39-0,41 € en 2028)",
+ "bear": "7,05 € — escenario pesimista: París (60 % de las rentas) se estanca y la indexación se frena: algo por encima del peor tramo de la ventana (2020-2021, rentas −3,4 % y −7,7 % con ventas de activos)",
+ "resumen": "MANTENER. Tiene margen (+62,9 %) y moat (50,1), pero falla el rating: BBB (55,6), y la regla pide A. El escalón BBB (media posición) no aplica porque la solvencia es VIGILAR, no sólida (Carlos, 13-nov-2026). La cotización (5,10 €) está por debajo de la banda de entrada (7,05-7,23 €) y del stop de tesis (5,94 €): sigue con la señal S1.",
  "dividendSafety": {
   "score": 74,
   "banda": "Seguro",
@@ -54,7 +54,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.17x · payout 95 % · 0 recorte(s) del DPA · señales: DN/EBITDA al alza · vara de SOCIMI (con la general: 55)"
   ],
-  "calculadoEl": "2026-11-13",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "shareholderYield": null
  },
@@ -96,16 +96,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-13",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -0.33,
+  "gImplicito": -0.45,
   "gIntrinseco": null,
   "veredicto": "PLAUSIBLE",
-  "motivo": "PLAUSIBLE (exige -0.3 % al año, no más que el 3 % del caso base)",
-  "calculadoEl": "2026-11-13",
+  "motivo": "PLAUSIBLE (exige -0.4 % al año, no más que el 3 % del caso base)",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3"
  }
 }

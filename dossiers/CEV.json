@@ -7,15 +7,15 @@
  "fecha": "2026-11-13",
  "revisadoEl": "2026-11-13",
  "rating": "A",
- "score": 63.8,
- "decision": "COMPRAR",
- "metodoValoracion": "Síntesis ponderada (método v3): nav 40 % · p_ffo 25 % · rentabilidad por dividendo 15 % · DCF base 20 % · flujo base del DCF: flujo de las rentas (EBITDA oficial − CAPEX de mantenimiento, media de 5 años)",
- "poBear": 10.24,
- "poBase": 12.05,
- "poBull": 12.29,
- "entMin": 10.24,
- "entMax": 10.48,
- "stop": 9.13,
+ "score": 64.7,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): nav 50 % · p_ffo 31 % · rentabilidad por dividendo 19 % · flujo base del DCF: flujo de las rentas (EBITDA oficial − CAPEX de mantenimiento, media de 5 años)",
+ "poBear": 6.79,
+ "poBase": 9.05,
+ "poBull": 9.34,
+ "entMin": 6.79,
+ "entMax": 7.87,
+ "stop": 6.49,
  "dpaPrevisto": 0.23,
  "moat": "49,2 sobre 100 · MOAT ESTRECHO. Sin ajuste",
  "catalizadores": [
@@ -31,9 +31,9 @@
   "El dividendo es pequeño y ya bajó una vez (Media): Paga un dividendo al año, con cargo a reservas, de alrededor de la mitad del resultado corriente: 0,23 € en 2025. En 2024 lo bajó de 0,25 a 0,22 € (−12 %) el mismo año en que compró un edificio por 35,3 M€. Prefiere retener e invertir. Suave: otro −12 %. Duro: −25 %.",
   "Fallo informático o de gestión de cobros (Baja): Gestiona 2.378 contratos de alquiler con plantilla pequeña. Se mide como el 1 % y el 3 % del EBITDA de 2025 (18,0 M€)."
  ],
- "bull": "12,29 € — escenario optimista: ",
- "bear": "10,24 € — escenario pesimista: ",
- "resumen": "El cálculo da COMPRAR: cumple las cuatro condiciones (margen del 32,4 %, rating A con 63,8, moat de 49,2 y dividendo muy seguro). Mi lectura es que no hay que tomarlo como una compra clara, por tres motivos medidos. Uno: todo el margen viene del descuento de flujos (24,06 € con un coste del capital del 4,8 %); por sus propios múltiplos vale 9,05 €, lo que cotiza. En las empresas generales el método ya exige que los dos caminos den un 15 % para comprar; en las inmobiliarias esa regla no se aplica. Dos: la cotización (9,10 €) nace por debajo del stop (9,13 €) y de la banda de entrada, igual que Colonial. Tres: casi no se negocia; entrar y salir puede llevar semanas. Lo bueno es real —poca deuda, rentas que suben todos los años, pisos en Barcelona al 45 % de su tasación—, pero el descuento lleva diez años ahí.",
+ "bull": "9,34 € — escenario optimista: ",
+ "bear": "6,79 € — escenario pesimista: ",
+ "resumen": "ESPERAR. Con el precio objetivo solo por múltiplos no hay margen (−0,6 %; la regla pide 15 %). Hasta el 13-nov-2026 el cálculo daba COMPRAR porque el descuento de flujos, con un coste del capital del 4,8 %, subía el precio objetivo a 12,05 €; Carlos lo sacó ese día del precio objetivo de la rama. La calidad sigue ahí —rating A (64,7), moat de 49,2, dividendo muy seguro, poca deuda—, pero cotiza donde lleva diez años cotizando. La banda de entrada queda en 6,79-7,87 € y el stop en 6,49 €, ya por debajo de la cotización (9,10 €). Casi no se negocia: entrar y salir puede llevar semanas.",
  "dividendSafety": {
   "score": 85,
   "banda": "Muy seguro",
@@ -53,7 +53,7 @@
   "motivos": [
    "Muy seguro: cobertura OE 1.34x · payout 52 % · 1 recorte(s) del DPA · vara de SOCIMI (con la general: 64)"
   ],
-  "calculadoEl": "2026-11-13",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "shareholderYield": null
  },
@@ -94,7 +94,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-13",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -103,7 +103,7 @@
   "gIntrinseco": null,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (exige -7.4 % al año, no más que el 3 % del caso base)",
-  "calculadoEl": "2026-11-13",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3"
  }
 }
