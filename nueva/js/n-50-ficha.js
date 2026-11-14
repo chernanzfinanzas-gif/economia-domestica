@@ -409,8 +409,9 @@
       /* 14-nov (Carlos: «100 euros son 3200… exagerada»): la serie de Bankinter salta +45 % el 4-abr-2013 sin que la acción lo
          hiciera (histórico mal ajustado), y la de Miquel y Costas −42 % el 1-nov-2016. Un salto de un día de más del 40 % que no
          explica un dividendo de ese día es un fallo de la serie: se avisa y no se da el dato por bueno. */
+      /* saltos de un día de más del 40 % COMPROBADOS como reales con una segunda fuente (Colonial, 26-jul-2012: Investing da +49,48 %; Carlos, 14-nov-2026) */ window.nfSaltoReal=window.nfSaltoReal||{COL:{'2012-07-26':1}};
       var roto=null; (function(){ var k0=0; while(k0<P.length&&P[k0][0]<ini) k0++; for(var k=Math.max(1,k0); k<P.length&&P[k][0]<=fin; k++){ var a_=+P[k-1][1], b_=+P[k][1]; if(!(a_>0)) continue; var r_=b_/a_-1;
-          if(Math.abs(r_)>=0.40){ var dv=0; DV.forEach(function(d){ if(d[0]===P[k][0]) dv+=d[1]; }); if(!(r_<0&&dv>=0.5*(a_-b_))){ roto=[P[k][0],r_*100]; break; } } } })();
+          if(Math.abs(r_)>=0.40&&!((window.nfSaltoReal||{})[t]||{})[P[k][0]]){ var dv=0; DV.forEach(function(d){ if(d[0]===P[k][0]) dv+=d[1]; }); if(!(r_<0&&dv>=0.5*(a_-b_))){ roto=[P[k][0],r_*100]; break; } } } })();
       var N=L.length, z=L[N-1], an=(Date.parse(fin)-Date.parse(ini))/31557600000, ra=function(v){ return (Math.pow(v/100,1/an)-1)*100; }, re=ra(z.e), ri=ra(z.i), dif=re-ri;
       var col=roto?'a':(dif>0.5?'v':(dif>=-0.5?'a':'r')), nm=F.empresa||t;
       var ver='Desde '+fe(ini)+', 100 € en <b>'+esc(nm)+'</b> son hoy <b>'+n(z.e,0)+' €</b> reinvirtiendo los dividendos ('+pc(re,1)+' al año); en el IBEX con dividendos, <b>'+n(z.i,0)+' €</b> ('+pc(ri,1)+' al año). '+

@@ -133,7 +133,9 @@
   var TR={per:'10',est:'',hecho:0,lista:[],P:{},B:null,DV:null};
   function trAntes(D,f){ var lo=0,hi=D.length; while(lo<hi){ var m=(lo+hi)>>1; if(D[m][0]<f) lo=m+1; else hi=m; } return lo?+D[lo-1][1]:null; }
   function trAt(D,f){ var lo=0,hi=D.length; while(lo<hi){ var m=(lo+hi)>>1; if(D[m][0]<=f) lo=m+1; else hi=m; } return lo?+D[lo-1][1]:null; }
-  function trUno(P,B,DV,per){ if(!P||P.length<260||!B||B.length<260) return null;
+  /* saltos de un día de más del 40 % COMPROBADOS como reales con una segunda fuente (Colonial, 26-jul-2012: Investing da +49,48 %; Carlos, 14-nov-2026) */
+  window.nfSaltoReal=window.nfSaltoReal||{COL:{'2012-07-26':1}};
+  function trUno(P,B,DV,per,tk){ if(!P||P.length<260||!B||B.length<260) return null;
     var fin=P[P.length-1][0]<B[B.length-1][0]?P[P.length-1][0]:B[B.length-1][0], ini0=P[0][0]>B[0][0]?P[0][0]:B[0][0], aa={'3':3,'5':5,'10':10}[per], ini=ini0, obj=ini0;
     if(aa){ obj=(+fin.slice(0,4)-aa)+fin.slice(4); if(obj>ini0) ini=obj; }
     var p0=trAt(P,ini), b0=trAt(B,ini), an=(Date.parse(fin)-Date.parse(ini))/31557600000; if(!(p0>0)||!(b0>0)||an<1) return null;
@@ -142,7 +144,7 @@
     var u=1, esp=0; (DV||[]).forEach(function(d){ if(d[0]>ini&&d[0]<=fin){ var px=trAt(P,d[0]), pa=trAntes(P,d[0]); if(px>0){ if(d[1]>=0.08*px&&pa>0&&!(px<=pa-0.5*d[1])) esp++; else u*=1+d[1]/px; } } });
     var roto=null, k0=0; while(k0<P.length&&P[k0][0]<ini) k0++;
     for(var k=Math.max(1,k0); k<P.length&&P[k][0]<=fin; k++){ var a_=+P[k-1][1], b_=+P[k][1]; if(!(a_>0)) continue; var r_=b_/a_-1;
-      if(Math.abs(r_)>=0.40){ var dv=0; (DV||[]).forEach(function(d){ if(d[0]===P[k][0]) dv+=d[1]; }); if(!(r_<0&&dv>=0.5*(a_-b_))){ roto=P[k][0]; break; } } }
+      if(Math.abs(r_)>=0.40&&!((window.nfSaltoReal||{})[tk]||{})[P[k][0]]){ var dv=0; (DV||[]).forEach(function(d){ if(d[0]===P[k][0]) dv+=d[1]; }); if(!(r_<0&&dv>=0.5*(a_-b_))){ roto=P[k][0]; break; } } }
     var val=u*trAt(P,fin)/p0*100, ib=trAt(B,fin)/b0*100, ra=function(v){ return (Math.pow(v/100,1/an)-1)*100; };
     return {ini:ini,fin:fin,an:an,val:val,ra:ra(val),ib:ib,rib:ra(ib),dif:ra(val)-ra(ib),corto:!!aa&&ini>obj,esp:esp,roto:roto}; }
   function trCargar(){ if(TR.est==='cargando') return; TR.est='cargando'; TR.hecho=0; pintarTr();
@@ -160,7 +162,7 @@
     if(!TR.est){ h.innerHTML=cab+'<p style="font-size:13.5px;color:#334155;margin:6px 0 10px">Compara lo que habrían dado 100 € en cada analizada, reinvirtiendo sus dividendos, con lo que habría dado el IBEX 35 con dividendos en el mismo periodo. Hay que descargar la cotización de las '+TR.lista.length+' empresas (unos segundos).</p><button type="button" data-natr="calc" style="padding:8px 16px;border-radius:10px;border:0;background:#1F4A9A;color:#fff;font-weight:700;font-size:13.5px;cursor:pointer">Calcular la tabla</button>'; return; }
     if(TR.est==='error'){ h.innerHTML=cab+'<div class="nf-mu">No se ha podido leer el IBEX con dividendos (precios/IBEXTR.json).</div>'; return; }
     if(TR.est==='cargando'){ h.innerHTML=cab+'<div class="nf-mu" style="padding:10px 0">Descargando cotizaciones… '+TR.hecho+' de '+TR.lista.length+'</div>'; return; }
-    var R2=[], sin=[]; TR.lista.forEach(function(x){ var r=trUno(TR.P[x.t],TR.B,TR.DV[x.t],TR.per); if(r){ r.x=x; R2.push(r); } else sin.push(x.t); });
+    var R2=[], sin=[]; TR.lista.forEach(function(x){ var r=trUno(TR.P[x.t],TR.B,TR.DV[x.t],TR.per,x.t); if(r){ r.x=x; R2.push(r); } else sin.push(x.t); });
     var MAL=R2.filter(function(r){ return r.roto; }); R2=R2.filter(function(r){ return !r.roto; });
     R2.sort(function(a,b){ return b.dif-a.dif; });
     var gan=R2.filter(function(r){ return r.dif>0.5; }).length, pie=R2.filter(function(r){ return r.dif<-0.5; }).length, ref=R2.filter(function(r){ return !r.corto; })[0];
