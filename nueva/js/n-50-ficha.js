@@ -458,18 +458,28 @@
   function cmpGuarda(t,a){ _cmpMem[t]=a; try{ var o=JSON.parse(localStorage.getItem('nfCmp')||'{}'); o[t]=a; localStorage.setItem('nfCmp',JSON.stringify(o)); }catch(e){} }
   function montarCmp(F,t,L){
     var host=document.getElementById('nfCmpHost'); if(!host||!L||L.length<2) return; host.style.display='';
-    var LS=lista().filter(function(a){ return a[0]!==t; }), nom={}; lista().forEach(function(a){ nom[a[0]]=a[1]; }); if(!nom[t]) nom[t]=F.empresa||t;
-    var sel=cmpSel(t).filter(function(x){ return x&&x!==t; });
+    var nom={}; lista().forEach(function(a){ nom[a[0]]=a[1]; }); if(!nom[t]) nom[t]=F.empresa||t;
+    /* 14-nov (Carlos): «que en los desplegables solo pueda elegirse empresas comparables» → el grupo de su tipo, el mismo de Ratios */
+    var G=(F.ratios||{}).sector||{}, LS=(G.empresas||[]).filter(function(x){ return x&&x!==t; }).map(function(x){ return [x,nom[x]||x]; }).sort(function(a,b){ return a[1].localeCompare(b[1]); });
+    var grupo=G.grupo?' de su tipo («'+esc(G.grupo)+'»)':' de su tipo';
+    if(!LS.length){ host.innerHTML='<h2>¿Y frente a otras empresas?</h2>'+vd('n','Todavía no hay otras empresas analizadas'+grupo+' con las que comparar a <b>'+esc(nom[t])+'</b>. El EV/EBITDA solo se compara bien entre negocios parecidos.'); return; }
+    var sel=cmpSel(t).filter(function(x){ return x&&x!==t&&LS.some(function(a){ return a[0]===x; }); });
     var sl=function(i){ return '<select class="nf-cmps" data-i="'+i+'" style="padding:6px 8px;border:1px solid #CBD5E1;border-radius:8px;font-size:13px;max-width:240px;background:#fff"><option value="">— ninguna —</option>'+LS.map(function(a){ return '<option value="'+esc(a[0])+'"'+(sel[i]===a[0]?' selected':'')+'>'+esc(a[1])+'</option>'; }).join('')+'</select>'; };
-    var cab='<h2>¿Y frente a otras empresas?</h2><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0 10px;font-size:13px;color:#334155"><span>Comparar el EV/EBITDA de <b>'+esc(nom[t])+'</b> con</span>'+sl(0)+'<span>y</span>'+sl(1)+'</div>';
+    var cab='<h2>¿Y frente a otras empresas?</h2><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0 10px;font-size:13px;color:#334155"><span>Comparar el EV/EBITDA de <b>'+esc(nom[t])+'</b> con</span>'+sl(0)+(LS.length>1?'<span>y</span>'+sl(1):'')+'<span style="color:#64748B">Solo salen las'+grupo+'.</span></div>';
+    var COMO='<details class="nf-det" style="margin-top:10px"><summary style="cursor:pointer;font-weight:700;color:#1F4A9A">Cómo leerla: las dos lecturas</summary><div style="font-size:13px;color:#334155;line-height:1.55;margin-top:6px">'+
+      '<p><b>1 · Frente a las otras</b> (columna «Hoy»): a cuántas veces se paga comparada con sus competidoras. <b>2 · Frente a sí misma</b> (columna «Hoy frente a su media»): si está por encima o por debajo de lo que ha sido normal en ella.</p>'+
+      '<div style="overflow-x:auto"><table style="border-collapse:collapse;font-size:12.5px;margin:4px 0 8px"><tr><th style="padding:6px 8px"></th><th style="padding:6px 8px;text-align:left;border-bottom:1px solid #E2E8F0">Por debajo de su media</th><th style="padding:6px 8px;text-align:left;border-bottom:1px solid #E2E8F0">Por encima de su media</th></tr>'+
+      '<tr><th style="padding:6px 8px;text-align:left;border-bottom:1px solid #F1F5F9">Más barata que las otras</th><td style="padding:6px 8px;border-bottom:1px solid #F1F5F9;background:#F0FDF4">Señal más fuerte de barata: lo dicen las dos</td><td style="padding:6px 8px;border-bottom:1px solid #F1F5F9">Siempre ha sido la barata del grupo, y ahora lo es menos</td></tr>'+
+      '<tr><th style="padding:6px 8px;text-align:left">Más cara que las otras</th><td style="padding:6px 8px">Suele pagarse cara y hoy algo menos: puede ser oportunidad en una buena empresa</td><td style="padding:6px 8px;background:#FEF2F2">Señal más fuerte de cara: lo dicen las dos</td></tr></table></div>'+
+      '<p><b>Tres cautelas.</b> Barata no es lo mismo que buena: puede pagarse poco porque el negocio va a menos; crúzalo con el rating, las ventas y la deuda. Los picos de la línea suelen venir de un año malo de ganancias, no de que la bolsa la pagara cara. Y las medias llevan dentro los años de tipos a cero (2016-2021), así que «por debajo de su media» sale algo más fácil de lo que debería.</p></div></details>';
     var engancha=function(){ Array.prototype.forEach.call(host.querySelectorAll('.nf-cmps'),function(s){ s.onchange=function(){ var a=[0,1].map(function(i){ var e=host.querySelector('.nf-cmps[data-i="'+i+'"]'); return e?e.value:''; }).filter(function(x,i,arr){ return x&&arr.indexOf(x)===i; }); cmpGuarda(t,a); montarCmp(F,t,L); }; }); };
-    if(!sel.length){ host.innerHTML=cab+'<div class="nf-mu" style="padding:4px 0 2px">Elige una o dos empresas analizadas para ver sus líneas junto a la de '+esc(nom[t])+'.</div>'; engancha(); return; }
+    if(!sel.length){ host.innerHTML=cab+'<div class="nf-mu" style="padding:4px 0 2px">Elige una o dos empresas para ver sus líneas junto a la de '+esc(nom[t])+'.</div>'+COMO; engancha(); return; }
     Promise.all(sel.map(function(s){ return Promise.all([cargar(s),preciosDe(s)]).then(function(a){ return evSerie(a[0],a[1]); }).catch(function(){ return null; }); })).then(function(R){
       if(!document.getElementById('nfCmpHost')||cur!==t) return;
       var N=L.length, S=[{t:t,M:((F.valoracion||{}).multiplos||{}).ev_ebitda,hoy:L[N-1].x,v:L.map(function(o){ return o.x; })}], sin=[];
       sel.forEach(function(s,i){ var r=R[i]; if(!r){ sin.push(nom[s]||s); return; } S.push({t:s,M:r.M,hoy:r.hoy,v:L.map(function(o,k){ var x=k===N-1?r.hoy:r.m[o.f.slice(0,7)]; return x==null?null:x; })}); });
       var aviso=sin.length?vd('a','Sin EV/EBITDA para comparar: <b>'+sin.map(esc).join(', ')+'</b>. En bancos y aseguradoras no tiene sentido; en otras pueden faltar datos.'):'';
-      if(S.length<2){ host.innerHTML=cab+aviso; engancha(); return; }
+      if(S.length<2){ host.innerHTML=cab+aviso+COMO; engancha(); return; }
       var all=[]; S.forEach(function(s){ s.v.forEach(function(x){ if(x!=null&&isFinite(x)) all.push(x); }); });
       var tope=Math.max.apply(null,S.map(function(s){ return Math.max(s.M.max||s.M.media,s.hoy||0); }))*1.5, vmx=Math.min(Math.max.apply(null,all),tope)*1.06, vmn=Math.max(0,Math.min.apply(null,all)*0.9);
       var nar=(host.clientWidth||1000)<640, W=nar?520:1000,H=nar?320:300,x0=nar?40:54,x1=nar?500:980,yt=14,yb=H-30, X=function(i){ return x0+(N>1?i/(N-1):0)*(x1-x0); }, Y=function(v){ return yt+(vmx-Math.min(Math.max(v,vmn),vmx))/(vmx-vmn)*(yb-yt); };
@@ -486,7 +496,18 @@
       var tb='<div style="overflow-x:auto;margin-top:10px"><table class="nf-tb" style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="text-align:right;color:#5B6B7C;border-bottom:1px solid #E2E8F0"><th style="text-align:left;padding:5px 6px">Empresa</th><th style="padding:5px 6px">Hoy</th><th style="padding:5px 6px">Su media</th><th style="padding:5px 6px">Mín – máx</th><th style="padding:5px 6px">Hoy frente a su media</th></tr></thead><tbody>'+
         S.map(function(s,j){ var d=(s.hoy!=null&&s.M.media)?(s.hoy/s.M.media-1)*100:null; return '<tr style="text-align:right;border-bottom:1px solid #F1F5F9"><td style="text-align:left;padding:5px 6px"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;background:'+CMPC[j]+'"></i>'+esc(nom[s.t]||s.t)+'</td><td style="padding:5px 6px"><b>'+(s.hoy!=null?n(s.hoy,1)+'x':'—')+'</b></td><td style="padding:5px 6px">'+n(s.M.media,1)+'x <span style="color:#94A3B8">('+s.M.n+' años)</span></td><td style="padding:5px 6px">'+n(s.M.min,1)+' – '+n(s.M.max,1)+'x</td><td style="padding:5px 6px;color:'+(d==null?'#334155':(d>15?'#B91C1C':(d<0?'#15803D':'#B45309')))+'">'+(d==null?'—':pc(d,0))+'</td></tr>'; }).join('')+'</tbody></table></div>';
       var nt='<span class="nf-ws">Cada línea usa las cuentas de su último ejercicio cerrado y su propia cotización. El nivel entre empresas solo se compara bien si los negocios se parecen; lo más fiable es mirar cada una contra su propia media.</span>';
-      host.innerHTML=cab+aviso+h+lg+tb+nt; engancha();
+      var yo=S[0], ot=S.slice(1).filter(function(s){ return s.hoy!=null&&isFinite(s.hoy); }), lec='';
+      if(yo.hoy!=null&&isFinite(yo.hoy)&&yo.M.media&&ot.length){
+        var d=(yo.hoy/yo.M.media-1)*100, bar=ot.every(function(s){ return yo.hoy<s.hoy; }), car=ot.every(function(s){ return yo.hoy>s.hoy; }), enMed=Math.abs(d)<5, B='<b>'+esc(nom[t])+'</b>';
+        var grp=ot.length>1?'las tres':'las dos', fr=enMed?'está en su propia media ('+pc(d,0)+')':('está un '+n(Math.abs(d),0)+' % por '+(d<0?'debajo':'encima')+' de su propia media');
+        var resto=' Falta saber por qué: míralo con el rating, las ventas y la deuda.';
+        if(bar&&d<=-5) lec=vd('v',B+' es la más barata de '+grp+' ('+n(yo.hoy,1)+'x) y además '+fr+'. <b>Las dos lecturas coinciden:</b> es la señal más fuerte de barata.'+resto);
+        else if(car&&d>=5) lec=vd('r',B+' es la más cara de '+grp+' ('+n(yo.hoy,1)+'x) y además '+fr+'. <b>Las dos lecturas coinciden:</b> es la señal más fuerte de cara.');
+        else if(bar) lec=vd('a',B+' es la más barata de '+grp+' ('+n(yo.hoy,1)+'x), pero '+fr+': ha sido la barata del grupo y hoy lo es menos. Las dos lecturas no coinciden; sin señal clara.');
+        else if(car) lec=vd('a',B+' es la más cara de '+grp+' ('+n(yo.hoy,1)+'x), pero '+fr+': suele pagarse más que las otras y hoy algo menos. Puede ser oportunidad si la empresa es buena.');
+        else lec=vd('n',B+' ('+n(yo.hoy,1)+'x) queda entre las otras; manda la lectura contra sí misma: '+fr+'.');
+      }
+      host.innerHTML=cab+aviso+lec+h+lg+tb+nt+COMO; engancha();
     });
   }
 
