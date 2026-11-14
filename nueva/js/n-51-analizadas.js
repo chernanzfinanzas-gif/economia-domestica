@@ -21,6 +21,33 @@
   var DC={COMPRAR:['#15803D','#DCFCE7'],ESPERAR:['#B45309','#FEF3C7'],MANTENER:['#1F4A9A','#EAF1FD'],VENDER:['#B91C1C','#FEE2E2'],REDUCIR:['#B91C1C','#FEE2E2']}, SC={V:'#16A34A',A:'#F59E0B',R:'#DC2626'};
   function dec(d){ var c=DC[d]||['#475569','#F1F5F9']; return '<span class="na-dc" style="color:'+c[0]+';background:'+c[1]+'">'+esc(d||'—')+'</span>'; }
   function regla(x,mini){ return window.nRegla?window.nRegla({precio:x.pr,stop:x.stop,entMin:x.entrada_min,entMax:x.entrada_max,poBase:x.po_base},{peq:1,mini:mini}):''; }
+  /* ---------------- 14-nov-2026 (Carlos, cierre del diseño): MAPA DE LAS ANALIZADAS ----------------
+     Todas en un gráfico: calidad (nota 0-100 del método) a lo ancho, margen hasta el precio objetivo a lo alto. Las dos rayas
+     son las de la regla de COMPRAR: calidad A (62 puntos) y margen del 15 %. Arriba a la derecha, buenas y con margen. */
+  function mapa(L){
+    var P=L.filter(function(x){ return x.score!=null&&isFinite(+x.score)&&x.po_base>0&&x.pr>0; }).map(function(x){ return {x:x,s:+x.score,m:(x.po_base/x.pr-1)*100}; }); if(P.length<5) return '';
+    var QX=62, QY=15, sx=P.map(function(p){ return p.s; }), x0v=Math.min(Math.min.apply(null,sx),QX)-4, x1v=Math.max(Math.max.apply(null,sx),QX)+4, y0v=-60, y1v=80;
+    var W=1000,H=460,l=78,r=14,t=18,b=40, X=function(v){ return l+(v-x0v)/(x1v-x0v)*(W-l-r); }, Y=function(v){ return t+(y1v-Math.max(y0v,Math.min(y1v,v)))/(y1v-y0v)*(H-t-b); };
+    var q=[[],[],[],[]]; P.forEach(function(p){ var bu=p.s>=QX, ba=p.m>=QY; q[bu&&ba?0:(bu?1:(ba?2:3))].push(p); });
+    var h='<svg viewBox="0 0 '+W+' '+H+'" class="nf-chs" style="width:100%">';
+    h+='<rect x="'+X(QX).toFixed(1)+'" y="'+t+'" width="'+(W-r-X(QX)).toFixed(1)+'" height="'+(Y(QY)-t).toFixed(1)+'" fill="#16A34A" fill-opacity=".07"/>';
+    for(var v=-60; v<=80; v+=20) h+='<line x1="'+l+'" x2="'+(W-r)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'" stroke="'+(v===0?'#94A3B8':'#EEF1F5')+'"/><text x="'+(l-6)+'" y="'+(Y(v)+4).toFixed(1)+'" font-size="11" text-anchor="end" fill="#5B6B7C">'+(v>0?'+':'')+v+' %</text>';
+    for(var w=Math.ceil(x0v/10)*10; w<=x1v; w+=10) h+='<text x="'+X(w).toFixed(1)+'" y="'+(H-b+16)+'" font-size="11" text-anchor="middle" fill="#5B6B7C">'+w+'</text>';
+    h+='<line x1="'+X(QX).toFixed(1)+'" x2="'+X(QX).toFixed(1)+'" y1="'+t+'" y2="'+(H-b)+'" stroke="#1F4A9A" stroke-dasharray="6 5" stroke-opacity=".6"/><text x="'+(X(QX)+5).toFixed(1)+'" y="'+(H-b-6)+'" font-size="11" fill="#1F4A9A">calidad A (62)</text>';
+    h+='<line x1="'+l+'" x2="'+(W-r)+'" y1="'+Y(QY).toFixed(1)+'" y2="'+Y(QY).toFixed(1)+'" stroke="#1F4A9A" stroke-dasharray="6 5" stroke-opacity=".6"/><text x="'+(l+6)+'" y="'+(Y(QY)-5).toFixed(1)+'" font-size="11" fill="#1F4A9A">margen del 15 %</text>';
+    h+='<text x="'+(W-r-6)+'" y="'+(t+14)+'" font-size="12" font-weight="700" text-anchor="end" fill="#15803D">Buenas y con margen</text><text x="'+(W-r-6)+'" y="'+(H-b-6)+'" font-size="12" font-weight="700" text-anchor="end" fill="#64748B">Buenas pero caras</text><text x="'+(l+6)+'" y="'+(t+14)+'" font-size="12" font-weight="700" fill="#B45309">Con margen, calidad baja</text>';
+    h+='<text x="'+((l+W-r)/2)+'" y="'+(H-6)+'" font-size="11.5" text-anchor="middle" fill="#334155">Calidad: nota del método (0-100) →</text><text transform="translate(15,'+((t+H-b)/2)+') rotate(-90)" font-size="11.5" text-anchor="middle" fill="#334155">Margen hasta el precio objetivo →</text>';
+    P.slice().sort(function(a,c){ return (a.x.tengo?1:0)-(c.x.tengo?1:0); }).forEach(function(p){ var c=(DC[p.x.decision]||['#475569'])[0], cx=X(p.s), cy=Y(p.m), fuera=p.m>y1v||p.m<y0v;
+      h+='<g data-nfopen="'+p.x.ticker+'" style="cursor:pointer"><title>'+esc(p.x.empresa)+' · '+esc(p.x.decision||'')+' · calidad '+esc(p.x.rating||'')+' ('+n(p.s,1)+') · margen '+(p.m>0?'+':'')+n(p.m,0)+' % · dividendo '+(p.x.dss!=null?p.x.dss:'—')+'</title>'+
+        '<circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+(p.x.tengo?7.5:5.5)+'" fill="'+c+'" fill-opacity="'+(p.x.tengo?1:.75)+'" stroke="'+(p.x.tengo?'#0F172A':'#fff')+'" stroke-width="'+(p.x.tengo?2:1)+'"/>'+
+        '<text x="'+(cx+9).toFixed(1)+'" y="'+(cy+3.5).toFixed(1)+'" font-size="10.5" font-weight="'+(p.x.tengo?800:600)+'" fill="#334155">'+p.x.ticker+(fuera?(p.m>y1v?' ↑':' ↓'):'')+'</text></g>'; });
+    h+='</svg>';
+    var nom=function(a){ return a.sort(function(u,w){ return w.m-u.m; }).map(function(p){ return '<span data-nfopen="'+p.x.ticker+'" style="cursor:pointer;font-weight:'+(p.x.tengo?800:500)+'">'+p.x.ticker+'</span>'; }).join(', ')||'ninguna'; };
+    return '<div class="nf-card" id="naMapa"><h2>Mapa de las analizadas <span class="nf-sub">calidad frente a margen · pulsa una empresa para abrir su ficha</span></h2>'+
+      '<div style="font-size:13.5px;color:#334155;margin:4px 0 8px;line-height:1.6"><b style="color:#15803D">Buenas y con margen ('+q[0].length+'):</b> '+nom(q[0])+'. <b>Buenas pero caras ('+q[1].length+'):</b> '+nom(q[1])+'. <b style="color:#B45309">Con margen, calidad baja ('+q[2].length+'):</b> '+nom(q[2])+'. <b>Ni lo uno ni lo otro:</b> '+q[3].length+'.</div><div style="overflow-x:auto"><div style="min-width:720px">'+h+'</div></div>'+
+      '<div class="nf-lg">'+['COMPRAR','MANTENER','ESPERAR','VENDER'].filter(function(d){ return P.some(function(p){ return p.x.decision===d; }); }).map(function(d){ return '<span><i style="background:'+(DC[d]||['#475569'])[0]+';border-radius:50%"></i>'+d+'</span>'; }).join('')+'<span><i style="background:#fff;border:2px solid #0F172A;border-radius:50%;box-sizing:border-box"></i>En cartera (más grande y en negrita)</span></div>'+
+      '<span class="nf-ws">Margen = precio objetivo ÷ cotización de hoy − 1. Las dos rayas son las de la regla de COMPRAR (calidad A y 15 % de margen), que además pide moat y pasa los vetos: por eso una empresa del cuadro verde puede no ser COMPRAR. Las que se salen por arriba o por abajo llevan una flecha.</span></div>';
+  }
   function pintar(){
     var v=document.getElementById('view-analizadas'); if(!v) return;
     if(!R){ v.innerHTML='<div class="nf-mu" style="padding:20px">Cargando las analizadas…</div>'; cargar().then(function(){ if(R) pintar(); else v.innerHTML='<div class="nf-card">El resumen de las analizadas (fichas/_resumen.json) todavía no está publicado.</div>'; }); return; }
@@ -42,6 +69,7 @@
     v.innerHTML='<div class="na-hero"><h1>Analizadas</h1><p>Las '+L.length+' empresas con análisis completo del método. ¿Cuáles piden mirar hoy?</p>'+
       '<div class="na-kp"><div>Bajo el stop<b>'+cnt[0]+'</b></div><div>Más baratas que la banda<b>'+cnt[1]+'</b></div><div>Dentro de la banda<b>'+cnt[2]+'</b></div><div>Cerca (&lt;10 %)<b>'+cnt[3]+'</b></div><div>Lejos (10-30 %)<b>'+cnt[4]+'</b></div><div>Muy lejos (&gt;30 %)<b>'+cnt[5]+'</b></div></div></div>'+
       '<h2 class="na-h2">Hoy merece mirar ('+top.length+')</h2><div class="na-acs">'+(cards||'<div class="nf-mu">Ninguna está hoy en zona.</div>')+'</div>'+
+      mapa(L)+
       '<div class="nf-card"><h2>Todas las analizadas ('+L.length+') <span class="nf-sub">ordenadas por lo cerca que está el precio de la entrada</span></h2><div class="na-flt">'+F.map(function(f){ return '<span data-naf="'+f[0]+'" class="'+(filtro===f[0]?'on':'')+'">'+f[1]+'</span>'; }).join('')+'</div>'+
       '<div class="nf-tw"><table class="na-t"><tr><th class="l">Empresa</th><th>Decisión</th><th>Precio</th><th>A la entrada máx.</th><th>Dónde está el precio</th><th>PO base</th><th>Calidad</th><th>Dividendo</th><th>Último resultado</th></tr>'+rows+'</table></div>'+
       '<span class="nf-ws">La regla de cada fila es la misma de la ficha. «Dividendo» = nota de seguridad del dividendo (0-100). Análisis del método del '+esc(fe)+'.</span></div>'+
