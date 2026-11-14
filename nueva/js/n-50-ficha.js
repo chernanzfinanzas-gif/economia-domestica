@@ -261,7 +261,33 @@
         leg(ser.map(function(x){ return [x[0],x[2]]; }).concat([['Caja del negocio (línea)','#15803D'],['Arriba: lo que sobra o falta, M€','#475569']])),
         '<span class="nf-ws">Del estado de flujos de efectivo de cada ejercicio. Barras por encima de la línea verde: ese año gastó más de lo que generó, y la diferencia la pone la deuda o la caja guardada. Los ingresos por ventas de activos no se pintan, pero cuentan en lo que sobra o falta.</span>');
     })(); }
-    var C=[c1,c2,c3,c7,c4,c5,c5b,c6,c8].filter(Boolean), h='';
+    /* 14-nov-2026 (Carlos, cierre del diseño): ¿CUÁNTO LE CUESTA LA DEUDA? y ¿CRECE COMPRANDO? · series.deuda_compras (rama general) */
+    var c5c='', c5d='', DQ=(F.series||{}).deuda_compras||{};
+    if(DQ.coste_deuda){ (function(){
+      var Yd=Object.keys(DQ.coste_deuda).sort().filter(function(y){ return DQ.coste_deuda[y]!=null; }).slice(-10); if(Yd.length<3) return;
+      var RO=((F.series||{}).desempeno||{}).roic||{}, CD=Yd.map(function(y){ return +DQ.coste_deuda[y]; }), RR=Yd.map(function(y){ return RO[y]==null?null:+RO[y]; });
+      var u=CD[CD.length-1], k3=Math.max(0,CD.length-4), a3=CD[k3], d=u-a3, ru=RR[RR.length-1], yu=Yd[Yd.length-1], ya=Yd[k3];
+      var col=(ru!=null&&ru<u)?'r':(d>1?'a':'v');
+      var ver='En '+yu+' pagó de media un <b>'+n(u,1)+' %</b> por su deuda ('+n(a3,1)+' % en '+ya+'): '+(d>1?'<b>le sale más cara</b>, '+n(d,1)+' puntos más.':(d<-1?'<b>le sale más barata</b>, '+n(-d,1)+' puntos menos.':'<b>más o menos lo mismo</b>.'))+
+        (ru!=null?(ru>=u?' Su negocio rinde un '+n(ru,1)+' % (ROIC): más de lo que le cuesta el dinero prestado.':' Ojo: su negocio rinde un '+n(ru,1)+' % (ROIC), <b>menos de lo que le cuesta la deuda</b>.'):'');
+      c5c=gcard('¿Cuánto le cuesta la deuda?',col,ver,
+        lines(Yd,[['Coste de la deuda',CD,'#DC2626']].concat(RR.some(function(v){ return v!=null; })?[['Lo que rinde el negocio (ROIC)',RR,'#1F4A9A']]:[]),function(v){ return n(v,1)+' %'; }),
+        leg([['Coste de la deuda','#DC2626'],['Lo que rinde el negocio (ROIC)','#1F4A9A']]),
+        '<span class="nf-ws">Gastos financieros del año entre la deuda financiera media. Es una aproximación: los gastos financieros llevan también intereses de alquileres y diferencias de cambio. Si sube cuando suben los tipos, es que refinancia a menudo o tiene deuda a tipo variable.</span>'); })(); }
+    if(DQ.fondo_comercio){ (function(){
+      var Yf=Object.keys(DQ.fondo_comercio).sort().slice(-10), FC=Yf.map(function(y){ var v=DQ.fondo_comercio[y]; return v==null?null:+v; }), FP=Yf.map(function(y){ var v=(DQ.fc_patrimonio||{})[y]; return v==null?null:+v; });
+      var sum=function(k){ return Yf.reduce(function(a,y){ return a+(+((DQ[k]||{})[y])||0); },0); }, det=sum('deterioros'), com=sum('compras_empresas'), yu=Yf[Yf.length-1], y0=Yf[0];
+      var u=FC[FC.length-1], p=FP[FP.length-1], f0=FC.filter(function(v){ return v!=null; })[0];
+      if(!(u>0)&&!(f0>0)){ c5d=card('¿Crece comprando o por sí misma?','',vd('v','No tiene fondo de comercio en su balance: no ha crecido pagando de más por otras empresas.')); return; }
+      var col=p==null?'n':(p<30?'v':(p<80?'a':'r'));
+      var ver='El fondo de comercio —lo que ha pagado de más al comprar empresas— es de <b>'+n(u||0,0)+' M€</b>'+(p!=null?', el <b>'+n(p,0)+' %</b> de su patrimonio':'')+(f0>0&&f0!==u?' ('+n(f0,0)+' M€ en '+y0+')':'')+'. '+
+        (p==null?'':(p<30?'<b>Pesa poco</b>: crece sobre todo por sí misma.':(p<80?'<b>Pesa bastante</b>: parte de su tamaño viene de comprar.':'<b>Pesa mucho</b>: si esas compras salen mal, el golpe se lleva buena parte del patrimonio.')))+
+        (com>0?' En estos '+Yf.length+' años ha pagado '+n(com,0)+' M€ por empresas.':'')+(det>0?' Ha reconocido '+n(det,0)+' M€ de deterioros de inmovilizado.':'');
+      c5d=gcard('¿Crece comprando o por sí misma?',col,ver,
+        chartg(Yf,[['Fondo de comercio',FC,'#F59E0B']],null,function(v){ return n(v,0)+' M€'; },[FP,function(v){ return n(v,0)+'%'; },'#475569','Sobre el patrimonio: ']),
+        leg([['Fondo de comercio','#F59E0B'],['Arriba: % del patrimonio','#475569']]),
+        '<span class="nf-ws">El fondo de comercio no se amortiza: se queda en el balance hasta que la empresa reconoce que la compra vale menos (deterioro). Mucho fondo de comercio no es malo por sí solo; lo malo es que luego se deteriore.</span>'); })(); }
+    var C=[c1,c2,c3,c7,c4,c5,c5b,c5c,c5d,c6,c8].filter(Boolean), h='';
     for(var i=0;i<C.length;i+=2) h+='<div class="nf-g2">'+C[i]+(C[i+1]||'<div></div>')+'</div>';
     h+=propias(F);
     h+=evHost(F);
@@ -601,6 +627,33 @@
     return '<h2 style="margin-top:22px">¿Quién invierte para crecer y quién solo repone?</h2>'+lec+h+'<div class="nf-lg">'+D.map(function(d){ return '<span><i style="background:'+d.c+'"></i>'+esc(nom[d.t]||d.t)+'</span>'; }).join('')+'</div>'+tb+
       '<span class="nf-ws">Capex del año dividido entre lo que se desgasta (la amortización que el método toma como capex de mantenimiento). Por encima de 1 invierte más de lo que se desgasta; por debajo, menos.</span>';
   }
+  /* 14-nov-2026 (Carlos, cierre del diseño): COMPARADOR AMPLIADO. Otras medidas año a año entre las mismas empresas. */
+  var _cmpMet='roic', CMET={roic:['ROIC','%','desempeno','roic',1,'lo que rinde el negocio'],margen:['Margen EBITDA','%','desempeno','margen_ebitda',1,'de cada 100 € de ventas, lo que queda antes de amortizar'],
+    deuda:['Deuda neta / EBITDA','x','solvencia','dn_ebitda',-1,'años de ganancias que harían falta para pagar la deuda'],rpd:['Rentabilidad por dividendo','%','flujos','rpd',1,'dividendo del año sobre la cotización de cierre'],
+    coste:['Coste de la deuda','%','deuda_compras','coste_deuda',-1,'gastos financieros sobre la deuda media']};
+  function anualCmp(LST,nom){
+    var M=CMET[_cmpMet]||CMET.roic, fm=function(v){ return n(v,M[1]==='x'?2:1)+(M[1]==='x'?'x':' %'); };
+    var D=LST.map(function(o,j){ var S=(((o.F||{}).series||{})[M[2]]||{})[M[3]]||{}, r={}; Object.keys(S).forEach(function(y){ if(/^\d{4}$/.test(y)&&S[y]!=null&&isFinite(+S[y])) r[y]=+S[y]; }); return {t:o.t,c:CMPC[j],r:r}; });
+    var bt='<div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px">'+Object.keys(CMET).map(function(k){ var on=k===_cmpMet; return '<button type="button" data-nfcm="'+k+'" style="padding:4px 10px;border-radius:999px;border:1px solid '+(on?'#1F4A9A':'#CBD5E1')+';background:'+(on?'#1F4A9A':'#fff')+';color:'+(on?'#fff':'#334155')+';font-size:12.5px;cursor:pointer">'+CMET[k][0]+'</button>'; }).join('')+'</div>';
+    var cab='<h2 style="margin-top:22px">Más medidas, año a año</h2>'+bt, OK=D.filter(function(d){ return Object.keys(d.r).length>=2; });
+    if(OK.length<2||!Object.keys(D[0].r).length) return cab+'<div class="nf-mu">No hay datos de «'+M[0]+'» para comparar estas empresas.</div>';
+    var set={}; OK.forEach(function(d){ Object.keys(d.r).forEach(function(y){ set[y]=1; }); }); var Y=Object.keys(set).sort().slice(-10), N=Y.length;
+    var all=[]; OK.forEach(function(d){ Y.forEach(function(y){ if(d.r[y]!=null) all.push(d.r[y]); }); });
+    var mxv=Math.max.apply(null,all), mnv=Math.min.apply(null,all), pad=(mxv-mnv)*0.1||1, vmx=mxv+pad, vmn=mnv<0?mnv-pad:Math.max(0,mnv-pad), W=1000,H=250,x0=54,x1=980,yt=14,yb=H-28;
+    var X=function(i){ return x0+(i+0.5)/N*(x1-x0); }, Yp=function(v){ return yt+(vmx-v)/(vmx-vmn)*(yb-yt); }, h='<svg viewBox="0 0 '+W+' '+H+'" class="nf-chs" style="width:100%">', sp=niceStep((vmx-vmn)/4);
+    for(var v=Math.ceil(vmn/sp)*sp; v<=vmx+1e-9; v+=sp) h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Yp(v).toFixed(1)+'" y2="'+Yp(v).toFixed(1)+'" stroke="'+(Math.abs(v)<1e-9?'#94A3B8':'#EEF1F5')+'"/><text x="'+(x0-6)+'" y="'+(Yp(v)+4).toFixed(1)+'" font-size="11" text-anchor="end" fill="#5B6B7C">'+n(v,sp<1?1:0)+(M[1]==='x'?'x':'')+'</text>';
+    Y.forEach(function(y,i){ h+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" font-size="11" text-anchor="middle" fill="#5B6B7C">'+y+'</text>'; });
+    OK.forEach(function(d){ var seg=[], j=d.t===LST[0].t?0:1; var suelta=function(){ if(seg.length>1) h+='<polyline fill="none" stroke="'+d.c+'" stroke-width="'+(j?2:2.6)+'" points="'+seg.join(' ')+'"/>'; seg=[]; };
+      Y.forEach(function(y,i){ if(d.r[y]==null){ suelta(); return; } seg.push(X(i).toFixed(1)+','+Yp(d.r[y]).toFixed(1)); h+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Yp(d.r[y]).toFixed(1)+'" r="3.2" fill="#fff" stroke="'+d.c+'" stroke-width="2"/>'; }); suelta(); });
+    var bw=(x1-x0)/N; Y.forEach(function(y,i){ h+='<rect class="nf-hv" x="'+(x0+i*bw).toFixed(1)+'" y="'+yt+'" width="'+bw.toFixed(1)+'" height="'+(yb-yt)+'" fill="transparent" data-tip="'+esc(y+OK.map(function(d){ return '|'+(nom[d.t]||d.t)+': '+(d.r[y]!=null?fm(d.r[y]):'—'); }).join(''))+'"/>'; });
+    h+='</svg>';
+    var m5=function(d){ var xs=Y.slice(-5).map(function(y){ return d.r[y]; }).filter(function(x){ return x!=null; }); return xs.length?xs.reduce(function(a,b){ return a+b; },0)/xs.length:null; }, ul=Y[N-1];
+    var ord=OK.filter(function(d){ return m5(d)!=null; }).sort(function(a,b){ return M[4]*(m5(b)-m5(a)); }), mejor=ord[0];
+    var lec=mejor?vd(mejor.t===LST[0].t?'v':'n','De media en los últimos cinco años, en «'+M[0]+'» ('+M[5]+'): '+ord.map(function(d){ return (d.t===LST[0].t?'<b>':'')+esc(nom[d.t]||d.t)+' '+fm(m5(d))+(d.t===LST[0].t?'</b>':''); }).join(' · ')+'. '+(M[4]>0?'Más alto es mejor.':'Más bajo es mejor.')):'';
+    var tb='<div style="overflow-x:auto;margin-top:10px"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="text-align:right;color:#5B6B7C;border-bottom:1px solid #E2E8F0"><th style="text-align:left;padding:5px 6px">Empresa</th><th style="padding:5px 6px">'+esc(ul)+'</th><th style="padding:5px 6px">Media de 5 años</th><th style="padding:5px 6px">Mín – máx de '+N+' años</th></tr></thead><tbody>'+
+      OK.map(function(d){ var xs=Y.map(function(y){ return d.r[y]; }).filter(function(x){ return x!=null; }), m=m5(d); return '<tr style="text-align:right;border-bottom:1px solid #F1F5F9"><td style="text-align:left;padding:5px 6px"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;background:'+d.c+'"></i>'+esc(nom[d.t]||d.t)+'</td><td style="padding:5px 6px">'+(d.r[ul]!=null?fm(d.r[ul]):'—')+'</td><td style="padding:5px 6px"><b>'+(m!=null?fm(m):'—')+'</b></td><td style="padding:5px 6px">'+fm(Math.min.apply(null,xs))+' – '+fm(Math.max.apply(null,xs))+'</td></tr>'; }).join('')+'</tbody></table></div>';
+    return cab+lec+h+'<div class="nf-lg">'+OK.map(function(d){ return '<span><i style="background:'+d.c+'"></i>'+esc(nom[d.t]||d.t)+'</span>'; }).join('')+'</div>'+tb;
+  }
   function montarCmp(F,t,L){
     var host=document.getElementById('nfCmpHost'); if(!host||!L||L.length<2) return; host.style.display='';
     var nom={}; lista().forEach(function(a){ nom[a[0]]=a[1]; }); if(!nom[t]) nom[t]=F.empresa||t;
@@ -618,13 +671,14 @@
       '<tr><th style="padding:6px 8px;text-align:left">Más cara que las otras</th><td style="padding:6px 8px">Suele pagarse cara y hoy algo menos: puede ser oportunidad en una buena empresa</td><td style="padding:6px 8px;background:#FEF2F2">Señal más fuerte de cara: lo dicen las dos</td></tr></table></div>'+
       '<p><b>Tres cautelas.</b> Barata no es lo mismo que buena: puede pagarse poco porque el negocio va a menos; crúzalo con el rating, las ventas y la deuda. Los picos de la línea suelen venir de un año malo de ganancias, no de que la bolsa la pagara cara. Y las medias llevan dentro los años de tipos a cero (2016-2021), así que «por debajo de su media» sale algo más fácil de lo que debería.</p></div></details>';
     var engancha=function(){ Array.prototype.forEach.call(host.querySelectorAll('.nf-cmps'),function(s){ s.onchange=function(){ var a=[0,1].map(function(i){ var e=host.querySelector('.nf-cmps[data-i="'+i+'"]'); return e?e.value:''; }).filter(function(x,i,arr){ return x&&arr.indexOf(x)===i; }); cmpGuarda(t,a); montarCmp(F,t,L); }; }); };
+    var eng0=engancha; engancha=function(){ eng0(); Array.prototype.forEach.call(host.querySelectorAll('[data-nfcm]'),function(b){ b.onclick=function(ev){ ev.stopPropagation(); _cmpMet=b.getAttribute('data-nfcm'); montarCmp(F,t,L); }; }); };
     if(!sel.length){ host.innerHTML=cab+'<div class="nf-mu" style="padding:4px 0 2px">Elige una o dos empresas para ver sus líneas junto a la de '+esc(nom[t])+'.</div>'+COMO; engancha(); return; }
     Promise.all(sel.map(function(s){ return Promise.all([cargar(s),preciosDe(s)]).then(function(a){ return evSerie(a[0],a[1]); }).catch(function(){ return null; }); })).then(function(R){
       if(!document.getElementById('nfCmpHost')||cur!==t) return;
       var N=L.length, S=[{t:t,M:((F.valoracion||{}).multiplos||{}).ev_ebitda,hoy:L[N-1].x,v:L.map(function(o){ return o.x; })}], sin=[];
       sel.forEach(function(s,i){ var r=R[i]; if(!r){ sin.push(nom[s]||s); return; } S.push({t:s,M:r.M,hoy:r.hoy,v:L.map(function(o,k){ var x=k===N-1?r.hoy:r.m[o.f.slice(0,7)]; return x==null?null:x; })}); });
       var aviso=sin.length?vd('a','Sin EV/EBITDA para comparar: <b>'+sin.map(esc).join(', ')+'</b>. En bancos y aseguradoras no tiene sentido; en otras pueden faltar datos.'):'';
-      var CX=''; try{ CX=capexCmp([{t:t,F:F}].concat(sel.map(function(s){ return {t:s,F:C[s]}; })),nom); }catch(e){ console.error('n-ficha capexCmp',e); }
+      var CX=''; try{ var LSTc=[{t:t,F:F}].concat(sel.map(function(s){ return {t:s,F:C[s]}; })); CX=capexCmp(LSTc,nom)+anualCmp(LSTc,nom); }catch(e){ console.error('n-ficha capexCmp',e); }
       if(S.length<2){ host.innerHTML=cab+aviso+COMO+CX; engancha(); return; }
       var all=[]; S.forEach(function(s){ s.v.forEach(function(x){ if(x!=null&&isFinite(x)) all.push(x); }); });
       var tope=Math.max.apply(null,S.map(function(s){ return Math.max(s.M.max||s.M.media,s.hoy||0); }))*1.5, vmx=Math.min(Math.max.apply(null,all),tope)*1.06, vmn=Math.max(0,Math.min.apply(null,all)*0.9);
