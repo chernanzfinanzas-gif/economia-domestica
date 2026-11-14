@@ -219,9 +219,9 @@
         leg([['Flujo de caja libre','#0EA5E9'],['Dividendo del ejercicio','#8B5CF6'],['Lo que sobra (línea)','#15803D'],['Arriba: veces que lo cubre','#475569']]),nota(J.flujos,dh)); }
     var CR=g(fl,'caja_recurrente'), CT=g(fl,'capex').map(function(v){ return v==null?null:Math.abs(v); }), CM=g(fl,'capex_mant').map(function(v){ return v==null?null:Math.abs(v); });
     if(CR.some(function(v){return v!=null;})&&CT.some(function(v){return v!=null;})){ var MNt=Y.map(function(_,k){ return Math.min(z(CM)[k],z(CT)[k]); }), CC=Y.map(function(_,k){ return z(CT)[k]-MNt[k]; }), RS=Y.map(function(_,k){ return Math.max(0,z(CR)[k]-z(CT)[k]); }), PC=Y.map(function(_,k){ return CR[k]?CT[k]/CR[k]*100:null; }), pl=PC[PC.length-1], col5=pl!=null&&pl<=30?'v':(pl!=null&&pl<=60?'a':'r');
-      c5=gcard('¿Cuánto de la caja que genera se va en invertir?',col5,'En '+Y[Y.length-1]+' invirtió '+n(CT[CT.length-1],0)+' M€, el '+n(pl,0)+' % de su caja de explotación ('+n(CR[CR.length-1],0)+' M€).',
-        chartg(Y,[['Capex de mantenimiento',MNt,'#64748B'],['Capex de crecimiento',CC,'#3B82F6'],['Caja que queda libre',RS,'#BAE6FD']],null,function(v){ return n(v,0)+' M€'; },[PC,function(v){ return n(v,0)+'%'; },'#475569','Capex / caja: ']),
-        leg([['Mantenimiento','#64748B'],['Crecimiento','#3B82F6'],['Resto de la caja','#BAE6FD'],['Arriba: % de la caja a capex','#475569']])); }
+      c5=gcard('¿Cuánto de la caja que genera se va en invertir?',col5,'En '+Y[Y.length-1]+' invirtió '+n(CT[CT.length-1],0)+' M€, el '+n(pl,0)+' % de su caja de explotación ('+n(CR[CR.length-1],0)+' M€).'+(function(){ var f=Y.filter(function(_,k){ return CT[k]!=null&&CM[k]!=null&&CT[k]<CM[k]; }).length; return f?' En '+f+' de los '+Y.length+' años invirtió menos de lo que se desgastaba.':' Todos los años ha invertido más de lo que se desgastaba.'; })(),
+        chartg(Y,[['Capex de mantenimiento',MNt,'#64748B'],['Capex de crecimiento',CC,'#3B82F6'],['Caja que queda libre',RS,'#BAE6FD']],['Lo que se desgasta en el año (amortización)',CM,'#DC2626'],function(v){ return n(v,0)+' M€'; },[PC,function(v){ return n(v,0)+'%'; },'#475569','Capex / caja: ']),
+        leg([['Mantenimiento','#64748B'],['Crecimiento','#3B82F6'],['Resto de la caja','#BAE6FD'],['Desgaste del año (línea)','#DC2626'],['Arriba: % de la caja a capex','#475569']])+'<span class="nf-ws">La línea roja es lo que se desgasta cada año (la amortización que hay que reponer). Barras por debajo de la línea: ese año invirtió menos de lo que se desgastó. Por encima: invierte para crecer.</span>'); }
     var DBt=g(so,'deuda_bruta'), CJ=g(so,'caja').map(function(v){ return v==null?null:-Math.abs(v); }), DN=g(so,'deuda_neta'), DE=g(so,'dn_ebitda');
     if(!banca&&DBt.some(function(v){return v!=null;})){ var dl=DE[DE.length-1], col6=dl!=null&&dl<=2?'v':(dl!=null&&dl<=3?'a':'r'), fx=function(v){ return (Math.abs(v)<0.05?'0,0':n(v,1))+'x'; }, dn=DN[DN.length-1];
       c6=gcard('¿Cuánta deuda tiene y puede pagarla?',col6,'Debe '+n(DBt[DBt.length-1],0)+' M€ y tiene '+n(-z(CJ)[CJ.length-1],0)+' M€ en caja: '+(dn>0?'deuda neta de '+n(dn,0)+' M€, '+fx(dl)+' el EBITDA.':'le sobra caja ('+n(-dn,0)+' M€).'),
@@ -285,10 +285,49 @@
       sv+='</svg>';
       var pag=0; for(var i=Y.length-1;i>=0;i--){ if((+fl.dpa[Y[i]]||0)>0) pag++; else break; }
       var sube=0; for(var j=1;j<Y.length;j++) if((+fl.dpa[Y[j]]||0)>(+fl.dpa[Y[j-1]]||0)+1e-9) sube++;
-      h+=card('Historia del dividendo','por ejercicio · serie del método','<div class="nf-chips2"><span>'+pag+' años pagando</span><span>Sube '+sube+' de '+(Y.length-1)+' años</span></div>'+sv+leg([['Ordinario','#8B5CF6'],['Extraordinario','#C4B5FD']])); }
+      h+=card('Historia del dividendo','por ejercicio · serie del método','<div class="nf-chips2"><span>'+pag+' años pagando</span><span>Sube '+sube+' de '+(Y.length-1)+' años</span></div>'+sv+leg([['Ordinario','#8B5CF6'],['Extraordinario','#C4B5FD']]))+'<div class="nf-card" id="nfIpcHost" style="display:none"></div>'; }
     var k=[['Payout sobre beneficio',last(fl.payout_bn),'%'],['Payout sobre caja libre',last(fl.payout_fcl),'%'],['Veces que lo cubre la caja',last(fl.cobertura),'x'],['Rentabilidad por dividendo',last(fl.rpd),'%'],['Rentabilidad total al accionista',last(fl.shareholder_yield),'%']].filter(function(x){ return x[1]!=null; });
     if(k.length) h+=card('Lo que vuelve al accionista','último ejercicio','<div class="nf-kv">'+k.map(function(x){ return '<span>'+x[0]+'</span><b>'+n(x[1],x[2]==='x'?2:1)+(x[2]==='x'?'x':' %')+'</b>'; }).join('')+'</div>');
     return h||card('Dividendo','',vd('a','Sin datos de dividendo.'));
+  }
+
+  /* ---------------- 14-nov-2026 (Carlos): EL DIVIDENDO FRENTE A LA INFLACIÓN ----------------
+     «podemos buscar la serie del ipc, me gusta esa comparación». ipc.json (raíz del repo): índice mensual del INE por años
+     completos + tasas interanuales de los meses posteriores, que añade el pase macro; un año con sus 12 tasas se calcula aquí.
+     El dividendo es el ordinario EN ACCIONES DE HOY (series.flujos.dpa_hoy: ÷ desdoblamientos y liberadas), para que Aena o
+     Vidrala no salgan mal; si la ficha es antigua y no lo trae, el ordinario tal cual. */
+  var _IPC=null;
+  function ipcAnual(J){ var M={}, A={}; Object.keys((J&&J.mensual)||{}).forEach(function(y){ if((J.mensual[y]||[]).length===12) M[y]=J.mensual[y].slice(); });
+    var T=(J&&J.tasas)||{}, ys=Object.keys(M).sort(), y=ys.length?+ys[ys.length-1]+1:null;
+    while(y&&M[y-1]){ var m=[]; for(var i=1;i<=12;i++){ var r=T[y+'-'+(i<10?'0':'')+i]; if(r==null||!isFinite(+r)) break; m.push(M[y-1][i-1]*(1+(+r)/100)); } if(m.length<12) break; M[y]=m; y++; }
+    Object.keys(M).forEach(function(k){ A[k]=M[k].reduce(function(a,b){ return a+b; },0)/12; }); return A; }
+  function montarIpc(F,t){
+    var host=document.getElementById('nfIpcHost'); if(!host) return;
+    var go=function(J){ if(!document.getElementById('nfIpcHost')||cur!==t||!J) return;
+      var A=ipcAnual(J), fl=(F.series||{}).flujos||{}, aj=!!fl.dpa_hoy, D=fl.dpa_hoy||fl.dpa_ordinario||fl.dpa||{};
+      var Y=Object.keys(D).filter(function(y){ return /^\d{4}$/.test(y)&&A[y]!=null&&D[y]!=null; }).sort(); while(Y.length&&!(+D[Y[0]]>0)) Y.shift(); while(Y.length&&!(+D[Y[Y.length-1]]>0)) Y.pop();
+      if(Y.length<3) return;
+      var y0=Y[0], y1=Y[Y.length-1], N=Y.length, nA=(+y1)-(+y0), d0=+D[y0], d1=+D[y1], g=d1/d0, ip=A[y1]/A[y0], real=(Math.pow(g/ip,1/nA)-1)*100, emp=d0*ip;
+      var ID=Y.map(function(y){ return (+D[y]||0)/d0*100; }), II=Y.map(function(y){ return A[y]/A[y0]*100; }), cer=Y.filter(function(y){ return !(+D[y]>0); }).length;
+      var col=real>0.5?'v':(real>=-0.5?'a':'r');
+      var ver='De '+y0+' a '+y1+' el dividendo por acción ha pasado de <b>'+n(d0,3)+' €</b> a <b>'+n(d1,3)+' €</b> ('+pc((g-1)*100,0)+') y los precios han subido un <b>'+n((ip-1)*100,0)+' %</b>. '+
+        (real>0.5?'<b>Le gana a la inflación</b>: tu dividendo compra un '+n(real,1)+' % más cada año.':(real>=-0.5?'<b>Empata con la inflación</b> ('+pc(real,1)+' al año): compra lo mismo que entonces.':'<b>Pierde frente a la inflación</b>: compra un '+n(-real,1)+' % menos cada año. Para haber empatado tendría que ser hoy de '+n(emp,3)+' €.'))+
+        (cer?' En '+cer+' de esos años no pagó dividendo.':'');
+      var all=ID.concat(II), mx=Math.max.apply(null,all)*1.06, mn=Math.min(Math.min.apply(null,all),90)*0.94; if(mn<0) mn=0;
+      var W=600,H=250,x0=46,x1=590,yt=14,yb=H-26, X=function(i){ return x0+(i+0.5)/N*(x1-x0); }, Yp=function(v){ return yt+(mx-v)/(mx-mn)*(yb-yt); }, sp=niceStep((mx-mn)/4);
+      var h='<svg viewBox="0 0 '+W+' '+H+'" class="nf-chs" style="max-width:720px">';
+      for(var v=Math.ceil(mn/sp)*sp; v<=mx+1e-9; v+=sp) h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Yp(v).toFixed(1)+'" y2="'+Yp(v).toFixed(1)+'" stroke="'+(Math.abs(v-100)<1e-9?'#94A3B8':'#EEF1F5')+'"/><text x="'+(x0-6)+'" y="'+(Yp(v)+4).toFixed(1)+'" font-size="10.5" text-anchor="end" fill="#5B6B7C">'+n(v,0)+'</text>';
+      var area='M'+Y.map(function(_,i){ return X(i).toFixed(1)+','+Yp(ID[i]).toFixed(1); }).join(' L')+' L'+Y.map(function(_,i){ return X(N-1-i).toFixed(1)+','+Yp(II[N-1-i]).toFixed(1); }).join(' L')+' Z';
+      h+='<path d="'+area+'" fill="'+(real>=0?'#16A34A':'#DC2626')+'" fill-opacity=".08"/>';
+      [[II,'#DC2626','6 5'],[ID,'#8B5CF6','']].forEach(function(L){ h+='<polyline fill="none" stroke="'+L[1]+'" stroke-width="2.5"'+(L[2]?' stroke-dasharray="'+L[2]+'"':'')+' points="'+Y.map(function(_,i){ return X(i).toFixed(1)+','+Yp(L[0][i]).toFixed(1); }).join(' ')+'"/>'; });
+      Y.forEach(function(y,i){ h+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Yp(ID[i]).toFixed(1)+'" r="3.2" fill="#fff" stroke="#8B5CF6" stroke-width="2"/><text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" font-size="10.5" text-anchor="middle" fill="#5B6B7C">'+y+'</text>'; });
+      var bw=(x1-x0)/N; Y.forEach(function(y,i){ h+='<rect class="nf-hv" x="'+(x0+i*bw).toFixed(1)+'" y="'+yt+'" width="'+bw.toFixed(1)+'" height="'+(yb-yt)+'" fill="transparent" data-tip="'+esc(y+'|Dividendo: '+n(+D[y]||0,3)+' € (índice '+n(ID[i],0)+')|Precios: índice '+n(II[i],0)+'|Para empatar: '+n(d0*A[y]/A[y0],3)+' €')+'"/>'; });
+      h+='</svg>';
+      host.style.display=''; host.innerHTML='<h2>¿El dividendo le gana a la inflación? <span class="nf-sub">'+y0+' = 100</span></h2>'+vd(col,ver)+h+
+        leg([['Dividendo por acción','#8B5CF6'],['Precios (IPC)','#DC2626']])+
+        '<span class="nf-ws">Dividendo ordinario por ejercicio'+(aj?', en acciones de hoy (ajustado por desdoblamientos y acciones liberadas)':'')+'. Precios: media anual del IPC general del INE. Las dos líneas parten de 100 en '+y0+': si la morada va por encima, el dividendo ha crecido más que los precios.</span>'; };
+    if(_IPC) return go(_IPC);
+    fetch('ipc.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }).then(function(J){ if(J) _IPC=J; go(J); });
   }
 
   /* ---------------- MI POSICIÓN (de la app) ---------------- */
@@ -456,6 +495,34 @@
   }
   function cmpSel(t){ if(_cmpMem[t]) return _cmpMem[t]; try{ var o=JSON.parse(localStorage.getItem('nfCmp')||'{}'); return (o[t]||[]).slice(0,2); }catch(e){ return []; } }
   function cmpGuarda(t,a){ _cmpMem[t]=a; try{ var o=JSON.parse(localStorage.getItem('nfCmp')||'{}'); o[t]=a; localStorage.setItem('nfCmp',JSON.stringify(o)); }catch(e){} }
+  /* 14-nov-2026 (Carlos): capex frente a desgaste entre comparables. ratio = capex / capex de mantenimiento (la amortización
+     reponible del método): >1 invierte para crecer, ≈1 repone, <1 invierte menos de lo que se desgasta. */
+  function capexCmp(LST,nom){
+    var D=LST.map(function(o,j){ var fl=((o.F||{}).series||{}).flujos||{}, ca=fl.capex||{}, cm=fl.capex_mant||{}, r={};
+      Object.keys(ca).forEach(function(y){ var a=ca[y], b=cm[y]; if(a!=null&&b!=null&&Math.abs(b)>0) r[y]=Math.abs(a)/Math.abs(b); });
+      return {t:o.t,c:CMPC[j],r:r}; }).filter(function(d){ return Object.keys(d.r).length>=2; });
+    if(D.length<2||D[0].t!==LST[0].t) return '';
+    var set={}; D.forEach(function(d){ Object.keys(d.r).forEach(function(y){ set[y]=1; }); }); var Y=Object.keys(set).sort().slice(-10), N=Y.length; if(N<2) return '';
+    var all=[1]; D.forEach(function(d){ Y.forEach(function(y){ if(d.r[y]!=null) all.push(d.r[y]); }); });
+    var vmx=Math.min(Math.max.apply(null,all),4)*1.08, vmn=Math.max(0,Math.min.apply(null,all)*0.85), W=1000,H=250,x0=54,x1=980,yt=14,yb=H-28;
+    var X=function(i){ return x0+(i+0.5)/N*(x1-x0); }, Yp=function(v){ return yt+(vmx-Math.min(v,vmx))/(vmx-vmn)*(yb-yt); }, f2=function(v){ return n(v,2)+'x'; };
+    var h='<svg viewBox="0 0 '+W+' '+H+'" class="nf-chs" style="width:100%">', sp=niceStep((vmx-vmn)/4);
+    for(var v=Math.ceil(vmn/sp)*sp; v<=vmx; v+=sp) h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Yp(v).toFixed(1)+'" y2="'+Yp(v).toFixed(1)+'" stroke="#EEF1F5"/><text x="'+(x0-6)+'" y="'+(Yp(v)+4).toFixed(1)+'" font-size="11" text-anchor="end" fill="#5B6B7C">'+n(v,1)+'x</text>';
+    h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Yp(1).toFixed(1)+'" y2="'+Yp(1).toFixed(1)+'" stroke="#DC2626" stroke-dasharray="6 5"/><text x="'+(x0+6)+'" y="'+(Yp(1)+14).toFixed(1)+'" font-size="11" fill="#DC2626">1,0x: invierte lo que se desgasta</text>';
+    Y.forEach(function(y,i){ h+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" font-size="11" text-anchor="middle" fill="#5B6B7C">'+y+'</text>'; });
+    D.forEach(function(d,j){ var seg=[]; var suelta=function(){ if(seg.length>1) h+='<polyline fill="none" stroke="'+d.c+'" stroke-width="'+(j?2:2.6)+'" points="'+seg.join(' ')+'"/>'; seg=[]; };
+      Y.forEach(function(y,i){ if(d.r[y]==null){ suelta(); return; } seg.push(X(i).toFixed(1)+','+Yp(d.r[y]).toFixed(1)); h+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Yp(d.r[y]).toFixed(1)+'" r="3.2" fill="#fff" stroke="'+d.c+'" stroke-width="2"/>'; }); suelta(); });
+    var bw=(x1-x0)/N; Y.forEach(function(y,i){ h+='<rect class="nf-hv" x="'+(x0+i*bw).toFixed(1)+'" y="'+yt+'" width="'+bw.toFixed(1)+'" height="'+(yb-yt)+'" fill="transparent" data-tip="'+esc(y+D.map(function(d){ return '|'+(nom[d.t]||d.t)+': '+(d.r[y]!=null?f2(d.r[y]):'—'); }).join(''))+'"/>'; });
+    h+='</svg>';
+    var m5=function(d){ var xs=Y.slice(-5).map(function(y){ return d.r[y]; }).filter(function(x){ return x!=null; }); return xs.length?xs.reduce(function(a,b){ return a+b; },0)/xs.length:null; };
+    var baj=function(d){ return Y.filter(function(y){ return d.r[y]!=null&&d.r[y]<1; }).length; }, cnt=function(d){ return Y.filter(function(y){ return d.r[y]!=null; }).length; };
+    var que=function(m){ return m==null?'':(m>1.15?'invierte para crecer':(m>=0.85?'repone lo que se desgasta':'invierte menos de lo que se desgasta')); };
+    var yo=D[0], my=m5(yo), lec=my==null?'':vd(my>1.15?'v':(my>=0.85?'n':'a'),'<b>'+esc(nom[yo.t]||yo.t)+'</b> ha invertido de media <b>'+f2(my)+'</b> su desgaste en los últimos cinco años: '+que(my)+'.'+D.slice(1).map(function(d){ var m=m5(d); return m==null?'':' '+esc(nom[d.t]||d.t)+', '+f2(m)+'.'; }).join('')+' Invertir mucho no es bueno por sí solo: hay que ver si luego sube lo que gana.');
+    var ul=Y[N-1], tb='<div style="overflow-x:auto;margin-top:10px"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="text-align:right;color:#5B6B7C;border-bottom:1px solid #E2E8F0"><th style="text-align:left;padding:5px 6px">Empresa</th><th style="padding:5px 6px">'+esc(ul)+'</th><th style="padding:5px 6px">Media de 5 años</th><th style="padding:5px 6px">Años por debajo de 1,0x</th><th style="padding:5px 6px;text-align:left">Lectura</th></tr></thead><tbody>'+
+      D.map(function(d){ var m=m5(d); return '<tr style="text-align:right;border-bottom:1px solid #F1F5F9"><td style="text-align:left;padding:5px 6px"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;background:'+d.c+'"></i>'+esc(nom[d.t]||d.t)+'</td><td style="padding:5px 6px">'+(d.r[ul]!=null?f2(d.r[ul]):'—')+'</td><td style="padding:5px 6px"><b>'+(m!=null?f2(m):'—')+'</b></td><td style="padding:5px 6px">'+baj(d)+' de '+cnt(d)+'</td><td style="padding:5px 6px;text-align:left;color:#334155">'+que(m)+'</td></tr>'; }).join('')+'</tbody></table></div>';
+    return '<h2 style="margin-top:22px">¿Quién invierte para crecer y quién solo repone?</h2>'+lec+h+'<div class="nf-lg">'+D.map(function(d){ return '<span><i style="background:'+d.c+'"></i>'+esc(nom[d.t]||d.t)+'</span>'; }).join('')+'</div>'+tb+
+      '<span class="nf-ws">Capex del año dividido entre lo que se desgasta (la amortización que el método toma como capex de mantenimiento). Por encima de 1 invierte más de lo que se desgasta; por debajo, menos.</span>';
+  }
   function montarCmp(F,t,L){
     var host=document.getElementById('nfCmpHost'); if(!host||!L||L.length<2) return; host.style.display='';
     var nom={}; lista().forEach(function(a){ nom[a[0]]=a[1]; }); if(!nom[t]) nom[t]=F.empresa||t;
@@ -479,7 +546,8 @@
       var N=L.length, S=[{t:t,M:((F.valoracion||{}).multiplos||{}).ev_ebitda,hoy:L[N-1].x,v:L.map(function(o){ return o.x; })}], sin=[];
       sel.forEach(function(s,i){ var r=R[i]; if(!r){ sin.push(nom[s]||s); return; } S.push({t:s,M:r.M,hoy:r.hoy,v:L.map(function(o,k){ var x=k===N-1?r.hoy:r.m[o.f.slice(0,7)]; return x==null?null:x; })}); });
       var aviso=sin.length?vd('a','Sin EV/EBITDA para comparar: <b>'+sin.map(esc).join(', ')+'</b>. En bancos y aseguradoras no tiene sentido; en otras pueden faltar datos.'):'';
-      if(S.length<2){ host.innerHTML=cab+aviso+COMO; engancha(); return; }
+      var CX=''; try{ CX=capexCmp([{t:t,F:F}].concat(sel.map(function(s){ return {t:s,F:C[s]}; })),nom); }catch(e){ console.error('n-ficha capexCmp',e); }
+      if(S.length<2){ host.innerHTML=cab+aviso+COMO+CX; engancha(); return; }
       var all=[]; S.forEach(function(s){ s.v.forEach(function(x){ if(x!=null&&isFinite(x)) all.push(x); }); });
       var tope=Math.max.apply(null,S.map(function(s){ return Math.max(s.M.max||s.M.media,s.hoy||0); }))*1.5, vmx=Math.min(Math.max.apply(null,all),tope)*1.06, vmn=Math.max(0,Math.min.apply(null,all)*0.9);
       var nar=(host.clientWidth||1000)<640, W=nar?520:1000,H=nar?320:300,x0=nar?40:54,x1=nar?500:980,yt=14,yb=H-30, X=function(i){ return x0+(N>1?i/(N-1):0)*(x1-x0); }, Y=function(v){ return yt+(vmx-Math.min(Math.max(v,vmn),vmx))/(vmx-vmn)*(yb-yt); };
@@ -507,7 +575,7 @@
         else if(car) lec=vd('a',B+' es la más cara de '+grp+' ('+n(yo.hoy,1)+'x), pero '+fr+': suele pagarse más que las otras y hoy algo menos. Puede ser oportunidad si la empresa es buena.');
         else lec=vd('n',B+' ('+n(yo.hoy,1)+'x) queda entre las otras; manda la lectura contra sí misma: '+fr+'.');
       }
-      host.innerHTML=cab+aviso+lec+h+lg+tb+nt+COMO; engancha();
+      host.innerHTML=cab+aviso+lec+h+lg+tb+nt+COMO+CX; engancha();
     });
   }
 
@@ -660,6 +728,7 @@
         (F._evNota?'<div class="nf-pie" style="color:#1F4A9A">↔️ '+esc(F._evNota)+'</div>':'')+'<div class="nf-pie">Ficha generada por el método el '+esc(String(F.generado||'').replace('T',' '))+(F.datos_hasta?' · cuentas hasta '+esc(F.datos_hasta):'')+'</div>';
       if(tab==='cot') montarCot(t);
       if(tab==='neg') try{ montarEv(F,t); }catch(e){ console.error('n-ficha ev',e); }
+      if(tab==='div') try{ montarIpc(F,t); }catch(e){ console.error('n-ficha ipc',e); }
     });
   }
   window.nfAbrir=function(t){ if(t) cur=String(t).toUpperCase(); tab='res'; if(typeof activarVista==='function') activarVista('fichaemp'); pintar(); window.scrollTo(0,0); };
