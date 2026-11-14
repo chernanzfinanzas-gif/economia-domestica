@@ -1,21 +1,21 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
  "ticker": "VID",
  "empresa": "Vidrala, S.A.",
- "fecha": "2026-11-09",
+ "fecha": "2026-11-14",
  "revisadoEl": "2026-10-28",
  "rating": "AA",
  "score": 76.1,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 25 % · DCF optimista 10 % · EV/EBITDA 15 % · EV/EBIT 10 % · PER 10 % · P/VC 5 % · P/FCL 10 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl",
- "poBear": 79.8,
- "poBase": 100.75,
- "poBull": 121.25,
- "entMin": 79.8,
- "entMax": 87.61,
- "stop": 34.27,
+ "poBear": 78.19,
+ "poBase": 98.53,
+ "poBull": 118.41,
+ "entMin": 78.19,
+ "entMax": 85.68,
+ "stop": 33.67,
  "dpaPrevisto": 1.7505,
  "moat": "51,2 sobre 100 · MOAT ESTRECHO. El vidrio es un producto sin diferenciación; la ventaja es de costes y de proximidad al cliente",
  "catalizadores": [
@@ -34,9 +34,9 @@
   "Traslación de libra y real brasileño (Media): Ventas −5,1 % y −12,8 %.",
   "Interrupción de sistemas o de suministro crítico con daño al horno (Media): Margen −0,6 pp y volumen −1 %; duro: −2 pp, −5 % y FCL −10 %."
  ],
- "bull": "121,25 € — escenario optimista: Vidroporto a plena carga y el precio acompaña a la energía",
- "bear": "79,80 € — escenario pesimista: volumen plano, sin recuperar precio y con el capital más caro",
- "resumen": "MANTENER, a un paso de COMPRAR. A 90,00 € (26-oct) el margen es del +14 %: pasa el 5 % de MANTENER pero no el 15 % de COMPRAR, por 0,58 €. Las otras tres condiciones se cumplen: pérdida al bear desde la entrada máxima del 8,9 %, rating AA (76,1) y moat 51,2, y la robustez no vetaría la compra. Pasa a COMPRAR por debajo de 87,61 € (techo de la banda 79,80-87,61 €). El precio objetivo (100,75 €) sale de corregir el 27-oct las liberadas en las acciones y en la cotización; el COMPRAR que se publicó ese día con 107,87 € tenía la cotización mal ajustada y no vale.",
+ "bull": "118,41 € — escenario optimista: Vidroporto a plena carga y el precio acompaña a la energía",
+ "bear": "78,19 € — escenario pesimista: volumen plano, sin recuperar precio y con el capital más caro",
+ "resumen": "MANTENER con la cotización de 90,20 € (2026-11-04): precio objetivo 98,53 € (bear 78,19 · bull 118,41), margen +9,2 %. Banda de entrada 78,19–85,68 €, stop de tesis 33,67 €.",
  "dividendSafety": {
   "score": 90,
   "banda": "Muy seguro",
@@ -56,9 +56,9 @@
   "motivos": [
    "Muy seguro: cobertura OE 4.00x · payout 29 % · 0 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja, recompras recortadas"
   ],
-  "calculadoEl": "2026-11-09",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
-  "shareholderYield": 2.08
+  "shareholderYield": 1.98
  },
  "forense": {
   "aplica": true,
@@ -97,31 +97,31 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-09",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 3.83,
+  "gImplicito": 4.56,
   "gIntrinseco": 7.34,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 7.3 %)",
-  "calculadoEl": "2026-11-09",
+  "calculadoEl": "2026-11-14",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 165.9178,
-   "wacc": 7.6389,
+   "wacc": 7.6558,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 35.1834,
+   "acciones": 36.9425,
    "deudaNeta": 154.561,
    "modo": "EV",
    "precioBase": 90.2,
-   "gBase": 3.83,
+   "gBase": 4.56,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-09",
+   "congeladoEl": "2026-11-14",
    "validado": true,
-   "desviacion": 0.0
+   "desviacion": -0.0
   }
  }
 }

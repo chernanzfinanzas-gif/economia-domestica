@@ -1,28 +1,16 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-14T03:14",
+ "generado": "2026-11-14T04:25",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-14T03:14",
+  "cuando": "2026-11-14T04:25",
   "ficheros": [
-   "dossiers/CEV.html",
-   "dossiers/CEV.json",
-   "dossiers/COL.html",
-   "dossiers/COL.json",
-   "dossiers/MRL.html",
-   "dossiers/MRL.json",
-   "dossiers/anteriores/MRL-FY2025.html",
-   "dossiers/trimestral/CEV-trim.json",
-   "dossiers/trimestral/COL-trim.json",
-   "dossiers/trimestral/MRL-trim.json",
-   "dossiers/v3/CEV.html",
-   "dossiers/v3/COL.html",
-   "dossiers/v3/MRL.html",
-   "fichas/CEV.json",
-   "fichas/COL.json",
-   "fichas/MRL.json",
+   "dossiers/VID.html",
+   "dossiers/VID.json",
+   "dossiers/trimestral/VID-trim.json",
+   "fichas/VID.json",
    "fichas/_resumen.json"
   ]
  },
@@ -1061,6 +1049,48 @@
    "resuelto": null,
    "como": null,
    "comprobado": null
+  },
+  {
+   "id": "Pa474fdff",
+   "creado": "2026-11-14T04:05",
+   "origen": "ampliaciones liberadas",
+   "ticker": "VID",
+   "que": "Vidrala: ampliación liberada 1×20 — PO ajustado 100.75 → 98.53 € (decisión MANTENER, sin cambio)",
+   "detalle": "Descuenta el 2026-10-29 (CNMV 2026-10-20). Techo de compra 87.61 → 85.68 €, stop 34.27 → 33.67 €. serie del repo: del 2026-10-28 al 2026-10-29 la cotización varía un -0.61 %; sin ajustar caería un -4.76 % (comprobación por salto, sin foto anterior)",
+   "estado": "resuelto",
+   "resuelto": "2026-11-14T04:05",
+   "como": "Ajuste automático instalado (ampliaciones.py). Queda en el Diario y en la ficha de la empresa.",
+   "comprobado": null
+  }
+ ],
+ "ajustes_capital": [
+  {
+   "ticker": "VID",
+   "empresa": "Vidrala",
+   "proporcion": "1×20",
+   "factor": 1.05,
+   "exDate": "2026-10-29",
+   "fecha_pdf": "2026-10-20",
+   "estado": "aplicada",
+   "aplicada": "2026-11-14 04:05",
+   "antes": {
+    "decision": "MANTENER",
+    "po": 100.75,
+    "bear": 79.8,
+    "techo": 87.61,
+    "stop": 34.27,
+    "cotizacion": 90.2,
+    "margen": 11.69
+   },
+   "despues": {
+    "decision": "MANTENER",
+    "po": 98.53,
+    "bear": 78.19,
+    "techo": 85.68,
+    "stop": 33.67,
+    "cotizacion": 90.2,
+    "margen": 9.24
+   }
   }
  ],
  "decisiones": "recogida/decisiones-v3.json"
