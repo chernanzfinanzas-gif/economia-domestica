@@ -369,17 +369,28 @@
       var per=_trPer[t]||'max', aa={'3':3,'5':5,'10':10}[per], ini=ini0; if(aa){ var c=(+fin.slice(0,4)-aa)+fin.slice(4); if(c>ini0) ini=c; }
       var at=function(D,f){ var lo=0,hi=D.length; while(lo<hi){ var m=(lo+hi)>>1; if(D[m][0]<=f) lo=m+1; else hi=m; } return lo?+D[lo-1][1]:null; };
       var p0=at(P,ini), b0=at(B,ini); if(!(p0>0)||!(b0>0)) return;
-      /* una acción comprada en «ini»; cada dividendo compra más acciones al precio de ese día */
+      /* una acción comprada en «ini»; cada dividendo compra más acciones al precio de ese día.
+         14-nov (Carlos: «me sorprende que Bankinter sea tan revalorizada»): un reparto EN ACCIONES de otra empresa (Bankinter →
+         Línea Directa, 29-abr-2021; CIE → Dominion, 3-jul-2018) ya viene descontado en precios/TK.json; sumarlo además como
+         dividendo lo contaba dos veces. Regla: un pago de más del 8 % de la cotización solo cuenta si ese día la acción cae al
+         menos la mitad del pago (lo que pasa con todo dividendo en dinero). */
+      var antes=function(D,f){ var lo=0,hi=D.length; while(lo<hi){ var m=(lo+hi)>>1; if(D[m][0]<f) lo=m+1; else hi=m; } return lo?+D[lo-1][1]:null; }, salt=[];
       var u=1, di=0, cob=0; while(di<DV.length&&DV[di][0]<=ini) di++;
       var ult={}; P.forEach(function(d){ if(d[0]>=ini&&d[0]<=fin) ult[d[0].slice(0,7)]=d[0]; });
       var fechas=Object.keys(ult).sort().map(function(k){ return ult[k]; }); if(fechas[0]!==ini) fechas.unshift(ini); if(fechas.length<6) return;
-      var L=fechas.map(function(f){ while(di<DV.length&&DV[di][0]<=f){ var px=at(P,DV[di][0]); if(px>0){ u*=1+DV[di][1]/px; cob+=DV[di][1]; } di++; }
+      var L=fechas.map(function(f){ while(di<DV.length&&DV[di][0]<=f){ var px=at(P,DV[di][0]), pa=antes(P,DV[di][0]); if(px>0){ if(DV[di][1]>=0.08*px&&pa>0&&!(px<=pa-0.5*DV[di][1])) salt.push(DV[di]); else { u*=1+DV[di][1]/px; cob+=DV[di][1]; } } di++; }
         var px2=at(P,f); return {f:f, e:u*px2/p0*100, s:px2/p0*100, i:at(B,f)/b0*100}; });
+      /* 14-nov (Carlos: «100 euros son 3200… exagerada»): la serie de Bankinter salta +45 % el 4-abr-2013 sin que la acción lo
+         hiciera (histórico mal ajustado), y la de Miquel y Costas −42 % el 1-nov-2016. Un salto de un día de más del 40 % que no
+         explica un dividendo de ese día es un fallo de la serie: se avisa y no se da el dato por bueno. */
+      var roto=null; (function(){ var k0=0; while(k0<P.length&&P[k0][0]<ini) k0++; for(var k=Math.max(1,k0); k<P.length&&P[k][0]<=fin; k++){ var a_=+P[k-1][1], b_=+P[k][1]; if(!(a_>0)) continue; var r_=b_/a_-1;
+          if(Math.abs(r_)>=0.40){ var dv=0; DV.forEach(function(d){ if(d[0]===P[k][0]) dv+=d[1]; }); if(!(r_<0&&dv>=0.5*(a_-b_))){ roto=[P[k][0],r_*100]; break; } } } })();
       var N=L.length, z=L[N-1], an=(Date.parse(fin)-Date.parse(ini))/31557600000, ra=function(v){ return (Math.pow(v/100,1/an)-1)*100; }, re=ra(z.e), ri=ra(z.i), dif=re-ri;
-      var col=dif>0.5?'v':(dif>=-0.5?'a':'r'), nm=F.empresa||t;
+      var col=roto?'a':(dif>0.5?'v':(dif>=-0.5?'a':'r')), nm=F.empresa||t;
       var ver='Desde '+fe(ini)+', 100 € en <b>'+esc(nm)+'</b> son hoy <b>'+n(z.e,0)+' €</b> reinvirtiendo los dividendos ('+pc(re,1)+' al año); en el IBEX con dividendos, <b>'+n(z.i,0)+' €</b> ('+pc(ri,1)+' al año). '+
         (dif>0.5?'<b>Le gana al índice</b> por '+n(dif,1)+' puntos al año.':(dif>=-0.5?'<b>Va a la par del índice.</b>':'<b>Pierde frente al índice</b> por '+n(-dif,1)+' puntos al año.'))+
         ' Sin contar dividendos, la acción sola: '+n(z.s,0)+' €.';
+      if(roto) ver='<b>Dato no válido en este periodo.</b> La serie de cotización da un salto de '+pc(roto[1],0)+' el '+fe(roto[0])+' que ningún dividendo explica: es un fallo del histórico de precios, no algo que hiciera la acción. Elige un periodo más corto, que empiece después de esa fecha.';
       var all=[]; L.forEach(function(o){ all.push(o.e,o.s,o.i); }); var mx=Math.max.apply(null,all)*1.05, mn=Math.min.apply(null,all)*0.92;
       var nar=(host.clientWidth||1000)<640, W=nar?520:1000,H=nar?320:300,x0=nar?40:54,x1=nar?505:985,yt=14,yb=H-28, X=function(i){ return x0+(N>1?i/(N-1):0)*(x1-x0); }, Yp=function(v){ return yt+(mx-v)/(mx-mn)*(yb-yt); }, sp=niceStep((mx-mn)/5);
       var h='<svg viewBox="0 0 '+W+' '+H+'" class="nf-chs" style="width:100%">';
@@ -392,7 +403,7 @@
       var bt='<div style="display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 8px">'+[['3','3 años'],['5','5 años'],['10','10 años'],['max','Todo']].map(function(b){ var on=b[0]===per; return '<button type="button" data-nftr="'+b[0]+'" style="padding:4px 10px;border-radius:999px;border:1px solid '+(on?'#7C3AED':'#CBD5E1')+';background:'+(on?'#7C3AED':'#fff')+';color:'+(on?'#fff':'#334155')+';font-size:12.5px;cursor:pointer">'+b[1]+'</button>'; }).join('')+'</div>';
       host.style.display=''; host.innerHTML='<h2>¿Le gana al IBEX con dividendos? <span class="nf-sub">100 € invertidos</span></h2>'+vd(col,ver)+bt+h+
         leg([[nm+' con dividendos reinvertidos','#7C3AED'],['IBEX 35 con dividendos','#475569'],[nm+' sin dividendos','#C4B5FD']])+
-        '<span class="nf-ws">Dividendos brutos, sin impuestos ni comisiones, reinvertidos el día en que la acción cotiza sin ellos; el índice es el IBEX 35 con dividendos. Datos hasta el '+fe(fin)+'. La rentabilidad pasada no dice nada de la futura.</span>';
+        '<span class="nf-ws">Dividendos brutos, sin impuestos ni comisiones, reinvertidos el día en que la acción cotiza sin ellos; el índice es el IBEX 35 con dividendos. Datos hasta el '+fe(fin)+'.'+(salt.length?' No se suma como dividendo el reparto en acciones del '+salt.map(function(x){ return fe(x[0])+' ('+n(x[1],3)+' €)'; }).join(' y del ')+': la cotización ya lo lleva descontado.':'')+' La rentabilidad pasada no dice nada de la futura.</span>';
       Array.prototype.forEach.call(host.querySelectorAll('[data-nftr]'),function(b){ b.onclick=function(ev){ ev.stopPropagation(); _trPer[t]=b.getAttribute('data-nftr'); montarTr(F,t); }; });
     });
   }

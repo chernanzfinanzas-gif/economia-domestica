@@ -53,14 +53,20 @@
      reinvertidos el día ex-dividendo (dividendos.json), frente al IBEX 35 con dividendos (precios/IBEXTR.json) en el MISMO
      periodo de cada una. La misma cuenta que la tarjeta de la ficha. Descarga la cotización de todas: solo al pedirlo. */
   var TR={per:'10',est:'',hecho:0,lista:[],P:{},B:null,DV:null};
+  function trAntes(D,f){ var lo=0,hi=D.length; while(lo<hi){ var m=(lo+hi)>>1; if(D[m][0]<f) lo=m+1; else hi=m; } return lo?+D[lo-1][1]:null; }
   function trAt(D,f){ var lo=0,hi=D.length; while(lo<hi){ var m=(lo+hi)>>1; if(D[m][0]<=f) lo=m+1; else hi=m; } return lo?+D[lo-1][1]:null; }
   function trUno(P,B,DV,per){ if(!P||P.length<260||!B||B.length<260) return null;
     var fin=P[P.length-1][0]<B[B.length-1][0]?P[P.length-1][0]:B[B.length-1][0], ini0=P[0][0]>B[0][0]?P[0][0]:B[0][0], aa={'3':3,'5':5,'10':10}[per], ini=ini0, obj=ini0;
     if(aa){ obj=(+fin.slice(0,4)-aa)+fin.slice(4); if(obj>ini0) ini=obj; }
     var p0=trAt(P,ini), b0=trAt(B,ini), an=(Date.parse(fin)-Date.parse(ini))/31557600000; if(!(p0>0)||!(b0>0)||an<1) return null;
-    var u=1; (DV||[]).forEach(function(d){ if(d[0]>ini&&d[0]<=fin){ var px=trAt(P,d[0]); if(px>0) u*=1+d[1]/px; } });
+    /* un reparto en acciones de otra empresa (BKT → LDA 2021, CIE → Dominion 2018) ya va descontado en la cotización: un pago de
+       más del 8 % del precio solo cuenta si ese día la acción cae al menos la mitad del pago (misma regla que la ficha) */
+    var u=1, esp=0; (DV||[]).forEach(function(d){ if(d[0]>ini&&d[0]<=fin){ var px=trAt(P,d[0]), pa=trAntes(P,d[0]); if(px>0){ if(d[1]>=0.08*px&&pa>0&&!(px<=pa-0.5*d[1])) esp++; else u*=1+d[1]/px; } } });
+    var roto=null, k0=0; while(k0<P.length&&P[k0][0]<ini) k0++;
+    for(var k=Math.max(1,k0); k<P.length&&P[k][0]<=fin; k++){ var a_=+P[k-1][1], b_=+P[k][1]; if(!(a_>0)) continue; var r_=b_/a_-1;
+      if(Math.abs(r_)>=0.40){ var dv=0; (DV||[]).forEach(function(d){ if(d[0]===P[k][0]) dv+=d[1]; }); if(!(r_<0&&dv>=0.5*(a_-b_))){ roto=P[k][0]; break; } } }
     var val=u*trAt(P,fin)/p0*100, ib=trAt(B,fin)/b0*100, ra=function(v){ return (Math.pow(v/100,1/an)-1)*100; };
-    return {ini:ini,fin:fin,an:an,val:val,ra:ra(val),ib:ib,rib:ra(ib),dif:ra(val)-ra(ib),corto:!!aa&&ini>obj}; }
+    return {ini:ini,fin:fin,an:an,val:val,ra:ra(val),ib:ib,rib:ra(ib),dif:ra(val)-ra(ib),corto:!!aa&&ini>obj,esp:esp,roto:roto}; }
   function trCargar(){ if(TR.est==='cargando') return; TR.est='cargando'; TR.hecho=0; pintarTr();
     var get=function(u){ return fetch(u,{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }); };
     Promise.all([get('dividendos.json'),get('precios/IBEXTR.json')]).then(function(a){
@@ -77,16 +83,19 @@
     if(TR.est==='error'){ h.innerHTML=cab+'<div class="nf-mu">No se ha podido leer el IBEX con dividendos (precios/IBEXTR.json).</div>'; return; }
     if(TR.est==='cargando'){ h.innerHTML=cab+'<div class="nf-mu" style="padding:10px 0">Descargando cotizaciones… '+TR.hecho+' de '+TR.lista.length+'</div>'; return; }
     var R2=[], sin=[]; TR.lista.forEach(function(x){ var r=trUno(TR.P[x.t],TR.B,TR.DV[x.t],TR.per); if(r){ r.x=x; R2.push(r); } else sin.push(x.t); });
+    var MAL=R2.filter(function(r){ return r.roto; }); R2=R2.filter(function(r){ return !r.roto; });
     R2.sort(function(a,b){ return b.dif-a.dif; });
     var gan=R2.filter(function(r){ return r.dif>0.5; }).length, pie=R2.filter(function(r){ return r.dif<-0.5; }).length, ref=R2.filter(function(r){ return !r.corto; })[0];
     var bt='<div class="na-flt" style="margin:6px 0 10px">'+[['3','3 años'],['5','5 años'],['10','10 años'],['max','Desde 2011']].map(function(b){ return '<span data-natrp="'+b[0]+'" class="'+(TR.per===b[0]?'on':'')+'">'+b[1]+'</span>'; }).join('')+'</div>';
     var fd=function(f){ var M=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'], p=f.split('-'); return M[+p[1]-1]+'-'+p[0]; }, pc=function(v){ return (v>0?'+':'')+n(v,1)+' %'; };
     var filaI=ref?'<tr style="background:#F1F5F9;font-weight:700"><td class="l">IBEX 35 con dividendos</td><td>'+fd(ref.ini)+'</td><td>'+n(ref.ib,0)+' €</td><td>'+pc(ref.rib)+'</td><td>—</td><td>—</td><td></td></tr>':'';
     var rows=R2.map(function(r){ var c=r.dif>0.5?'#15803D':(r.dif<-0.5?'#B91C1C':'#B45309');
-      return '<tr data-nfopen="'+r.x.t+'"><td class="l"><b>'+r.x.t+'</b> '+esc(r.x.nom)+(r.x.tengo?' <span class="na-ch na-own">en cartera</span>':'')+'</td><td>'+fd(r.ini)+(r.corto?' <span title="No cotizaba al empezar el periodo: se compara desde que hay datos" style="color:#B45309">*</span>':'')+'</td><td><b>'+n(r.val,0)+' €</b></td><td>'+pc(r.ra)+'</td><td>'+pc(r.rib)+'</td><td style="color:'+c+';font-weight:700">'+(r.dif>0?'+':'')+n(r.dif,1)+' pt</td><td>'+dec(r.x.dec)+'</td></tr>'; }).join('');
+      return '<tr data-nfopen="'+r.x.t+'"><td class="l"><b>'+r.x.t+'</b> '+esc(r.x.nom)+(r.esp?' <span title="Hizo un reparto en acciones de otra empresa: no se suma como dividendo porque la cotización ya lo lleva descontado" style="color:#64748B">†</span>':'')+(r.x.tengo?' <span class="na-ch na-own">en cartera</span>':'')+'</td><td>'+fd(r.ini)+(r.corto?' <span title="No cotizaba al empezar el periodo: se compara desde que hay datos" style="color:#B45309">*</span>':'')+'</td><td><b>'+n(r.val,0)+' €</b></td><td>'+pc(r.ra)+'</td><td>'+pc(r.rib)+'</td><td style="color:'+c+';font-weight:700">'+(r.dif>0?'+':'')+n(r.dif,1)+' pt</td><td>'+dec(r.x.dec)+'</td></tr>'; }).join('')+
+      /* 14-nov (Carlos: «sería mejor borrar ese registro y decir dato no válido»): la empresa sigue en la tabla, sin cifras */
+      MAL.map(function(r){ return '<tr data-nfopen="'+r.x.t+'" style="color:#94A3B8"><td class="l"><b>'+r.x.t+'</b> '+esc(r.x.nom)+'</td><td colspan="5" style="text-align:center;font-style:italic">dato no válido en este periodo: el histórico de precios falla el '+fd(r.roto)+'</td><td>'+dec(r.x.dec)+'</td></tr>'; }).join('');
     h.innerHTML=cab+bt+'<div style="font-size:13.5px;color:#334155;margin-bottom:8px"><b>'+gan+'</b> le ganan al índice, <b>'+pie+'</b> pierden y <b>'+(R2.length-gan-pie)+'</b> van a la par (menos de medio punto al año).</div>'+
       '<div class="nf-tw"><table class="na-t"><tr><th class="l">Empresa</th><th>Desde</th><th>100 € son hoy</th><th>Al año</th><th>IBEX, mismo periodo</th><th>Diferencia al año</th><th>Decisión</th></tr>'+filaI+rows+'</table></div>'+
-      '<span class="nf-ws">Dividendos brutos, sin impuestos ni comisiones, en la empresa y en el índice. Cada empresa se compara con el IBEX en su mismo periodo; con * las que empezaron a cotizar después. Datos hasta el '+(ref?fd(ref.fin):'—')+'.'+(sin.length?' Sin datos suficientes: '+sin.join(', ')+'.':'')+' La rentabilidad pasada no dice nada de la futura.</span>';
+      '<span class="nf-ws">Dividendos brutos, sin impuestos ni comisiones, en la empresa y en el índice. Cada empresa se compara con el IBEX en su mismo periodo; con * las que empezaron a cotizar después. Con † las que repartieron acciones de otra empresa en el periodo: ese reparto no se suma como dividendo porque la cotización ya lo lleva descontado. Datos hasta el '+(ref?fd(ref.fin):'—')+'.'+(MAL.length?' «Dato no válido»: el histórico de precios de esa empresa da ese día un salto de más del 40 % que ningún dividendo explica; con un periodo que empiece después sí sale.':'')+(sin.length?' Sin datos suficientes: '+sin.join(', ')+'.':'')+' La rentabilidad pasada no dice nada de la futura.</span>';
   }
   document.addEventListener('click',function(e){
     var o=e.target.closest&&e.target.closest('[data-nfopen]'); if(o&&window.nfAbrir){ window.nfAbrir(o.getAttribute('data-nfopen')); return; }
