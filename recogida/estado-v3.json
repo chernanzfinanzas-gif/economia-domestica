@@ -1,17 +1,16 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-14T04:25",
+ "generado": "2026-11-14T10:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-14T04:25",
+  "cuando": "2026-11-14T10:45",
   "ficheros": [
-   "dossiers/VID.html",
-   "dossiers/VID.json",
-   "dossiers/trimestral/VID-trim.json",
-   "fichas/VID.json",
-   "fichas/_resumen.json"
+   "recogida/publicaciones/SAN.json",
+   "recogida/publicaciones/_indice.json",
+   "recogida/publicaciones/dias/2026-09.json",
+   "recogida/publicaciones/dias/2026-11.json"
   ]
  },
  "rechazos": [],
