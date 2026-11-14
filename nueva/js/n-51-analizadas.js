@@ -44,11 +44,55 @@
       '<h2 class="na-h2">Hoy merece mirar ('+top.length+')</h2><div class="na-acs">'+(cards||'<div class="nf-mu">Ninguna está hoy en zona.</div>')+'</div>'+
       '<div class="nf-card"><h2>Todas las analizadas ('+L.length+') <span class="nf-sub">ordenadas por lo cerca que está el precio de la entrada</span></h2><div class="na-flt">'+F.map(function(f){ return '<span data-naf="'+f[0]+'" class="'+(filtro===f[0]?'on':'')+'">'+f[1]+'</span>'; }).join('')+'</div>'+
       '<div class="nf-tw"><table class="na-t"><tr><th class="l">Empresa</th><th>Decisión</th><th>Precio</th><th>A la entrada máx.</th><th>Dónde está el precio</th><th>PO base</th><th>Calidad</th><th>Dividendo</th><th>Último resultado</th></tr>'+rows+'</table></div>'+
-      '<span class="nf-ws">La regla de cada fila es la misma de la ficha. «Dividendo» = nota de seguridad del dividendo (0-100). Análisis del método del '+esc(fe)+'.</span></div>';
+      '<span class="nf-ws">La regla de cada fila es la misma de la ficha. «Dividendo» = nota de seguridad del dividendo (0-100). Análisis del método del '+esc(fe)+'.</span></div>'+
+      '<div class="nf-card" id="naTrHost"></div>';
+    TR.lista=L.map(function(x){ return {t:x.ticker,nom:x.empresa,dec:x.decision,tengo:x.tengo}; }); pintarTr();
+  }
+  /* ---------------- 14-nov-2026 (Carlos): LAS ANALIZADAS FRENTE AL IBEX CON DIVIDENDOS ----------------
+     «un comparativo entre las analizadas y el ibex 35 en una tabla». 100 € en cada empresa, con los dividendos brutos
+     reinvertidos el día ex-dividendo (dividendos.json), frente al IBEX 35 con dividendos (precios/IBEXTR.json) en el MISMO
+     periodo de cada una. La misma cuenta que la tarjeta de la ficha. Descarga la cotización de todas: solo al pedirlo. */
+  var TR={per:'10',est:'',hecho:0,lista:[],P:{},B:null,DV:null};
+  function trAt(D,f){ var lo=0,hi=D.length; while(lo<hi){ var m=(lo+hi)>>1; if(D[m][0]<=f) lo=m+1; else hi=m; } return lo?+D[lo-1][1]:null; }
+  function trUno(P,B,DV,per){ if(!P||P.length<260||!B||B.length<260) return null;
+    var fin=P[P.length-1][0]<B[B.length-1][0]?P[P.length-1][0]:B[B.length-1][0], ini0=P[0][0]>B[0][0]?P[0][0]:B[0][0], aa={'3':3,'5':5,'10':10}[per], ini=ini0, obj=ini0;
+    if(aa){ obj=(+fin.slice(0,4)-aa)+fin.slice(4); if(obj>ini0) ini=obj; }
+    var p0=trAt(P,ini), b0=trAt(B,ini), an=(Date.parse(fin)-Date.parse(ini))/31557600000; if(!(p0>0)||!(b0>0)||an<1) return null;
+    var u=1; (DV||[]).forEach(function(d){ if(d[0]>ini&&d[0]<=fin){ var px=trAt(P,d[0]); if(px>0) u*=1+d[1]/px; } });
+    var val=u*trAt(P,fin)/p0*100, ib=trAt(B,fin)/b0*100, ra=function(v){ return (Math.pow(v/100,1/an)-1)*100; };
+    return {ini:ini,fin:fin,an:an,val:val,ra:ra(val),ib:ib,rib:ra(ib),dif:ra(val)-ra(ib),corto:!!aa&&ini>obj}; }
+  function trCargar(){ if(TR.est==='cargando') return; TR.est='cargando'; TR.hecho=0; pintarTr();
+    var get=function(u){ return fetch(u,{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }); };
+    Promise.all([get('dividendos.json'),get('precios/IBEXTR.json')]).then(function(a){
+      var DV={}; ((a[0]&&a[0].empresas)||[]).forEach(function(e){ var L=[]; Object.keys(e.anios||{}).forEach(function(y){ ((e.anios[y]||{}).pagos||[]).forEach(function(p){ var f=String(p.exDiv||p.pago||'').slice(0,10), b=+p.bruto; if(/^\d{4}-\d\d-\d\d$/.test(f)&&b>0) L.push([f,b]); }); }); DV[String(e.ticker||'').toUpperCase()]=L.sort(function(x,y){ return x[0]<y[0]?-1:1; }); });
+      TR.DV=DV; TR.B=(a[1]&&a[1].data)||null;
+      if(!TR.B){ TR.est='error'; pintarTr(); return; }
+      var cola=TR.lista.map(function(x){ return x.t; }).filter(function(t){ return TR.P[t]===undefined; });
+      var paso=function(){ if(!cola.length){ TR.est='listo'; pintarTr(); return; } var lote=cola.splice(0,6);
+        Promise.all(lote.map(function(t){ return get('precios/'+encodeURIComponent(t)+'.json').then(function(J){ TR.P[t]=(J&&J.data)||null; TR.hecho++; }); })).then(function(){ pintarTr(); paso(); }); };
+      paso(); }); }
+  function pintarTr(){ var h=document.getElementById('naTrHost'); if(!h) return;
+    var cab='<h2>¿Cuáles le ganan al IBEX con dividendos? <span class="nf-sub">100 € invertidos, dividendos reinvertidos</span></h2>';
+    if(!TR.est){ h.innerHTML=cab+'<p style="font-size:13.5px;color:#334155;margin:6px 0 10px">Compara lo que habrían dado 100 € en cada analizada, reinvirtiendo sus dividendos, con lo que habría dado el IBEX 35 con dividendos en el mismo periodo. Hay que descargar la cotización de las '+TR.lista.length+' empresas (unos segundos).</p><button type="button" data-natr="calc" style="padding:8px 16px;border-radius:10px;border:0;background:#1F4A9A;color:#fff;font-weight:700;font-size:13.5px;cursor:pointer">Calcular la tabla</button>'; return; }
+    if(TR.est==='error'){ h.innerHTML=cab+'<div class="nf-mu">No se ha podido leer el IBEX con dividendos (precios/IBEXTR.json).</div>'; return; }
+    if(TR.est==='cargando'){ h.innerHTML=cab+'<div class="nf-mu" style="padding:10px 0">Descargando cotizaciones… '+TR.hecho+' de '+TR.lista.length+'</div>'; return; }
+    var R2=[], sin=[]; TR.lista.forEach(function(x){ var r=trUno(TR.P[x.t],TR.B,TR.DV[x.t],TR.per); if(r){ r.x=x; R2.push(r); } else sin.push(x.t); });
+    R2.sort(function(a,b){ return b.dif-a.dif; });
+    var gan=R2.filter(function(r){ return r.dif>0.5; }).length, pie=R2.filter(function(r){ return r.dif<-0.5; }).length, ref=R2.filter(function(r){ return !r.corto; })[0];
+    var bt='<div class="na-flt" style="margin:6px 0 10px">'+[['3','3 años'],['5','5 años'],['10','10 años'],['max','Desde 2011']].map(function(b){ return '<span data-natrp="'+b[0]+'" class="'+(TR.per===b[0]?'on':'')+'">'+b[1]+'</span>'; }).join('')+'</div>';
+    var fd=function(f){ var M=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'], p=f.split('-'); return M[+p[1]-1]+'-'+p[0]; }, pc=function(v){ return (v>0?'+':'')+n(v,1)+' %'; };
+    var filaI=ref?'<tr style="background:#F1F5F9;font-weight:700"><td class="l">IBEX 35 con dividendos</td><td>'+fd(ref.ini)+'</td><td>'+n(ref.ib,0)+' €</td><td>'+pc(ref.rib)+'</td><td>—</td><td>—</td><td></td></tr>':'';
+    var rows=R2.map(function(r){ var c=r.dif>0.5?'#15803D':(r.dif<-0.5?'#B91C1C':'#B45309');
+      return '<tr data-nfopen="'+r.x.t+'"><td class="l"><b>'+r.x.t+'</b> '+esc(r.x.nom)+(r.x.tengo?' <span class="na-ch na-own">en cartera</span>':'')+'</td><td>'+fd(r.ini)+(r.corto?' <span title="No cotizaba al empezar el periodo: se compara desde que hay datos" style="color:#B45309">*</span>':'')+'</td><td><b>'+n(r.val,0)+' €</b></td><td>'+pc(r.ra)+'</td><td>'+pc(r.rib)+'</td><td style="color:'+c+';font-weight:700">'+(r.dif>0?'+':'')+n(r.dif,1)+' pt</td><td>'+dec(r.x.dec)+'</td></tr>'; }).join('');
+    h.innerHTML=cab+bt+'<div style="font-size:13.5px;color:#334155;margin-bottom:8px"><b>'+gan+'</b> le ganan al índice, <b>'+pie+'</b> pierden y <b>'+(R2.length-gan-pie)+'</b> van a la par (menos de medio punto al año).</div>'+
+      '<div class="nf-tw"><table class="na-t"><tr><th class="l">Empresa</th><th>Desde</th><th>100 € son hoy</th><th>Al año</th><th>IBEX, mismo periodo</th><th>Diferencia al año</th><th>Decisión</th></tr>'+filaI+rows+'</table></div>'+
+      '<span class="nf-ws">Dividendos brutos, sin impuestos ni comisiones, en la empresa y en el índice. Cada empresa se compara con el IBEX en su mismo periodo; con * las que empezaron a cotizar después. Datos hasta el '+(ref?fd(ref.fin):'—')+'.'+(sin.length?' Sin datos suficientes: '+sin.join(', ')+'.':'')+' La rentabilidad pasada no dice nada de la futura.</span>';
   }
   document.addEventListener('click',function(e){
     var o=e.target.closest&&e.target.closest('[data-nfopen]'); if(o&&window.nfAbrir){ window.nfAbrir(o.getAttribute('data-nfopen')); return; }
-    var f=e.target.closest&&e.target.closest('[data-naf]'); if(f){ filtro=f.getAttribute('data-naf'); pintar(); }
+    var f=e.target.closest&&e.target.closest('[data-naf]'); if(f){ filtro=f.getAttribute('data-naf'); pintar(); return; }
+    if(e.target.closest&&e.target.closest('[data-natr]')){ trCargar(); return; }
+    var q=e.target.closest&&e.target.closest('[data-natrp]'); if(q){ TR.per=q.getAttribute('data-natrp'); pintarTr(); }
   });
   function enganchar(){ if(typeof activarVista!=='function'||activarVista._na) return; var oa=activarVista; activarVista=function(v){ var r=oa.apply(this,arguments); if(v==='analizadas') pintar(); return r; }; activarVista._na=1;
     /* fuera de la ficha nueva, «abrir ficha» de una analizada lleva a la Ficha de empresa nueva */

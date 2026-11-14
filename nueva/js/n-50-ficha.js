@@ -240,7 +240,28 @@
       c8=gcard('¿El beneficio se convierte en caja?',r3==null?'n':col8,(r3==null?'Sin beneficio positivo en los últimos años para comparar.':'En los tres últimos años ('+Y[k3[0]]+'-'+Y[k3[k3.length-1]]+') la caja libre recurrente sumó '+n(sf,0)+' M€ frente a '+n(sb,0)+' M€ de beneficio: el '+n(r3,0)+' %. '+(col8==='v'?'El beneficio es caja de verdad.':(col8==='a'?'Parte del beneficio no llega a caja.':'Buena parte del beneficio no llega a caja.'))),
         chartg(Y,[['Caja libre recurrente',FCL,'#0EA5E9']],['Beneficio neto',BN,'#15803D'],function(v){ return n(v,0)+' M€'; },[FB,function(v){ return n(v,0)+'%'; },'#475569','Caja libre / beneficio: ']),
         leg([['Caja libre recurrente (barras)','#0EA5E9'],['Beneficio neto (línea)','#15803D'],['Arriba: caja libre / beneficio','#475569']])); }
-    var C=[c1,c2,c3,c7,c4,c5,c6,c8].filter(Boolean), h='';
+    /* 14-nov-2026 (Carlos, cierre del diseño): ¿ADÓNDE VA LA CAJA? · series.caja (estado de flujos de efectivo, solo rama general).
+       Barras = en qué se gasta (invertir, comprar empresas, dividendos, recompras); línea = la caja que genera el negocio.
+       Arriba, lo que sobra o falta ese año: lo que falta sale de deuda nueva o de la caja guardada. */
+    var c5b='', CJ=(F.series||{}).caja||{};
+    if(CJ.cfo&&Object.keys(CJ.cfo).length>=3){ (function(){
+      var Yc=Object.keys(CJ.cfo).sort().slice(-10), gv=function(k){ return Yc.map(function(y){ var v=(CJ[k]||{})[y]; return v==null?null:+v; }); }, ab=function(a){ return a.map(function(v){ return v==null?0:Math.max(0,-v); }); };
+      var CF=gv('cfo'), CA=gv('capex'), OI=gv('otras_inv'), DI=gv('dividendos'), RE=gv('recompras'), DN=gv('deuda_neta');
+      var uCA=ab(CA), uOI=ab(OI), uDI=ab(DI), uRE=ab(RE), SAL=Yc.map(function(_,k){ return (CF[k]||0)+(CA[k]||0)+(OI[k]||0)+(DI[k]||0)+(RE[k]||0); });
+      var m=Math.min(5,Yc.length), sum=function(a){ return a.slice(-m).reduce(function(x,y){ return x+(y||0); },0); };
+      var g=sum(CF), a=sum(uCA), b=-sum(OI), c=sum(uDI), d=sum(uRE), sal=sum(SAL), tras=g-a, hayDeu=DN.slice(-m).every(function(v){ return v!=null; }), deu=hayDeu?sum(DN):null;
+      var col=sal>=0?'v':(tras>=c?'a':'r'), M0=function(v){ return n(v,0)+' M€'; }, pct=function(v){ return g>0?' ('+n(v/g*100,0)+' %)':''; };
+      var ver='En los últimos '+m+' años el negocio ha generado <b>'+M0(g)+'</b>. Se han ido <b>'+M0(a)+'</b> en invertir'+pct(a)+', <b>'+M0(c)+'</b> en dividendos'+pct(c)+(d>0?', <b>'+M0(d)+'</b> en recomprar acciones'+pct(d):'')+
+        (b>0?' y <b>'+M0(b)+'</b> en comprar empresas y otras inversiones'+pct(b):(b<0?'; vendiendo activos ha ingresado '+M0(-b):''))+'. '+
+        (sal>=0?'<b>Le sobran '+M0(sal)+'</b>: lo paga todo con lo que genera.':'<b>Le faltan '+M0(-sal)+'</b>, que salen de deuda nueva o de la caja guardada.'+(tras<c?' Ojo: lo que queda tras invertir ('+M0(tras)+') no llega para el dividendo.':' El dividendo sí sale de la caja que queda tras invertir ('+M0(tras)+').'))+
+        (deu!=null?' En esos años la deuda '+(deu>=0?'ha subido '+M0(deu):'ha bajado '+M0(-deu))+' entre emisiones y devoluciones.':'');
+      var ser=[['Invertir en el negocio',uCA,'#64748B'],['Comprar empresas y otras inversiones',uOI,'#F59E0B'],['Dividendos',uDI,'#8B5CF6'],['Recompras de acciones',uRE,'#C4B5FD']].filter(function(x){ return x[1].some(function(v){ return v>0; }); });
+      c5b=gcard('¿Adónde va la caja?',col,ver,
+        chartg(Yc,ser,['Caja que genera el negocio',CF,'#15803D'],function(v){ return n(v,0)+' M€'; },[SAL,function(v){ return (v>0?'+':'')+n(v,0); },'#475569','Sobra (+) o falta (−): ']),
+        leg(ser.map(function(x){ return [x[0],x[2]]; }).concat([['Caja del negocio (línea)','#15803D'],['Arriba: lo que sobra o falta, M€','#475569']])),
+        '<span class="nf-ws">Del estado de flujos de efectivo de cada ejercicio. Barras por encima de la línea verde: ese año gastó más de lo que generó, y la diferencia la pone la deuda o la caja guardada. Los ingresos por ventas de activos no se pintan, pero cuentan en lo que sobra o falta.</span>');
+    })(); }
+    var C=[c1,c2,c3,c7,c4,c5,c5b,c6,c8].filter(Boolean), h='';
     for(var i=0;i<C.length;i+=2) h+='<div class="nf-g2">'+C[i]+(C[i+1]||'<div></div>')+'</div>';
     h+=propias(F);
     h+=evHost(F);
