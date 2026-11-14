@@ -285,7 +285,7 @@
       sv+='</svg>';
       var pag=0; for(var i=Y.length-1;i>=0;i--){ if((+fl.dpa[Y[i]]||0)>0) pag++; else break; }
       var sube=0; for(var j=1;j<Y.length;j++) if((+fl.dpa[Y[j]]||0)>(+fl.dpa[Y[j-1]]||0)+1e-9) sube++;
-      h+=card('Historia del dividendo','por ejercicio · serie del método','<div class="nf-chips2"><span>'+pag+' años pagando</span><span>Sube '+sube+' de '+(Y.length-1)+' años</span></div>'+sv+leg([['Ordinario','#8B5CF6'],['Extraordinario','#C4B5FD']]))+'<div class="nf-card" id="nfIpcHost" style="display:none"></div>'; }
+      h+=card('Historia del dividendo','por ejercicio · serie del método','<div class="nf-chips2"><span>'+pag+' años pagando</span><span>Sube '+sube+' de '+(Y.length-1)+' años</span></div>'+sv+leg([['Ordinario','#8B5CF6'],['Extraordinario','#C4B5FD']]))+'<div class="nf-card" id="nfIpcHost" style="display:none"></div><div class="nf-card" id="nfTrHost" style="display:none"></div>'; }
     var k=[['Payout sobre beneficio',last(fl.payout_bn),'%'],['Payout sobre caja libre',last(fl.payout_fcl),'%'],['Veces que lo cubre la caja',last(fl.cobertura),'x'],['Rentabilidad por dividendo',last(fl.rpd),'%'],['Rentabilidad total al accionista',last(fl.shareholder_yield),'%']].filter(function(x){ return x[1]!=null; });
     if(k.length) h+=card('Lo que vuelve al accionista','último ejercicio','<div class="nf-kv">'+k.map(function(x){ return '<span>'+x[0]+'</span><b>'+n(x[1],x[2]==='x'?2:1)+(x[2]==='x'?'x':' %')+'</b>'; }).join('')+'</div>');
     return h||card('Dividendo','',vd('a','Sin datos de dividendo.'));
@@ -328,6 +328,52 @@
         '<span class="nf-ws">Dividendo ordinario por ejercicio'+(aj?', en acciones de hoy (ajustado por desdoblamientos y acciones liberadas)':'')+'. Precios: media anual del IPC general del INE. Las dos líneas parten de 100 en '+y0+': si la morada va por encima, el dividendo ha crecido más que los precios.</span>'; };
     if(_IPC) return go(_IPC);
     fetch('ipc.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }).then(function(J){ if(J) _IPC=J; go(J); });
+  }
+
+  /* ---------------- 14-nov-2026 (Carlos): RENTABILIDAD TOTAL FRENTE AL IBEX CON DIVIDENDOS ----------------
+     Precio + dividendos brutos reinvertidos el día en que la acción cotiza sin ellos (dividendos.json → pagos[].exDiv, bruto;
+     ya vienen en acciones de hoy, como precios/TK.json), contra precios/IBEXTR.json (IBEX 35 con dividendos, desde 2011). */
+  var _DIVJ=null, _trPer={};
+  function divsDe(t){ var go=function(J){ var e=null; ((J&&J.empresas)||[]).forEach(function(x){ if(String(x.ticker||'').toUpperCase()===t) e=x; }); var L=[];
+      Object.keys((e&&e.anios)||{}).forEach(function(y){ ((e.anios[y]||{}).pagos||[]).forEach(function(p){ var f=String(p.exDiv||p.pago||'').slice(0,10), b=+p.bruto; if(/^\d{4}-\d\d-\d\d$/.test(f)&&b>0) L.push([f,b]); }); });
+      return L.sort(function(a,b){ return a[0]<b[0]?-1:1; }); };
+    if(_DIVJ) return Promise.resolve(go(_DIVJ));
+    return fetch('dividendos.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }).then(function(J){ if(J) _DIVJ=J; return go(J); }); }
+  function montarTr(F,t){
+    var host=document.getElementById('nfTrHost'); if(!host) return;
+    Promise.all([preciosDe(t),preciosDe('IBEXTR'),divsDe(t)]).then(function(a){
+      if(!document.getElementById('nfTrHost')||cur!==t) return;
+      var P=(a[0]&&a[0].data)||[], B=(a[1]&&a[1].data)||[], DV=a[2]||[]; if(P.length<260||B.length<260) return;
+      var fin=P[P.length-1][0]<B[B.length-1][0]?P[P.length-1][0]:B[B.length-1][0], ini0=P[0][0]>B[0][0]?P[0][0]:B[0][0];
+      var per=_trPer[t]||'max', aa={'3':3,'5':5,'10':10}[per], ini=ini0; if(aa){ var c=(+fin.slice(0,4)-aa)+fin.slice(4); if(c>ini0) ini=c; }
+      var at=function(D,f){ var lo=0,hi=D.length; while(lo<hi){ var m=(lo+hi)>>1; if(D[m][0]<=f) lo=m+1; else hi=m; } return lo?+D[lo-1][1]:null; };
+      var p0=at(P,ini), b0=at(B,ini); if(!(p0>0)||!(b0>0)) return;
+      /* una acción comprada en «ini»; cada dividendo compra más acciones al precio de ese día */
+      var u=1, di=0, cob=0; while(di<DV.length&&DV[di][0]<=ini) di++;
+      var ult={}; P.forEach(function(d){ if(d[0]>=ini&&d[0]<=fin) ult[d[0].slice(0,7)]=d[0]; });
+      var fechas=Object.keys(ult).sort().map(function(k){ return ult[k]; }); if(fechas[0]!==ini) fechas.unshift(ini); if(fechas.length<6) return;
+      var L=fechas.map(function(f){ while(di<DV.length&&DV[di][0]<=f){ var px=at(P,DV[di][0]); if(px>0){ u*=1+DV[di][1]/px; cob+=DV[di][1]; } di++; }
+        var px2=at(P,f); return {f:f, e:u*px2/p0*100, s:px2/p0*100, i:at(B,f)/b0*100}; });
+      var N=L.length, z=L[N-1], an=(Date.parse(fin)-Date.parse(ini))/31557600000, ra=function(v){ return (Math.pow(v/100,1/an)-1)*100; }, re=ra(z.e), ri=ra(z.i), dif=re-ri;
+      var col=dif>0.5?'v':(dif>=-0.5?'a':'r'), nm=F.empresa||t;
+      var ver='Desde '+fe(ini)+', 100 € en <b>'+esc(nm)+'</b> son hoy <b>'+n(z.e,0)+' €</b> reinvirtiendo los dividendos ('+pc(re,1)+' al año); en el IBEX con dividendos, <b>'+n(z.i,0)+' €</b> ('+pc(ri,1)+' al año). '+
+        (dif>0.5?'<b>Le gana al índice</b> por '+n(dif,1)+' puntos al año.':(dif>=-0.5?'<b>Va a la par del índice.</b>':'<b>Pierde frente al índice</b> por '+n(-dif,1)+' puntos al año.'))+
+        ' Sin contar dividendos, la acción sola: '+n(z.s,0)+' €.';
+      var all=[]; L.forEach(function(o){ all.push(o.e,o.s,o.i); }); var mx=Math.max.apply(null,all)*1.05, mn=Math.min.apply(null,all)*0.92;
+      var nar=(host.clientWidth||1000)<640, W=nar?520:1000,H=nar?320:300,x0=nar?40:54,x1=nar?505:985,yt=14,yb=H-28, X=function(i){ return x0+(N>1?i/(N-1):0)*(x1-x0); }, Yp=function(v){ return yt+(mx-v)/(mx-mn)*(yb-yt); }, sp=niceStep((mx-mn)/5);
+      var h='<svg viewBox="0 0 '+W+' '+H+'" class="nf-chs" style="width:100%">';
+      for(var v=Math.ceil(mn/sp)*sp; v<=mx; v+=sp) h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Yp(v).toFixed(1)+'" y2="'+Yp(v).toFixed(1)+'" stroke="'+(Math.abs(v-100)<1e-9?'#94A3B8':'#EEF1F5')+'"/><text x="'+(x0-6)+'" y="'+(Yp(v)+4).toFixed(1)+'" font-size="11" text-anchor="end" fill="#5B6B7C">'+n(v,0)+'</text>';
+      var ya='', paso=an>8?2:1; L.forEach(function(o,i){ var y=o.f.slice(0,4); if(y!==ya&&o.f.slice(5,7)==='01'){ ya=y; if((+y)%paso===0||!nar) h+='<line x1="'+X(i).toFixed(1)+'" x2="'+X(i).toFixed(1)+'" y1="'+yb+'" y2="'+(yb+4)+'" stroke="#94A3B8"/><text x="'+X(i).toFixed(1)+'" y="'+(H-9)+'" font-size="11" text-anchor="middle" fill="#5B6B7C">'+y+'</text>'; } });
+      [['s','#C4B5FD',1.6,'4 4'],['i','#475569',2.2,''],['e','#7C3AED',2.6,'']].forEach(function(k){ h+='<polyline fill="none" stroke="'+k[1]+'" stroke-width="'+k[2]+'"'+(k[3]?' stroke-dasharray="'+k[3]+'"':'')+' points="'+L.map(function(o,i){ return X(i).toFixed(1)+','+Yp(o[k[0]]).toFixed(1); }).join(' ')+'"/>'; });
+      h+='<circle cx="'+X(N-1).toFixed(1)+'" cy="'+Yp(z.e).toFixed(1)+'" r="4.5" fill="#7C3AED"/><circle cx="'+X(N-1).toFixed(1)+'" cy="'+Yp(z.i).toFixed(1)+'" r="4.5" fill="#475569"/>';
+      var bw=(x1-x0)/Math.max(1,N); L.forEach(function(o,i){ h+='<rect class="nf-hv" x="'+(X(i)-bw/2).toFixed(1)+'" y="'+yt+'" width="'+bw.toFixed(1)+'" height="'+(yb-yt)+'" fill="transparent" data-tip="'+esc(fe(o.f)+'|'+nm+' con dividendos: '+n(o.e,0)+'|IBEX con dividendos: '+n(o.i,0)+'|'+nm+' sin dividendos: '+n(o.s,0))+'"/>'; });
+      h+='</svg>';
+      var bt='<div style="display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 8px">'+[['3','3 años'],['5','5 años'],['10','10 años'],['max','Todo']].map(function(b){ var on=b[0]===per; return '<button type="button" data-nftr="'+b[0]+'" style="padding:4px 10px;border-radius:999px;border:1px solid '+(on?'#7C3AED':'#CBD5E1')+';background:'+(on?'#7C3AED':'#fff')+';color:'+(on?'#fff':'#334155')+';font-size:12.5px;cursor:pointer">'+b[1]+'</button>'; }).join('')+'</div>';
+      host.style.display=''; host.innerHTML='<h2>¿Le gana al IBEX con dividendos? <span class="nf-sub">100 € invertidos</span></h2>'+vd(col,ver)+bt+h+
+        leg([[nm+' con dividendos reinvertidos','#7C3AED'],['IBEX 35 con dividendos','#475569'],[nm+' sin dividendos','#C4B5FD']])+
+        '<span class="nf-ws">Dividendos brutos, sin impuestos ni comisiones, reinvertidos el día en que la acción cotiza sin ellos; el índice es el IBEX 35 con dividendos. Datos hasta el '+fe(fin)+'. La rentabilidad pasada no dice nada de la futura.</span>';
+      Array.prototype.forEach.call(host.querySelectorAll('[data-nftr]'),function(b){ b.onclick=function(ev){ ev.stopPropagation(); _trPer[t]=b.getAttribute('data-nftr'); montarTr(F,t); }; });
+    });
   }
 
   /* ---------------- MI POSICIÓN (de la app) ---------------- */
@@ -729,6 +775,7 @@
       if(tab==='cot') montarCot(t);
       if(tab==='neg') try{ montarEv(F,t); }catch(e){ console.error('n-ficha ev',e); }
       if(tab==='div') try{ montarIpc(F,t); }catch(e){ console.error('n-ficha ipc',e); }
+      if(tab==='div') try{ montarTr(F,t); }catch(e){ console.error('n-ficha tr',e); }
     });
   }
   window.nfAbrir=function(t){ if(t) cur=String(t).toUpperCase(); tab='res'; if(typeof activarVista==='function') activarVista('fichaemp'); pintar(); window.scrollTo(0,0); };
