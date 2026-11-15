@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-11-09",
+  "generadoEl": "2026-11-15",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "A3M": {
       "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -119,7 +119,7 @@
       "cobertura": {
         "semanal": "2026-11-09",
         "trimestral": "2026-07-29",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -146,7 +146,7 @@
       "empresa": "Aena S.M.E., S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -195,7 +195,7 @@
       "empresa": "Amadeus IT Group, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -279,7 +279,7 @@
       "empresa": "Azkoyen, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -328,7 +328,7 @@
       "empresa": "Bankinter, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -339,7 +339,7 @@
       "empresa": "CIE Automotive, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -368,7 +368,7 @@
       "cobertura": {
         "semanal": "2026-11-09",
         "trimestral": "2026-08-23",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -422,7 +422,7 @@
       "empresa": "Endesa, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -492,7 +492,7 @@
       "empresa": "Enagás, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -603,7 +603,7 @@
       "empresa": "Faes Farma, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -646,7 +646,7 @@
       "empresa": "Fluidra, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -673,7 +673,7 @@
       "empresa": "Iberdrola, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -754,7 +754,7 @@
       "empresa": "Industria de Diseño Textil, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -765,7 +765,7 @@
       "empresa": "Logista Integral, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -823,7 +823,7 @@
       "empresa": "Mapfre, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -896,7 +896,7 @@
       "empresa": "Miquel y Costas & Miquel, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -954,7 +954,7 @@
       "empresa": "Naturgy",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1016,7 +1016,7 @@
       "empresa": "Prim, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1093,7 +1093,7 @@
       "empresa": "Redeia Corporación, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1185,7 +1185,7 @@
       "empresa": "Repsol",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1311,7 +1311,7 @@
     "SAB": {
       "empresa": "SAB.MC",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1350,7 +1350,7 @@
       "empresa": "Banco Santander, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1363,15 +1363,15 @@
           "tipo": "opa",
           "naturaleza": "situacion",
           "severidad": "alta",
-          "origen": "informe-semanal 2026-09-28 (chequeo societario)",
-          "fecha": "2026-09-21",
-          "fuente": "https://www.riotimesonline.com/santander-brasil-share-swap-premium-september-2026/",
+          "origen": "revisión de alertas 2026-11-15 (lista de comunicaciones CNMV/BME del PC, 8 a 15-nov)",
+          "fecha": "2026-11-12",
+          "fuente": "CNMV OIR 43617 / 43621 (12-nov-2026)",
           "exigeAccion": false,
           "precioIntervenido": null,
-          "precioIntervenidoPorque": "La OPA la lanza Santander SOBRE su filial brasilena; no es una oferta sobre Santander. Su cotizacion NO esta intervenida: es riesgo de dilucion (~1,1% del capital), no un techo.",
+          "precioIntervenidoPorque": "La oferta la lanza Santander SOBRE su filial brasileña; no es una oferta sobre Santander. Su cotización no está intervenida: es dilución (~1,1 % del capital), no un techo.",
           "ultimaNovedad": {
-            "fecha": "2026-09-21",
-            "texto": "Según prensa, el 21-sep-2026 se pide el registro de la OPA de canje de la filial brasileña ante la CVM, la B3 y la SEC (F-4). Sin autorizar; cierre previsto en el 1S-2027; relación 0,4056 acciones por unit y la prima baja a ~1,5 %."
+            "fecha": "2026-11-12",
+            "texto": "12-nov-2026: Santander mejora un 5 % la ecuación de canje de la oferta sobre el ~10 % de Santander Brasil que no controla: 0,4260 acciones nuevas por unit/ADS (antes 0,4056) y 0,2130 por acción ordinaria o preferente (antes 0,2028); ajustada por dividendos, 0,4246 / 0,2124 / 0,2122. Con aceptación total emitiría unos 166 M de acciones nuevas (~1,1 % del capital) y la contraprestación máxima sería ~1.900 M€. Junta extraordinaria convocada (telemática) para el 14-dic (1ª) o, previsiblemente, 15-dic-2026 (2ª) para aprobar las ampliaciones. Fuente CNMV OIR 43617 y 43621."
           },
           "precioIntervenidoDesde": null
         },
@@ -1457,7 +1457,7 @@
       "empresa": "Telefónica",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1557,7 +1557,7 @@
     "TLGO": {
       "empresa": "TLGO.MC",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1584,7 +1584,7 @@
       "empresa": "Vidrala",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1627,7 +1627,7 @@
       "cobertura": {
         "semanal": "2026-11-09",
         "trimestral": "2026-07-29",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1703,7 +1703,7 @@
       "empresa": "Línea Directa Aseguradora, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -1714,7 +1714,7 @@
       "empresa": "BBVA",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1757,7 +1757,7 @@
       "empresa": "Merlin Properties SOCIMI, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1811,7 +1811,7 @@
       "empresa": "CaixaBank, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -1822,7 +1822,7 @@
       "empresa": "Arteche Lantegi Elkartea, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1850,7 +1850,7 @@
       "empresa": "Gestamp Automoción, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1889,7 +1889,7 @@
       "empresa": "Laboratorios Farmacéuticos Rovi, S.A.",
       "cobertura": {
         "semanal": "2026-11-09",
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1927,7 +1927,7 @@
     "CIRSA": {
       "empresa": "Cirsa Enterprises, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1957,7 +1957,7 @@
     "ANE": {
       "empresa": "Corporación Acciona Energías Renovables, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -1987,7 +1987,7 @@
     "OLE": {
       "empresa": "Deoleo, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2017,7 +2017,7 @@
     "AEDAS": {
       "empresa": "AEDAS Homes, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2058,7 +2058,7 @@
     "ADX": {
       "empresa": "Audax Renovables, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2081,7 +2081,7 @@
     "OHLA": {
       "empresa": "OHLA, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2121,7 +2121,7 @@
     "TRE": {
       "empresa": "Técnicas Reunidas, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2145,7 +2145,7 @@
     "MEL": {
       "empresa": "Meliá Hotels International, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2169,7 +2169,7 @@
     "NYE": {
       "empresa": "Nyesa Valores Corporación, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2196,7 +2196,7 @@
     "AMP": {
       "empresa": "Amper, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2220,7 +2220,7 @@
     "CEV": {
       "empresa": "Compañía Española de Viviendas en Alquiler, S.A. (Cevasa)",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2244,7 +2244,7 @@
     "R4": {
       "empresa": "Renta 4 Banco",
       "cobertura": {
-        "universo": "2026-11-01",
+        "universo": "2026-11-15",
         "semanal": "2026-11-09"
       },
       "hallazgos": [],
@@ -2255,21 +2255,21 @@
     "SCYR": {
       "empresa": "SCYR",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "FCC": {
       "empresa": "FCC",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "UNI": {
       "empresa": "Unicaja",
       "cobertura": {
-        "universo": "2026-11-01",
+        "universo": "2026-11-15",
         "semanal": "2026-11-09"
       },
       "hallazgos": [
@@ -2303,7 +2303,7 @@
     "ANA": {
       "empresa": "Acciona, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2329,7 +2329,7 @@
     "ACX": {
       "empresa": "Acerinox",
       "cobertura": {
-        "universo": "2026-11-01",
+        "universo": "2026-11-15",
         "semanal": "2026-11-09"
       },
       "hallazgos": [],
@@ -2340,259 +2340,298 @@
     "AIR": {
       "empresa": "AIR",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "FER": {
       "empresa": "FER",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "MTS": {
       "empresa": "MTS",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "IDR": {
       "empresa": "IDR",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "GRF": {
       "empresa": "GRF",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "COL": {
       "empresa": "COL",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "ALM": {
       "empresa": "ALM",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "PUIG": {
       "empresa": "PUIG",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "GRE": {
       "empresa": "GRE",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "ENO": {
       "empresa": "ENO",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
-      "hallazgos": []
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-11-15",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Dividendo extraordinario con cargo a reservas de 2,89195402 €/acción (251,6 M€) propuesto a la junta extraordinaria del 15-dic (1ª) / 16-dic-2026 (2ª); pago el 23-dic-2026 si se aprueba. Se suma a los 44,3 M€ con cargo a 2025 y supera el compromiso del Plan 2025-2027 (>220 M€). La cotización bajará aproximadamente ese importe al descontarse. Ya recogido en la tesis del 9-nov.",
+          "tipo": "otro",
+          "naturaleza": "hecho",
+          "severidad": "baja",
+          "origen": "revisión de alertas 2026-11-15 (lista de comunicaciones CNMV/BME del PC, 8 a 15-nov)",
+          "fecha": "2026-11-09",
+          "fuente": "CNMV IP 3414 y OIR 43542 (09-nov-2026)",
+          "exigeAccion": false,
+          "precioIntervenido": null,
+          "precioIntervenidoPorque": "Dividendo: no hay oferta sobre la empresa.",
+          "precioIntervenidoDesde": null,
+          "caducaEl": "2026-12-09"
+        }
+      ]
     },
     "CAF": {
       "empresa": "CAF",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "MAKS": {
       "empresa": "MAKS",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "HOME": {
       "empresa": "HOME",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "LLN": {
       "empresa": "LLN",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "RLIA": {
       "empresa": "RLIA",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "MVC": {
       "empresa": "MVC",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "PHM": {
       "empresa": "PHM",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "PSG": {
       "empresa": "PSG",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "ENC": {
       "empresa": "ENC",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "GSJ": {
       "empresa": "GSJ",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "TUB": {
       "empresa": "TUB",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "NXT": {
       "empresa": "NXT",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "ALNT": {
       "empresa": "ALNT",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "RJF": {
       "empresa": "RJF",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "ARM": {
       "empresa": "ARM",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "AI": {
       "empresa": "AI",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "NEA": {
       "empresa": "NEA",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "VOC": {
       "empresa": "VOC",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "ADZ": {
       "empresa": "ADZ",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "EZE": {
       "empresa": "EZE",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "REN": {
       "empresa": "REN",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "CCEP": {
       "empresa": "CCEP",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "CLNX": {
       "empresa": "CLNX",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "IBG": {
       "empresa": "IBG",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "ORY": {
       "empresa": "ORY",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
-      "hallazgos": []
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-11-15",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Junta extraordinaria (telemática) el 14-dic (1ª) / previsiblemente 15-dic-2026 (2ª) que propone una ampliación de capital dineraria de hasta 125 M€ efectivos CON EXCLUSIÓN del derecho de suscripción preferente (precio y fecha delegados en el consejo), más delegaciones para ampliar capital y emitir convertibles con exclusión del derecho de suscripción y autorización de autocartera. Posible dilución elevada; porcentaje sobre la capitalización: Pte. Revisión.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "revisión de alertas 2026-11-15 (lista de comunicaciones CNMV/BME del PC, 8 a 15-nov)",
+          "fecha": "2026-11-13",
+          "fuente": "CNMV OIR 43649 (13-nov-2026)",
+          "exigeAccion": false,
+          "precioIntervenido": null,
+          "precioIntervenidoPorque": "Propuesta de ampliación; no hay oferta sobre la empresa.",
+          "precioIntervenidoDesde": null
+        }
+      ]
     },
     "DIA": {
       "empresa": "DIA",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "RIO": {
       "empresa": "Bodegas Riojanas, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2618,112 +2657,131 @@
     "EAT": {
       "empresa": "EAT",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "SOL": {
       "empresa": "SOL",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "DESA": {
       "empresa": "DESA",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "ECO": {
       "empresa": "ECO",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "GAM": {
       "empresa": "GAM",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "ISUR": {
       "empresa": "ISUR",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "LIB": {
       "empresa": "LIB",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "MTB": {
       "empresa": "MTB",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "ATRY": {
       "empresa": "ATRY",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
-      "hallazgos": []
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-11-15",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Reordenación de la deuda financiera. 12-nov-2026: préstamo puente de 8 M€ de The Nimo's Holding (sociedad vinculada al consejero Josep Mª Echarri), con garantía de cinco filiales, al Euribor 3M + 3,5 %, para amortizar al vencimiento (17-nov-2026) las obligaciones convertibles de 2020; vence al cierre de la reordenación o el 31-dic-2026. Asamblea de bonistas el 2-dic (1ª) / 3-dic-2026 (2ª) para novar los convertibles de 2023 (13,3 + 11,7 M€): vencimiento al 30-sep-2033, nuevo tipo, precio de conversión rebajado hasta un mínimo de 3,25 €/acción y subordinación a una nueva financiación senior. Junta extraordinaria de accionistas el 27-nov-2026. Además dimite la consejera Miriam González Durántez (presidía Nombramientos y Retribuciones) por su candidatura política. Importe y condiciones de la nueva financiación senior: Pte. Revisión.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "revisión de alertas 2026-11-15 (lista de comunicaciones CNMV/BME del PC, 8 a 15-nov)",
+          "fecha": "2026-11-12",
+          "fuente": "CNMV OIR 43618 / 43619 / 43620 (12-nov-2026)",
+          "exigeAccion": false,
+          "precioIntervenido": null,
+          "precioIntervenidoPorque": "Refinanciación de deuda: no hay oferta sobre la empresa; la cotización sigue libre.",
+          "precioIntervenidoDesde": null
+        }
+      ]
     },
     "CASH": {
       "empresa": "CASH",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "IMC": {
       "empresa": "IMC",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "LGT": {
       "empresa": "LGT",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "NTH": {
       "empresa": "NTH",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "SQRL": {
       "empresa": "SQRL",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "CBAV": {
       "empresa": "CBAV",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "CLR": {
       "empresa": "Clerhp Estructuras, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2746,7 +2804,7 @@
     "CMO": {
       "empresa": "Cementos Molins, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2769,21 +2827,21 @@
     "DOM": {
       "empresa": "GLOBAL DOMINION ACCESS, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "EDR": {
       "empresa": "EDREAMS ODIGEO, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "COXG": {
       "empresa": "Cox Infrastructure Group, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2807,7 +2865,7 @@
     "GGR": {
       "empresa": "Grupo Greening 2022, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2825,27 +2883,46 @@
           "fuente": "https://www.greening-group.com/greening-culmina-con-exito-su-opa-sobre-energy-solar-tech-y-acelera-la-ejecucion-de-su-plan-estrategico/",
           "exigeAccion": false,
           "caducaEl": "2026-08-26"
+        },
+        {
+          "id": "soc-otro-2026-11-11",
+          "abiertoEl": "2026-11-15",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "El consejo deja sin efecto el Plan de Negocio 2026-2030 (publicado el 15-abr-2026) porque las circunstancias operativas, estratégicas y financieras han cambiado, y aprueba nuevas previsiones solo para 2026: ventas 275-300 M€ y EBITDA 22-25 M€ (avance 9M sin auditar: 201 M€ y 19 M€). Sin nuevo plan a medio plazo.",
+          "tipo": "otro",
+          "naturaleza": "hecho",
+          "severidad": "baja",
+          "origen": "revisión de alertas 2026-11-15 (lista de comunicaciones CNMV/BME del PC, 8 a 15-nov)",
+          "fecha": "2026-11-11",
+          "fuente": "BME Growth OIR 121023 (11-nov-2026)",
+          "exigeAccion": false,
+          "precioIntervenido": null,
+          "precioIntervenidoPorque": "Previsiones: no hay oferta sobre la empresa.",
+          "precioIntervenidoDesde": null,
+          "caducaEl": "2026-12-11"
         }
       ]
     },
     "GIGA": {
       "empresa": "Gigas Hosting, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "IAG": {
       "empresa": "International Consolidated Airlines Group, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "INDXA": {
       "empresa": "Indexa Capital Group, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2868,28 +2945,28 @@
     "IZER": {
       "empresa": "IZERTIS",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "LLYC": {
       "empresa": "Llorente Y Cuenca",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "ATSI": {
       "empresa": "Knowmad Mood",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "EBROM": {
       "empresa": "Ebro EV Motors, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2912,35 +2989,35 @@
     "MDF": {
       "empresa": "MDF",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "NAT": {
       "empresa": "Natac Natural",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "PRS": {
       "empresa": "Promotora de Informaciones, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "PVA": {
       "empresa": "Pescanova, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "SEC": {
       "empresa": "Secuoya Grupo de Comunicación, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -2963,21 +3040,21 @@
     "SLR": {
       "empresa": "Solaria Energía y Medioambiente, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "SNG": {
       "empresa": "Sngular People",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     },
     "TSK": {
       "empresa": "TSK Electrónica y Electricidad, S.A.",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": [
         {
@@ -3000,24 +3077,24 @@
     "VYT": {
       "empresa": "Vytrus Biotech",
       "cobertura": {
-        "universo": "2026-11-01"
+        "universo": "2026-11-15"
       },
       "hallazgos": []
     }
   },
   "resumen": {
-    "empresasConHallazgo": 38,
-    "hallazgosActivos": 49,
+    "empresasConHallazgo": 42,
+    "hallazgosActivos": 53,
     "porTipo": {
       "sancion": 3,
       "coyuntura": 15,
-      "otro": 23,
+      "otro": 27,
       "opa": 4,
       "litigio": 4
     },
     "exigenAccion": 0,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 31,
+    "situacionesAbiertas": 33,
     "hechosCaducadosHoy": 0
   },
   "reproyectadoEl": "2026-09-26"

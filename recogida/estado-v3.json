@@ -1,19 +1,13 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-14T17:45",
+ "generado": "2026-11-15T23:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-14T17:45",
+  "cuando": "2026-11-15T23:45",
   "ficheros": [
-   "dossiers/CEV.html",
-   "dossiers/COL.html",
-   "dossiers/MRL.html",
-   "fichas/CEV.json",
-   "fichas/COL.json",
-   "fichas/MRL.json",
-   "fichas/_resumen.json"
+   "hallazgos.json"
   ]
  },
  "rechazos": [],
