@@ -50,13 +50,30 @@
     if(pb>0&&p>pb) return ['por encima del PO','#B91C1C'];
     return ['faltan '+((p/eM-1)*100).toFixed(1).replace('.',',')+' %','#B45309'];
   };
+  /* Veredicto del método v3 por empresa: de fichas/_resumen.json (lo mismo que enseña Empresas → Analizadas). Hasta que llega,
+     o si la empresa no está entre las analizadas, no se pinta nada: no se toma de otro sitio. */
+  window._nVerV3=window._nVerV3||null;
+  /* 15-nov 01:00 (Carlos, con captura de la ficha del Kanban: «en otros lados está… es el vigilar-mantener»): la MISMA etiqueta
+     que allí (n-31-kanban2.js): «🚦 tesis: Invertir|Vigilar|Fuera · DECISIÓN», con _emVer(t) y la decisión de DB.analisis;
+     solo si allí no hay decisión se usa la de fichas/_resumen.json. */
+  window.nVeredicto=function(t){ t=String(t||'').toUpperCase(); var a=null, V=null;
+    try{ a=(typeof _mcAna==='function')?_mcAna(t):null; }catch(e){} try{ V=(typeof _emVer==='function')?_emVer(t):null; }catch(e){}
+    var dec=String((a&&a.decision)||(window._nVerV3&&window._nVerV3[t])||'').toUpperCase();
+    var VC={INVERTIR:['#DCFCE7','#15803D','Invertir'],ESPERAR:['#FEF3C7','#92400E','Vigilar'],FUERA:['#FEE2E2','#B91C1C','Fuera']}[V&&V.v]||['#EEF1F5','#475569',''];
+    if(!dec&&!VC[2]) return null;
+    return ['🚦 '+[VC[2]?'tesis: '+VC[2]:'',dec].filter(Boolean).join(' · '),VC[1],VC[0]]; };
+  if(!window._nVerV3){ fetch('fichas/_resumen.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(R){ var E=R&&R.empresas; if(!E) return; var M={};
+      (Array.isArray(E)?E:Object.keys(E).map(function(k){ return Object.assign({ticker:k},E[k]); })).forEach(function(e){ if(e&&e.ticker&&e.decision) M[String(e.ticker).toUpperCase()]=String(e.decision).toUpperCase(); });
+      window._nVerV3=M; var mc=document.getElementById('view-micartera'); if(mc&&mc.innerHTML&&typeof renderMiCartera==='function'){ try{ renderMiCartera(); }catch(e){} } }).catch(function(){}); }
   /* En Mi cartera (dentro del Panel) la escalera de siempre se cambia por la regla de la ficha */
   if(typeof _mcEscaleraHTML==='function'&&typeof _mcNiveles==='function'){
     _mcEscaleraHTML=function(t,extra){
       var V=_mcNiveles(t,extra); if(!V) return '';
       var r=window.nRegla(V); if(!r) return '';
-      var tx=window.nReglaTxt(V);
-      return '<div class="mc-esc n-esc">'+r+(typeof _mcNivelesPie==='function'?_mcNivelesPie(V):'')+(tx?'<div class="n-esct" style="color:'+tx[1]+'">'+tx[0]+'</div>':'')+'</div>';
+      var tx=window.nReglaTxt(V), ve=window.nVeredicto(t);
+      /* 15-nov-2026 (Carlos: «vienen todos los datos menos el veredicto… debería ponerlo»): el veredicto del método, junto a la frase de la regla */
+      var ch=ve?'<span title="Veredicto del método en su último análisis" style="display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;color:'+ve[1]+';background:'+ve[2]+';margin-right:8px;vertical-align:1px">'+ve[0]+'</span>':'';
+      return '<div class="mc-esc n-esc">'+r+(typeof _mcNivelesPie==='function'?_mcNivelesPie(V):'')+((tx||ch)?'<div class="n-esct">'+ch+(tx?'<span style="color:'+tx[1]+'">'+tx[0]+'</span>':'')+'</div>':'')+'</div>';
     };
   }
 
