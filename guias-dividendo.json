@@ -1,0 +1,52 @@
+{
+ "schemaVersion": 1,
+ "actualizado": "2026-11-15",
+ "_nota": "Lo que cada empresa dice que pagará de dividendo en años futuros (plan estratégico, presentación de resultados). Solo cifras comprobadas en el documento de la CNMV y acordadas con Carlos. La app (nueva/js/n-9i-guiasdiv.js) las pone en la previsión en lugar de la proyección por porcentaje, como anotación en amarillo. «dpa» = euros brutos por acción, total del año. No se rellena a diario: solo cuando Carlos avisa de una noticia.",
+ "guias": [
+  {
+   "ticker": "TRE",
+   "anio": 2027,
+   "dpa": 0.26,
+   "fuente": "Resultados 9M-2026",
+   "url": "https://www.cnmv.es/webservices/verdocumento/ver?t=%7b755078c8-9f2e-41bb-b631-a0c860f284e0%7d",
+   "fecha": "2026-11-13",
+   "nota": "«Dividendo a cuenta de 21 M€ en enero de 2027». La empresa no da la cifra por acción: 21 M€ entre unos 80,3 millones de acciones. Es a cuenta: el total del año puede ser mayor."
+  },
+  {
+   "ticker": "ACS",
+   "anio": 2027,
+   "dpa": 2.87,
+   "fuente": "Capital Markets Day 2026",
+   "url": "https://www.cnmv.es/webservices/verdocumento/ver?t=%7bfabc02f5-b361-40a4-868e-179886491eb4%7d",
+   "fecha": "2026-11-12",
+   "nota": "La empresa da 2,4 € en 2026 y «crecimiento continuo hasta 4,9 €» en 2030, como máximo y sujeto a sus decisiones de inversión. Los años intermedios son una subida gradual nuestra (un 19,5 % al año)."
+  },
+  {
+   "ticker": "ACS",
+   "anio": 2028,
+   "dpa": 3.43,
+   "fuente": "Capital Markets Day 2026",
+   "url": "https://www.cnmv.es/webservices/verdocumento/ver?t=%7bfabc02f5-b361-40a4-868e-179886491eb4%7d",
+   "fecha": "2026-11-12",
+   "nota": "La empresa da 2,4 € en 2026 y «crecimiento continuo hasta 4,9 €» en 2030, como máximo y sujeto a sus decisiones de inversión. Los años intermedios son una subida gradual nuestra (un 19,5 % al año)."
+  },
+  {
+   "ticker": "ACS",
+   "anio": 2029,
+   "dpa": 4.1,
+   "fuente": "Capital Markets Day 2026",
+   "url": "https://www.cnmv.es/webservices/verdocumento/ver?t=%7bfabc02f5-b361-40a4-868e-179886491eb4%7d",
+   "fecha": "2026-11-12",
+   "nota": "La empresa da 2,4 € en 2026 y «crecimiento continuo hasta 4,9 €» en 2030, como máximo y sujeto a sus decisiones de inversión. Los años intermedios son una subida gradual nuestra (un 19,5 % al año)."
+  },
+  {
+   "ticker": "ACS",
+   "anio": 2030,
+   "dpa": 4.9,
+   "fuente": "Capital Markets Day 2026",
+   "url": "https://www.cnmv.es/webservices/verdocumento/ver?t=%7bfabc02f5-b361-40a4-868e-179886491eb4%7d",
+   "fecha": "2026-11-12",
+   "nota": "«Equivalent to a maximum DPS of 4.9€ by 2030», sujeto a sus decisiones de inversión. Es un máximo, no un compromiso."
+  }
+ ]
+}
