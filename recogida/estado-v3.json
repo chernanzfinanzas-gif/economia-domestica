@@ -1,37 +1,24 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-16T18:51",
+ "generado": "2026-11-16T19:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "IAG análisis inicial",
+   "ticker": "IAG",
+   "periodos": [],
+   "tipo": "inicial",
+   "creada": "2026-11-16T19:40+01:00",
+   "semaforo": null,
+   "frase": null
+  }
+ ],
+ "n_pendientes": 1,
  "ultima_subida": {
-  "cuando": "2026-11-16T18:46",
+  "cuando": "2026-11-16T19:45",
   "ficheros": [
-   "dossiers/HOME.html",
-   "dossiers/HOME.json",
-   "dossiers/trimestral/HOME-trim.json",
-   "dossiers/v3/HOME.html",
-   "fichas/HOME.json",
-   "fichas/_resumen.json",
-   "recogida/publicaciones/ADZ.json",
-   "recogida/publicaciones/AMP.json",
-   "recogida/publicaciones/ATRY.json",
-   "recogida/publicaciones/BBVA.json",
-   "recogida/publicaciones/CLNX.json",
-   "recogida/publicaciones/EDR.json",
-   "recogida/publicaciones/FER.json",
-   "recogida/publicaciones/GRE.json",
-   "recogida/publicaciones/HOME.json",
-   "recogida/publicaciones/INDXA.json",
-   "recogida/publicaciones/IZER.json",
-   "recogida/publicaciones/PRS.json",
-   "recogida/publicaciones/SAB.json",
-   "recogida/publicaciones/_indice.json",
-   "recogida/publicaciones/dias/2026-11.json",
-   "universo/base.json",
-   "universo/matriz.json",
-   "fichas/_evolucion.json",
-   "_indice.json"
+   "recogida/publicaciones/IAG.json",
+   "recogida/publicaciones/_indice.json"
   ]
  },
  "rechazos": [],
