@@ -1,0 +1,387 @@
+{
+ "schemaVersion": 2,
+ "ticker": "HOME",
+ "empresa": "Neinor Homes, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-16",
+ "revisiones": [
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +20,4 %, EBITDA -6,3 %, beneficio neto -16,5 %, margen 15,7 % (-4,48 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 388.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 60.8
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 15.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 37.3
+    },
+    {
+     "nombre": "LTV",
+     "valor": 19.0
+    },
+    {
+     "nombre": "Libro preventas (M€)",
+     "valor": 707.0
+    },
+    {
+     "nombre": "NAV (M€)",
+     "valor": 1278.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -16,5 %, EBITDA -2,3 %, beneficio neto -6,6 %, margen 18,8 % (+2,73 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 763.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 143.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 18.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 96.3
+    },
+    {
+     "nombre": "LTV",
+     "valor": 19.0
+    },
+    {
+     "nombre": "Libro preventas (M€)",
+     "valor": 552.0
+    },
+    {
+     "nombre": "NAV (M€)",
+     "valor": 1242.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -53,8 %, EBITDA -67,2 %, beneficio neto -88,0 %, margen 11,1 % (-4,53 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 180.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 20.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 4.5
+    },
+    {
+     "nombre": "LTV",
+     "valor": 20.0
+    },
+    {
+     "nombre": "Libro preventas (M€)",
+     "valor": 714.0
+    },
+    {
+     "nombre": "NAV (M€)",
+     "valor": 1230.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -22,6 %, EBITDA -17,1 %, beneficio neto -5,9 %, margen 20,1 % (+1,33 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 591.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 119.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 20.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 90.6
+    },
+    {
+     "nombre": "LTV",
+     "valor": 14.4
+    },
+    {
+     "nombre": "Libro preventas (M€)",
+     "valor": 434.0
+    },
+    {
+     "nombre": "NAV (M€)",
+     "valor": 1176.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -5,1 %, EBITDA -52,4 %, beneficio neto +117,9 %, margen 5,6 % (-5,55 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 170.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 9.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 5.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 9.7
+    },
+    {
+     "nombre": "LTV",
+     "valor": 14.3
+    },
+    {
+     "nombre": "Libro preventas (M€)",
+     "valor": 601.0
+    },
+    {
+     "nombre": "NAV (M€)",
+     "valor": 1178.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -17,6 %, EBITDA -40,3 %, beneficio neto -31,6 %, margen 14,6 % (-5,54 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 487.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 70.9
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 62.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 16.2
+    },
+    {
+     "nombre": "Libro preventas (M€)",
+     "valor": 1291.0
+    },
+    {
+     "nombre": "NAV (M€)",
+     "valor": 1161.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -14,2 %, EBITDA +56,4 %, beneficio neto -67,1 %, margen 10,2 % (+4,59 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 146.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 14.9
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 10.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 3.2
+    },
+    {
+     "nombre": "LTV",
+     "valor": 22.9
+    },
+    {
+     "nombre": "Libro preventas (M€)",
+     "valor": 1633.0
+    },
+    {
+     "nombre": "NAV (M€)",
+     "valor": 1268.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +44,8 %, EBITDA +139,0 %, beneficio neto +98,8 %, margen 24,1 % (+9,48 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 705.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 170.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 123.0
+    },
+    {
+     "nombre": "LTV",
+     "valor": 35.9
+    },
+    {
+     "nombre": "Libro preventas (M€)",
+     "valor": 3200.0
+    },
+    {
+     "nombre": "NAV (M€)",
+     "valor": 1888.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +362,8 %, EBITDA +366,5 %, beneficio neto +288,8 %, margen 10,3 % (+0,08 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — En el primer semestre de 2026, ya con AEDAS, los ingresos son de 677 M€ (146 M€ un año antes), el EBITDA de 69 M€ en la cuenta de la CNMV (119 M€ ajustado por la empresa, con 10 M€ de participadas) y el beneficio de 12 M€ (54 M€ ajustado: 30 M€ de la asignación del precio de AEDAS no son caja). Entregas: 2.392 viviendas; libro de preventas de 9.314 viviendas y 3.325 M€.\n\n**Por qué** — La suma con AEDAS y el calendario: Neinor entrega sobre todo en la segunda mitad del año, y el primer semestre de 2025 fue muy flojo. El margen bruto se mantiene (27,6 %).\n\n**Semáforo** — Verde: ingresos, EBITDA y beneficio suben frente al mismo semestre de 2025.\n\n**Qué vigilar** — La deuda: LTV del 37,4 % (cerca del 40 % de su política) y un coste medio del 6,6 % (4,5 % en 2025), con la cobertura de intereses en 4,3 veces. Y que se cierre la venta de suelo prevista para bajar la deuda.\n\n**Lectura** — No toca la tesis: ESPERAR.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 677.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 69.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 10.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 12.4
+    },
+    {
+     "nombre": "LTV",
+     "valor": 37.4
+    },
+    {
+     "nombre": "Libro preventas (M€)",
+     "valor": 3325.0
+    },
+    {
+     "nombre": "NAV (M€)",
+     "valor": 1811.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

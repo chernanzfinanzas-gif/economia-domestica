@@ -1,0 +1,127 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "HOME",
+ "empresa": "Neinor Homes, S.A.",
+ "fecha": "2026-11-16",
+ "revisadoEl": "2026-11-16",
+ "rating": "BBB",
+ "score": 52.6,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): p_nav 50 % · per_norm 30 % · rentabilidad por dividendo 20 % · flujo base del DCF: owner earnings",
+ "poBear": 13.77,
+ "poBase": 16.69,
+ "poBull": 18.61,
+ "entMin": 13.77,
+ "entMax": 14.52,
+ "stop": 11.86,
+ "dpaPrevisto": 2.07,
+ "moat": "29,2 sobre 100 · SIN MOAT CLARO. Sin ajuste: lo medido es lo que hay",
+ "catalizadores": [
+  "Vende suelo por encima de la tasación: En 2026 ha firmado 260 M€ de ventas de suelo y participaciones con una prima del 17 % sobre el GAV (actualización de objetivos, oct-2026): unos 38 M€ por encima de la tasación, un 2 % del NAV. Cada venta así confirma que el GAV no está inflado. (6-12 meses)",
+  "El reparto de 2026-2027 se cumple: Anunciados 2,54 € por acción para 2026 (1,71 € ya cobrados) y 200-250 M€ para 2027, con fechas de pago confirmadas en diciembre de 2026, febrero y abril-mayo de 2027. Frente a los 2,07 € de 2025 son un 23 % más. (1-6 meses)",
+  "La suma con AEDAS da el beneficio prometido: Objetivo de EBITDA de 240-260 M€ en 2026 y de 260-280 M€ en 2027 (110 M€ en 2025 sin AEDAS); el primer semestre de 2026 ya da 119 M€ con un margen bruto del 27,6 %. Si se cumple 2027, el EBITDA sube unos 20 M€ sobre 2026. (12-18 meses)"
+ ],
+ "riesgos": [
+  "Baja el precio de la vivienda (Media): El NAV es el GAV tasado menos la deuda. Las cuentas de 2025 (nota de existencias) dan la sensibilidad de la tasación: una caída del 1 % en el precio de venta resta 66 M€ al valor de las promociones y una del 5 %, 289 M€. Sobre el NAV de junio de 2026 (1.811 M€) son un 3,6 % y un 16 %. En el caso duro, además, el beneficio cae: con un margen bruto del 27 %, un 5 % menos de precio se lleva cerca de una sexta parte del margen.",
+  "Tipos hipotecarios y de descuento más altos (Media): Un punto más de tasa de descuento en la tasación resta 89 M€ al valor de las promociones (cuentas de 2025): un 4,9 % del NAV. Si además se enfría la demanda, las entregas se retrasan: en el caso duro, un 20 % menos de beneficio un año.",
+  "La deuda se ha encarecido con AEDAS (Alta): Tras comprar AEDAS, la deuda bruta es de 1.646 M€ y su coste medio del 6,6 % en el primer semestre de 2026 (4,5 % en 2025), con la cobertura de intereses en 4,3 veces (7,3 en 2025). Según las cuentas de 2025, un punto más de tipo de interés son 4,4 M€ de gastos financieros al año. Duro: dos puntos más sobre 1.000 M€ al refinanciar (20 M€).",
+  "La rotación de suelo prometida no se cierra (Media): El plan de bajar la deuda (de 1.166 M€ a 800-850 M€ en 2027) se apoya en vender suelo y promociones: 260 M€ firmados en 2026 de un objetivo de unos 400 M€, con 100 M€ en negociación (actualización de objetivos, oct-2026). Si no se cierran, la deuda queda más alta. Suave: 100 M€ más de deuda. Duro: 300 M€ (el LTV pasaría del 37 % a cerca del 47 %).",
+  "Suben los costes de construcción (Media): La obra (mano de obra y materiales) es el 45 % del precio de venta (presentación 1S26): cada punto de precio compensa dos de inflación de costes. Un 2,5 % de inflación de costes sin trasladar quita unos 1,1 puntos de margen bruto; sobre unos 1.600 M€ de ingresos de promoción (objetivo de 2026) son 18 M€. Duro: un 5 % (36 M€).",
+  "Reparte más de lo que gana (Alta): Desde 2023 reparte con un plan de devoluciones de capital y dividendos: 2,07 € por acción cobrados en 2025 y 1,71 € en lo que va de 2026, frente a un BPA ajustado de 0,70 € en 2025 (sin AEDAS) y un objetivo de 1,21-1,42 € para 2026. La diferencia sale del balance (vender suelo y no reponerlo). El plan anunciado da 2,54 € para 2026 y 200-250 M€ para 2027. Si la rotación falla o la deuda aprieta, el reparto se recorta. Suave: −25 %. Duro: −50 %.",
+  "Tres accionistas tienen casi el 58 % (Media): Orion European Real Estate Fund V (28,8 %), Stoneshield (18,6 %) y Stonehage Fleming (10,3 %) suman el 57,7 % del capital (cuentas de 2025). Son fondos con horizonte de salida: una colocación de un bloque presiona la cotización y el minoritario depende de sus decisiones (reparto, ampliaciones como las de 2025). Se mide como una rebaja de múltiplos.",
+  "Pleitos con compradores y constructoras, y sanciones (Baja): Cuentas de 2025: demandas por garantías, revisiones de precio de constructoras y reclamaciones por unos 53 M€ (38 M€ más en AEDAS), con 5,9 M€ provisionados (2,9 M€ en AEDAS); provisión fiscal de 11,9 M€, de ellos 6,9 M€ por una posible sanción. Suave: 20 M€ no provisionados. Duro: 50 M€.",
+  "Ataque informático (Baja): Una promotora con datos de miles de compradores y de las cuentas de sus coinversores: un ataque para la comercialización y daña la marca. Se mide como el 1 % y el 3 % del EBITDA objetivo de 2026 (250 M€)."
+ ],
+ "bull": "18,61 € — escenario optimista: Sigue el déficit de vivienda (más de 800.000 según la empresa) y la gestora de activos crece: algo por encima del precio de la vivienda",
+ "bear": "13,77 € — escenario pesimista: Vuelve el ciclo: menos entregas y precios planos. Neinor ya reduce el suelo de unos 6 a unos 4 años de entregas (actualización de objetivos, oct-2026): el negocio encoge a propósito",
+ "resumen": "ESPERAR. Neinor cotiza a 19,56 €, por encima de su precio objetivo (16,69 €) e incluso del bull (18,61 €). Fallan tres de las cuatro condiciones para comprar: el margen (−14,7 %; pide +15 %), el rating (BBB; pide A) y el moat (29; pide 45), y la seguridad del reparto (28) también lo vetaría. Lo atractivo es el reparto (2,54 € por acción anunciados para 2026, un 13 % de la cotización), pero sale sobre todo de vender suelo. Zona de compra: entre 13,77 y 14,52 €.",
+ "dividendSafety": {
+  "score": 28,
+  "banda": "Frágil",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 0,
+   "C2": 0,
+   "C3": 7,
+   "C4": 9,
+   "C5": 12
+  },
+  "topeDuro": {
+   "activo": true,
+   "motivo": "Frágil: cobertura OE 0.45x · payout 166 % · 1 recorte(s) del DPA · señales: DN/EBITDA al alza"
+  },
+  "motivos": [
+   "Frágil: cobertura OE 0.45x · payout 166 % · 1 recorte(s) del DPA · señales: DN/EBITDA al alza"
+  ],
+  "calculadoEl": "2026-11-16",
+  "origen": "metodo-v3",
+  "shareholderYield": 10.95
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 4,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 0,
+    "margin_up": 0,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 4.41,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.25,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -3.1,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-16",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 3.54,
+  "gIntrinseco": 16.07,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (≤ g intrínseco 16.1 %)",
+  "calculadoEl": "2026-11-16",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 100.5456,
+   "wacc": 6.0,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 98.6302,
+   "deudaNeta": 869.289,
+   "modo": "EV",
+   "precioBase": 19.56,
+   "gBase": 3.54,
+   "fechaBase": "2026-11-13",
+   "congeladoEl": "2026-11-16",
+   "validado": true,
+   "desviacion": -0.0
+  }
+ }
+}
