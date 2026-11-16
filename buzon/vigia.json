@@ -1,9 +1,9 @@
 {
-  "generadoEl": "2026-11-09T17:14:50+01:00",
+  "generadoEl": "2026-11-16T16:42:06+01:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-11-09",
-  "resumenTexto": "⚠️ VENCIDOS (5): CLINICA BAVIERA, S.A. (9M, +9d), Industria de Diseño Textil, S.A. (9M, +9d), Merlin Properties, SOCIMI, S.A. (9M, +9d), Prim, S.A. (9M, +9d), Telefónica, S.A. (9M, +5d). 📅 ESTA SEMANA (1): ACS, Actividades de Construcción y Servicios, S.A. 14-11. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "fechaReferencia": "2026-11-16",
+  "resumenTexto": "⚠️ VENCIDOS (3): CLINICA BAVIERA, S.A. (9M, +16d), Industria de Diseño Textil, S.A. (9M, +16d), Prim, S.A. (9M, +16d). Nada en 14 días. Siguiente: Unicaja Banco, S.A. ~03-02 (FY). Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
   "vencidos": [
     {
       "ticker": "CBAV",
@@ -13,7 +13,7 @@
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
       "ultimaFecha": "2026-07-30",
-      "diasVencido": 9
+      "diasVencido": 16
     },
     {
       "ticker": "ITX",
@@ -23,17 +23,7 @@
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
       "ultimaFecha": "2026-07-31",
-      "diasVencido": 9
-    },
-    {
-      "ticker": "MRL",
-      "empresa": "Merlin Properties, SOCIMI, S.A.",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-10-31",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-30",
-      "diasVencido": 9
+      "diasVencido": 16
     },
     {
       "ticker": "PRM",
@@ -43,40 +33,20 @@
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
       "ultimaFecha": "2026-07-30",
-      "diasVencido": 9
-    },
-    {
-      "ticker": "TEF",
-      "empresa": "Telefónica, S.A.",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-11-04",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-29",
-      "diasVencido": 5
+      "diasVencido": 16
     }
   ],
-  "estaSemana": [
-    {
-      "ticker": "ACS",
-      "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-11-14",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-07-29"
-    }
-  ],
+  "estaSemana": [],
   "proximos14d": [],
   "siguienteEvento": {
-    "ticker": "ACS",
-    "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
-    "periodoEsperado": "2026-Q3",
-    "periodoLabel": "9M",
-    "fechaEstimada": "2026-11-14",
-    "ultimoPeriodo": "2026-Q2",
-    "ultimaFecha": "2026-07-29"
+    "ticker": "UNI",
+    "empresa": "Unicaja Banco, S.A.",
+    "periodoEsperado": "2027-Q4",
+    "periodoLabel": "FY",
+    "fechaEstimada": "2027-02-03",
+    "ultimoPeriodo": "2026-Q3",
+    "ultimaFecha": "2026-10-31"
   },
   "sinDeterminar": [],
-  "totalEmpresas": 36
+  "totalEmpresas": 42
 }
