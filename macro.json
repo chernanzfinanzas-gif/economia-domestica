@@ -1,7 +1,7 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-11-14",
- "fuente": "pase-macro",
+ "generadoEl": "2026-11-16",
+ "fuente": "informe-semanal-cartera",
  "nota": "Pase macro del 14-nov-2026: refresca 8 de 18. No se refrescan (conservan valor y fecha): bce_deposito y fed (sin reunión), euribor_12m y euribor_3m (la fuente canónica no dio el dato del día), wacc_cnmc, pib, ventas_minoristas, afiliacion (sin publicación nueva), consumo_discrecional y consumo_defensivo (la nota del ICM de septiembre no trae la tasa anual por ramas).",
  "ind": {
   "bce_deposito": {
@@ -18,28 +18,28 @@
   "euribor_12m": {
    "n": "Euríbor 12M",
    "grupo": "tipos",
-   "v": 3.248,
+   "v": 3.328,
    "u": "%",
-   "f": "2026-11-06",
-   "src": "euribor-rates.eu",
-   "url": "https://www.euribor-rates.eu/en/current-euribor-rates/",
-   "d": -5.8,
+   "f": "2026-11-13",
+   "src": "hipotecasyeuribor.com",
+   "url": "https://hipotecasyeuribor.com/euriborhoy.php",
+   "d": 8.0,
    "dU": "pb",
    "dPer": "semana",
-   "nota": "frente a 3,306 % el 30-oct"
+   "nota": "13-nov; 3,248 % el 6-nov; media provisional de noviembre 3,266 % (Rankia, 12-nov)"
   },
   "euribor_3m": {
    "n": "Euríbor 3M",
    "grupo": "tipos",
-   "v": 2.794,
+   "v": 2.766,
    "u": "%",
-   "f": "2026-11-06",
-   "src": "euribor-rates.eu",
-   "url": "https://www.euribor-rates.eu/en/current-euribor-rates/",
-   "d": 11.8,
+   "f": "2026-11-12",
+   "src": "rankia.com",
+   "url": "https://www.rankia.com/blog/mejores-hipotecas/7550179-euribor-hoy-13-noviembre-2026",
+   "d": -2.8,
    "dU": "pb",
    "dPer": "semana",
-   "nota": "frente a 2,676 % el 30-oct"
+   "nota": "12-nov (el 13-nov no se pudo confirmar); 2,794 % el 6-nov"
   },
   "bono_10a_es": {
    "n": "Bono 10A España",
@@ -108,11 +108,11 @@
    "n": "Pool eléctrico OMIE",
    "grupo": "energia",
    "u": "€/MWh",
-   "v": 199.39,
-   "f": "2026-11-12",
+   "v": 160.7,
+   "f": "2026-11-15",
    "src": "tarifaluzhora.es (datos OMIE)",
-   "url": "https://tarifaluzhora.es/precio-luz-diario/2026-11-12",
-   "nota": "media de los 8 días del 5 al 12-nov (no llega a los 30 días); el 12-nov cayó a 116,16 desde 210,94; el dato anterior (245,63) era de un solo día y no es comparable"
+   "url": "https://tarifaluzhora.es/precio-luz-diario/2026-11-15",
+   "nota": "media simple de las 7 medias diarias del 9 al 15-nov (179,67 · 171,38 · 210,94 · 116,16 · 186,04 · 169,48 · 91,37), cálculo propio con datos de OMIE vía tarifaluzhora.es"
   },
   "ipc": {
    "n": "IPC España",
@@ -175,14 +175,11 @@
   "eur_brl": {
    "n": "EUR/BRL",
    "grupo": "divisas",
-   "v": 6.2257,
-   "f": "2026-11-10",
+   "v": 6.2595,
+   "f": "2026-11-13",
    "src": "ecb.europa.eu",
-   "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/eurofxref-graph-brl.en.html",
-   "d": 1.31,
-   "dU": "%",
-   "dPer": "semana",
-   "nota": "referencia BCE del 10-nov (último día que enseña la página); 6,1449 el 6-nov"
+   "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+   "nota": "referencia BCE del 13-nov; 6,1449 el 6-nov (+1,9 % en la semana: el real se debilita)"
   },
   "fed": {
    "n": "Fed · tipo oficial",
@@ -221,42 +218,30 @@
   }
  },
  "lectura": {
-  "titulo": "Coyuntura Macro a 14/11/2026",
-  "generadoEl": "2026-11-14",
-  "fuente": "pase-macro",
-  "refrescados": 8,
+  "titulo": "Coyuntura Macro a 16/11/2026",
+  "generadoEl": "2026-11-16",
+  "fuente": "informe-semanal-cartera",
+  "refrescados": 4,
   "total": 18,
   "nota": "Sólo comenta lo que este pase ha refrescado. Explica a quién afecta y a quién beneficia; no recomienda ninguna acción sobre la cartera.",
   "puntos": [
    {
-    "t": "La inflación se queda en el 4,9 %",
-    "txt": "El INE confirma el 13-nov el IPC de octubre en el 4,9 % interanual, igual que septiembre y el nivel más alto desde febrero de 2023. El año empezó en el 2,3 %.",
-    "beneficia": "los negocios con ingresos ligados al IPC: alquileres (Merlin, Colonial) y concesiones con tarifa indexada",
-    "perjudica": "el consumo de los hogares y las empresas que no pueden trasladar costes; un dividendo que crece menos del 4,9 % pierde poder de compra"
+    "t": "El Euríbor 12M sube a 3,328 %",
+    "txt": "Sube 8 pb en la semana (3,248 % el 6-nov) con los mercados descontando subidas del BCE y de la Fed tras una inflación de EE.UU. más alta de lo esperado. El 3M se queda en 2,766 % (12-nov).",
+    "beneficia": "el margen de intereses de los bancos (Santander, BBVA, CaixaBank, Bankinter, Sabadell, Unicaja)",
+    "perjudica": "las hipotecas variables y las empresas con deuda a tipo variable (Cevasa, a 17 pb de su alarma del 3,5 %)"
    },
    {
-    "t": "El gas vuelve a 91 €/MWh",
-    "txt": "El TTF sube cerca de un 6 % en la semana (90,96 €/MWh el 13-nov, 86 el 6-nov): almacenes europeos por debajo del 72 % frente al 89 % habitual en estas fechas, frío previsto desde el 17-nov y menos gas noruego.",
-    "beneficia": "lo que vende gas: Naturgy y Repsol",
-    "perjudica": "los procesos intensivos en gas: Vidrala, Viscofan y Miquel y Costas"
+    "t": "La luz baja: media de 161 €/MWh en la semana",
+    "txt": "Media simple de las siete medias diarias del 9 al 15-nov, de 211 €/MWh el 11-nov a 91 el 15-nov. Cálculo propio con datos de OMIE.",
+    "beneficia": "los consumidores intensivos de electricidad (Miquel y Costas, Vidrala, Viscofan)",
+    "perjudica": "los ingresos de generación liberalizada (Endesa, Iberdrola)"
    },
    {
-    "t": "La luz, muy irregular: de 211 a 116 €/MWh en un día",
-    "txt": "El pool medio de los ocho días del 5 al 12-nov es de 199 €/MWh, con días de 246 y un 12-nov de 116 por el viento. No es comparable con el dato anterior, que era de un solo día.",
-    "beneficia": "las eléctricas con generación sin gas cuando el pool está alto (Iberdrola, Endesa)",
-    "perjudica": "la industria que compra la luz a precio de mercado"
-   },
-   {
-    "t": "El bono sube a 3,94 % y la prima baja a 56 pb",
-    "txt": "El bono español a 10 años repunta unos 10 pb en la semana (3,938 % el 13-nov) y el Bund está en 3,376 %; la prima, calculada con los dos, queda en 56 pb (59 la semana anterior). El Bund se lee ahora directo de la fuente.",
-    "beneficia": "a nadie de forma directa; la prima más baja indica que el mayor tipo es general en Europa y no un problema de España",
-    "perjudica": "el coste de refinanciar de las más endeudadas y de las reguladas e inmobiliarias (Redeia, Enagás, Merlin, Colonial)"
-   },
-   {
-    "t": "El real brasileño sigue cayendo",
-    "txt": "El EUR/BRL de referencia del BCE sube a 6,2257 el 10-nov (+1,3 % desde el 6-nov). La hipoteca a 30 años en EE.UU. baja a 7,11 %.",
-    "beneficia": "a nadie en la cartera de forma directa",
-    "perjudica": "los resultados en euros de quien ingresa en reales: Mapfre, Santander, Telefónica y Logista en menor medida"
+    "t": "El real se debilita otro 1,9 %",
+    "txt": "EUR/BRL 6,2595 el 13-nov (6,1449 el 6-nov): el mercado ve tímido el ajuste fiscal de Brasil para 2027.",
+    "beneficia": "nadie en la cartera de forma directa",
+    "perjudica": "lo que se gana en Brasil al pasarlo a euros: Santander, Telefónica (Vivo), Iberdrola (Neoenergia), Mapfre, Prosegur"
    }
   ]
  }

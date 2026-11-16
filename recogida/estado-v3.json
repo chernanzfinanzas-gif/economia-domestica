@@ -1,13 +1,19 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-15T23:45",
+ "generado": "2026-11-16T08:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-15T23:45",
+  "cuando": "2026-11-16T08:45",
   "ficheros": [
-   "hallazgos.json"
+   "hallazgos.json",
+   "informes-semanales/Informe Semanal de Cartera - 2026-11-16.pdf",
+   "macro.json",
+   "recogida/publicaciones/VYT.json",
+   "recogida/publicaciones/_indice.json",
+   "recogida/publicaciones/dias/2026-11.json",
+   "_indice.json"
   ]
  },
  "rechazos": [],
