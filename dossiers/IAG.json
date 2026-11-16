@@ -1,0 +1,131 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "IAG",
+ "empresa": "International Consolidated Airlines Group, S.A.",
+ "fecha": "2026-11-16",
+ "revisadoEl": "2026-11-16",
+ "rating": "A",
+ "score": 71.8,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): ev_ebitda_norm 45 % · per_norm 45 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl recurrente",
+ "poBear": 2.63,
+ "poBase": 3.55,
+ "poBull": 4.45,
+ "entMin": 2.63,
+ "entMax": 3.09,
+ "stop": 1.37,
+ "dpaPrevisto": 0.098,
+ "moat": "52,2 sobre 100 · MOAT ESTRECHO. Sin ajuste: lo medido (52, estrecho) recoge lo que hay",
+ "catalizadores": [
+  "El combustible vuelve a lo de 2025: El combustible ha pasado de unos 7.100 M€ en 2025 a 8.900 M€ previstos en 2026. Si la mitad de esa subida se deshace en 2027, son unos 900 M€ más de EBITDA; en el análisis se toma un tercio, 600 M€, porque el 45 % de 2027 ya está cubierto a los precios de ahora. (6-18 meses)",
+  "Las recompras siguen: En 2026 devuelve 1.500 M€ con recompras (un 6 % de la capitalización) además del dividendo, y promete devolver el exceso de caja mientras el apalancamiento esté por debajo de 1,2-1,5 veces (0,6 veces en septiembre de 2026). Menos acciones son más beneficio por acción: se mide como un 4 % más de reparto. (3-12 meses)",
+  "El largo radio sigue fuerte: En el 3T de 2026 el ingreso unitario del Atlántico Norte subió un 11 % con la capacidad plana, y las reservas del 1T de 2027 son «muy sólidas». Un 2 % más de ingresos con los costes fijos son unos 360 M€ de EBITDA. (6-12 meses)"
+ ],
+ "riesgos": [
+  "Combustible caro (Alta): El combustible es la primera partida de coste: unos 7.100 M€ en 2025 (2,02 céntimos por asiento-km × 351.435 millones) y 8.900 M€ previstos para 2026 (informe del 9M), con un 45 % de 2027 cubierto. Un 10 % más sobre la parte sin cubrir (55 %) son unos 490 M€ de EBITDA un año; con el tiempo las aerolíneas trasladan buena parte a los billetes (en 2022-2023 el ingreso por asiento-km subió más que el combustible). Como el valor se calcula sobre el beneficio normal del ciclo, se mide la parte que queda: la mitad. Suave: 250 M€ al año. Duro (+30 % y solo un tercio trasladado): 1.000 M€.",
+  "Cae la demanda (recesión) (Media): Los costes de una aerolínea son casi fijos a corto plazo (flota, tripulaciones, aeropuertos): de cada euro de ingreso que se pierde, unos 60 céntimos llegan al resultado. Un 5 % menos de ingresos (unos 1.500 M€ sobre los 30.207 de 2025) quita unos 900 M€ de EBITDA ese año; un 12 % menos (como en 2009 en las aerolíneas europeas), unos 2.200 M€. Pero el valor ya se calcula con el margen mediano de 10 años, que lleva dentro el Covid: una recesión normal ya está descontada. Se mide lo que queda si la demanda se queda más baja para siempre: suave, 300 M€ al año (un 1 % de las ventas); duro, 700 M€ (un 2,3 %).",
+  "Interrupciones: control aéreo, huelgas y averías (Alta): En el 3T de 2026 el beneficio de explotación cayó de 2.053 a 1.726 M€ por el combustible y por las interrupciones del control del tráfico aéreo (sobre todo el británico), la falta de aviones por problemas de motores y el cierre de Oriente Medio; la empresa prevé que el coste por asiento-km sin combustible suba un 1 % en 2026 por ellas. Suave: 150 M€ al año. Duro: 400 M€.",
+  "La libra se hunde (Media): British Airways gana en libras y IAG presenta en euros. En 2016, tras el referéndum del Brexit, el efecto del tipo de cambio fue de −460 M€ en el beneficio de explotación (resultados de 2016). Suave: 200 M€. Duro: 460 M€, como en 2016.",
+  "Guerra de precios en Europa (Media): En el 3T de 2026 el mercado europeo fue el más difícil «por el elevado crecimiento de la capacidad de la competencia»: Iberia bajó capacidad y aun así su ingreso unitario cayó un 1,6 %. Si los precios del corto radio (Vueling, Iberia Express, Aer Lingus, BA Euroflyer) caen un 3-6 % y el mercado paga menos por IAG: suave, múltiplos −5 % y 150 M€; duro, múltiplos −10 % y 350 M€.",
+  "Aviones y motores que no llegan (Media): En 2026 llegan 12 aviones en lugar de 16 (retrasos de Boeing 737 de Vueling y de un Airbus A321neo de British Airways) y hay aviones parados por los motores (informe del 9M). Menos aviones son menos capacidad con los mismos costes fijos. Suave: 200 M€. Duro: 500 M€ (un 2 % menos de capacidad un año).",
+  "El coste del clima (Alta): Los derechos de emisión (ETS) y CORSIA suman unos 150 M€ más al año (hipótesis de la empresa para 2026), y la obligación europea de combustible sostenible sube del 2 % de 2025 al 6 % de 2030, con un precio varias veces el del queroseno. Suave: 150 M€. Duro: 450 M€.",
+  "Qatar Airways tiene el 25,1 % (Baja): Qatar Airways es el único accionista significativo (25,1434 % de los votos, comunicación del 2-oct-2026) y además socio comercial (interlínea, mantenimiento, licencia de Avios). Vende a IAG en las recompras en proporción para no subir de ahí. Una venta grande de su paquete presionaría la cotización. Además, IAG tiene que seguir siendo de mayoría europea para volar como aerolínea comunitaria. Se mide como rebaja de múltiplos.",
+  "Ataque informático (Baja): British Airways ya sufrió en 2018 un robo de datos de unos 400.000 clientes que acabó en una multa de 20 M£ del regulador británico. Se mide como el 1 % y el 3 % del EBITDA de 2025 (7.653 M€)."
+ ],
+ "bull": "4,45 € — escenario optimista: Se mantienen los yields del Atlántico Norte (+11 % en el 3T de 2026) y el crecimiento de IAG Loyalty",
+ "bear": "2,63 € — escenario pesimista: El ciclo se da la vuelta: combustible caro (8.900 M€ en 2026 frente a 7.100 en 2025) y menos capacidad (la de 2026 ya queda algo por debajo de 2025); el margen vuelve al suelo del rango de la empresa (12 %)",
+ "resumen": "ESPERAR. Es una buena empresa (rating A, moat estrecho, mucha caja y recompras), pero a 5,44 € el precio descuenta que los márgenes récord de 2023-2025 son lo normal, justo cuando el ciclo empieza a girar: el combustible sube y el beneficio de explotación del 9M de 2026 cae un 15 %. El precio objetivo sobre el ciclo es de 3,55 € y la zona de compra está entre 2,63 € y 3,09 €: haría falta una caída de más del 40 %, que en una aerolínea ocurre en las recesiones (−83 % de 2015 a 2020). Stop de tesis en 1,37 €.",
+ "dividendSafety": {
+  "score": 87,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 19,
+   "C4": 3,
+   "C5": 15
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 10.30x · payout 14 % · 2 recorte(s) del DPA"
+  ],
+  "calculadoEl": "2026-11-16",
+  "origen": "metodo-v3",
+  "shareholderYield": 7.62
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 8,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 1.08,
+   "zona": "riesgo"
+  },
+  "beneish": {
+   "m": -2.86,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -7.5,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=1.08 en zona de riesgo de insolvencia"
+  ],
+  "veto": true,
+  "vetoMotivos": [
+   "Altman Z''=1.08 en zona de riesgo de insolvencia"
+  ],
+  "calculadoEl": "2026-11-16",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 11.62,
+  "gIntrinseco": 8.31,
+  "veredicto": "EXIGENTE",
+  "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 8.3 %)",
+  "calculadoEl": "2026-11-16",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 1308.0927,
+   "wacc": 9.4555,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 4708.7521,
+   "deudaNeta": 6845.421,
+   "modo": "EV",
+   "precioBase": 5.44,
+   "gBase": 11.62,
+   "fechaBase": "2026-11-16",
+   "congeladoEl": "2026-11-16",
+   "validado": true,
+   "desviacion": -0.0
+  }
+ }
+}

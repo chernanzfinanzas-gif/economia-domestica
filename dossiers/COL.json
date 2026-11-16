@@ -54,7 +54,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.17x · payout 95 % · 0 recorte(s) del DPA · señales: DN/EBITDA al alza · vara de SOCIMI (con la general: 55)"
   ],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-16",
   "origen": "metodo-v3",
   "shareholderYield": null
  },
@@ -96,7 +96,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-16",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -105,7 +105,7 @@
   "gIntrinseco": null,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (exige -0.4 % al año, no más que el 3 % del caso base)",
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-16",
   "origen": "metodo-v3"
  }
 }

@@ -573,7 +573,19 @@
     "revision": "/sessions/rcw-01sxnfcirhz28bq44vt2lahr/mnt/CoWork Análisis Financiero/Análisis Financiero KH&Claude/Método v3 (paralelo)/Revisión/CEV análisis inicial",
     "origen": "metodo-v3"
    }
+  ],
+  "IAG": [
+   {
+    "fecha": "16-nov-2026",
+    "fechaIso": "2026-11-16",
+    "senal": "S2",
+    "cot": 5.44,
+    "decision": "REAFIRMAR",
+    "motivo": "Análisis inicial (16-nov-2026): el rojo del 9M de 2026 (beneficio de explotación −15 % por el combustible, +18,6 %, y las interrupciones) confirma el giro del ciclo que la valoración ya supone (margen mediano de 10 años). Ingresos, ocupación e ingreso por asiento-km siguen subiendo. Veredicto ESPERAR; zona de compra 2,63-3,09 €.",
+    "revision": "IAG análisis inicial",
+    "origen": "metodo-v3"
+   }
   ]
  },
- "actualizado": "2026-11-13"
+ "actualizado": "2026-11-16"
 }

@@ -1,24 +1,32 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-16T19:45",
+ "generado": "2026-11-16T20:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [
-  {
-   "carpeta": "IAG análisis inicial",
-   "ticker": "IAG",
-   "periodos": [],
-   "tipo": "inicial",
-   "creada": "2026-11-16T19:40+01:00",
-   "semaforo": null,
-   "frase": null
-  }
- ],
- "n_pendientes": 1,
+ "revisiones_pendientes": [],
+ "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-16T19:45",
+  "cuando": "2026-11-16T20:45",
   "ficheros": [
-   "recogida/publicaciones/IAG.json",
-   "recogida/publicaciones/_indice.json"
+   "dossiers/CEV.html",
+   "dossiers/CEV.json",
+   "dossiers/COL.html",
+   "dossiers/COL.json",
+   "dossiers/HOME.html",
+   "dossiers/IAG.html",
+   "dossiers/IAG.json",
+   "dossiers/trimestral/CEV-trim.json",
+   "dossiers/trimestral/COL-trim.json",
+   "dossiers/trimestral/IAG-trim.json",
+   "dossiers/v3/HOME.html",
+   "dossiers/v3/IAG.html",
+   "fichas/CEV.json",
+   "fichas/COL.json",
+   "fichas/HOME.json",
+   "fichas/IAG.json",
+   "fichas/_resumen.json",
+   "universo/base.json",
+   "universo/matriz.json",
+   "_indice.json"
   ]
  },
  "rechazos": [],
