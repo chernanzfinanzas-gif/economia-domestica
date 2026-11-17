@@ -1,32 +1,17 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-16T21:45",
+ "generado": "2026-11-17T08:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-16T20:46",
+  "cuando": "2026-11-17T08:45",
   "ficheros": [
-   "dossiers/CEV.html",
-   "dossiers/CEV.json",
-   "dossiers/COL.html",
-   "dossiers/COL.json",
-   "dossiers/HOME.html",
-   "dossiers/IAG.html",
-   "dossiers/IAG.json",
-   "dossiers/trimestral/CEV-trim.json",
-   "dossiers/trimestral/COL-trim.json",
-   "dossiers/trimestral/IAG-trim.json",
-   "dossiers/v3/HOME.html",
-   "dossiers/v3/IAG.html",
-   "fichas/CEV.json",
-   "fichas/COL.json",
-   "fichas/HOME.json",
-   "fichas/IAG.json",
-   "fichas/_resumen.json",
-   "universo/base.json",
-   "universo/matriz.json",
-   "_indice.json"
+   "recogida/publicaciones/EDR.json",
+   "recogida/publicaciones/VID.json",
+   "recogida/publicaciones/_indice.json",
+   "recogida/publicaciones/dias/2026-11.json",
+   "fichas/_evolucion.json"
   ]
  },
  "rechazos": [],
@@ -111,6 +96,15 @@
    "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A88063979",
    "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (ACS - ACS, A",
    "desde": "2026-11-09"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "EDR",
+   "que": "2026-05-28 La sociedad remite el Informe Financiero Anual del ejercicio 2026",
+   "carpeta": "EDR - EDREAMS ODIGEO, S.A\\Resultados",
+   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A02850956",
+   "motivo": "el fichero de dentro no es el de este aviso: el aviso es de 2026 y el PDF se creo en 2024",
+   "desde": "2026-11-14"
   },
   {
    "clase": "fallido",
