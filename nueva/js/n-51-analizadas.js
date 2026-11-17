@@ -3,7 +3,7 @@
    Arriba, contadores por zona; «Hoy merece mirar», tarjetas de las que están en zona; debajo, todas, por cercanía a la entrada.
    Datos: fichas/_resumen.json (lo deja exportar_ficha.py) + precio de hoy de la app. Pinchar → Ficha de empresa. */
 (function(){
-  var R=null, filtro='', mapaSolo=false;
+  var R=null, filtro='', mapaSolo=false, mapaZoom=null;   /* 17-nov-2026 (Carlos): pulsar un cuadrante lo amplía */
   function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function n(v,d){ if(v==null||!isFinite(+v)) return '—'; return (+v).toLocaleString('es-ES',{minimumFractionDigits:d==null?2:d,maximumFractionDigits:d==null?2:d,useGrouping:'always'}); }
   function cot(t){ try{ var c=(typeof _mcCot==='function')?+_mcCot(t):0; if(c>0) return c; }catch(e){} var v=(DB.valores||{})[t]; return v&&+v.precioActual>0?+v.precioActual:0; }
@@ -28,28 +28,41 @@
     var P=L.filter(function(x){ return x.score!=null&&isFinite(+x.score)&&x.po_base>0&&x.pr>0; }).map(function(x){ return {x:x,s:+x.score,m:(x.po_base/x.pr-1)*100}; }); if(P.length<5) return '';
     var conPos=P.filter(function(p){ return p.x.tengo; }); if(mapaSolo&&conPos.length) P=conPos; else mapaSolo=false;
     var pesoT=P.reduce(function(a,p){ return a+(p.x.peso||0); },0), pesoM=Math.max.apply(null,P.map(function(p){ return p.x.peso||0; }).concat([0]));
-    var rad=function(p){ if(mapaSolo) return pesoM>0?5+15*Math.sqrt((p.x.peso||0)/pesoM):8; return p.x.tengo?7.5:5.5; };
+    var rad=function(p){ if(mapaSolo) return pesoM>0?5+15*Math.sqrt((p.x.peso||0)/pesoM):8; return (p.x.tengo?7.5:5.5)*(mapaZoom!=null?1.35:1); };
     var QX=62, QY=15, sx=P.map(function(p){ return p.s; }), x0v=Math.min(Math.min.apply(null,sx),QX)-4, x1v=Math.max(Math.max.apply(null,sx),QX)+4, y0v=-60, y1v=80;
-    var W=1000,H=460,l=78,r=14,t=18,b=40, X=function(v){ return l+(v-x0v)/(x1v-x0v)*(W-l-r); }, Y=function(v){ return t+(y1v-Math.max(y0v,Math.min(y1v,v)))/(y1v-y0v)*(H-t-b); };
+    var QN=['Buenas y con margen','Buenas pero caras','Con margen, calidad baja','Caras y calidad baja'], QC=['#15803D','#64748B','#B45309','#64748B'];
     var q=[[],[],[],[]]; P.forEach(function(p){ var bu=p.s>=QX, ba=p.m>=QY; q[bu&&ba?0:(bu?1:(ba?2:3))].push(p); });
+    if(mapaZoom!=null&&!q[mapaZoom].length) mapaZoom=null;
+    var Z=mapaZoom, todos=P;
+    if(Z!=null){ P=q[Z]; var zs=P.map(function(p){ return p.s; }), zm=P.map(function(p){ return Math.max(-60,Math.min(80,p.m)); });
+      var bu=Z<2, ba=(Z===0||Z===2);
+      x0v=bu?QX-1:Math.min.apply(null,zs)-3; x1v=bu?Math.max.apply(null,zs)+3:QX+1;
+      y0v=ba?QY-3:Math.min.apply(null,zm)-5; y1v=ba?Math.max.apply(null,zm)+6:QY+3; }
+    var W=1000,H=Z!=null?520:460,l=78,r=14,t=Z!=null?38:18,b=40, X=function(v){ return l+(v-x0v)/(x1v-x0v)*(W-l-r); }, Y=function(v){ return t+(y1v-Math.max(y0v,Math.min(y1v,v)))/(y1v-y0v)*(H-t-b); };
+    var yst=Z!=null?((y1v-y0v)>60?10:5):20, xst=Z!=null?((x1v-x0v)>16?5:2):10;
     var h='<svg viewBox="0 0 '+W+' '+H+'" class="nf-chs" style="width:100%">';
-    h+='<rect x="'+X(QX).toFixed(1)+'" y="'+t+'" width="'+(W-r-X(QX)).toFixed(1)+'" height="'+(Y(QY)-t).toFixed(1)+'" fill="#16A34A" fill-opacity=".07"/>';
-    for(var v=-60; v<=80; v+=20) h+='<line x1="'+l+'" x2="'+(W-r)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'" stroke="'+(v===0?'#94A3B8':'#EEF1F5')+'"/><text x="'+(l-6)+'" y="'+(Y(v)+4).toFixed(1)+'" font-size="11" text-anchor="end" fill="#5B6B7C">'+(v>0?'+':'')+v+' %</text>';
-    for(var w=Math.ceil(x0v/10)*10; w<=x1v; w+=10) h+='<text x="'+X(w).toFixed(1)+'" y="'+(H-b+16)+'" font-size="11" text-anchor="middle" fill="#5B6B7C">'+w+'</text>';
-    h+='<line x1="'+X(QX).toFixed(1)+'" x2="'+X(QX).toFixed(1)+'" y1="'+t+'" y2="'+(H-b)+'" stroke="#1F4A9A" stroke-dasharray="6 5" stroke-opacity=".6"/><text x="'+(X(QX)+5).toFixed(1)+'" y="'+(H-b-6)+'" font-size="11" fill="#1F4A9A">calidad A (62)</text>';
-    h+='<line x1="'+l+'" x2="'+(W-r)+'" y1="'+Y(QY).toFixed(1)+'" y2="'+Y(QY).toFixed(1)+'" stroke="#1F4A9A" stroke-dasharray="6 5" stroke-opacity=".6"/><text x="'+(l+6)+'" y="'+(Y(QY)-5).toFixed(1)+'" font-size="11" fill="#1F4A9A">margen del 15 %</text>';
-    h+='<text x="'+(W-r-6)+'" y="'+(t+14)+'" font-size="12" font-weight="700" text-anchor="end" fill="#15803D">Buenas y con margen</text><text x="'+(W-r-6)+'" y="'+(H-b-6)+'" font-size="12" font-weight="700" text-anchor="end" fill="#64748B">Buenas pero caras</text><text x="'+(l+6)+'" y="'+(t+14)+'" font-size="12" font-weight="700" fill="#B45309">Con margen, calidad baja</text>';
+    if(Z==null){ h+='<rect x="'+X(QX).toFixed(1)+'" y="'+t+'" width="'+(W-r-X(QX)).toFixed(1)+'" height="'+(Y(QY)-t).toFixed(1)+'" fill="#16A34A" fill-opacity=".07"/>';
+      /* los cuatro cuadrantes se pueden pulsar para ampliarlos */
+      [[X(QX),t,W-r,Y(QY),0],[X(QX),Y(QY),W-r,H-b,1],[l,t,X(QX),Y(QY),2],[l,Y(QY),X(QX),H-b,3]].forEach(function(c){ if(q[c[4]].length) h+='<rect data-namapz="'+c[4]+'" x="'+c[0].toFixed(1)+'" y="'+c[1].toFixed(1)+'" width="'+(c[2]-c[0]).toFixed(1)+'" height="'+(c[3]-c[1]).toFixed(1)+'" fill="#000" fill-opacity="0" style="cursor:zoom-in"><title>Pulsa para ampliar «'+QN[c[4]]+'» ('+q[c[4]].length+')</title></rect>'; }); }
+    else { if(Z===0) h+='<rect x="'+l+'" y="'+t+'" width="'+(W-r-l)+'" height="'+(H-b-t)+'" fill="#16A34A" fill-opacity=".07"/>';
+      h+='<rect data-namapz="-1" x="'+l+'" y="'+t+'" width="'+(W-r-l)+'" height="'+(H-b-t)+'" fill="#000" fill-opacity="0" style="cursor:zoom-out"><title>Pulsa para volver al mapa entero</title></rect>';
+      h+='<text x="'+((l+W-r)/2)+'" y="24" font-size="17" font-weight="800" text-anchor="middle" fill="'+QC[Z]+'">'+QN[Z]+' ('+P.length+')</text>'; }
+    for(var v=Math.ceil(y0v/yst)*yst; v<=y1v; v+=yst) h+='<line x1="'+l+'" x2="'+(W-r)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'" stroke="'+(v===0?'#94A3B8':'#EEF1F5')+'"/><text x="'+(l-6)+'" y="'+(Y(v)+4).toFixed(1)+'" font-size="11" text-anchor="end" fill="#5B6B7C">'+(v>0?'+':'')+v+' %</text>';
+    for(var w=Math.ceil(x0v/xst)*xst; w<=x1v; w+=xst) h+='<text x="'+X(w).toFixed(1)+'" y="'+(H-b+16)+'" font-size="11" text-anchor="middle" fill="#5B6B7C">'+w+'</text>';
+    if(QX>=x0v&&QX<=x1v) h+='<line x1="'+X(QX).toFixed(1)+'" x2="'+X(QX).toFixed(1)+'" y1="'+t+'" y2="'+(H-b)+'" stroke="#1F4A9A" stroke-dasharray="6 5" stroke-opacity=".6"/><text x="'+(X(QX)>W-130?X(QX)-5:X(QX)+5).toFixed(1)+'" y="'+(H-b-6)+'" font-size="11" fill="#1F4A9A"'+(X(QX)>W-130?' text-anchor="end"':'')+'>calidad A (62)</text>';
+    if(QY>=y0v&&QY<=y1v) h+='<line x1="'+l+'" x2="'+(W-r)+'" y1="'+Y(QY).toFixed(1)+'" y2="'+Y(QY).toFixed(1)+'" stroke="#1F4A9A" stroke-dasharray="6 5" stroke-opacity=".6"/><text x="'+(l+6)+'" y="'+(Y(QY)-5).toFixed(1)+'" font-size="11" fill="#1F4A9A">margen del 15 %</text>';
+    if(Z==null) h+='<text data-namapz="0" style="cursor:zoom-in" x="'+(W-r-6)+'" y="'+(t+14)+'" font-size="12" font-weight="700" text-anchor="end" fill="#15803D">Buenas y con margen</text><text data-namapz="1" style="cursor:zoom-in" x="'+(W-r-6)+'" y="'+(H-b-6)+'" font-size="12" font-weight="700" text-anchor="end" fill="#64748B">Buenas pero caras</text><text data-namapz="2" style="cursor:zoom-in" x="'+(l+6)+'" y="'+(t+14)+'" font-size="12" font-weight="700" fill="#B45309">Con margen, calidad baja</text><text data-namapz="3" style="cursor:zoom-in" x="'+(l+6)+'" y="'+(H-b-22)+'" font-size="12" font-weight="700" fill="#64748B">Caras y calidad baja</text>';
     h+='<text x="'+((l+W-r)/2)+'" y="'+(H-6)+'" font-size="11.5" text-anchor="middle" fill="#334155">Calidad: nota del método (0-100) →</text><text transform="translate(15,'+((t+H-b)/2)+') rotate(-90)" font-size="11.5" text-anchor="middle" fill="#334155">Margen hasta el precio objetivo →</text>';
     P.slice().sort(function(a,c){ return mapaSolo?((c.x.peso||0)-(a.x.peso||0)):((a.x.tengo?1:0)-(c.x.tengo?1:0)); }).forEach(function(p){ var c=(DC[p.x.decision]||['#475569'])[0], cx=X(p.s), cy=Y(p.m), fuera=p.m>y1v||p.m<y0v, rr=rad(p);
       h+='<g data-nfopen="'+p.x.ticker+'" style="cursor:pointer"><title>'+esc(p.x.empresa)+' · '+esc(p.x.decision||'')+' · calidad '+esc(p.x.rating||'')+' ('+n(p.s,1)+') · margen '+(p.m>0?'+':'')+n(p.m,0)+' % · dividendo '+(p.x.dss!=null?p.x.dss:'—')+(mapaSolo&&pesoT>0?' · peso '+n((p.x.peso||0)/pesoT*100,1)+' %':'')+'</title>'+
         '<circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+rr.toFixed(1)+'" fill="'+c+'" fill-opacity="'+(mapaSolo?.8:(p.x.tengo?1:.75))+'" stroke="'+(p.x.tengo&&!mapaSolo?'#0F172A':'#fff')+'" stroke-width="'+(p.x.tengo&&!mapaSolo?2:1)+'"/>'+
-        '<text x="'+(cx+rr+3).toFixed(1)+'" y="'+(cy+3.5).toFixed(1)+'" font-size="10.5" font-weight="'+(p.x.tengo?800:600)+'" fill="#334155">'+p.x.ticker+(fuera?(p.m>y1v?' ↑':' ↓'):'')+'</text></g>'; });
+        '<text x="'+(cx+rr+3).toFixed(1)+'" y="'+(cy+3.5).toFixed(1)+'" font-size="'+(Z!=null?13:10.5)+'" font-weight="'+(p.x.tengo?800:600)+'" fill="#334155">'+p.x.ticker+(fuera?(p.m>y1v?' ↑':' ↓'):'')+'</text></g>'; });
     h+='</svg>';
     var nom=function(a){ return a.sort(function(u,w){ return w.m-u.m; }).map(function(p){ return '<span data-nfopen="'+p.x.ticker+'" style="cursor:pointer;font-weight:'+(p.x.tengo?800:500)+'">'+p.x.ticker+'</span>'; }).join(', ')||'ninguna'; };
     var pq=function(a){ if(!mapaSolo||!(pesoT>0)) return a.length; return a.length+' · '+n(a.reduce(function(u,p){ return u+(p.x.peso||0); },0)/pesoT*100,0)+' % de tu dinero'; };
     var conm=conPos.length?'<div class="na-flt" style="margin:2px 0 6px"><span data-namap="0" class="'+(mapaSolo?'':'on')+'">Todas las analizadas</span><span data-namap="1" class="'+(mapaSolo?'on':'')+'">Solo mi cartera ('+conPos.length+')</span></div>':'';
     return '<div class="nf-card" id="naMapa"><h2>'+(mapaSolo?'Mapa de mi cartera':'Mapa de las analizadas')+' <span class="nf-sub">calidad frente a margen · pulsa una empresa para abrir su ficha</span></h2>'+conm+
-      '<div style="font-size:13.5px;color:#334155;margin:4px 0 8px;line-height:1.6"><b style="color:#15803D">Buenas y con margen ('+pq(q[0])+'):</b> '+nom(q[0])+'. <b>Buenas pero caras ('+pq(q[1])+'):</b> '+nom(q[1])+'. <b style="color:#B45309">Con margen, calidad baja ('+pq(q[2])+'):</b> '+nom(q[2])+'. <b>Ni lo uno ni lo otro ('+pq(q[3])+')'+(mapaSolo&&q[3].length?':</b> '+nom(q[3])+'.':'</b>.')+'</div><div style="overflow-x:auto"><div style="min-width:720px">'+h+'</div></div>'+
+      '<div style="font-size:13.5px;color:#334155;margin:4px 0 8px;line-height:1.6"><b data-namapz="0" style="color:#15803D;cursor:zoom-in">Buenas y con margen ('+pq(q[0])+'):</b> '+nom(q[0])+'. <b data-namapz="1" style="cursor:zoom-in">Buenas pero caras ('+pq(q[1])+'):</b> '+nom(q[1])+'. <b data-namapz="2" style="color:#B45309;cursor:zoom-in">Con margen, calidad baja ('+pq(q[2])+'):</b> '+nom(q[2])+'. <b data-namapz="3" style="cursor:zoom-in">Caras y calidad baja ('+pq(q[3])+'):</b> '+nom(q[3])+'.'+(Z!=null?' <span data-namapz="-1" style="cursor:pointer;color:#1F4A9A;font-weight:700;white-space:nowrap">← Ver el mapa entero</span>':' <span style="color:#64748B">· Pulsa un cuadrante para ampliarlo.</span>')+'</div><div style="overflow-x:auto"><div style="min-width:720px">'+h+'</div></div>'+
       '<div class="nf-lg">'+['COMPRAR','MANTENER','ESPERAR','VENDER'].filter(function(d){ return P.some(function(p){ return p.x.decision===d; }); }).map(function(d){ return '<span><i style="background:'+(DC[d]||['#475569'])[0]+';border-radius:50%"></i>'+d+'</span>'; }).join('')+(mapaSolo?'<span>El tamaño de cada punto es su peso en lo que tienes invertido en empresas analizadas</span>':'<span><i style="background:#fff;border:2px solid #0F172A;border-radius:50%;box-sizing:border-box"></i>En cartera (más grande y en negrita)</span>')+'</div>'+
       '<span class="nf-ws">Margen = precio objetivo ÷ cotización de hoy − 1. Las dos rayas son las de la regla de COMPRAR (calidad A y 15 % de margen), que además pide moat y pasa los vetos: por eso una empresa del cuadro verde puede no ser COMPRAR. Las que se salen por arriba o por abajo llevan una flecha.</span></div>';
   }
@@ -180,7 +193,8 @@
   document.addEventListener('click',function(e){
     var o=e.target.closest&&e.target.closest('[data-nfopen]'); if(o&&window.nfAbrir){ window.nfAbrir(o.getAttribute('data-nfopen')); return; }
     var f=e.target.closest&&e.target.closest('[data-naf]'); if(f){ filtro=f.getAttribute('data-naf'); pintar(); return; }
-    var mp=e.target.closest&&e.target.closest('[data-namap]'); if(mp){ mapaSolo=mp.getAttribute('data-namap')==='1'; pintar(); return; }
+    var mp=e.target.closest&&e.target.closest('[data-namap]'); if(mp){ mapaSolo=mp.getAttribute('data-namap')==='1'; mapaZoom=null; pintar(); return; }
+    var mz=e.target.closest&&e.target.closest('[data-namapz]'); if(mz){ var zv=+mz.getAttribute('data-namapz'); mapaZoom=zv<0?null:zv; pintar(); var nm=document.getElementById('naMapa'); if(nm&&nm.scrollIntoView) nm.scrollIntoView({block:'nearest'}); return; }
     if(e.target.closest&&e.target.closest('[data-naval]')){ valCargar(); return; }
     var vf=e.target.closest&&e.target.closest('[data-navalf]'); if(vf){ VAL.solo=vf.getAttribute('data-navalf')==='1'; pintarVal(); return; }
     if(e.target.closest&&e.target.closest('[data-natr]')){ trCargar(); return; }
