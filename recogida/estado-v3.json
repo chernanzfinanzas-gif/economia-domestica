@@ -1,25 +1,31 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-17T20:45",
+ "generado": "2026-11-17T21:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [
-  {
-   "carpeta": "CASH análisis inicial",
-   "ticker": "CASH",
-   "periodos": [],
-   "tipo": "inicial",
-   "creada": "2026-11-17T20:10+01:00",
-   "semaforo": null,
-   "frase": null
-  }
- ],
- "n_pendientes": 1,
+ "revisiones_pendientes": [],
+ "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-17T20:45",
+  "cuando": "2026-11-17T21:45",
   "ficheros": [
-   "recogida/publicaciones/CASH.json",
-   "recogida/publicaciones/_indice.json",
-   "fichas/_evolucion.json"
+   "dossiers/CASH.html",
+   "dossiers/CASH.json",
+   "dossiers/IAG.html",
+   "dossiers/IAG.json",
+   "dossiers/PSG.html",
+   "dossiers/PSG.json",
+   "dossiers/trimestral/CASH-trim.json",
+   "dossiers/trimestral/IAG-trim.json",
+   "dossiers/trimestral/PSG-trim.json",
+   "dossiers/v3/CASH.html",
+   "dossiers/v3/IAG.html",
+   "dossiers/v3/PSG.html",
+   "fichas/CASH.json",
+   "fichas/IAG.json",
+   "fichas/PSG.json",
+   "fichas/_resumen.json",
+   "universo/base.json",
+   "universo/matriz.json",
+   "_indice.json"
   ]
  },
  "rechazos": [],

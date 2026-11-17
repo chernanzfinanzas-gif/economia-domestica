@@ -3,7 +3,7 @@
  "ticker": "PSG",
  "empresa": "Prosegur, Compañía de Seguridad, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-14",
+ "generado": "2026-11-17",
  "revisiones": [
   {
    "periodo": "2021-Q1",
@@ -557,7 +557,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ventas +2,5 %, EBITDA +2,7 %, beneficio neto +58,9 %, margen 11,1 % (+0,03 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ventas +2,5 %, EBITDA +2,7 %, beneficio neto +58,9 %, margen 11,1 % (+0,03 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas 3.672 M€ (+2,5 %: orgánico +11,2 %), EBITDA 409 M€ (+2,7 %), EBITA ajustado 258 M€ (+9,0 %), resultado neto 82 M€ (+58,7 %). Por negocio: Seguridad +5,6 %, Cash −2,3 %, AVOS +9,4 %, Alarmas +9,7 %.\n\n**Por qué** — El orgánico es alto (+11,2 %) y la divisa se lo come casi todo. El beneficio sube mucho más que las ventas: EBITA +9,0 % y EBIT +11,9 %. Documento: «2025-10-31 Declaracion intermedia 3er trimestre 2025».\n\n**Semáforo** — Verde.",
    "metricas": [
     {
      "nombre": "Ventas",
@@ -591,7 +591,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ventas +0,5 %, EBITDA -3,1 %, beneficio neto +52,8 %, margen 11,4 % (-0,42 pp) frente al mismo periodo del año anterior. Verde: solo EBITDA a la baja, sin más señales.",
+   "resumen": "Ventas +0,5 %, EBITDA -3,1 %, beneficio neto +52,8 %, margen 11,4 % (-0,42 pp) frente al mismo periodo del año anterior. Verde: solo EBITDA a la baja, sin más señales. **Qué ha pasado** — Ventas 4.930 M€ (+0,5 %: orgánico +10,0 %, divisa −9,9 %), EBITDA 562 M€ (+2,2 % según la empresa), EBITA 357 M€ (+8,9 %, margen 7,2 %), resultado neto 119 M€ (+52,8 %). Por negocio: Cash 1.987 M€ de ventas y 238 M€ de EBITA; Seguridad 2.604 y 90; Alarmas 235 y 22. Deuda neta de la empresa 1.356 M€. Propuesta de dividendo de 90 M€ (0,1651 €).\n\n**Por qué** — Seguridad gana margen (3,5 %) y Alarmas pasa a ganar dinero; Cash aguanta el 12 % pese a las divisas. La tasa fiscal baja del 47,7 % al 42,1 %. Documento: «2026-02-27 Presentación de Resultados 2025».\n\n**Semáforo** — Verde: solo baja el EBITDA del método (−3,1 %).\n\n**Lectura** — No toca la tesis.",
    "metricas": [
     {
      "nombre": "Ventas",
@@ -625,7 +625,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ventas +1,6 %, EBITDA +2,4 %, beneficio neto +15,1 %, margen 11,1 % (+0,09 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ventas +1,6 %, EBITDA +2,4 %, beneficio neto +15,1 %, margen 11,1 % (+0,09 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas 1.274 M€ (+1,5 %: orgánico +7,8 %, divisa −6,2 %), EBITDA 141 M€ (+2,4 %), EBITA ajustado 86,5 M€ (+0,7 %), resultado neto 32,7 M€ (+15,2 %). Seguridad +4,4 %, Cash −3,7 %, AVOS +22,5 %, Alarmas +7,8 %.\n\n**Por qué** — Cash baja por Argentina (divisa y consumo). Documento: «2026-05-05 Declaracion intermedia 1er trimestre 2026».\n\n**Semáforo** — Verde.",
    "metricas": [
     {
      "nombre": "Ventas",
@@ -659,7 +659,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ventas +5,2 %, EBITDA -1,3 %, beneficio neto +5,5 %, margen 10,5 % (-0,69 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora.",
+   "resumen": "Ventas +5,2 %, EBITDA -1,3 %, beneficio neto +5,5 %, margen 10,5 % (-0,69 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora. **Qué ha pasado** — Ventas 2.594 M€ (+5,2 %: orgánico +7,3 %, divisa −2,1 %), EBITDA 279 M€ (+1,7 % según la empresa), EBITA 167 M€ (−1,8 %), resultado neto 57 M€ (+5,5 %).\n\n**Por qué** — Crecen las ventas pero el margen no acompaña: las amortizaciones suben más que el EBITDA. Documento: «2026-07-31 Presentación de resultados 2Q 2026».\n\n**Semáforo** — Ámbar: el EBITDA del método baja un 1,3 % y el margen 0,7 puntos.\n\n**Qué vigilar** — El margen EBIT (riesgo 2).",
    "metricas": [
     {
      "nombre": "Ventas",

@@ -15,7 +15,7 @@
  "poBull": 3.75,
  "entMin": 2.6,
  "entMax": 2.93,
- "stop": 2.15,
+ "stop": 2.16,
  "dpaPrevisto": 0.1593,
  "moat": "50,4 sobre 100 · MOAT ESTRECHO. Los últimos cinco años no crean valor",
  "catalizadores": [
@@ -54,7 +54,7 @@
   "motivos": [
    "Seguro: cobertura OE 3.08x · payout 78 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja"
   ],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-17",
   "origen": "metodo-v3",
   "shareholderYield": 6.69
  },
@@ -97,16 +97,16 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-17",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 2.35,
+  "gImplicito": 2.32,
   "gIntrinseco": 4.25,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 4.2 %)",
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-17",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 174.6751,
@@ -116,10 +116,10 @@
    "acciones": 532.732,
    "deudaNeta": 1602.516,
    "modo": "EV",
-   "precioBase": 3.095,
-   "gBase": 2.35,
-   "fechaBase": "2026-11-12",
-   "congeladoEl": "2026-11-14",
+   "precioBase": 3.08,
+   "gBase": 2.32,
+   "fechaBase": "2026-11-17",
+   "congeladoEl": "2026-11-17",
    "validado": true,
    "desviacion": -0.0
   }

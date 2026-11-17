@@ -1,0 +1,128 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "CASH",
+ "empresa": "CASH, S.A.",
+ "fecha": "2026-11-17",
+ "revisadoEl": "2026-11-17",
+ "rating": "A",
+ "score": 63.3,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 11 % · EV/EBIT 11 % · PER 14 % · P/VC 8 % · P/FCL 11 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
+ "poBear": 0.55,
+ "poBase": 0.65,
+ "poBull": 0.84,
+ "entMin": 0.55,
+ "entMax": 0.57,
+ "stop": 0.25,
+ "dpaPrevisto": 0.0424,
+ "moat": "68,4 sobre 100 · MOAT MODERADO. Sin ajuste: lo medido (68, moderado) recoge la ventaja y su desgaste",
+ "catalizadores": [
+  "Las divisas dejan de restar: En 2025 las devaluaciones se llevaron 55 M€ del EBITDA de Latinoamérica (de 287 a 232 M€). En el 9M de 2026 el efecto divisa ya es ligeramente positivo (+0,2 % en ventas). Si en 2027 se recupera la mitad de lo perdido, son 27 M€ más de EBITDA. (6-18 meses)",
+  "Los productos de transformación ganan peso: Cajeros inteligentes, gestión de cobros y pagos y outsourcing para bancos: 546 M€ en el 9M de 2026 (36 % de las ventas), +8,3 % sin lo vendido de AVOS. Unos 730 M€ al año; otro año al 8 % son 58 M€ más de ventas y, al margen EBITDA del grupo (17,7 %), 10 M€ más de EBITDA. (12 meses)",
+  "Baja la deuda: El FCL recurrente de 2025 (139 M€) menos el dividendo (62 M€) y las recompras (8 M€) deja unos 69 M€ al año. La empresa dice que lo destina en parte a reducir deuda (venta de AVOS, «reducción de endeudamiento»); la deuda neta publicada ya baja 53 M€ en los últimos doce meses (presentación del 9M de 2026). Se toman 60 M€ menos de deuda en un año. (12 meses)"
+ ],
+ "riesgos": [
+  "Devaluaciones en Latinoamérica (Alta): Latinoamérica da el 58 % de las ventas (1.144 M€) y el 65 % del EBITDA (232 de 356 M€) de 2025, en reales, pesos argentinos, chilenos, colombianos y mexicanos. Al pasar a euros, las devaluaciones se llevan el crecimiento local: en 2025 el EBITDA de la región bajó de 287 a 232 M€ (−55 M€). Suave: un 10 % de devaluación media (−23 M€ de EBITDA). Duro: otro año como 2025 (−55 M€).",
+  "Menos efectivo en circulación (Media-Alta): Transporte y gestión de efectivo son el 64 % de las ventas (963,8 de 1.509,6 M€ en el 9M de 2026; unos 1.270 M€ al año). Los pagos con tarjeta y móvil reducen lo que se mueve; la gestión de efectivo ya baja (−1,9 % en el 9M de 2026). Con la red de furgones y bases fija, se toma que se pierde la mitad de lo que deja de facturar. Suave: −2 % de volumen sin compensar (25 M€ de ventas, −12 M€ de EBITDA). Duro: −5 % (64 M€, −32 M€) y el mercado lo paga como negocio en declive (−10 % de múltiplo).",
+  "Coste laboral (Media): Es un negocio de personas: gastos de personal de 988 M€ en 2025, el 50 % de las ventas, con convenios que se indexan a la inflación (Argentina, Brasil). Cada punto de subida salarial que no se traslada al precio son 9,9 M€ de EBITDA. Suave: 1 punto. Duro: 3 puntos.",
+  "Refinanciación más cara (Alta): El bono de 600 M€ al 1,38 % venció el 4-feb-2026 y se ha sustituido por otro de 300 M€ al 3,38 % (2030), préstamos y pagarés. Los gastos por intereses del 9M de 2026 ya suben (30,4 frente a 27,0 M€). Suave: 2 puntos más sobre los 600 M€ refinanciados (−12 M€ al año). Duro: además, 1 punto más sobre el resto de la deuda bruta financiera (1.204 M€; −24 M€ en total).",
+  "La matriz decide por los minoritarios (Media): Prosegur Compañía de Seguridad tiene el 81,45 % (cuentas de 2025) y cobra a su filial por la marca y por servicios de apoyo a la gestión: 75,6 M€ en 2025 (34,2 de marca y 41,4 de gestión), 71,4 en 2024 y 100,2 en 2022, entre el 3,4 % (2024) y el 6,1 % (2021) de las ventas. En total, los gastos con el grupo fueron 111 M€ en 2025. Además hay compras y ventas de negocios con la matriz: inmuebles (2017, 67 M€), Tellex (2018), AVOS España (2021, 67 M€ menos deuda), activos de Argentina (2024), Alemania (2025) y AVOS Argentina y Paraguay (2026, 18,2 M€). Con un 18 % de capital flotante, el mercado lo descuenta. Suave: los honorarios suben un 10 % (−7,6 M€ de EBITDA) y −5 % de múltiplo. Duro: vuelven al nivel de 2022 (−24,6 M€) y −10 % de múltiplo.",
+  "Multa de competencia en Chile (Media): La Fiscalía Nacional Económica de Chile pide desde 2021 una multa máxima de unos 22 M€ a la filial chilena por concertación en 2017-2018; el juicio sigue abierto (cuentas de 2025). Las cuentas citan otras investigaciones de competencia en algunos países sin cifra. Suave: la mitad (11 M€ de deuda). Duro: la máxima (22 M€).",
+  "Armaguard (Australia) (Media): Prosegur Cash tiene una participación en Armaguard, el operador australiano, que sigue en marcha porque los bancos le pagan una aportación mensual extraordinaria, prorrogada hasta junio de 2026 mientras se negocia un nuevo modelo de precios; el propio grupo da un 33 % a que no haya acuerdo (cuentas de 2025). Las inversiones en asociadas valen 22,7 M€ en el balance. Suave: se pierde la mitad (11 M€). Duro: todo (23 M€).",
+  "Ataque informático (Baja-Media): La gestión de efectivo y los cajeros inteligentes dependen de sistemas que cuadran el dinero de los clientes cada día. Una semana parado en un país grande de Latinoamérica es 1/52 del EBITDA de la región (232 M€): unos 4,5 M€. Duro: dos semanas en dos países y penalizaciones de clientes (unos 15 M€)."
+ ],
+ "bull": "0,84 € — escenario optimista: Los productos de transformación (36 % de las ventas, +8 %) mandan y las divisas se estabilizan",
+ "bear": "0,55 € — escenario pesimista: Menos efectivo y más devaluaciones en Latinoamérica: ventas en euros bajando, como en 2018 y 2025",
+ "resumen": "ESPERAR. Es un negocio rentable y con ventaja (rating A por poco, moat moderado, ROIC del 10,7 % sobre un coste del 7,5 %) que reparte un 6 % en dividendo, pero a 0,70 € no hay margen: el precio objetivo es 0,65 €. La zona de compra es 0,55-0,57 €, un 19-22 % por debajo de hoy. La tesis a favor es sencilla: el negocio crece en moneda local, el margen aguanta y el precio no pide nada; si las divisas dejan de restar y los productos de transformación siguen al 8 %, vale 0,84 €. La tesis en contra: lleva diez años sin crecer en euros, el ROIC baja, el rating está a 1,3 puntos de BBB y el minoritario (18 %) depende de una matriz que cobra 76 M€ al año por marca y gestión. El bear (0,55 €) es un año de divisas como 2025.",
+ "dividendSafety": {
+  "score": 55,
+  "banda": "Vigilar",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 31,
+   "C2": 7,
+   "C3": 11,
+   "C4": 0,
+   "C5": 6
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Vigilar: cobertura OE 2.25x · payout 76 % · 3 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja"
+  ],
+  "calculadoEl": "2026-11-17",
+  "origen": "metodo-v3",
+  "shareholderYield": 7.56
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 5,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 0,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 1.33,
+   "zona": "gris"
+  },
+  "beneish": {
+   "m": -2.84,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -4.6,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=1.33 en zona gris"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-17",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 0.18,
+  "gIntrinseco": 5.31,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-11-17",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 119.1293,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 1462.5465,
+   "deudaNeta": 883.585,
+   "modo": "EV",
+   "precioBase": 0.704,
+   "gBase": 0.18,
+   "fechaBase": "2026-11-16",
+   "congeladoEl": "2026-11-17",
+   "validado": true,
+   "desviacion": 0.0
+  }
+ }
+}

@@ -1,0 +1,735 @@
+{
+ "schemaVersion": 2,
+ "ticker": "CASH",
+ "empresa": "CASH, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-17",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -16,9 %, EBITDA +0,0 %, margen 22,0 % (+3,72 pp) frente al mismo periodo del año anterior. Verde: solo ventas a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 345.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 76.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 22.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2021-9M",
+   "fecha": "2021-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -5,1 %, EBITDA +6,1 %, margen 19,4 % (+2,04 pp) frente al mismo periodo del año anterior. Verde: solo ventas a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1082.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 210.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 126.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +19,1 %, EBITDA +3,9 %, margen 19,2 % (-2,81 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 411.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 79.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +27,6 %, EBITDA +24,1 %, resultado neto +43,1 %, margen 19,3 % (-0,53 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 883.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 171.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 109.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 43.7
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 783.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +31,0 %, EBITDA +30,7 %, margen 19,4 % (-0,03 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1417.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 275.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 178.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +23,3 %, EBITDA +28,8 %, resultado neto +184,7 %, margen 19,5 % (+0,83 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1872.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 364.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 238.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 94.4
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 828.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +16,1 %, EBITDA +7,6 %, resultado neto -22,2 %, margen 17,8 % (-1,40 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 477.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 85.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 53.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 14.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +10,9 %, EBITDA +6,9 %, resultado neto -14,7 %, margen 18,6 % (-0,68 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 979.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 182.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 18.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 117.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 37.3
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 851.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +5,7 %, EBITDA +4,4 %, resultado neto -19,2 %, margen 19,2 % (-0,25 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1498.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 287.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 187.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 63.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -0,6 %, EBITDA -7,9 %, resultado neto -33,3 %, margen 18,0 % (-1,43 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1861.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 336.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 18.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 203.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 62.9
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 909.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -1,5 %, EBITDA -4,7 %, resultado neto +28,6 %, margen 17,2 % (-0,59 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 470.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 81.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 44.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 18.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +1,9 %, EBITDA +0,5 %, resultado neto +2,6 %, margen 18,4 % (-0,27 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 998.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 183.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 18.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 106.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 38.3
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 961.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +1,7 %, EBITDA -4,2 %, resultado neto +4,8 %, margen 18,1 % (-1,10 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1523.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 275.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 18.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 160.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 66.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +12,3 %, EBITDA +21,0 %, resultado neto +41,5 %, margen 19,4 % (+1,40 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 2090.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 406.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 249.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 89.1
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 907.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +9,7 %, EBITDA +11,1 %, resultado neto +35,2 %, margen 17,4 % (+0,22 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 516.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 90.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 55.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 23.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +0,7 %, EBITDA -8,0 %, resultado neto +20,0 %, margen 16,8 % (-1,59 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1005.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 169.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 99.2
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 45.9
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 921.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -2,3 %, EBITDA -8,6 %, resultado neto +1,5 %, margen 16,9 % (-1,16 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora. **Qué ha pasado** — Ventas 1.488 M€ (−2,3 %), EBITDA 251 M€ (−8,6 %), EBITA ajustado 164 M€ con margen del 11,0 % (11,8 %), resultado neto 67 M€ (+1,6 %). Por regiones: Latinoamérica −8,2 % (orgánico +8,3 %, divisa −16,5 %), Europa +0,9 %, Asia-Oceanía-África +37,3 % (India pasa a consolidarse).\n\n**Por qué** — La empresa crece en moneda local (orgánico del grupo +6,9 %) y la divisa le resta un 10,5 %. El margen baja por «programas de eficiencia extraordinarios» (costes de reestructuración) que en parte compensa una menor presión salarial. El beneficio aguanta porque el resultado financiero mejora (−27,5 frente a −43,5 M€). Documento: «2025-10-30 Declaración intermedia 3er trimestre 2025».\n\n**Semáforo** — Rojo bien puesto: ventas, EBITDA y margen a la baja a la vez. Es el riesgo 1 (divisas), no un deterioro del negocio.\n\n**Lectura** — Revisado en el análisis inicial: no rompe la tesis.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1488.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 251.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 148.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 66.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -4,9 %, EBITDA -13,5 %, resultado neto +1,2 %, margen 17,7 % (-1,76 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora. **Qué ha pasado** — Ventas 1.987 M€ (−4,9 %: orgánico +5,3 %, compras +0,9 %, divisa −11,1 %). EBITDA de la empresa 356 M€ (−7,2 %); EBITA 238 M€ con margen del 12,0 %, igual que en 2024 (12,5 % sin los gastos extraordinarios de eficiencia). Resultado neto 94 M€ (+3,3 %). Flujo libre según la empresa 108 M€ (148 en 2024). Deuda neta total 850 M€, 2,4 veces el EBITDA. Productos de transformación 700 M€ (+4,1 %), el 35,2 % de las ventas (+3 puntos).\n\n**Por qué** — Latinoamérica: ventas de 1.294 a 1.144 M€ y EBITDA de 287 a 232 M€ por la divisa y Argentina. Europa sube (EBITDA de 73 a 95 M€) y Asia-Oceanía-África también (23 a 29 M€). Tasa fiscal del 44,4 %. Documento: «2026-02-27 Presentación de Resultados 2025» y cuentas de 2025.\n\n**Semáforo** — Rojo: ventas, EBITDA y margen a la baja. El semáforo anual sale en rojo seis de los ocho años desde 2018, siempre con la deuda / patrimonio en rojo, que es contable.\n\n**Qué vigilar** — El bono de 600 M€ de febrero de 2026 (refinanciado en octubre de 2025 con otro de 300 M€ al 3,38 %) y la caída del flujo libre.\n\n**Lectura** — Revisado en el análisis inicial: es el riesgo 1 materializado; no rompe la tesis.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1987.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 351.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 212.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 90.1
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 884.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -3,6 %, EBITDA -4,2 %, resultado neto +8,4 %, margen 17,3 % (-0,10 pp) frente al mismo periodo del año anterior. Ámbar por: ventas a la baja, EBITDA a la baja. **Qué ha pasado** — Ventas 497 M€ (−3,7 %: orgánico +3,2 %, divisa −6,6 %), EBITDA 86 M€ (−4,2 %), EBITA ajustado 56 M€ con margen del 11,3 % (11,8 %), resultado neto 25,8 M€ (+8,1 %). Latinoamérica −7,4 % (orgánico +1,5 %, divisa −8,9 %): transporte −13,5 % y gestión de efectivo −17,7 % en la región; productos de transformación +5,5 %. Europa +3,6 % y Asia-Oceanía-África −2,6 % (orgánico +12,6 %).\n\n**Por qué** — Argentina: «efecto negativo de tipo de cambio» y «disminución de montos transportados debido a una reducción en el consumo». El beneficio sube por el resultado financiero (−6,5 frente a −11,6 M€). Documento: «2026-05-04 Declaración Intermedia 1T 2026».\n\n**Semáforo** — Ámbar: ventas y EBITDA a la baja con el margen casi igual.\n\n**Qué vigilar** — El orgánico de Latinoamérica baja del +8,3 % (9M de 2025) al +1,5 %: si llegara a negativo sería la cadena B.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 497.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 86.2
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 50.9
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 25.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -0,4 %, EBITDA -0,5 %, resultado neto +0,9 %, margen 16,8 % (-0,01 pp) frente al mismo periodo del año anterior. Ámbar por: ventas a la baja, EBITDA a la baja. **Qué ha pasado** — Ventas 1.001 M€ (−0,4 %: orgánico +3,0 %, compras −1,1 %, divisa −2,3 %), EBITDA 173 M€ (+1,3 %), EBITA 111 M€ con margen del 11,1 % (11,2 %), resultado neto 48 M€ (+1,9 %). En el 2T, Latinoamérica ya crece en euros (+4,7 % a perímetro comparable). Flujo libre 29 M€, igual que en el 1S de 2025; apalancamiento 2,3 veces.\n\n**Por qué** — La divisa resta menos y el orgánico se mantiene. Obtiene la licencia MiCA para custodia de activos digitales en Europa. Documento: «2026-07-30 Presentación de resultados Q2 2026».\n\n**Semáforo** — Ámbar: ventas y EBITDA casi planos.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1001.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 168.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 95.8
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 46.3
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 856.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +1,4 %, EBITDA +1,2 %, resultado neto +2,1 %, margen 16,8 % (-0,04 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas 1.510 M€ (+1,4 %: orgánico +2,6 %, venta de AVOS −1,3 %, divisa +0,2 %), EBITDA 254 M€ (+1,2 %), EBITA ajustado 160 M€ con margen del 10,6 % (11,0 %), resultado neto 68 M€ (+2,1 %). Productos de transformación 546 M€, +8,3 % sin AVOS, el 36,2 % de las ventas.\n\n**Por qué** — La divisa deja de restar (+0,2 % en el 9M, frente a −6,6 % en el 1T y −11,1 % en 2025). El margen baja por Argentina (menos consumo) y lo compensan Australia (asociadas) y la plusvalía de la venta de AVOS a la matriz. Deuda neta publicada 837 M€ y 2,2 veces el EBITDA; bono de 600 M€ devuelto en febrero. Documento: «2026-11-03 Declaracion intermedia 3er trimestre 2026».\n\n**Semáforo** — Verde: ventas, EBITDA y beneficio crecen.\n\n**Qué vigilar** — El orgánico se va frenando (+6,9 % en el 9M de 2025, +3,2 % en el 1T de 2026, +2,6 % en el 9M de 2026) y el margen EBITA sigue bajando medio punto. Dividendo de 0,0424 € a pagar en diciembre de 2026.\n\n**Lectura** — Aprobar en verde con la tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1510.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 254.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 144.0
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 68.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}
