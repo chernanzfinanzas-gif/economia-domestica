@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-16T19:46",
+ "generado": "2026-11-17T07:46",
  "eur_usd": {
   "v": 1.1244,
   "f": "2026-10-16",
@@ -108,9 +108,9 @@
    "per_vs_grupo": 1.4539906901342983,
    "puesto": 21,
    "puesto_ant": 19,
-   "puntos_ant": 71.5,
+   "puntos_ant": 70.9,
    "cambio_puesto": -2,
-   "cambio_puntos": -0.9
+   "cambio_puntos": -0.3
   },
   {
    "ticker": "ACS",
@@ -187,10 +187,10 @@
    "per_grupo": 24.343499238083183,
    "per_vs_grupo": 1.0905644246084045,
    "puesto": 51,
-   "puesto_ant": 48,
-   "puntos_ant": 54.2,
-   "cambio_puesto": -3,
-   "cambio_puntos": -1.0
+   "puesto_ant": 49,
+   "puntos_ant": 53.5,
+   "cambio_puesto": -2,
+   "cambio_puntos": -0.3
   },
   {
    "ticker": "ACX",
@@ -266,9 +266,9 @@
    "per_vs_grupo": null,
    "puesto": 66,
    "puesto_ant": 67,
-   "puntos_ant": 44.0,
+   "puntos_ant": 43.3,
    "cambio_puesto": 1,
-   "cambio_puntos": -0.5
+   "cambio_puntos": 0.2
   },
   {
    "ticker": "ADX",
@@ -345,9 +345,9 @@
    "per_vs_grupo": 1.6200645528415378,
    "puesto": 60,
    "puesto_ant": 65,
-   "puntos_ant": 45.3,
+   "puntos_ant": 44.7,
    "cambio_puesto": 5,
-   "cambio_puntos": 2.2
+   "cambio_puntos": 2.8
   },
   {
    "ticker": "ADZ",
@@ -498,9 +498,9 @@
    "per_grupo": 17.05292300614505,
    "per_vs_grupo": 1.0,
    "puesto": 48,
-   "puesto_ant": 46,
+   "puesto_ant": 45,
    "puntos_ant": 54.4,
-   "cambio_puesto": -2,
+   "cambio_puesto": -3,
    "cambio_puntos": 0.0
   },
   {
@@ -577,10 +577,10 @@
    "per_grupo": 21.2077335077343,
    "per_vs_grupo": 0.9629988431413231,
    "puesto": 33,
-   "puesto_ant": 32,
-   "puntos_ant": 61.3,
-   "cambio_puesto": -1,
-   "cambio_puntos": -0.6
+   "puesto_ant": 34,
+   "puntos_ant": 61.0,
+   "cambio_puesto": 1,
+   "cambio_puntos": -0.3
   },
   {
    "ticker": "AI",
@@ -659,9 +659,9 @@
    "per_vs_grupo": null,
    "puesto": 109,
    "puesto_ant": 109,
-   "puntos_ant": 7.6,
+   "puntos_ant": 8.4,
    "cambio_puesto": 0,
-   "cambio_puntos": 1.0
+   "cambio_puntos": 0.2
   },
   {
    "ticker": "AIR",
@@ -731,9 +731,9 @@
    "per_vs_grupo": 1.268153264256944,
    "puesto": 77,
    "puesto_ant": 77,
-   "puntos_ant": 38.8,
+   "puntos_ant": 38.7,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.1
+   "cambio_puntos": 0.2
   },
   {
    "ticker": "ALM",
@@ -807,9 +807,9 @@
    "per_vs_grupo": 2.2037167910571904,
    "puesto": 84,
    "puesto_ant": 84,
-   "puntos_ant": 33.7,
+   "puntos_ant": 33.6,
    "cambio_puesto": 0,
-   "cambio_puntos": -0.2
+   "cambio_puntos": -0.1
   },
   {
    "ticker": "ALNT",
@@ -882,10 +882,10 @@
    "per_grupo": 15.739356910012747,
    "per_vs_grupo": 1.0744850728368955,
    "puesto": 25,
-   "puesto_ant": 23,
-   "puntos_ant": 70.2,
-   "cambio_puesto": -2,
-   "cambio_puntos": -1.1
+   "puesto_ant": 24,
+   "puntos_ant": 69.1,
+   "cambio_puesto": -1,
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "AMP",
@@ -959,9 +959,9 @@
    "per_vs_grupo": 13.67097322942877,
    "puesto": 104,
    "puesto_ant": 105,
-   "puntos_ant": 17.3,
+   "puntos_ant": 17.2,
    "cambio_puesto": 1,
-   "cambio_puntos": 0.6
+   "cambio_puntos": 0.7
   },
   {
    "ticker": "AMS",
@@ -1036,10 +1036,10 @@
    "per_grupo": 15.739356910012747,
    "per_vs_grupo": 1.297584712479018,
    "puesto": 52,
-   "puesto_ant": 45,
-   "puntos_ant": 54.5,
-   "cambio_puesto": -7,
-   "cambio_puntos": -1.4
+   "puesto_ant": 47,
+   "puntos_ant": 54.0,
+   "cambio_puesto": -5,
+   "cambio_puntos": -0.9
   },
   {
    "ticker": "ANA",
@@ -1115,10 +1115,10 @@
    "per_grupo": 24.343499238083183,
    "per_vs_grupo": 0.5722885897817228,
    "puesto": 36,
-   "puesto_ant": 42,
-   "puntos_ant": 56.1,
-   "cambio_puesto": 6,
-   "cambio_puntos": 3.4
+   "puesto_ant": 41,
+   "puntos_ant": 56.9,
+   "cambio_puesto": 5,
+   "cambio_puntos": 2.6
   },
   {
    "ticker": "ANE",
@@ -1194,10 +1194,10 @@
    "per_grupo": 14.380522599898102,
    "per_vs_grupo": 0.7009467418700862,
    "puesto": 49,
-   "puesto_ant": 53,
-   "puntos_ant": 52.4,
-   "cambio_puesto": 4,
-   "cambio_puntos": 1.5
+   "puesto_ant": 51,
+   "puntos_ant": 52.7,
+   "cambio_puesto": 2,
+   "cambio_puntos": 1.2
   },
   {
    "ticker": "ARM",
@@ -1504,9 +1504,9 @@
    "per_vs_grupo": 0.9146267026065439,
    "puesto": 12,
    "puesto_ant": 13,
-   "puntos_ant": 75.1,
+   "puntos_ant": 74.8,
    "cambio_puesto": 1,
-   "cambio_puntos": 0.2
+   "cambio_puntos": 0.5
   },
   {
    "ticker": "BBVA",
@@ -1578,9 +1578,9 @@
    "per_vs_grupo": 1.0,
    "puesto": 9,
    "puesto_ant": 9,
-   "puntos_ant": 78.7,
+   "puntos_ant": 78.1,
    "cambio_puesto": 0,
-   "cambio_puntos": -0.4
+   "cambio_puntos": 0.2
   },
   {
    "ticker": "BKT",
@@ -1653,9 +1653,9 @@
    "per_vs_grupo": 0.9466167675159124,
    "puesto": 2,
    "puesto_ant": 4,
-   "puntos_ant": 82.9,
+   "puntos_ant": 82.4,
    "cambio_puesto": 2,
-   "cambio_puntos": 0.3
+   "cambio_puntos": 0.8
   },
   {
    "ticker": "CABK",
@@ -1729,10 +1729,10 @@
    "per_grupo": 12.780105003432094,
    "per_vs_grupo": 1.1486320673862596,
    "puesto": 8,
-   "puesto_ant": 8,
-   "puntos_ant": 79.3,
-   "cambio_puesto": 0,
-   "cambio_puntos": -0.7
+   "puesto_ant": 10,
+   "puntos_ant": 77.8,
+   "cambio_puesto": 2,
+   "cambio_puntos": 0.8
   },
   {
    "ticker": "CAF",
@@ -1807,9 +1807,9 @@
    "per_grupo": 24.343499238083183,
    "per_vs_grupo": 0.6598354805212315,
    "puesto": 41,
-   "puesto_ant": 51,
+   "puesto_ant": 52,
    "puntos_ant": 52.5,
-   "cambio_puesto": 10,
+   "cambio_puesto": 11,
    "cambio_puntos": 4.9
   },
   {
@@ -1881,10 +1881,10 @@
    "per_grupo": 15.739356910012747,
    "per_vs_grupo": 0.7268442039879658,
    "puesto": 63,
-   "puesto_ant": 61,
-   "puntos_ant": 46.3,
-   "cambio_puesto": -2,
-   "cambio_puntos": -0.2
+   "puesto_ant": 63,
+   "puntos_ant": 46.1,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "CBAV",
@@ -1958,10 +1958,10 @@
    "per_grupo": 15.739356910012747,
    "per_vs_grupo": 1.3451148770779038,
    "puesto": 73,
-   "puesto_ant": 72,
-   "puntos_ant": 40.6,
-   "cambio_puesto": -1,
-   "cambio_puntos": -0.5
+   "puesto_ant": 71,
+   "puntos_ant": 40.9,
+   "cambio_puesto": -2,
+   "cambio_puntos": -0.8
   },
   {
    "ticker": "CCEP",
@@ -2037,9 +2037,9 @@
    "per_vs_grupo": 1.0992528947792983,
    "puesto": 67,
    "puesto_ant": 66,
-   "puntos_ant": 44.8,
+   "puntos_ant": 44.4,
    "cambio_puesto": -1,
-   "cambio_puntos": -1.5
+   "cambio_puntos": -1.1
   },
   {
    "ticker": "CEV",
@@ -2112,9 +2112,9 @@
    "per_vs_grupo": 0.7332344690953259,
    "puesto": 20,
    "puesto_ant": 22,
-   "puntos_ant": 70.7,
+   "puntos_ant": 69.9,
    "cambio_puesto": 2,
-   "cambio_puntos": 0.0
+   "cambio_puntos": 0.8
   },
   {
    "ticker": "CIE",
@@ -2190,9 +2190,9 @@
    "per_vs_grupo": 0.6027421470084929,
    "puesto": 7,
    "puesto_ant": 7,
-   "puntos_ant": 81.2,
+   "puntos_ant": 80.9,
    "cambio_puesto": 0,
-   "cambio_puntos": -0.4
+   "cambio_puntos": -0.1
   },
   {
    "ticker": "CIRSA",
@@ -2266,9 +2266,9 @@
    "per_vs_grupo": 2.8952471642954887,
    "puesto": 81,
    "puesto_ant": 81,
-   "puntos_ant": 36.5,
+   "puntos_ant": 36.3,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.1
+   "cambio_puntos": 0.3
   },
   {
    "ticker": "CLNX",
@@ -2345,9 +2345,9 @@
    "per_vs_grupo": null,
    "puesto": 99,
    "puesto_ant": 99,
-   "puntos_ant": 20.5,
+   "puntos_ant": 20.7,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.2
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "CMO",
@@ -2497,10 +2497,10 @@
    "per_grupo": 9.09752783508377,
    "per_vs_grupo": 1.0013186078053746,
    "puesto": 5,
-   "puesto_ant": 6,
-   "puntos_ant": 81.8,
-   "cambio_puesto": 1,
-   "cambio_puntos": 0.2
+   "puesto_ant": 5,
+   "puntos_ant": 81.7,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.3
   },
   {
    "ticker": "COXG",
@@ -2573,10 +2573,10 @@
    "per_grupo": 14.380522599898102,
    "per_vs_grupo": 0.9614634740488109,
    "puesto": 58,
-   "puesto_ant": 59,
-   "puntos_ant": 49.3,
-   "cambio_puesto": 1,
-   "cambio_puntos": 0.4
+   "puesto_ant": 57,
+   "puntos_ant": 49.9,
+   "cambio_puesto": -1,
+   "cambio_puntos": -0.2
   },
   {
    "ticker": "DESA",
@@ -2726,9 +2726,9 @@
    "per_vs_grupo": 1.0,
    "puesto": 107,
    "puesto_ant": 107,
-   "puntos_ant": 15.0,
+   "puntos_ant": 14.2,
    "cambio_puesto": 0,
-   "cambio_puntos": -0.4
+   "cambio_puntos": 0.4
   },
   {
    "ticker": "DOM",
@@ -2801,10 +2801,10 @@
    "per_grupo": 24.343499238083183,
    "per_vs_grupo": 1.1045083492822454,
    "puesto": 68,
-   "puesto_ant": 68,
-   "puntos_ant": 42.5,
-   "cambio_puesto": 0,
-   "cambio_puntos": -0.3
+   "puesto_ant": 69,
+   "puntos_ant": 41.8,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.4
   },
   {
    "ticker": "EAT",
@@ -2880,9 +2880,9 @@
    "per_vs_grupo": 1.2517387859483224,
    "puesto": 88,
    "puesto_ant": 88,
-   "puntos_ant": 30.2,
+   "puntos_ant": 30.0,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.4
+   "cambio_puntos": 0.6
   },
   {
    "ticker": "EBRO",
@@ -2955,10 +2955,10 @@
    "per_grupo": 22.55371844472011,
    "per_vs_grupo": 0.5727488761123033,
    "puesto": 16,
-   "puesto_ant": 18,
-   "puntos_ant": 72.9,
-   "cambio_puesto": 2,
-   "cambio_puntos": 0.0
+   "puesto_ant": 17,
+   "puntos_ant": 72.7,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.2
   },
   {
    "ticker": "ECO",
@@ -3034,9 +3034,9 @@
    "per_grupo": 14.380522599898102,
    "per_vs_grupo": 2.572363879470597,
    "puesto": 93,
-   "puesto_ant": 94,
+   "puesto_ant": 93,
    "puntos_ant": 25.0,
-   "cambio_puesto": 1,
+   "cambio_puesto": 0,
    "cambio_puntos": -0.2
   },
   {
@@ -3069,20 +3069,20 @@
    "roe_med5": 0.1178677584800093,
    "perdidas5": 2,
    "anios5": 5,
-   "s1": "2025-S1",
-   "s1_ing": 0.048563114969102754,
-   "s1_ben": 22.696992481203004,
+   "s1": "2026-S1",
+   "s1_ing": 0.003065878574919224,
+   "s1_ben": -0.8773360408668338,
    "s1_ben_signo": "+",
    "precio": 4.95,
    "fecha_precio": "2026-11-16",
    "var_1a": -0.3246930422919509,
    "vs_max52": -0.32098765432098764,
    "pos52": 0.486278814489572,
-   "cap": 572.3685,
-   "acciones_fuente": "CNMV, capital / nominal (2026)",
-   "_acc": 115.63,
-   "per": 10.96113409169252,
-   "pvc": 2.3086449879801876,
+   "cap": 557.5185,
+   "acciones_fuente": "CNMV, capital / nominal (2026-S1)",
+   "_acc": 112.63,
+   "per": 10.676749396759737,
+   "pvc": 2.2487476000709896,
    "dpa_12m": 0.0,
    "rpd_fuente": "calendario de dividendos de la app (12 meses)",
    "rpd": 0.0,
@@ -3092,17 +3092,17 @@
    "paga_sin_beneficio": false,
    "recompra": 0.03232703984374097,
    "rent_accionista": 0.016163519921870484,
-   "ev_ebitda": 6.020262911186478,
-   "fcf_yield": 0.19638397291255544,
+   "ev_ebitda": 5.917897124107315,
+   "fcf_yield": 0.2016148343059468,
    "etiquetas": [
     "Crecimiento"
    ],
    "estado": "universo",
    "puntos": {
-    "total": 54.5,
+    "total": 55.0,
     "dividendo": 27,
     "calidad": 69,
-    "valoracion": 70,
+    "valoracion": 71,
     "nota": ""
    },
    "radar_app": 42.8,
@@ -3110,12 +3110,12 @@
    "puesto_grupo": 10,
    "n_grupo": 19,
    "per_grupo": 15.739356910012747,
-   "per_vs_grupo": 0.696415625769277,
-   "puesto": 47,
-   "puesto_ant": 49,
-   "puntos_ant": 54.0,
-   "cambio_puesto": 2,
-   "cambio_puntos": 0.5
+   "per_vs_grupo": 0.6783472449225431,
+   "puesto": 46,
+   "puesto_ant": 46,
+   "puntos_ant": 54.3,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.7
   },
   {
    "ticker": "ELE",
@@ -3346,10 +3346,10 @@
    "per_grupo": 21.2077335077343,
    "per_vs_grupo": 0.6611864252296458,
    "puesto": 10,
-   "puesto_ant": 10,
-   "puntos_ant": 78.6,
-   "cambio_puesto": 0,
-   "cambio_puntos": -0.8
+   "puesto_ant": 8,
+   "puntos_ant": 78.8,
+   "cambio_puesto": -2,
+   "cambio_puntos": -1.0
   },
   {
    "ticker": "ENO",
@@ -3425,10 +3425,10 @@
    "per_grupo": 24.343499238083183,
    "per_vs_grupo": 1.0392943951067144,
    "puesto": 65,
-   "puesto_ant": 63,
-   "puntos_ant": 45.9,
-   "cambio_puesto": -2,
-   "cambio_puntos": -1.1
+   "puesto_ant": 62,
+   "puntos_ant": 46.4,
+   "cambio_puesto": -3,
+   "cambio_puntos": -1.6
   },
   {
    "ticker": "EZE",
@@ -3579,9 +3579,9 @@
    "per_grupo": 22.781615824214462,
    "per_vs_grupo": 0.8855066091796286,
    "puesto": 38,
-   "puesto_ant": 35,
+   "puesto_ant": 36,
    "puntos_ant": 59.6,
-   "cambio_puesto": -3,
+   "cambio_puesto": -2,
    "cambio_puntos": -1.3
   },
   {
@@ -3658,10 +3658,10 @@
    "per_grupo": 21.2077335077343,
    "per_vs_grupo": 1.449103826152733,
    "puesto": 32,
-   "puesto_ant": 34,
-   "puntos_ant": 61.1,
-   "cambio_puesto": 2,
-   "cambio_puntos": -0.3
+   "puesto_ant": 32,
+   "puntos_ant": 61.2,
+   "cambio_puesto": 0,
+   "cambio_puntos": -0.4
   },
   {
    "ticker": "FDR",
@@ -3734,10 +3734,10 @@
    "per_grupo": 15.598307068887886,
    "per_vs_grupo": 1.3477052472209232,
    "puesto": 42,
-   "puesto_ant": 41,
-   "puntos_ant": 56.5,
-   "cambio_puesto": -1,
-   "cambio_puntos": 0.5
+   "puesto_ant": 42,
+   "puntos_ant": 56.7,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.3
   },
   {
    "ticker": "FER",
@@ -3815,10 +3815,10 @@
    "per_grupo": 21.2077335077343,
    "per_vs_grupo": 2.148485789863379,
    "puesto": 78,
-   "puesto_ant": 75,
-   "puntos_ant": 39.8,
-   "cambio_puesto": -3,
-   "cambio_puntos": -1.6
+   "puesto_ant": 74,
+   "puntos_ant": 39.7,
+   "cambio_puesto": -4,
+   "cambio_puntos": -1.5
   },
   {
    "ticker": "GAM",
@@ -3894,9 +3894,9 @@
    "per_vs_grupo": 1.2245801796214353,
    "puesto": 76,
    "puesto_ant": 76,
-   "puntos_ant": 39.1,
+   "puntos_ant": 39.0,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.0
+   "cambio_puntos": 0.1
   },
   {
    "ticker": "GEST",
@@ -3971,10 +3971,10 @@
    "per_grupo": 15.598307068887886,
    "per_vs_grupo": 0.6835856059979468,
    "puesto": 22,
-   "puesto_ant": 24,
-   "puntos_ant": 69.7,
-   "cambio_puesto": 2,
-   "cambio_puntos": 0.2
+   "puesto_ant": 23,
+   "puntos_ant": 69.5,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.4
   },
   {
    "ticker": "GRE",
@@ -4051,9 +4051,9 @@
    "per_vs_grupo": 1.4879092937993774,
    "puesto": 97,
    "puesto_ant": 98,
-   "puntos_ant": 21.3,
+   "puntos_ant": 21.6,
    "cambio_puesto": 1,
-   "cambio_puntos": 2.0
+   "cambio_puntos": 1.7
   },
   {
    "ticker": "GRF",
@@ -4207,10 +4207,10 @@
    "per_grupo": 24.343499238083183,
    "per_vs_grupo": 0.48467414897500655,
    "puesto": 29,
-   "puesto_ant": 29,
-   "puntos_ant": 64.4,
-   "cambio_puesto": 0,
-   "cambio_puntos": -0.3
+   "puesto_ant": 30,
+   "puntos_ant": 64.1,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "HOME",
@@ -4286,10 +4286,10 @@
    "per_grupo": 17.05292300614505,
    "per_vs_grupo": 0.904755400646142,
    "puesto": 30,
-   "puesto_ant": 30,
-   "puntos_ant": 64.3,
-   "cambio_puesto": 0,
-   "cambio_puntos": -0.3
+   "puesto_ant": 29,
+   "puntos_ant": 64.2,
+   "cambio_puesto": -1,
+   "cambio_puntos": -0.2
   },
   {
    "ticker": "IAG",
@@ -4366,9 +4366,9 @@
    "per_vs_grupo": 0.48107798134135865,
    "puesto": 26,
    "puesto_ant": 27,
-   "puntos_ant": 66.8,
+   "puntos_ant": 66.5,
    "cambio_puesto": 1,
-   "cambio_puntos": -0.3
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "IBE",
@@ -4443,9 +4443,9 @@
    "per_vs_grupo": 1.1732035121755553,
    "puesto": 55,
    "puesto_ant": 54,
-   "puntos_ant": 51.0,
+   "puntos_ant": 50.9,
    "cambio_puesto": -1,
-   "cambio_puntos": -0.4
+   "cambio_puntos": -0.3
   },
   {
    "ticker": "IBG",
@@ -4519,9 +4519,9 @@
    "per_vs_grupo": 1.9314024770663158,
    "puesto": 37,
    "puesto_ant": 37,
-   "puntos_ant": 59.5,
+   "puntos_ant": 59.3,
    "cambio_puesto": 0,
-   "cambio_puntos": -0.6
+   "cambio_puntos": -0.4
   },
   {
    "ticker": "IDR",
@@ -4598,9 +4598,9 @@
    "per_vs_grupo": 0.9607056048932856,
    "puesto": 85,
    "puesto_ant": 85,
-   "puntos_ant": 32.8,
+   "puntos_ant": 32.5,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.5
+   "cambio_puntos": 0.8
   },
   {
    "ticker": "IMC",
@@ -4833,9 +4833,9 @@
    "per_vs_grupo": 1.3396547601559947,
    "puesto": 61,
    "puesto_ant": 60,
-   "puntos_ant": 47.0,
+   "puntos_ant": 46.9,
    "cambio_puesto": -1,
-   "cambio_puntos": -0.1
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "IZER",
@@ -4907,9 +4907,9 @@
    "per_vs_grupo": 4.178734054443661,
    "puesto": 94,
    "puesto_ant": 96,
-   "puntos_ant": 24.6,
+   "puntos_ant": 24.7,
    "cambio_puesto": 2,
-   "cambio_puntos": 0.1
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "LDA",
@@ -4979,9 +4979,9 @@
    "per_vs_grupo": 1.2673695663264941,
    "puesto": 17,
    "puesto_ant": 14,
-   "puntos_ant": 74.4,
+   "puntos_ant": 74.5,
    "cambio_puesto": -3,
-   "cambio_puntos": -2.3
+   "cambio_puntos": -2.4
   },
   {
    "ticker": "LGT",
@@ -5136,9 +5136,9 @@
    "per_grupo": 17.05292300614505,
    "per_vs_grupo": 0.8506763666530424,
    "puesto": 79,
-   "puesto_ant": 80,
+   "puesto_ant": 79,
    "puntos_ant": 37.4,
-   "cambio_puesto": 1,
+   "cambio_puesto": 0,
    "cambio_puntos": 0.3
   },
   {
@@ -5215,9 +5215,9 @@
    "per_vs_grupo": 1.1304068987293987,
    "puesto": 28,
    "puesto_ant": 28,
-   "puntos_ant": 66.0,
+   "puntos_ant": 65.6,
    "cambio_puesto": 0,
-   "cambio_puntos": -0.8
+   "cambio_puntos": -0.4
   },
   {
    "ticker": "MAP",
@@ -5289,9 +5289,9 @@
    "per_vs_grupo": 0.9165649194302817,
    "puesto": 13,
    "puesto_ant": 12,
-   "puntos_ant": 76.2,
+   "puntos_ant": 75.6,
    "cambio_puesto": -1,
-   "cambio_puntos": -1.4
+   "cambio_puntos": -0.8
   },
   {
    "ticker": "MCM",
@@ -5524,10 +5524,10 @@
    "per_grupo": 15.739356910012747,
    "per_vs_grupo": 0.9452383566927491,
    "puesto": 53,
-   "puesto_ant": 52,
-   "puntos_ant": 52.5,
-   "cambio_puesto": -1,
-   "cambio_puntos": -1.4
+   "puesto_ant": 53,
+   "puntos_ant": 52.3,
+   "cambio_puesto": 0,
+   "cambio_puntos": -1.2
   },
   {
    "ticker": "MRL",
@@ -5599,9 +5599,9 @@
    "per_vs_grupo": 0.9986813921946253,
    "puesto": 24,
    "puesto_ant": 25,
-   "puntos_ant": 69.0,
+   "puntos_ant": 68.7,
    "cambio_puesto": 1,
-   "cambio_puntos": 0.4
+   "cambio_puntos": 0.7
   },
   {
    "ticker": "MTB",
@@ -5674,9 +5674,9 @@
    "per_grupo": 17.05292300614505,
    "per_vs_grupo": 1.0248962873508218,
    "puesto": 69,
-   "puesto_ant": 69,
+   "puesto_ant": 68,
    "puntos_ant": 42.2,
-   "cambio_puesto": 0,
+   "cambio_puesto": -1,
    "cambio_puntos": -0.2
   },
   {
@@ -5753,9 +5753,9 @@
    "per_vs_grupo": 0.9640299967760306,
    "puesto": 50,
    "puesto_ant": 50,
-   "puntos_ant": 53.6,
+   "puntos_ant": 53.1,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.2
+   "cambio_puntos": 0.7
   },
   {
    "ticker": "MVC",
@@ -5830,9 +5830,9 @@
    "per_grupo": 17.05292300614505,
    "per_vs_grupo": 1.9832329674220641,
    "puesto": 59,
-   "puesto_ant": 58,
+   "puesto_ant": 59,
    "puntos_ant": 49.4,
-   "cambio_puesto": -1,
+   "cambio_puesto": 0,
    "cambio_puntos": -0.1
   },
   {
@@ -5911,9 +5911,9 @@
    "per_vs_grupo": 0.41435556404006196,
    "puesto": 14,
    "puesto_ant": 15,
-   "puntos_ant": 73.7,
+   "puntos_ant": 73.5,
    "cambio_puesto": 1,
-   "cambio_puntos": 0.3
+   "cambio_puntos": 0.5
   },
   {
    "ticker": "NTGY",
@@ -5989,10 +5989,10 @@
    "per_grupo": 21.2077335077343,
    "per_vs_grupo": 0.6903686197520795,
    "puesto": 4,
-   "puesto_ant": 2,
-   "puntos_ant": 83.9,
-   "cambio_puesto": -2,
-   "cambio_puntos": -1.5
+   "puesto_ant": 3,
+   "puntos_ant": 84.2,
+   "cambio_puesto": -1,
+   "cambio_puntos": -1.8
   },
   {
    "ticker": "NTH",
@@ -6067,10 +6067,10 @@
    "per_grupo": 22.55371844472011,
    "per_vs_grupo": 0.5771835039116909,
    "puesto": 62,
-   "puesto_ant": 62,
-   "puntos_ant": 46.2,
-   "cambio_puesto": 0,
-   "cambio_puntos": 0.0
+   "puesto_ant": 61,
+   "puntos_ant": 46.7,
+   "cambio_puesto": -1,
+   "cambio_puntos": -0.5
   },
   {
    "ticker": "NXT",
@@ -6297,9 +6297,9 @@
    "per_grupo": 24.343499238083183,
    "per_vs_grupo": 12.288267183195412,
    "puesto": 91,
-   "puesto_ant": 91,
+   "puesto_ant": 90,
    "puntos_ant": 29.2,
-   "cambio_puesto": 0,
+   "cambio_puesto": -1,
    "cambio_puntos": 0.0
   },
   {
@@ -6376,10 +6376,10 @@
    "per_grupo": 22.55371844472011,
    "per_vs_grupo": 0.6464864169687732,
    "puesto": 74,
-   "puesto_ant": 71,
-   "puntos_ant": 40.7,
-   "cambio_puesto": -3,
-   "cambio_puntos": -0.7
+   "puesto_ant": 72,
+   "puntos_ant": 40.4,
+   "cambio_puesto": -2,
+   "cambio_puntos": -0.4
   },
   {
    "ticker": "ORY",
@@ -6530,11 +6530,11 @@
    "n_grupo": 7,
    "per_grupo": 22.781615824214462,
    "per_vs_grupo": 0.7017493561657334,
-   "puesto": 46,
-   "puesto_ant": 47,
-   "puntos_ant": 54.4,
+   "puesto": 47,
+   "puesto_ant": 48,
+   "puntos_ant": 53.9,
    "cambio_puesto": 1,
-   "cambio_puntos": 0.3
+   "cambio_puntos": 0.8
   },
   {
    "ticker": "PRM",
@@ -6607,9 +6607,9 @@
    "per_grupo": 15.739356910012747,
    "per_vs_grupo": 0.8045039543241779,
    "puesto": 15,
-   "puesto_ant": 17,
+   "puesto_ant": 16,
    "puntos_ant": 73.0,
-   "cambio_puesto": 2,
+   "cambio_puesto": 1,
    "cambio_puntos": 0.0
   },
   {
@@ -6761,10 +6761,10 @@
    "per_grupo": 15.739356910012747,
    "per_vs_grupo": 0.905461282109768,
    "puesto": 18,
-   "puesto_ant": 16,
-   "puntos_ant": 73.2,
-   "cambio_puesto": -2,
-   "cambio_puntos": -1.6
+   "puesto_ant": 18,
+   "puntos_ant": 72.1,
+   "cambio_puesto": 0,
+   "cambio_puntos": -0.5
   },
   {
    "ticker": "PUIG",
@@ -6992,9 +6992,9 @@
    "per_vs_grupo": 1.5834631065905347,
    "puesto": 40,
    "puesto_ant": 40,
-   "puntos_ant": 57.5,
+   "puntos_ant": 57.4,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.4
+   "cambio_puntos": 0.5
   },
   {
    "ticker": "RED",
@@ -7070,9 +7070,9 @@
    "per_vs_grupo": 0.819425074744382,
    "puesto": 27,
    "puesto_ant": 26,
-   "puntos_ant": 67.5,
+   "puntos_ant": 67.6,
    "cambio_puesto": -1,
-   "cambio_puntos": -1.5
+   "cambio_puntos": -1.6
   },
   {
    "ticker": "REN",
@@ -7148,10 +7148,10 @@
    "per_grupo": 17.05292300614505,
    "per_vs_grupo": 0.4978974670943589,
    "puesto": 19,
-   "puesto_ant": 20,
-   "puntos_ant": 71.5,
-   "cambio_puesto": 1,
-   "cambio_puntos": 0.1
+   "puesto_ant": 21,
+   "puntos_ant": 70.4,
+   "cambio_puesto": 2,
+   "cambio_puntos": 1.2
   },
   {
    "ticker": "REP",
@@ -7226,10 +7226,10 @@
    "per_grupo": 15.598307068887886,
    "per_vs_grupo": 1.1344262513311842,
    "puesto": 3,
-   "puesto_ant": 3,
-   "puntos_ant": 83.9,
-   "cambio_puesto": 0,
-   "cambio_puntos": -0.7
+   "puesto_ant": 2,
+   "puntos_ant": 84.4,
+   "cambio_puesto": -1,
+   "cambio_puntos": -1.2
   },
   {
    "ticker": "RIO",
@@ -7382,10 +7382,10 @@
    "per_grupo": 22.781615824214462,
    "per_vs_grupo": 1.8911956667737546,
    "puesto": 80,
-   "puesto_ant": 79,
-   "puntos_ant": 37.5,
-   "cambio_puesto": -1,
-   "cambio_puntos": -0.1
+   "puesto_ant": 80,
+   "puntos_ant": 37.4,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "RLIA",
@@ -7459,10 +7459,10 @@
    "per_grupo": 9.09752783508377,
    "per_vs_grupo": 1.1817697738531092,
    "puesto": 57,
-   "puesto_ant": 57,
-   "puntos_ant": 49.9,
-   "cambio_puesto": 0,
-   "cambio_puntos": -0.1
+   "puesto_ant": 58,
+   "puntos_ant": 49.5,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.3
   },
   {
    "ticker": "ROVI",
@@ -7615,9 +7615,9 @@
    "per_vs_grupo": 0.8282296394221846,
    "puesto": 31,
    "puesto_ant": 31,
-   "puntos_ant": 63.5,
+   "puntos_ant": 63.0,
    "cambio_puesto": 0,
-   "cambio_puntos": -0.4
+   "cambio_puntos": 0.1
   },
   {
    "ticker": "SAN",
@@ -7689,9 +7689,9 @@
    "per_vs_grupo": 0.8982289691928723,
    "puesto": 11,
    "puesto_ant": 11,
-   "puntos_ant": 77.6,
+   "puntos_ant": 77.1,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.1
+   "cambio_puntos": 0.6
   },
   {
    "ticker": "SCYR",
@@ -7768,10 +7768,10 @@
    "per_grupo": 21.2077335077343,
    "per_vs_grupo": 1.9044483602495614,
    "puesto": 96,
-   "puesto_ant": 93,
-   "puntos_ant": 25.1,
-   "cambio_puesto": -3,
-   "cambio_puntos": -0.4
+   "puesto_ant": 94,
+   "puntos_ant": 25.0,
+   "cambio_puesto": -2,
+   "cambio_puntos": -0.3
   },
   {
    "ticker": "SLR",
@@ -7848,9 +7848,9 @@
    "per_vs_grupo": 1.0,
    "puesto": 71,
    "puesto_ant": 78,
-   "puntos_ant": 38.0,
+   "puntos_ant": 38.7,
    "cambio_puesto": 7,
-   "cambio_puntos": 3.4
+   "cambio_puntos": 2.7
   },
   {
    "ticker": "SOL",
@@ -7929,9 +7929,9 @@
    "per_vs_grupo": 0.6787773464833523,
    "puesto": 105,
    "puesto_ant": 106,
-   "puntos_ant": 16.8,
+   "puntos_ant": 17.0,
    "cambio_puesto": 1,
-   "cambio_puntos": 1.1
+   "cambio_puntos": 0.9
   },
   {
    "ticker": "SQRL",
@@ -8004,10 +8004,10 @@
    "per_grupo": 15.739356910012747,
    "per_vs_grupo": 5.410774178955362,
    "puesto": 89,
-   "puesto_ant": 90,
-   "puntos_ant": 29.4,
-   "cambio_puesto": 1,
-   "cambio_puntos": 0.3
+   "puesto_ant": 91,
+   "puntos_ant": 29.2,
+   "cambio_puesto": 2,
+   "cambio_puntos": 0.5
   },
   {
    "ticker": "TEF",
@@ -8163,9 +8163,9 @@
    "per_vs_grupo": null,
    "puesto": 106,
    "puesto_ant": 104,
-   "puntos_ant": 17.4,
+   "puntos_ant": 17.3,
    "cambio_puesto": -2,
-   "cambio_puntos": -0.3
+   "cambio_puntos": -0.2
   },
   {
    "ticker": "TRE",
@@ -8240,10 +8240,10 @@
    "per_grupo": 24.343499238083183,
    "per_vs_grupo": 0.6553595279848772,
    "puesto": 75,
-   "puesto_ant": 74,
-   "puntos_ant": 40.1,
-   "cambio_puesto": -1,
-   "cambio_puntos": -0.1
+   "puesto_ant": 75,
+   "puntos_ant": 39.7,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.3
   },
   {
    "ticker": "TSK",
@@ -8341,9 +8341,9 @@
    "per_vs_grupo": null,
    "puesto": 87,
    "puesto_ant": 86,
-   "puntos_ant": 31.2,
+   "puntos_ant": 31.0,
    "cambio_puesto": -1,
-   "cambio_puntos": -0.5
+   "cambio_puntos": -0.3
   },
   {
    "ticker": "UNI",
@@ -8414,10 +8414,10 @@
    "per_grupo": 12.780105003432094,
    "per_vs_grupo": 1.0945562787416359,
    "puesto": 6,
-   "puesto_ant": 5,
-   "puntos_ant": 82.1,
-   "cambio_puesto": -1,
-   "cambio_puntos": -0.7
+   "puesto_ant": 6,
+   "puntos_ant": 81.0,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.4
   },
   {
    "ticker": "VID",
@@ -8490,10 +8490,10 @@
    "per_grupo": 15.739356910012747,
    "per_vs_grupo": 0.9710728927627917,
    "puesto": 35,
-   "puesto_ant": 36,
-   "puntos_ant": 59.6,
-   "cambio_puesto": 1,
-   "cambio_puntos": 0.4
+   "puesto_ant": 35,
+   "puntos_ant": 60.0,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "VIS",
@@ -8566,10 +8566,10 @@
    "per_grupo": 15.739356910012747,
    "per_vs_grupo": 1.0289271072372081,
    "puesto": 23,
-   "puesto_ant": 21,
-   "puntos_ant": 71.0,
-   "cambio_puesto": -2,
-   "cambio_puntos": -1.1
+   "puesto_ant": 20,
+   "puntos_ant": 70.5,
+   "cambio_puesto": -3,
+   "cambio_puntos": -0.6
   },
   {
    "ticker": "VOC",
@@ -9595,7 +9595,7 @@
   "Otras generales": {
    "n": 19,
    "per_mediana": 15.739356910012747,
-   "puntos_media": 52.86842105263158
+   "puntos_media": 52.89473684210526
   },
   "Generación renovable": {
    "n": 5,
@@ -9613,7 +9613,7 @@
    "puntos_media": 74.12222222222222
   }
  },
- "movimientos_desde": "2026-11-09",
+ "movimientos_desde": "2026-11-10",
  "matriz": "Matriz v3 — definitiva (borrador 11)",
  "cartera_fecha": null,
  "n": {
