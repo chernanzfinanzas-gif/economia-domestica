@@ -9818,8 +9818,409 @@
 "moneda": "EUR",
 "domicilioFiscal": null,
 "origen": null,
-"nota": "Alta 27-oct-2026 (método v3): SÍ paga dividendo, RPD 2025 ≈ 6.1% (cuentas 2025). Faltan fechas/importes exactos de cada pago — pendiente de que el método mande el calendario; de momento sin 'anios'.",
-"anios": {},
+"nota": "Calendario completo 2017-2026 (17-nov-2026, método v3). Importes por acción: nota de dividendos de las cuentas anuales de cada ejercicio. Fechas: anuncios CNMV/boletín BME cuando se encontraron (oct-2022, jul-2023, oct-2023, 2024); el resto de agregadores (gurufocus, stockanalysis, digrin), cruzados con el calendario de las cuentas. Jun y sep 2020 con opción scrip. Dic-2026: 0,0424 € aprobado en junta 29-abr-2026, fechas aún sin anunciar (previsto).",
+"anios": {
+"2017": {
+"dpaBruto": 0.02864,
+"dpaNeto": 0.023198,
+"nPagos": 1,
+"deltaPct": null,
+"racha": 1,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2017-12-21",
+"pago": "2017-12-27",
+"bruto": 0.02864,
+"neto": 0.023198,
+"tipo": "I",
+"ejercicio": "2017",
+"clase": "ordinario"
+}
+]
+},
+"2018": {
+"dpaBruto": 0.062635,
+"dpaNeto": 0.050734,
+"nPagos": 4,
+"deltaPct": 1.186976,
+"racha": 2,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2018-03-12",
+"pago": "2018-03-14",
+"bruto": 0.01432,
+"neto": 0.011599,
+"tipo": "I",
+"ejercicio": "2017",
+"clase": "ordinario"
+},
+{
+"exDiv": "2018-06-12",
+"pago": "2018-06-14",
+"bruto": 0.01432,
+"neto": 0.011599,
+"tipo": "I",
+"ejercicio": "2017",
+"clase": "ordinario"
+},
+{
+"exDiv": "2018-09-10",
+"pago": "2018-09-12",
+"bruto": 0.01432,
+"neto": 0.011599,
+"tipo": "F",
+"ejercicio": "2017",
+"clase": "ordinario"
+},
+{
+"exDiv": "2018-12-24",
+"pago": "2018-12-28",
+"bruto": 0.019675,
+"neto": 0.015937,
+"tipo": "I",
+"ejercicio": "2018",
+"clase": "ordinario"
+}
+]
+},
+"2019": {
+"dpaBruto": 0.07355,
+"dpaNeto": 0.059576,
+"nPagos": 4,
+"deltaPct": 0.174264,
+"racha": 3,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2019-03-11",
+"pago": "2019-03-13",
+"bruto": 0.019675,
+"neto": 0.015937,
+"tipo": "I",
+"ejercicio": "2018",
+"clase": "ordinario"
+},
+{
+"exDiv": "2019-06-10",
+"pago": "2019-06-12",
+"bruto": 0.019675,
+"neto": 0.015937,
+"tipo": "I",
+"ejercicio": "2018",
+"clase": "ordinario"
+},
+{
+"exDiv": "2019-09-06",
+"pago": "2019-09-10",
+"bruto": 0.019675,
+"neto": 0.015937,
+"tipo": "F",
+"ejercicio": "2018",
+"clase": "ordinario"
+},
+{
+"exDiv": "2019-12-24",
+"pago": "2019-12-27",
+"bruto": 0.014525,
+"neto": 0.011765,
+"tipo": "I",
+"ejercicio": "2019",
+"clase": "ordinario"
+}
+]
+},
+"2020": {
+"dpaBruto": 0.043575,
+"dpaNeto": 0.035296,
+"nPagos": 3,
+"deltaPct": -0.407546,
+"racha": 4,
+"naturaleza": "mixto (scrip)",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2020-03-09",
+"pago": "2020-03-11",
+"bruto": 0.014525,
+"neto": 0.011765,
+"tipo": "I",
+"ejercicio": "2019",
+"clase": "ordinario"
+},
+{
+"exDiv": "2020-06-25",
+"pago": "2020-06-29",
+"bruto": 0.014525,
+"neto": 0.011765,
+"tipo": "scrip",
+"ejercicio": "2019",
+"clase": "ordinario"
+},
+{
+"exDiv": "2020-09-24",
+"pago": "2020-09-28",
+"bruto": 0.014525,
+"neto": 0.011765,
+"tipo": "scrip",
+"ejercicio": "2019",
+"clase": "ordinario"
+}
+]
+},
+"2021": {
+"dpaBruto": 0.0388,
+"dpaNeto": 0.031428,
+"nPagos": 4,
+"deltaPct": -0.109581,
+"racha": 5,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2021-01-20",
+"pago": "2021-01-22",
+"bruto": 0.0097,
+"neto": 0.007857,
+"tipo": "I",
+"ejercicio": "2020",
+"clase": "ordinario"
+},
+{
+"exDiv": "2021-04-13",
+"pago": "2021-04-15",
+"bruto": 0.0097,
+"neto": 0.007857,
+"tipo": "I",
+"ejercicio": "2020",
+"clase": "ordinario"
+},
+{
+"exDiv": "2021-07-09",
+"pago": "2021-07-13",
+"bruto": 0.0097,
+"neto": 0.007857,
+"tipo": "I",
+"ejercicio": "2020",
+"clase": "ordinario"
+},
+{
+"exDiv": "2021-10-12",
+"pago": "2021-10-14",
+"bruto": 0.0097,
+"neto": 0.007857,
+"tipo": "F",
+"ejercicio": "2020",
+"clase": "ordinario"
+}
+]
+},
+"2022": {
+"dpaBruto": 0.0197,
+"dpaNeto": 0.015957,
+"nPagos": 4,
+"deltaPct": -0.492268,
+"racha": 6,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2022-01-18",
+"pago": "2022-01-20",
+"bruto": 0.004925,
+"neto": 0.003989,
+"tipo": "I",
+"ejercicio": "2021",
+"clase": "ordinario"
+},
+{
+"exDiv": "2022-04-22",
+"pago": "2022-04-26",
+"bruto": 0.004925,
+"neto": 0.003989,
+"tipo": "I",
+"ejercicio": "2021",
+"clase": "ordinario"
+},
+{
+"exDiv": "2022-07-15",
+"pago": "2022-07-19",
+"bruto": 0.004925,
+"neto": 0.003989,
+"tipo": "I",
+"ejercicio": "2021",
+"clase": "ordinario"
+},
+{
+"exDiv": "2022-10-21",
+"pago": "2022-10-25",
+"bruto": 0.004925,
+"neto": 0.003989,
+"tipo": "F",
+"ejercicio": "2021",
+"clase": "ordinario"
+}
+]
+},
+"2023": {
+"dpaBruto": 0.0263,
+"dpaNeto": 0.021303,
+"nPagos": 4,
+"deltaPct": 0.335025,
+"racha": 7,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2023-01-23",
+"pago": "2023-01-25",
+"bruto": 0.006575,
+"neto": 0.005326,
+"tipo": "I",
+"ejercicio": "2022",
+"clase": "ordinario"
+},
+{
+"exDiv": "2023-04-24",
+"pago": "2023-04-26",
+"bruto": 0.006575,
+"neto": 0.005326,
+"tipo": "I",
+"ejercicio": "2022",
+"clase": "ordinario"
+},
+{
+"exDiv": "2023-07-21",
+"pago": "2023-07-25",
+"bruto": 0.006575,
+"neto": 0.005326,
+"tipo": "I",
+"ejercicio": "2022",
+"clase": "ordinario"
+},
+{
+"exDiv": "2023-10-24",
+"pago": "2023-10-26",
+"bruto": 0.006575,
+"neto": 0.005326,
+"tipo": "F",
+"ejercicio": "2022",
+"clase": "ordinario"
+}
+]
+},
+"2024": {
+"dpaBruto": 0.0404,
+"dpaNeto": 0.032724,
+"nPagos": 4,
+"deltaPct": 0.536122,
+"racha": 8,
+"naturaleza": "efectivo",
+"junta": "2024-04-24",
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2024-05-10",
+"pago": "2024-05-14",
+"bruto": 0.0101,
+"neto": 0.008181,
+"tipo": "I",
+"ejercicio": "2023",
+"clase": "ordinario"
+},
+{
+"exDiv": "2024-07-19",
+"pago": "2024-07-23",
+"bruto": 0.0101,
+"neto": 0.008181,
+"tipo": "I",
+"ejercicio": "2023",
+"clase": "ordinario"
+},
+{
+"exDiv": "2024-10-21",
+"pago": "2024-10-23",
+"bruto": 0.0101,
+"neto": 0.008181,
+"tipo": "I",
+"ejercicio": "2023",
+"clase": "ordinario"
+},
+{
+"exDiv": "2024-12-13",
+"pago": "2024-12-17",
+"bruto": 0.0101,
+"neto": 0.008181,
+"tipo": "F",
+"ejercicio": "2023",
+"clase": "ordinario"
+}
+]
+},
+"2025": {
+"dpaBruto": 0.0424,
+"dpaNeto": 0.034344,
+"nPagos": 1,
+"deltaPct": 0.049505,
+"racha": 9,
+"naturaleza": "efectivo",
+"junta": "2025-04-29",
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2025-11-28",
+"pago": "2025-12-02",
+"bruto": 0.0424,
+"neto": 0.034344,
+"tipo": "o",
+"ejercicio": "2024",
+"clase": "ordinario"
+}
+]
+},
+"2026": {
+"dpaBruto": 0.0424,
+"dpaNeto": 0.034344,
+"nPagos": 1,
+"deltaPct": 0.0,
+"racha": 10,
+"naturaleza": "efectivo",
+"junta": "2026-04-29",
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": null,
+"pago": null,
+"bruto": 0.0424,
+"neto": 0.034344,
+"tipo": "previsto",
+"ejercicio": "2025",
+"clase": "ordinario"
+}
+]
+}
+},
 "paga": true
 },
 {
@@ -30290,11 +30691,13 @@
 "primaAsistencia": null,
 "pagos": [
 {
-"exDiv": "Pte. Revis",
-"pago": "Pte. Revis",
+"exDiv": null,
+"pago": null,
 "bruto": 0.1651,
-"neto": 0.1337,
-"tipo": null
+"neto": 0.133731,
+"tipo": "previsto",
+"ejercicio": "2025",
+"clase": "ordinario"
 }
 ]
 },
