@@ -1,0 +1,127 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "ALNT",
+ "empresa": "Alantra Partners, S.A.",
+ "fecha": "2026-11-18",
+ "revisadoEl": "2026-11-18",
+ "rating": "BBB",
+ "score": 57.2,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 11 % · EV/EBIT 11 % · PER 14 % · P/VC 8 % · P/FCL 11 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
+ "poBear": 6.21,
+ "poBase": 7.91,
+ "poBull": 10.24,
+ "entMin": 6.21,
+ "entMax": 6.88,
+ "stop": 5.7,
+ "dpaPrevisto": 0.5,
+ "moat": "42,8 sobre 100 · SIN MOAT CLARO. Sin ajuste: negocio de personas con marca en el mid-market",
+ "catalizadores": [
+  "Cierre de la venta de Access: La caja disponible pasará de 110,3 M€ (junio de 2026) a más de 200 M€, según la empresa: unos 90 M€ más. (6 meses)",
+  "Vuelve el M&A: Ingresos de M&A +24 % en el 9M-2026; un año completo así: ventas +10 %. (12 meses)",
+  "Más beneficio ordinario: El beneficio ordinario sube un 37 % en el 9M-2026 con los gastos fijos contenidos: +4 M€ de EBITDA. (12 meses)"
+ ],
+ "riesgos": [
+  "Ciclo del M&A (Media): Los ingresos siguen al número de operaciones: de 315 M€ (2021) a 178 M€ (2023). Suave: ventas −15 %. Duro: −30 %.",
+  "Salida de socios (Media): El negocio son los banqueros; si se van equipos, se van los clientes. Suave: ventas −5 %. Duro: −10 %.",
+  "Gestión de activos sin captación (Media): El entorno de captación de fondos es desfavorable (presentación del 9M-2026) y los ingresos de gestión caen un 3,5 %. Suave: −3 M€ de EBITDA. Duro: −6 M€.",
+  "Cartera de inversión (Baja-Media): Tiene unos 54-58 M€ invertidos en sus propios fondos. Suave: −10 M€. Duro: −20 M€.",
+  "Uso de la caja de Access (Media): La venta de Access Capital Partners llevará la caja disponible por encima de 200 M€; la empresa habla de «ejecutar su plan estratégico». Una compra cara la consumiría. Suave: −40 M€. Duro: −80 M€.",
+  "Estructura y minoritarios (Media): Muchas filiales con socios ejecutivos y minoritarios (Mutua Madrileña en gestión de activos); parte del beneficio y de la caja no es del accionista de Alantra. Suave: −5 %. Duro: −10 %.",
+  "Múltiplos (Media): Los múltiplos de las firmas de asesoramiento caen con el ciclo. Suave: −10 %. Duro: −20 %.",
+  "Regulación (Baja): Sociedad de valores y gestoras supervisadas (capital mínimo, normas de conducta). Suave: −2 M€. Duro: −4 M€."
+ ],
+ "bull": "10,24 € — escenario optimista: ",
+ "bear": "6,21 € — escenario pesimista: ",
+ "resumen": "ESPERAR. A 8,80 € la acción está cara (PO de 7,91 €) y lejos de la banda de entrada (6,21-6,88 €). Tampoco pasa el filtro de moat (43, mínimo 45); la calidad (57,2, BBB) sí. El bull (10,24 €) es el cierre de Access más un año de M&A como el 9M-2026; el bear, 6,21 €. Stop de tesis: 5,70 €. Lo que cambiaría la decisión: que cierre Access y la caja se reparta o se invierta bien (el catalizador 1 sube el PO un 11 %), que 2026 confirme la recuperación, o una caída a la banda de entrada. Para quien la tenga, el dividendo (6 %) paga la espera, pero no es estable.",
+ "dividendSafety": {
+  "score": 61,
+  "banda": "Seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 22,
+   "C2": 4,
+   "C3": 20,
+   "C4": 0,
+   "C5": 15
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Seguro: cobertura OE 1.56x · payout 94 % · 3 recorte(s) del DPA"
+  ],
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3",
+  "shareholderYield": 6.92
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 8,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=EBIT (sin aprovisionamientos)"
+  },
+  "altman": {
+   "z": 5.23,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.6,
+   "senal": "sin indicios",
+   "aproximado": [
+    "GMI",
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -4.0,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -5.05,
+  "gIntrinseco": 1.24,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 23.2062,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 38.1,
+   "deudaNeta": -73.834,
+   "modo": "EV",
+   "precioBase": 8.8,
+   "gBase": -5.05,
+   "fechaBase": "2026-11-17",
+   "congeladoEl": "2026-11-18",
+   "validado": true,
+   "desviacion": 0.0
+  }
+ }
+}

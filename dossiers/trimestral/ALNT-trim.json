@@ -1,0 +1,149 @@
+{
+ "schemaVersion": 2,
+ "ticker": "ALNT",
+ "empresa": "Alantra Partners, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-18",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos netos +26,7 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos netos",
+     "valor": 55.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos netos -0,5 % frente al mismo periodo del año anterior. Verde: solo ingresos netos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos netos",
+     "valor": 54.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos netos -10,5 % frente al mismo periodo del año anterior. Verde: solo ingresos netos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos netos",
+     "valor": 110.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos netos +25,0 %, resultado de explotación +215,3 %, margen 6,1 % (+12,76 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos netos de 135,6 M€ (+25 %), resultado de explotación de 8,3 M€ (−7,2 un año antes) y beneficio de 9,5 M€.\n\n**Por qué** — Vuelve el M&A después de dos años malos y los gastos fijos bajan.\n\n**Semáforo** — Verde: más ingresos y vuelta al beneficio de explotación.\n\n**Qué vigilar** — El cuarto trimestre, que en banca de inversión es el fuerte del año.\n\n**Lectura** — Primer año de recuperación tras 2023-2024; todavía lejos de 2021.",
+   "metricas": [
+    {
+     "nombre": "Ingresos netos",
+     "valor": 136.0
+    },
+    {
+     "nombre": "Resultado de explotación",
+     "valor": 8.3
+    },
+    {
+     "nombre": "Margen",
+     "valor": 6.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos netos +12,0 %, resultado de explotación +950,0 %, beneficio neto +33,3 %, margen 5,1 % (+4,55 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos netos de 41,2 M€ (+12 %), resultado de explotación de 2,1 M€ (0,2) y beneficio de 2,0 M€ (+35 %).\n\n**Por qué** — Investment Banking +12 % y gestión de activos +5 %; la cartera aporta 1,5 M€ por la venta de Health in Code.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — La venta de Access, firmada en el trimestre.\n\n**Lectura** — Buen arranque; parte del beneficio es de la cartera, no del negocio (0,7 M€ del negocio de asesoramiento y gestión).",
+   "metricas": [
+    {
+     "nombre": "Ingresos netos",
+     "valor": 41.2
+    },
+    {
+     "nombre": "Resultado de explotación",
+     "valor": 2.1
+    },
+    {
+     "nombre": "Margen",
+     "valor": 5.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 2.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos netos +4,1 %, resultado de explotación -19,3 %, beneficio neto +15,8 %, margen 4,7 % (-1,38 pp) frente al mismo periodo del año anterior. Ámbar por: resultado de explotación a la baja, el margen empeora. **Qué ha pasado** — Ingresos netos de 141,2 M€ (+4,2 %), resultado de explotación de 6,7 M€ (8,3) y beneficio de 11,0 M€ (+16 %); beneficio ordinario de 12,0 M€ (+37 %). Caja de 125,2 M€ y cartera de 57,8 M€, sin deuda.\n\n**Por qué** — M&A +24 % con la comisión media por operación +27 %; gestión de activos −3,5 %; plan de opciones (2,3 M€) y gastos fijos +4,8 %.\n\n**Semáforo** — Ámbar: crecen los ingresos y el beneficio, pero baja el resultado de explotación.\n\n**Qué vigilar** — El cierre de Access (previsto en el 4T) y qué hace con la caja; el 30-sep compró el 36,73 % de Alantra Equities con acciones propias.\n\n**Lectura** — Sin el plan de opciones el resultado de explotación sería de 9,0 M€ (+8 %); la tesis sigue intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos netos",
+     "valor": 141.0
+    },
+    {
+     "nombre": "Resultado de explotación",
+     "valor": 6.7
+    },
+    {
+     "nombre": "Margen",
+     "valor": 4.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 11.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

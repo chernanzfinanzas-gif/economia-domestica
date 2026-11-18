@@ -14,7 +14,7 @@
  "poBase": 0.65,
  "poBull": 0.84,
  "entMin": 0.55,
- "entMax": 0.57,
+ "entMax": 0.56,
  "stop": 0.25,
  "dpaPrevisto": 0.0424,
  "moat": "68,4 sobre 100 · MOAT MODERADO. Sin ajuste: lo medido (68, moderado) recoge la ventaja y su desgaste",
@@ -55,7 +55,7 @@
   "motivos": [
    "Vigilar: cobertura OE 2.25x · payout 76 % · 3 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja"
   ],
-  "calculadoEl": "2026-11-17",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3",
   "shareholderYield": 7.56
  },
@@ -98,7 +98,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-17",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -107,7 +107,7 @@
   "gIntrinseco": 5.31,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-17",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 119.1293,
@@ -120,7 +120,7 @@
    "precioBase": 0.704,
    "gBase": 0.18,
    "fechaBase": "2026-11-16",
-   "congeladoEl": "2026-11-17",
+   "congeladoEl": "2026-11-18",
    "validado": true,
    "desviacion": 0.0
   }

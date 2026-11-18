@@ -1,21 +1,21 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
  "ticker": "ELE",
  "empresa": "Endesa, S.A.",
- "fecha": "2026-11-09",
+ "fecha": "2026-11-18",
  "revisadoEl": "2026-10-29",
  "rating": "A",
  "score": 69.2,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 35 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 6 % · PER 6 % · P/VC 4 % · P/FCL 6 % · rentabilidad por dividendo 15 % · flujo base del DCF: fcl",
- "poBear": 22.81,
- "poBase": 26.77,
- "poBull": 38.31,
- "entMin": 22.81,
- "entMax": 23.28,
- "stop": 18.37,
+ "poBear": 17.66,
+ "poBase": 21.28,
+ "poBull": 30.67,
+ "entMin": 17.66,
+ "entMax": 18.51,
+ "stop": 14.09,
  "dpaPrevisto": 1.5802,
  "moat": "65,3 sobre 100 · MOAT MODERADO. La distribución regulada es todo el foso y las huellas ya la recogen casi entera",
  "catalizadores": [
@@ -34,9 +34,9 @@
   "El arbitraje del GNL y los contratos de aprovisionamiento (Alta): El laudo solo: 185 M€ de caja de una vez; duro: el laudo más 120 M€ al año de aprovisionamiento más caro.",
   "Infraestructura crítica: ciberataque (Media): Incidente contenido: ingresos −1 % y 80 M€ al año de remediación; grave: −2 %, 150 M€ al año y múltiplos −5 %."
  ],
- "bull": "38,31 € — escenario optimista: el Plan 2026-2028 se ejecuta entero, con la retribución de redes reconocida",
- "bear": "22,81 € — escenario pesimista: su propia década: el FCL por acción de 2025 es el de 2016",
- "resumen": "ESPERAR: a 43,70 € (cotización del 23-oct), el PO (26,77 €) queda un 40 % por debajo de la cotización, y la cotización casi dobla el techo de la banda (23,28 €). Se cumplen tres de las cuatro condiciones de compra (pérdida al bear, rating A y moat 65,3); falla el margen, y por mucho. El veredicto no depende del supuesto: con WACC ±1 y terminal ±0,5 el PO va de 22,56 a 34,82 €, siempre muy por debajo. Está abierta la señal S3: la cotización ha pasado el PO bull (38,31 €). Obliga a revisar la tesis, no a vender.",
+ "bull": "30,67 € — escenario optimista: el Plan 2026-2028 se ejecuta entero, con la retribución de redes reconocida",
+ "bear": "17,66 € — escenario pesimista: su propia década: el FCL por acción de 2025 es el de 2016",
+ "resumen": "ESPERAR: a 44,85 € el PO (21,28 €) queda un 53 % por debajo de la cotización, que más que dobla el techo de la banda (18,51 €). Se cumplen tres de las cuatro condiciones de compra (pérdida al bear, rating A y moat 65,3); falla el margen, y por mucho. El veredicto no depende del supuesto: con WACC ±1 y terminal ±0,5 el PO va de 17,49 a 29,33 €, siempre muy por debajo. La cotización supera el PO bull (30,67 €); la señal S3 se revisó el 29-oct con REAFIRMAR. Las reglas del 18-nov bajan el PO un 20 % sin cambiar la decisión.",
  "dividendSafety": {
   "score": 66,
   "banda": "Seguro",
@@ -56,7 +56,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.67x · payout 85 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3",
   "shareholderYield": 6.87
  },
@@ -99,31 +99,31 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 11.08,
+  "gImplicito": 11.22,
   "gIntrinseco": 7.09,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1385.1819,
-   "wacc": 6.534,
+   "wacc": 6.5756,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 1046.6667,
    "deudaNeta": 10396.0,
    "modo": "EV",
    "precioBase": 44.85,
-   "gBase": 12.59,
+   "gBase": 12.79,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-14",
+   "congeladoEl": "2026-11-18",
    "validado": false,
-   "desviacion": 1.52
+   "desviacion": 1.57
   }
  }
 }

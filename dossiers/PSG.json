@@ -4,18 +4,18 @@
  "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
  "ticker": "PSG",
  "empresa": "Prosegur, Compañía de Seguridad, S.A.",
- "fecha": "2026-11-13",
+ "fecha": "2026-11-18",
  "revisadoEl": "2026-11-13",
  "rating": "BBB",
  "score": 54.9,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 11 % · EV/EBIT 11 % · PER 14 % · P/VC 8 % · P/FCL 11 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
  "poBear": 2.6,
- "poBase": 3.37,
- "poBull": 3.75,
+ "poBase": 3.36,
+ "poBull": 3.73,
  "entMin": 2.6,
- "entMax": 2.93,
- "stop": 2.16,
+ "entMax": 2.92,
+ "stop": 2.15,
  "dpaPrevisto": 0.1593,
  "moat": "50,4 sobre 100 · MOAT ESTRECHO. Los últimos cinco años no crean valor",
  "catalizadores": [
@@ -32,7 +32,7 @@
   "Competencia, pleitos laborales e impuestos en Latinoamérica (Media): Cuentas de 2025: provisiones de 169 M€ (laborales 50, fiscales 56, jurídicas 21). La fiscalía de la competencia de Chile pide hasta 22 M€ de multa a una filial (provisionados 10 M€; juicio en fase de prueba); en Brasil hay 3.559 causas laborales abiertas; y 211 M€ de avales por pleitos fiscales y laborales. La autoridad portuguesa archivó su investigación en enero de 2026. Suave: los 12 M€ de multa de Chile sin provisionar. Duro: 50 M€ (un tercio más de lo provisionado), como salida de caja.",
   "Ataque informático o robo relevante (Baja): Custodia efectivo, gestiona centrales de alarmas y vende ciberseguridad: un ataque que pare la operación o un robo grande daña el servicio y la marca. Se mide como el 1 % y el 3 % del EBITDA de 2025 (560 M€)."
  ],
- "bull": "3,75 € — escenario optimista: Las divisas dejan de restar y Estados Unidos (+32 % orgánico), alarmas y defensa compensan el efectivo: algo por encima del g intrínseco",
+ "bull": "3,73 € — escenario optimista: Las divisas dejan de restar y Estados Unidos (+32 % orgánico), alarmas y defensa compensan el efectivo: algo por encima del g intrínseco",
  "bear": "2,60 € — escenario pesimista: Las divisas de Latinoamérica (47 % de las ventas) se comen el crecimiento, como en 2025 (ventas +0,5 % en euros), y el efectivo sigue encogiendo",
  "resumen": "MANTENER. No es para comprar: fallan dos de las cuatro condiciones, el margen (9,0 %; pide 15 %) y el rating (BBB; pide A). Tampoco hay motivo para vender si se tuviera: cotiza un 9 % por debajo del precio objetivo (3,37 €), paga un dividendo del 5 % cubierto por la caja y el último trimestre está en verde. Lo que la frena es de fondo: gana lo justo sobre el capital que emplea, casi la mitad de las ventas depende de divisas débiles, dos tercios del resultado vienen de mover efectivo y la deuda es alta. Para comprar tendría que bajar de 2,93 € y, aun así, el rating lo impediría. El escalón de media posición con BBB tampoco aplica (pide un margen del 40 %).",
  "dividendSafety": {
@@ -54,7 +54,7 @@
   "motivos": [
    "Seguro: cobertura OE 3.08x · payout 78 % · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, EBITDA a la baja"
   ],
-  "calculadoEl": "2026-11-17",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3",
   "shareholderYield": 6.69
  },
@@ -97,7 +97,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-17",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -106,7 +106,7 @@
   "gIntrinseco": 4.25,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 4.2 %)",
-  "calculadoEl": "2026-11-17",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 174.6751,
@@ -119,7 +119,7 @@
    "precioBase": 3.08,
    "gBase": 2.32,
    "fechaBase": "2026-11-17",
-   "congeladoEl": "2026-11-17",
+   "congeladoEl": "2026-11-18",
    "validado": true,
    "desviacion": -0.0
   }

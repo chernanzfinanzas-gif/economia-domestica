@@ -1,0 +1,217 @@
+{
+ "schemaVersion": 2,
+ "ticker": "IBG",
+ "empresa": "Iberpapel Gestión, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-18",
+ "revisiones": [
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -14,4 %, EBITDA +32,1 %, margen 11,4 % (+4,00 pp) frente al mismo periodo del año anterior. Verde: solo ventas a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 72.7
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 8.3
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -19,3 %, EBITDA +60,0 %, margen 13,6 % (+6,71 pp) frente al mismo periodo del año anterior. Verde: solo ventas a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 194.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 26.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -12,6 %, EBITDA -6,9 %, margen 12,1 % (+0,73 pp) frente al mismo periodo del año anterior. Ámbar por: ventas a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 63.6
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 7.7
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -4,4 %, EBITDA +1,9 %, margen 14,4 % (+0,89 pp) frente al mismo periodo del año anterior. Verde: solo ventas a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 186.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 26.8
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +5,9 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 67,3 M€ (+6 %); EBITDA de 4,3 M€ y beneficio de 1,1 M€ (cifras del 1T como las compara el informe de 2026).\n\n**Por qué** — Más volumen con el papel débil en Europa y la celulosa todavía cara de comprar.\n\n**Semáforo** — Verde: suben los ingresos.\n\n**Qué vigilar** — El precio de la celulosa y del papel UWF.\n\n**Lectura** — El verde de un trimestre no cambia el año: el EBITDA del 1T fue el más bajo del ejercicio y el margen ya era la mitad que en 2024.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 67.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -7,8 %, EBITDA -42,1 %, margen 9,1 % (-5,37 pp) frente al mismo periodo del año anterior. Ámbar por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ingresos de 171,3 M€ (185,8 un año antes) y EBITDA de 15,5 M€ (26,8).\n\n**Por qué** — Menos precio de papel y celulosa: sobrecapacidad europea en papel UWF y celulosa en mínimos en septiembre.\n\n**Semáforo** — Ámbar: el EBITDA cae un 42 %.\n\n**Qué vigilar** — El dividendo a cuenta de diciembre.\n\n**Lectura** — El año se cerró con el beneficio más bajo desde 2020; la caja neta, aun así, siguió subiendo.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 171.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 15.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 9.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -19,5 %, EBITDA +52,5 %, beneficio neto +154,0 %, margen 12,3 % (+5,82 pp) frente al mismo periodo del año anterior. Verde: solo ventas a la baja, sin más señales. **Qué ha pasado** — Ventas de 53,0 M€ (−19 %), pero EBITDA de 6,5 M€ (+53 %) y beneficio de 2,8 M€ (1,1).\n\n**Por qué** — Subidas de precio del papel desde abril y celulosa recuperándose; menos volumen vendido.\n\n**Semáforo** — Verde: más margen y más beneficio.\n\n**Qué vigilar** — La energía, que empezaba a subir.\n\n**Lectura** — Un buen trimestre que el gas deshizo en el segundo y el tercero.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 53.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 6.5
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 2.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +2,5 %, EBITDA -88,6 %, beneficio neto -221,4 %, margen 1,0 % (-8,35 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ventas de 169,8 M€ (+2,6 %), EBITDA de 1,8 M€ (15,5 un año antes) y pérdidas de 6,4 M€ (beneficio de 5,3). Caja neta de 116,1 M€.\n\n**Por qué** — Gas y electricidad a niveles «extraordinariamente elevados» por Oriente Medio, demanda europea débil e importaciones +22 %, y la parada técnica de septiembre. Los papeles especiales suben un 5 % y ya son el 34 % de las ventas de papel.\n\n**Semáforo** — Rojo.\n\n**Qué vigilar** — Las inversiones del nuevo modelo energético (en estudio, sin importe) y si los ahorros de la parada de septiembre se ven en el 4T.\n\n**Lectura** — Rojo con razón; la caja neta (116 M€) cubre varios años así, pero el dividendo de 2026 está en el aire. La tesis sigue intacta porque el rojo es el riesgo 1, ya descontado en la decisión.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 170.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1.8
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 1.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": -6.4
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

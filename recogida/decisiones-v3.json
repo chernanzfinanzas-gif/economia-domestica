@@ -585,7 +585,19 @@
     "revision": "IAG análisis inicial",
     "origen": "metodo-v3"
    }
+  ],
+  "IBG": [
+   {
+    "fecha": "18-nov-2026",
+    "fechaIso": "2026-11-18",
+    "senal": "S2",
+    "cot": 16.75,
+    "decision": "REAFIRMAR",
+    "motivo": "Análisis inicial 18-nov-2026: el rojo del 9M-2026 (EBITDA 1,8 M€ frente a 15,5; pérdidas de 6,4 M€ por la energía) es el riesgo 1 y la cadena A, y ya está en la decisión (MANTENER, sin compra por falta de moat). Caja neta de 116 M€. Alarma: EBITDA trimestral negativo dos trimestres seguidos.",
+    "revision": "IBG análisis inicial",
+    "origen": "metodo-v3"
+   }
   ]
  },
- "actualizado": "2026-11-16"
+ "actualizado": "2026-11-18"
 }

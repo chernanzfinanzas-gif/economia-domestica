@@ -1,0 +1,126 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "IBG",
+ "empresa": "Iberpapel Gestión, S.A.",
+ "fecha": "2026-11-18",
+ "revisadoEl": "2026-11-18",
+ "rating": "A",
+ "score": 68.2,
+ "decision": "MANTENER",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 5 % · DCF base 15 % · DCF optimista 5 % · EV/EBITDA 14 % · EV/EBIT 14 % · PER 18 % · P/VC 10 % · P/FCL 14 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
+ "poBear": 23.87,
+ "poBase": 30.12,
+ "poBull": 41.31,
+ "entMin": 23.87,
+ "entMax": 26.19,
+ "stop": 15.82,
+ "dpaPrevisto": 0.86,
+ "moat": "32,5 sobre 100 · SIN MOAT CLARO. Sin ajuste: papel de oficina (UWF) en un mercado europeo con sobrecapacidad",
+ "catalizadores": [
+  "La energía se normaliza: Si el gas y la electricidad vuelven a niveles de 2025, el EBITDA recupera unos 10 M€ al año. (12-24 meses)",
+  "Papeles especiales: Ya son el 34 % de las ventas de papel (+5 % en volumen en el 9M-2026), con más margen que el papel de oficina. Se toman +3 M€ de EBITDA. (24 meses)",
+  "Cierres de capacidad en Europa: Los ajustes de capacidad en papel UWF que cita la empresa subirían precios: ventas +5 %. (24 meses)"
+ ],
+ "riesgos": [
+  "Energía cara (Alta): La fábrica consume gas y la cogeneración depende del precio de la electricidad. En el 9M-2026 la energía hundió el EBITDA de 15,5 a 1,8 M€. Suave: −8 M€ de EBITDA al año. Duro: −15 M€.",
+  "Importaciones y sobrecapacidad (Alta): Las importaciones de papel UWF a Europa suben un 22 % en 2026 y las entregas de los productores europeos caen un 4,8 % (Eurograph, citado por la empresa). Suave: ventas −5 %. Duro: −10 %.",
+  "Precio de la celulosa y del papel (Media): La empresa vende celulosa y papel a precio de mercado; la celulosa corrige desde julio de 2026. Suave: −5 M€ de EBITDA. Duro: −10 M€.",
+  "Inversión en el nuevo modelo energético (Media): La empresa estudia «importantes actuaciones e inversiones industriales», sin importe decidido, pagadas con su caja. Si no rinden, la caja se va. Suave: −40 M€ de caja. Duro: −80 M€.",
+  "Regulación de la cogeneración (Media): Las dos cogeneraciones (biomasa y gas) dependen de la retribución regulada y de las restricciones del sistema eléctrico, que la empresa cita como coste creciente. Suave: −3 M€. Duro: −6 M€.",
+  "Recorte del dividendo (Media-Alta): Paga 9,3 M€ con un beneficio de 6,1 M€ (2025) y pierde dinero en 2026; la nota de seguridad es 36. Suave: −30 %. Duro: −60 %.",
+  "Múltiplos (Media): Una industria europea con pérdidas puede cotizar todavía más barata. Suave: −10 %. Duro: −20 %.",
+  "Gobierno (Baja): Accionariado repartido: Miquel y Costas 10,1 %, Carmen Ybarra 7,8 %, Magallanes 5,4 %. Suave: −3 %. Duro: −6 %."
+ ],
+ "bull": "41,31 € — escenario optimista: La energía se normaliza, el nuevo modelo energético que estudia la empresa baja costes y los papeles especiales (34 % de las ventas) siguen ganando peso",
+ "bear": "23,87 € — escenario pesimista: Años como 2026 se repiten: energía cara, importaciones al alza (+22 % en 2026 según Eurograph, citado por la empresa) y sobrecapacidad europea en papel UWF",
+ "resumen": "MANTENER. La cotización (16,75 €) está por debajo de la banda de entrada (23,87-26,19 €) y el margen es del 80 %, pero el método no compra porque no hay moat (33, mínimo 45) y el dividendo es frágil (35). Es una inversión en caja y activos a 0,55 veces los libros esperando a que el ciclo del papel y la energía mejore. Con las reglas del 18-nov el PO sube de 22,01 a 30,12 € y el DCF y los múltiplos ya coinciden. Bull 41,31 € (energía normal), bear 23,87 €, stop de tesis 15,82 €, por debajo de la cotización. Para quien la tenga, no hay motivo para vender: la caja paga la espera. Para entrar, falta calidad, no precio.",
+ "dividendSafety": {
+  "score": 35,
+  "banda": "Frágil",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 10,
+   "C2": 0,
+   "C3": 19,
+   "C4": 0,
+   "C5": 6
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Frágil: cobertura OE 1.13x · payout 154 % · 5 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja, recompras recortadas"
+  ],
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3",
+  "shareholderYield": 4.34
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 6,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 0,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 11.68,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.93,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -3.2,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": false,
+  "gImplicito": null,
+  "gIntrinseco": -0.33,
+  "veredicto": "No aplica",
+  "motivo": "n.s. — el precio exige un crecimiento fuera de −10 % a +30 %",
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 24.057,
+   "wacc": 7.6145,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 10.8214,
+   "deudaNeta": -111.904,
+   "modo": "EV",
+   "precioBase": 16.75,
+   "gBase": -10.0,
+   "fechaBase": "2026-11-17",
+   "congeladoEl": "2026-11-18",
+   "validado": false,
+   "desviacion": null
+  }
+ }
+}
