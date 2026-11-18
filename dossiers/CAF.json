@@ -1,0 +1,128 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "CAF",
+ "empresa": "Construcciones y Auxiliar de Ferrocarriles, S.A.",
+ "fecha": "2026-11-18",
+ "revisadoEl": "2026-11-18",
+ "rating": "A",
+ "score": 66.2,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 11 % · EV/EBIT 11 % · PER 14 % · P/VC 8 % · P/FCL 11 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
+ "poBear": 53.0,
+ "poBase": 62.43,
+ "poBull": 80.01,
+ "entMin": 53.0,
+ "entMax": 54.28,
+ "stop": 34.6,
+ "dpaPrevisto": 1.521,
+ "moat": "46,7 sobre 100 · MOAT ESTRECHO. Sin ajuste: el moat medido (47) ya recoge una ventaja estrecha",
+ "catalizadores": [
+  "La cartera récord se convierte en ventas: Cartera de 17.502 M€ a septiembre de 2026 (3,9 veces las ventas) y perspectiva de crecer «un dígito alto» en 2026. Un 8 % más de ventas, con el mismo margen. (12 meses)",
+  "Plan 2030 con más margen: El plan que se presenta el 22-dic-2026. Si fija y cumple medio punto más de margen, son unos 25 M€ más de EBITDA al año. (12-24 meses)",
+  "Solaris mantiene su margen: Margen EBIT de autobuses del 6,3 % en 2025, el mejor desde 2018. Con las ventas de 2026 (+57 % en el 9M), sostenerlo suma unos 15 M€ de EBITDA. (12 meses)"
+ ],
+ "riesgos": [
+  "Inflación en contratos a precio fijo (Media): Los trenes se venden a precio cerrado y se fabrican durante años. En 2022 la inflación bajó el margen EBITDA de 8,6 % a 7,4 % y CAF todavía habla de «proyectos afectados por la inflación» en ferroviario (resultados 2025). Medido: 1,2 puntos de margen sobre las ventas de 2025 son unos 54 M€. Suave: −30 M€ de EBITDA al año. Duro: −55 M€ (otro 2022).",
+  "Solaris se frena (Media): Los autobuses son el 26 % de las ventas de 2025 y lo que más crece (+57 % en el 9M-2026), pero su contratación cae a la mitad (783 M€ frente a 1.607) y la cartera de autobuses baja un 16 %. Suave: ventas del grupo −5 %. Duro: −10 %.",
+  "Pérdidas en un gran proyecto (Media): Contratos enormes (SNCB, 1.700 M€; Nápoles; El Cairo) con penalizaciones por retraso. Una pérdida puntual se lleva caja de un año. Suave: −100 M€. Duro: −200 M€.",
+  "Circulante (Media): CAF cobra por hitos y anticipos: si los clientes pagan más tarde, la deuda sube aunque el negocio vaya bien (el circulante consumió 116 M€ en 2023 y 94 M€ en 2025). Suave: +150 M€ de deuda. Duro: +300 M€.",
+  "Tipos y múltiplos (Media): La acción se ha revalorizado con los resultados; un entorno de tipos más altos o de menos apetito por las industriales baja el múltiplo. Suave: −10 %. Duro: −20 %.",
+  "Divisas y emergentes (Baja-Media): Fábricas y contratos en Brasil, México, Reino Unido, Polonia y Suecia: devaluaciones y costes de cobertura (las diferencias de cambio restaron 7 M€ en 2025 y 9 M€ en 2024). Suave: −7 M€ de resultado financiero al año. Duro: −15 M€.",
+  "Plan 2027-2030 con una compra cara (Baja-Media): El nuevo plan se presenta el 22-dic-2026; las perspectivas de 2026 ya hablan de deuda «estable con M&A». Una compra grande con deuda repetiría el patrón de Solaris (2018): años de deuda alta y ROIC bajo. Suave: +300 M€ de deuda. Duro: +600 M€.",
+  "Gobierno (Baja): Accionariado estable y vasco (sociedad de empleados 23 %, BBK-Kutxabank 13 %): protege de una opa hostil pero también de la presión por rentabilidad. Suave: −3 %. Duro: −6 %."
+ ],
+ "bull": "80,01 € — escenario optimista: Crecimiento de un dígito alto como el que CAF prevé para 2026 durante el nuevo plan 2027-2030, con mejora de margen",
+ "bear": "53,00 € — escenario pesimista: Solaris se frena (contratación de autobuses 783 M€ en 9M-2026 frente a 1.607 un año antes) y vuelven los contratos a precio fijo castigados por la inflación, como en 2022",
+ "resumen": "ESPERAR. Buena empresa en buen momento: cartera récord (17.502 M€, 3,9 veces las ventas), margen y ROIC al alza, deuda baja y dividendo creciente. Pero a 66,30 € la cotización está un 22 % por encima del techo de la banda (54,28 €) y el margen de seguridad es negativo (−5,8 %). Bull 80,01 € (cartera, plan 2030 y Solaris), bear 53,00 €, stop de tesis 34,59 €. Fecha a vigilar: el plan 2027-2030 del 22 de diciembre de 2026.",
+ "dividendSafety": {
+  "score": 83,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 13,
+   "C3": 17,
+   "C4": 3,
+   "C5": 15
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 3.75x · payout 40 % · 2 recorte(s) del DPA"
+  ],
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3",
+  "shareholderYield": 3.05
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 1.95,
+   "zona": "gris"
+  },
+  "beneish": {
+   "m": -2.5,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -0.7,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=1.95 en zona gris"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 5.17,
+  "gIntrinseco": 2.73,
+  "veredicto": "HEROICO",
+  "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 115.6782,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 34.2527,
+   "deudaNeta": 335.489,
+   "modo": "EV",
+   "precioBase": 66.3,
+   "gBase": 5.17,
+   "fechaBase": "2026-11-17",
+   "congeladoEl": "2026-11-18",
+   "validado": true,
+   "desviacion": 0.0
+  }
+ }
+}

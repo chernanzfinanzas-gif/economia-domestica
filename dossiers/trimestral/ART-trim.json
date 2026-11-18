@@ -3,167 +3,8 @@
  "ticker": "ART",
  "empresa": "Arteche Lantegi Elkartea, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-14",
+ "generado": "2026-11-18",
  "revisiones": [
-  {
-   "periodo": "2021-Q2",
-   "periodoDisplay": "S1",
-   "fecha": "2021-06-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Los informes de Arteche no imprimen una fecha de publicación homogénea; cada revisión lleva la fecha de CIERRE del periodo (30 de junio o 31 de diciembre), que no es una fecha de mercado.",
-   "semaforoGlobal": "A",
-   "tesisSigueIntacta": true,
-   "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2020 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
-   "metricas": [
-    {
-     "nombre": "Cifra de negocios (M€)",
-     "valor": 129.006
-    },
-    {
-     "nombre": "Contratación (M€)",
-     "valor": 127.4
-    },
-    {
-     "nombre": "Cartera en firme (M€)",
-     "valor": 115.961
-    },
-    {
-     "nombre": "EBITDA (M€)",
-     "valor": 10.651
-    },
-    {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 8.3
-    },
-    {
-     "nombre": "Resultado de explotación (M€)",
-     "valor": 4.481
-    },
-    {
-     "nombre": "Resultado atribuido (M€)",
-     "valor": 1.712
-    },
-    {
-     "nombre": "BPA (€)",
-     "valor": 0.03
-    },
-    {
-     "nombre": "Deuda financiera neta (M€)",
-     "valor": 46.446
-    },
-    {
-     "nombre": "DFN / EBITDA (x)",
-     "valor": 1.5
-    }
-   ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
-  },
-  {
-   "periodo": "2021-Q4",
-   "periodoDisplay": "FY",
-   "fecha": "2021-12-31",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Los informes de Arteche no imprimen una fecha de publicación homogénea; cada revisión lleva la fecha de CIERRE del periodo (30 de junio o 31 de diciembre), que no es una fecha de mercado.",
-   "semaforoGlobal": "A",
-   "tesisSigueIntacta": true,
-   "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2020 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
-   "metricas": [
-    {
-     "nombre": "Cifra de negocios (M€)",
-     "valor": 282.033
-    },
-    {
-     "nombre": "Contratación (M€)",
-     "valor": 285.9
-    },
-    {
-     "nombre": "Cartera en firme (M€)",
-     "valor": 115.783
-    },
-    {
-     "nombre": "EBITDA (M€)",
-     "valor": 26.097
-    },
-    {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 9.25
-    },
-    {
-     "nombre": "Resultado de explotación (M€)",
-     "valor": 12.516
-    },
-    {
-     "nombre": "Resultado atribuido (M€)",
-     "valor": 8.543
-    },
-    {
-     "nombre": "BPA (€)",
-     "valor": 0.16
-    },
-    {
-     "nombre": "Deuda financiera neta (M€)",
-     "valor": 50.897
-    },
-    {
-     "nombre": "DFN / EBITDA (x)",
-     "valor": 1.95
-    }
-   ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
-  },
-  {
-   "periodo": "2022-Q2",
-   "periodoDisplay": "S1",
-   "fecha": "2022-06-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Los informes de Arteche no imprimen una fecha de publicación homogénea; cada revisión lleva la fecha de CIERRE del periodo (30 de junio o 31 de diciembre), que no es una fecha de mercado.",
-   "semaforoGlobal": "A",
-   "tesisSigueIntacta": true,
-   "resumen": "Cifra de negocios +21.1 %, EBITDA +23.1 %, Resultado atribuido +77.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 8.4 % (banda del §10.1: verde ≥ 12.0, rojo < 8.0). El margen EBITDA sube un 1.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-   "metricas": [
-    {
-     "nombre": "Cifra de negocios (M€)",
-     "valor": 156.267
-    },
-    {
-     "nombre": "Contratación (M€)",
-     "valor": 192.2
-    },
-    {
-     "nombre": "Cartera en firme (M€)",
-     "valor": 155.494
-    },
-    {
-     "nombre": "EBITDA (M€)",
-     "valor": 13.108
-    },
-    {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 8.39
-    },
-    {
-     "nombre": "Resultado de explotación (M€)",
-     "valor": 5.776
-    },
-    {
-     "nombre": "Resultado atribuido (M€)",
-     "valor": 3.04
-    },
-    {
-     "nombre": "BPA (€)",
-     "valor": 0.05
-    },
-    {
-     "nombre": "Deuda financiera neta (M€)",
-     "valor": 54.257
-    },
-    {
-     "nombre": "DFN / EBITDA (x)",
-     "valor": 1.9
-    }
-   ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
-  },
   {
    "periodo": "2022-Q4",
    "periodoDisplay": "FY",
@@ -201,59 +42,6 @@
    ],
    "hechos": [],
    "origen": "metodo-v3"
-  },
-  {
-   "periodo": "2023-Q2",
-   "periodoDisplay": "S1",
-   "fecha": "2023-06-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Los informes de Arteche no imprimen una fecha de publicación homogénea; cada revisión lleva la fecha de CIERRE del periodo (30 de junio o 31 de diciembre), que no es una fecha de mercado.",
-   "semaforoGlobal": "A",
-   "tesisSigueIntacta": true,
-   "resumen": "Cifra de negocios +20.3 %, EBITDA +32.9 %, Resultado atribuido +41.0 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 9.3 % (banda del §10.1: verde ≥ 12.0, rojo < 8.0). El margen EBITDA sube un 10.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-   "metricas": [
-    {
-     "nombre": "Cifra de negocios (M€)",
-     "valor": 188.046
-    },
-    {
-     "nombre": "Contratación (M€)",
-     "valor": 247.3
-    },
-    {
-     "nombre": "Cartera en firme (M€)",
-     "valor": 218.84
-    },
-    {
-     "nombre": "EBITDA (M€)",
-     "valor": 17.424
-    },
-    {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 9.27
-    },
-    {
-     "nombre": "Resultado de explotación (M€)",
-     "valor": 9.281
-    },
-    {
-     "nombre": "Resultado atribuido (M€)",
-     "valor": 4.285
-    },
-    {
-     "nombre": "BPA (€)",
-     "valor": 0.08
-    },
-    {
-     "nombre": "Deuda financiera neta (M€)",
-     "valor": 60.472
-    },
-    {
-     "nombre": "DFN / EBITDA (x)",
-     "valor": 1.76
-    }
-   ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
   },
   {
    "periodo": "2023-Q4",
@@ -294,59 +82,6 @@
    "origen": "metodo-v3"
   },
   {
-   "periodo": "2024-Q2",
-   "periodoDisplay": "S1",
-   "fecha": "2024-06-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Los informes de Arteche no imprimen una fecha de publicación homogénea; cada revisión lleva la fecha de CIERRE del periodo (30 de junio o 31 de diciembre), que no es una fecha de mercado.",
-   "semaforoGlobal": "A",
-   "tesisSigueIntacta": true,
-   "resumen": "Cifra de negocios +19.6 %, EBITDA +41.4 %, Resultado atribuido +73.0 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 11.0 % (banda del §10.1: verde ≥ 12.0, rojo < 8.0). El margen EBITDA sube un 18.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-   "metricas": [
-    {
-     "nombre": "Cifra de negocios (M€)",
-     "valor": 224.876
-    },
-    {
-     "nombre": "Contratación (M€)",
-     "valor": 284.5
-    },
-    {
-     "nombre": "Cartera en firme (M€)",
-     "valor": 264.699
-    },
-    {
-     "nombre": "EBITDA (M€)",
-     "valor": 24.636
-    },
-    {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 11.0
-    },
-    {
-     "nombre": "Resultado de explotación (M€)",
-     "valor": 17.638
-    },
-    {
-     "nombre": "Resultado atribuido (M€)",
-     "valor": 7.415
-    },
-    {
-     "nombre": "BPA (€)",
-     "valor": 0.13
-    },
-    {
-     "nombre": "Deuda financiera neta (M€)",
-     "valor": 39.653
-    },
-    {
-     "nombre": "DFN / EBITDA (x)",
-     "valor": 0.83
-    }
-   ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
-  },
-  {
    "periodo": "2024-Q4",
    "periodoDisplay": "FY",
    "periodoV3": "2024",
@@ -383,59 +118,6 @@
    ],
    "hechos": [],
    "origen": "metodo-v3"
-  },
-  {
-   "periodo": "2025-Q2",
-   "periodoDisplay": "S1",
-   "fecha": "2025-06-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Los informes de Arteche no imprimen una fecha de publicación homogénea; cada revisión lleva la fecha de CIERRE del periodo (30 de junio o 31 de diciembre), que no es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "Cifra de negocios +11.6 %, EBITDA +64.9 %, Resultado atribuido +185.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 16.2 % (banda del §10.1: verde ≥ 12.0, rojo < 8.0). El margen EBITDA sube un 47.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
-   "metricas": [
-    {
-     "nombre": "Cifra de negocios (M€)",
-     "valor": 250.98
-    },
-    {
-     "nombre": "Contratación (M€)",
-     "valor": 292.2
-    },
-    {
-     "nombre": "Cartera en firme (M€)",
-     "valor": 336.522
-    },
-    {
-     "nombre": "EBITDA (M€)",
-     "valor": 40.62
-    },
-    {
-     "nombre": "Margen EBITDA (%)",
-     "valor": 16.2
-    },
-    {
-     "nombre": "Resultado de explotación (M€)",
-     "valor": 31.573
-    },
-    {
-     "nombre": "Resultado atribuido (M€)",
-     "valor": 21.175
-    },
-    {
-     "nombre": "BPA (€)",
-     "valor": 0.37
-    },
-    {
-     "nombre": "Deuda financiera neta (M€)",
-     "valor": 38.295
-    },
-    {
-     "nombre": "DFN / EBITDA (x)",
-     "valor": 0.55
-    }
-   ],
-   "origen": "metodo-antiguo (periodo que el v3 aún no lee)"
   },
   {
    "periodo": "2025-Q4",
@@ -483,7 +165,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +10,7 %, EBITDA +28,7 %, beneficio neto +44,3 %, margen 18,4 % (+2,57 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +10,7 %, EBITDA +28,7 %, beneficio neto +44,3 % y margen 18,4 % (+2,57 pp). Nada que corregir.",
+   "resumen": "Ingresos +10,7 %, EBITDA +28,7 %, beneficio neto +44,3 %, margen 18,4 % (+2,57 pp), volumen de tabaco en Iberia +1,2 x frente al mismo periodo del año anterior. Verde: nada que señalar. Verde: ingresos +10,7 %, EBITDA +28,7 %, beneficio neto +44,3 % y margen 18,4 % (+2,57 pp). Nada que corregir.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -508,6 +190,14 @@
     {
      "nombre": "Deuda neta",
      "valor": 98.6
+    },
+    {
+     "nombre": "Book-to-bill",
+     "valor": 1.2
+    },
+    {
+     "nombre": "Cartera",
+     "valor": 417.0
     }
    ],
    "hechos": [],

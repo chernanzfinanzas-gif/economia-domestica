@@ -1,0 +1,81 @@
+{
+ "schemaVersion": 2,
+ "ticker": "PHM",
+ "empresa": "Pharma Mar, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-18",
+ "revisiones": [
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +19,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 37.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,0 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 130,9 M€ y beneficio de 15,3 M€, con 37,7 M€ de ingresos no recurrentes y subvenciones (21 M€ del cobro inicial de Merck por Japón y 16,7 M€ de la subvención europea IPCEI a Sylentis).\n\n**Por qué** — Los hitos y la subvención sostienen el resultado; el negocio recurrente crece.\n\n**Semáforo** — Ámbar: el beneficio depende de cobros que no se repiten.\n\n**Qué vigilar** — La aprobación de Zepzelca en primera línea de mantenimiento en EE. UU. (llegó en octubre).\n\n**Lectura** — Sin hitos y sin la subvención, el 9M-2025 habría estado en pérdidas: es el patrón de la empresa.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 131.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,0 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos totales de 42,9 M€ (+10 %) y recurrentes de 40,5 M€ (+7 %); EBITDA de 2,7 M€ y beneficio de 1,5 M€ (pérdidas de 3,9 M€ un año antes). Caja de 168,5 M€ y deuda de 44,7 M€.\n\n**Por qué** — Zepzelca en Europa +16,1 %; sin hitos grandes.\n\n**Semáforo** — Verde: mejora frente al 1T de 2025.\n\n**Qué vigilar** — LAGOON (segunda línea), con resultados a mitad de año.\n\n**Lectura** — Primer trimestre sin cobros puntuales en positivo: la base recurrente empieza a cubrir los gastos.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 40.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +12,0 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 146,9 M€ (+12 %); recurrentes de 137,4 M€ (+30 %): ventas 75,1 M€ (+20,4 %) y royalties 62,4 M€ (+44,4 %), de ellos 51,3 M€ de Zepzelca en EE. UU. (+56 %). No recurrentes 9,5 M€ (25,3 un año antes). EBITDA de 13,3 M€ y beneficio de 8,7 M€ (15,3). Caja e inversiones de 176,9 M€, deuda de 67,1 M€ (préstamo de 25 M€ en julio), caja neta de 109,8 M€.\n\n**Por qué** — La primera línea en EE. UU. y los lanzamientos en Alemania y Austria empujan los ingresos recurrentes; sin hitos ni subvención, el beneficio baja. El I+D sube a 72,1 M€ (+3 %) por SaLuDo, PM54 y PM534.\n\n**Semáforo** — Verde: lo recurrente crece con fuerza; el beneficio baja por falta de cobros puntuales, no por el negocio.\n\n**Qué vigilar** — Los royalties del 3T son estimados (Jazz aún no había publicado). SaLuDo, en el primer semestre de 2027.\n\n**Lectura** — El trimestre más importante del año: confirma que la primera línea en EE. UU. empuja los royalties (+56 %). Si el 4T sigue, 2026 será el mejor año recurrente de su historia aunque gane menos que 2025.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 147.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

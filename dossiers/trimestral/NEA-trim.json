@@ -3,7 +3,7 @@
  "ticker": "NEA",
  "empresa": "Nicolás Correa, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-14",
+ "generado": "2026-11-18",
  "revisiones": [
   {
    "periodo": "2022-Q2",
@@ -241,7 +241,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -5,1 %, EBITDA -5,3 %, beneficio neto -9,7 %, margen 14,6 % (-0,02 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "resumen": "Ingresos -5,1 %, EBITDA -5,3 %, beneficio neto -9,7 %, margen 14,6 % (-0,02 pp), volumen de tabaco en Iberia +1,0 x frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -266,6 +266,14 @@
     {
      "nombre": "Deuda neta",
      "valor": -12.1
+    },
+    {
+     "nombre": "Book-to-bill",
+     "valor": 1.0
+    },
+    {
+     "nombre": "Cartera",
+     "valor": 80.7
     }
    ],
    "hechos": [],
@@ -317,7 +325,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "R",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +9,8 %, EBITDA -11,4 %, beneficio neto +3,1 %, margen 11,8 % (-2,81 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo por margen: ventas +9,8 % (casi todo por la entrada de Correa Kunming; sin ella, planas), EBITDA −11,4 % y margen del 11,8 % (−2,8 puntos). La empresa habla de «creciente presión sobre los márgenes del sector». En contra del rojo: captación de pedidos +57 % (+44 % comparable) y cartera récord de 126,5 M€. S2 atendida en este análisis inicial: el precio ya cuenta con el margen bajo (riesgo 2) y la decisión es ESPERAR.",
+   "resumen": "Ingresos +9,8 %, EBITDA -11,4 %, beneficio neto +3,1 %, margen 11,8 % (-2,81 pp), volumen de tabaco en Iberia +1,5 x frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Rojo por margen: ventas +9,8 % (casi todo por la entrada de Correa Kunming; sin ella, planas), EBITDA −11,4 % y margen del 11,8 % (−2,8 puntos). La empresa habla de «creciente presión sobre los márgenes del sector». En contra del rojo: captación de pedidos +57 % (+44 % comparable) y cartera récord de 126,5 M€. S2 atendida en este análisis inicial: el precio ya cuenta con el margen bajo (riesgo 2) y la decisión es ESPERAR.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -342,6 +350,14 @@
     {
      "nombre": "Deuda neta",
      "valor": -15.3
+    },
+    {
+     "nombre": "Book-to-bill",
+     "valor": 1.5
+    },
+    {
+     "nombre": "Cartera",
+     "valor": 126.0
     }
    ],
    "hechos": [],

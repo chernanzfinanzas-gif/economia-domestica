@@ -1,0 +1,225 @@
+{
+ "schemaVersion": 2,
+ "ticker": "FER",
+ "empresa": "Ferrovial, S.A. (antigua matriz española)",
+ "origen": "metodo-v3",
+ "generado": "2026-11-18",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,0 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1394.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2021-9M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,7 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4807.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,5 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1573.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,5 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5446.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +12,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1805.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,4 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 2.059 M€ (+7 %) y beneficio atribuido de 366 M€, con la plusvalía de la venta de AGS.\n\n**Por qué** — Autopistas y construcción crecen; el beneficio lo hincha una venta de activo.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — Que el beneficio sin ventas de activos siga la caja.\n\n**Lectura** — Trimestre de plusvalía: el dato que cuenta es el EBITDA, no el beneficio.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2059.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,7 %, EBITDA ajustado +8,6 %, beneficio atribuido +30,4 %, margen 14,7 % (+0,52 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 4.469 M€ (+4,7 %), EBITDA ajustado de 655 M€ (+8,6 %) y beneficio atribuido de 540 M€ (414 un año antes).\n\n**Por qué** — La plusvalía de AGS (272 M€ en el año) y las tarifas de las autopistas.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — La compra del 5,06 % de la 407 ETR en junio (1.271 M€), pagada con caja.\n\n**Lectura** — Más 407 ETR (compra de junio) y menos aeropuertos (salida de Heathrow y AGS): Ferrovial se convierte en una empresa de autopistas norteamericanas con constructora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4469.0
+    },
+    {
+     "nombre": "EBITDA ajustado",
+     "valor": 655.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.7
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 540.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,9 %, beneficio atribuido -81,1 % frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales. Corrección del analista: el beneficio del 1T-2025 llevaba la plusvalía de AGS; ventas y margen suben **Qué ha pasado** — Ingresos de 2.098 M€ (+1,9 %), EBITDA ajustado de 321 M€ (+4 %) y beneficio atribuido de 69 M€ (366 un año antes, con AGS).\n\n**Por qué** — La caída del beneficio es la plusvalía de AGS del 1T de 2025; el negocio crece.\n\n**Semáforo** — Verde en ventas y margen; el beneficio no es comparable.\n\n**Qué vigilar** — El tráfico de la 407 ETR, que se enfría.\n\n**Lectura** — Comparación limpia en ventas y EBITDA; el beneficio no se compara con el de 2025.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2098.0
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 69.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,2 %, EBITDA ajustado +13,9 %, beneficio atribuido -52,2 %, margen 15,9 % (+1,21 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales. Corrección del analista: el beneficio del S1-2025 llevaba la plusvalía de AGS; ventas y margen suben **Qué ha pasado** — Ingresos de 4.701 M€ (+5,2 %; +11,3 % comparable), EBITDA ajustado de 746 M€ (+13,9 %) y beneficio atribuido de 258 M€ (540). 407 ETR: ingresos +18,7 % y EBITDA +24,4 % con el tráfico +1,8 %. Construcción con margen EBIT ajustado del 3,5 %. Caja neta de la matriz de 1.307 M€.\n\n**Por qué** — Tarifas arriba en todas las autopistas; el beneficio de 2025 llevaba AGS.\n\n**Semáforo** — Verde en el negocio.\n\n**Qué vigilar** — El JFK NTO presenta un plan de remedio y lleva la primera fase a marzo de 2027.\n\n**Lectura** — Las tarifas compensan un tráfico plano; la única nota mala es el JFK, que acumula su segundo retraso.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4701.0
+    },
+    {
+     "nombre": "EBITDA ajustado",
+     "valor": 746.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 15.9
+    },
+    {
+     "nombre": "Beneficio atribuido",
+     "valor": 258.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,1 %, EBITDA ajustado +17,4 %, margen 16,3 % (+1,43 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 7.402 M€ (+7,1 %; +10,8 % comparable) y EBITDA ajustado de 1.210 M€ (+17,4 %; +21,8 % comparable). 407 ETR: ingresos +18,4 % con el tráfico −1,7 % (−7,1 % en el 3T) y 2.100 M CAD de dividendos aprobados en 2026 (1.500 en 2025). Managed lanes: ingreso por viaje +10 % a +17 %. Construcción: margen del 4,1 % y cartera récord de 19.000 M€. Caja neta de la matriz de 1.660 M€. Adjudicaciones de la I-24 (Tennessee), la I-285 (Georgia) y la D35 (Chequia). Este informe es operativo: no da beneficio neto.\n\n**Por qué** — Las tarifas compensan la caída del tráfico.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — Que el tráfico de la 407 ETR no siga bajando (−7,1 % en el 3T) y la apertura del JFK en marzo de 2027.\n\n**Lectura** — La 407 ETR sube tarifas con el tráfico a la baja: sostenible mientras el gobierno de Ontario no intervenga. Es lo primero a vigilar en 2027.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 7402.0
+    },
+    {
+     "nombre": "EBITDA ajustado",
+     "valor": 1210.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

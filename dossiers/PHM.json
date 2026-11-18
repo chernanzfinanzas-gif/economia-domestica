@@ -1,0 +1,126 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "PHM",
+ "empresa": "Pharma Mar, S.A.",
+ "fecha": "2026-11-17",
+ "revisadoEl": "2026-11-18",
+ "rating": "A",
+ "score": 65.8,
+ "decision": "MANTENER",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 30 % · DCF optimista 10 % · EV/EBITDA 9 % · EV/EBIT 9 % · PER 11 % · P/VC 7 % · P/FCL 9 % · rentabilidad por dividendo 5 % · flujo base del DCF: owner earnings",
+ "poBear": 45.6,
+ "poBase": 68.38,
+ "poBull": 90.75,
+ "entMin": 45.6,
+ "entMax": 59.46,
+ "stop": 23.49,
+ "dpaPrevisto": 1.0,
+ "moat": "23,0 sobre 100 · SIN MOAT CLARO. Sin ajuste: la ventaja (patentes) es real pero no se ve en una rentabilidad estable",
+ "catalizadores": [
+  "Zepzelca en primera línea en EE. UU.: Aprobada en octubre de 2025 en mantenimiento de primera línea con atezolizumab. Los royalties de EE. UU. suman 51,3 M€ en nueve meses de 2026 (+56 %), lo mismo que en todo 2025 (51,6 M€). Si el cuarto trimestre repite, el año cierra en unos 68 M€: 17 M€ más de EBITDA. (12 meses)",
+  "Ventas propias de Zepzelca en Europa: Lanzada en Alemania y Austria en julio de 2026, además de Suiza: 14,9 M€ en nueve meses (+54,7 %). Con más países y un año completo, 15-20 M€ más de ventas; al margen bruto de la venta de producto, unos 8 M€ más de EBITDA. (12-24 meses)",
+  "SaLuDo positivo: Fase III de lurbinectedina con doxorrubicina en primera línea de leiomiosarcoma; reclutamiento cerrado en mayo de 2026 y resultados en el primer semestre de 2027. Un resultado positivo abre una indicación nueva y, con ella, hitos de los socios: el mercado pagaría un 10 % más. (6-12 meses)"
+ ],
+ "riesgos": [
+  "Zepzelca deja de crecer en EE. UU. (Media-Alta): Los royalties de Zepzelca en EE. UU. (51,6 M€ en 2025, el 36 % de los ingresos recurrentes) dependen de las ventas de Jazz en cáncer de pulmón microcítico, donde hay fármacos nuevos que compiten por las mismas líneas. LAGOON (segunda línea) fracasó en junio de 2026: el crecimiento depende de la primera línea de mantenimiento. Suave: royalties −30 % (−15 M€). Duro: −50 % (−26 M€).",
+  "Años sin cobros por licencias (Alta): En 2025 entraron 77,8 M€ por licencias e hitos; en 2023 casi nada, y el margen EBITDA fue del 1 %. El beneficio de cada año depende de que caiga un hito. Un año suelto sin hitos es caja que se gasta una vez; lo grave es que dejen de llegar. Suave: un año sin licencias (40 M€ de caja menos, una vez). Duro: las licencias caen a la mitad de lo cobrado en 2024-2025 (46,5 y 77,8 M€: media de 62 M€) para siempre (−31 M€ al año).",
+  "SaLuDo negativo en leiomiosarcoma (Media): El siguiente ensayo de fase III de lurbinectedina (con doxorrubicina, primera línea de leiomiosarcoma) da resultados en el primer semestre de 2027. Si fracasa como LAGOON, la cartera cercana se queda en PM54 y PM534 (fase I/II) y el mercado deja de pagar por indicaciones nuevas. Suave: −10 % de múltiplo. Duro: −20 %.",
+  "Dependencia de Jazz (Media): Jazz Pharmaceuticals vende Zepzelca en EE. UU. y paga royalties e hitos a la filial irlandesa (cuentas de 2025). Un socio que prioriza otros productos, o una disputa del contrato, golpea los royalties sin que PharmaMar pueda hacer nada. Suave: −10 M€. Duro: −20 M€.",
+  "Consumo de caja por el I+D (Media): El I+D cuesta 95 M€ al año y no baja aunque no lleguen hitos. En 2023 la caja neta cayó 64 M€ en un año (dividendo y recompras incluidos). Suave: un año así (+60 M€ de deuda neta). Duro: dos años (+120 M€), con la caja neta casi agotada.",
+  "Precios y reembolsos en Europa (Media): Las ventas propias en Europa (79,7 M€ en 2025) dependen de precios negociados con cada sistema de salud; en Francia hay 16,8 M€ provisionados para devolver por el acceso anticipado. Suave: −5 M€. Duro: −12 M€.",
+  "Gobierno muy ligado al fundador (Baja-Media): El presidente, José María Fernández Sousa-Faro, controla el 11,5 % (directo y por su cónyuge, también consejera; cuentas de 2025). En 2019 la química de consumo (Zelnova Zeltia) se vendió a sociedades participadas por el consejero y hoy vicepresidente Pedro Fernández Puentes y personas vinculadas a él (cuentas de 2020). Decisiones de capital pueden priorizar la cartera de I+D sobre el accionista. Suave: −5 % de múltiplo. Duro: −10 %.",
+  "Ingresos estimados y reconocimiento de hitos (Baja): Los royalties del último trimestre se registran estimados porque Jazz no ha publicado aún sus ventas (nota del 9M-2026), y los hitos se reconocen de una vez. Una corrección o un hito que se retrasa mueve el resultado. Suave: −3 M€. Duro: −8 M€."
+ ],
+ "bull": "90,75 € — escenario optimista: SaLuDo positivo en leiomiosarcoma (resultados en el primer semestre de 2027) y Japón con Merck: Zepzelca crece en indicaciones y países",
+ "bear": "45,60 € — escenario pesimista: Sin cobros por licencias y con competencia en cáncer de pulmón microcítico: los royalties de Zepzelca dejan de crecer tras el fracaso de LAGOON en segunda línea",
+ "resumen": "MANTENER. Para quien ya la tenga, la tesis sigue viva: Zepzelca crece en EE. UU. tras la primera línea (+56 % en royalties) y en Europa, y la caja neta (110-121 M€) da tiempo. Para entrar no: la cotización (64,25 €) está un 8 % por encima del techo de la banda (59,46 €), el margen de seguridad es del 6 % (se exige 15 %) y el moat medido (23) no llega al mínimo de 45. Bull 90,75 € (los tres catalizadores), bear 45,60 € (licencias a la mitad), stop de tesis 23,49 €. La decisión depende de dos hechos con fecha: los royalties de 2026 (febrero de 2027) y SaLuDo (primer semestre de 2027).",
+ "dividendSafety": {
+  "score": 98,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 13,
+   "C3": 20,
+   "C4": 15,
+   "C5": 15
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 2.75x · payout 42 % · 0 recorte(s) del DPA"
+  ],
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3",
+  "shareholderYield": 3.95
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 0,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 8.01,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -1.91,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": 5.9,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 3.15,
+  "gIntrinseco": 37.5,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (≤ g intrínseco 37.5 %)",
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 50.855,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 17.4386,
+   "deudaNeta": -121.212,
+   "modo": "EV",
+   "precioBase": 64.25,
+   "gBase": 3.15,
+   "fechaBase": "2026-11-17",
+   "congeladoEl": "2026-11-18",
+   "validado": true,
+   "desviacion": 0.0
+  }
+ }
+}

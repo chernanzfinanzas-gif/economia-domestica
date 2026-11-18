@@ -1,0 +1,128 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "FER",
+ "empresa": "Ferrovial, S.A. (antigua matriz española)",
+ "fecha": "2026-11-18",
+ "revisadoEl": "2026-11-18",
+ "rating": "A",
+ "score": 65.4,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): sotp 100 % · flujo base del DCF: owner earnings",
+ "poBear": 29.63,
+ "poBase": 37.04,
+ "poBull": 40.75,
+ "entMin": 29.63,
+ "entMax": 32.21,
+ "stop": 23.36,
+ "dpaPrevisto": 1.1117,
+ "moat": "48,0 sobre 100 · MOAT ESTRECHO. +25: concesiones de autopista con tarifa libre a decenios (407 ETR hasta 2098)",
+ "catalizadores": [
+  "Las autopistas de EE. UU. siguen subiendo tarifa: Las managed lanes crecieron entre un 8 % y un 22 % en dólares en 2025 (20-F) y en los nueve primeros meses de 2026 repartieron 420 M$ al 100 % frente a 345 M$ un año antes (+22 %). Si los dividendos de los proyectos consolidados suben un 10 % (de 466 a 513 M€), la pieza vale 1.251 M€ más a la misma rentabilidad. (12 meses)",
+  "Apertura del JFK New Terminal One: Hoy se cuenta a coste (976 M€). Abierta y cobrando, una terminal así se valora por sus flujos; se toma un 50 % más (+488 M€). (6-18 meses)",
+  "La 407 ETR sigue al ritmo de 2025: Ingresos +18,4 % en los nueve primeros meses de 2026 y dividendos aprobados de 2.100 M CAD en 2026 frente a 1.500 M en 2025 (+40 %, al 100 %). El método solo toma +10 % sobre la pieza (+1.213 M€), porque la 407 ETR se valora al precio de compra de 2025. (12 meses)"
+ ],
+ "riesgos": [
+  "407 ETR: peajes bajo presión política (Media): La 407 ETR (12.132 M€, el 42 % de las piezas) sube tarifas cada año (+17,8 % de ingresos en 2025). Una limitación de tarifas por el gobierno de Ontario o una caída del tráfico recortaría los dividendos (452 M€ en 2025). Suave: −20 % de su valor. Duro: −35 %.",
+  "Autopistas de EE. UU.: tráfico y tarifas (Media): Las managed lanes (12.508 M€) cobran por congestión: una recesión o el teletrabajo bajan el tráfico y la tarifa dinámica. Suave: −15 %. Duro: −30 %.",
+  "Tipos de interés (Media-Alta): Las concesiones a decenios se valoran como bonos largos: si sube la rentabilidad que se exige (la pieza de EE. UU. va al 3,7 %), baja su valor. Suave: −10 % de múltiplo. Duro: −20 %.",
+  "Divisas: dólar y dólar canadiense (Media): Casi todo el valor está en Canadá y EE. UU. y la acción cotiza en euros. Suave: −8 %. Duro: −15 %.",
+  "JFK New Terminal One (Media): Terminal en construcción (49 %, 976 M€ a coste); la primera fase ya se ha retrasado dos veces y ahora va a marzo de 2027, sujeta a que el contratista cumpla su plan de remedio (resultados 9M 2026). Suave: −50 % de su valor. Duro: se pierde entera.",
+  "Construcción: pérdidas en contratos (Media): La construcción (7.653 M€ de ventas) trabaja con márgenes de pocos puntos; un contrato mal presupuestado consume caja de la matriz. Suave: −300 M€. Duro: −600 M€.",
+  "Budimex y Polonia (Baja-Media): Budimex (2.153 M€) depende de la obra pública polaca y del entorno de la guerra en Ucrania, que el 20-F cita como riesgo. Suave: −30 % en bolsa. Duro: −50 %.",
+  "Gobierno y estructura (Baja): La familia del Pino controla en torno al 31 % (20-F 2025) y la sede está en los Países Bajos desde 2023; decisiones de capital (compras caras, más dividendo en acciones) pueden no ir con el minoritario. Suave: −3 %. Duro: −6 %."
+ ],
+ "bull": "40,75 € — escenario optimista: ",
+ "bear": "29,63 € — escenario pesimista: ",
+ "resumen": "ESPERAR. Ferrovial es una empresa de calidad (rating A, moat de 48 con el ajuste de las concesiones) y sus autopistas van muy bien en 2026 (la 407 ETR ha aprobado 2.100 M CAD de dividendos frente a 1.500 en 2025), pero la cotización (55,42 €) está un 72 % por encima del techo de la banda (32,21 €). Precio objetivo 37,04 €, bull 40,75 €, bear 29,63 €, stop de tesis 23,36 €. Para que salga COMPRAR haría falta o una caída del precio a la banda, o aceptar que las concesiones valen al 2-3 % de rentabilidad (decisión de método, no de esta empresa).",
+ "dividendSafety": {
+  "score": 49,
+  "banda": "Vigilar",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 27,
+   "C2": 4,
+   "C3": 6,
+   "C4": 9,
+   "C5": 3
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Vigilar: cobertura OE 1.78x · payout 90 % · 1 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
+  ],
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3",
+  "shareholderYield": 3.27
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 1.5,
+   "zona": "gris"
+  },
+  "beneish": {
+   "m": -2.65,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -3.7,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=1.5 en zona gris"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 14.49,
+  "gIntrinseco": 8.89,
+  "veredicto": "HEROICO",
+  "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
+  "calculadoEl": "2026-11-18",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 1037.0,
+   "wacc": 7.2701,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 716.129,
+   "deudaNeta": 6156.0,
+   "modo": "EV",
+   "precioBase": 55.42,
+   "gBase": 17.5,
+   "fechaBase": "2026-11-17",
+   "congeladoEl": "2026-11-18",
+   "validado": false,
+   "desviacion": 3.0
+  }
+ }
+}

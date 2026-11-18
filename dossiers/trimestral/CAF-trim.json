@@ -1,0 +1,291 @@
+{
+ "schemaVersion": 2,
+ "ticker": "CAF",
+ "empresa": "Construcciones y Auxiliar de Ferrocarriles, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-18",
+ "revisiones": [
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +11,2 %, EBIT +2,9 %, resultado neto +23,5 %, margen 4,8 % (-0,38 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 736.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 35.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 4.8
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 21.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +7,7 %, EBIT -11,8 %, resultado neto -39,0 %, margen 4,4 % (-0,98 pp) frente al mismo periodo del año anterior. Ámbar por: EBIT a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 2190.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 97.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 4.4
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 36.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +29,3 %, EBIT +22,9 %, resultado neto +0,0 %, margen 4,5 % (-0,24 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 952.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 43.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 4.5
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 21.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +24,8 %, EBIT +32,0 %, resultado neto +52,8 %, margen 4,7 % (+0,25 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 2735.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 128.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 4.7
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 55.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +5,9 %, EBIT +9,3 %, resultado neto +19,0 %, margen 4,7 % (+0,15 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1008.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 47.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 4.7
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 25.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +10,9 %, EBIT +21,3 %, resultado neto +52,0 %, margen 5,1 % (+0,44 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 1.118 M€ (+11 %), EBIT de 57 M€ (+21 %) y beneficio de 38 M€ (25 un año antes).\n\n**Por qué** — Más actividad y mejor margen.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — El margen de autobuses.\n\n**Lectura** — Primer trimestre de un año que acabó cumpliendo todos los objetivos.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1118.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 57.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 5.1
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 38.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +8,5 %, EBIT +17,5 %, resultado neto +62,5 %, margen 5,1 % (+0,39 pp), volumen de tabaco en Iberia +1,3 x frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 3.165 M€ (+8 %), EBIT de 161 M€ (+18 %) y beneficio de 104 M€ (64).\n\n**Por qué** — Solaris acelera y el resultado financiero mejora.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — El circulante del cuarto trimestre.\n\n**Lectura** — El beneficio crece el doble que las ventas: menos gasto financiero y mejor margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 3165.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 161.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 5.1
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 104.0
+    },
+    {
+     "nombre": "Book-to-bill",
+     "valor": 1.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +3,6 %, EBIT +10,5 %, resultado neto +7,9 %, margen 5,4 % (+0,34 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 1.158 M€ (+4 %), EBIT de 63 M€ (+11 %) y beneficio de 41 M€ (38).\n\n**Por qué** — Crece menos que en 2025 pero con mejor margen; entra el contrato de SNCB en la cartera.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — Que la contratación de autobuses no siga cayendo.\n\n**Lectura** — Trimestre tranquilo; lo importante es la contratación (SNCB entra en cartera).",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 1158.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 63.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 5.4
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 41.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +15,3 %, EBIT +29,2 %, resultado neto +28,8 %, margen 5,7 % (+0,61 pp), volumen de tabaco en Iberia +1,4 x frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 3.649 M€ (+15 %), EBIT de 208 M€ (+29 %, margen del 5,7 %) y beneficio atribuido de 131 M€ (+30 %). Contratación de 4.916 M€ (book-to-bill 1,3; ferroviario 1,7, autobuses 0,7) y cartera de 17.502 M€ (+8 % en el año). Autobuses +57 %, ferroviario +3 %. El 10 de noviembre el consejo aprobó el plan 2027-2030, que se presenta el 22 de diciembre. Mantiene las perspectivas de 2026: ventas con crecimiento de un dígito alto y mejor margen.\n\n**Por qué** — Solaris entrega un 49 % más de autobuses y a mejor precio.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — La cartera de autobuses baja un 16 % (se ejecuta más de lo que se contrata) y la propia CAF espera que su crecimiento se modere a final de año.\n\n**Lectura** — Los autobuses tiran de las ventas y del margen; el ferroviario crece poco pero contrata mucho (book-to-bill 1,7): el relevo en 2027-2028 lo tendrá que dar el ferroviario.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 3649.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 208.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 5.7
+    },
+    {
+     "nombre": "Resultado neto",
+     "valor": 134.0
+    },
+    {
+     "nombre": "Book-to-bill",
+     "valor": 1.4
+    },
+    {
+     "nombre": "Cartera",
+     "valor": 17502.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

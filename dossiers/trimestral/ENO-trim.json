@@ -3,7 +3,7 @@
  "ticker": "ENO",
  "empresa": "Elecnor, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-14",
+ "generado": "2026-11-18",
  "revisiones": [
   {
    "periodo": "2022-Q1",
@@ -423,7 +423,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +16,8 %, EBITDA +86,0 %, beneficio neto -94,1 %, margen 5,6 % (+2,08 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "resumen": "Ingresos +16,8 %, EBITDA +86,0 %, beneficio neto -94,1 %, margen 5,6 % (+2,08 pp), volumen de tabaco en Iberia +5,7 % frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -448,6 +448,14 @@
     {
      "nombre": "Deuda neta",
      "valor": -28.3
+    },
+    {
+     "nombre": "Cartera vs cierre",
+     "valor": 5.7
+    },
+    {
+     "nombre": "Cartera",
+     "valor": 2864.0
     }
    ],
    "hechos": [],
@@ -529,11 +537,19 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +3,7 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +3,7 %, volumen de tabaco en Iberia +5,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
    "metricas": [
     {
      "nombre": "Ingresos",
      "valor": 931.0
+    },
+    {
+     "nombre": "Cartera vs cierre",
+     "valor": 5.4
+    },
+    {
+     "nombre": "Cartera",
+     "valor": 2998.0
     }
    ],
    "hechos": [],
@@ -547,7 +563,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -0,2 %, EBITDA +28,4 %, beneficio neto +35,7 %, margen 7,2 % (+1,60 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "resumen": "Ingresos -0,2 %, EBITDA +28,4 %, beneficio neto +35,7 %, margen 7,2 % (+1,60 pp), volumen de tabaco en Iberia +5,6 % frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -572,6 +588,14 @@
     {
      "nombre": "Deuda neta",
      "valor": -220.0
+    },
+    {
+     "nombre": "Cartera vs cierre",
+     "valor": 5.6
+    },
+    {
+     "nombre": "Cartera",
+     "valor": 3002.0
     }
    ],
    "hechos": [],
@@ -585,7 +609,7 @@
    "fechaOrigen": "cierre",
    "semaforoGlobal": "V",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos -0,2 %, EBITDA +16,4 %, margen 6,9 % (+0,98 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. Verde: ventas planas (3.143,2 M€, −0,2 %), EBITDA +16,4 % (215,8 M€) y beneficio +27,3 % (102,9 M€). Servicios crece un 14 % en ventas; Proyectos cae un 15,7 % en ventas pero gana margen (EBITDA +38 %). Cartera a 12 meses de 2.990,5 M€.",
+   "resumen": "Ingresos -0,2 %, EBITDA +16,4 %, margen 6,9 % (+0,98 pp), volumen de tabaco en Iberia +5,1 % frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. Verde: ventas planas (3.143,2 M€, −0,2 %), EBITDA +16,4 % (215,8 M€) y beneficio +27,3 % (102,9 M€). Servicios crece un 14 % en ventas; Proyectos cae un 15,7 % en ventas pero gana margen (EBITDA +38 %). Cartera a 12 meses de 2.990,5 M€.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -598,6 +622,14 @@
     {
      "nombre": "Margen EBITDA",
      "valor": 6.9
+    },
+    {
+     "nombre": "Cartera vs cierre",
+     "valor": 5.1
+    },
+    {
+     "nombre": "Cartera",
+     "valor": 2990.0
     }
    ],
    "hechos": [],

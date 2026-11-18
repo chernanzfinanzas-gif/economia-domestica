@@ -1,7 +1,7 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
  "ticker": "ART",
  "empresa": "Arteche Lantegi Elkartea, S.A.",
  "fecha": "2026-11-09",
@@ -55,7 +55,7 @@
   "motivos": [
    "Muy seguro: cobertura OE 2.10x · payout 49 % · 1 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3",
   "shareholderYield": 1.74
  },
@@ -96,16 +96,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 25.53,
+  "gImplicito": 24.74,
   "gIntrinseco": 21.18,
   "veredicto": "EXIGENTE",
   "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 21.2 %)",
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-18",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 20.1074,
@@ -115,12 +115,12 @@
    "acciones": 57.09,
    "deudaNeta": 81.961,
    "modo": "EV",
-   "precioBase": 29.0,
+   "precioBase": 27.5,
    "gBase": 30.0,
-   "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-14",
+   "fechaBase": "2026-11-17",
+   "congeladoEl": "2026-11-18",
    "validado": false,
-   "desviacion": 4.47
+   "desviacion": 5.26
   }
  }
 }
