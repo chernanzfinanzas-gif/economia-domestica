@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-18T07:49",
+ "generado": "2026-11-18T13:50",
  "eur_usd": {
   "v": 1.1244,
   "f": "2026-10-16",
@@ -818,7 +818,7 @@
    "modulos": [
     "PATRIMONIOS"
    ],
-   "grupo": "universo",
+   "grupo": "analizada",
    "descripcion": "Banca de Inversión/M&A",
    "n_anios": 11,
    "avisos": [],
@@ -867,7 +867,7 @@
    "ev_ebitda": 11.120110936211681,
    "fcf_yield": 0.11105953532372727,
    "etiquetas": [],
-   "estado": "universo",
+   "estado": "analizada",
    "puntos": {
     "total": 69.3,
     "dividendo": 66,
@@ -4454,7 +4454,7 @@
    "modulos": [
     "CICLICA"
    ],
-   "grupo": "universo",
+   "grupo": "analizada",
    "descripcion": "Papel / Energía",
    "n_anios": 11,
    "avisos": [],
@@ -4503,7 +4503,7 @@
    "ev_ebitda": 3.5287052517702597,
    "fcf_yield": 0.021256235920261882,
    "etiquetas": [],
-   "estado": "universo",
+   "estado": "analizada",
    "puntos": {
     "total": 58.8,
     "dividendo": 61,
