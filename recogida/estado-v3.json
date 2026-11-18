@@ -1,14 +1,167 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-18T10:45",
+ "generado": "2026-11-18T13:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
+  {
+   "carpeta": "A3M reglas extraordinarios y cíclicas",
+   "ticker": "A3M",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "ACS reglas extraordinarios y cíclicas",
+   "ticker": "ACS",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "ACX reglas extraordinarios y cíclicas",
+   "ticker": "ACX",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "AENA reglas extraordinarios y cíclicas",
+   "ticker": "AENA",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
   {
    "carpeta": "ALNT análisis inicial",
    "ticker": "ALNT",
    "periodos": [],
    "tipo": "inicial",
    "creada": "2026-11-18T10:06+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "AMS reglas extraordinarios y cíclicas",
+   "ticker": "AMS",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "AZK reglas extraordinarios y cíclicas",
+   "ticker": "AZK",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "CAF reglas extraordinarios y cíclicas",
+   "ticker": "CAF",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "CASH reglas extraordinarios y cíclicas",
+   "ticker": "CASH",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "CIE reglas extraordinarios y cíclicas",
+   "ticker": "CIE",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "EBRO reglas extraordinarios y cíclicas",
+   "ticker": "EBRO",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "ELE reglas extraordinarios y cíclicas",
+   "ticker": "ELE",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "ENG reglas extraordinarios y cíclicas",
+   "ticker": "ENG",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "ENO reglas extraordinarios y cíclicas",
+   "ticker": "ENO",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "FAE reglas extraordinarios y cíclicas",
+   "ticker": "FAE",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "FDR reglas extraordinarios y cíclicas",
+   "ticker": "FDR",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "GEST reglas extraordinarios y cíclicas",
+   "ticker": "GEST",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "IBE reglas extraordinarios y cíclicas",
+   "ticker": "IBE",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
    "semaforo": null,
    "frase": null
   },
@@ -20,9 +173,108 @@
    "creada": "2026-11-18T09:53+01:00",
    "semaforo": null,
    "frase": null
+  },
+  {
+   "carpeta": "ITX reglas extraordinarios y cíclicas",
+   "ticker": "ITX",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "LOG reglas extraordinarios y cíclicas",
+   "ticker": "LOG",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "NEA reglas extraordinarios y cíclicas",
+   "ticker": "NEA",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "NTGY reglas extraordinarios y cíclicas",
+   "ticker": "NTGY",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "PHM reglas extraordinarios y cíclicas",
+   "ticker": "PHM",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "PSG reglas extraordinarios y cíclicas",
+   "ticker": "PSG",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "RED reglas extraordinarios y cíclicas",
+   "ticker": "RED",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "REP reglas extraordinarios y cíclicas",
+   "ticker": "REP",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "TEF reglas extraordinarios y cíclicas",
+   "ticker": "TEF",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "VID reglas extraordinarios y cíclicas",
+   "ticker": "VID",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "VIS reglas extraordinarios y cíclicas",
+   "ticker": "VIS",
+   "periodos": [],
+   "tipo": "metodo",
+   "creada": "2026-11-18T13:38+01:00",
+   "semaforo": null,
+   "frase": null
   }
  ],
- "n_pendientes": 2,
+ "n_pendientes": 30,
  "ultima_subida": {
   "cuando": "2026-11-18T10:45",
   "ficheros": [
