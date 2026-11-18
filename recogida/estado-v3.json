@@ -1,9 +1,103 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-18T18:47",
+ "generado": "2026-11-18T19:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "IBE señales 2026-11-18",
+   "ticker": "IBE",
+   "periodos": [],
+   "tipo": "senales",
+   "creada": "2026-11-18T18:52",
+   "semaforo": null,
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 22,60 €, un 20,2 % sobre el PO (18,80 €) y un 4,5 % sobre el PO bull (21,62 €). La señal salta porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (el PO pasa de 19,87 a 18,80 € y ",
+   "senales": [
+    {
+     "senal": "S3",
+     "motivo": "cotización ≥ PO bull 21.62 €: salida parcial razonable, revisar el PO",
+     "desde": "2026-11-18"
+    }
+   ],
+   "propuesta": [
+    {
+     "senal": "S3",
+     "decision": "REAFIRMAR",
+     "motivo": "Cotiza a 22,60 €, un 20,2 % sobre el PO (18,80 €) y un 4,5 % sobre el PO bull (21,62 €). La señal salta porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (el PO pasa de 19,87 a 18,80 € y el bull de 22,71 a 21,62 €), no por un deterioro: el semáforo de empresa sigue en VERDE hasta el 9M-2026 (ventas +6,2 %, beneficio neto +9,6 %; EBITDA −0,7 % y margen −2,4 pp). Al estar poco por encima del bull y con los resultados acompañando, REAFIRMAR el ESPERAR (no comprar más); si se aleja claramente del bull o el semáforo empeora, salida parcial. Propuesta del pase de señales del método v3."
+    }
+   ],
+   "datos": [
+    "Decisión vigente de la tesis: ESPERAR",
+    "Cotización 22,60 € · PO bear 17,48 € · PO 18,80 € · PO bull 21,62 € · 20,2 % sobre el PO",
+    "Banda de entrada 14,88–16,35 € · stop 13,53 €",
+    "Semáforo de empresa: VERDE · revisado hasta 2026-9M",
+    "Tesis escrita el 2026-10-27 · valoración generada el 2026-11-18",
+    "Última revisión · 2026-9M · Cifra de ventas +6,2 %, EBITDA -0,7 %, beneficio neto +9,6 %, margen 34,6 % (-2,40 pp) frente al mismo periodo del año anterior. Margen EBITDA: 34,6 %. Ámbar por: EBITDA a la baja, el margen empeora, caída de ben"
+   ]
+  },
+  {
+   "carpeta": "NTGY señales 2026-11-18",
+   "ticker": "NTGY",
+   "periodos": [],
+   "tipo": "senales",
+   "creada": "2026-11-18T18:52",
+   "semaforo": null,
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 29,46 €, un 4,5 % sobre el PO (28,18 €) y por debajo del PO bull (30,15 €). La señal salta porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (PO de 31,76 a 28,18 €; la decisión y",
+   "senales": [
+    {
+     "senal": "S3",
+     "motivo": "cotización ≥ PO 28.18 €: revisión del PO en 7 días, no venta",
+     "desde": "2026-11-18"
+    }
+   ],
+   "propuesta": [
+    {
+     "senal": "S3",
+     "decision": "REAFIRMAR",
+     "motivo": "Cotiza a 29,46 €, un 4,5 % sobre el PO (28,18 €) y por debajo del PO bull (30,15 €). La señal salta porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (PO de 31,76 a 28,18 €; la decisión ya pasó de MANTENER a ESPERAR), no por un deterioro: 9M-2026 en VERDE (ingresos +5,4 %, EBITDA +3,9 %, beneficio neto +5,4 %). REAFIRMAR el ESPERAR: no comprar más; la tesis sigue. Propuesta del pase de señales del método v3."
+    }
+   ],
+   "datos": [
+    "Decisión vigente de la tesis: ESPERAR",
+    "Cotización 29,46 € · PO bear 22,71 € · PO 28,18 € · PO bull 30,15 € · 4,5 % sobre el PO",
+    "Banda de entrada 22,71–24,50 € · stop 18,95 €",
+    "Semáforo de empresa: VERDE · revisado hasta 2026-9M",
+    "Tesis escrita el 2026-10-27 · valoración generada el 2026-11-18",
+    "Última revisión · 2026-9M · Ingresos +5,4 %, EBITDA +3,9 %, beneficio neto +5,4 %, margen 28,5 % (-0,40 pp) frente al mismo periodo del año anterior. Verde: nada que señalar."
+   ]
+  },
+  {
+   "carpeta": "REP señales 2026-11-18",
+   "ticker": "REP",
+   "periodos": [],
+   "tipo": "senales",
+   "creada": "2026-11-18T18:52",
+   "semaforo": null,
+   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 29,75 €, un 37,1 % sobre el PO (21,71 €) pero un 8,4 % por debajo del PO bull (32,47 €). La señal vuelve a saltar porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (PO de 16,49 a",
+   "senales": [
+    {
+     "senal": "S3",
+     "motivo": "cotización ≥ PO 21.71 €: revisión del PO en 7 días, no venta",
+     "desde": "2026-11-18"
+    }
+   ],
+   "propuesta": [
+    {
+     "senal": "S3",
+     "decision": "REAFIRMAR",
+     "motivo": "Cotiza a 29,75 €, un 37,1 % sobre el PO (21,71 €) pero un 8,4 % por debajo del PO bull (32,47 €). La señal vuelve a saltar porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (PO de 16,49 a 21,71 €; bull de 26,65 a 32,47 €); el 29-oct ya se decidió REAFIRMAR con la cotización sobre el bull antiguo. 9M-2026 en VERDE (ingresos +31,3 %, margen EBITDA 20,2 %, +10,6 pp). REAFIRMAR el ESPERAR (no comprar más); sigue vigente lo decidido el 29-oct: si el margen trimestral baja del 14 % con la cotización arriba, VENDE parcial. Propuesta del pase de señales del método v3."
+    }
+   ],
+   "datos": [
+    "Decisión vigente de la tesis: ESPERAR",
+    "Cotización 29,75 € · PO bear 16,61 € · PO 21,71 € · PO bull 32,47 € · 37,1 % sobre el PO",
+    "Banda de entrada 16,61–18,88 € · stop 8,78 €",
+    "Semáforo de empresa: VERDE · revisado hasta 2026-9M",
+    "Tesis escrita el 2026-10-27 · valoración generada el 2026-11-18",
+    "Última revisión · 2026-9M · Ingresos +31,3 %, EBITDA +175,7 %, margen 20,2 % (+10,58 pp) frente al mismo periodo del año anterior. Verde: nada que señalar."
+   ]
+  }
+ ],
+ "n_pendientes": 3,
  "ultima_subida": {
   "cuando": "2026-11-18T18:47",
   "ficheros": [
