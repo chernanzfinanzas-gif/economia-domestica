@@ -1,40 +1,25 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-19T19:45",
+ "generado": "2026-11-19T20:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [],
- "n_pendientes": 0,
+ "revisiones_pendientes": [
+  {
+   "carpeta": "MTS análisis inicial",
+   "ticker": "MTS",
+   "periodos": [],
+   "tipo": "inicial",
+   "creada": "2026-11-19T20:37+01:00",
+   "semaforo": null,
+   "frase": null
+  }
+ ],
+ "n_pendientes": 1,
  "ultima_subida": {
-  "cuando": "2026-11-19T19:45",
+  "cuando": "2026-11-19T20:45",
   "ficheros": [
-   "dossiers/FCC.html",
-   "dossiers/FCC.json",
-   "dossiers/IBE.html",
-   "dossiers/IBE.json",
-   "dossiers/IMC.html",
-   "dossiers/IMC.json",
-   "dossiers/NTGY.html",
-   "dossiers/NTGY.json",
-   "dossiers/REP.html",
-   "dossiers/REP.json",
-   "dossiers/trimestral/FCC-trim.json",
-   "dossiers/trimestral/IBE-trim.json",
-   "dossiers/trimestral/IMC-trim.json",
-   "dossiers/trimestral/NTGY-trim.json",
-   "dossiers/trimestral/REP-trim.json",
-   "dossiers/v3/FCC.html",
-   "dossiers/v3/IBE.html",
-   "dossiers/v3/IMC.html",
-   "dossiers/v3/NTGY.html",
-   "dossiers/v3/REP.html",
-   "fichas/FCC.json",
-   "fichas/IBE.json",
-   "fichas/IMC.json",
-   "fichas/NTGY.json",
-   "fichas/REP.json",
-   "fichas/_resumen.json",
-   "universo/base.json",
-   "_indice.json"
+   "recogida/publicaciones/MTS.json",
+   "recogida/publicaciones/_indice.json",
+   "fichas/_evolucion.json"
   ]
  },
  "rechazos": [],
