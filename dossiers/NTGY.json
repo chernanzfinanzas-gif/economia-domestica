@@ -5,7 +5,7 @@
  "ticker": "NTGY",
  "empresa": "Naturgy Energy Group, S.A.",
  "fecha": "2026-11-18",
- "revisadoEl": "2026-11-05",
+ "revisadoEl": "2026-11-19",
  "rating": "A",
  "score": 66.0,
  "decision": "ESPERAR",
@@ -57,7 +57,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.35x · payout 84 % · 1 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-19",
   "origen": "metodo-v3",
   "shareholderYield": 17.16
  },
@@ -100,16 +100,16 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-19",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 0.53,
+  "gImplicito": 0.71,
   "gIntrinseco": -0.88,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-19",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1882.8347,
@@ -119,10 +119,10 @@
    "acciones": 963.1043,
    "deudaNeta": 12394.648,
    "modo": "EV",
-   "precioBase": 29.46,
-   "gBase": 0.53,
-   "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-18",
+   "precioBase": 30.0,
+   "gBase": 0.71,
+   "fechaBase": "2026-11-19",
+   "congeladoEl": "2026-11-19",
    "validado": true,
    "desviacion": 0.0
   }

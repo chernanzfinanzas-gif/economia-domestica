@@ -5,7 +5,7 @@
  "ticker": "REP",
  "empresa": "Repsol, S.A.",
  "fecha": "2026-11-18",
- "revisadoEl": "2026-10-29",
+ "revisadoEl": "2026-11-19",
  "rating": "BBB",
  "score": 57.9,
  "decision": "ESPERAR",
@@ -53,7 +53,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.88x · payout 65 % · 1 recorte(s) del DPA · señales: DN/EBITDA al alza"
   ],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-19",
   "origen": "metodo-v3",
   "shareholderYield": 10.49
  },
@@ -94,16 +94,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-19",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 3.82,
+  "gImplicito": 3.41,
   "gIntrinseco": 2.47,
-  "veredicto": "HEROICO",
-  "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-11-18",
+  "veredicto": "EXIGENTE",
+  "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 2.5 %)",
+  "calculadoEl": "2026-11-19",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1682.4,
@@ -113,10 +113,10 @@
    "acciones": 1172.2222,
    "deudaNeta": 9983.0,
    "modo": "EV",
-   "precioBase": 29.75,
-   "gBase": 3.82,
-   "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-18",
+   "precioBase": 28.65,
+   "gBase": 3.41,
+   "fechaBase": "2026-11-19",
+   "congeladoEl": "2026-11-19",
    "validado": true,
    "desviacion": -0.0
   }

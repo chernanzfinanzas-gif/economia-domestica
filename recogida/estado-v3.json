@@ -1,134 +1,40 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-19T18:45",
+ "generado": "2026-11-19T19:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [
-  {
-   "carpeta": "FCC análisis inicial",
-   "ticker": "FCC",
-   "periodos": [],
-   "tipo": "inicial",
-   "creada": "2026-11-19T17:51+01:00",
-   "semaforo": null,
-   "frase": null
-  },
-  {
-   "carpeta": "IBE señales 2026-11-18",
-   "ticker": "IBE",
-   "periodos": [],
-   "tipo": "senales",
-   "creada": "2026-11-18T18:52",
-   "semaforo": null,
-   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 22,60 €, un 20,2 % sobre el PO (18,80 €) y un 4,5 % sobre el PO bull (21,62 €). La señal salta porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (el PO pasa de 19,87 a 18,80 € y ",
-   "senales": [
-    {
-     "senal": "S3",
-     "motivo": "cotización ≥ PO bull 21.62 €: salida parcial razonable, revisar el PO",
-     "desde": "2026-11-18"
-    }
-   ],
-   "propuesta": [
-    {
-     "senal": "S3",
-     "decision": "REAFIRMAR",
-     "motivo": "Cotiza a 22,60 €, un 20,2 % sobre el PO (18,80 €) y un 4,5 % sobre el PO bull (21,62 €). La señal salta porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (el PO pasa de 19,87 a 18,80 € y el bull de 22,71 a 21,62 €), no por un deterioro: el semáforo de empresa sigue en VERDE hasta el 9M-2026 (ventas +6,2 %, beneficio neto +9,6 %; EBITDA −0,7 % y margen −2,4 pp). Al estar poco por encima del bull y con los resultados acompañando, REAFIRMAR el ESPERAR (no comprar más); si se aleja claramente del bull o el semáforo empeora, salida parcial. Propuesta del pase de señales del método v3."
-    }
-   ],
-   "datos": [
-    "Decisión vigente de la tesis: ESPERAR",
-    "Cotización 22,60 € · PO bear 17,48 € · PO 18,80 € · PO bull 21,62 € · 20,2 % sobre el PO",
-    "Banda de entrada 14,88–16,35 € · stop 13,53 €",
-    "Semáforo de empresa: VERDE · revisado hasta 2026-9M",
-    "Tesis escrita el 2026-10-27 · valoración generada el 2026-11-18",
-    "Última revisión · 2026-9M · Cifra de ventas +6,2 %, EBITDA -0,7 %, beneficio neto +9,6 %, margen 34,6 % (-2,40 pp) frente al mismo periodo del año anterior. Margen EBITDA: 34,6 %. Ámbar por: EBITDA a la baja, el margen empeora, caída de ben"
-   ]
-  },
-  {
-   "carpeta": "IMC análisis inicial",
-   "ticker": "IMC",
-   "periodos": [],
-   "tipo": "inicial",
-   "creada": "2026-11-19T18:02+01:00",
-   "semaforo": null,
-   "frase": null
-  },
-  {
-   "carpeta": "NTGY señales 2026-11-18",
-   "ticker": "NTGY",
-   "periodos": [],
-   "tipo": "senales",
-   "creada": "2026-11-18T18:52",
-   "semaforo": null,
-   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 29,46 €, un 4,5 % sobre el PO (28,18 €) y por debajo del PO bull (30,15 €). La señal salta porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (PO de 31,76 a 28,18 €; la decisión y",
-   "senales": [
-    {
-     "senal": "S3",
-     "motivo": "cotización ≥ PO 28.18 €: revisión del PO en 7 días, no venta",
-     "desde": "2026-11-18"
-    }
-   ],
-   "propuesta": [
-    {
-     "senal": "S3",
-     "decision": "REAFIRMAR",
-     "motivo": "Cotiza a 29,46 €, un 4,5 % sobre el PO (28,18 €) y por debajo del PO bull (30,15 €). La señal salta porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (PO de 31,76 a 28,18 €; la decisión ya pasó de MANTENER a ESPERAR), no por un deterioro: 9M-2026 en VERDE (ingresos +5,4 %, EBITDA +3,9 %, beneficio neto +5,4 %). REAFIRMAR el ESPERAR: no comprar más; la tesis sigue. Propuesta del pase de señales del método v3."
-    }
-   ],
-   "datos": [
-    "Decisión vigente de la tesis: ESPERAR",
-    "Cotización 29,46 € · PO bear 22,71 € · PO 28,18 € · PO bull 30,15 € · 4,5 % sobre el PO",
-    "Banda de entrada 22,71–24,50 € · stop 18,95 €",
-    "Semáforo de empresa: VERDE · revisado hasta 2026-9M",
-    "Tesis escrita el 2026-10-27 · valoración generada el 2026-11-18",
-    "Última revisión · 2026-9M · Ingresos +5,4 %, EBITDA +3,9 %, beneficio neto +5,4 %, margen 28,5 % (-0,40 pp) frente al mismo periodo del año anterior. Verde: nada que señalar."
-   ]
-  },
-  {
-   "carpeta": "REP señales 2026-11-18",
-   "ticker": "REP",
-   "periodos": [],
-   "tipo": "senales",
-   "creada": "2026-11-18T18:52",
-   "semaforo": null,
-   "frase": "S3 · REAFIRMAR propuesta. Cotiza a 29,75 €, un 37,1 % sobre el PO (21,71 €) pero un 8,4 % por debajo del PO bull (32,47 €). La señal vuelve a saltar porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (PO de 16,49 a",
-   "senales": [
-    {
-     "senal": "S3",
-     "motivo": "cotización ≥ PO 21.71 €: revisión del PO en 7 días, no venta",
-     "desde": "2026-11-18"
-    }
-   ],
-   "propuesta": [
-    {
-     "senal": "S3",
-     "decision": "REAFIRMAR",
-     "motivo": "Cotiza a 29,75 €, un 37,1 % sobre el PO (21,71 €) pero un 8,4 % por debajo del PO bull (32,47 €). La señal vuelve a saltar porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (PO de 16,49 a 21,71 €; bull de 26,65 a 32,47 €); el 29-oct ya se decidió REAFIRMAR con la cotización sobre el bull antiguo. 9M-2026 en VERDE (ingresos +31,3 %, margen EBITDA 20,2 %, +10,6 pp). REAFIRMAR el ESPERAR (no comprar más); sigue vigente lo decidido el 29-oct: si el margen trimestral baja del 14 % con la cotización arriba, VENDE parcial. Propuesta del pase de señales del método v3."
-    }
-   ],
-   "datos": [
-    "Decisión vigente de la tesis: ESPERAR",
-    "Cotización 29,75 € · PO bear 16,61 € · PO 21,71 € · PO bull 32,47 € · 37,1 % sobre el PO",
-    "Banda de entrada 16,61–18,88 € · stop 8,78 €",
-    "Semáforo de empresa: VERDE · revisado hasta 2026-9M",
-    "Tesis escrita el 2026-10-27 · valoración generada el 2026-11-18",
-    "Última revisión · 2026-9M · Ingresos +31,3 %, EBITDA +175,7 %, margen 20,2 % (+10,58 pp) frente al mismo periodo del año anterior. Verde: nada que señalar."
-   ]
-  }
- ],
- "n_pendientes": 5,
+ "revisiones_pendientes": [],
+ "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-19T18:41",
+  "cuando": "2026-11-19T19:45",
   "ficheros": [
-   "recogida/publicaciones/ADZ.json",
-   "recogida/publicaciones/ART.json",
-   "recogida/publicaciones/GSJ.json",
-   "recogida/publicaciones/IMC.json",
-   "recogida/publicaciones/IZER.json",
-   "recogida/publicaciones/SAB.json",
-   "recogida/publicaciones/SLR.json",
-   "recogida/publicaciones/SNG.json",
-   "recogida/publicaciones/_indice.json",
-   "recogida/publicaciones/dias/2026-11.json"
+   "dossiers/FCC.html",
+   "dossiers/FCC.json",
+   "dossiers/IBE.html",
+   "dossiers/IBE.json",
+   "dossiers/IMC.html",
+   "dossiers/IMC.json",
+   "dossiers/NTGY.html",
+   "dossiers/NTGY.json",
+   "dossiers/REP.html",
+   "dossiers/REP.json",
+   "dossiers/trimestral/FCC-trim.json",
+   "dossiers/trimestral/IBE-trim.json",
+   "dossiers/trimestral/IMC-trim.json",
+   "dossiers/trimestral/NTGY-trim.json",
+   "dossiers/trimestral/REP-trim.json",
+   "dossiers/v3/FCC.html",
+   "dossiers/v3/IBE.html",
+   "dossiers/v3/IMC.html",
+   "dossiers/v3/NTGY.html",
+   "dossiers/v3/REP.html",
+   "fichas/FCC.json",
+   "fichas/IBE.json",
+   "fichas/IMC.json",
+   "fichas/NTGY.json",
+   "fichas/REP.json",
+   "fichas/_resumen.json",
+   "universo/base.json",
+   "_indice.json"
   ]
  },
  "rechazos": [],
@@ -1186,6 +1092,30 @@
    "estado": "resuelto",
    "resuelto": "2026-11-14T04:05",
    "como": "Ajuste automático instalado (ampliaciones.py). Queda en el Diario y en la ficha de la empresa.",
+   "comprobado": null
+  },
+  {
+   "id": "Pe04a936a",
+   "creado": "2026-11-19T18:57",
+   "origen": "cruce con la nube",
+   "ticker": "CCEP",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (16/11/2026 15:03)",
+   "detalle": "nº 43671: Coca-Cola Europacific Partners plc-recompra de acciones",
+   "estado": "resuelto",
+   "resuelto": "2026-11-19T19:07",
+   "como": "Falso aviso: el PDF sí está en Biblioteca/CCEP/Comunicaciones (guardado sin nº de registro, como todas las extranjeras sin NIF). Arreglado el cruce para casarlas por fecha y asunto; repasado con la nube del 16 al 19-nov: faltan 0 · Claude, 19-nov",
+   "comprobado": null
+  },
+  {
+   "id": "P3ae5e3bb",
+   "creado": "2026-11-19T18:57",
+   "origen": "cruce con la nube",
+   "ticker": "CCEP",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (16/11/2026 08:52)",
+   "detalle": "nº 43657: Coca-Cola Europacific Partners - Directorship declaration",
+   "estado": "resuelto",
+   "resuelto": "2026-11-19T19:07",
+   "como": "Falso aviso: el PDF sí está en Biblioteca/CCEP/Comunicaciones (guardado sin nº de registro, como todas las extranjeras sin NIF). Arreglado el cruce para casarlas por fecha y asunto; repasado con la nube del 16 al 19-nov: faltan 0 · Claude, 19-nov",
    "comprobado": null
   }
  ],

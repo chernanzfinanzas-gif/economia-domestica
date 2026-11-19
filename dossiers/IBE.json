@@ -5,7 +5,7 @@
  "ticker": "IBE",
  "empresa": "Iberdrola, S.A.",
  "fecha": "2026-11-18",
- "revisadoEl": "2026-10-29",
+ "revisadoEl": "2026-11-19",
  "rating": "BBB",
  "score": 61.9,
  "decision": "ESPERAR",
@@ -55,7 +55,7 @@
   "motivos": [
    "Seguro: cobertura OE 2.10x · payout 73 % · 0 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-19",
   "origen": "metodo-v3",
   "shareholderYield": 6.13
  },
@@ -98,16 +98,16 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-19",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 4.05,
+  "gImplicito": 4.04,
   "gIntrinseco": 6.63,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 6.6 %)",
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-19",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 7633.421,
@@ -117,12 +117,12 @@
    "acciones": 6681.228,
    "deudaNeta": 64228.098,
    "modo": "EV",
-   "precioBase": 22.6,
-   "gBase": 4.05,
-   "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-18",
+   "precioBase": 22.59,
+   "gBase": 4.04,
+   "fechaBase": "2026-11-19",
+   "congeladoEl": "2026-11-19",
    "validado": true,
-   "desviacion": -0.0
+   "desviacion": 0.0
   }
  }
 }

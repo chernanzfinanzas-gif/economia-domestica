@@ -1,0 +1,349 @@
+{
+ "schemaVersion": 2,
+ "ticker": "IMC",
+ "empresa": "INMOCEMENTO, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-19",
+ "revisiones": [
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +35,3 %, EBITDA -101,6 %, beneficio neto -189,2 %, margen -0,5 % (-41,64 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 787.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": -3.7
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": -0.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": -37.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": -116.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1162.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,2 %, EBITDA +6017,8 %, beneficio neto +294,0 %, margen 25,3 % (+25,79 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 868.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 220.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 25.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 185.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 225.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1257.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +8,8 %, EBITDA +44,5 %, beneficio neto -32,7 %, margen 33,6 % (+8,31 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 944.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 317.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 33.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 283.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 152.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 918.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +13,5 %, EBITDA +3,5 %, beneficio neto +13,3 %, margen 33,0 % (-3,21 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ventas +13,5 % y EBITDA +3,5 %; margen del 33,0 % (−3,2 puntos).\n\n**Por qué** — Más peso de la promoción, con menos margen.\n\n**Semáforo** — Ámbar, por el margen.\n\n**Qué vigilar** — Las entregas de viviendas.\n\n**Lectura** — Primer trimestre como sociedad cotizada.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 226.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 74.7
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 33.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 36.7
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -0,4 %, EBITDA +3,0 %, beneficio neto +199,1 %, margen 38,4 % (+1,26 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. **Qué ha pasado** — Ventas −0,4 %, EBITDA +3,0 % y beneficio +199 % por la venta de Giant Cement (EE. UU.).\n\n**Por qué** — Plusvalía de 132,9 M€.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — Qué se hace con la caja.\n\n**Lectura** — Beneficio inflado por la venta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 446.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 171.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 38.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 154.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 233.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 595.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -1,7 %, EBITDA -2,2 %, margen 35,2 % (-0,19 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja. **Qué ha pasado** — Ventas −1,7 % y EBITDA −2,2 %.\n\n**Por qué** — Sale Giant del perímetro y hay pocas entregas de viviendas (107 en nueve meses).\n\n**Semáforo** — Ámbar.\n\n**Qué vigilar** — Las entregas del 4T.\n\n**Lectura** — Pausa en el crecimiento.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 658.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 232.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 35.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,4 %, EBITDA +7,7 %, beneficio neto +128,6 %, margen 35,4 % (+1,74 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 967 M€ (+2,4 %), EBITDA de 342 M€ (+7,7 %) y beneficio atribuido de 346,6 M€ (+129 %, con 132,9 M€ de Giant). Deuda financiera neta de 458,9 M€ (−46 %).\n\n**Por qué** — Cemento +9 % en EBITDA y la venta de Giant.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — El primer dividendo (0,15 €, julio de 2026).\n\n**Lectura** — Buen primer año completo.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 967.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 342.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 35.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 308.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 347.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 522.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +8,3 %, EBITDA +4,7 %, beneficio neto +5,7 %, margen 31,9 % (-1,11 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales. **Qué ha pasado** — Ventas +8,3 %, EBITDA +4,7 % y beneficio +5,7 %.\n\n**Por qué** — Cemento en España y más entregas.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — El margen.\n\n**Lectura** — Sin sorpresas.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 245.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 78.2
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 31.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 38.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +15,6 %, EBITDA +17,2 %, beneficio neto -35,1 %, margen 38,9 % (+0,53 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales. **Qué ha pasado** — Ventas +15,6 %, EBITDA +17,2 % y beneficio −35 % (el 1S-2025 llevaba la plusvalía de Giant).\n\n**Por qué** — Entregas de viviendas y cemento.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — La venta de Keystone.\n\n**Lectura** — La operativa crece.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 515.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 200.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 38.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 183.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 151.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 306.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +16,2 %, EBITDA +12,1 %, margen 34,0 % (-1,24 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales. **Qué ha pasado** — Ventas de 764,2 M€ (+16,2 %), EBITDA de 259,7 M€ (+12,1 %; margen del 34,0 %) y beneficio atribuido de 202,9 M€ (−26 %, por la plusvalía de Giant de 2025; Keystone aporta 42,4 M€ en 2026). Deuda financiera neta de 155,5 M€; 379 viviendas entregadas.\n\n**Por qué** — Inmobiliaria +52 % en ventas; cemento +3,8 %.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — El préstamo a Realia Patrimonio (octubre de 2026) y el destino de la caja.\n\n**Lectura** — Buen año operativo.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 764.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 260.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 34.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

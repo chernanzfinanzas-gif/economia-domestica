@@ -1,0 +1,128 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "FCC",
+ "empresa": "Fomento de Construcciones y Contratas, S.A.",
+ "fecha": "2026-11-19",
+ "revisadoEl": "2026-11-19",
+ "rating": "A",
+ "score": 63.1,
+ "decision": "MANTENER",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 12 % · DCF base 36 % · DCF optimista 12 % · EV/EBITDA 5 % · EV/EBIT 5 % · PER 6 % · P/VC 4 % · P/FCL 5 % · rentabilidad por dividendo 15 % · flujo base del DCF: owner earnings",
+ "poBear": 11.31,
+ "poBase": 13.61,
+ "poBull": 15.84,
+ "entMin": 11.31,
+ "entMax": 11.83,
+ "stop": 9.13,
+ "dpaPrevisto": 0.5,
+ "moat": "55,8 sobre 100 · MOAT ESTRECHO. Sin ajuste: contratos y concesiones de largo plazo, pero se ganan en concurso",
+ "catalizadores": [
+  "Cartera récord: Cartera de 56.059 M€ en septiembre de 2026 (+8,6 % en nueve meses), más de cinco años de ventas, con Agua creciendo un 15 %: asegura que las ventas sigan creciendo. Se toma como +4 % de ventas. (24 meses)",
+  "Vuelta del beneficio: Sin las provisiones del Reino Unido ni las diferencias de cambio de 2025, el beneficio atribuido sube un 47 % en 9M-2026 (230 M€). Se toma como 60 M€ más de EBITDA recurrente. (12 meses)",
+  "Caja de la matriz: La matriz tenía 1.334 M€ de caja neta en septiembre de 2026 tras vender en 2023 y 2025 el 49,99 % de Enviro: puede comprar negocios en Medio Ambiente y Agua sin endeudarse. Se toma como +3 % de ventas. (24 meses)"
+ ],
+ "riesgos": [
+  "Una gran obra que sale mal (Media): Construcción es ya el 35 % de las ventas (2.755 M€ en 9M-2026, +27 %) con un margen EBITDA del 5 %: un sobrecoste en un contrato grande (metro de Toronto, 1.706 M€ de cartera atribuible) se come el beneficio del área. Suave: −60 M€ de EBITDA. Duro: −150 M€.",
+  "Reino Unido: vertederos y tratamiento (Media): En 2025 FCC provisionó 96,5 M€ por actividades y activos de tratamiento de Medio Ambiente en el Reino Unido, y en 2026 la actividad de vertederos sigue cayendo. Suave: −40 M€ de EBITDA. Duro: −100 M€.",
+  "Socios en las filiales: menos beneficio para el accionista (Alta): FCC vendió el 49,99 % de su cabecera de Medio Ambiente a CPP Investments (24,99 % en octubre de 2023 por 965 M€ y 25 % en diciembre de 2025 por 1.000 M€): los minoritarios se llevan ya el 34 % del beneficio (9M-2026) y el patrimonio de los minoritarios es de 1.259 M€. Si la caja de esas ventas no se reinvierte bien, el accionista de FCC pierde parte del crecimiento. Suave: −5 %. Duro: −10 %.",
+  "Accionista de control (Media): La familia Slim (Control Empresarial de Capitales) es la dominante del grupo y tiene en torno al 70 % del capital; el capital flotante es pequeño y la acción cotiza poco. Hay operaciones con sociedades del mismo accionista (Realia, Inmocemento). Suave: −3 %. Duro: −8 %.",
+  "Contratos públicos y concesiones (Media): Medio Ambiente y Agua viven de contratos municipales y concesiones de 10-25 años: la renovación no está garantizada y las tarifas dependen de cada administración. Suave: ventas −3 %. Duro: −6 %.",
+  "Deuda de los negocios y tipos (Baja): La deuda financiera neta era de 2.302 M€ en diciembre de 2025 y de 2.802 M€ en septiembre de 2026 (estacional); casi toda es deuda de Medio Ambiente y Agua, con caja neta en la matriz. Los gastos financieros brutos han pasado de 140 M€ (2022) a 266 M€ (2025). Suave: +500 M€ de deuda. Duro: +1.500 M€.",
+  "Moneda y negocio internacional (Media): La mitad de las ventas es internacional (Reino Unido, EE. UU., Centroeuropa, América Latina): las diferencias de cambio restaron 61,8 M€ en 9M-2025 y sumaron 40,4 M€ en 9M-2026. Suave: ventas −2 %. Duro: −5 %.",
+  "Múltiplos (Alta): Con el beneficio deprimido de 2025, cotiza a unas 20 veces el beneficio recurrente frente a una media de 12 veces; el mercado ya descuenta la recuperación de 2026. Suave: −10 %. Duro: −20 %."
+ ],
+ "bull": "15,84 € — escenario optimista: ",
+ "bear": "11,31 € — escenario pesimista: ",
+ "resumen": "MANTENER con la cotización de 10,52 € (2026-11-18): precio objetivo 13,61 € (bear 11,31 · bull 15,84), margen +29,4 %. Banda de entrada 11,31–11,83 €, stop de tesis 9,13 €. Veto por desacuerdo: por flujos de caja (DCF) el margen es +58 % y por múltiplos -13 %; el método solo compra cuando los dos caminos dan al menos un 15 %.",
+ "dividendSafety": {
+  "score": 47,
+  "banda": "Vigilar",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 27,
+   "C2": 0,
+   "C3": 9,
+   "C4": 5,
+   "C5": 6
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Vigilar: cobertura OE 1.81x · payout 144 % · 1 recorte(s) del DPA · señales: cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
+  ],
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3",
+  "shareholderYield": 4.54
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 5,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 2.25,
+   "zona": "gris"
+  },
+  "beneish": {
+   "m": -2.73,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -6.9,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=2.25 en zona gris"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -4.07,
+  "gIntrinseco": 7.29,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 566.1014,
+   "wacc": 6.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 472.994,
+   "deudaNeta": 3205.019,
+   "modo": "EV",
+   "precioBase": 10.52,
+   "gBase": -4.07,
+   "fechaBase": "2026-11-18",
+   "congeladoEl": "2026-11-19",
+   "validado": true,
+   "desviacion": 0.0
+  }
+ }
+}

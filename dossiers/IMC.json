@@ -1,0 +1,126 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "IMC",
+ "empresa": "INMOCEMENTO, S.A.",
+ "fecha": "2026-11-19",
+ "revisadoEl": "2026-11-19",
+ "rating": "BBB",
+ "score": 61.0,
+ "decision": "MANTENER",
+ "metodoValoracion": "Síntesis ponderada (método v3): sotp 100 % · flujo base del DCF: owner earnings",
+ "poBear": 3.99,
+ "poBase": 4.98,
+ "poBull": 6.18,
+ "entMin": 3.99,
+ "entMax": 4.33,
+ "stop": 2.51,
+ "dpaPrevisto": 0.15,
+ "moat": "23,0 sobre 100 · SIN MOAT CLARO. Sin ajuste: el cemento tiene ventaja local, el inmobiliario no",
+ "catalizadores": [
+  "Entregas de viviendas: Stock de 1.734 viviendas y locales, el 51 % ya reservado o vendido (septiembre de 2026): las entregas de 2026-2028 suben el EBITDA de Inmobiliaria. Se toma como 30 M€ más de EBITDA. (24 meses)",
+  "Caja de Keystone: La venta de Keystone (EE. UU.) en 2026 aporta unos 123 M$ netos de deuda; la deuda financiera neta del grupo ya bajó a 155,5 M€ en septiembre de 2026. Se toma como 110 M€ más de caja. (12 meses)",
+  "Menos descuento: Un dividendo creciente (0,15 € en 2026, el primero) o una simplificación del grupo (Realia) acercan la cotización a la suma de partes. Se toma como +10 % de múltiplo. (24 meses)"
+ ],
+ "riesgos": [
+  "Ciclo del cemento en España (Media): El cemento es el 66 % de las ventas (9M-2026) y el 80 % se vende en España: depende de la obra pública y la vivienda. En 2016-2022 el área llegó a tener márgenes negativos. Suave: −25 M€ de EBITDA. Duro: −60 M€.",
+  "Promoción de viviendas (Media): Las entregas de viviendas (379 en 9M-2026 frente a 107) explican la mitad del crecimiento; un giro del mercado de la vivienda o de los tipos frena ventas y precios. Suave: −20 M€ de EBITDA. Duro: −50 M€.",
+  "Realia en bolsa (Media): Casi la mitad del valor es la participación del 69,88 % en Realia a precio de bolsa (1.060 M€). Suave: Realia −15 % (−159 M€). Duro: −30 % (−318 M€).",
+  "Energía y derechos de CO2 (Media): Hacer cemento consume mucha energía y paga derechos de emisión de CO2 en la UE, cada vez más caros y con menos derechos gratuitos. Suave: −20 M€ de EBITDA. Duro: −45 M€.",
+  "Accionista de control y operaciones vinculadas (Media): La familia Slim controla Inmocemento, FCC y Realia; en 2025 FCyC vendió un 1,23 % de Realia a una sociedad vinculada al accionista de control y en octubre de 2026 Inmocemento prestó dinero a Realia Patrimonio. Suave: −5 %. Duro: −12 %.",
+  "Descuento de holding y liquidez (Alta): Cotiza un 34 % por debajo de la suma de sus partes sin descuento (un 27 % con el 10 % de descuento de holding) y tiene poco capital flotante: el descuento puede durar años. Suave: −10 %. Duro: −20 %.",
+  "Deterioros de suelo y de activos (Media): En las cuentas proforma hubo deterioros grandes: −148 M€ en 2016, −71 M€ en 2019 y −177 M€ en 2022. Suave: valor contable −5 %. Duro: −10 %.",
+  "Negocio fuera de España (Baja): Reino Unido, Túnez y otros son el 20 % de las ventas; Estados Unidos se ha vendido (Giant en 2025 y Keystone en 2026). Suave: ventas −2 %. Duro: −5 %."
+ ],
+ "bull": "6,18 € — escenario optimista: ",
+ "bear": "3,99 € — escenario pesimista: ",
+ "resumen": "MANTENER. Por precio estaría para comprar: cotiza a 3,65 €, por debajo de la banda de entrada (3,99-4,33 €), con un margen del 37 % sobre la suma de partes. Pero no pasa los filtros de calidad del método: rating BBB (hace falta A) y moat de 23 (hace falta 45). Es una tesis de activos (Realia y el cemento valen más que la cotización), no de negocio; el método no compra ese tipo de tesis sin calidad. Si se quisiera tener, la vigilancia mira el descuento y las operaciones vinculadas.",
+ "dividendSafety": {
+  "score": 94,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 17,
+   "C4": 15,
+   "C5": 12
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 4.10x · payout 20 % · 0 recorte(s) del DPA · señales: recompras recortadas"
+  ],
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3",
+  "shareholderYield": 6.92
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 5,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 0,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 0,
+    "margin_up": 0,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 5.57,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.24,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": 0.2,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": false,
+  "gImplicito": null,
+  "gIntrinseco": 15.12,
+  "veredicto": "No aplica",
+  "motivo": "n.s. — el precio exige un crecimiento fuera de −10 % a +30 %",
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 267.4527,
+   "wacc": 6.5369,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 455.9987,
+   "deudaNeta": 522.116,
+   "modo": "EV",
+   "precioBase": 3.65,
+   "gBase": -10.0,
+   "fechaBase": "2026-11-18",
+   "congeladoEl": "2026-11-19",
+   "validado": false,
+   "desviacion": null
+  }
+ }
+}

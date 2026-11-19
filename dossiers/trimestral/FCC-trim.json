@@ -1,0 +1,471 @@
+{
+ "schemaVersion": 2,
+ "ticker": "FCC",
+ "empresa": "Fomento de Construcciones y Contratas, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-19",
+ "revisiones": [
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +13,1 %, EBITDA +15,0 %, beneficio neto -2,5 %, margen 17,5 % (+0,29 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3584.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 628.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 382.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 227.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 4394.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +13,8 %, EBITDA +11,7 %, beneficio neto -4,1 %, margen 16,4 % (-0,31 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 6918.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1134.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 16.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 648.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 431.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2865.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +8,7 %, EBITDA -6,0 %, beneficio neto +13,0 %, margen 15,1 % (-2,38 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3897.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 590.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 15.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 324.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 256.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 4481.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +18,8 %, EBITDA +13,9 %, beneficio neto -14,7 %, margen 15,7 % (-0,67 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 8217.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1291.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 15.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 726.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 368.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2876.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +8,7 %, EBITDA +9,8 %, beneficio neto +8,8 %, margen 15,3 % (+0,16 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4236.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 648.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 15.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 352.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 279.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 4128.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,4 %, EBITDA +6,2 %, beneficio neto -19,5 %, margen 15,1 % (-0,59 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 9071.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1372.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 15.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 727.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 296.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3900.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +8,9 %, EBITDA +14,6 %, beneficio neto -43,8 %, margen 14,9 % (+0,74 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales. **Qué ha pasado** — Ventas de 2.182 M€ (+8,9 %), EBITDA de 324 M€ (+14,6 %) y beneficio atribuido de 58,8 M€ (104,6 M€ un año antes, con Inmocemento).\n\n**Por qué** — Crecen Medio Ambiente y Agua; el beneficio de 2024 aún incluía Cementos e Inmobiliaria.\n\n**Semáforo** — Verde: la caída del beneficio es de perímetro.\n\n**Qué vigilar** — El tipo de cambio.\n\n**Lectura** — Negocio creciendo; el beneficio no es comparable.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2182.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 324.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 58.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,6 %, EBITDA -6,8 %, beneficio neto -59,8 %, margen 13,2 % (-2,05 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ventas de 4.557 M€ (+7,6 %), EBITDA del IPP de 604 M€ (−6,8 %; la empresa da 675 M€, +11,3 %, con su definición) y beneficio atribuido de 80,7 M€ (200,7 M€ en el 1S-2024 sin Inmocemento).\n\n**Por qué** — Provisiones en Medio Ambiente del Reino Unido y diferencias de cambio negativas.\n\n**Semáforo** — Rojo, por el EBITDA y el beneficio.\n\n**Qué vigilar** — Si las provisiones se repiten.\n\n**Lectura** — Mal semestre por extraordinarios; las ventas siguen creciendo.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4557.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 604.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 254.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 80.7
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 4103.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,7 %, EBITDA +7,5 %, beneficio neto -44,1 %, margen 15,0 % (-0,03 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales. **Qué ha pasado** — Ventas de 7.052 M€ (+7,7 %), EBITDA de 1.059 M€ (+7,5 %) y beneficio atribuido de 156,9 M€ (280,5 M€ en 9M-2024 sin Inmocemento, −44 %).\n\n**Por qué** — El EBITDA se recupera; el beneficio sigue cargando las provisiones y el tipo de cambio (−61,8 M€).\n\n**Semáforo** — Verde: solo cae el beneficio.\n\n**Qué vigilar** — La venta del 25 % adicional de Enviro a CPP Investments (1.000 M€).\n\n**Lectura** — La operativa está bien; el beneficio, no.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 7052.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1059.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 15.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 157.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,9 %, EBITDA -2,4 %, beneficio neto -44,5 %, margen 13,8 % (-1,33 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ventas de 9.700 M€ (+6,9 %), EBITDA de 1.339 M€ (−2,4 %) y beneficio atribuido de 164,4 M€ (296,0 M€ en 2024 sin Inmocemento). Deuda financiera neta de 2.302 M€ (−23 %) tras cobrar 1.000 M€ de CPP; cartera de 51.607 M€ (+11,4 %). Dividendo de 0,50 €.\n\n**Por qué** — 96,5 M€ de provisiones y ajustes en el Reino Unido, diferencias de cambio y más minoritarios.\n\n**Semáforo** — Ámbar en el periodo y rojo en el año: ROIC del 5,3 %, por debajo del coste del capital, y margen a la baja.\n\n**Qué vigilar** — El ROIC de 2026.\n\n**Lectura** — Peor año de la serie, en buena parte por extraordinarios.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 9700.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1339.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 595.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 164.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3205.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,0 %, EBITDA +11,9 %, beneficio neto +11,9 %, margen 14,4 % (+0,24 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 2.399 M€ (+10,0 %), EBITDA de 346 M€ y beneficio atribuido de 65,8 M€ (+11,9 %).\n\n**Por qué** — Construcción y las compras de Medio Ambiente en EE. UU. y el Reino Unido.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — El margen, por el peso de Construcción.\n\n**Lectura** — Vuelta al crecimiento del beneficio.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2399.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 346.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 65.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +13,2 %, EBITDA +15,3 %, beneficio neto +58,7 %, margen 13,5 % (+0,25 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 5.156 M€ (+13,2 %), EBITDA de 696 M€ (+15,3 %), beneficio atribuido de 128,1 M€ (+58,7 %).\n\n**Por qué** — Crecen todas las áreas; sin provisiones y con el tipo de cambio a favor.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — Los minoritarios (34 % del beneficio).\n\n**Lectura** — Semestre limpio.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5156.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 696.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 311.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 128.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3636.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +13,1 %, EBITDA +8,4 %, beneficio neto +46,6 %, margen 14,4 % (-0,62 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales. **Qué ha pasado** — Ventas de 7.977 M€ (+13,1 %), EBITDA de 1.148 M€ (+8,4 %; margen del 14,4 %, −0,6 puntos), beneficio atribuido de 230,0 M€ (+46,6 %). Cartera de 56.059 M€ (+8,6 % en nueve meses); deuda financiera neta de 2.802 M€ (estacional).\n\n**Por qué** — Construcción +27 %, Medio Ambiente +8 % y diferencias de cambio a favor (+40,4 M€).\n\n**Semáforo** — Verde; el margen baja por el peso de Construcción.\n\n**Qué vigilar** — Que el beneficio del año supere los 300 M€ y el margen de Construcción.\n\n**Lectura** — La tesis de recuperación avanza.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 7976.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1148.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 230.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

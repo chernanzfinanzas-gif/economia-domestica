@@ -343,6 +343,16 @@
     "motivo": "Cotiza a 22,03 €, un 10,9 % sobre el PO (19,87 €) y por debajo del PO bull (22,71 €). Verde en el 9M-2026 con EBITDA ajustado +7,5 %, beneficio ajustado +8,8 % y guía de 2026 mejorada. ESPERAR: no comprar más; mantener. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026.",
     "revision": "IBE señales 2026-10-28",
     "origen": "metodo-v3"
+   },
+   {
+    "fecha": "19-nov-2026",
+    "fechaIso": "2026-11-19",
+    "senal": "S3",
+    "cot": 22.6,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 22,60 €, un 20,2 % sobre el PO (18,80 €) y un 4,5 % sobre el PO bull (21,62 €). La señal salta porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (el PO pasa de 19,87 a 18,80 € y el bull de 22,71 a 21,62 €), no por un deterioro: el semáforo de empresa sigue en VERDE hasta el 9M-2026 (ventas +6,2 %, beneficio neto +9,6 %; EBITDA −0,7 % y margen −2,4 pp). Al estar poco por encima del bull y con los resultados acompañando, REAFIRMAR el ESPERAR (no comprar más); si se aleja claramente del bull o el semáforo empeora, salida parcial. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 19-11-2026.",
+    "revision": "IBE señales 2026-11-18",
+    "origen": "metodo-v3"
    }
   ],
   "ITX": [
@@ -465,6 +475,16 @@
     "decision": "REAFIRMAR",
     "motivo": "Cotiza a 28,54 €, un 7 % sobre el PO bull (26,65 €) y un 73 % sobre el PO (16,49 €), con el 9M-2026 en verde. El disparador del bull (margen EBITDA trimestral por encima del 14 %) ya se ha cumplido: el margen del 9M es del 20,2 %, por encima incluso del 17,3 % de mediana de la década que el bull supone, porque el margen de refino se ha triplicado (20,6 $/barril frente a 6,7; 36,2 en el 3T) y hay +943 M€ de efecto patrimonial que se da la vuelta si el crudo baja. Los resultados acompañan, así que según el criterio del método no toca vender: REAFIRMAR el ESPERAR (no comprar más). La cotización ya descuenta un ciclo de refino mejor que el bull. Si el margen trimestral vuelve por debajo del 14 % con la cotización arriba, VENDE parcial. Una salida parcial ahora también es defendible para quien quiera asegurar parte de la subida. La valoración se rehace con las cuentas de 2026. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 29-10-2026.",
     "revision": "REP señales 2026-10-29",
+    "origen": "metodo-v3"
+   },
+   {
+    "fecha": "19-nov-2026",
+    "fechaIso": "2026-11-19",
+    "senal": "S3",
+    "cot": 29.75,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 29,75 €, un 37,1 % sobre el PO (21,71 €) pero un 8,4 % por debajo del PO bull (32,47 €). La señal vuelve a saltar porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (PO de 16,49 a 21,71 €; bull de 26,65 a 32,47 €); el 29-oct ya se decidió REAFIRMAR con la cotización sobre el bull antiguo. 9M-2026 en VERDE (ingresos +31,3 %, margen EBITDA 20,2 %, +10,6 pp). REAFIRMAR el ESPERAR (no comprar más); sigue vigente lo decidido el 29-oct: si el margen trimestral baja del 14 % con la cotización arriba, VENDE parcial. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 19-11-2026.",
+    "revision": "REP señales 2026-11-18",
     "origen": "metodo-v3"
    }
   ],
@@ -597,7 +617,19 @@
     "revision": "IBG análisis inicial",
     "origen": "metodo-v3"
    }
+  ],
+  "NTGY": [
+   {
+    "fecha": "19-nov-2026",
+    "fechaIso": "2026-11-19",
+    "senal": "S3",
+    "cot": 29.46,
+    "decision": "REAFIRMAR",
+    "motivo": "Cotiza a 29,46 €, un 4,5 % sobre el PO (28,18 €) y por debajo del PO bull (30,15 €). La señal salta porque la valoración se rehizo hoy con las reglas 1 y 2 aprobadas por Carlos (PO de 31,76 a 28,18 €; la decisión ya pasó de MANTENER a ESPERAR), no por un deterioro: 9M-2026 en VERDE (ingresos +5,4 %, EBITDA +3,9 %, beneficio neto +5,4 %). REAFIRMAR el ESPERAR: no comprar más; la tesis sigue. Propuesta del pase de señales del método v3. Confirmada por Carlos en la app el 19-11-2026.",
+    "revision": "NTGY señales 2026-11-18",
+    "origen": "metodo-v3"
+   }
   ]
  },
- "actualizado": "2026-11-18"
+ "actualizado": "2026-11-19"
 }
