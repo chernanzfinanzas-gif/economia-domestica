@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-19T15:38",
+ "generado": "2026-11-19T17:40",
  "eur_usd": {
   "v": 1.1244,
   "f": "2026-10-16",
@@ -186,8 +186,8 @@
    "n_grupo": 18,
    "per_grupo": 22.958860926162373,
    "per_vs_grupo": 1.120140835015727,
-   "puesto": 49,
-   "puesto_ant": 53,
+   "puesto": 48,
+   "puesto_ant": 52,
    "puntos_ant": 52.4,
    "cambio_puesto": 4,
    "cambio_puntos": 1.9
@@ -497,8 +497,8 @@
    "n_grupo": 7,
    "per_grupo": 17.088823896684303,
    "per_vs_grupo": 1.0,
-   "puesto": 50,
-   "puesto_ant": 48,
+   "puesto": 49,
+   "puesto_ant": 47,
    "puntos_ant": 54.4,
    "cambio_puesto": -2,
    "cambio_puntos": -0.1
@@ -572,12 +572,12 @@
    },
    "radar_app": 65.6,
    "grupo_comp": "Regulada, concesional y redes",
-   "puesto_grupo": 4,
+   "puesto_grupo": 5,
    "n_grupo": 11,
    "per_grupo": 20.506338075523203,
    "per_vs_grupo": 0.9631715183562195,
-   "puesto": 33,
-   "puesto_ant": 33,
+   "puesto": 34,
+   "puesto_ant": 34,
    "puntos_ant": 61.3,
    "cambio_puesto": 0,
    "cambio_puntos": 0.7
@@ -1035,8 +1035,8 @@
    "n_grupo": 19,
    "per_grupo": 15.701489459390068,
    "per_vs_grupo": 1.253147012801105,
-   "puesto": 51,
-   "puesto_ant": 50,
+   "puesto": 50,
+   "puesto_ant": 49,
    "puntos_ant": 53.7,
    "cambio_puesto": -1,
    "cambio_puntos": 0.5
@@ -1115,9 +1115,9 @@
    "per_grupo": 22.958860926162373,
    "per_vs_grupo": 0.58860492572337,
    "puesto": 36,
-   "puesto_ant": 44,
+   "puesto_ant": 43,
    "puntos_ant": 56.3,
-   "cambio_puesto": 8,
+   "cambio_puesto": 7,
    "cambio_puntos": 4.4
   },
   {
@@ -1193,8 +1193,8 @@
    "n_grupo": 5,
    "per_grupo": 14.448082102045273,
    "per_vs_grupo": 0.6873688689924567,
-   "puesto": 53,
-   "puesto_ant": 52,
+   "puesto": 52,
+   "puesto_ant": 51,
    "puntos_ant": 52.9,
    "cambio_puesto": -1,
    "cambio_puntos": 1.2
@@ -1807,9 +1807,9 @@
    "per_grupo": 22.958860926162373,
    "per_vs_grupo": 0.6688994065142686,
    "puesto": 38,
-   "puesto_ant": 41,
+   "puesto_ant": 40,
    "puntos_ant": 57.0,
-   "cambio_puesto": 3,
+   "cambio_puesto": 2,
    "cambio_puntos": 2.0
   },
   {
@@ -2648,8 +2648,8 @@
    "n_grupo": 19,
    "per_grupo": 15.701489459390068,
    "per_vs_grupo": 0.6313373244371349,
-   "puesto": 48,
-   "puesto_ant": 46,
+   "puesto": 47,
+   "puesto_ant": 45,
    "puntos_ant": 55.2,
    "cambio_puesto": -2,
    "cambio_puntos": 0.0
@@ -3111,8 +3111,8 @@
    "n_grupo": 19,
    "per_grupo": 15.701489459390068,
    "per_vs_grupo": 0.6483880422286472,
-   "puesto": 46,
-   "puesto_ant": 47,
+   "puesto": 45,
+   "puesto_ant": 46,
    "puntos_ant": 54.5,
    "cambio_puesto": 1,
    "cambio_puntos": 1.4
@@ -3186,14 +3186,14 @@
    },
    "radar_app": 58.2,
    "grupo_comp": "Regulada, concesional y redes",
-   "puesto_grupo": 5,
+   "puesto_grupo": 6,
    "n_grupo": 11,
    "per_grupo": 20.506338075523203,
    "per_vs_grupo": 1.0,
-   "puesto": 34,
+   "puesto": 35,
    "puesto_ant": 35,
    "puntos_ant": 60.3,
-   "cambio_puesto": 1,
+   "cambio_puesto": 0,
    "cambio_puntos": 1.6
   },
   {
@@ -3592,7 +3592,7 @@
     "CONCESIONAL",
     "CARTERA"
    ],
-   "grupo": "universo",
+   "grupo": "analizada",
    "descripcion": "Servicios Amb. + Agua",
    "n_anios": 11,
    "avisos": [],
@@ -3610,9 +3610,9 @@
    "ltv": null,
    "fcf": 486.89700000000005,
    "roe": 0.047174560280199215,
-   "cagr_ing": 0.0951339901538295,
+   "cagr_ing": 0.11061735572928,
    "cagr_tramo": "2020-2025",
-   "roe_med5": 0.1324481571120339,
+   "roe_med5": 0.14404446886392377,
    "perdidas5": 0,
    "anios5": 5,
    "s1": "2026-S1",
@@ -3641,26 +3641,27 @@
    "ev_ebitda": 7.051608827906031,
    "fcf_yield": 0.09785110337736742,
    "etiquetas": [
-    "Calidad"
+    "Calidad",
+    "Crecimiento"
    ],
-   "estado": "universo",
+   "estado": "analizada",
    "puntos": {
-    "total": 61.2,
+    "total": 62.3,
     "dividendo": 55,
-    "calidad": 83,
+    "calidad": 86,
     "valoracion": 43,
     "nota": "reparte más del 85 % del beneficio"
    },
    "radar_app": 62.2,
    "grupo_comp": "Regulada, concesional y redes",
-   "puesto_grupo": 6,
+   "puesto_grupo": 4,
    "n_grupo": 11,
    "per_grupo": 20.506338075523203,
    "per_vs_grupo": 1.4762167702275364,
-   "puesto": 35,
-   "puesto_ant": 34,
-   "puntos_ant": 60.7,
-   "cambio_puesto": -1,
+   "puesto": 33,
+   "puesto_ant": 33,
+   "puntos_ant": 61.8,
+   "cambio_puesto": 0,
    "cambio_puntos": 0.5
   },
   {
@@ -3734,9 +3735,9 @@
    "per_grupo": 14.926609635299414,
    "per_vs_grupo": 1.3739841000554929,
    "puesto": 41,
-   "puesto_ant": 43,
+   "puesto_ant": 42,
    "puntos_ant": 56.6,
-   "cambio_puesto": 2,
+   "cambio_puesto": 1,
    "cambio_puntos": 1.6
   },
   {
@@ -4610,12 +4611,12 @@
     "CICLICA",
     "HOLDING"
    ],
-   "grupo": "universo",
+   "grupo": "analizada",
    "descripcion": "Cemento e Inmobiliaria",
-   "n_anios": 3,
+   "n_anios": 10,
    "avisos": [],
    "ultimo": "2025",
-   "primero": "2023",
+   "primero": "2016",
    "moneda": "EUR",
    "normas": null,
    "ingresos": 966.984,
@@ -4628,11 +4629,11 @@
    "ltv": null,
    "fcf": 288.956,
    "roe": 0.13449638997856186,
-   "cagr_ing": null,
-   "cagr_tramo": null,
-   "roe_med5": 0.11892337690520227,
-   "perdidas5": 0,
-   "anios5": 3,
+   "cagr_ing": 0.1829412402347621,
+   "cagr_tramo": "2020-2025",
+   "roe_med5": 0.06924027784792797,
+   "perdidas5": 1,
+   "anios5": 5,
    "s1": "2026-S1",
    "s1_ing": 0.1556263621931421,
    "s1_ben": -0.3509206616396709,
@@ -4659,26 +4660,27 @@
    "ev_ebitda": 8.393137174636406,
    "fcf_yield": 0.17403793412136942,
    "etiquetas": [
-    "Barata"
+    "Barata",
+    "Crecimiento"
    ],
-   "estado": "universo",
+   "estado": "analizada",
    "puntos": {
-    "total": 57.9,
+    "total": 51.8,
     "dividendo": 0,
-    "calidad": 80,
+    "calidad": 62,
     "valoracion": 100,
     "nota": "sin dividendo ni recompras"
    },
    "radar_app": 76.3,
    "grupo_comp": "Materias primas o cíclica",
-   "puesto_grupo": 8,
+   "puesto_grupo": 9,
    "n_grupo": 18,
    "per_grupo": 14.926609635299414,
    "per_vs_grupo": 0.3209589128788831,
-   "puesto": 42,
-   "puesto_ant": 40,
-   "puntos_ant": 57.9,
-   "cambio_puesto": -2,
+   "puesto": 53,
+   "puesto_ant": 54,
+   "puntos_ant": 51.8,
+   "cambio_puesto": 1,
    "cambio_puntos": 0.0
   },
   {
@@ -4752,8 +4754,8 @@
    "n_grupo": 6,
    "per_grupo": 8.981973301673463,
    "per_vs_grupo": 0.8904822245744992,
-   "puesto": 47,
-   "puesto_ant": 45,
+   "puesto": 46,
+   "puesto_ant": 44,
    "puntos_ant": 55.6,
    "cambio_puesto": -2,
    "cambio_puntos": -0.1
@@ -5524,9 +5526,9 @@
    "per_grupo": 15.701489459390068,
    "per_vs_grupo": 0.941740449411589,
    "puesto": 55,
-   "puesto_ant": 54,
+   "puesto_ant": 53,
    "puntos_ant": 52.4,
-   "cambio_puesto": -1,
+   "cambio_puesto": -2,
    "cambio_puntos": -1.0
   },
   {
@@ -5747,12 +5749,12 @@
    },
    "radar_app": 39.5,
    "grupo_comp": "Materias primas o cíclica",
-   "puesto_grupo": 9,
+   "puesto_grupo": 8,
    "n_grupo": 18,
    "per_grupo": 14.926609635299414,
    "per_vs_grupo": 0.9883628980503453,
-   "puesto": 52,
-   "puesto_ant": 51,
+   "puesto": 51,
+   "puesto_ant": 50,
    "puntos_ant": 53.0,
    "cambio_puesto": -1,
    "cambio_puntos": 1.2
@@ -6530,8 +6532,8 @@
    "n_grupo": 7,
    "per_grupo": 22.228189514860496,
    "per_vs_grupo": 0.6700851794089009,
-   "puesto": 45,
-   "puesto_ant": 49,
+   "puesto": 44,
+   "puesto_ant": 48,
    "puntos_ant": 54.1,
    "cambio_puesto": 4,
    "cambio_puntos": 2.0
@@ -6836,8 +6838,8 @@
    "n_grupo": 11,
    "per_grupo": 21.440795782291833,
    "per_vs_grupo": 0.807578431998701,
-   "puesto": 44,
-   "puesto_ant": 42,
+   "puesto": 43,
+   "puesto_ant": 41,
    "puntos_ant": 56.8,
    "cambio_puesto": -2,
    "cambio_puntos": 0.7
@@ -6990,10 +6992,10 @@
    "n_grupo": 9,
    "per_grupo": 12.367317931498032,
    "per_vs_grupo": 1.6440332175922552,
-   "puesto": 43,
+   "puesto": 42,
    "puesto_ant": 39,
    "puntos_ant": 58.0,
-   "cambio_puesto": -4,
+   "cambio_puesto": -3,
    "cambio_puntos": -0.3
   },
   {
@@ -9565,7 +9567,7 @@
   "Materias primas o cíclica": {
    "n": 18,
    "per_mediana": 14.926609635299414,
-   "puntos_media": 51.37777777777778
+   "puntos_media": 51.03888888888889
   },
   "Industrial con cartera de pedidos": {
    "n": 19,
@@ -9585,7 +9587,7 @@
   "Regulada, concesional y redes": {
    "n": 11,
    "per_mediana": 20.506338075523203,
-   "puntos_media": 53.61818181818182
+   "puntos_media": 53.71818181818182
   },
   "Farma": {
    "n": 7,
