@@ -1,8 +1,17 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-19T17:45",
+ "generado": "2026-11-19T18:40",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
+  {
+   "carpeta": "FCC análisis inicial",
+   "ticker": "FCC",
+   "periodos": [],
+   "tipo": "inicial",
+   "creada": "2026-11-19T17:51+01:00",
+   "semaforo": null,
+   "frase": null
+  },
   {
    "carpeta": "IBE señales 2026-11-18",
    "ticker": "IBE",
@@ -33,6 +42,15 @@
     "Tesis escrita el 2026-10-27 · valoración generada el 2026-11-18",
     "Última revisión · 2026-9M · Cifra de ventas +6,2 %, EBITDA -0,7 %, beneficio neto +9,6 %, margen 34,6 % (-2,40 pp) frente al mismo periodo del año anterior. Margen EBITDA: 34,6 %. Ámbar por: EBITDA a la baja, el margen empeora, caída de ben"
    ]
+  },
+  {
+   "carpeta": "IMC análisis inicial",
+   "ticker": "IMC",
+   "periodos": [],
+   "tipo": "inicial",
+   "creada": "2026-11-19T18:02+01:00",
+   "semaforo": null,
+   "frase": null
   },
   {
    "carpeta": "NTGY señales 2026-11-18",
@@ -97,13 +115,20 @@
    ]
   }
  ],
- "n_pendientes": 3,
+ "n_pendientes": 5,
  "ultima_subida": {
-  "cuando": "2026-11-19T17:45",
+  "cuando": "2026-11-19T18:40",
   "ficheros": [
-   "recogida/publicaciones/FCC.json",
+   "recogida/publicaciones/ADZ.json",
+   "recogida/publicaciones/ART.json",
+   "recogida/publicaciones/GSJ.json",
+   "recogida/publicaciones/IMC.json",
+   "recogida/publicaciones/IZER.json",
+   "recogida/publicaciones/SAB.json",
+   "recogida/publicaciones/SLR.json",
+   "recogida/publicaciones/SNG.json",
    "recogida/publicaciones/_indice.json",
-   "fichas/_evolucion.json"
+   "recogida/publicaciones/dias/2026-11.json"
   ]
  },
  "rechazos": [],
