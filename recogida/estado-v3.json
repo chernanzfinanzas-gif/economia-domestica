@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-19T14:46",
+ "generado": "2026-11-19T17:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -99,18 +99,11 @@
  ],
  "n_pendientes": 3,
  "ultima_subida": {
-  "cuando": "2026-11-19T14:46",
+  "cuando": "2026-11-19T17:45",
   "ficheros": [
-   "dossiers/CCEP.html",
-   "dossiers/CCEP.json",
-   "dossiers/trimestral/CCEP-trim.json",
-   "dossiers/v3/CCEP.html",
-   "fichas/CCEP.json",
-   "fichas/_resumen.json",
-   "universo/base.json",
-   "universo/matriz.json",
-   "fichas/_evolucion.json",
-   "_indice.json"
+   "recogida/publicaciones/FCC.json",
+   "recogida/publicaciones/_indice.json",
+   "fichas/_evolucion.json"
   ]
  },
  "rechazos": [],
