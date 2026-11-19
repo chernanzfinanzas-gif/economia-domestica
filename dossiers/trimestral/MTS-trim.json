@@ -1,0 +1,1219 @@
+{
+ "schemaVersion": 2,
+ "ticker": "MTS",
+ "empresa": "ArcelorMittal S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-19",
+ "revisiones": [
+  {
+   "periodo": "2015-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2015",
+   "fecha": "2015-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -19,8 %, EBITDA -27,7 %, margen 8,2 % (-0,90 pp) frente al mismo periodo del año anterior. Ámbar por: ventas a la baja, EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 63578.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 5231.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 8.2
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": -7946.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2016-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2016-S1",
+   "fecha": "2016-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -17,2 %, EBITDA -2,9 %, beneficio neto atribuido +226,8 %, margen 9,6 % (+1,42 pp) frente al mismo periodo del año anterior. Ámbar por: ventas a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 28142.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2697.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 9.6
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 696.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2016-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2016-9M",
+   "fecha": "2016-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -14,0 %, EBITDA +11,3 %, beneficio neto atribuido +209,2 %, margen 10,8 % (+2,44 pp) frente al mismo periodo del año anterior. Verde: solo ventas a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 42665.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4594.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 10.8
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1376.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2016-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2016",
+   "fecha": "2016-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -10,7 %, EBITDA +19,6 %, beneficio neto atribuido +122,4 %, margen 11,0 % (+2,79 pp) frente al mismo periodo del año anterior. Verde: solo ventas a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 56791.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 6255.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.0
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1779.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2017-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2017-S1",
+   "fecha": "2017-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +18,4 %, EBITDA +61,0 %, beneficio neto atribuido +233,9 %, margen 13,0 % (+3,45 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 33330.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4343.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.0
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 2324.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2017-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2017-9M",
+   "fecha": "2017-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +19,5 %, EBITDA +36,4 %, beneficio neto atribuido +156,5 %, margen 12,3 % (+1,53 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 50969.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 6267.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.3
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 3529.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2017-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2017",
+   "fecha": "2017-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +20,9 %, EBITDA +34,4 %, beneficio neto atribuido +156,8 %, margen 12,2 % (+1,23 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 68679.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 8408.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.2
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 4568.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2018-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2018-S1",
+   "fecha": "2018-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +17,6 %, EBITDA +28,6 %, beneficio neto atribuido +31,5 %, margen 14,3 % (+1,22 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 39184.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 5585.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.3
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 3057.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2018-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2018-9M",
+   "fecha": "2018-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +13,2 %, EBITDA +32,7 %, beneficio neto atribuido +12,1 %, margen 14,4 % (+2,11 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 57706.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 8314.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 14.4
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 3956.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2018-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2018",
+   "fecha": "2018-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +10,7 %, EBITDA +22,1 %, beneficio neto atribuido +12,7 %, margen 13,5 % (+1,26 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 76033.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 10265.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 13.5
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 5149.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2019-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2019-3M",
+   "fecha": "2019-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +0,0 %, EBITDA -34,2 %, beneficio neto atribuido -65,3 %, margen 8,6 % (-4,48 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 19188.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1652.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 8.6
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 414.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2019-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2019-S1",
+   "fecha": "2019-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -1,8 %, EBITDA -42,6 %, beneficio neto atribuido -101,1 %, margen 8,3 % (-5,92 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 38467.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 3207.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 8.3
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": -33.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2019-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2019-9M",
+   "fecha": "2019-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -4,5 %, EBITDA -48,6 %, beneficio neto atribuido -114,5 %, margen 7,7 % (-6,66 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 55101.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4270.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 7.7
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": -572.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2019-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2019",
+   "fecha": "2019-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -7,1 %, EBITDA -49,4 %, beneficio neto atribuido -147,7 %, margen 7,4 % (-6,14 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 70615.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 5195.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 7.4
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": -2454.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2020-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2020-3M",
+   "fecha": "2020-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -22,6 %, EBITDA -41,5 %, beneficio neto atribuido -370,5 %, margen 6,5 % (-2,10 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 14844.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 967.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.5
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": -1120.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2020-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2020-S1",
+   "fecha": "2020-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -32,9 %, EBITDA -47,8 %, margen 6,5 % (-1,85 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 25820.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1674.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2020-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2020-9M",
+   "fecha": "2020-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -29,1 %, EBITDA -39,7 %, margen 6,6 % (-1,16 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 39086.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 2575.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 6.6
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2020-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2020",
+   "fecha": "2020-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -24,6 %, EBITDA -17,2 %, margen 8,1 % (+0,72 pp) frente al mismo periodo del año anterior. Ámbar por: ventas a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 53270.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4301.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 8.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +9,1 %, EBITDA +235,3 %, margen 20,0 % (+13,51 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 16193.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 3242.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 20.0
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 2285.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2021-S1",
+   "fecha": "2021-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +37,6 %, EBITDA +395,5 %, margen 23,3 % (+16,86 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 35536.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 8294.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2021-9M",
+   "fecha": "2021-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +42,7 %, EBITDA +457,4 %, margen 25,7 % (+19,15 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 55765.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 14352.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 25.7
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 10911.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2021",
+   "fecha": "2021-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +43,7 %, EBITDA +351,2 %, margen 25,3 % (+17,27 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 76571.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 19404.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 25.3
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 14956.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +34,8 %, EBITDA +56,7 %, beneficio neto atribuido +80,5 %, margen 23,3 % (+3,24 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 21836.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 5080.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.3
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 4125.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +23,8 %, EBITDA +23,5 %, margen 23,3 % (-0,05 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 43978.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 10243.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +12,9 %, EBITDA -10,1 %, beneficio neto atribuido -17,1 %, margen 20,5 % (-5,24 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 62953.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 12903.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 20.5
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 9041.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +4,3 %, EBITDA -27,0 %, beneficio neto atribuido -37,8 %, margen 17,7 % (-7,61 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 79844.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 14161.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.7
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 9302.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -15,3 %, EBITDA -64,1 %, beneficio neto atribuido -73,4 %, margen 9,8 % (-13,42 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 18501.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1822.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 9.8
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1096.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -15,6 %, EBITDA -56,8 %, margen 11,9 % (-11,36 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 37107.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4427.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.9
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 2956.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -14,7 %, EBITDA -51,2 %, margen 11,7 % (-8,78 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 53723.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 6292.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.7
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 3885.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -14,5 %, EBITDA -46,6 %, beneficio neto atribuido -90,1 %, margen 11,1 % (-6,67 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 68275.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 7558.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.1
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 919.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -12,0 %, EBITDA -8,6 %, beneficio neto atribuido -14,4 %, margen 12,0 % (+0,45 pp) frente al mismo periodo del año anterior. Ámbar por: ventas a la baja, EBITDA a la baja, caída de beneficio o margen. **Qué ha pasado** — Ventas de 16.282 M$ (−12,0 %), EBITDA de 1.956 M$ (−8,6 %) y beneficio de 938 M$ (−14,4 %).\n\n**Semáforo** — Ámbar: todo a la baja, pero el margen aguanta (12,0 %).\n\n**Lectura** — El ciclo baja desde 2022.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 16282.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1956.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.0
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 938.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -12,3 %, EBITDA -25,7 %, beneficio neto atribuido -51,2 %, margen 11,7 % (-2,11 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ventas de 32.531 M$ (−12,3 %), EBITDA de 3.818 M$ (−25,7 %) y beneficio de 1.442 M$ (−51,2 %).\n\n**Semáforo** — Rojo: ventas, EBITDA, margen (−2,1 puntos) y beneficio a la baja.\n\n**Lectura** — Precios del acero bajos e importaciones baratas en Europa.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 32531.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 3818.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.7
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1442.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -11,2 %, EBITDA -25,9 %, beneficio neto atribuido -55,5 %, margen 11,3 % (-2,25 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ventas de 47.727 M$ (−11,2 %), EBITDA de 5.399 M$ (−25,9 %) y beneficio de 1.729 M$ (−55,5 %).\n\n**Semáforo** — Rojo.\n\n**Lectura** — Sigue el deterioro.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 47727.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 5399.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.3
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1729.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -8,5 %, EBITDA -19,3 %, beneficio neto atribuido +45,7 %, margen 11,3 % (-1,51 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora. **Qué ha pasado** — Ventas de 62.441 M$ (−8,5 %), EBITDA de 7.053 M$ (−19,3 %) y beneficio de 1.339 M$ (+45,7 %, sobre un 2023 con cargos). Dividendo de 0,55 $.\n\n**Semáforo** — Rojo: ventas, EBITDA y margen a la baja.\n\n**Lectura** — Año flojo del ciclo.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 62441.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 7053.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.3
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1339.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -9,1 %, EBITDA -19,2 %, beneficio neto atribuido -14,2 %, margen 10,7 % (-1,34 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ventas de 14.798 M$ (−9,1 %), EBITDA de 1.580 M$ (−19,2 %) y beneficio de 805 M$ (−14,2 %).\n\n**Semáforo** — Rojo.\n\n**Lectura** — Fondo del ciclo en Europa.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 14798.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1580.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 10.7
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 805.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -5,6 %, EBITDA -9,9 %, beneficio neto atribuido +80,2 %, margen 11,2 % (-0,54 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora. **Qué ha pasado** — Ventas de 30.724 M$ (−5,6 %), EBITDA de 3.440 M$ (−9,9 %) y beneficio de 2.598 M$ (+80,2 %, con resultados extraordinarios).\n\n**Semáforo** — Rojo: ventas, EBITDA y margen a la baja; el beneficio no lo compensa porque es extraordinario.\n\n**Lectura** — La caída se frena.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 30724.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 3440.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.2
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 2598.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -2,8 %, EBITDA -8,4 %, beneficio neto atribuido +72,1 %, margen 10,7 % (-0,64 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora. **Qué ha pasado** — Ventas de 46.381 M$ (−2,8 %), EBITDA de 4.948 M$ (−8,4 %) y beneficio de 2.975 M$ (+72 %).\n\n**Por qué** — Precios del acero bajos; el beneficio lleva extraordinarios.\n\n**Semáforo** — Rojo.\n\n**Qué vigilar** — Las medidas comerciales de la UE.\n\n**Lectura** — Fondo del ciclo en Europa.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 46381.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 4948.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 10.7
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 2975.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -1,7 %, EBITDA -7,3 %, beneficio neto atribuido +135,4 %, margen 10,7 % (-0,63 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBITDA a la baja, el margen empeora. **Qué ha pasado** — Ventas de 61.352 M$ (−1,7 %), EBITDA de 6.541 M$ (−7,3 %) y beneficio de 3.152 M$ (+135 %). Dividendo de 0,60 $ para 2026.\n\n**Por qué** — Precios del acero bajos todo el año.\n\n**Semáforo** — Rojo: EBITDA −7 % y margen a la baja.\n\n**Qué vigilar** — La deuda (8.018 M$) con capex de 4.300 M$.\n\n**Lectura** — Año de suelo.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 61352.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 6541.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 10.7
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 3152.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +4,5 %, EBITDA +6,3 %, beneficio neto atribuido -28,6 %, margen 10,9 % (+0,19 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales. **Qué ha pasado** — Ventas de 15.457 M$ (+4,5 %), EBITDA de 1.679 M$ (+6,3 %) y beneficio de 575 M$ (−29 %).\n\n**Semáforo** — Verde: primer periodo con ventas y EBITDA al alza desde 2022.\n\n**Qué vigilar** — La entrada en vigor de las cuotas de la UE.\n\n**Lectura** — Empieza a mejorar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 15457.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1679.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 10.9
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 575.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +4,9 %, EBITDA +8,8 %, beneficio neto atribuido -51,6 %, margen 11,6 % (+0,42 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales. **Qué ha pasado** — Ventas de 32.218 M$ (+4,9 %), EBITDA de 3.743 M$ (+8,8 %) y beneficio de 1.258 M$ (−52 %, por los extraordinarios de 2025).\n\n**Semáforo** — Verde.\n\n**Lectura** — El margen mejora.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 32218.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 3743.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.6
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1258.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +5,0 %, EBITDA +16,5 %, beneficio neto atribuido -70,9 %, margen 11,8 % (+1,18 pp) frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales. **Qué ha pasado** — Ventas de 48.684 M$ (+5,0 %), EBITDA de 5.766 M$ (+16,5 %; 155 $/t en el 3T) y beneficio de 867 M$ (−71 %): pérdida de 391 M$ en el 3T por parar Kryvyi Rih (Ucrania); beneficio ajustado del 3T de 868 M$. Deuda neta de 10.300 M$ por 2.500 M$ de circulante.\n\n**Por qué** — Las cuotas de la UE devuelven pedidos a Europa; todos sus altos hornos europeos funcionan.\n\n**Semáforo** — Verde en la operativa; el beneficio cae por el cierre de Ucrania.\n\n**Qué vigilar** — Que el circulante vuelva en el 4T y la deuda baje.\n\n**Lectura** — Mejor año operativo desde 2022.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 48684.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 5766.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 11.8
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 867.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

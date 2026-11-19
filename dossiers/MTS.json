@@ -1,0 +1,133 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "MTS",
+ "empresa": "ArcelorMittal S.A.",
+ "fecha": "2026-11-19",
+ "revisadoEl": "2026-11-19",
+ "rating": "BBB",
+ "score": 53.8,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 6 % · DCF base 17 % · DCF optimista 6 % · EV/EBITDA 16 % · EV/EBIT 16 % · PER 20 % · P/VC 12 % · rentabilidad por dividendo 6 % · flujo base del DCF: fcl recurrente",
+ "poBear": 32.88,
+ "poBase": 42.4,
+ "poBull": 57.97,
+ "entMin": 32.88,
+ "entMax": 36.87,
+ "stop": 19.49,
+ "dpaPrevisto": 0.5458,
+ "moat": "23,0 sobre 100 · SIN MOAT CLARO. Sin ajuste: escala y minas propias, en un producto sin diferenciación",
+ "catalizadores": [
+  "Protección de la UE: Las cuotas con arancel ya reducen las importaciones y la empresa espera que sus envíos de acero plano en Europa crezcan a doble dígito en el 4T-2026. Se toma como 600 M$ más de EBITDA. (12 meses)",
+  "Proyectos de crecimiento: La empresa cifra en unos 1.800 M$ el EBITDA adicional de sus proyectos y compras desde 2026. Se toma la mitad: 900 M$. (24 meses)",
+  "Recompras: Desde septiembre de 2020 ha reducido un 39 % las acciones y se compromete a devolver al menos el 50 % del FCL después del dividendo. Se toma como +3 % de ventas por acción. (24 meses)"
+ ],
+ "riesgos": [
+  "Ciclo del acero (Alta): El acero es muy cíclico: el margen EBITDA fue del 25,5 % en 2021 y del 7,4 % en 2023. Hoy está en la parte alta (155 $/t en el 3T-2026, frente a 111 $ un año antes). Suave: −1.000 M$ de EBITDA. Duro: −2.500 M$.",
+  "Protección comercial de la UE (Media): La mejora de Europa en 2026 se apoya en las nuevas cuotas con arancel de la UE (TRQ): con ellas volvieron a funcionar todos sus altos hornos europeos. Si se suavizan, vuelven las importaciones baratas. Suave: −500 M$ de EBITDA. Duro: −1.200 M$.",
+  "Energía y CO2 en Europa (Media): El acero europeo paga energía cara y derechos de emisión de CO2 con cada vez menos derechos gratuitos; la empresa cita la energía como freno en 2026. Suave: −400 M$ de EBITDA. Duro: −900 M$.",
+  "Ucrania y geopolítica (Media): En el 3T-2026 paró ArcelorMittal Kryvyi Rih (Ucrania), con deterioros y cargos que dieron una pérdida de 391 M$ en el trimestre. Opera además en Brasil, India (con Nippon Steel), Liberia, Canadá y EE. UU. Suave: valor contable −3 %. Duro: −6 %.",
+  "Deuda y circulante (Media): La deuda neta subió a 10.300 M$ en septiembre de 2026 por 2.500 M$ de circulante que la empresa espera recuperar en el 4T. Suave: +2.000 M$ de deuda. Duro: +4.000 M$.",
+  "Proyectos de crecimiento (Media): Invierte 4.500-5.000 M$ al año (1.700-1.900 M$ en proyectos estratégicos) y promete unos 1.800 M$ más de EBITDA desde 2026. Si los proyectos rinden menos: suave −300 M$ de EBITDA; duro −700 M$.",
+  "Accionista de referencia (Baja): La familia Mittal es el accionista de referencia y el consejero delegado, Aditya Mittal, es de la familia (porcentaje exacto: Pte. Revisión). Suave: −3 %. Duro: −6 %.",
+  "Múltiplos (Alta): La acción cotiza muy por encima de sus múltiplos medios de diez años: el mercado paga ya la mejora de Europa y los proyectos. Suave: −10 %. Duro: −20 %."
+ ],
+ "bull": "57,97 € — escenario optimista: ",
+ "bear": "32,88 € — escenario pesimista: ",
+ "resumen": "ESPERAR. A 60,18 $ (54,74 €) la cotización está un 23 % por encima del PO (46,61 $) y casi en el escenario bueno (63,73 $: protección de la UE, proyectos y recompras). El DCF da margen (+19 %), pero los múltiplos sobre el ciclo no (−40 %), y la empresa no pasa los filtros de calidad del método para comprar (rating BBB, por debajo de A; moat de 23, por debajo de 45). Para el método solo sería una compra de ciclo, en el fondo: la banda de entrada (36,14-40,53 $, unos 32,9-36,9 €) está un tercio por debajo del precio de hoy. Stop de tesis: 21,43 $. (Cuentas en dólares: el análisis se hace en dólares. En euros, al cambio de 1,0993 $/€ del 2026-11-19: precio objetivo 42,40 €, banda 32,88–36,87 €, stop 19,49 €.)",
+ "dividendSafety": {
+  "score": 85,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 17,
+   "C4": 9,
+   "C5": 9
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 3.54x · payout 24 % · 1 recorte(s) del DPA · señales: DN/EBITDA al alza, recompras recortadas"
+  ],
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3",
+  "shareholderYield": 1.31
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 4.04,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.58,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -1.8,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -0.78,
+  "gIntrinseco": 2.84,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 3991.2672,
+   "wacc": 8.7973,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 763.1961,
+   "deudaNeta": 7293.7324,
+   "modo": "EV",
+   "precioBase": 54.74,
+   "gBase": -0.78,
+   "fechaBase": "2026-11-19",
+   "congeladoEl": "2026-11-19",
+   "validado": true,
+   "desviacion": -0.0
+  }
+ },
+ "moneda": {
+  "cuentas": "USD",
+  "eurUsd": 1.0993,
+  "fecha": "2026-11-19",
+  "poBaseUsd": 46.61,
+  "nota": "Cuentas en dólares; precios de este puente pasados a euros con el EUR/USD del día de la cotización del análisis."
+ }
+}

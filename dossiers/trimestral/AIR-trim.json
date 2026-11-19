@@ -1,0 +1,669 @@
+{
+ "schemaVersion": 2,
+ "ticker": "AIR",
+ "empresa": "Airbus SE",
+ "origen": "metodo-v3",
+ "generado": "2026-11-19",
+ "revisiones": [
+  {
+   "periodo": "2016-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2016-S1",
+   "fecha": "2016-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -0,5 %, EBIT -16,2 %, beneficio neto atribuido +15,6 %, margen 6,4 % (-1,21 pp) frente al mismo periodo del año anterior. Ámbar por: ventas a la baja, EBIT a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 28755.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1851.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 6.4
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1761.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2017-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2017-S1",
+   "fecha": "2017-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -0,2 %, EBIT -3,2 %, beneficio neto atribuido -14,7 %, margen 6,2 % (-0,20 pp) frente al mismo periodo del año anterior. Ámbar por: ventas a la baja, EBIT a la baja, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 28709.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1791.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 6.2
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1503.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2017-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2017",
+   "fecha": "2017-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -11,4 %, EBIT +18,0 %, beneficio neto atribuido +137,3 %, margen 4,5 % (+1,12 pp) frente al mismo periodo del año anterior. Verde: solo ventas a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 59022.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 2665.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 4.5
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 2361.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2018-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2018-S1",
+   "fecha": "2018-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -0,8 %, EBIT -7,5 %, beneficio neto atribuido -54,5 %, margen 4,5 % (-0,32 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBIT a la baja, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 24970.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1120.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 4.5
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 496.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2018-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2018",
+   "fecha": "2018-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +7,9 %, EBIT +89,4 %, beneficio neto atribuido +29,4 %, margen 7,9 % (+3,41 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 63707.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 5048.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 7.9
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 3054.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2019-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2019-S1",
+   "fecha": "2019-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +23,6 %, EBIT +86,9 %, beneficio neto atribuido +141,3 %, margen 6,8 % (+2,30 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 30866.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 2093.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 6.8
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1197.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2019-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2019",
+   "fecha": "2019-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +10,6 %, EBIT -73,5 %, beneficio neto atribuido -144,6 %, margen 1,9 % (-6,02 pp) frente al mismo periodo del año anterior. Rojo por: EBIT a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 70478.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1339.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 1.9
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": -1362.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2020-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2020-S1",
+   "fecha": "2020-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -38,6 %, EBIT -174,5 %, beneficio neto atribuido -260,3 %, margen -8,2 % (-15,01 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBIT a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 18948.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": -1559.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": -8.2
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": -1919.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2020-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2020",
+   "fecha": "2020-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -29,2 %, EBIT -138,1 %, beneficio neto atribuido +16,8 %, margen -1,0 % (-2,92 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBIT a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 49912.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": -510.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": -1.0
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": -1133.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2021-S1",
+   "fecha": "2021-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +30,0 %, EBIT +274,9 %, beneficio neto atribuido +216,3 %, margen 11,1 % (+19,30 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 24637.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 2727.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 11.1
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 2231.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2021",
+   "fecha": "2021-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +4,5 %, EBIT +1147,5 %, beneficio neto atribuido +471,8 %, margen 10,2 % (+11,27 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 52149.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 5342.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 10.2
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 4213.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +0,7 %, EBIT -5,4 %, beneficio neto atribuido -14,8 %, margen 10,4 % (-0,67 pp) frente al mismo periodo del año anterior. Ámbar por: EBIT a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 24810.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 2579.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 10.4
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1901.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +12,7 %, EBIT -0,3 %, beneficio neto atribuido +0,8 %, margen 9,1 % (-1,18 pp) frente al mismo periodo del año anterior. Rojo por: EBIT a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 58763.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 5325.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 9.1
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 4247.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -2,0 %, EBIT -72,7 %, beneficio neto atribuido -61,8 %, margen 3,3 % (-8,59 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBIT a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 11763.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 390.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 3.3
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 466.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +11,4 %, EBIT -13,6 %, beneficio neto atribuido -10,8 %, margen 7,0 % (-2,03 pp) frente al mismo periodo del año anterior. Rojo por: EBIT a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 65446.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 4603.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 7.0
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 3789.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +4,2 %, EBIT -22,8 %, beneficio neto atribuido -45,9 %, margen 5,1 % (-1,77 pp) frente al mismo periodo del año anterior. Rojo por: EBIT a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ventas de 28.825 M€ (+4,2 %), EBIT de 1.456 M€ (−22,8 %) y beneficio de 825 M€ (−45,9 %).\n\n**Por qué** — Cargos en el negocio de Espacio.\n\n**Semáforo** — Ámbar.\n\n**Lectura** — Golpe de un programa, no del negocio de aviones.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 28825.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1456.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 5.1
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 825.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +5,8 %, EBIT +15,2 %, beneficio neto atribuido +11,7 %, margen 7,7 % (+0,63 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 69.230 M€ (+5,8 %), EBIT de 5.304 M€ (+15,2 %) y beneficio de 4.232 M€ (+11,7 %). Dividendo de 3,00 €.\n\n**Semáforo** — Verde en el periodo.\n\n**Lectura** — Recupera el ritmo tras el cargo del semestre.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 69230.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 5304.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 7.7
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 4232.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +2,7 %, EBIT +11,1 %, beneficio neto atribuido +84,8 %, margen 5,5 % (+0,41 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 29.610 M€ (+2,7 %), EBIT de 1.617 M€ (+11,1 %) y beneficio de 1.525 M€ (+84,8 %).\n\n**Semáforo** — Verde.\n\n**Lectura** — Semestre flojo de entregas por los motores.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 29610.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1617.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 5.5
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 1525.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +6,1 %, EBIT +14,7 %, beneficio neto atribuido +23,4 %, margen 8,3 % (+0,62 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 73.420 M€ (+6,1 %), EBIT de 6.082 M€ (+14,7 %) y beneficio de 5.221 M€ (+23,4 %). Cartera récord de 8.754 aviones. Dividendo de 3,20 €.\n\n**Semáforo** — Verde en el periodo; el semáforo anual sale rojo por el ROIC (18 %, bajando desde el 44 % de 2021) y los gastos de personal.\n\n**Qué vigilar** — Que el capital invertido (26.300 M€) empiece a rendir.\n\n**Lectura** — Buen año; la rentabilidad se diluye por la inversión.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 73420.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 6082.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 8.3
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 5221.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas -6,6 %, EBIT -52,6 %, beneficio neto atribuido -26,1 %, margen 1,8 % (-1,72 pp) frente al mismo periodo del año anterior. Rojo por: ventas a la baja, EBIT a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ventas de 12.651 M€ (−6,6 %), EBIT de 224 M€ (−52,6 %) y beneficio de 586 M€ (−26,1 %); 114 aviones entregados.\n\n**Por qué** — Pocas entregas en el trimestre (los motores).\n\n**Semáforo** — Rojo: ventas, EBIT y margen a la baja. El semestre ya lo recupera (verde).\n\n**Lectura** — Trimestre de arranque; Airbus mantiene la guía del año.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 12651.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 224.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 1.8
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 586.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +12,0 %, EBIT +69,8 %, beneficio neto atribuido +47,1 %, margen 8,3 % (+2,81 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 33.176 M€ (+12,0 %), EBIT de 2.745 M€ (+69,8 %) y beneficio de 2.243 M€ (+47,1 %).\n\n**Por qué** — El 2T recupera entregas (ventas +28 % en el trimestre).\n\n**Semáforo** — Verde.\n\n**Lectura** — Se recupera lo perdido en el 1T.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 33176.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 2745.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 8.3
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 2243.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +6,8 %, EBIT +35,2 %, beneficio neto atribuido +35,8 %, margen 9,0 % (+1,89 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 50.645 M€ (+6,8 %), EBIT de 4.550 M€ (+35,2 %) y beneficio de 3.587 M€ (+35,8 %); 547 aviones entregados. FCL antes de financiación a clientes de −1.268 M€ y caja neta (según Airbus) de 7.042 M€, por el inventario.\n\n**Por qué** — Más entregas y mejor margen; el 3T solo, con ventas −2 %.\n\n**Semáforo** — Verde en resultados; vigilar la caja.\n\n**Qué vigilar** — Que el 4T entregue lo necesario para las ~870 entregas y los 4.500 M€ de FCL de la guía.\n\n**Lectura** — El año va según el plan; la caja se concentra en el 4T, como siempre.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 50645.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 4550.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 9.0
+    },
+    {
+     "nombre": "Beneficio neto atribuido",
+     "valor": 3587.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

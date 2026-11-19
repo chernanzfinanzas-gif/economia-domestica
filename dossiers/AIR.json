@@ -1,0 +1,128 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "AIR",
+ "empresa": "Airbus SE",
+ "fecha": "2026-11-19",
+ "revisadoEl": "2026-11-19",
+ "rating": "A",
+ "score": 69.5,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 11 % · EV/EBIT 11 % · PER 14 % · P/VC 8 % · P/FCL 11 % · rentabilidad por dividendo 5 % · flujo base del DCF: owner earnings",
+ "poBear": 106.56,
+ "poBase": 149.18,
+ "poBull": 184.62,
+ "entMin": 106.56,
+ "entMax": 129.72,
+ "stop": 53.73,
+ "dpaPrevisto": 3.2,
+ "moat": "69,3 sobre 100 · MOAT MODERADO. +10: duopolio con Boeing en aviones comerciales grandes y barreras de entrada enormes",
+ "catalizadores": [
+  "Subida de producción: Guía de 2026: unas 870 entregas y EBIT ajustado de unos 7.500 M€, con el A320 camino de 75 al mes. Se toma como 1.000 M€ más de EBITDA. (24 meses)",
+  "Defensa europea: Defensa y Espacio cerró 2025 con pedidos récord de 17.700 M€ (1,3 veces sus ventas) por el rearme europeo. Se toma como 500 M€ más de EBITDA. (24 meses)",
+  "Recompra de 5.000 M€: Programa de recompra hasta julio de 2029 de hasta 5.000 M€, con amortización de las acciones (primer tramo de 800 M€ desde el 9-nov-2026): un 3 % del capital. Se toma como +3 % de ventas por acción. (36 meses)"
+ ],
+ "riesgos": [
+  "Proveedores y motores (Alta): Las entregas dependen de los motores (CFM y Pratt & Whitney) y de proveedores con problemas desde 2022; aviones terminados esperan motor y el inventario sube (en los nueve meses de 2026 el FCL va en −1.268 M€). Suave: −800 M€ de EBITDA. Duro: −2.000 M€.",
+  "Subida de producción (Media): El plan pide 75 A320 al mes y 12 A350; el capital invertido ya ha pasado de 9.954 M€ (2021) a 26.300 M€ (2025). Si la subida se retrasa, el capital no rinde. Suave: −500 M€ de EBITDA. Duro: −1.200 M€.",
+  "Caída de la demanda de las aerolíneas (Baja): Una pandemia o una recesión fuerte paran las entregas: en 2020 las ventas cayeron un 29 %, el EBITDA un 46 % y la caja de explotación fue de −5.420 M€ (los anticipos se dieron la vuelta: −8.237 M€ de circulante). La cartera (8.754 aviones) amortigua, pero no evita los aplazamientos. Suave: −1.500 M€ de EBITDA. Duro: −4.000 M€.",
+  "Aranceles y comercio (Media): Vende en todo el mundo y monta aviones en EE. UU. y China; los aranceles entre EE. UU. y la UE y la política china de compras afectan a precio y pedidos. Suave: −400 M€ de EBITDA. Duro: −1.000 M€.",
+  "Programas con sobrecostes (Media): Historia de cargos en programas: el A400M en 2016-2019 y el negocio de Espacio en 2024. Programas nuevos (A350F, A321XLR, defensa) pueden repetirlo. Suave: −500 M€ de EBITDA. Duro: −1.500 M€.",
+  "Dólar (Media): Vende aviones en dólares y paga buena parte de los costes en euros; tiene coberturas a varios años, pero un dólar débil mucho tiempo acaba entrando en el margen. Suave: −500 M€ de EBITDA. Duro: −1.200 M€.",
+  "Cumplimiento y litigios (Baja): En 2020 pagó 3.600 M€ para cerrar las investigaciones por sobornos en Francia, Reino Unido y EE. UU. Un caso nuevo costaría dinero y reputación. Suave: −3 %. Duro: −6 %.",
+  "Múltiplos (Alta): Cotiza a unas 30 veces el beneficio, por encima de su media de diez años: el mercado ya paga la subida de producción. Suave: −10 %. Duro: −20 %."
+ ],
+ "bull": "184,62 € — escenario optimista: ",
+ "bear": "106,56 € — escenario pesimista: ",
+ "resumen": "ESPERAR. Airbus es una empresa de calidad (rating A, moat moderado de 69,3 por el duopolio, cartera de ocho años de ventas y deuda casi nula), pero a 198,42 € cotiza por encima incluso del escenario bueno (184,62 €: subida de producción, defensa europea y recompra de 5.000 M€ a la vez). El método pide un 15 % de margen sobre el PO para comprar (máximo 129,72 €) y hoy hay un −25 %: el DCF no da margen (−69 %) y los múltiplos solo el precio de hoy (+5 %). La robustez no cambia nada (PO entre 145,37 y 155,04 €). La zona de compra es 106,56-129,72 €, entre un 35 % y un 46 % por debajo: no es una banda imposible: en 2023 cotizó entre 112,52 y 142,74 €, y en mayo de 2020 bajó a 49 €; pero hoy exigiría una crisis o una decepción fuerte en las entregas. El stop de tesis (53,73 €) queda muy lejos.",
+ "dividendSafety": {
+  "score": 80,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 27,
+   "C2": 13,
+   "C3": 19,
+   "C4": 9,
+   "C5": 12
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 1.88x · payout 48 % · 1 recorte(s) del DPA · señales: DN/EBITDA al alza"
+  ],
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3",
+  "shareholderYield": 1.97
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 8,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 0,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 1.66,
+   "zona": "gris"
+  },
+  "beneish": {
+   "m": -2.54,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -2.1,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=1.66 en zona gris"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 22.14,
+  "gIntrinseco": 14.79,
+  "veredicto": "HEROICO",
+  "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 2836.0,
+   "wacc": 8.6616,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 789.8638,
+   "deudaNeta": 121.0,
+   "modo": "EV",
+   "precioBase": 198.42,
+   "gBase": 28.89,
+   "fechaBase": "2026-11-19",
+   "congeladoEl": "2026-11-19",
+   "validado": false,
+   "desviacion": 6.75
+  }
+ }
+}
