@@ -3089,7 +3089,7 @@
 "2024": {
 "dpaBruto": 2.8,
 "dpaNeto": 2.8,
-"nPagos": 1,
+"nPagos": 2,
 "deltaPct": 0.555556,
 "racha": 3,
 "naturaleza": "efectivo",
@@ -3100,18 +3100,27 @@
 {
 "exDiv": "2024-04-16",
 "pago": "2024-04-18",
-"bruto": 2.8,
+"bruto": 1.8,
 "neto": null,
 "tipo": "12M",
 "ejercicio": "2023",
 "clase": "ordinario"
+},
+{
+"exDiv": "2024-04-16",
+"pago": "2024-04-18",
+"bruto": 1.0,
+"neto": null,
+"tipo": "especial",
+"ejercicio": "2023",
+"clase": "puntual"
 }
 ]
 },
 "2025": {
 "dpaBruto": 3.0,
 "dpaNeto": 3.0,
-"nPagos": 1,
+"nPagos": 2,
 "deltaPct": 0.071429,
 "racha": 4,
 "naturaleza": "efectivo",
@@ -3122,11 +3131,20 @@
 {
 "exDiv": "2025-04-22",
 "pago": "2025-04-24",
-"bruto": 3.0,
+"bruto": 2.0,
 "neto": null,
 "tipo": "12M",
 "ejercicio": "2024",
 "clase": "ordinario"
+},
+{
+"exDiv": "2025-04-22",
+"pago": "2025-04-24",
+"bruto": 1.0,
+"neto": null,
+"tipo": "especial",
+"ejercicio": "2024",
+"clase": "puntual"
 }
 ]
 },
