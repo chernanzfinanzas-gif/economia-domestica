@@ -1,0 +1,273 @@
+{
+ "schemaVersion": 2,
+ "ticker": "CCEP",
+ "empresa": "Coca-Cola Europacific Partners plc",
+ "origen": "metodo-v3",
+ "generado": "2026-11-19",
+ "revisiones": [
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +12,0 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 4154.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +8,4 %, beneficio de explotación +21,0 %, beneficio después de impuestos +26,5 %, margen 13,0 % (+1,35 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 8977.0
+    },
+    {
+     "nombre": "Beneficio de explotación",
+     "valor": 1170.0
+    },
+    {
+     "nombre": "Margen de explotación",
+     "valor": 13.0
+    },
+    {
+     "nombre": "Beneficio después de impuestos",
+     "valor": 854.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +6,0 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 13784.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +7,5 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 4465.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +9,5 %, beneficio de explotación -2,4 %, beneficio después de impuestos -5,0 %, margen 11,6 % (-1,41 pp) frente al mismo periodo del año anterior. Ámbar por: beneficio de explotación a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 9828.0
+    },
+    {
+     "nombre": "Beneficio de explotación",
+     "valor": 1142.0
+    },
+    {
+     "nombre": "Margen de explotación",
+     "valor": 11.6
+    },
+    {
+     "nombre": "Beneficio después de impuestos",
+     "valor": 811.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +10,2 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 15186.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +5,0 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 4.689 M€ (+5,0 %); el volumen crece por Filipinas, comprada en febrero de 2024.\n\n**Por qué** — Precio por caja y mezcla al alza en Europa y el primer trimestre completo de Filipinas; volumen europeo flojo.\n\n**Semáforo** — Verde: crecen las ventas.\n\n**Qué vigilar** — El consumo fuera de casa en Europa.\n\n**Lectura** — Trimestre de ventas solo (la empresa no publica resultados en el 1T y el 9M); sin señal.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 4689.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +4,5 %, beneficio de explotación +19,4 %, beneficio después de impuestos +15,5 %, margen 13,3 % (+1,66 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 10.274 M€ (+4,5 %), beneficio de explotación de 1.364 M€ (+19 %; +7 % comparable) y beneficio de 937 M€. Dividendo a cuenta de 0,79 €.\n\n**Por qué** — Precio y mezcla, eficiencias y un 2024 que cargaba costes de reestructuración.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — El programa de recompra de 1.000 M€ (460 hechos).\n\n**Lectura** — Semestre limpio; el margen sigue subiendo.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 10274.0
+    },
+    {
+     "nombre": "Beneficio de explotación",
+     "valor": 1364.0
+    },
+    {
+     "nombre": "Margen de explotación",
+     "valor": 13.3
+    },
+    {
+     "nombre": "Beneficio después de impuestos",
+     "valor": 937.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +3,3 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 15.684 M€ en nueve meses (+3,3 %); el 3T, 5.410 M€ (+1,0 %).\n\n**Por qué** — Tercer trimestre flojo en Asia (Indonesia, salida de la distribución de alcohol de Suntory en Australia) y moneda en contra.\n\n**Semáforo** — Verde, sin holgura: el 3T apenas crece.\n\n**Qué vigilar** — Indonesia y el tipo de cambio.\n\n**Lectura** — Ritmo bajo, pero dentro de la previsión de la empresa.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 15684.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +6,7 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 5.001 M€ (+6,7 %).\n\n**Por qué** — Seis días más de consumo que en el 1T-2025 (se devuelven en el 4T), precio por caja al alza y Filipinas e Indonesia creciendo.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — El 4T, que tendrá seis días menos.\n\n**Lectura** — Buen trimestre, inflado por el calendario.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 5001.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +4,4 %, beneficio de explotación +6,9 %, beneficio después de impuestos +5,8 %, margen 13,6 % (+0,32 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 10.724 M€ (+4,4 %), beneficio de explotación de 1.458 M€ (+6,9 %) y beneficio de 991 M€ (+5,8 %); beneficio por acción de 2,17 € (+9 %). Dividendo a cuenta de 0,82 €.\n\n**Por qué** — Precio y mezcla, eficiencias y el Mundial de fútbol; volumen +2,2 % ajustado por días.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — Oriente Medio y el coste de la energía, que la empresa cita como incertidumbre.\n\n**Lectura** — Cumple la previsión; las recompras suben el beneficio por acción más que el beneficio.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 10724.0
+    },
+    {
+     "nombre": "Beneficio de explotación",
+     "valor": 1458.0
+    },
+    {
+     "nombre": "Margen de explotación",
+     "valor": 13.6
+    },
+    {
+     "nombre": "Beneficio después de impuestos",
+     "valor": 991.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ventas +5,1 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 16.488 M€ en nueve meses (+5,1 %); el 3T, 5.764 M€ (+6,5 %), con el volumen +3,5 %. Previsión de 2026 confirmada (ventas +3-4 %, beneficio de explotación +7 %) y dividendo de 2,24 € con cargo al año (+10 %).\n\n**Por qué** — Buen verano en Europa (Gran Bretaña e Iberia), Coca-Cola Zero, energéticas y Asia (+6,3 % en volumen).\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — El 4T (seis días menos) y la recompra (880 de 1.000 M€ hechos a 30 de octubre).\n\n**Lectura** — Verde con razón; la tesis de calidad sigue intacta. Lo que no acompaña es el precio: la acción sube un 20 % desde septiembre.",
+   "metricas": [
+    {
+     "nombre": "Ventas",
+     "valor": 16488.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

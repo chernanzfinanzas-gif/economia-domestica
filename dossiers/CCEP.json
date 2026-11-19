@@ -1,0 +1,128 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "CCEP",
+ "empresa": "Coca-Cola Europacific Partners plc",
+ "fecha": "2026-11-19",
+ "revisadoEl": "2026-11-19",
+ "rating": "A",
+ "score": 63.7,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 30 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 8 % · PER 10 % · P/VC 6 % · P/FCL 8 % · rentabilidad por dividendo 10 % · flujo base del DCF: owner earnings",
+ "poBear": 60.07,
+ "poBase": 74.69,
+ "poBull": 81.98,
+ "entMin": 60.07,
+ "entMax": 64.95,
+ "stop": 57.24,
+ "dpaPrevisto": 2.04,
+ "moat": "46,8 sobre 100 · MOAT ESTRECHO. Sin ajuste: franquicia exclusiva, pero la marca es de The Coca-Cola Company",
+ "catalizadores": [
+  "Filipinas e Indonesia: Las dos crecen a doble dígito en volumen en 2026; si se mantiene, el Sudeste asiático añade un 2 % a las ventas del grupo. (24 meses)",
+  "Productividad: El programa de eficiencia y la inversión en tecnología siguen ampliando el margen: medio punto de margen son unos 100 M€ de EBITDA. (12-24 meses)",
+  "Recompras: Recompra 1.000 M€ al año (2025 y 2026): el 2 % de las acciones cada año, que sube el beneficio por acción aunque el negocio no crezca. Se toma como +3 % de ventas por acción en dos años. (24 meses)"
+ ],
+ "riesgos": [
+  "Dependencia de The Coca-Cola Company (Baja): CCEP embotella marcas que no son suyas: The Coca-Cola Company fija el precio del concentrado (ligado al precio de venta por caja) y los contratos de embotellado, aunque se renuevan siempre, se pueden no renovar. Suave: −150 M€ de EBITDA. Duro: −350 M€.",
+  "Consumo débil en Europa (Media): Europa es el 75 % de las ventas. El consumo fuera de casa en Europa apenas crece en 2026 (+0,3 % en los nueve meses) y la empresa habla de un consumidor «exigente». Suave: ventas −3 %. Duro: −6 %.",
+  "Impuestos al azúcar y a los envases (Media): Impuestos al azúcar (ya en Gran Bretaña, Francia, Portugal…; nuevos en Indonesia), sistemas de depósito y reglas de plásticos de un solo uso en la UE. Suave: −100 M€ de EBITDA. Duro: −250 M€.",
+  "Coste del aluminio, el PET, el azúcar y la energía (Media): Las materias primas están cubiertas en más del 95 % para 2026, pero no para 2027; la situación de Oriente Medio encarece la energía y el transporte. Suave: −120 M€. Duro: −300 M€.",
+  "Sudeste asiático (Media): Filipinas (comprada en 2024) e Indonesia son el crecimiento de la tesis; en 2025 Indonesia sufrió un consumidor débil y un impuesto nuevo al azúcar, y el peso filipino resta en euros. Suave: −80 M€ de EBITDA. Duro: −200 M€.",
+  "Deuda y tipos (Baja): Deuda neta de 9.776 M€ (2,6 veces el EBITDA); los gastos financieros han pasado de 185 M€ (2023) a 306 M€ (2025) al refinanciar más caro. Suave: +1.000 M€ de deuda. Duro: +2.500 M€ (otra compra grande).",
+  "Múltiplos (Alta): Cotiza a unas 16 veces el EBITDA y 25 veces el beneficio de 2025, por encima de sus medias de diez años (13,8 y 21,6 veces). Suave: −10 %. Duro: −20 %.",
+  "Gobierno: dos grandes accionistas (Baja): Olive Partners (Cobega, familia Daurella) tiene el 36 % y nombra a cinco consejeros, el presidente entre ellos; The Coca-Cola Company tiene el 17 % y nombra a dos. Suave: −3 %. Duro: −6 %."
+ ],
+ "bull": "81,98 € — escenario optimista: Filipinas e Indonesia crecen a doble dígito como en 2026, la productividad sigue ampliando el margen y la recompra de 1.000 M€ al año reduce las acciones",
+ "bear": "60,07 € — escenario pesimista: Solo crecen las ventas en Europa al ritmo de los precios (2-3 %), sin mejora de margen; Asia no aporta y los impuestos al azúcar y a los envases se extienden",
+ "resumen": "ESPERAR. Es una empresa que el método puede comprar (rating A, moat de 47 por encima del mínimo de 45 y dividendo muy seguro, 83), pero no a este precio: la cotización (108,20 €) está un 67 % por encima del techo de la banda de entrada (60,07-64,95 €) y ninguno de los dos caminos de la valoración da margen (DCF −36 %, múltiplos −25 %). Ni el bull (81,98 €: Asia, productividad y recompras) llega a la cotización. Para entrar haría falta una caída del 40 %, como la de 2020, o varios años de crecimiento sin que suba la acción. Se vigila como candidata de calidad.",
+ "dividendSafety": {
+  "score": 83,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 31,
+   "C2": 13,
+   "C3": 15,
+   "C4": 9,
+   "C5": 15
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 2.02x · payout 53 % · 1 recorte(s) del DPA"
+  ],
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3",
+  "shareholderYield": 5.44
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 1.73,
+   "zona": "gris"
+  },
+  "beneish": {
+   "m": -2.6,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -3.3,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=1.73 en zona gris"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 10.24,
+  "gIntrinseco": 9.25,
+  "veredicto": "EXIGENTE",
+  "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 9.3 %)",
+  "calculadoEl": "2026-11-19",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 1680.2,
+   "wacc": 7.0,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 455.8685,
+   "deudaNeta": 9776.0,
+   "modo": "EV",
+   "precioBase": 108.2,
+   "gBase": 10.81,
+   "fechaBase": "2026-11-18",
+   "congeladoEl": "2026-11-19",
+   "validado": false,
+   "desviacion": 0.57
+  }
+ }
+}

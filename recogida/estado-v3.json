@@ -1,17 +1,8 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-19T13:45",
+ "generado": "2026-11-19T14:46",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
-  {
-   "carpeta": "CCEP análisis inicial",
-   "ticker": "CCEP",
-   "periodos": [],
-   "tipo": "inicial",
-   "creada": "2026-11-19T13:31+01:00",
-   "semaforo": null,
-   "frase": null
-  },
   {
    "carpeta": "IBE señales 2026-11-18",
    "ticker": "IBE",
@@ -106,13 +97,20 @@
    ]
   }
  ],
- "n_pendientes": 4,
+ "n_pendientes": 3,
  "ultima_subida": {
-  "cuando": "2026-11-19T13:45",
+  "cuando": "2026-11-19T14:46",
   "ficheros": [
-   "recogida/publicaciones/CCEP.json",
-   "recogida/publicaciones/_indice.json",
-   "fichas/_evolucion.json"
+   "dossiers/CCEP.html",
+   "dossiers/CCEP.json",
+   "dossiers/trimestral/CCEP-trim.json",
+   "dossiers/v3/CCEP.html",
+   "fichas/CCEP.json",
+   "fichas/_resumen.json",
+   "universo/base.json",
+   "universo/matriz.json",
+   "fichas/_evolucion.json",
+   "_indice.json"
   ]
  },
  "rechazos": [],
