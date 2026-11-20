@@ -1,0 +1,130 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "SCYR",
+ "empresa": "Sacyr, S.A.",
+ "fecha": "2026-11-20",
+ "revisadoEl": "2026-11-20",
+ "rating": "BB",
+ "score": 47.3,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): sotp 100 % · flujo base del DCF: fcl recurrente",
+ "poBear": 2.86,
+ "poBase": 4.16,
+ "poBull": 5.44,
+ "entMin": 2.86,
+ "entMax": 3.25,
+ "stop": 2.36,
+ "dpaPrevisto": 0.149,
+ "moat": "27,6 sobre 100 · SIN MOAT CLARO. Sin ajuste: concesiones ganadas en concurso",
+ "catalizadores": [
+  "Nuevas concesiones: Ruta 57 en Chile (aún fuera de la valoración), Accesos Asunción en Paraguay y las oportunidades de Managed Lanes en EE. UU.: el portfolio sube 144 M€ en 2026 solo por proyectos nuevos. Se toma como 40 M€ más de EBITDA. (24 meses)",
+  "Bajada de tipos: Con tipos más bajos el portfolio vale más y la refinanciación es más barata. Se toma como un 10 % menos de descuento. (12 meses)",
+  "Ventas de activos a valoración: Vender concesiones maduras al precio de la valoración interna (como Colombia en 2025) demuestra el valor y reduce el recorte del 20 %. Se toma como 30 M€ más de EBITDA equivalente. (24 meses)"
+ ],
+ "riesgos": [
+  "Tipos de interés (Media): La valoración de las concesiones descuenta flujos de décadas y los proyectos deben 6.650 M€: si los tipos suben, baja el valor del portfolio y sube el coste de refinanciar. Suave: −10 %. Duro: −20 %.",
+  "Valoración interna optimista (Media): La pieza principal (4.316 M€) es la valoración que hace la propia Sacyr de sus concesiones; ya se recorta un 20 %. Si un comprador paga menos al vender activos, el valor real es menor. Suave: −10 %. Duro: −25 %.",
+  "Latinoamérica (Media): Chile, Colombia, Perú, Paraguay y México pesan mucho en las concesiones: divisas, inflación y riesgo político. Suave: −40 M€ de EBITDA. Duro: −100 M€.",
+  "Tráfico en las autopistas (Media): Parte de las autopistas cobran por tráfico real (Pedemontana en Italia, autopistas en Latinoamérica); una crisis lo reduce. Suave: −30 M€ de EBITDA. Duro: −80 M€.",
+  "Sobrecostes en construcción (Media): La construcción gana un 5 % de margen; el 73 % de su cartera son obras para las propias concesiones, a precio cerrado. Un sobrecoste encarece el proyecto y la deuda. Suave: −20 M€ de EBITDA. Duro: −60 M€.",
+  "Dilución (Alta): El dividendo en acciones sin amortizarlas y la ampliación de 222 M€ de 2024 han subido las acciones un 54 % en diez años: el valor por acción crece menos que el del grupo. Suave: −5 %. Duro: −10 %.",
+  "Accionariado (Media): Sin accionista de control: Disa (14,6 %), Prilou (6,75 %) y Grupo Fuertes (5,9 %). En diciembre de 2025 Nerifan (Manuel Lao) colocó su 5,12 % de golpe, a 3,70 €. Más salidas presionarían el precio. Suave: −3 %. Duro: −8 %.",
+  "Renegociación de concesiones (Baja): Un gobierno puede rescatar, renegociar o retrasar pagos de una concesión. Suave: −20 M€ de EBITDA. Duro: −60 M€."
+ ],
+ "bull": "5,44 € — escenario optimista: ",
+ "bear": "2,86 € — escenario pesimista: ",
+ "resumen": "ESPERAR. A 4,17 € Sacyr cotiza justo en su precio objetivo (4,16 €): no hay margen de seguridad, y además no pasa los filtros de calidad (rating BB, 47,3; moat de 27,6). Es una buena plataforma concesional, con contratos de décadas y deuda de la matriz casi nula, pero el accionista se diluye con el dividendo en acciones y el valor depende de la valoración que hace la propia empresa. Para el método sería compra por debajo de 3,25 €; el escenario bueno (5,44 €) llega si entran nuevas concesiones, bajan los tipos y las ventas de activos confirman la valoración.",
+ "dividendSafety": {
+  "score": 41,
+  "banda": "Vigilar",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 0,
+   "C3": 0,
+   "C4": 0,
+   "C5": 6
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Vigilar: cobertura OE 2.77x · payout 138 % · 3 recorte(s) del DPA · señales: cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
+  ],
+  "calculadoEl": "2026-11-20",
+  "origen": "metodo-v3",
+  "shareholderYield": 3.85
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 5,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 0,
+    "margin_up": 0,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 0.94,
+   "zona": "riesgo"
+  },
+  "beneish": {
+   "m": -2.76,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -7.2,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=0.94 en zona de riesgo de insolvencia"
+  ],
+  "veto": true,
+  "vetoMotivos": [
+   "Altman Z''=0.94 en zona de riesgo de insolvencia"
+  ],
+  "calculadoEl": "2026-11-20",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": false,
+  "gImplicito": null,
+  "gIntrinseco": 1.6,
+  "veredicto": "No aplica",
+  "motivo": "n.s. — el precio exige un crecimiento fuera de −10 % a +30 %",
+  "calculadoEl": "2026-11-20",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 62.3262,
+   "wacc": 6.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 796.858,
+   "deudaNeta": 6438.486,
+   "modo": "EV",
+   "precioBase": 4.168,
+   "gBase": 30.0,
+   "fechaBase": "2026-11-19",
+   "congeladoEl": "2026-11-20",
+   "validado": false,
+   "desviacion": null
+  }
+ }
+}

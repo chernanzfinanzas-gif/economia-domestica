@@ -1,0 +1,435 @@
+{
+ "schemaVersion": 2,
+ "ticker": "SCYR",
+ "empresa": "Sacyr, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-20",
+ "revisiones": [
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +0,5 %, EBITDA +24,2 %, beneficio neto +3,6 %, margen 23,3 % (+4,46 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2174.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 507.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 41.7
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 7249.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,5 %, EBITDA +61,5 %, beneficio neto +158,4 %, margen 28,7 % (+9,77 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4977.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1427.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.7
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 111.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 7565.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -0,4 %, EBITDA +32,5 %, beneficio neto +52,4 %, margen 31,1 % (+7,72 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2164.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 672.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 31.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 63.6
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 7905.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -7,4 %, EBITDA -1,2 %, beneficio neto +38,6 %, margen 30,6 % (+1,90 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4609.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1409.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 30.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 153.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 6499.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -2,1 %, EBITDA +0,8 %, beneficio neto -18,6 %, margen 32,0 % (+0,92 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, caída de beneficio o margen. **Qué ha pasado** — Ingresos −2,1 %, EBITDA +0,8 % y beneficio −18,6 %.\n\n**Semáforo** — Ámbar.\n\n**Lectura** — Semestre plano.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2119.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 677.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 32.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 51.8
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 6782.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -0,8 %, EBITDA -1,5 %, beneficio neto -26,0 %, margen 30,4 % (-0,20 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen. Corrección del analista: El beneficio de 2023 incluía VSM y Facilities (vendidos) y la venta extraordinaria de la concesionaria N6 (Irlanda); comparable, 2024 sube un 7 % (informe de resultados 2024). **Qué ha pasado** — Ingresos de 4.571 M€ (−0,8 %), EBITDA de 1.388 M€ (−1,5 %) y beneficio de 113 M€ (153 M€ en 2023).\n\n**Por qué** — 2023 incluía los servicios ya vendidos (VSM y Facilities) y la venta extraordinaria de la concesionaria N6 de Irlanda; en términos comparables el beneficio sube un 7 % (106 → 113 M€). Deuda con recurso de 146 M€.\n\n**Semáforo** — Rojo automático; corregido a ámbar por juicio.\n\n**Lectura** — Año de transición hacia la concesionaria pura.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4571.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1388.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 30.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 113.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 7771.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,5 %, EBITDA -11,4 %, beneficio neto +5,2 %, margen 28,4 % (-5,74 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ingresos de 1.059 M€ (+6,5 %), EBITDA de 301 M€ (−11,4 %) y beneficio de 27 M€ (+5,2 %).\n\n**Semáforo** — Ámbar.\n\n**Lectura** — Trimestre flojo en EBITDA.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1059.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 301.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 26.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,6 %, EBITDA -17,1 %, beneficio neto -41,0 %, margen 25,1 % (-6,88 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El beneficio lleva el impacto contable del acuerdo de venta de las autopistas de Colombia; sin desinversiones, 96 M€ (+85 %) (informe de resultados 1S-2025). **Qué ha pasado** — Ingresos +5,6 %, EBITDA −17,1 % y beneficio −41 % (30,5 M€).\n\n**Por qué** — El beneficio lleva el impacto contable del acuerdo de venta de tres autopistas en Colombia; sin las desinversiones, 96 M€ (+85 %).\n\n**Semáforo** — Rojo automático; corregido a ámbar por juicio.\n\n**Lectura** — El negocio no empeora; el beneficio refleja una venta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2237.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 561.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 25.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 30.5
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 6502.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,6 %, EBITDA +7,4 %, margen 29,8 % (+0,77 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 3.412 M€ (+4,6 %) y EBITDA de 1.018 M€ (+7,4 %).\n\n**Semáforo** — Verde.\n\n**Lectura** — Recuperación del EBITDA.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3412.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1018.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 29.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 62.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,9 %, EBITDA -8,3 %, beneficio neto -24,3 %, margen 27,3 % (-3,05 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: Beneficio atribuido de 86 M€ con el impacto de la venta de Colombia; sin desinversiones, 165 M€ (+46 %) (informe de resultados 2025). **Qué ha pasado** — Ingresos de 4.660 M€ (+1,9 %), EBITDA de 1.358 M€ según Sacyr (+0,4 %; 1.273 M€ con el cálculo del método) y beneficio de 86 M€ (−24 %).\n\n**Por qué** — El impacto contable de la venta de Colombia; sin desinversiones el beneficio es de 165 M€ (+46 %). La deuda con recurso baja a 59 M€, mínimo histórico.\n\n**Semáforo** — Rojo automático; corregido a ámbar por juicio.\n\n**Lectura** — Año bueno en caja y deuda; malo en el beneficio contable.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4660.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1273.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 27.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 85.8
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 6438.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,4 %, EBITDA +8,7 %, beneficio neto +40,1 %, margen 29,3 % (+0,88 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 1.116 M€ (+5,4 %), EBITDA de 327 M€ (+8,7 %) y beneficio de 37,5 M€ (+40 %).\n\n**Semáforo** — Verde.\n\n**Lectura** — Buen arranque de año.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1116.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 327.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 29.3
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 37.5
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,0 %, EBITDA +13,8 %, beneficio neto +156,7 %, margen 26,2 % (+1,12 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 2.437 M€ (+9,0 %), EBITDA +13,8 % (708 M€ según Sacyr, +9,4 %) y beneficio de 78 M€ (+157 %).\n\n**Semáforo** — Verde.\n\n**Lectura** — Sin el efecto de Colombia, el beneficio crece con fuerza.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2437.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 639.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 26.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 78.3
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 7050.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,7 %, EBITDA +9,2 %, beneficio neto +86,9 %, margen 29,4 % (-0,41 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 3.777 M€ (+10,7 %), EBITDA de 1.111 M€ (+9,2 %) y beneficio de 116 M€ (+87 %). Deuda con recurso de 322 M€ (59 M€ en diciembre). Valoración interna del portfolio: 4.316 M€ (+406 M€ en el año).\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — La deuda con recurso, que sube con la inversión en nuevas concesiones.\n\n**Lectura** — El negocio va bien; el precio ya lo recoge.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3777.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1111.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 29.4
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 116.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}
