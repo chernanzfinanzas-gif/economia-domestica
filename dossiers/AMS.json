@@ -55,7 +55,7 @@
   "motivos": [
    "Muy seguro: cobertura OE 2.02x · payout 51 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
   "shareholderYield": 7.29
  },
@@ -96,7 +96,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -105,7 +105,7 @@
   "gIntrinseco": -2.04,
   "veredicto": "HEROICO",
   "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 887.32,
@@ -118,7 +118,7 @@
    "precioBase": 61.92,
    "gBase": 14.09,
    "fechaBase": "2026-11-17",
-   "congeladoEl": "2026-11-18",
+   "congeladoEl": "2026-11-20",
    "validado": false,
    "desviacion": 1.17
   }

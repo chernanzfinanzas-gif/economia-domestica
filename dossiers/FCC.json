@@ -55,7 +55,7 @@
   "motivos": [
    "Vigilar: cobertura OE 1.81x · payout 144 % · 1 recorte(s) del DPA · señales: cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja"
   ],
-  "calculadoEl": "2026-11-19",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
   "shareholderYield": 4.54
  },
@@ -98,7 +98,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-19",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -107,7 +107,7 @@
   "gIntrinseco": 7.29,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-19",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 566.1014,
@@ -120,7 +120,7 @@
    "precioBase": 10.52,
    "gBase": -4.07,
    "fechaBase": "2026-11-18",
-   "congeladoEl": "2026-11-19",
+   "congeladoEl": "2026-11-20",
    "validado": true,
    "desviacion": 0.0
   }

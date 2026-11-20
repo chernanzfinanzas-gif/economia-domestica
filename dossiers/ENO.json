@@ -32,9 +32,9 @@
  ],
  "bull": "31,68 € — escenario optimista: ",
  "bear": "19,13 € — escenario pesimista: ",
- "resumen": "El precio ya cuenta con el escenario bueno. A 31,35 € cotiza en el PO bull (31,55 €: 2026 confirma la mejora y la cartera récord se vende), un 17 % por encima del PO de 25,97 €. No cumple tres de las cuatro condiciones: margen (−17 %), rating BB y moat 28,4. COMPRAR exigiría bajar a 21,67 €; la banda de entrada es 19,07-21,67 €. El negocio va bien (9M-2026: beneficio +27 %) y el balance tiene caja, pero lo que se paga hoy es la mejora entera. Stop de tesis 16,46 €. Tras el dividendo extraordinario de 2,89 € (23-dic, si lo aprueba la junta) la cotización y el PO bajan casi lo mismo.",
+ "resumen": "ESPERAR con la cotización de 31,75 € (2026-11-17): precio objetivo 26,07 € (bear 19,13 · bull 31,68), margen −17,9 %. Banda de entrada 19,13–21,74 €, stop de tesis 16,51 €.",
  "dividendSafety": {
-  "score": 86,
+  "score": 83,
   "banda": "Muy seguro",
   "aplica": true,
   "rama": "general",
@@ -43,18 +43,18 @@
    "C2": 15,
    "C3": 19,
    "C4": 5,
-   "C5": 12
+   "C5": 9
   },
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "Muy seguro: cobertura OE 3.34x · payout 40 % · 1 recorte(s) del DPA · señales: beneficio a la baja"
+   "Muy seguro: cobertura OE 3.34x · payout 40 % · 1 recorte(s) del DPA · señales: beneficio a la baja, recompras recortadas"
   ],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
-  "shareholderYield": 3.22
+  "shareholderYield": 2.14
  },
  "forense": {
   "aplica": true,
@@ -95,7 +95,7 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -104,7 +104,7 @@
   "gIntrinseco": -18.61,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 119.289,
@@ -117,7 +117,7 @@
    "precioBase": 31.75,
    "gBase": 3.91,
    "fechaBase": "2026-11-17",
-   "congeladoEl": "2026-11-18",
+   "congeladoEl": "2026-11-20",
    "validado": false,
    "desviacion": 3.73
   }

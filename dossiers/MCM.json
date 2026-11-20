@@ -1,7 +1,7 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
  "ticker": "MCM",
  "empresa": "Miquel y Costas & Miquel, S.A.",
  "fecha": "2026-10-27",
@@ -12,10 +12,10 @@
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 11 % · EV/EBIT 11 % · PER 14 % · P/VC 8 % · P/FCL 11 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl recurrente",
  "poBear": 11.33,
  "poBase": 13.55,
- "poBull": 16.56,
+ "poBull": 16.57,
  "entMin": 11.33,
  "entMax": 11.78,
- "stop": 8.18,
+ "stop": 8.2,
  "dpaPrevisto": 0.497,
  "moat": "69,5 sobre 100 · MOAT MODERADO. El moat es el del tabaco y el capital nuevo no rinde",
  "catalizadores": [
@@ -32,7 +32,7 @@
   "El plan de inversiones no rinde (Media): El CAPEX de 2025 fue de 44,1 M€ (2,1 veces la amortización) y el FCL de 12,0 M€ no cubrió el dividendo de 18,4 M€. El ROIIC a cinco años es negativo. Se mide como deuda gastada sin EBITDA nuevo.",
   "De-rating de un valor pequeño y poco líquido (Baja-Media): En 2025 se contrataron 23 M€ en todo el año (un 4 % de la capitalización) y el consejo controla el 27,6 % del capital."
  ],
- "bull": "16,56 € — escenario optimista: El plan rinde como el capital anterior y la diversificación fuera del tabaco crece (libro de octubre)",
+ "bull": "16,57 € — escenario optimista: El plan rinde como el capital anterior y la diversificación fuera del tabaco crece (libro de octubre)",
  "bear": "11,33 € — escenario pesimista: El plan de inversiones 2024-2026 no rinde (ROIIC a cinco años −2,7 %) y el papel para tabaco, el 64 % de las ventas, empieza a caer como el consumo de cigarrillos en Europa (libro de octubre)",
  "resumen": "Las cuatro condiciones se cumplen con las cuentas de 2025. El margen de seguridad es de alrededor del 38 % a 9,82 € (23-oct), y pide un 15 %. La pérdida al bear desde el techo de la banda es del −3,8 %, el rating AA y el moat 69,5. La cotización está un 13 % por debajo de la banda de entrada (11,33-11,78 €). PERO hay que leerlo con el primer semestre de 2026, que estas cuentas no recogen: las ventas del tabaco cayeron un 5,3 % (la señal única de la tesis), el margen EBITDA bajó al 22,5 % y el beneficio un 23 %. Lectura: COMPRAR con tamaño reducido o esperar al 9M-2026; si el tabaco vuelve a caer, se abre la revisión.",
  "dividendSafety": {
@@ -54,9 +54,9 @@
   "motivos": [
    "Seguro: cobertura OE 2.25x · payout 42 % · 2 recorte(s) del DPA · señales: EBITDA a la baja, beneficio a la baja"
   ],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
-  "shareholderYield": 4.49
+  "shareholderYield": 4.48
  },
  "forense": {
   "aplica": true,
@@ -95,7 +95,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -104,7 +104,7 @@
   "gIntrinseco": 5.3,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 33.5542,
@@ -117,7 +117,7 @@
    "precioBase": 9.94,
    "gBase": -4.74,
    "fechaBase": "2026-11-05",
-   "congeladoEl": "2026-11-14",
+   "congeladoEl": "2026-11-20",
    "validado": true,
    "desviacion": 0.0
   }

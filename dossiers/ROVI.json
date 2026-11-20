@@ -1,21 +1,21 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
  "ticker": "ROVI",
  "empresa": "Laboratorios Farmacéuticos Rovi, S.A.",
- "fecha": "2026-11-09",
+ "fecha": "2026-11-18",
  "revisadoEl": "2026-11-05",
  "rating": "A",
  "score": 73.5,
  "decision": "ESPERAR",
  "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 12 % · DCF base 26 % · DCF optimista 12 % · EV/EBITDA 14 % · EV/EBIT 11 % · PER 12 % · P/VC 8 % · rentabilidad por dividendo 5 % · flujo base del DCF: fcl",
- "poBear": 49.97,
- "poBase": 61.48,
- "poBull": 69.42,
- "entMin": 49.97,
- "entMax": 53.46,
- "stop": 41.36,
+ "poBear": 49.94,
+ "poBase": 61.45,
+ "poBull": 69.39,
+ "entMin": 49.94,
+ "entMax": 53.43,
+ "stop": 41.38,
  "dpaPrevisto": 0.9594,
  "moat": "58,9 sobre 100 · MOAT ESTRECHO. Las huellas coinciden con el libro",
  "catalizadores": [
@@ -33,12 +33,12 @@
   "Okedi y la tecnología ISM no llegan a sus objetivos (Baja-Media): Un punto y dos puntos menos de crecimiento en el caso base; en el v3 va al crecimiento terminal, calibrado a la caída que daba el libro (−2,9 % y −5,6 %).",
   "Control familiar y operaciones vinculadas (Baja): Descuento por control del 5 % y del 10 %."
  ],
- "bull": "69,42 € — escenario optimista: las especialidades mantienen su ritmo y la fabricación a terceros deja de caer",
- "bear": "49,97 € — escenario pesimista: la fabricación a terceros sigue cayendo y las especialidades solo la compensan",
- "resumen": "ESPERAR: a 60,15 € (cotización del 23-oct), el margen sobre el PO (61,32 €) es del +1,9 % y la cotización está un 13 % por encima del techo de la banda (53,33 €). Se cumplen tres de las cuatro condiciones (pérdida al bear, rating A, moat 58,9); falla el margen. Pasaría a MANTENER por debajo de 58,40 € y a COMPRAR por debajo de 53,33 €. El veredicto depende del supuesto: con WACC ±1 y terminal ±0,5 el PO va de 56,57 a 70,42 €, y en el extremo alto sería MANTENER. El dossier de octubre decía MANTENER; el cambio es de precio (de 57,40 € a 60,15 €), no de empresa.",
+ "bull": "69,39 € — escenario optimista: las especialidades mantienen su ritmo y la fabricación a terceros deja de caer",
+ "bear": "49,94 € — escenario pesimista: la fabricación a terceros sigue cayendo y las especialidades solo la compensan",
+ "resumen": "ESPERAR con la cotización de 63,75 € (2026-11-04): precio objetivo 61,45 € (bear 49,94 · bull 69,39), margen −3,6 %. Banda de entrada 49,94–53,43 €, stop de tesis 41,38 €.",
  "dividendSafety": {
-  "score": 81,
-  "banda": "Muy seguro",
+  "score": 78,
+  "banda": "Seguro",
   "aplica": true,
   "rama": "general",
   "componentes": {
@@ -46,18 +46,18 @@
    "C2": 15,
    "C3": 20,
    "C4": 0,
-   "C5": 15
+   "C5": 12
   },
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "Muy seguro: cobertura OE 2.42x · payout 35 % · 4 recorte(s) del DPA"
+   "Seguro: cobertura OE 2.42x · payout 35 % · 4 recorte(s) del DPA · señales: recompras recortadas"
   ],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
-  "shareholderYield": 3.2
+  "shareholderYield": 1.51
  },
  "forense": {
   "aplica": true,
@@ -96,7 +96,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-14",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -104,8 +104,8 @@
   "gImplicito": 10.26,
   "gIntrinseco": 7.76,
   "veredicto": "EXIGENTE",
-  "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 7.8 %)",
-  "calculadoEl": "2026-11-14",
+  "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 7,8 %)",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 103.2578,
@@ -118,7 +118,7 @@
    "precioBase": 63.75,
    "gBase": 10.26,
    "fechaBase": "2026-11-04",
-   "congeladoEl": "2026-11-14",
+   "congeladoEl": "2026-11-20",
    "validado": true,
    "desviacion": -0.0
   }

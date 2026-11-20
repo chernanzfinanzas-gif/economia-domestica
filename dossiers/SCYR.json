@@ -94,12 +94,11 @@
    "senal": "normal"
   },
   "flags": [
-   "Altman Z''=0.94 en zona de riesgo de insolvencia"
+   "Altman Z''=0.94 en zona de riesgo de insolvencia",
+   "Módulo CONCESIONAL: la Z'' de Altman es aviso, no veto (deuda de proyectos sin recurso)"
   ],
-  "veto": true,
-  "vetoMotivos": [
-   "Altman Z''=0.94 en zona de riesgo de insolvencia"
-  ],
+  "veto": false,
+  "vetoMotivos": [],
   "calculadoEl": "2026-11-20",
   "origen": "metodo-v3"
  },

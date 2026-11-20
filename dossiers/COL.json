@@ -15,7 +15,7 @@
  "poBull": 8.81,
  "entMin": 7.05,
  "entMax": 7.23,
- "stop": 5.94,
+ "stop": 5.95,
  "dpaPrevisto": 0.32,
  "moat": "50,1 sobre 100 · MOAT ESTRECHO. Edificios irrepetibles en el centro de París, Madrid y Barcelona, con poder de precio medido",
  "catalizadores": [
@@ -54,7 +54,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.17x · payout 95 % · 0 recorte(s) del DPA · señales: DN/EBITDA al alza · vara de SOCIMI (con la general: 55)"
   ],
-  "calculadoEl": "2026-11-16",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
   "shareholderYield": null
  },
@@ -96,16 +96,16 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-16",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -0.45,
+  "gImplicito": -0.63,
   "gIntrinseco": null,
   "veredicto": "PLAUSIBLE",
-  "motivo": "PLAUSIBLE (exige -0.4 % al año, no más que el 3 % del caso base)",
-  "calculadoEl": "2026-11-16",
+  "motivo": "PLAUSIBLE (exige -0.6 % al año, no más que el 3 % del caso base)",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3"
  }
 }
