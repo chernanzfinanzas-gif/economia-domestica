@@ -1,26 +1,17 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-19T22:46",
+ "generado": "2026-11-20T08:41",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-19T22:46",
+  "cuando": "2026-11-20T08:41",
   "ficheros": [
-   "dossiers/AIR.html",
-   "dossiers/AIR.json",
-   "dossiers/MTS.html",
-   "dossiers/MTS.json",
-   "dossiers/trimestral/AIR-trim.json",
-   "dossiers/trimestral/MTS-trim.json",
-   "dossiers/v3/AIR.html",
-   "dossiers/v3/MTS.html",
-   "fichas/AIR.json",
-   "fichas/MTS.json",
-   "fichas/_resumen.json",
-   "universo/base.json",
-   "universo/matriz.json",
-   "_indice.json"
+   "recogida/publicaciones/NXT.json",
+   "recogida/publicaciones/TRE.json",
+   "recogida/publicaciones/VID.json",
+   "recogida/publicaciones/_indice.json",
+   "recogida/publicaciones/dias/2026-11.json"
   ]
  },
  "rechazos": [],
