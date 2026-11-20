@@ -56,7 +56,7 @@
   "motivos": [
    "Muy seguro: cobertura OE 10.30x · payout 14 % · 2 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-17",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
   "shareholderYield": 7.62
  },
@@ -80,8 +80,8 @@
    "nota": "margen=bruto (ingresos − aprovisionamientos)"
   },
   "altman": {
-   "z": 1.08,
-   "zona": "riesgo"
+   "z": 2.31,
+   "zona": "gris"
   },
   "beneish": {
    "m": -2.86,
@@ -95,13 +95,11 @@
    "senal": "normal"
   },
   "flags": [
-   "Altman Z''=1.08 en zona de riesgo de insolvencia"
+   "Altman Z''=2.31 en zona gris"
   ],
-  "veto": true,
-  "vetoMotivos": [
-   "Altman Z''=1.08 en zona de riesgo de insolvencia"
-  ],
-  "calculadoEl": "2026-11-17",
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -109,8 +107,8 @@
   "gImplicito": 11.39,
   "gIntrinseco": 8.31,
   "veredicto": "EXIGENTE",
-  "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 8.3 %)",
-  "calculadoEl": "2026-11-17",
+  "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 8,3 %)",
+  "calculadoEl": "2026-11-20",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1308.0927,
@@ -123,7 +121,7 @@
    "precioBase": 5.34,
    "gBase": 11.39,
    "fechaBase": "2026-11-17",
-   "congeladoEl": "2026-11-17",
+   "congeladoEl": "2026-11-20",
    "validado": true,
    "desviacion": -0.0
   }
