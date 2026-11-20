@@ -1,0 +1,128 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "IDR",
+ "empresa": "Indra Sistemas, S.A.",
+ "fecha": "2026-11-20",
+ "revisadoEl": "2026-11-20",
+ "rating": "A",
+ "score": 68.5,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 8 % · DCF base 24 % · DCF optimista 8 % · EV/EBITDA 11 % · EV/EBIT 11 % · PER 14 % · P/VC 8 % · P/FCL 11 % · rentabilidad por dividendo 5 % · flujo base del DCF: owner earnings",
+ "poBear": 16.9,
+ "poBase": 19.99,
+ "poBull": 43.53,
+ "entMin": 16.9,
+ "entMax": 17.38,
+ "stop": 8.3,
+ "dpaPrevisto": 0.3,
+ "moat": "60,7 sobre 100 · MOAT MODERADO. +5: proveedor principal de la defensa española",
+ "catalizadores": [
+  "Objetivos de 2026: Indra reitera en el 9M-2026 un EBIT de más de 700 M€ (517 M€ en 2025) y más de 7.000 M€ de ventas: unos 200 M€ más de EBITDA que en 2025. En el 9M el EBITDA ya sube un 62 %. (12 meses)",
+  "Espacio (Hispasat e IRIS²): Hispasat entra en las cuentas de 2026 entera y gana el contrato de IRIS² (1.926 M€ en el 3T-2026); el margen EBITDA de Espacio fue del 39 % en el 3T. Se toma como 80 M€ más de EBITDA. (24 meses)",
+  "Plan estratégico nuevo: Indra presenta en noviembre de 2026 su plan para los próximos años, con la cartera de 22.165 M€ detrás. Se toma como 100 M€ más de EBITDA en el horizonte del plan. (24 meses)"
+ ],
+ "riesgos": [
+  "Ciclo del gasto en defensa (Media): Defensa pasó del 21 % al 26 % de las ventas en 2025 y es el 41 % del EBITDA; la cartera de 22.165 M€ depende sobre todo de los programas del Estado español (PEM) y europeos. Un cambio de prioridades o un acuerdo de paz frenarían la contratación. Suave: −60 M€ de EBITDA. Duro: −150 M€.",
+  "Ejecución de la cartera (Alta): La cartera se ha triplicado en un año y la capacidad industrial se está construyendo a la vez (Indra Land Vehicles, As Pontes, munición). En 2025 ya hubo un saneamiento excepcional de un proyecto de tráfico aéreo en Europa Central y TESS rebaja el margen. Suave: −50 M€ de EBITDA. Duro: −120 M€.",
+  "Gobierno y accionista público (Alta): La SEPI tiene el 28 % y ha forzado en 2026 la salida del presidente ejecutivo (Ángel Escribano) por el conflicto con su empresa familiar EM&E; en 2026 han cambiado el presidente y el consejero delegado. Las decisiones pueden responder a la política industrial del Gobierno. Suave: −5 %. Duro: −12 %.",
+  "Compras caras (Media): Indra crece comprando: Hispasat (89,68 %, diciembre de 2025), TESS, Deimos, Dares, el 30 % de TRC… y la integración de EM&E vuelve a estar sobre la mesa. Pagar de más resta valor. Suave: +500 M€ de deuda sin EBITDA. Duro: +1.500 M€.",
+  "Minsait (Media): Minsait (servicios de tecnologías de la información) es el 57 % de las ventas de 2025 con un margen EBITDA del 8,9 %, en un mercado muy competido y con presión de la inteligencia artificial sobre los servicios. Suave: −40 M€ de EBITDA. Duro: −100 M€.",
+  "Múltiplo de defensa (Alta): El precio (51,40 €) descuenta mucho más que el pasado: PER medio de 14,6 veces frente a unas 20 veces el beneficio de 2025. Si el mercado deja de pagar la prima de defensa europea, el múltiplo vuelve a su media. Suave: −15 %. Duro: −30 %.",
+  "Divisas de América (Media): América es el 19 % de las ventas (Brasil, México, Argentina, Colombia); el tipo de cambio restó 74 M€ a los ingresos de 2025. Suave: −15 M€ de EBITDA. Duro: −40 M€.",
+  "Ciberataque (Baja): Contratista de defensa y de sistemas críticos (elecciones, tráfico aéreo, banca): objetivo natural. Un incidente grave costaría contratos y reputación. Suave: −20 M€ de EBITDA. Duro: −60 M€."
+ ],
+ "bull": "43,53 € — escenario optimista: ",
+ "bear": "16,90 € — escenario pesimista: ",
+ "resumen": "ESPERAR. Indra pasa los filtros de calidad (rating A, 68,5; moat de 60,7) pero no el de precio: a 51,40 € cotiza un 61 % por encima del PO (19,99 €) e incluso por encima del escenario bueno (43,53 €, con los objetivos de 2026, Espacio y el nuevo plan). Para el método sería compra por debajo de 17,38 €; cotizó en ese nivel por última vez en febrero de 2025. Es una buena empresa que vive su mejor momento (cartera triplicada, márgenes al alza), pero el precio ya cuenta con todo eso. No está en cartera: la señal de precio sobre el bull solo informa.",
+ "dividendSafety": {
+  "score": 87,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 10,
+   "C4": 15,
+   "C5": 12
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 6.34x · payout 15 % · 0 recorte(s) del DPA · señales: DN/EBITDA al alza"
+  ],
+  "calculadoEl": "2026-11-20",
+  "origen": "metodo-v3",
+  "shareholderYield": 0.98
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 5,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 0,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 1.92,
+   "zona": "gris"
+  },
+  "beneish": {
+   "m": -1.8,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -1.1,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=1.92 en zona gris"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-20",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 14.46,
+  "gIntrinseco": 20.51,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (≤ g intrínseco 20,5 %)",
+  "calculadoEl": "2026-11-20",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 284.3592,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 175.7375,
+   "deudaNeta": 2923.364,
+   "modo": "EV",
+   "precioBase": 51.4,
+   "gBase": 17.21,
+   "fechaBase": "2026-11-19",
+   "congeladoEl": "2026-11-20",
+   "validado": false,
+   "desviacion": 2.75
+  }
+ }
+}

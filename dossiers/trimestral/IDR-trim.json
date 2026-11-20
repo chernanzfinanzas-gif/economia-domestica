@@ -1,0 +1,635 @@
+{
+ "schemaVersion": 2,
+ "ticker": "IDR",
+ "empresa": "Indra Sistemas, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-20",
+ "revisiones": [
+  {
+   "periodo": "2021-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2021-3M",
+   "fecha": "2021-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,2 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 751.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2021-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2021-9M",
+   "fecha": "2021-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,8 %, beneficio neto +471,0 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2363.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 115.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2022-3M",
+   "fecha": "2022-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +13,3 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 851.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +11,6 %, EBIT +22,5 %, beneficio neto +19,8 %, margen 6,8 % (+0,61 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1805.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 174.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 123.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 6.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 66.3
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 629.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2022-9M",
+   "fecha": "2022-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +14,0 %, beneficio neto +1,0 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2694.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 116.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +13,6 %, EBIT +17,6 %, beneficio neto +19,9 %, margen 7,8 % (+0,26 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3851.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 400.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 300.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 7.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 172.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 683.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +11,5 %, EBIT +12,8 %, beneficio neto +35,3 %, margen 6,9 % (+0,08 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2012.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 189.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 139.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 6.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 89.7
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 833.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +12,8 %, EBIT +15,5 %, beneficio neto +19,7 %, margen 8,0 % (+0,19 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4343.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 446.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 347.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 8.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 206.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 916.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +21,9 %, EBIT +38,5 %, beneficio neto +38,6 %, margen 8,1 % (+0,96 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1118.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 117.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 90.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 8.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 61.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +14,5 %, EBIT +29,1 %, beneficio neto +27,4 %, margen 7,8 % (+0,88 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos +14,5 %, EBIT +29,1 % y beneficio +27,4 %.\n\n**Semáforo** — Verde.\n\n**Lectura** — Primer semestre del plan estratégico 2024-2026.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2304.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 230.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 179.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 7.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 114.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 877.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +12,7 %, EBIT +27,6 %, beneficio neto +26,0 %, margen 8,6 % (+1,00 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 3.400 M€, EBIT de 291 M€ y beneficio de 184 M€.\n\n**Semáforo** — Verde.\n\n**Lectura** — Crecimiento a doble dígito en Defensa y Tráfico Aéreo.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3400.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 369.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 291.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 8.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 184.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +11,5 %, EBIT +26,3 %, beneficio neto +34,9 %, margen 9,0 % (+1,06 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 4.843 M€ (+11,5 %), EBIT de 438 M€ (+26,3 %) y beneficio de 278 M€ (+34,9 %). Caja neta de 86 M€ según Indra.\n\n**Semáforo** — Verde.\n\n**Lectura** — Año récord.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4843.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 545.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 438.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 9.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 278.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 782.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,2 %, EBIT +5,9 %, beneficio neto -3,3 %, margen 8,2 % (+0,13 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos +4,2 %, EBIT +5,9 % y beneficio −3,0 %.\n\n**Semáforo** — Verde.\n\n**Lectura** — Trimestre flojo, sin señal de cambio.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1164.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 125.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 95.3
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 8.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 59.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,3 %, EBIT +17,0 %, beneficio neto +87,7 %, margen 8,6 % (+0,78 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos +6,3 %, EBIT +17,0 % y beneficio +87,7 %.\n\n**Por qué** — El beneficio lleva un ingreso financiero extraordinario de 100 M€ por revalorizar la participación en TESS al tomar su control.\n\n**Semáforo** — Verde.\n\n**Lectura** — El EBIT es la medida limpia: +17 %.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2450.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 265.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 209.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 8.6
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 215.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1762.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,2 %, EBIT +9,6 %, beneficio neto +57,9 %, margen 8,8 % (+0,27 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos +6,2 %, EBIT +9,5 % y beneficio +58,3 % (con los 100 M€ de TESS).\n\n**Semáforo** — Verde.\n\n**Lectura** — Contratación al alza antes de los PEM.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3611.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 405.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 318.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 8.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 291.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +12,7 %, EBIT +18,0 %, beneficio neto +57,0 %, margen 9,5 % (+0,43 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 5.457 M€ (+12,7 %), EBIT de 517 M€ (+18,0 %) y beneficio de 436 M€ (+57 %, con 100 M€ extraordinarios). Cartera de 16.083 M€ (+122 %) por los PEM. Compra del 89,68 % de Hispasat en diciembre. Dividendo de 0,30 €.\n\n**Semáforo** — Verde.\n\n**Lectura** — Cumple el plan estratégico un año antes.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5457.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 636.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 517.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 9.5
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 436.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2923.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +14,6 %, EBIT +24,2 %, beneficio neto +28,5 %, margen 8,9 % (+0,69 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos +14,6 %, EBITDA +54,7 % y EBIT +24,2 %, con Hispasat dentro. Último trimestre con Ángel Escribano de presidente ejecutivo (dimite el 1 de abril).\n\n**Semáforo** — Verde.\n\n**Lectura** — El negocio acelera mientras cambia el gobierno.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1334.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 194.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 118.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 8.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 76.1
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +29,7 %, EBIT +51,0 %, beneficio neto +2,1 %, margen 9,9 % (+1,40 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos +29,7 %, EBIT +51,0 % y beneficio +2,1 % (el 1S-2025 llevaba los 100 M€ de TESS).\n\n**Semáforo** — Verde.\n\n**Lectura** — Sin el extraordinario, el beneficio sube con fuerza. Nuevo presidente (Ángel Simón) y consejero delegado (Josep María Recasens).",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3179.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 456.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 316.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 9.9
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 219.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3845.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +28,6 %, EBIT +42,3 %, beneficio neto +22,0 %, margen 9,8 % (+0,94 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos de 4.645 M€ (+28,6 %), EBIT de 454 M€ (+42,5 %) y beneficio de 355 M€ (+21,9 %). Cartera de 22.165 M€ con IRIS² (1.926 M€). Caja neta de 1.192 M€ según Indra, tras cobrar los anticipos de los PEM. Reitera los objetivos de 2026.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — El margen de los programas nuevos (vehículos, armamento) y el plan estratégico de noviembre.\n\n**Lectura** — Va camino de cumplir los objetivos de 2026.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4645.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 657.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 454.0
+    },
+    {
+     "nombre": "Margen EBIT",
+     "valor": 9.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 355.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

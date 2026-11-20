@@ -1,0 +1,128 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "ANA",
+ "empresa": "Acciona, S.A.",
+ "fecha": "2026-11-20",
+ "revisadoEl": "2026-11-20",
+ "rating": "BB",
+ "score": 46.3,
+ "decision": "MANTENER",
+ "metodoValoracion": "Síntesis ponderada (método v3): sotp 100 % · flujo base del DCF: owner earnings",
+ "poBear": 172.32,
+ "poBase": 218.58,
+ "poBull": 289.95,
+ "entMin": 172.32,
+ "entMax": 190.07,
+ "stop": 133.61,
+ "dpaPrevisto": 5.748,
+ "moat": "38,2 sobre 100 · SIN MOAT CLARO. Sin ajuste: negocios con escala pero en mercados competidos",
+ "catalizadores": [
+  "Venta de parte de Acciona Energía: Acciona pidió ofertas en junio de 2026 y la prensa habla de un mínimo de 28-30 € por acción frente a 19,37 € hoy. Vender a ese precio revalorizaría el 91 % en unos 2.500 M€. Se modela como 320 M€ de EBITDA a 8 veces. (12 meses)",
+  "Nordex en su nueva rentabilidad: Nordex sube su guía de margen EBITDA de 2026 al 11,5-12,5 % (8,4 % en 2025): unos 250 M€ más de EBITDA, de los que el 47 % es de Acciona. Se toma como 120 M€. (12 meses)",
+  "Agua y concesiones: El EBITDA de agua creció un 50 % en 2025 y la cartera de proyectos concesionales supera los 141.000 M€. Se toma como 100 M€ más de EBITDA. (24 meses)"
+ ],
+ "riesgos": [
+  "Precio de la electricidad (Alta): El EBITDA de operaciones de Energía bajó de 1.050 a 932 M€ en 2025 y el precio capturado de los nueve meses de 2026 es un 8,1 % menor (−19,8 % en España). Suave: −150 M€ de EBITDA. Duro: −350 M€.",
+  "Rotación de activos (Alta): El plan de bajar deuda depende de vender parques: en 2026 no se alcanzará el objetivo de unos 2.000 M€ (la venta a MIP no ha cumplido sus condiciones). Suave: +1.000 M€ de deuda. Duro: +2.000 M€.",
+  "Calificación de Acciona Energía (Media): Fitch tiene a Acciona Energía en BBB− con perspectiva negativa; perder el grado de inversión encarecería 4.161 M€ de deuda. Acciona ya le ha concedido 500 M€ subordinados. Suave: +500 M€ de deuda. Duro: +1.500 M€.",
+  "Nordex (Media): Nordex aporta 749 M€ al EBITDA (23 %) y viene de años de pérdidas por costes de calidad de las turbinas; un problema de garantías o un parón de pedidos lo devolvería ahí. Suave: −200 M€ de EBITDA. Duro: −450 M€.",
+  "Sobrecostes en construcción (Media): Construcción gana 478 M€ con un margen del 7 % en grandes contratos de precio cerrado (Australia, América); un proyecto torcido se come el margen de un año. Suave: −100 M€ de EBITDA. Duro: −250 M€.",
+  "Regulación energética (Media): Impuestos extraordinarios, topes de precio o cambios en la retribución de las renovables en España y en otros países. Suave: −100 M€ de EBITDA. Duro: −250 M€.",
+  "Accionistas de control (Media): La familia Entrecanales tiene el 55,85 % en dos sociedades (29,02 % y 26,83 %); su pacto de adquisición preferente venció el 14-jul-2026 y una de las ramas ha vendido parte. Ventas de la familia presionarían la cotización. Suave: −3 %. Duro: −8 %.",
+  "Descuento de holding (Media): La suma de partes ya aplica un 10 %; los grupos con filiales cotizadas suelen cotizar con descuentos mayores. Suave: −10 %. Duro: −20 %."
+ ],
+ "bull": "289,95 € — escenario optimista: ",
+ "bear": "172,32 € — escenario pesimista: ",
+ "resumen": "MANTENER. A 191,50 € el precio está un 14 % por debajo del PO y justo por encima de la zona de compra (172,32-190,07 €), y además Acciona no pasa los filtros de calidad del método para comprar: rating BB (46,3; pide A) y moat de 38,2 (pide 45). Es un grupo de buenos activos (renovables, agua, concesiones, construcción y Nordex) con mucha deuda y que invierte más de lo que genera: el dividendo (5,75 €, un 3 %) lo pagan las ventas de parques. Para quien la tenga, el precio no pide vender; para comprar falta calidad. El escenario bueno (289,95 €) es vender parte de Acciona Energía a 28-30 € por acción, como dice la prensa; el stop de tesis está en 133,61 €.",
+ "dividendSafety": {
+  "score": 48,
+  "banda": "Vigilar",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 5,
+   "C2": 13,
+   "C3": 9,
+   "C4": 9,
+   "C5": 12
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Vigilar: cobertura OE 0.83x · payout 49 % · 1 recorte(s) del DPA · señales: recompras recortadas"
+  ],
+  "calculadoEl": "2026-11-20",
+  "origen": "metodo-v3",
+  "shareholderYield": 3.09
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 8,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 1.55,
+   "zona": "gris"
+  },
+  "beneish": {
+   "m": -2.57,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -3.8,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=1.55 en zona gris"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-20",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 5.49,
+  "gIntrinseco": 11.48,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (≤ g intrínseco 11,5 %)",
+  "calculadoEl": "2026-11-20",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 746.1262,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 54.4776,
+   "deudaNeta": 6750.0,
+   "modo": "EV",
+   "precioBase": 191.5,
+   "gBase": 5.49,
+   "fechaBase": "2026-11-19",
+   "congeladoEl": "2026-11-20",
+   "validado": true,
+   "desviacion": -0.0
+  }
+ }
+}
