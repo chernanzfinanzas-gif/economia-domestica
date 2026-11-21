@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-21T14:23",
+ "generado": "2026-11-21T14:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -33,9 +33,18 @@
     "Semáforo de empresa: VERDE · revisado hasta 2026-S1",
     "Tesis escrita el 2026-11-09 · valoración generada el 2026-11-20"
    ]
+  },
+  {
+   "carpeta": "SAB cuentas anuales",
+   "ticker": "SAB",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-11-21T14:24",
+   "semaforo": "A",
+   "frase": null
   }
  ],
- "n_pendientes": 1,
+ "n_pendientes": 2,
  "ultima_subida": {
   "cuando": "2026-11-21T14:23",
   "ficheros": [
