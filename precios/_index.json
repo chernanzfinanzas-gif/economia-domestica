@@ -462,8 +462,8 @@
 "ticker": "IBEX",
 "symbol": "^IBEX",
 "desde": "1999-01-04",
-"hasta": "2026-11-19",
-"n": 7067
+"hasta": "2026-11-20",
+"n": 7068
 },
 {
 "ticker": "IBG",
@@ -922,7 +922,56 @@
 }
 ],
 "fallos": [],
-"corregidos": [],
+"corregidos": [
+{
+"ticker": "ENC",
+"fecha": "2026-11-20",
+"anterior": 2.14,
+"nuevo": 2.142
+},
+{
+"ticker": "GRF",
+"fecha": "2026-11-20",
+"anterior": 10.91,
+"nuevo": 10.905
+},
+{
+"ticker": "IAG",
+"fecha": "2026-11-20",
+"anterior": 5.24,
+"nuevo": 5.238
+},
+{
+"ticker": "MAP",
+"fecha": "2026-11-20",
+"anterior": 4.09,
+"nuevo": 4.088
+},
+{
+"ticker": "SAB",
+"fecha": "2026-11-20",
+"anterior": 3.55,
+"nuevo": 3.546
+},
+{
+"ticker": "SCYR",
+"fecha": "2026-11-20",
+"anterior": 4.06,
+"nuevo": 4.056
+},
+{
+"ticker": "SLR",
+"fecha": "2026-11-20",
+"anterior": 13.78,
+"nuevo": 13.775
+},
+{
+"ticker": "TEF",
+"fecha": "2026-11-20",
+"anterior": 3.36,
+"nuevo": 3.363
+}
+],
 "revisar": [],
 "eventos": []
 }
