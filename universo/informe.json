@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-21T09:46",
+ "generado": "2026-11-21T13:23",
  "eur_usd": {
   "v": 1.1244,
   "f": "2026-10-16",
@@ -457,9 +457,9 @@
    "roe_med5": 0.10842202368790901,
    "perdidas5": 0,
    "anios5": 5,
-   "s1": "2025-S1",
-   "s1_ing": 0.1332092823181681,
-   "s1_ben": -0.17529201817001944,
+   "s1": "2026-S1",
+   "s1_ing": 0.0275061827802381,
+   "s1_ben": 1.0243926428641685,
    "s1_ben_signo": "+",
    "precio": 23.8,
    "fecha_precio": "2026-11-20",
@@ -467,7 +467,7 @@
    "vs_max52": -0.010395010395010394,
    "pos52": 0.9180327868852459,
    "cap": 1040.0600000000002,
-   "acciones_fuente": "CNMV, capital / nominal (2026)",
+   "acciones_fuente": "CNMV, capital / nominal (2026-S1)",
    "_acc": 43.7,
    "per": 17.088823896684303,
    "pvc": 1.1689718811044352,
@@ -1117,9 +1117,9 @@
    "per_grupo": 21.969710965324538,
    "per_vs_grupo": 0.575823912816778,
    "puesto": 34,
-   "puesto_ant": 38,
+   "puesto_ant": 39,
    "puntos_ant": 59.6,
-   "cambio_puesto": 4,
+   "cambio_puesto": 5,
    "cambio_puntos": 3.7
   },
   {
@@ -1808,8 +1808,8 @@
    "n_grupo": 18,
    "per_grupo": 21.969710965324538,
    "per_vs_grupo": 0.6669014627139862,
-   "puesto": 38,
-   "puesto_ant": 42,
+   "puesto": 39,
+   "puesto_ant": 43,
    "puntos_ant": 57.3,
    "cambio_puesto": 4,
    "cambio_puntos": 3.5
@@ -3048,7 +3048,7 @@
    "modulos": [
     "ESCALABLE"
    ],
-   "grupo": "universo",
+   "grupo": "analizada",
    "descripcion": "Agencia de Viajes Online",
    "n_anios": 7,
    "avisos": [],
@@ -3099,7 +3099,7 @@
    "etiquetas": [
     "Crecimiento"
    ],
-   "estado": "universo",
+   "estado": "analizada",
    "puntos": {
     "total": 57.0,
     "dividendo": 27,
@@ -3192,8 +3192,8 @@
    "n_grupo": 11,
    "per_grupo": 20.435250700636942,
    "per_vs_grupo": 1.0,
-   "puesto": 37,
-   "puesto_ant": 37,
+   "puesto": 38,
+   "puesto_ant": 38,
    "puntos_ant": 59.7,
    "cambio_puesto": 0,
    "cambio_puntos": 2.4
@@ -3580,8 +3580,8 @@
    "n_grupo": 7,
    "per_grupo": 21.099631863458054,
    "per_vs_grupo": 0.9090439302876343,
-   "puesto": 39,
-   "puesto_ant": 40,
+   "puesto": 40,
+   "puesto_ant": 41,
    "puntos_ant": 58.4,
    "cambio_puesto": 1,
    "cambio_puntos": 1.9
@@ -3736,10 +3736,10 @@
    "n_grupo": 18,
    "per_grupo": 14.740027014858171,
    "per_vs_grupo": 1.3350992420692689,
-   "puesto": 40,
+   "puesto": 41,
    "puesto_ant": 44,
    "puntos_ant": 56.6,
-   "cambio_puesto": 4,
+   "cambio_puesto": 3,
    "cambio_puntos": 3.5
   },
   {
@@ -4520,8 +4520,8 @@
    "n_grupo": 18,
    "per_grupo": 14.740027014858171,
    "per_vs_grupo": 2.0254506989510594,
-   "puesto": 42,
-   "puesto_ant": 39,
+   "puesto": 43,
+   "puesto_ant": 40,
    "puntos_ant": 58.9,
    "cambio_puesto": -3,
    "cambio_puntos": 0.2
@@ -6777,12 +6777,12 @@
    "modulos": [
     "MARCA"
    ],
-   "grupo": "universo",
+   "grupo": "analizada",
    "descripcion": "Lujo / Fragancias",
-   "n_anios": 3,
+   "n_anios": 5,
    "avisos": [],
    "ultimo": "2025",
-   "primero": "2023",
+   "primero": "2021",
    "moneda": "EUR",
    "normas": null,
    "ingresos": 5042.026,
@@ -6795,11 +6795,11 @@
    "ltv": null,
    "fcf": 660.56,
    "roe": 0.15225832130543476,
-   "cagr_ing": null,
-   "cagr_tramo": null,
-   "roe_med5": 0.15225832130543476,
+   "cagr_ing": 0.181777261087543,
+   "cagr_tramo": "2021-2025",
+   "roe_med5": 0.21245272319218772,
    "perdidas5": 0,
-   "anios5": 3,
+   "anios5": 5,
    "s1": "2026-S1",
    "s1_ing": 0.02364695014708664,
    "s1_ben": -0.0443368920176867,
@@ -6825,12 +6825,15 @@
    "rent_accionista": 0.02141137633316404,
    "ev_ebitda": 9.76417584204305,
    "fcf_yield": 0.06526897856313241,
-   "etiquetas": [],
-   "estado": "universo",
+   "etiquetas": [
+    "Calidad",
+    "Crecimiento"
+   ],
+   "estado": "analizada",
    "puntos": {
-    "total": 58.2,
+    "total": 62.3,
     "dividendo": 36,
-    "calidad": 88,
+    "calidad": 100,
     "valoracion": 49,
     "nota": ""
    },
@@ -6840,10 +6843,10 @@
    "n_grupo": 11,
    "per_grupo": 21.259094123119862,
    "per_vs_grupo": 0.8018563591771035,
-   "puesto": 43,
-   "puesto_ant": 43,
-   "puntos_ant": 56.8,
-   "cambio_puesto": 0,
+   "puesto": 37,
+   "puesto_ant": 36,
+   "puntos_ant": 60.9,
+   "cambio_puesto": -1,
    "cambio_puntos": 1.4
   },
   {
@@ -6995,9 +6998,9 @@
    "per_grupo": 11.856765500421698,
    "per_vs_grupo": 1.7067744799851257,
    "puesto": 44,
-   "puesto_ant": 41,
+   "puesto_ant": 42,
    "puntos_ant": 57.4,
-   "cambio_puesto": -3,
+   "cambio_puesto": -2,
    "cambio_puntos": 0.5
   },
   {
@@ -8494,8 +8497,8 @@
    "n_grupo": 19,
    "per_grupo": 15.586429772177326,
    "per_vs_grupo": 0.9905056862714483,
-   "puesto": 41,
-   "puesto_ant": 36,
+   "puesto": 42,
+   "puesto_ant": 37,
    "puntos_ant": 59.8,
    "cambio_puesto": -5,
    "cambio_puntos": -0.2
@@ -9580,7 +9583,7 @@
   "Consumo de marca": {
    "n": 11,
    "per_mediana": 21.259094123119862,
-   "puntos_media": 38.39090909090909
+   "puntos_media": 38.763636363636365
   },
   "Promoción inmobiliaria": {
    "n": 7,
