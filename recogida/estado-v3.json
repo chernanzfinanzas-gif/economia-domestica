@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-21T11:45",
+ "generado": "2026-11-21T12:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -33,23 +33,41 @@
     "Semáforo de empresa: VERDE · revisado hasta 2026-S1",
     "Tesis escrita el 2026-11-09 · valoración generada el 2026-11-20"
    ]
+  },
+  {
+   "carpeta": "EDR análisis inicial",
+   "ticker": "EDR",
+   "periodos": [],
+   "tipo": "inicial",
+   "creada": "2026-11-21T12:18+01:00",
+   "semaforo": null,
+   "frase": null
+  },
+  {
+   "carpeta": "PUIG análisis inicial",
+   "ticker": "PUIG",
+   "periodos": [],
+   "tipo": "inicial",
+   "creada": "2026-11-21T12:18+01:00",
+   "semaforo": null,
+   "frase": null
   }
  ],
- "n_pendientes": 1,
+ "n_pendientes": 3,
  "ultima_subida": {
-  "cuando": "2026-11-21T11:45",
+  "cuando": "2026-11-21T12:45",
   "ficheros": [
-   "recogida/publicaciones/ART.json",
-   "recogida/publicaciones/EDR.json",
-   "recogida/publicaciones/EZE.json",
-   "recogida/publicaciones/VID.json",
-   "recogida/publicaciones/VIS.json",
+   "dossiers/MEL.html",
+   "fichas/MEL.json",
+   "recogida/publicaciones/PRS.json",
+   "recogida/publicaciones/PUIG.json",
    "recogida/publicaciones/_indice.json",
-   "recogida/publicaciones/dias/2025-11.json",
    "recogida/publicaciones/dias/2026-11.json"
   ]
  },
- "rechazos": [],
+ "rechazos": [
+  "NO SUBE fichas/_resumen.json: lista de empresas rara"
+ ],
  "descargas_pendientes": [
   {
    "clase": "fallido",
