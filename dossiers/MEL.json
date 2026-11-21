@@ -1,0 +1,128 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "MEL",
+ "empresa": "Meliá Hotels International, S.A.",
+ "fecha": "2026-11-21",
+ "revisadoEl": "2026-11-21",
+ "rating": "BBB",
+ "score": 52.0,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): ev_ebitda_norm 45 % · per_norm 45 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl recurrente",
+ "poBear": 7.05,
+ "poBase": 9.57,
+ "poBull": 12.01,
+ "entMin": 7.05,
+ "entMax": 8.01,
+ "stop": 6.1,
+ "dpaPrevisto": 0.1736,
+ "moat": "23,0 sobre 100 · SIN MOAT CLARO. Sin ajuste: marcas conocidas, pero la rentabilidad no lo refleja",
+ "catalizadores": [
+  "Venta de hoteles no estratégicos: La empresa está «evaluando la rotación de activos no estratégicos y con generación de caja limitada» (9M-2026). Se modela como 300 M€ menos de deuda. (12-24 meses)",
+  "Hoteles insignia reabiertos: Paradisus Cancún reabrió en abril de 2026 y Gran Meliá Don Pepe reabre a finales de año, tras restar más de 12 M€ de EBITDA en 2025. Se toma como 20 M€ más de EBITDA. (12 meses)",
+  "Crecimiento en gestión: Firma un mínimo de 40 hoteles al año y abre más de 30 (2026), casi todos en gestión, que dan honorarios con poco capital. Se toma como 30 M€ más de EBITDA. (24 meses)"
+ ],
+ "riesgos": [
+  "Caída de la demanda turística (Media): Un hotel tiene muchos costes fijos (personal, alquileres): si baja la ocupación, el beneficio cae mucho más que las ventas. En 2020 las ventas cayeron un 71 %. Suave: ventas −8 %. Duro: −20 %.",
+  "Riesgo país en los destinos (Media): En 2026 cerró todo lo que tenía en Cuba (79 M€ de pérdidas en el semestre por deterioros) y México tiene problemas de seguridad que han frenado el negocio. Suave: −25 M€ de EBITDA. Duro: −60 M€.",
+  "Costes de personal (Media): Los gastos de personal subieron un 10 % en los nueve meses de 2026 (513 M€), más que los ingresos (+7 %). Suave: −20 M€ de EBITDA. Duro: −50 M€.",
+  "Deuda y alquileres (Media): Deuda neta de 2.260 M€, la mayor parte por alquileres de hoteles: pagos fijos que no bajan si baja la ocupación. Suave: descuento −5 %. Duro: −12 %.",
+  "Intermediarios y canales de venta (Media): Las grandes agencias en línea se quedan una comisión de cada reserva; Meliá vende el 48 % por sus canales propios (9M-2026). Suave: −15 M€ de EBITDA. Duro: −40 M€.",
+  "Reformas de hoteles (Baja): Reformar un hotel insignia lo deja cerrado meses: Paradisus Cancún y Gran Meliá Don Pepe restaron más de 12 M€ de EBITDA en 2025. Suave: −10 M€. Duro: −25 M€.",
+  "Accionistas de control (Media): La familia Escarrer controla el 49,42 % a través de tres sociedades; en 2025 falleció la viuda del fundador y la sucesión ha cambiado las participaciones. Suave: −3 %. Duro: −8 %.",
+  "Clima y catástrofes (Baja): Huracanes en el Caribe, olas de calor o una pandemia pueden cerrar hoteles en temporada alta. Suave: −15 M€ de EBITDA. Duro: −40 M€."
+ ],
+ "bull": "12,01 € — escenario optimista: ",
+ "bear": "7,05 € — escenario pesimista: ",
+ "resumen": "ESPERAR. A 11,08 € cotiza un 14 % por encima del PO (9,57 €) y por encima incluso del escenario bueno (12,01 € es solo un 8 % más), y no pasa los filtros de calidad: rating BBB (52; pide A) y sin moat (23; pide 45). Es un buen hotelero (precios un 46 % por encima de 2018, caja abundante, deuda bajando), pero el capital en hoteles propios rinde menos de lo que cuesta y el precio ya recoge la buena racha. Zona de compra: 7,05-8,01 €; stop de tesis en 6,10 €.",
+ "dividendSafety": {
+  "score": 77,
+  "banda": "Seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 6,
+   "C4": 9,
+   "C5": 12
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Seguro: cobertura OE 6.57x · payout 23 % · 1 recorte(s) del DPA · señales: EBITDA a la baja"
+  ],
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3",
+  "shareholderYield": 2.19
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 1.27,
+   "zona": "gris"
+  },
+  "beneish": {
+   "m": -2.85,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -6.6,
+   "senal": "normal"
+  },
+  "flags": [
+   "Altman Z''=1.27 en zona gris"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -0.0,
+  "gIntrinseco": 2.65,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 296.84,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 220.8688,
+   "deudaNeta": 2259.976,
+   "modo": "EV",
+   "precioBase": 11.08,
+   "gBase": -0.0,
+   "fechaBase": "2026-11-20",
+   "congeladoEl": "2026-11-21",
+   "validado": true,
+   "desviacion": -0.0
+  }
+ }
+}

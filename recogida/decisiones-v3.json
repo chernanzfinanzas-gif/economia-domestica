@@ -629,7 +629,19 @@
     "revision": "NTGY señales 2026-11-18",
     "origen": "metodo-v3"
    }
+  ],
+  "MEL": [
+   {
+    "fecha": "21-nov-2026",
+    "fechaIso": "2026-11-21",
+    "senal": "S6",
+    "cot": 11.08,
+    "decision": "REAFIRMAR",
+    "motivo": "Análisis inicial 21-nov-2026: los dos ámbar seguidos (1S y 9M de 2026) son el margen frenado por las reformas de Paradisus Cancún y Gran Meliá Don Pepe (25,4 M€ menos de EBITDA en nueve meses) y por los alquileres de hoteles nuevos, con las ventas creciendo un 7,2 %; la pérdida del semestre es la salida de Cuba. La decisión ya es ESPERAR. Alarma: margen EBITDA anual de 2027 por debajo del 24 %.",
+    "revision": "MEL análisis inicial",
+    "origen": "metodo-v3"
+   }
   ]
  },
- "actualizado": "2026-11-19"
+ "actualizado": "2026-11-21"
 }

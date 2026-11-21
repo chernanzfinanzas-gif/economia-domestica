@@ -1,0 +1,351 @@
+{
+ "schemaVersion": 2,
+ "ticker": "ANE",
+ "empresa": "Corporación Acciona Energías Renovables, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-21",
+ "revisiones": [
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +111,9 %, EBITDA +75,9 %, beneficio neto +155,5 %, margen 39,7 % (-8,12 pp) frente al mismo periodo del año anterior. Ámbar por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2206.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 875.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 39.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 675.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 390.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1819.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +76,0 %, EBITDA +53,6 %, beneficio neto +109,0 %, margen 37,8 % (-5,51 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4351.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1646.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 37.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 1225.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 759.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1813.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -20,2 %, EBITDA -6,5 %, beneficio neto +3,9 %, margen 46,5 % (+6,82 pp) frente al mismo periodo del año anterior. Ámbar por: ingresos a la baja, EBITDA a la baja.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1760.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 818.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 46.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 595.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 405.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3140.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -18,5 %, EBITDA -15,7 %, beneficio neto -30,9 %, margen 39,1 % (+1,30 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3547.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1388.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 39.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 916.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 524.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3362.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -24,2 %, EBITDA -43,9 %, beneficio neto -84,0 %, margen 34,5 % (-12,05 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ingresos −24 %, EBITDA −44 % y beneficio −84 % (65 M€).\n\n**Por qué** — Precios eléctricos más bajos que en 2023 y, en el 1S-2023, una plusvalía de 145 M€ por la toma de control de Renomar.\n\n**Semáforo** — Rojo.\n\n**Lectura** — La vuelta a la normalidad del precio tras 2022.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1333.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 459.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 34.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 198.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 64.7
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 4191.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -14,1 %, EBITDA -11,1 %, beneficio neto -31,9 %, margen 40,5 % (+1,37 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, caída de beneficio o margen. **Qué ha pasado** — Ingresos −14 %, EBITDA −11 % y beneficio −32 % (357 M€). El precio medio capturado bajó un 20,4 % (68,7 €/MWh). Deuda financiera neta de 3,63 veces el EBITDA según la empresa.\n\n**Semáforo** — Rojo.\n\n**Lectura** — Año de precios bajos e inversión alta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3048.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1235.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 40.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 699.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 357.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3649.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,2 %, EBITDA +89,6 %, beneficio neto +603,3 %, margen 59,3 % (+24,83 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos +10 %, EBITDA ×1,9 y beneficio de 455 M€, con 443 M€ de plusvalías por la venta de 626 MW hidráulicos a Endesa.\n\n**Semáforo** — Verde.\n\n**Lectura** — Semestre inflado por la rotación de activos.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1469.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 871.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 59.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 593.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 455.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3891.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -4,1 %, EBITDA +20,1 %, beneficio neto +83,4 %, margen 50,7 % (+10,20 pp) frente al mismo periodo del año anterior. Verde: solo ingresos a la baja, sin más señales. **Qué ha pasado** — Ingresos de 2.925 M€ (−4 %), EBITDA de 1.546 M€ según la empresa (932 de operaciones, −11 %, y 614 de rotación de activos) y beneficio de 655 M€ (+83 %). Precio capturado de 61,9 €/MWh (−9,9 %). Dividendo recortado a 0,03 € por acción.\n\n**Semáforo** — Verde en el periodo, por las plusvalías.\n\n**Lectura** — Buen resultado contable; negocio de fondo más flojo.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2925.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1483.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 50.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 952.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 655.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3743.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos -12,3 %, EBITDA -60,7 %, beneficio neto -104,0 %, margen 26,6 % (-32,74 pp) frente al mismo periodo del año anterior. Rojo por: ingresos a la baja, EBITDA a la baja, el margen empeora, caída de beneficio o margen. Corrección del analista: El 1S-2025 incluía 443 M€ de rotación de activos y el 1S-2026 ninguna; el EBITDA de operaciones (388 M€, −16,5 %) va en línea con las expectativas de la empresa (informe del 1S-2026), que mantiene la guía anual de ~1.200 M€ en el 9M. **Qué ha pasado** — Ingresos de 1.288 M€ (−12 %), EBITDA de 388 M€ según la empresa (908 M€ en el 1S-2025: −57 %) y pérdidas de 18 M€.\n\n**Por qué** — El 1S-2025 llevaba 443 M€ de rotación de activos y este semestre no hubo ninguna; además el EBITDA de operaciones bajó un 16,5 % por el precio capturado (54,8 €/MWh, −13,7 %) y los parques vendidos. Las ventas de julio (64 MW hidráulicos y 361 MW eólicos) aportarán unos 310 M€ en el segundo semestre.\n\n**Semáforo** — Rojo automático; corregido a ámbar por juicio: la mayor parte de la caída es de calendario de la rotación, y el EBITDA de operaciones va en línea con lo que la empresa esperaba.\n\n**Qué vigilar** — La deuda (4.442 M€ en junio según la empresa; guía de 3.250-3.500 M€ a final de año) y si las ventas de parques del segundo semestre llegan. El 9M-2026 confirma la guía de EBITDA de ~1.200 M€.\n\n**Lectura** — Semestre débil, pero dentro de lo previsto.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1288.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 342.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 26.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 75.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": -18.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 3998.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}

@@ -1,0 +1,126 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "ANE",
+ "empresa": "Corporación Acciona Energías Renovables, S.A.",
+ "fecha": "2026-11-21",
+ "revisadoEl": "2026-11-21",
+ "rating": "BB",
+ "score": 40.1,
+ "decision": "MANTENER",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 15 % · DCF base 45 % · DCF optimista 15 % · EV/EBITDA 6 % · EV/EBIT 6 % · PER 8 % · P/VC 5 % · flujo base del DCF: owner earnings",
+ "poBear": 16.34,
+ "poBase": 20.16,
+ "poBull": 29.85,
+ "entMin": 16.34,
+ "entMax": 17.53,
+ "stop": 12.77,
+ "dpaPrevisto": 0.03,
+ "moat": "45,0 sobre 100 · MOAT ESTRECHO. −5: el ROIC supera al coste por poco y con ayuda del precio de 2022 y de las plusvalías",
+ "catalizadores": [
+  "Ventas de parques de 2026-2027: En julio de 2026 vendió 64 MW hidráulicos y 361 MW eólicos (unos 310 M€ de plusvalía y casi 500 M€ menos de deuda); sigue la venta de Sudáfrica y prepara «un paquete adicional significativo» para 2027. Se modela como 1.000 M€ menos de deuda. (12-24 meses)",
+  "Recuperación del precio en España: El precio capturado en España pasó de 59,3 €/MWh en el primer semestre a 64,1 €/MWh en los nueve meses de 2026; la empresa espera 55-60 €/MWh de media. Se toma como 50 M€ más de EBITDA. (12 meses)",
+  "Vuelta al crecimiento: Tras instalar unos 0,5 GW en 2025 y ~0,7 GW en 2026, tiene aprobados proyectos para ~1,1 GW en 2027 (baterías en Chile, fotovoltaicas en EE. UU. y República Dominicana). Se toma como 60 M€ más de EBITDA. (24 meses)"
+ ],
+ "riesgos": [
+  "Precio de la electricidad (Alta): El precio capturado bajó un 9,9 % en 2025 (61,9 €/MWh) y un 8,1 % en los nueve meses de 2026 (57,3 €/MWh; −19,8 % en España). El EBITDA de operaciones de 2025 cayó un 11 % (932 M€). Cada euro por MWh menos en toda la producción son unos 25 M€ de EBITDA; parte va con contratos a precio fijo. Suave: −60 M€ de EBITDA permanentes. Duro: −150 M€.",
+  "Rotación de activos (Alta): Bajar deuda depende de vender parques: en 2026 no se alcanzará el objetivo de unos 2.000 M€ porque la operación con MIP no ha cumplido sus condiciones. Suave: +700 M€ de deuda. Duro: +1.500 M€.",
+  "Calificación crediticia (Media): Fitch la tiene en BBB−, el último escalón del grado de inversión, con perspectiva negativa desde 2025. Perderlo encarecería la refinanciación de más de 4.000 M€ de deuda. Suave: +500 M€ de deuda equivalente. Duro: +1.000 M€.",
+  "Producción y recurso (Media): La producción depende del viento, el sol y el agua: en 2026 se espera 25,5 TWh frente a los ~26 TWh del objetivo (producción en España −10,9 % en nueve meses). Suave: −25 M€ de EBITDA. Duro: −60 M€.",
+  "Regulación energética (Media): Impuestos extraordinarios, topes de precio o cambios en la retribución de las renovables en España (648 de los 1.510 M€ de su cifra de negocios de generación de 2025, el 43 %) y en otros países. Suave: −40 M€ de EBITDA. Duro: −100 M€.",
+  "Construcción de proyectos (Media): Proyectos grandes con retrasos (el eólico MacIntyre en Australia llegará al 70-80 % de su potencia a final de 2026) y deterioros (15 M€ en el 1S-2026, una fotovoltaica en Portugal). Suave: −20 M€ de EBITDA. Duro: −50 M€.",
+  "Accionista de control (Media): Acciona tiene el 91,11 % y menos del 9 % cotiza: poca liquidez, operaciones vinculadas con la matriz (el préstamo de 500 M€) y la posibilidad de que Acciona venda o compre a un precio que no elige el minoritario. Suave: −5 %. Duro: −10 %.",
+  "Tipos de interés (Media): Gastos financieros de 237 M€ en 2025 (133 M€ en 2022); los parques se valoran descontando flujos de décadas, y suben los tipos, baja su valor y el precio al que se pueden vender. Suave: −5 %. Duro: −12 %."
+ ],
+ "bull": "29,85 € — escenario optimista: ",
+ "bear": "16,34 € — escenario pesimista: ",
+ "resumen": "MANTENER. A 18,69 € cotiza un 8 % por debajo del PO (20,16 €) y por encima de la zona de compra (16,34-17,53 €), y no pasa los filtros de calidad para comprar: rating BB (40,1; pide A). El moat (45) llega justo. Es una buena operadora de parques en un negocio sin ventaja de precio, con la deuda en el límite de su calificación y sin dividendo mientras baja la deuda. Para quien la tenga, el precio no pide vender; para comprar, mejor más abajo y con la deuda ya por debajo de 3.000 M€. El escenario bueno (29,85 €) junta las ventas de parques, la recuperación del precio en España y la vuelta al crecimiento. El stop de tesis está en 12,77 €. Ojo: Acciona tiene el 91,11 % y flota menos del 9 %.",
+ "dividendSafety": {
+  "score": 40,
+  "banda": "Vigilar",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 0,
+   "C2": 15,
+   "C3": 13,
+   "C4": 0,
+   "C5": 12
+  },
+  "topeDuro": {
+   "activo": true,
+   "motivo": "Vigilar: cobertura OE -15.51x · payout 20 % · 3 recorte(s) del DPA · señales: recompras recortadas"
+  },
+  "motivos": [
+   "Vigilar: cobertura OE -15.51x · payout 20 % · 3 recorte(s) del DPA · señales: recompras recortadas"
+  ],
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3",
+  "shareholderYield": 0.13
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 0,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 2.78,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.52,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": 1.8,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 4.69,
+  "gIntrinseco": 9.03,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (≤ g intrínseco 9,0 %)",
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 366.3395,
+   "wacc": 6.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 324.762,
+   "deudaNeta": 3742.64,
+   "modo": "EV",
+   "precioBase": 18.69,
+   "gBase": 4.69,
+   "fechaBase": "2026-11-20",
+   "congeladoEl": "2026-11-21",
+   "validado": true,
+   "desviacion": 0.0
+  }
+ }
+}

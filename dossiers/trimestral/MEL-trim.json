@@ -1,0 +1,567 @@
+{
+ "schemaVersion": 2,
+ "ticker": "MEL",
+ "empresa": "Meliá Hotels International, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-21",
+ "revisiones": [
+  {
+   "periodo": "2022-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2022-S1",
+   "fecha": "2022-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +143,6 %, EBITDA +10497,9 %, beneficio neto +102,0 %, margen 22,0 % (+21,52 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 741.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 163.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 22.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 40.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 3.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2931.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +87,5 %, EBITDA +243,2 %, beneficio neto +157,4 %, margen 25,5 % (+11,55 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1692.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 431.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 25.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 201.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 111.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2725.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2023-3M",
+   "fecha": "2023-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +45,9 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 396.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2023-S1",
+   "fecha": "2023-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +22,7 %, EBITDA +33,8 %, beneficio neto +1325,5 %, margen 24,0 % (+2,00 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 910.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 219.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 92.1
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 42.5
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2787.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2023-9M",
+   "fecha": "2023-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +16,1 %, EBITDA +17,8 %, margen 26,2 % (+0,37 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1478.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 387.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 26.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 195.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +14,2 %, EBITDA +13,7 %, beneficio neto +6,4 %, margen 25,3 % (-0,11 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1932.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 490.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 25.3
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 231.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 118.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2693.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2024-3M",
+   "fecha": "2024-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +11,1 %, EBITDA +26,0 %, margen 22,3 % (+2,63 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 440.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 98.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 22.3
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,5 %, EBITDA +10,0 %, beneficio neto +2,9 %, margen 25,0 % (+1,01 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 960.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 240.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 25.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 118.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 43.7
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2461.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,5 %, EBITDA +10,8 %, margen 27,8 % (+1,59 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1544.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 429.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 27.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 246.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,4 %, EBITDA +17,5 %, beneficio neto +19,4 %, margen 28,0 % (+2,63 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ingresos +6,4 %, EBITDA +17 % y beneficio de 141 M€ (+19 %). RevPAR de 119,4 € (+11 %) en propiedad y alquiler. Deuda neta bajada en 386 M€.\n\n**Semáforo** — Verde.\n\n**Lectura** — Año de precios altos.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2056.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 575.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 28.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 333.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 141.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2306.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +1,0 %, EBITDA -3,6 %, margen 21,2 % (-1,01 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 444.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 94.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 21.2
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,3 %, EBITDA +1,3 %, beneficio neto +72,4 %, margen 24,8 % (-0,26 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 983.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 243.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 24.8
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 121.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 75.4
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2255.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,1 %, EBITDA +2,7 %, margen 27,4 % (-0,38 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1608.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 440.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 27.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 254.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,0 %, EBITDA -2,0 %, beneficio neto +20,9 %, margen 26,9 % (-1,10 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora. **Qué ha pasado** — Ingresos de 2.097 M€ (+2,0 %), EBITDA de 564 M€ (−2 %) y beneficio de 170 M€ (+21 %). RevPAR de 123,6 € (+3,5 %) en propiedad y alquiler, con la ocupación en el 70,5 %. Dividendo de 0,17 €.\n\n**Por qué** — Dos hoteles insignia en reforma (Paradisus Cancún y Gran Meliá Don Pepe) restaron más de 12 M€ de EBITDA.\n\n**Semáforo** — Ámbar.\n\n**Lectura** — Año de transición, con el negocio de fondo creciendo.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2097.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 564.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 26.9
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 304.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 170.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2260.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +3,8 %, EBITDA -6,9 %, margen 19,0 % (-2,19 pp) frente al mismo periodo del año anterior. Rojo por: EBITDA a la baja, el margen empeora, caída de beneficio o margen. **Qué ha pasado** — Ingresos +3,8 % y EBITDA −6,9 % (88 M€).\n\n**Por qué** — Los dos hoteles insignia en reforma y más gasto de alquileres por los hoteles nuevos.\n\n**Semáforo** — Rojo.\n\n**Lectura** — Trimestre flojo por las reformas.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 462.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 87.9
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +6,8 %, EBITDA +1,5 %, beneficio neto -110,0 %, margen 23,5 % (-1,23 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora, caída de beneficio o margen. Corrección del analista: La pérdida (−7,5 M€) viene de cerrar las operaciones en Cuba (79 M€ de actividades interrumpidas, casi todo deterioros); el resultado de las actividades que siguen fue de 83,5 M€ frente a 85,2 M€ (informe del 1S-2026). **Qué ha pasado** — Ingresos +6,8 %, EBITDA +1,5 % (247 M€) y pérdidas de 7,5 M€ (75 M€ de beneficio en el 1S-2025).\n\n**Por qué** — Meliá cerró todas sus operaciones en Cuba entre junio y julio: 79 M€ de pérdidas de actividades interrumpidas, casi todo deterioros (41 M€ de su participación en Homasi). El resultado de las actividades que siguen fue de 83,5 M€ (85,2 M€ un año antes).\n\n**Semáforo** — Rojo automático; corregido a ámbar por juicio: la pérdida es de la salida de Cuba, puntual y sin salida de caja según la empresa.\n\n**Qué vigilar** — El margen (23,5 %, −1,2 puntos) por las reformas y los alquileres nuevos.\n\n**Lectura** — Negocio estable; el beneficio, tocado por Cuba.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1050.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 247.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 23.5
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 125.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": -7.5
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 2218.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,2 %, EBITDA +2,7 %, margen 26,1 % (-1,14 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: El margen baja 1,1 puntos por las reformas de dos hoteles insignia (25,4 M€ menos de EBITDA en nueve meses) y los alquileres variables de hoteles nuevos; ventas +7,2 % y EBITDA +2,7 % (informe del 9M-2026). **Qué ha pasado** — Ingresos de 1.709 M€ (+7,2 %), EBITDA de 445 M€ (+2,7 %) y margen del 26,1 % (−1,1 puntos). RevPAR +16,5 % en los nueve meses en propiedad y alquiler. Deuda neta de 2.103 M€ (846 M€ sin alquileres).\n\n**Por qué** — El margen baja por las reformas de Gran Meliá Don Pepe y la reapertura de Paradisus Cancún (25,4 M€ menos de EBITDA en nueve meses) y por los alquileres variables de los hoteles nuevos. México flojo por la seguridad y el sargazo.\n\n**Semáforo** — Rojo automático por el margen; corregido a ámbar por juicio: la causa es temporal y las ventas crecen.\n\n**Qué vigilar** — Que el margen se recupere en 2027 con los dos hoteles abiertos; la rotación de activos no estratégicos que estudia la empresa.\n\n**Lectura** — Buen año de ventas con el margen frenado por las reformas.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1709.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 445.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 26.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 258.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}
