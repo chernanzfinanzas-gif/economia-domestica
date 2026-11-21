@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-21T10:45",
+ "generado": "2026-11-21T11:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -37,28 +37,16 @@
  ],
  "n_pendientes": 1,
  "ultima_subida": {
-  "cuando": "2026-11-21T10:45",
+  "cuando": "2026-11-21T11:45",
   "ficheros": [
-   "dossiers/ANE.html",
-   "dossiers/ANE.json",
-   "dossiers/MEL.html",
-   "dossiers/MEL.json",
-   "dossiers/trimestral/ANE-trim.json",
-   "dossiers/trimestral/MEL-trim.json",
-   "dossiers/v3/ANE.html",
-   "dossiers/v3/MEL.html",
-   "fichas/ANE.json",
-   "fichas/MEL.json",
-   "fichas/_resumen.json",
-   "recogida/publicaciones/BKT.json",
-   "recogida/publicaciones/INDXA.json",
+   "recogida/publicaciones/ART.json",
+   "recogida/publicaciones/EDR.json",
+   "recogida/publicaciones/EZE.json",
+   "recogida/publicaciones/VID.json",
    "recogida/publicaciones/VIS.json",
    "recogida/publicaciones/_indice.json",
-   "recogida/publicaciones/dias/2026-06.json",
-   "recogida/publicaciones/dias/2026-11.json",
-   "universo/base.json",
-   "universo/matriz.json",
-   "_indice.json"
+   "recogida/publicaciones/dias/2025-11.json",
+   "recogida/publicaciones/dias/2026-11.json"
   ]
  },
  "rechazos": [],
