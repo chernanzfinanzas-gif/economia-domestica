@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-21T12:45",
+ "generado": "2026-11-21T13:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -55,12 +55,10 @@
  ],
  "n_pendientes": 3,
  "ultima_subida": {
-  "cuando": "2026-11-21T12:45",
+  "cuando": "2026-11-21T13:45",
   "ficheros": [
-   "dossiers/MEL.html",
-   "fichas/MEL.json",
-   "recogida/publicaciones/PRS.json",
-   "recogida/publicaciones/PUIG.json",
+   "recogida/publicaciones/AEDAS.json",
+   "recogida/publicaciones/HOME.json",
    "recogida/publicaciones/_indice.json",
    "recogida/publicaciones/dias/2026-11.json"
   ]
@@ -104,6 +102,33 @@
    "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=obQonWR8CA8sX7ds7KOcbcBEdSPIK4%2bhVV5zxSvL1AhUEAeRxZR3srt1mVLkRHmQ",
    "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
    "desde": "2026-10"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "ANE",
+   "que": "2024-07-02 Acciona Energia informa de la inscripción de la escritura de reducción",
+   "carpeta": "ANE - Corporación Acciona Energías Renovables, S.A\\Capital",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/derechos-voto-capital.aspx?Nif=A85483311",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
+   "desde": "2026-11-13"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "ANE",
+   "que": "2021-06-23 La sociedad remite el reglamento del Consejo de Administración",
+   "carpeta": "ANE - Corporación Acciona Energías Renovables, S.A\\Gobierno",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A85483311",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
+   "desde": "2026-11-13"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "ANE",
+   "que": "2026-02-26 La sociedad remite el Informe Financiero Anual del ejercicio 2025",
+   "carpeta": "ANE - Corporación Acciona Energías Renovables, S.A\\Resultados",
+   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A85483311",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
+   "desde": "2026-11-13"
   },
   {
    "clase": "fallido",
@@ -161,6 +186,15 @@
   },
   {
    "clase": "fallido",
+   "ticker": "ELE",
+   "que": "2026-11-06 Inscripción en el Registro Mercantil de la reducción de capital",
+   "carpeta": "ELE - Endesa, S.A\\Capital",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/derechos-voto-capital.aspx?Nif=A-28023430",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
+   "desde": "2026-11-07"
+  },
+  {
+   "clase": "fallido",
    "ticker": "LGT",
    "que": "2016 S1 Anexo Anexo de las notas explicativas estados fina LGT",
    "carpeta": "LGT - Lingotes Especiales, S.A\\Intermedios",
@@ -185,6 +219,15 @@
    "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=FWpndKCb8ezODyA4jwPmJcxjKdhZ965VtYrpkC%2bDgj%2bhUFgrkk%2fhEZzWRbwiPkSI",
    "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
    "desde": "2026-10"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "LOG",
+   "que": "2026-11-06 La sociedad remite el Informe Financiero Anual del ejercicio 2026",
+   "carpeta": "LOG - Logista Integral, S.A\\Resultados",
+   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A87008579",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
+   "desde": "2026-11-07"
   }
  ],
  "pendientes_sistema": [
