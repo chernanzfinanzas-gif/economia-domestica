@@ -1,8 +1,17 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-20T21:45",
+ "generado": "2026-11-21T09:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
+  {
+   "carpeta": "ANE análisis inicial",
+   "ticker": "ANE",
+   "periodos": [],
+   "tipo": "inicial",
+   "creada": "2026-11-21T09:33+01:00",
+   "semaforo": null,
+   "frase": null
+  },
   {
    "carpeta": "CBAV señales 2026-11-20",
    "ticker": "CBAV",
@@ -33,24 +42,24 @@
     "Semáforo de empresa: VERDE · revisado hasta 2026-S1",
     "Tesis escrita el 2026-11-09 · valoración generada el 2026-11-20"
    ]
+  },
+  {
+   "carpeta": "MEL análisis inicial",
+   "ticker": "MEL",
+   "periodos": [],
+   "tipo": "inicial",
+   "creada": "2026-11-21T09:33+01:00",
+   "semaforo": null,
+   "frase": null
   }
  ],
- "n_pendientes": 1,
+ "n_pendientes": 3,
  "ultima_subida": {
-  "cuando": "2026-11-20T19:45",
+  "cuando": "2026-11-21T09:45",
   "ficheros": [
-   "dossiers/IAG.html",
-   "dossiers/IAG.json",
-   "dossiers/trimestral/IAG-trim.json",
-   "dossiers/v3/IAG.html",
-   "fichas/IAG.json",
-   "fichas/_resumen.json",
-   "recogida/publicaciones/AEDAS.json",
-   "recogida/publicaciones/ATRY.json",
-   "recogida/publicaciones/CABK.json",
-   "recogida/publicaciones/TRE.json",
-   "recogida/publicaciones/_indice.json",
-   "recogida/publicaciones/dias/2026-11.json"
+   "recogida/publicaciones/ANE.json",
+   "recogida/publicaciones/MEL.json",
+   "recogida/publicaciones/_indice.json"
   ]
  },
  "rechazos": [],
@@ -1132,6 +1141,18 @@
    "estado": "resuelto",
    "resuelto": "2026-11-19T19:07",
    "como": "Falso aviso: el PDF sí está en Biblioteca/CCEP/Comunicaciones (guardado sin nº de registro, como todas las extranjeras sin NIF). Arreglado el cruce para casarlas por fecha y asunto; repasado con la nube del 16 al 19-nov: faltan 0 · Claude, 19-nov",
+   "comprobado": null
+  },
+  {
+   "id": "Pd46ca37b",
+   "creado": "2026-11-21T08:56",
+   "origen": "cruce con la nube",
+   "ticker": "VIS",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (20/11/2026 19:49)",
+   "detalle": "nº 43776: Información complementaria sobre las cuestiones pendientes de concretar del dividendo retribución flexible, entre otras,",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
    "comprobado": null
   }
  ],
