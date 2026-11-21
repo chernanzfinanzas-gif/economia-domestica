@@ -641,6 +641,18 @@
     "revision": "MEL análisis inicial",
     "origen": "metodo-v3"
    }
+  ],
+  "EDR": [
+   {
+    "fecha": "21-nov-2026",
+    "fechaIso": "2026-11-21",
+    "senal": "S6",
+    "cot": 4.44,
+    "decision": "REAFIRMAR",
+    "motivo": "Análisis inicial 21-nov-2026: los dos ámbar seguidos (1T y 1S del ejercicio 2027) son la inversión del plan anunciado en noviembre de 2025 y el cambio a cuotas mensuales; la empresa mantiene sus objetivos del ejercicio (8,5 millones de socios Prime y 115 M€ de EBITDA en caja) y el 2T mejoró al 1T (EBITDA en caja +46 %). La decisión ya es MANTENER. Alarma: EBITDA en caja del ejercicio 2027 por debajo de 115 M€.",
+    "revision": "EDR análisis inicial",
+    "origen": "metodo-v3"
+   }
   ]
  },
  "actualizado": "2026-11-21"

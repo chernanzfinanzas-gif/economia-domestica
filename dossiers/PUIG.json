@@ -1,0 +1,125 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "PUIG",
+ "empresa": "Puig Brands, S.A.",
+ "fecha": "2026-11-21",
+ "revisadoEl": "2026-11-21",
+ "rating": "A",
+ "score": 73.8,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 10 % · DCF base 30 % · DCF optimista 10 % · EV/EBITDA 8 % · EV/EBIT 8 % · PER 10 % · P/VC 6 % · P/FCL 8 % · rentabilidad por dividendo 10 % · flujo base del DCF: fcl recurrente",
+ "poBear": 15.48,
+ "poBase": 18.85,
+ "poBull": 22.84,
+ "entMin": 15.48,
+ "entMax": 16.39,
+ "stop": 13.51,
+ "dpaPrevisto": 0.4216,
+ "moat": "80,2 sobre 100 · MOAT ANCHO. Sin ajuste: marcas propias de lujo y ROIC por encima del coste del capital todos los años",
+ "catalizadores": [
+  "Vision 2032: Puig apunta a más de 8.000 M€ de ventas en 2032 (5.042 M€ en 2025) con un margen EBITDA ajustado de más del 22,5 % (20,7 % en 2025) y más de 900 M€ de flujo libre (Capital Markets Day, 28-oct-2026). Llegar al 22,5 % de margen con las ventas de 2025 ya serían unos 90 M€ más de EBITDA; se toma como 120 M€ con algo de crecimiento. (24-36 meses)",
+  "Nicho y dermocosmética: Fragancias de nicho (Byredo, L’Artisan), dermocosmética (Uriage, Apivita) y maquillaje crecieron a doble dígito en los nueve meses de 2026 (nota del 3T-2026). Se toma como 40 M€ más de EBITDA. (12-24 meses)"
+ ],
+ "riesgos": [
+  "Las fragancias se frenan (Media): Fragancias y Moda son el 72 % de las ventas y la propia empresa habla de «un mercado que se está normalizando» tras años de crecimiento alto (cuentas de 2025); en 2026 crece un 4,8 % comparable. Suave: ventas −5 %. Duro: −12 %.",
+  "Más gasto en publicidad para sostener las marcas (Media): La publicidad y promoción es el mayor gasto del grupo (1.338 M€ en 2023, el 31 % de las ventas, folleto de la OPV). En 2025 el margen de fragancias bajó 0,55 puntos por más inversión publicitaria. Suave: −50 M€ de EBITDA (un punto de margen). Duro: −110 M€ (dos puntos).",
+  "Charlotte Tilbury pierde tirón (Media): El maquillaje (845 M€ en 2025, +13,7 %) depende sobre todo de Charlotte Tilbury, la mayor compra del grupo y la unidad con más valor en libros (1.858 M€ en 2023). Una marca de moda puede pasar. Suave: −25 M€ de EBITDA. Duro: −60 M€.",
+  "Compra de minoritarios más cara (Media): Quedan 988 M€ de compromisos para comprar minoritarios (sobre todo Charlotte Tilbury, ejercitables en 2026) a precios ligados a resultados; ya se cuentan como deuda en la valoración. Si se paga más, sube la deuda. Suave: +150 M€ de deuda. Duro: +400 M€.",
+  "Aranceles y divisas (Media): Fabrica en España y Francia y vende en más de 150 países; Norteamérica y Asia son parte de su plan. Aranceles en EE. UU. o un dólar débil restan margen. Suave: −20 M€ de EBITDA. Duro: −50 M€.",
+  "Recesión en el lujo (Baja): En 2020 las ventas cayeron un 32 % a perímetro constante y Puig perdió 70 M€. Suave: ventas −8 %. Duro: −20 %.",
+  "Compras caras (Baja): Puig ha crecido comprando marcas (Charlotte Tilbury, Byredo, Uriage, Apivita, Dr. Barbara Sturm); el 58 % del activo son intangibles. Una compra grande y cara restaría valor. Suave: descuento −3 %. Duro: −8 %.",
+  "Control de la familia Puig (Media): La familia controla el 74,4 % del capital y el 93,2 % de los votos a través de Exea (acciones de clase A con 5 votos); el accionista de clase B apenas decide. Suave: descuento −3 %. Duro: −8 %."
+ ],
+ "bull": "22,84 € — escenario optimista: cumple Vision 2032: más de 8.000 M€ de ventas (≈ +7 % al año) y margen EBITDA ajustado por encima del 22,5 %",
+ "bear": "15,48 € — escenario pesimista: el mercado de belleza premium se frena y Puig crece por debajo del 3 % comparable",
+ "resumen": "ESPERAR. Es de las mejores empresas del universo (rating A con 73,8, moat de 80), pero a 19,69 € cotiza un 4 % por encima del PO (18,85 €) y lejos del 15 % de margen que pide el método para comprar. La tesis: marcas de prestigio con tres de las diez fragancias más vendidas del mundo, ROIC muy por encima del coste del capital, poca deuda y un dividendo del 40 % del beneficio. El plan Vision 2032 (más de 8.000 M€ de ventas y un margen ajustado de más del 22,5 %) llevaría el valor a 22,84 € (bull) o más; hoy crece al 4,8 % comparable. Zona de compra: 15,48-16,39 €; stop de tesis en 13,51 €.",
+ "dividendSafety": {
+  "score": 91,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "general",
+  "componentes": {
+   "C1": 31,
+   "C2": 13,
+   "C3": 20,
+   "C4": 15,
+   "C5": 12
+  },
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Muy seguro: cobertura OE 2.44x · payout 40 % · 0 recorte(s) del DPA · señales: recompras recortadas"
+  ],
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3",
+  "shareholderYield": 2.84
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2025",
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto (ingresos − aprovisionamientos)"
+  },
+  "altman": {
+   "z": 3.27,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.63,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -3.1,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 5.51,
+  "gIntrinseco": null,
+  "veredicto": "HEROICO",
+  "motivo": "IMPROBABLE (más de 1,4 veces lo que la empresa se puede autofinanciar)",
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 488.7083,
+   "wacc": 7.0,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 565.4248,
+   "deudaNeta": 1303.816,
+   "modo": "EV",
+   "precioBase": 19.69,
+   "gBase": 5.51,
+   "fechaBase": "2026-11-20",
+   "congeladoEl": "2026-11-21",
+   "validado": true,
+   "desviacion": 0.0
+  }
+ }
+}

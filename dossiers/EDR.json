@@ -1,0 +1,125 @@
+{
+ "schemaVersion": 8,
+ "origen": "metodo-v3",
+ "versionV3": "bloque9-v3 · 12-nov-2026 (reguladas: corte en BBB · veto por desacuerdo entre DCF y múltiplos)",
+ "ticker": "EDR",
+ "empresa": "EDREAMS ODIGEO, S.A.",
+ "fecha": "2026-11-21",
+ "revisadoEl": "2026-11-21",
+ "rating": "BBB",
+ "score": 61.7,
+ "decision": "MANTENER",
+ "metodoValoracion": "Síntesis ponderada (método v3): DCF pesimista 13 % · DCF base 39 % · DCF optimista 13 % · EV/EBITDA 7 % · EV/EBIT 7 % · PER 9 % · P/VC 5 % · P/FCL 7 % · flujo base del DCF: fcl recurrente",
+ "poBear": 5.21,
+ "poBase": 7.33,
+ "poBull": 11.43,
+ "entMin": 5.21,
+ "entMax": 6.38,
+ "stop": 3.41,
+ "dpaPrevisto": 0.0,
+ "moat": "23,0 sobre 100 · SIN MOAT CLARO. Sin ajuste: la suscripción Prime es recurrente, pero solo lleva dos años rentando por encima del coste del capital",
+ "catalizadores": [
+  "Aceleración de Prime desde abril de 2027: La empresa prevé pasar de 600.000 altas netas este ejercicio a 1,5-2 millones al año hasta marzo de 2030, con más de 270 M€ de EBITDA en caja (nota de prensa del 1S FY27). Se toma como 25 M€ más de EBITDA. (12-24 meses)",
+  "El EBITDA en caja vuelve a crecer: Cuando se complete el primer año de cuotas mensuales, la empresa prevé que el EBITDA en caja vuelva a crecer frente al año anterior entre enero y marzo de 2027. Se toma como 10 M€ más de EBITDA. (6-12 meses)",
+  "Recompras: Le quedan 55 M€ del programa de 100 M€ hasta septiembre de 2027, más del 10 % de la capitalización; ya ha amortizado el 12,6 % de las acciones. Se toma como 55 M€ menos de deuda neta equivalente por acción. (12 meses)"
+ ],
+ "riesgos": [
+  "El plan de crecimiento no da las altas prometidas (Media): El ejercicio 2027 es de «máxima inversión»: la empresa prevé un EBITDA en caja de 115 M€ frente a 157 M€ en 2026 y cuenta con pasar de 600.000 altas netas de Prime este año a 1,5-2 millones al año desde abril de 2027. Si las altas no llegan, la inversión se queda sin retorno. Suave: −10 M€ de EBITDA para siempre. Duro: −25 M€.",
+  "Aerolíneas que cortan el contenido (Alta): eDreams vende sobre todo vuelos de terceros. En 2026 tuvo inestabilidad con el contenido de Ryanair, una de las causas de la rebaja de previsiones de noviembre de 2025; tiene sentencias a favor en los juzgados de Barcelona, pero el conflicto sigue. Suave: −8 M€ de EBITDA para siempre. Duro: −20 M€.",
+  "Bajas de socios Prime (Media): Prime es el 77 % de los ingresos (1S FY27). El paso de cuota anual por adelantado a cuota mensual facilita darse de baja; si las renovaciones caen, se cae el modelo. Suave: ventas −5 %. Duro: −12 %.",
+  "La inteligencia artificial como intermediario (Media): Si los asistentes de IA o los buscadores venden viajes directamente, sobra la agencia. En marzo de 2026 las grandes plataformas de IA descartaron vender viajes de forma directa, según la empresa, pero puede cambiar. Suave: descuento −5 %. Duro: −15 %.",
+  "Caída de la demanda de viajes (Baja): Una recesión o una crisis sanitaria baja los viajes; en el covid las ventas cayeron un 81 % (ejercicio 2021). La suscripción amortigua: la cuota se cobra aunque no se viaje. Suave: ventas −8 %. Duro: −25 %.",
+  "Regulación y litigios (Media): Normas de consumo de la UE sobre precios y cargos de las agencias, y pleitos con aerolíneas. Suave: −5 M€ de EBITDA. Duro: −12 M€.",
+  "Deuda en bonos (Baja): Deuda neta de 301 M€, casi toda en bonos de 375 M€ con vencimiento en 2030 (refinanciados en junio de 2025). Con un EBITDA más bajo en 2027 la deuda pesa más. Suave: descuento −3 %. Duro: +100 M€ de deuda.",
+  "Accionista de referencia (Media): Permira tiene el 21,29 % (cuentas FY2026). En 2025 vendió en una colocación y la empresa le recompró 2,65 millones de acciones; nuevas ventas pesarían en la cotización. Suave: descuento −3 %. Duro: −8 %."
+ ],
+ "bull": "11,43 € — escenario optimista: cumple su plan: 1,5-2 millones de altas netas al año hasta más de 13 millones de socios en 2030",
+ "bear": "5,21 € — escenario pesimista: las altas de Prime se frenan y las aerolíneas recortan el contenido para las agencias",
+ "resumen": "MANTENER. A 4,44 € cotiza un 65 % por debajo del PO (7,33 €) e incluso por debajo del escenario malo (5,21 €), pero no pasa los filtros de calidad para comprar: rating BBB (61,7; pide A) y sin moat medible (23; pide 45), porque solo lleva dos años rentando por encima de lo que cuesta el capital. La tesis es la suscripción Prime: 8,2 millones de socios, el 77 % de los ingresos, y un plan para llegar a 13 millones en 2030 con más de 270 M€ de EBITDA en caja. El ejercicio 2027 es de inversión (115 M€ de EBITDA en caja previstos, frente a 157 M€); la prueba llega desde abril de 2027, cuando deben acelerar las altas. Mientras, recompra acciones (55 M€ pendientes). Stop de tesis en 3,41 €.",
+ "dividendSafety": {
+  "score": null,
+  "banda": "no paga",
+  "aplica": false,
+  "rama": "general",
+  "componentes": {},
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "sin dividendo ordinario ese año"
+  ],
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3",
+  "shareholderYield": 18.65
+ },
+ "forense": {
+  "aplica": true,
+  "ejercicio": "2026",
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 0
+   },
+   "nota": "margen=EBIT (sin aprovisionamientos)"
+  },
+  "altman": {
+   "z": -0.78,
+   "zona": "riesgo"
+  },
+  "beneish": {
+   "m": -3.24,
+   "senal": "sin indicios",
+   "aproximado": [
+    "GMI",
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -10.5,
+   "senal": "muy conservador"
+  },
+  "flags": [
+   "Altman Z''=-0.78 en zona de riesgo de insolvencia"
+  ],
+  "veto": true,
+  "vetoMotivos": [
+   "Altman Z''=-0.78 en zona de riesgo de insolvencia"
+  ],
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 0.78,
+  "gIntrinseco": -20.13,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
+  "calculadoEl": "2026-11-21",
+  "origen": "metodo-v3",
+  "entradas": {
+   "fcl": 65.187,
+   "wacc": 9.4186,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 115.63,
+   "deudaNeta": 300.979,
+   "modo": "EV",
+   "precioBase": 4.44,
+   "gBase": 0.78,
+   "fechaBase": "2026-11-20",
+   "congeladoEl": "2026-11-21",
+   "validado": true,
+   "desviacion": -0.0
+  }
+ }
+}

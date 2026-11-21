@@ -1,0 +1,365 @@
+{
+ "schemaVersion": 2,
+ "ticker": "PUIG",
+ "empresa": "Puig Brands, S.A.",
+ "origen": "metodo-v3",
+ "generado": "2026-11-21",
+ "revisiones": [
+  {
+   "periodo": "2022-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2022",
+   "fecha": "2022-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +40,0 %, EBITDA +29,4 %, beneficio neto +80,7 %, margen 17,6 % (-1,45 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3620.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 638.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.6
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 493.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 399.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1129.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2023",
+   "fecha": "2023-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +18,9 %, EBITDA +33,1 %, beneficio neto +16,5 %, margen 19,7 % (+2,10 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4304.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 849.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 679.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 465.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1294.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2024-S1",
+   "fecha": "2024-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +9,6 %, beneficio neto -26,5 %, margen 12,7 % frente al mismo periodo del año anterior. Verde: solo caída de beneficio o margen, sin más señales.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2171.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 275.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 12.7
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 178.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 154.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1284.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2024-9M",
+   "fecha": "2024-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,2 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3428.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2024",
+   "fecha": "2024-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +11,3 %, EBITDA -3,1 %, beneficio neto +14,1 %, margen 17,2 % (-2,55 pp) frente al mismo periodo del año anterior. Ámbar por: EBITDA a la baja, el margen empeora, caída de beneficio o margen.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 4790.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 823.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 17.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 612.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 531.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 774.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2025-3M",
+   "fecha": "2025-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +7,8 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1206.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2025-S1",
+   "fecha": "2025-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,9 %, EBITDA +62,0 %, beneficio neto +78,8 %, margen 19,4 % (+6,71 pp) frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2299.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 445.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 332.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 275.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1147.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2025-9M",
+   "fecha": "2025-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,9 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3596.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY",
+   "periodoV3": "2025",
+   "fecha": "2025-12-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +5,3 %, EBITDA +30,1 %, beneficio neto +11,9 %, margen 21,2 % (+4,05 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 5.042 M€ (+5,3 %; +7,8 % comparable), EBITDA ajustado de 1.045 M€ (20,7 % de margen, según la empresa) y beneficio atribuido de 594 M€ (+11,9 %). Deuda neta del método de 316 M€.\n\n**Por qué** — Crecen todos los segmentos; el maquillaje un 13,7 %. El margen de fragancias baja 0,55 puntos por más publicidad.\n\n**Semáforo** — Ámbar por el número de acciones (+4,4 %); el negocio, en verde.\n\n**Lectura** — Buen año, en línea con su previsión.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 5042.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 1070.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 21.2
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 834.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 594.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 316.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "1T",
+   "periodoV3": "2026-3M",
+   "fecha": "2026-03-31",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +0,8 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 1.215 M€ (+0,8 %; +4,7 % comparable).\n\n**Por qué** — Las divisas restan unos cuatro puntos; fragancias +3,9 % comparable.\n\n**Semáforo** — Verde.\n\n**Lectura** — Arranque más lento que 2025 (+7,5 %), dentro de su previsión.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 1215.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1",
+   "periodoV3": "2026-S1",
+   "fecha": "2026-06-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +2,4 %, EBITDA +0,9 %, beneficio neto -4,4 %, margen 19,1 % (-0,27 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 2.354 M€ (+2,4 %), EBITDA de 450 M€ (+0,9 %) y beneficio de 263 M€ (−4,4 %). Deuda neta de 1.194 M€ (316 M€ en diciembre).\n\n**Por qué** — La deuda sube porque Puig compró la parte de Charlotte Tilbury que le faltaba («minority buyout», presentación del 1S-2026); su apalancamiento queda en 1,5 veces, por debajo de su límite de 2. Las divisas siguen restando.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — Que el crecimiento comparable no baje del 4 %.\n\n**Lectura** — Semestre correcto; la compra de minoritarios ya estaba contada como deuda en la valoración.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 2354.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 450.0
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 19.1
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 330.0
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 263.0
+    },
+    {
+     "nombre": "Deuda neta",
+     "valor": 1194.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +4,1 % frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — Ventas de 3.745 M€ en nueve meses (+4,1 %; +4,8 % comparable) y un tercer trimestre récord de 1.391 M€ (+5,6 % comparable).\n\n**Por qué** — Crecen todas las categorías y regiones; nicho, dermocosmética, maquillaje y Asia-Pacífico a doble dígito (nota del 21-oct-2026). Puig solo publica ventas en este trimestre.\n\n**Semáforo** — Verde.\n\n**Qué vigilar** — Las ventas de fragancias, que son el 72 %.\n\n**Lectura** — Va acelerando; mantiene su previsión de 2026.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 3744.0
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  }
+ ]
+}
