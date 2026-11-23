@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-23T18:46",
+ "generado": "2026-11-23T19:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -35,6 +35,37 @@
    ]
   },
   {
+   "carpeta": "CCEP señales 2026-11-23",
+   "ticker": "CCEP",
+   "periodos": [],
+   "tipo": "senales",
+   "creada": "2026-11-23T17:59",
+   "semaforo": null,
+   "frase": "EXT · REAFIRMAR propuesta. Por ahora es puntual: se abre un expediente, no hay multa ni cifra, y los resultados siguen en verde (9M-2026 verde, ventas +5,1 %). La decisión ya es ESPERAR: cotiza a 108,20 € (dato del 18-nov), un 45 % sobre el",
+   "senales": [
+    {
+     "senal": "EXT",
+     "motivo": "pase de novedades 23-11-2026: La Comisión Europea abre una investigación formal de competencia sobre prácticas de CCEP (comunicación a la CNMV del 23-nov, 12:09; según la prensa, por posibles trabas al comercio de bebidas entre países de la UE: eunews.it y Xinhua, 23-nov). La empresa no cuantifica nada ni comenta más. Es un riesgo que no está en la matriz del Bloque 8.",
+     "desde": "2026-11-23",
+     "origen": "pase de novedades 23-11-2026"
+    }
+   ],
+   "propuesta": [
+    {
+     "senal": "EXT",
+     "decision": "REAFIRMAR",
+     "motivo": "Por ahora es puntual: se abre un expediente, no hay multa ni cifra, y los resultados siguen en verde (9M-2026 verde, ventas +5,1 %). La decisión ya es ESPERAR: cotiza a 108,20 € (dato del 18-nov), un 45 % sobre el PO base de 74,69 € y un 32 % sobre el bull de 81,98 €, así que no cambia nada en la práctica. Conviene añadir el riesgo de competencia a la matriz en la próxima revisión de la tesis y vigilar si la Comisión plantea compromisos o multa. Propuesta de pase de novedades 23-11-2026 (método v3)."
+    }
+   ],
+   "datos": [
+    "Decisión vigente de la tesis: ESPERAR",
+    "Cotización 108,20 € · PO bear 60,07 € · PO 74,69 € · PO bull 81,98 € · 44,9 % sobre el PO",
+    "Banda de entrada 60,07–64,95 € · stop 57,24 €",
+    "Semáforo de empresa: VERDE · revisado hasta 2026-9M",
+    "Tesis escrita el 2026-11-19 · valoración generada el 2026-11-19"
+   ]
+  },
+  {
    "carpeta": "TEF señales 2026-11-23",
    "ticker": "TEF",
    "periodos": [],
@@ -66,7 +97,7 @@
    ]
   }
  ],
- "n_pendientes": 2,
+ "n_pendientes": 3,
  "ultima_subida": {
   "cuando": "2026-11-23T18:45",
   "ficheros": [
