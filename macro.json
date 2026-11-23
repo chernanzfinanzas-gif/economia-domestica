@@ -1,8 +1,8 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-11-16",
+ "generadoEl": "2026-11-23",
  "fuente": "informe-semanal-cartera",
- "nota": "Pase macro del 14-nov-2026: refresca 8 de 18. No se refrescan (conservan valor y fecha): bce_deposito y fed (sin reunión), euribor_12m y euribor_3m (la fuente canónica no dio el dato del día), wacc_cnmc, pib, ventas_minoristas, afiliacion (sin publicación nueva), consumo_discrecional y consumo_defensivo (la nota del ICM de septiembre no trae la tasa anual por ramas).",
+ "nota": "Informe semanal del 23-nov-2026: refresca 9 de 18 (Euríbor 12M y 3M, bono 10A, Bund, prima, TTF, pool, EUR/BRL, hipoteca 30A). No se refrescan (conservan valor y fecha): bce_deposito y fed (sin reunión), ipc y pib (sin publicación nueva), wacc_cnmc, ventas_minoristas y afiliacion (sin dato nuevo), consumo_discrecional y consumo_defensivo (Pte. Revisión: la nota del ICM no trae la tasa anual por ramas).",
  "ind": {
   "bce_deposito": {
    "n": "BCE · facilidad de depósito",
@@ -18,65 +18,69 @@
   "euribor_12m": {
    "n": "Euríbor 12M",
    "grupo": "tipos",
-   "v": 3.328,
+   "v": 3.372,
    "u": "%",
-   "f": "2026-11-13",
-   "src": "hipotecasyeuribor.com",
-   "url": "https://hipotecasyeuribor.com/euriborhoy.php",
-   "d": 8.0,
+   "f": "2026-11-20",
+   "src": "euribor.com.es",
+   "url": "https://www.euribor.com.es/2026/11/20/el-euribor-sube-al-3372-y-encarece-90-euros-la-hipoteca/",
+   "nota": "20-nov; 3,343 % el 19-nov; media provisional de noviembre 3,300 %",
+   "d": 4.4,
    "dU": "pb",
-   "dPer": "semana",
-   "nota": "13-nov; 3,248 % el 6-nov; media provisional de noviembre 3,266 % (Rankia, 12-nov)"
+   "dPer": "semana"
   },
   "euribor_3m": {
    "n": "Euríbor 3M",
    "grupo": "tipos",
-   "v": 2.766,
+   "v": 2.849,
    "u": "%",
-   "f": "2026-11-12",
-   "src": "rankia.com",
-   "url": "https://www.rankia.com/blog/mejores-hipotecas/7550179-euribor-hoy-13-noviembre-2026",
-   "d": -2.8,
+   "f": "2026-11-20",
+   "src": "euribor.com.es",
+   "url": "https://www.euribor.com.es/valores/?plazo=3m",
+   "nota": "20-nov, máximo del mes; media provisional de noviembre 2,782 %",
+   "d": 8.3,
    "dU": "pb",
-   "dPer": "semana",
-   "nota": "12-nov (el 13-nov no se pudo confirmar); 2,794 % el 6-nov"
+   "dPer": "semana"
   },
   "bono_10a_es": {
    "n": "Bono 10A España",
    "grupo": "tipos",
    "u": "%",
-   "v": 3.938,
-   "f": "2026-11-13",
-   "src": "tradingeconomics.com",
-   "url": "https://tradingeconomics.com/spain/government-bond-yield",
-   "d": 10.3,
+   "v": 3.913,
+   "f": "2026-11-20",
+   "src": "pressdigital.es",
+   "url": "https://www.pressdigital.es/articulo/economia/2026-11-20/6102575-ibex-35-desploma-57-semana-pierde-19000-puntos-ante-ajuste-tecnologico",
+   "nota": "cierre del 20-nov (tradingeconomics da 3,9075 %)",
+   "d": -2.5,
    "dU": "pb",
-   "dPer": "semana",
-   "nota": "cierre del 13-nov; 3,835 % el 6-nov; −15 pb en el último mes"
+   "dPer": "semana"
   },
   "bund_10a": {
    "n": "Bund 10A Alemania",
    "grupo": "tipos",
    "u": "%",
-   "v": 3.376,
-   "f": "2026-11-13",
+   "v": 3.303,
+   "f": "2026-11-20",
    "src": "tradingeconomics.com",
    "url": "https://tradingeconomics.com/germany/government-bond-yield",
-   "nota": "cierre del 13-nov, lectura directa (3,3762 %); el 3,24 % del 6-nov era un dato derivado, por eso no se da variación semanal; −9 pb en el último mes"
+   "nota": "20-nov",
+   "d": -7.4,
+   "dU": "pb",
+   "dPer": "semana"
   },
   "prima_riesgo": {
    "n": "Prima de riesgo",
    "grupo": "tipos",
    "u": "pb",
    "slider": "CRED",
-   "v": 56,
-   "f": "2026-11-13",
-   "src": "calculada",
-   "sliderV": 0.56,
-   "d": -3,
+   "v": 58,
+   "f": "2026-11-20",
+   "src": "pressdigital.es",
+   "sliderV": 0.58,
+   "nota": "58,4 pb al cierre del 20-nov",
+   "url": "https://www.pressdigital.es/articulo/economia/2026-11-20/6102575-ibex-35-desploma-57-semana-pierde-19000-puntos-ante-ajuste-tecnologico",
+   "d": 2,
    "dU": "pb",
-   "dPer": "semana",
-   "nota": "(3,938 − 3,376) × 100 = 56,2 pb, los dos bonos del 13-nov; 59 pb el 6-nov"
+   "dPer": "semana"
   },
   "wacc_cnmc": {
    "v": 6.58,
@@ -95,24 +99,24 @@
    "grupo": "energia",
    "u": "€/MWh",
    "slider": "GAS",
-   "v": 90.96,
-   "f": "2026-11-13",
+   "v": 88.45,
+   "f": "2026-11-20",
    "src": "tradingeconomics.com",
    "url": "https://tradingeconomics.com/commodity/eu-natural-gas",
-   "d": 5.8,
+   "nota": "20-nov (+4,7 % en la sesión); ≈94,8 el 23-nov; almacenes UE al 69,8 %",
+   "d": -2.8,
    "dU": "%",
-   "dPer": "semana",
-   "nota": "cierre del 13-nov (la misma página da 89,40 en otro cuadro); 86 el 6-nov; almacenes de la UE por debajo del 72 % frente al 89 % habitual, frío previsto desde el 17-nov y menos flujo noruego"
+   "dPer": "semana"
   },
   "pool_omie": {
    "n": "Pool eléctrico OMIE",
    "grupo": "energia",
    "u": "€/MWh",
-   "v": 160.7,
-   "f": "2026-11-15",
+   "v": 91.0,
+   "f": "2026-11-22",
    "src": "tarifaluzhora.es (datos OMIE)",
-   "url": "https://tarifaluzhora.es/precio-luz-diario/2026-11-15",
-   "nota": "media simple de las 7 medias diarias del 9 al 15-nov (179,67 · 171,38 · 210,94 · 116,16 · 186,04 · 169,48 · 91,37), cálculo propio con datos de OMIE vía tarifaluzhora.es"
+   "url": "https://tarifaluzhora.es/precio-luz-diario/2026-11-22",
+   "nota": "media simple de los 7 días del 16 al 22-nov calculada aquí (160,7 la semana anterior)"
   },
   "ipc": {
    "n": "IPC España",
@@ -175,11 +179,11 @@
   "eur_brl": {
    "n": "EUR/BRL",
    "grupo": "divisas",
-   "v": 6.2595,
-   "f": "2026-11-13",
+   "v": 6.5259,
+   "f": "2026-11-20",
    "src": "ecb.europa.eu",
-   "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
-   "nota": "referencia BCE del 13-nov; 6,1449 el 6-nov (+1,9 % en la semana: el real se debilita)"
+   "url": "https://www.ecb.europa.eu/stats/exchange/eurofxref/shared/pdf/2026/11/20261120.pdf",
+   "nota": "referencia BCE del 20-nov; +4,3 % en la semana y +11,9 % desde el 20-may (5,8347); máximo de doce meses 6,5851 (23-dic-2025)"
   },
   "fed": {
    "n": "Fed · tipo oficial",
@@ -196,14 +200,14 @@
    "n": "Hipoteca 30A EE.UU.",
    "grupo": "otros",
    "u": "%",
-   "v": 7.11,
-   "f": "2026-11-12",
+   "v": 7.28,
+   "f": "2026-11-19",
    "src": "freddiemac.com",
    "url": "https://www.freddiemac.com/pmms",
-   "d": -7,
+   "nota": "PMMS del 19-nov",
+   "d": 17,
    "dU": "pb",
-   "dPer": "semana",
-   "nota": "PMMS de Freddie Mac (7,18 % la semana anterior)"
+   "dPer": "semana"
   },
   "afiliacion": {
    "n": "Afiliación Seguridad Social",
@@ -218,30 +222,36 @@
   }
  },
  "lectura": {
-  "titulo": "Coyuntura Macro a 16/11/2026",
-  "generadoEl": "2026-11-16",
+  "titulo": "Coyuntura Macro a 23/11/2026",
+  "generadoEl": "2026-11-23",
   "fuente": "informe-semanal-cartera",
-  "refrescados": 4,
+  "refrescados": 9,
   "total": 18,
   "nota": "Sólo comenta lo que este pase ha refrescado. Explica a quién afecta y a quién beneficia; no recomienda ninguna acción sobre la cartera.",
   "puntos": [
    {
-    "t": "El Euríbor 12M sube a 3,328 %",
-    "txt": "Sube 8 pb en la semana (3,248 % el 6-nov) con los mercados descontando subidas del BCE y de la Fed tras una inflación de EE.UU. más alta de lo esperado. El 3M se queda en 2,766 % (12-nov).",
-    "beneficia": "el margen de intereses de los bancos (Santander, BBVA, CaixaBank, Bankinter, Sabadell, Unicaja)",
-    "perjudica": "las hipotecas variables y las empresas con deuda a tipo variable (Cevasa, a 17 pb de su alarma del 3,5 %)"
+    "t": "El real brasileño pierde un 10,6 % en seis meses",
+    "txt": "El EUR/BRL de referencia del BCE sube a 6,5259 (20-nov), +4,3 % en la semana, por las dudas sobre el ajuste fiscal de Brasil. No es aún mínimo de doce meses del real (6,5851 el 23-dic-2025).",
+    "beneficia": "a nadie de la cartera de forma directa",
+    "perjudica": "a las empresas con negocio en Brasil (Telefónica, Arteche, Santander, Vidrala, Iberdrola, Mapfre)"
    },
    {
-    "t": "La luz baja: media de 161 €/MWh en la semana",
-    "txt": "Media simple de las siete medias diarias del 9 al 15-nov, de 211 €/MWh el 11-nov a 91 el 15-nov. Cálculo propio con datos de OMIE.",
-    "beneficia": "los consumidores intensivos de electricidad (Miquel y Costas, Vidrala, Viscofan)",
-    "perjudica": "los ingresos de generación liberalizada (Endesa, Iberdrola)"
+    "t": "El Euríbor 12M sube a 3,372 %",
+    "txt": "Sube 4,4 pb en la semana y el 3M 8,3 pb (2,849 %) con el mercado descontando una subida del BCE en diciembre.",
+    "beneficia": "el margen de intereses de los bancos",
+    "perjudica": "las hipotecas variables y la deuda a tipo variable (Cevasa, a 13 pb de su alarma del 3,5 %; Neinor y Fluidra, por encima del 3 % de su señal)"
    },
    {
-    "t": "El real se debilita otro 1,9 %",
-    "txt": "EUR/BRL 6,2595 el 13-nov (6,1449 el 6-nov): el mercado ve tímido el ajuste fiscal de Brasil para 2027.",
-    "beneficia": "nadie en la cartera de forma directa",
-    "perjudica": "lo que se gana en Brasil al pasarlo a euros: Santander, Telefónica (Vivo), Iberdrola (Neoenergia), Mapfre, Prosegur"
+    "t": "La luz se abarata y el gas sigue alto",
+    "txt": "El pool baja a ≈91 €/MWh de media en la semana (160,7 la anterior) por el viento; el gas TTF cierra en 88,45 €/MWh y sube el lunes a ≈94,8.",
+    "beneficia": "a la industria que compra electricidad",
+    "perjudica": "a quien depende del gas (Vidrala, Viscofan, Miquel y Costas)"
+   },
+   {
+    "t": "La prima de riesgo se queda en 58 pb",
+    "txt": "El bono español a 10 años baja a 3,913 % y el Bund a 3,30 %: la prima sube 2 pb, sin tensión antes de las elecciones del 29-N.",
+    "beneficia": "a nadie en particular",
+    "perjudica": "a nadie en particular"
    }
   ]
  }
