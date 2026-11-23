@@ -1,8 +1,17 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-23T08:50",
+ "generado": "2026-11-23T09:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
+  {
+   "carpeta": "CBAV cuentas anuales",
+   "ticker": "CBAV",
+   "periodos": [],
+   "tipo": "pase",
+   "creada": "2026-11-23T07:58",
+   "semaforo": "V",
+   "frase": null
+  },
   {
    "carpeta": "CBAV señales 2026-11-20",
    "ticker": "CBAV",
@@ -39,7 +48,7 @@
    "ticker": "SAB",
    "periodos": [],
    "tipo": "pase",
-   "creada": "2026-11-21T14:24",
+   "creada": "2026-11-23T08:53",
    "semaforo": "A",
    "frase": null
   },
@@ -75,9 +84,9 @@
    ]
   }
  ],
- "n_pendientes": 3,
+ "n_pendientes": 4,
  "ultima_subida": {
-  "cuando": "2026-11-23T08:50",
+  "cuando": "2026-11-23T08:51",
   "ficheros": [
    "recogida/publicaciones/AEDAS.json",
    "recogida/publicaciones/dias/2026-11.json"
@@ -1333,6 +1342,42 @@
    "ticker": "",
    "que": "El disco de trabajo del ordenador virtual del PC está lleno y los pases no pueden preparar copias temporales",
    "detalle": "18:57: el pase trimestral de SAB falló con «No space left on device» al copiar datos/_universo.json a la carpeta temporal. El disco /sessions (9,8 GB) está al 100 %; esta sesión solo ocupa 60 MB (una carpeta temporal kh_revision_SAB_… que no he podido borrar). Si sigue lleno, las próximas revisiones no se podrán preparar.",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P37b1bc9c",
+   "creado": "2026-11-23T08:56",
+   "origen": "pase de novedades",
+   "ticker": "",
+   "que": "Error en el pase de novedades",
+   "detalle": "CBAV trimestral: Error: kh_revision_CBAV_nzg09ham/datos/_universo.json', \"[Errno 28] No space left on device: '/sessions/rcw-01hs37b1zttsczs4hm7z3hfv/mnt/Análisis Financiero KH&Claude/Método v3 (paralelo)/datos/_universo.json' -> '/sessions/rcw-01hs37b1zttsczs4hm7z3hfv/tmp/kh_revision_CBAV_nzg09ham/datos/_universo.json'\")]",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "Pfb2a5547",
+   "creado": "2026-11-23T08:56",
+   "origen": "pase de novedades",
+   "ticker": "",
+   "que": "Error en el pase de novedades",
+   "detalle": "SAB trimestral: OSError: [Errno 28] No space left on device: '/sessions/rcw-01hs37b1zttsczs4hm7z3hfv/tmp/kh_revision_SAB_eglccji9'",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "Pc00a01fc",
+   "creado": "2026-11-23T09:04",
+   "origen": "pase de novedades 23-11 08:55",
+   "ticker": "CBAV",
+   "que": "Clínica Baviera: el «Informe Financiero Anual 2025» que ha bajado hoy la recogida es el mismo documento falso de la CNMV que llegó a Sabadell, y ha abierto una revisión que no se debe aprobar",
+   "detalle": "Biblioteca CNMV/CBAV - CLINICA BAVIERA, S.A/Resultados/2026-04-09 La sociedad remite el Informe Financiero Anual del ejercicio 2025.pdf, bajado el 23-nov a las 07:38: 1 página, md5 f82b717309c1…, es el folleto «Plan Interno de Sostenibilidad Medioambiental de la CNMV» (2024). Ha creado el paquete «Revisión/CBAV cuentas anuales - pendiente» (sin periodo nuevo, 9 ficheros de datos cambian). No se ha escrito nota. Hay que apartar el PDF, descartar el paquete e instalar el arreglo de la recogida preparado el 22-nov (_tmp_prueba/recogida_2211/buscar_informes_cnmv.candidato.py), que bloquea ese md5; mientras no se instale puede volver a pasar con otras empresas.",
    "estado": "abierto",
    "resuelto": null,
    "como": null,
