@@ -5,7 +5,7 @@
  "ticker": "CCEP",
  "empresa": "Coca-Cola Europacific Partners plc",
  "fecha": "2026-11-19",
- "revisadoEl": "2026-11-19",
+ "revisadoEl": "2026-11-23",
  "rating": "A",
  "score": 63.7,
  "decision": "ESPERAR",
@@ -15,7 +15,7 @@
  "poBull": 81.98,
  "entMin": 60.07,
  "entMax": 64.95,
- "stop": 57.24,
+ "stop": 57.21,
  "dpaPrevisto": 2.04,
  "moat": "46,8 sobre 100 · MOAT ESTRECHO. Sin ajuste: franquicia exclusiva, pero la marca es de The Coca-Cola Company",
  "catalizadores": [
@@ -35,7 +35,7 @@
  ],
  "bull": "81,98 € — escenario optimista: Filipinas e Indonesia crecen a doble dígito como en 2026, la productividad sigue ampliando el margen y la recompra de 1.000 M€ al año reduce las acciones",
  "bear": "60,07 € — escenario pesimista: Solo crecen las ventas en Europa al ritmo de los precios (2-3 %), sin mejora de margen; Asia no aporta y los impuestos al azúcar y a los envases se extienden",
- "resumen": "ESPERAR. Es una empresa que el método puede comprar (rating A, moat de 47 por encima del mínimo de 45 y dividendo muy seguro, 83), pero no a este precio: la cotización (108,20 €) está un 67 % por encima del techo de la banda de entrada (60,07-64,95 €) y ninguno de los dos caminos de la valoración da margen (DCF −36 %, múltiplos −25 %). Ni el bull (81,98 €: Asia, productividad y recompras) llega a la cotización. Para entrar haría falta una caída del 40 %, como la de 2020, o varios años de crecimiento sin que suba la acción. Se vigila como candidata de calidad.",
+ "resumen": "ESPERAR con la cotización de 106,20 € (2026-11-23): precio objetivo 74,69 € (bear 60,07 · bull 81,98), margen −29,7 %. Banda de entrada 60,07–64,95 €, stop de tesis 57,21 €.",
  "dividendSafety": {
   "score": 83,
   "banda": "Muy seguro",
@@ -55,7 +55,7 @@
   "motivos": [
    "Muy seguro: cobertura OE 2.02x · payout 53 % · 1 recorte(s) del DPA"
   ],
-  "calculadoEl": "2026-11-19",
+  "calculadoEl": "2026-11-23",
   "origen": "metodo-v3",
   "shareholderYield": 5.44
  },
@@ -98,16 +98,16 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-19",
+  "calculadoEl": "2026-11-23",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 10.24,
+  "gImplicito": 10.01,
   "gIntrinseco": 9.25,
   "veredicto": "EXIGENTE",
-  "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 9.3 %)",
-  "calculadoEl": "2026-11-19",
+  "motivo": "EXIGENTE (entre 1 y 1,4 veces el g intrínseco 9,3 %)",
+  "calculadoEl": "2026-11-23",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 1680.2,
@@ -117,12 +117,12 @@
    "acciones": 455.8685,
    "deudaNeta": 9776.0,
    "modo": "EV",
-   "precioBase": 108.2,
-   "gBase": 10.81,
-   "fechaBase": "2026-11-18",
-   "congeladoEl": "2026-11-19",
+   "precioBase": 106.2,
+   "gBase": 10.45,
+   "fechaBase": "2026-11-23",
+   "congeladoEl": "2026-11-23",
    "validado": false,
-   "desviacion": 0.57
+   "desviacion": 0.43
   }
  }
 }

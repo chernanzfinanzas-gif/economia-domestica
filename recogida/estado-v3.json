@@ -1,119 +1,28 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-23T19:45",
+ "generado": "2026-11-23T21:45",
  "origen": "metodo-v3",
- "revisiones_pendientes": [
-  {
-   "carpeta": "CBAV señales 2026-11-20",
-   "ticker": "CBAV",
-   "periodos": [],
-   "tipo": "senales",
-   "creada": "2026-11-20T17:58",
-   "semaforo": null,
-   "frase": "EXT · REAFIRMAR propuesta. La caída apenas pasa el umbral y no hay hecho nuevo comprobado: el último semáforo es verde (S1-2026: ingresos +9,8 %, EBITDA +13,6 %, beneficio +17,4 %). Tras la bajada cotiza a 52,60 €, aún un 30 % por encima de",
-   "senales": [
-    {
-     "senal": "EXT",
-     "motivo": "pase de novedades 20-11-2026: Caída de −6,07 % en una sesión (cierre 52,60 € el 20-nov; umbral −6,0 %). Sin comunicación a la CNMV de Clínica Baviera en el día (cruce de la recogida de la nube: 23 comunicaciones vistas, ninguna suya) y sin noticia que la explique en la búsqueda de prensa; causa no identificada.",
-     "desde": "2026-11-20",
-     "origen": "pase de novedades 20-11-2026"
-    }
-   ],
-   "propuesta": [
-    {
-     "senal": "EXT",
-     "decision": "REAFIRMAR",
-     "motivo": "La caída apenas pasa el umbral y no hay hecho nuevo comprobado: el último semáforo es verde (S1-2026: ingresos +9,8 %, EBITDA +13,6 %, beneficio +17,4 %). Tras la bajada cotiza a 52,60 €, aún un 30 % por encima del PO base (40,52 €) y por encima del PO bull (46,99 €); la tesis está en ESPERAR y no está en cartera, así que la caída no cambia la decisión. Se vigila si sigue cayendo o aparece una comunicación que la explique. Propuesta de pase de novedades 20-11-2026 (método v3). Comentario de Carlos (20-nov-2026, chat): «cbav hay que vigilarla... hay que esperar bajadas para poder comprar.. una corrección es previsible después de casi dos años de mercado alcista». Referencias de la tesis para comprar: banda de entrada 34,31-35,23 € (−33 % desde 52,60 €); PO base 40,52 € (−23 %); PO bull 46,99 € (−11 %)."
-    }
-   ],
-   "datos": [
-    "Decisión vigente de la tesis: ESPERAR",
-    "Cotización 51,40 € · PO bear 34,31 € · PO 40,52 € · PO bull 46,99 € · 26,9 % sobre el PO",
-    "Banda de entrada 34,31–35,23 € · stop 27,50 €",
-    "Semáforo de empresa: VERDE · revisado hasta 2026-S1",
-    "Tesis escrita el 2026-11-09 · valoración generada el 2026-11-20"
-   ]
-  },
-  {
-   "carpeta": "CCEP señales 2026-11-23",
-   "ticker": "CCEP",
-   "periodos": [],
-   "tipo": "senales",
-   "creada": "2026-11-23T17:59",
-   "semaforo": null,
-   "frase": "EXT · REAFIRMAR propuesta. Por ahora es puntual: se abre un expediente, no hay multa ni cifra, y los resultados siguen en verde (9M-2026 verde, ventas +5,1 %). La decisión ya es ESPERAR: cotiza a 108,20 € (dato del 18-nov), un 45 % sobre el",
-   "senales": [
-    {
-     "senal": "EXT",
-     "motivo": "pase de novedades 23-11-2026: La Comisión Europea abre una investigación formal de competencia sobre prácticas de CCEP (comunicación a la CNMV del 23-nov, 12:09; según la prensa, por posibles trabas al comercio de bebidas entre países de la UE: eunews.it y Xinhua, 23-nov). La empresa no cuantifica nada ni comenta más. Es un riesgo que no está en la matriz del Bloque 8.",
-     "desde": "2026-11-23",
-     "origen": "pase de novedades 23-11-2026"
-    }
-   ],
-   "propuesta": [
-    {
-     "senal": "EXT",
-     "decision": "REAFIRMAR",
-     "motivo": "Por ahora es puntual: se abre un expediente, no hay multa ni cifra, y los resultados siguen en verde (9M-2026 verde, ventas +5,1 %). La decisión ya es ESPERAR: cotiza a 108,20 € (dato del 18-nov), un 45 % sobre el PO base de 74,69 € y un 32 % sobre el bull de 81,98 €, así que no cambia nada en la práctica. Conviene añadir el riesgo de competencia a la matriz en la próxima revisión de la tesis y vigilar si la Comisión plantea compromisos o multa. Propuesta de pase de novedades 23-11-2026 (método v3)."
-    }
-   ],
-   "datos": [
-    "Decisión vigente de la tesis: ESPERAR",
-    "Cotización 108,20 € · PO bear 60,07 € · PO 74,69 € · PO bull 81,98 € · 44,9 % sobre el PO",
-    "Banda de entrada 60,07–64,95 € · stop 57,24 €",
-    "Semáforo de empresa: VERDE · revisado hasta 2026-9M",
-    "Tesis escrita el 2026-11-19 · valoración generada el 2026-11-19"
-   ]
-  },
-  {
-   "carpeta": "TEF señales 2026-11-23",
-   "ticker": "TEF",
-   "periodos": [],
-   "tipo": "senales",
-   "creada": "2026-11-23T03:54",
-   "semaforo": null,
-   "frase": "EXT · REAFIRMAR propuesta. Telefónica está en MANTENER, sin posición, con PO 5,39 € (bear 4,15 €) y cotiza a 3,363 € (20-nov), ya por debajo del stop de 3,56 € (S1 revisada el 12-nov: seguir fuera sin comprar, sin bajar el stop). La deuda s",
-   "senales": [
-    {
-     "senal": "EXT",
-     "motivo": "informe semanal 23-11-2026: Se cumple la señal del riesgo 2 (Brasil y el real): el real pierde un 10,6 % frente al euro en un semestre (referencia BCE: EUR/BRL 5,8347 el 20-may-2026 → 6,5259 el 20-nov-2026; https://www.ecb.europa.eu/stats/exchange/eurofxref/shared/pdf/2026/11/20261120.pdf). Es además una de las dos patas del escenario C del pre-mortem (falta una nueva provisión de reestructuración).",
-     "desde": "2026-11-23",
-     "origen": "informe semanal 23-11-2026"
-    }
-   ],
-   "propuesta": [
-    {
-     "senal": "EXT",
-     "decision": "REAFIRMAR",
-     "motivo": "Telefónica está en MANTENER, sin posición, con PO 5,39 € (bear 4,15 €) y cotiza a 3,363 € (20-nov), ya por debajo del stop de 3,56 € (S1 revisada el 12-nov: seguir fuera sin comprar, sin bajar el stop). La deuda sigue lejos de su alarma (2,63x frente a 3,0x en 9M) y la segunda pata del escenario C no se cumple, así que la caída del real no cambia la decisión; se propone reafirmar y medir su efecto en euros con el cierre de 2026. Propuesta de informe semanal 23-11-2026 (método v3)."
-    }
-   ],
-   "datos": [
-    "Decisión vigente de la tesis: MANTENER",
-    "Cotización 3,51 € · PO bear 4,15 € · PO 5,39 € · PO bull 6,14 € · -34,9 % sobre el PO",
-    "Banda de entrada 4,15–4,69 € · stop 3,56 €",
-    "Semáforo de empresa: VERDE · revisado hasta 2026-9M",
-    "Tesis escrita el 2026-10-27 · valoración generada el 2026-11-18"
-   ]
-  }
- ],
- "n_pendientes": 3,
+ "revisiones_pendientes": [],
+ "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-23T18:45",
+  "cuando": "2026-11-23T21:45",
   "ficheros": [
-   "recogida/publicaciones/AEDAS.json",
-   "recogida/publicaciones/BBVA.json",
-   "recogida/publicaciones/EDR.json",
-   "recogida/publicaciones/FDR.json",
-   "recogida/publicaciones/IAG.json",
-   "recogida/publicaciones/INDXA.json",
-   "recogida/publicaciones/REP.json",
-   "recogida/publicaciones/RJF.json",
-   "recogida/publicaciones/SAB.json",
-   "recogida/publicaciones/SQRL.json",
-   "recogida/publicaciones/VID.json",
-   "recogida/publicaciones/_indice.json",
-   "recogida/publicaciones/dias/2026-11.json"
+   "dossiers/CBAV.html",
+   "dossiers/CBAV.json",
+   "dossiers/CCEP.html",
+   "dossiers/CCEP.json",
+   "dossiers/TEF.html",
+   "dossiers/TEF.json",
+   "dossiers/trimestral/CBAV-trim.json",
+   "dossiers/trimestral/CCEP-trim.json",
+   "dossiers/trimestral/TEF-trim.json",
+   "dossiers/v3/CBAV.html",
+   "dossiers/v3/CCEP.html",
+   "dossiers/v3/TEF.html",
+   "fichas/CBAV.json",
+   "fichas/CCEP.json",
+   "fichas/TEF.json",
+   "fichas/_resumen.json"
   ]
  },
  "rechazos": [],

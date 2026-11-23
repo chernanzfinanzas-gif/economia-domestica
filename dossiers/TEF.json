@@ -5,7 +5,7 @@
  "ticker": "TEF",
  "empresa": "Telefónica, S.A.",
  "fecha": "2026-11-18",
- "revisadoEl": "2026-11-12",
+ "revisadoEl": "2026-11-23",
  "rating": "BB",
  "score": 48.1,
  "decision": "MANTENER",
@@ -55,7 +55,7 @@
   "motivos": [
    "Vigilar: cobertura OE 2.53x · 2 recorte(s) del DPA · señales: DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja, beneficio a la baja · sin C2 (renormalizado)"
   ],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-23",
   "origen": "metodo-v3",
   "shareholderYield": 8.59
  },
@@ -98,29 +98,29 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-23",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -5.35,
+  "gImplicito": -5.62,
   "gIntrinseco": -1.65,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
-  "calculadoEl": "2026-11-18",
+  "calculadoEl": "2026-11-23",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 3547.6667,
-   "wacc": 5.9288,
+   "wacc": 5.9336,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 5670.161,
    "deudaNeta": 33056.432,
    "modo": "EV",
-   "precioBase": 3.51,
-   "gBase": -5.35,
-   "fechaBase": "2026-11-11",
-   "congeladoEl": "2026-11-18",
+   "precioBase": 3.32,
+   "gBase": -5.62,
+   "fechaBase": "2026-11-23",
+   "congeladoEl": "2026-11-23",
    "validado": true,
    "desviacion": -0.0
   }
