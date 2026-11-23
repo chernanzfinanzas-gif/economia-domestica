@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-23T08:45",
+ "generado": "2026-11-23T08:50",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -77,15 +77,10 @@
  ],
  "n_pendientes": 3,
  "ultima_subida": {
-  "cuando": "2026-11-23T08:45",
+  "cuando": "2026-11-23T08:50",
   "ficheros": [
-   "hallazgos.json",
-   "informes-semanales/Informe Semanal de Cartera - 2026-11-23.pdf",
-   "macro.json",
-   "recogida/publicaciones/TRE.json",
-   "recogida/publicaciones/_indice.json",
-   "recogida/publicaciones/dias/2026-11.json",
-   "_indice.json"
+   "recogida/publicaciones/AEDAS.json",
+   "recogida/publicaciones/dias/2026-11.json"
   ]
  },
  "rechazos": [],
@@ -107,6 +102,15 @@
    "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A-32104226",
    "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (TEF - Telefó",
    "desde": "2026-11-10"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "AEDAS",
+   "que": "2026-05-28 La sociedad remite el Informe Financiero Anual del ejercicio 2026",
+   "carpeta": "AEDAS - AEDAS Homes, S.A\\Resultados",
+   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A87586483",
+   "motivo": "el fichero de dentro no es el de este aviso: el aviso es de 2026 y el PDF se creo en 2024",
+   "desde": "2026-11-14"
   },
   {
    "clase": "fallido",
@@ -245,6 +249,42 @@
   },
   {
    "clase": "fallido",
+   "ticker": "GRE",
+   "que": "2025-06-23 Actualización de derechos de voto tras venta de acciones por parte de",
+   "carpeta": "GRE - Grenergy Renovables, S.A\\Capital",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/derechos-voto-capital.aspx?Nif=A85130821",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (CBAV - CLINI",
+   "desde": "2026-11-14"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "GRE",
+   "que": "2025-02-27 La sociedad remite el reglamento del Consejo de Administración",
+   "carpeta": "GRE - Grenergy Renovables, S.A\\Gobierno",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A85130821",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (CBAV - CLINI",
+   "desde": "2026-11-14"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "GRE",
+   "que": "2026-02-25 La sociedad remite el Informe Financiero Anual del ejercicio 2025",
+   "carpeta": "GRE - Grenergy Renovables, S.A\\Resultados",
+   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A85130821",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (CBAV - CLINI",
+   "desde": "2026-11-14"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "GRE",
+   "que": "2026-06-10 Renovación previsión estatutaria voto adicional doble por lealtad",
+   "carpeta": "GRE - Grenergy Renovables, S.A\\Resultados",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/lealtad-regimen.aspx?Nif=A85130821",
+   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (CBAV - CLINI",
+   "desde": "2026-11-14"
+  },
+  {
+   "clase": "fallido",
    "ticker": "LGT",
    "que": "2016 S1 Anexo Anexo de las notas explicativas estados fina LGT",
    "carpeta": "LGT - Lingotes Especiales, S.A\\Intermedios",
@@ -278,6 +318,15 @@
    "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A87008579",
    "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
    "desde": "2026-11-07"
+  },
+  {
+   "clase": "falta",
+   "ticker": "AEDAS",
+   "empresa": "AEDAS Homes",
+   "que": "documento de resultados (solo hay anuncios)",
+   "carpeta": "Resultados",
+   "desde": "2026-11-20",
+   "dias": 3
   }
  ],
  "pendientes_sistema": [
