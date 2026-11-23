@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-11-23T19:00:18+01:00",
+  "actualizado": "2026-11-23T19:03:35+01:00",
   "ficheros": [
     {
       "clave": "agenda",
@@ -27,7 +27,7 @@
       "clave": "vigia",
       "titulo": "Vigía de informes trimestrales",
       "archivo": "vigia.json",
-      "generadoEl": "2026-11-16T16:42:06+01:00",
+      "generadoEl": "2026-11-23T19:03:35+01:00",
       "destinoApp": [
         "avisos",
         "calendario"

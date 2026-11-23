@@ -1,9 +1,9 @@
 {
-  "generadoEl": "2026-11-16T16:42:06+01:00",
+  "generadoEl": "2026-11-23T19:03:35+01:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-11-16",
-  "resumenTexto": "⚠️ VENCIDOS (3): CLINICA BAVIERA, S.A. (9M, +16d), Industria de Diseño Textil, S.A. (9M, +16d), Prim, S.A. (9M, +16d). Nada en 14 días. Siguiente: Unicaja Banco, S.A. ~03-02 (FY). Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "fechaReferencia": "2026-11-23",
+  "resumenTexto": "⚠️ VENCIDOS (3): CLINICA BAVIERA, S.A. (9M, +23d), Industria de Diseño Textil, S.A. (9M, +23d), Prim, S.A. (9M, +23d). Nada en 14 días. Siguiente: EDREAMS ODIGEO, S.A. ~31-01 (9M). Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
   "vencidos": [
     {
       "ticker": "CBAV",
@@ -13,7 +13,7 @@
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
       "ultimaFecha": "2026-07-30",
-      "diasVencido": 16
+      "diasVencido": 23
     },
     {
       "ticker": "ITX",
@@ -23,7 +23,7 @@
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
       "ultimaFecha": "2026-07-31",
-      "diasVencido": 16
+      "diasVencido": 23
     },
     {
       "ticker": "PRM",
@@ -33,20 +33,20 @@
       "fechaEstimada": "2026-10-31",
       "ultimoPeriodo": "2026-Q2",
       "ultimaFecha": "2026-07-30",
-      "diasVencido": 16
+      "diasVencido": 23
     }
   ],
   "estaSemana": [],
   "proximos14d": [],
   "siguienteEvento": {
-    "ticker": "UNI",
-    "empresa": "Unicaja Banco, S.A.",
-    "periodoEsperado": "2027-Q4",
-    "periodoLabel": "FY",
-    "fechaEstimada": "2027-02-03",
-    "ultimoPeriodo": "2026-Q3",
-    "ultimaFecha": "2026-10-31"
+    "ticker": "EDR",
+    "empresa": "EDREAMS ODIGEO, S.A.",
+    "periodoEsperado": "2027-Q3",
+    "periodoLabel": "9M",
+    "fechaEstimada": "2027-01-31",
+    "ultimoPeriodo": "2026-Q2",
+    "ultimaFecha": "2026-10-30"
   },
   "sinDeterminar": [],
-  "totalEmpresas": 42
+  "totalEmpresas": 62
 }
