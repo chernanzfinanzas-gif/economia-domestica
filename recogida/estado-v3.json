@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-23T10:45",
+ "generado": "2026-11-23T12:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [
   {
@@ -1312,9 +1312,9 @@
    "ticker": "SAB",
    "que": "Sabadell: el «Informe Financiero Anual 2025» que ha bajado la recogida es otro documento y ha abierto una revisión que no se debe aprobar",
    "detalle": "Biblioteca SAB/Resultados/2026-02-20 La sociedad remite el Informe Financiero Anual del ejercicio 2025.pdf (bajado el 21-nov a las 10:12, 1 página, 600 KB) es el folleto «Plan Interno de Sostenibilidad Medioambiental de la CNMV», no las cuentas de Sabadell. Con él el pase ha creado «Revisión/SAB cuentas anuales - pendiente» (sin periodo nuevo; las cuentas 2025 ya estaban en el análisis aprobado el 13-nov). Hay que sacar ese PDF de Resultados, corregir el enlace en la recogida y descartar el paquete. No se ha escrito nota.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-23T11:00",
+   "como": "Paquete descartado (Revisión/Descartadas). La recogida v3.0 rechaza los dos documentos de la CNMV (huella y título) y, si un fichero llega igual a dos empresas, aparta también la primera copia. 67 copias falsas en 27 empresas apartadas a _diagnostico/apartados; ningún dato del método salía de ellas.",
    "comprobado": null
   },
   {
@@ -1323,7 +1323,7 @@
    "origen": "pase de novedades 21-11 18:55",
    "ticker": "",
    "que": "El disco de trabajo del ordenador virtual del PC está lleno y los pases no pueden preparar copias temporales",
-   "detalle": "18:57: el pase trimestral de SAB falló con «No space left on device» al copiar datos/_universo.json a la carpeta temporal. El disco /sessions (9,8 GB) está al 100 %; esta sesión solo ocupa 60 MB (una carpeta temporal kh_revision_SAB_… que no he podido borrar). Si sigue lleno, las próximas revisiones no se podrán preparar.",
+   "detalle": "18:57: el pase trimestral de SAB falló con «No space left on device» al copiar datos/_universo.json a la carpeta temporal. El disco /sessions (9,8 GB) está al 100 %; esta sesión solo ocupa 60 MB (una carpeta temporal kh_revision_SAB_… que no he podido borrar). Si sigue lleno, las próximas revisiones no se podrán preparar. · 23-nov: el disco lo llenan unas 310 carpetas de sesiones anteriores (desde el 2-oct) a las que una sesión no tiene acceso; los temporales del pase sí se borran. Liberados 175 MB de esta sesión.",
    "estado": "abierto",
    "resuelto": null,
    "como": null,
@@ -1360,9 +1360,9 @@
    "ticker": "CBAV",
    "que": "Clínica Baviera: el «Informe Financiero Anual 2025» que ha bajado hoy la recogida es el mismo documento falso de la CNMV que llegó a Sabadell, y ha abierto una revisión que no se debe aprobar",
    "detalle": "Biblioteca CNMV/CBAV - CLINICA BAVIERA, S.A/Resultados/2026-04-09 La sociedad remite el Informe Financiero Anual del ejercicio 2025.pdf, bajado el 23-nov a las 07:38: 1 página, md5 f82b717309c1…, es el folleto «Plan Interno de Sostenibilidad Medioambiental de la CNMV» (2024). Ha creado el paquete «Revisión/CBAV cuentas anuales - pendiente» (sin periodo nuevo, 9 ficheros de datos cambian). No se ha escrito nota. Hay que apartar el PDF, descartar el paquete e instalar el arreglo de la recogida preparado el 22-nov (_tmp_prueba/recogida_2211/buscar_informes_cnmv.candidato.py), que bloquea ese md5; mientras no se instale puede volver a pasar con otras empresas.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-23T11:00",
+   "como": "Paquete descartado (Revisión/Descartadas). La recogida v3.0 rechaza los dos documentos de la CNMV (huella y título) y, si un fichero llega igual a dos empresas, aparta también la primera copia. 67 copias falsas en 27 empresas apartadas a _diagnostico/apartados; ningún dato del método salía de ellas.",
    "comprobado": null
   }
  ],
