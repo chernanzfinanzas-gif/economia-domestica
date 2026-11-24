@@ -1,28 +1,16 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-23T21:45",
+ "generado": "2026-11-24T08:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-23T21:45",
+  "cuando": "2026-11-24T08:45",
   "ficheros": [
-   "dossiers/CBAV.html",
-   "dossiers/CBAV.json",
-   "dossiers/CCEP.html",
-   "dossiers/CCEP.json",
-   "dossiers/TEF.html",
-   "dossiers/TEF.json",
-   "dossiers/trimestral/CBAV-trim.json",
-   "dossiers/trimestral/CCEP-trim.json",
-   "dossiers/trimestral/TEF-trim.json",
-   "dossiers/v3/CBAV.html",
-   "dossiers/v3/CCEP.html",
-   "dossiers/v3/TEF.html",
-   "fichas/CBAV.json",
-   "fichas/CCEP.json",
-   "fichas/TEF.json",
-   "fichas/_resumen.json"
+   "recogida/publicaciones/IZER.json",
+   "recogida/publicaciones/TRE.json",
+   "recogida/publicaciones/_indice.json",
+   "recogida/publicaciones/dias/2026-11.json"
   ]
  },
  "rechazos": [],
@@ -268,7 +256,7 @@
    "que": "documento de resultados (solo hay anuncios)",
    "carpeta": "Resultados",
    "desde": "2026-11-20",
-   "dias": 3
+   "dias": 4
   }
  ],
  "pendientes_sistema": [
