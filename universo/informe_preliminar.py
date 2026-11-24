@@ -20,6 +20,8 @@ def cargar(cons, univ, matriz, pdir_, extra, fund, cart=None, divf=None, eventos
     DIVS = {e['ticker']: e for e in json.load(open(divf))['empresas']} if divf else {}
     HOY = datetime.date.today().isoformat()
     C = json.load(open(cons)); U = json.load(open(univ)); M = json.load(open(matriz))
+    _fs = os.path.join(os.path.dirname(os.path.abspath(univ)), 'bme_salto.json')
+    if os.path.exists(_fs): SEN.update(json.load(open(_fs, encoding='utf-8')))
     X = json.load(open(extra))          # acciones (millones) y EUR/USD que no están en los datos base
     EURUSD = X['eur_usd']['v']
     MAT = {e['ticker']: e for e in M['empresas']}
@@ -381,23 +383,42 @@ def etiquetas(r):
        or (r.get('dn_ebitda') or 0) > lim_mal or (r.get('ltv') or 0) > .5: e.append('Riesgo')
     return e
 
-# Termómetro del salto (BME Growth) — hipótesis, sin medir todavía con casos pasados
+# Termómetro del salto (BME Growth) — versión aprobada por Carlos el 24-nov-2026 (estudio de Grenergy,
+# Atrys, Izertis y Arteche). Cinco señales de la más débil a la más fuerte y una fase. Las señales de
+# comunicaciones y prensa (alta, NIIF en curso, intención, pasos formales) vienen de bme_salto.json, junto
+# a universo.json; si no está, solo cuentan tamaño y NIIF de las cuentas. Calidad aparte (no predice el salto).
 SALTO = [
-    ('NIIF', 'ya presenta sus cuentas en NIIF (requisito del Mercado Continuo)'),
-    ('Tamaño', 'capitalización ≥ 100 M€'),
-    ('Crecimiento', 'ingresos crecen ≥ 15 % al año'),
-    ('Beneficios', 'beneficio positivo los dos últimos años'),
-    ('Deuda', 'deuda neta/EBITDA ≤ 3 o caja neta'),
+    ('Tamaño', 'capitalización ≥ 150 M€'),
+    ('Años', '4 años o más en BME Growth con el negocio actual'),
+    ('NIIF', 'presenta en NIIF o las está rehaciendo en NIIF (requisito del Continuo)'),
+    ('Intención', 'la empresa ha dicho que quiere ir al Continuo'),
+    ('Pasos', 'pasos formales: junta, folleto, IBEX Growth 15, pacto de no vender, retirada de previsiones…'),
 ]
+SEN = {'umbrales': {'tamano_meur': 150, 'anios': 4}, 'empresas': {}}
+def _anios(alta):
+    try: return (datetime.date.fromisoformat(HOY) - datetime.date.fromisoformat(alta)).days / 365.25
+    except Exception: return None
 def termometro(tk, r):
     c = C[tk]; a = c['anios']; ys = sorted(a)
-    s = {}
-    s['NIIF'] = any('NIIF' in str(a[y]['m'].get('normas') or '') for y in ys[-2:])
-    s['Tamaño'] = r.get('cap') is not None and r['cap'] >= 100
-    s['Crecimiento'] = r.get('cagr_ing') is not None and r['cagr_ing'] >= .15
-    bs = [(a[y]['v'].get('beneficio_neto_atribuible') if a[y]['v'].get('beneficio_neto_atribuible') is not None else a[y]['v'].get('beneficio_neto_total')) for y in ys[-2:]]
-    s['Beneficios'] = len(bs) == 2 and all(isinstance(b, (int, float)) and b > 0 for b in bs)
-    s['Deuda'] = r.get('deuda_neta') is not None and (r['deuda_neta'] <= 0 or (r.get('dn_ebitda') is not None and r['dn_ebitda'] <= 3))
+    sg = SEN['empresas'].get(tk, {}); um = SEN['umbrales']
+    niif_c = any('NIIF' in str(a[y]['m'].get('normas') or '') for y in ys[-2:])
+    niif = sg.get('niif') or ('si' if niif_c else 'no')
+    ints = sg.get('intencion', [])
+    inten = any(not i.get('debil') and not i.get('negativa') for i in ints)
+    pasos = sg.get('pasos', [])
+    anos = _anios(sg.get('alta', ''))
+    s = {'Tamaño': r.get('cap') is not None and r['cap'] >= um['tamano_meur'],
+         'Años': anos is not None and anos >= um['anios'],
+         'NIIF': niif in ('si', 'en_curso'),
+         'Intención': inten,
+         'Pasos': bool(pasos)}
+    if pasos: fase = 'En marcha'
+    elif s['Tamaño'] and (inten or niif == 'en_curso'): fase = 'Preparando'
+    elif s['Tamaño'] and niif == 'si': fase = 'Candidata'
+    else: fase = 'Lejos'
+    r['salto_fase'] = fase; r['salto_anios'] = round(anos, 1) if anos is not None else None
+    r['salto_niif'] = niif; r['salto_referencia'] = bool(sg.get('referencia'))
+    r['salto_ultimo'] = max([x for x in ints + pasos if x.get('fecha')], key=lambda x: x['fecha'], default=None)
     return s
 
 # ---- Grupo de comparación (Matriz v3): el módulo principal, juntando los que tienen pocas empresas
@@ -457,8 +478,10 @@ def main(argv):
     growth = []
     for t in U['bme_growth_sin_xbrl']:
         r = fila(t); r['salto'] = termometro(t, r); r['salto_n'] = sum(r['salto'].values()); growth.append(r)
+    _orden = {'En marcha': 0, 'Preparando': 1, 'Candidata': 2, 'Lejos': 3}
+    growth.sort(key=lambda r: (_orden.get(r.get('salto_fase'), 9), -(r.get('cap') or 0)))
     out = {'generado': datetime.datetime.now().isoformat(timespec='minutes'), 'eur_usd': X['eur_usd'],
-           'criterios': CRIT, 'salto': SALTO, 'continuo': filas, 'growth': growth,
+           'criterios': CRIT, 'salto': SALTO, 'salto_version': '2026-11-24', 'salto_senales': SEN.get('actualizado'), 'continuo': filas, 'growth': growth,
            'grupos': grupos, 'movimientos_desde': ref,
            'matriz': M.get('version'), 'cartera_fecha': CART.get('fecha_copia'), 'n': {'continuo': len(filas), 'growth': len(growth)}}
     json.dump(out, open(salida, 'w'), ensure_ascii=False, indent=1)

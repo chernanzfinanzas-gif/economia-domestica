@@ -163,7 +163,7 @@ function detalle(e){
     it('Acciones (3 años)',e.dilucion!=null?(e.dilucion<0?'recompra '+pc(-e.dilucion,1)+'/año':(e.dilucion>0?'dilución '+pc(e.dilucion,1)+'/año':'estable')):'—')+
     it('Rent. accionista',pc(e.rent_accionista,1)+' <small style="display:inline;color:#94a3b8">(RPD + ½ recompra)</small>')+
     it('Nº acciones',esc(e.acciones_fuente||'—'))+'</div>';
-  if(e.salto){ var S=(j.salto||[]); h+='<div class="sv3-dg"><div><span>Termómetro del salto al Continuo:</span> '+salto(e)+' '+(e.salto_n||0)+' de 5</div>'+
+  if(e.salto){ var S=(j.salto||[]); h+='<div class="sv3-dg"><div><span>Termómetro del salto al Continuo:</span> '+salto(e)+' '+(e.salto_n||0)+' de 5'+(e.salto_fase?' · fase <b>'+esc(e.salto_fase)+'</b>':'')+(e.salto_anios!=null?' · '+nf(e.salto_anios,1)+' años en BME Growth':'')+'</div>'+(e.salto_ultimo?'<div>Última señal: '+esc(e.salto_ultimo.fecha)+' · '+esc(e.salto_ultimo.texto||'')+'</div>':'')+
     S.map(function(s){ var k=s[0]; return '<div>'+(e.salto[k]?'✅':'▫️')+' '+esc(s[1]||k)+'</div>'; }).join('')+'</div>'; }
   if((e.avisos||[]).length) h+='<div class="sv3-dav">⚠ '+(e.avisos||[]).map(esc).join(' · ')+'</div>';
   if(e.puntos) h+='<div class="sv3-nota" style="margin:4px 0 0">Puntos del Radar: <b>'+nf(e.puntos.total,1)+'</b> (dividendo '+nf(e.puntos.dividendo)+' · calidad '+nf(e.puntos.calidad)+' · valoración '+nf(e.puntos.valoracion)+')'+(e.puntos.nota?' — '+esc(e.puntos.nota):'')+'</div>';
@@ -249,10 +249,10 @@ function filasRad(){
 }
 function filasGrowth(){
   var j=SV3.inf; if(!j)return; var B=document.getElementById('sv3gB'); if(!B)return;
-  var L=(j.growth||[]).slice().sort(function(a,b){ return (b.salto_n||0)-(a.salto_n||0) || ((b.puntos&&b.puntos.total)||0)-((a.puntos&&a.puntos.total)||0); });
+  var FO={'En marcha':0,'Preparando':1,'Candidata':2,'Lejos':3}; var L=(j.growth||[]).slice().sort(function(a,b){ var fa=(a.salto_fase in FO)?FO[a.salto_fase]:9, fb=(b.salto_fase in FO)?FO[b.salto_fase]:9; return fa-fb || (b.salto_n||0)-(a.salto_n||0) || (b.cap||0)-(a.cap||0); });
   B.innerHTML=L.map(function(e){ var t=e.ticker;
     var tr='<tr class="r" data-sv3grow="'+esc(t)+'"><td class="l e"><b>'+esc(t)+'</b> '+esc(e.empresa)+'<small>'+esc(e.descripcion||'')+'</small></td>'+
-      '<td class="l">'+salto(e)+' <b>'+(e.salto_n||0)+'/5</b></td><td>'+(e.puntos&&e.puntos.total!=null?nf(e.puntos.total,1):'—')+'</td>'+
+      '<td class="l">'+salto(e)+' <b>'+(e.salto_n||0)+'/5</b>'+(e.salto_fase?'<br><b>'+esc(e.salto_fase)+'</b>'+(e.salto_referencia?' <small style="display:inline">(referencia)</small>':''):'')+'</td><td>'+(e.puntos&&e.puntos.total!=null?nf(e.puntos.total,1):'—')+'</td>'+
       '<td>'+mill(e.ingresos)+((e.moneda&&e.moneda!=='EUR')?' '+esc(e.moneda):'')+'</td><td>'+mill(e.beneficio)+'</td><td>'+pc(e.roe,1)+'</td><td>'+(e.per!=null&&e.per>0?nf(e.per,1):'—')+'</td><td>'+pc(e.cagr_ing,1)+'</td>'+
       '<td>'+((e.avisos||[]).length?'<span class="sv3-av" title="'+esc((e.avisos||[]).join(' · '))+'">'+(e.avisos||[]).length+'</span>':'')+'</td></tr>';
     if(SV3.open['g'+t]) tr+='<tr class="sv3-det"><td colspan="9">'+detalle(e)+'</td></tr>';

@@ -254,13 +254,13 @@ document.getElementById('salto').innerHTML=D.salto.map(([k,v])=>`<li><b>${{esc(k
 // growth
 const GC=[
  ['Empresa','l',r=>`<span class="emp">${{esc(r.empresa)}}</span>${{avis(r)}}<br><span class="sub">${{esc(r.ticker)}} · datos ${{esc(r.primero)}}-${{esc(r.ultimo)}}</span>`],
- ['Termómetro','l',r=>`<span class="dots" role="img" aria-label="${{r.salto_n}} de 5 señales">${{D.salto.map(([k])=>`<span class="dot ${{r.salto[k]?'on':''}}" title="${{esc(k)}}: ${{r.salto[k]?'sí':'no'}}"></span>`).join('')}}</span> <b>${{r.salto_n}}</b>/5<br><span class="sub">${{D.salto.filter(([k])=>r.salto[k]).map(([k])=>k).join(' · ')||'ninguna'}}</span>`],
+ ['Termómetro','l',r=>`<span class="dots" role="img" aria-label="${{r.salto_n}} de 5 señales">${{D.salto.map(([k])=>`<span class="dot ${{r.salto[k]?'on':''}}" title="${{esc(k)}}: ${{r.salto[k]?'sí':'no'}}"></span>`).join('')}}</span> <b>${{r.salto_n}}</b>/5 · <b>${{esc(r.salto_fase||'')}}</b>${{r.salto_referencia?' (referencia)':''}}<br><span class="sub">${{D.salto.filter(([k])=>r.salto[k]).map(([k])=>k).join(' · ')||'ninguna'}}</span>`],
  ['Normas','l',r=>`<span class="sub">${{esc(r.normas||'–')}}</span>`],
  ['Capitaliz.','n',r=>fmt(r.cap,0)],['Ingresos','n',r=>fmt(r.ingresos,1)],['Crec.','n',r=>pc(r.cagr_ing,0,true)],
  ['Beneficio','n',r=>fmt(r.beneficio,1)],['DN/EBITDA','n',deuda],['PER','n',r=>fmt(r.per)],['Cotiz. 1a','n',r=>pc(r.var_1a,0,true)],
 ];
 document.querySelector('#gro thead').innerHTML='<tr>'+GC.map(([n,c])=>`<th class="${{c==='l'?'l':''}}">${{n}}</th>`).join('')+'</tr>';
-document.querySelector('#gro tbody').innerHTML=[...D.growth].sort((a,b)=>b.salto_n-a.salto_n||(b.cap??0)-(a.cap??0)).map(r=>'<tr>'+GC.map(([n,c,f])=>`<td class="${{c}}" style="${{c==='l'?'white-space:normal;min-width:150px':''}}">${{f(r)}}</td>`).join('')+'</tr>').join('');
+document.querySelector('#gro tbody').innerHTML=[...D.growth].sort((a,b)=>({{'En marcha':0,'Preparando':1,'Candidata':2,'Lejos':3}}[a.salto_fase]??9)-({{'En marcha':0,'Preparando':1,'Candidata':2,'Lejos':3}}[b.salto_fase]??9)||(b.cap??0)-(a.cap??0)).map(r=>'<tr>'+GC.map(([n,c,f])=>`<td class="${{c}}" style="${{c==='l'?'white-space:normal;min-width:150px':''}}">${{f(r)}}</td>`).join('')+'</tr>').join('');
 </script>
 """
 if COMPLETO:
