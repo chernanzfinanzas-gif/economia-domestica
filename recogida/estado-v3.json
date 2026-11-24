@@ -1,13 +1,18 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-24T18:45",
+ "generado": "2026-11-24T19:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-24T18:45",
+  "cuando": "2026-11-24T19:45",
   "ficheros": [
-   "fichas/_evolucion.json"
+   "dossiers/CBAV.html",
+   "dossiers/CBAV.json",
+   "dossiers/trimestral/CBAV-trim.json",
+   "dossiers/v3/CBAV.html",
+   "fichas/CBAV.json",
+   "fichas/_resumen.json"
   ]
  },
  "rechazos": [],
@@ -1299,6 +1304,18 @@
    "estado": "resuelto",
    "resuelto": "2026-11-23T11:00",
    "como": "Paquete descartado (Revisión/Descartadas). La recogida v3.0 rechaza los dos documentos de la CNMV (huella y título) y, si un fichero llega igual a dos empresas, aparta también la primera copia. 67 copias falsas en 27 empresas apartadas a _diagnostico/apartados; ningún dato del método salía de ellas.",
+   "comprobado": null
+  },
+  {
+   "id": "Pe163e4ad",
+   "creado": "2026-11-24T18:58",
+   "origen": "pase de novedades 24-11 18:55",
+   "ticker": "CBAV",
+   "que": "Clínica Baviera 9M-2026: el lector no ha leído el EBITDA ni el resultado de explotación de la presentación, y sin ellos no se escribe la nota",
+   "detalle": "Resultados/2026-11-24 … resultados del tercer t.pdf, página 6 (Cuenta de PyG): EBITDA 66.704 frente a 59.021 (+13 %); resultado de explotación 46.153 frente a 41.384 (+12 %). El lector solo ha cogido ingresos (243.087) y resultado neto (32.893), que sí cuadran. Lo mismo pasó en 2025-9M (EBITDA 59.421 en su presentación, vacío en el §10.2). Ojo: la presentación de 2026 re-expresa 9M-2025 (EBITDA 59.021 y neto 27.897 frente a 59.421 y 28.297 publicados en 2025). Paquete «CBAV 2026-9M - pendiente» sin nota.",
+   "estado": "resuelto",
+   "resuelto": "2026-11-24T19:29",
+   "como": "Arreglado en el chat (24-nov): el lector sí leía el EBITDA y el EBIT de 9M-2026, pero no los podía confirmar porque en 9M-2025 cogía la tabla «sin UK» (63.337 en vez de 59.421). Cifras de los dos 9M leídas en sus documentos y escritas en datos/CBAV/_confirmado_a_mano.json; paquete rehecho (el anterior queda como «sustituida») y nota escrita.",
    "comprobado": null
   }
  ],

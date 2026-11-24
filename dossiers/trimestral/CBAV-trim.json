@@ -3,7 +3,7 @@
  "ticker": "CBAV",
  "empresa": "CLINICA BAVIERA, S.A.",
  "origen": "metodo-v3",
- "generado": "2026-11-23",
+ "generado": "2026-11-24",
  "revisiones": [
   {
    "periodo": "2021-Q1",
@@ -525,13 +525,29 @@
    "periodoV3": "2025-9M",
    "fecha": "2025-09-30",
    "fechaOrigen": "cierre",
-   "semaforoGlobal": "V",
+   "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +16,4 % frente al mismo periodo del año anterior. Verde: nada que señalar.",
+   "resumen": "Ingresos +16,4 %, EBITDA +11,7 %, beneficio neto +15,0 %, margen 27,0 % (-1,13 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: Cambio de perímetro: Reino Unido (Optimax) entra en julio de 2024 con pérdidas, y baja el margen del grupo frente a un 9M-2024 con un solo trimestre de Reino Unido. Sin Reino Unido, el EBITDA crece un 14 % (presentación 3T-2025, pág. 6; Reino Unido −3,9 M€). Ventas +16 % y EBITDA +12 %. Ámbar, no rojo, como 2025-3M y 2025-S1.",
    "metricas": [
     {
      "nombre": "Ingresos",
      "valor": 220.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 59.4
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 27.0
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 41.8
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 28.3
     }
    ],
    "hechos": [],
@@ -543,9 +559,9 @@
    "periodoV3": "2025",
    "fecha": "2025-12-31",
    "fechaOrigen": "cierre",
-   "semaforoGlobal": "V",
+   "semaforoGlobal": "A",
    "tesisSigueIntacta": true,
-   "resumen": "Ingresos +14,9 %, EBITDA +10,3 %, beneficio neto +4,6 %, margen 28,0 % (-1,17 pp) frente al mismo periodo del año anterior. Verde: solo el margen empeora, sin más señales.",
+   "resumen": "Ingresos +14,9 %, EBITDA +10,3 %, beneficio neto +4,6 %, margen 28,0 % (-1,17 pp) frente al mismo periodo del año anterior. Rojo por: el margen empeora. Corrección del analista: Mismo cambio de perímetro (Reino Unido, desde julio de 2024): ventas +14,9 %, EBITDA +10,3 % y margen −1,2 pp. Ámbar, como el ejercicio 2025 en el semáforo de empresa y como 2025-3M, 2025-S1 y 2025-9M.",
    "metricas": [
     {
      "nombre": "Ingresos",
@@ -642,6 +658,40 @@
     {
      "nombre": "Deuda neta",
      "valor": 84.8
+    }
+   ],
+   "hechos": [],
+   "origen": "metodo-v3"
+  },
+  {
+   "periodo": "2026-Q3",
+   "periodoDisplay": "9M",
+   "periodoV3": "2026-9M",
+   "fecha": "2026-09-30",
+   "fechaOrigen": "cierre",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos +10,5 %, EBITDA +13,0 %, beneficio neto +17,9 %, margen 27,4 % (+0,62 pp) frente al mismo periodo del año anterior. Verde: nada que señalar. **Qué ha pasado** — 9M-2026: ingresos 243,1 M€ (+10,5 %), EBITDA 66,7 M€ (+13,0 %), margen 27,4 % (+0,6 pp), resultado de explotación 46,2 M€ (+11,5 %) y beneficio neto 32,9 M€ (+17,9 %). La dirección prevé cerrar 2026 con 334 M€ de ventas (+11 %). La posición financiera es de caja neta: 45,0 M€ a 30-sep. La deuda neta del §10.2 queda vacía, como en todos los 1T y 9M, porque la presentación no da la cifra con arrendamientos.\n\n**Por qué** — Tira España, con ventas +12 % y EBITDA +17 % por «apalancamiento operativo» y 7 aperturas. Reino Unido reduce sus pérdidas de −4,3 a −2,8 M€. Alemania va al revés: ventas +1 % y EBITDA −17 %, porque «los costes crecen más que las ventas». Ojo: la presentación re-expresa el 9M-2025 (EBITDA 59,0 frente a los 59,4 publicados; beneficio 27,9 frente a 28,3) y no explica por qué.\n\n**Semáforo** — El verde está bien puesto. Al completarse el EBITDA del 9M-2025, ese periodo y el 2025 salen en rojo por la regla del margen: propongo ámbar, con el mismo motivo de cambio de perímetro que en 2025-3M y 2025-S1. No abre ni cierra señales; S5 se cierra al aprobar.\n\n**Qué vigilar** — Alemania: por diferencia entre 9M y S1, su EBITDA del tercer trimestre es 2,35 M€ frente a 3,53 M€ (−33 %). La red flag «el EBITDA de Alemania cae dos semestres seguidos» saltará si el segundo semestre cierra en negativo. Margen del grupo: 27,4 %, a 1,4 pp de la alarma del 26 %.\n\n**Lectura** — Aprobar. La tesis no cambia (ESPERAR), pero Alemania puede abrir la S2 con las cuentas de 2026.",
+   "metricas": [
+    {
+     "nombre": "Ingresos",
+     "valor": 243.0
+    },
+    {
+     "nombre": "EBITDA",
+     "valor": 66.7
+    },
+    {
+     "nombre": "Margen EBITDA",
+     "valor": 27.4
+    },
+    {
+     "nombre": "EBIT",
+     "valor": 46.2
+    },
+    {
+     "nombre": "Beneficio neto",
+     "valor": 32.9
     }
    ],
    "hechos": [],

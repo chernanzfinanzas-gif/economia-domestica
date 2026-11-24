@@ -5,7 +5,7 @@
  "ticker": "CBAV",
  "empresa": "CLINICA BAVIERA, S.A.",
  "fecha": "2026-11-18",
- "revisadoEl": "2026-11-23",
+ "revisadoEl": "2026-11-24",
  "rating": "AA",
  "score": 80.1,
  "decision": "ESPERAR",
@@ -33,7 +33,7 @@
  ],
  "bull": "46,99 € — escenario optimista: Mantiene el ritmo de 2025-26 sin compras (unas 10 aperturas al año, Reino Unido llega a beneficio e Italia sigue mejorando el margen)",
  "bear": "34,31 € — escenario pesimista: España se enfría como Alemania en 2025-26 (ventas +2 % y EBITDA −11 % en el S1-2026) y Reino Unido sigue en pérdidas: el crecimiento queda en lo que aportan las aperturas",
- "resumen": "ESPERAR con la cotización de 54,00 € (2026-11-23): precio objetivo 40,52 € (bear 34,31 · bull 46,99), margen −25,0 %. Banda de entrada 34,31–35,23 €, stop de tesis 27,45 €.",
+ "resumen": "ESPERAR con la cotización de 54,00 € (2026-11-24): precio objetivo 40,52 € (bear 34,31 · bull 46,99), margen −25,0 %. Banda de entrada 34,31–35,23 €, stop de tesis 27,45 €.",
  "dividendSafety": {
   "score": 72,
   "banda": "Seguro",
@@ -53,7 +53,7 @@
   "motivos": [
    "Seguro: cobertura OE 1.69x · payout 65 % · 2 recorte(s) del DPA · señales: recompras recortadas"
   ],
-  "calculadoEl": "2026-11-23",
+  "calculadoEl": "2026-11-24",
   "origen": "metodo-v3",
   "shareholderYield": 3.16
  },
@@ -94,7 +94,7 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-11-23",
+  "calculadoEl": "2026-11-24",
   "origen": "metodo-v3"
  },
  "reverseDcf": {
@@ -103,7 +103,7 @@
   "gIntrinseco": 12.29,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (≤ g intrínseco 12,3 %)",
-  "calculadoEl": "2026-11-23",
+  "calculadoEl": "2026-11-24",
   "origen": "metodo-v3",
   "entradas": {
    "fcl": 27.1312,
@@ -115,8 +115,8 @@
    "modo": "EV",
    "precioBase": 54.0,
    "gBase": 12.07,
-   "fechaBase": "2026-11-23",
-   "congeladoEl": "2026-11-23",
+   "fechaBase": "2026-11-24",
+   "congeladoEl": "2026-11-24",
    "validado": false,
    "desviacion": 0.77
   }
