@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-24T20:43",
+ "generado": "2026-11-25T08:58",
  "eur_usd": {
   "v": 1.1244,
   "f": "2026-10-16",
@@ -110,9 +110,9 @@
    "per_vs_grupo": 1.4693982046490959,
    "puesto": 23,
    "puesto_ant": 22,
-   "puntos_ant": 70.7,
+   "puntos_ant": 71.1,
    "cambio_puesto": -1,
-   "cambio_puntos": 0.4
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "ACS",
@@ -189,10 +189,10 @@
    "per_grupo": 22.406675587358446,
    "per_vs_grupo": 1.0768245744963012,
    "puesto": 47,
-   "puesto_ant": 51,
-   "puntos_ant": 54.0,
-   "cambio_puesto": 4,
-   "cambio_puntos": 2.5
+   "puesto_ant": 49,
+   "puntos_ant": 54.3,
+   "cambio_puesto": 2,
+   "cambio_puntos": 2.2
   },
   {
    "ticker": "ACX",
@@ -268,9 +268,9 @@
    "per_vs_grupo": null,
    "puesto": 67,
    "puesto_ant": 68,
-   "puntos_ant": 44.0,
+   "puntos_ant": 44.2,
    "cambio_puesto": 1,
-   "cambio_puntos": 1.5
+   "cambio_puntos": 1.3
   },
   {
    "ticker": "ADX",
@@ -347,9 +347,9 @@
    "per_vs_grupo": 1.6200059424475488,
    "puesto": 61,
    "puesto_ant": 61,
-   "puntos_ant": 48.1,
+   "puntos_ant": 48.8,
    "cambio_puesto": 0,
-   "cambio_puntos": 1.0
+   "cambio_puntos": 0.3
   },
   {
    "ticker": "ADZ",
@@ -425,9 +425,9 @@
    "per_vs_grupo": 1.5113798740052888,
    "puesto": 98,
    "puesto_ant": 98,
-   "puntos_ant": 22.1,
+   "puntos_ant": 22.5,
    "cambio_puesto": 0,
-   "cambio_puntos": 2.4
+   "cambio_puntos": 2.0
   },
   {
    "ticker": "AEDAS",
@@ -500,10 +500,10 @@
    "per_grupo": 17.088823896684303,
    "per_vs_grupo": 1.0,
    "puesto": 52,
-   "puesto_ant": 49,
-   "puntos_ant": 54.4,
-   "cambio_puesto": -3,
-   "cambio_puntos": -0.1
+   "puesto_ant": 50,
+   "puntos_ant": 54.3,
+   "cambio_puesto": -2,
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "AENA",
@@ -580,9 +580,9 @@
    "per_vs_grupo": 0.9730097129409264,
    "puesto": 37,
    "puesto_ant": 35,
-   "puntos_ant": 61.7,
+   "puntos_ant": 62.0,
    "cambio_puesto": -2,
-   "cambio_puntos": 0.5
+   "cambio_puntos": 0.2
   },
   {
    "ticker": "AI",
@@ -735,9 +735,9 @@
    "per_vs_grupo": 1.3334633539125393,
    "puesto": 68,
    "puesto_ant": 67,
-   "puntos_ant": 44.3,
+   "puntos_ant": 44.4,
    "cambio_puesto": -1,
-   "cambio_puntos": 0.2
+   "cambio_puntos": 0.1
   },
   {
    "ticker": "ALM",
@@ -810,10 +810,10 @@
    "per_grupo": 21.56532372159146,
    "per_vs_grupo": 2.363014847073465,
    "puesto": 85,
-   "puesto_ant": 85,
-   "puntos_ant": 33.7,
-   "cambio_puesto": 0,
-   "cambio_puntos": -0.4
+   "puesto_ant": 84,
+   "puntos_ant": 34.0,
+   "cambio_puesto": -1,
+   "cambio_puntos": -0.7
   },
   {
    "ticker": "ALNT",
@@ -886,10 +886,10 @@
    "per_grupo": 15.695158300022324,
    "per_vs_grupo": 1.0531328197573546,
    "puesto": 26,
-   "puesto_ant": 26,
-   "puntos_ant": 69.3,
-   "cambio_puesto": 0,
-   "cambio_puntos": 0.7
+   "puesto_ant": 27,
+   "puntos_ant": 69.2,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.8
   },
   {
    "ticker": "AMP",
@@ -962,10 +962,10 @@
    "per_grupo": 22.406675587358446,
    "per_vs_grupo": 13.800886745392553,
    "puesto": 101,
-   "puesto_ant": 102,
-   "puntos_ant": 18.3,
-   "cambio_puesto": 1,
-   "cambio_puntos": 0.8
+   "puesto_ant": 101,
+   "puntos_ant": 18.6,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.5
   },
   {
    "ticker": "AMS",
@@ -1040,10 +1040,10 @@
    "per_grupo": 15.695158300022324,
    "per_vs_grupo": 1.2495502448789932,
    "puesto": 53,
-   "puesto_ant": 52,
-   "puntos_ant": 53.8,
-   "cambio_puesto": -1,
-   "cambio_puntos": 0.5
+   "puesto_ant": 51,
+   "puntos_ant": 54.2,
+   "cambio_puesto": -2,
+   "cambio_puntos": 0.1
   },
   {
    "ticker": "ANA",
@@ -1120,9 +1120,9 @@
    "per_vs_grupo": 0.5655115069306075,
    "puesto": 34,
    "puesto_ant": 38,
-   "puntos_ant": 60.1,
+   "puntos_ant": 60.7,
    "cambio_puesto": 4,
-   "cambio_puntos": 3.1
+   "cambio_puntos": 2.5
   },
   {
    "ticker": "ANE",
@@ -1199,9 +1199,9 @@
    "per_vs_grupo": 0.7174326734835418,
    "puesto": 51,
    "puesto_ant": 53,
-   "puntos_ant": 53.8,
+   "puntos_ant": 54.1,
    "cambio_puesto": 2,
-   "cambio_puntos": 1.2
+   "cambio_puntos": 0.9
   },
   {
    "ticker": "ARM",
@@ -1508,9 +1508,9 @@
    "per_vs_grupo": 0.935186712100371,
    "puesto": 15,
    "puesto_ant": 15,
-   "puntos_ant": 74.9,
+   "puntos_ant": 75.1,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.0
+   "cambio_puntos": -0.2
   },
   {
    "ticker": "BBVA",
@@ -1582,9 +1582,9 @@
    "per_vs_grupo": 1.0,
    "puesto": 9,
    "puesto_ant": 10,
-   "puntos_ant": 79.0,
+   "puntos_ant": 79.7,
    "cambio_puesto": 1,
-   "cambio_puntos": 2.2
+   "cambio_puntos": 1.5
   },
   {
    "ticker": "BKT",
@@ -1657,9 +1657,9 @@
    "per_vs_grupo": 0.955703247104977,
    "puesto": 2,
    "puesto_ant": 2,
-   "puntos_ant": 84.0,
+   "puntos_ant": 84.6,
    "cambio_puesto": 0,
-   "cambio_puntos": 2.3
+   "cambio_puntos": 1.7
   },
   {
    "ticker": "CABK",
@@ -1734,9 +1734,9 @@
    "per_vs_grupo": 1.1458128129042022,
    "puesto": 7,
    "puesto_ant": 9,
-   "puntos_ant": 79.6,
+   "puntos_ant": 80.8,
    "cambio_puesto": 2,
-   "cambio_puntos": 2.3
+   "cambio_puntos": 1.1
   },
   {
    "ticker": "CAF",
@@ -1811,10 +1811,10 @@
    "per_grupo": 22.406675587358446,
    "per_vs_grupo": 0.666490963721276,
    "puesto": 39,
-   "puesto_ant": 42,
-   "puntos_ant": 58.5,
-   "cambio_puesto": 3,
-   "cambio_puntos": 1.6
+   "puesto_ant": 40,
+   "puntos_ant": 59.0,
+   "cambio_puesto": 1,
+   "cambio_puntos": 1.1
   },
   {
    "ticker": "CASH",
@@ -1886,9 +1886,9 @@
    "per_vs_grupo": 0.6933170893144804,
    "puesto": 8,
    "puesto_ant": 7,
-   "puntos_ant": 81.1,
+   "puntos_ant": 81.3,
    "cambio_puesto": -1,
-   "cambio_puntos": 0.4
+   "cambio_puntos": 0.2
   },
   {
    "ticker": "CBAV",
@@ -1963,9 +1963,9 @@
    "per_vs_grupo": 1.3340797022609492,
    "puesto": 76,
    "puesto_ant": 76,
-   "puntos_ant": 39.8,
+   "puntos_ant": 39.6,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.5
+   "cambio_puntos": 0.7
   },
   {
    "ticker": "CCEP",
@@ -2115,10 +2115,10 @@
    "per_grupo": 8.70070337617791,
    "per_vs_grupo": 0.7666760609839228,
    "puesto": 24,
-   "puesto_ant": 23,
-   "puntos_ant": 70.6,
-   "cambio_puesto": -1,
-   "cambio_puntos": 0.1
+   "puesto_ant": 24,
+   "puntos_ant": 70.4,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.3
   },
   {
    "ticker": "CIE",
@@ -2194,9 +2194,9 @@
    "per_vs_grupo": 0.6220894258013581,
    "puesto": 10,
    "puesto_ant": 8,
-   "puntos_ant": 81.1,
+   "puntos_ant": 81.3,
    "cambio_puesto": -2,
-   "cambio_puntos": -0.3
+   "cambio_puntos": -0.5
   },
   {
    "ticker": "CIRSA",
@@ -2270,9 +2270,9 @@
    "per_vs_grupo": 2.805931184422853,
    "puesto": 81,
    "puesto_ant": 81,
-   "puntos_ant": 36.8,
+   "puntos_ant": 37.1,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.2
+   "cambio_puntos": -0.1
   },
   {
    "ticker": "CLNX",
@@ -2349,9 +2349,9 @@
    "per_vs_grupo": null,
    "puesto": 99,
    "puesto_ant": 99,
-   "puntos_ant": 21.1,
+   "puntos_ant": 21.3,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.1
+   "cambio_puntos": -0.1
   },
   {
    "ticker": "CMO",
@@ -2427,9 +2427,9 @@
    "per_grupo": 15.113192255740657,
    "per_vs_grupo": 0.9164034383887428,
    "puesto": 58,
-   "puesto_ant": 56,
+   "puesto_ant": 57,
    "puntos_ant": 50.7,
-   "cambio_puesto": -2,
+   "cambio_puesto": -1,
    "cambio_puntos": -0.5
   },
   {
@@ -2501,10 +2501,10 @@
    "per_grupo": 8.70070337617791,
    "per_vs_grupo": 1.00199934120473,
    "puesto": 6,
-   "puesto_ant": 5,
-   "puntos_ant": 82.0,
-   "cambio_puesto": -1,
-   "cambio_puntos": 0.3
+   "puesto_ant": 6,
+   "puntos_ant": 82.1,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.2
   },
   {
    "ticker": "COXG",
@@ -2578,9 +2578,9 @@
    "per_vs_grupo": 0.9842845685469265,
    "puesto": 55,
    "puesto_ant": 58,
-   "puntos_ant": 50.4,
+   "puntos_ant": 50.3,
    "cambio_puesto": 3,
-   "cambio_puntos": 1.3
+   "cambio_puntos": 1.4
   },
   {
    "ticker": "DESA",
@@ -2730,9 +2730,9 @@
    "per_vs_grupo": 1.0,
    "puesto": 107,
    "puesto_ant": 107,
-   "puntos_ant": 15.1,
+   "puntos_ant": 15.4,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.0
+   "cambio_puntos": -0.3
   },
   {
    "ticker": "DOM",
@@ -2806,9 +2806,9 @@
    "per_vs_grupo": 1.169099709161842,
    "puesto": 70,
    "puesto_ant": 69,
-   "puntos_ant": 42.8,
+   "puntos_ant": 43.5,
    "cambio_puesto": -1,
-   "cambio_puntos": 0.1
+   "cambio_puntos": -0.6
   },
   {
    "ticker": "EAT",
@@ -2959,10 +2959,10 @@
    "per_grupo": 21.89504993022174,
    "per_vs_grupo": 0.5827840091127023,
    "puesto": 19,
-   "puesto_ant": 18,
-   "puntos_ant": 73.0,
-   "cambio_puesto": -1,
-   "cambio_puntos": 0.3
+   "puesto_ant": 17,
+   "puntos_ant": 73.1,
+   "cambio_puesto": -2,
+   "cambio_puntos": 0.2
   },
   {
    "ticker": "ECO",
@@ -3116,10 +3116,10 @@
    "per_grupo": 15.695158300022324,
    "per_vs_grupo": 0.6225386963649676,
    "puesto": 46,
-   "puesto_ant": 45,
-   "puntos_ant": 56.2,
-   "cambio_puesto": -1,
-   "cambio_puntos": 0.5
+   "puesto_ant": 46,
+   "puntos_ant": 55.9,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.8
   },
   {
    "ticker": "ELE",
@@ -3195,10 +3195,10 @@
    "per_grupo": 20.198292784349405,
    "per_vs_grupo": 1.0,
    "puesto": 35,
-   "puesto_ant": 37,
-   "puntos_ant": 61.3,
-   "cambio_puesto": 2,
-   "cambio_puntos": 1.2
+   "puesto_ant": 36,
+   "puntos_ant": 61.9,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.6
   },
   {
    "ticker": "ENC",
@@ -3351,9 +3351,9 @@
    "per_vs_grupo": 0.680842873102004,
    "puesto": 12,
    "puesto_ant": 11,
-   "puntos_ant": 78.8,
+   "puntos_ant": 79.1,
    "cambio_puesto": -1,
-   "cambio_puntos": 0.1
+   "cambio_puntos": -0.2
   },
   {
    "ticker": "ENO",
@@ -3583,10 +3583,10 @@
    "per_grupo": 21.56532372159146,
    "per_vs_grupo": 0.9004622194538419,
    "puesto": 40,
-   "puesto_ant": 40,
-   "puntos_ant": 58.8,
-   "cambio_puesto": 0,
-   "cambio_puntos": 1.0
+   "puesto_ant": 41,
+   "puntos_ant": 59.0,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.8
   },
   {
    "ticker": "FCC",
@@ -3664,9 +3664,9 @@
    "per_vs_grupo": 1.4958813368411978,
    "puesto": 36,
    "puesto_ant": 34,
-   "puntos_ant": 61.8,
+   "puntos_ant": 62.3,
    "cambio_puesto": -2,
-   "cambio_puntos": 0.5
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "FDR",
@@ -3739,10 +3739,10 @@
    "per_grupo": 15.113192255740657,
    "per_vs_grupo": 1.339688437166047,
    "puesto": 43,
-   "puesto_ant": 44,
-   "puntos_ant": 57.5,
-   "cambio_puesto": 1,
-   "cambio_puntos": 1.3
+   "puesto_ant": 43,
+   "puntos_ant": 58.2,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.6
   },
   {
    "ticker": "FER",
@@ -3977,9 +3977,9 @@
    "per_vs_grupo": 0.7330484503020097,
    "puesto": 27,
    "puesto_ant": 25,
-   "puntos_ant": 70.1,
+   "puntos_ant": 69.6,
    "cambio_puesto": -2,
-   "cambio_puntos": -1.2
+   "cambio_puntos": -0.7
   },
   {
    "ticker": "GRE",
@@ -4055,10 +4055,10 @@
    "per_grupo": 12.971424412257077,
    "per_vs_grupo": 1.258336646839643,
    "puesto": 91,
-   "puesto_ant": 97,
-   "puntos_ant": 23.6,
-   "cambio_puesto": 6,
-   "cambio_puntos": 5.8
+   "puesto_ant": 96,
+   "puntos_ant": 24.7,
+   "cambio_puesto": 5,
+   "cambio_puntos": 4.7
   },
   {
    "ticker": "GRF",
@@ -4133,10 +4133,10 @@
    "per_grupo": 21.56532372159146,
    "per_vs_grupo": 0.8790106436919618,
    "puesto": 82,
-   "puesto_ant": 82,
-   "puntos_ant": 34.7,
-   "cambio_puesto": 0,
-   "cambio_puntos": 1.2
+   "puesto_ant": 83,
+   "puntos_ant": 35.0,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.9
   },
   {
    "ticker": "GSJ",
@@ -4213,9 +4213,9 @@
    "per_vs_grupo": 0.48724036098748,
    "puesto": 29,
    "puesto_ant": 31,
-   "puntos_ant": 64.2,
+   "puntos_ant": 64.7,
    "cambio_puesto": 2,
-   "cambio_puntos": 2.5
+   "cambio_puntos": 2.0
   },
   {
    "ticker": "HOME",
@@ -4292,9 +4292,9 @@
    "per_vs_grupo": 0.8728843750349712,
    "puesto": 32,
    "puesto_ant": 32,
-   "puntos_ant": 64.0,
+   "puntos_ant": 64.3,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.6
+   "cambio_puntos": 0.3
   },
   {
    "ticker": "IAG",
@@ -4371,9 +4371,9 @@
    "per_vs_grupo": 0.4873927849090746,
    "puesto": 28,
    "puesto_ant": 28,
-   "puntos_ant": 67.0,
+   "puntos_ant": 66.9,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.0
+   "cambio_puntos": 0.1
   },
   {
    "ticker": "IBE",
@@ -4447,10 +4447,10 @@
    "per_grupo": 20.198292784349405,
    "per_vs_grupo": 1.2163982831648987,
    "puesto": 57,
-   "puesto_ant": 55,
-   "puntos_ant": 51.2,
-   "cambio_puesto": -2,
-   "cambio_puntos": 0.0
+   "puesto_ant": 54,
+   "puntos_ant": 51.4,
+   "cambio_puesto": -3,
+   "cambio_puntos": -0.2
   },
   {
    "ticker": "IBG",
@@ -4523,10 +4523,10 @@
    "per_grupo": 15.113192255740657,
    "per_vs_grupo": 1.9634672095480676,
    "puesto": 41,
-   "puesto_ant": 41,
-   "puntos_ant": 58.8,
-   "cambio_puesto": 0,
-   "cambio_puntos": 0.4
+   "puesto_ant": 42,
+   "puntos_ant": 58.4,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.8
   },
   {
    "ticker": "IDR",
@@ -4602,10 +4602,10 @@
    "per_grupo": 22.406675587358446,
    "per_vs_grupo": 0.9410017661495497,
    "puesto": 83,
-   "puesto_ant": 83,
-   "puntos_ant": 34.6,
-   "cambio_puesto": 0,
-   "cambio_puntos": 0.8
+   "puesto_ant": 82,
+   "puntos_ant": 35.5,
+   "cambio_puesto": -1,
+   "cambio_puntos": -0.1
   },
   {
    "ticker": "IMC",
@@ -4759,9 +4759,9 @@
    "per_grupo": 8.70070337617791,
    "per_vs_grupo": 0.9056300704746195,
    "puesto": 50,
-   "puesto_ant": 46,
+   "puesto_ant": 47,
    "puntos_ant": 55.5,
-   "cambio_puesto": -4,
+   "cambio_puesto": -3,
    "cambio_puntos": 0.1
   },
   {
@@ -4913,9 +4913,9 @@
    "per_vs_grupo": 4.073448528910276,
    "puesto": 95,
    "puesto_ant": 95,
-   "puntos_ant": 24.7,
+   "puntos_ant": 24.8,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.4
+   "cambio_puntos": 0.3
   },
   {
    "ticker": "LDA",
@@ -4984,10 +4984,10 @@
    "per_grupo": 11.916510997675314,
    "per_vs_grupo": 1.3123467844569003,
    "puesto": 17,
-   "puesto_ant": 19,
-   "puntos_ant": 72.7,
-   "cambio_puesto": 2,
-   "cambio_puntos": 1.4
+   "puesto_ant": 18,
+   "puntos_ant": 73.1,
+   "cambio_puesto": 1,
+   "cambio_puntos": 1.0
   },
   {
    "ticker": "LGT",
@@ -5062,9 +5062,9 @@
    "per_grupo": 15.113192255740657,
    "per_vs_grupo": null,
    "puesto": 96,
-   "puesto_ant": 96,
+   "puesto_ant": 97,
    "puntos_ant": 24.7,
-   "cambio_puesto": 0,
+   "cambio_puesto": 1,
    "cambio_puntos": 0.3
   },
   {
@@ -5143,9 +5143,9 @@
    "per_vs_grupo": 0.846069001424234,
    "puesto": 79,
    "puesto_ant": 79,
-   "puntos_ant": 37.7,
+   "puntos_ant": 37.9,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.1
+   "cambio_puntos": -0.1
   },
   {
    "ticker": "LOG",
@@ -5221,9 +5221,9 @@
    "per_vs_grupo": 1.0976032092948533,
    "puesto": 30,
    "puesto_ant": 30,
-   "puntos_ant": 65.6,
+   "puntos_ant": 66.1,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.8
+   "cambio_puntos": 0.3
   },
   {
    "ticker": "MAP",
@@ -5295,9 +5295,9 @@
    "per_vs_grupo": 0.9148832675447414,
    "puesto": 13,
    "puesto_ant": 13,
-   "puntos_ant": 76.1,
+   "puntos_ant": 76.4,
    "cambio_puesto": 0,
-   "cambio_puntos": 1.6
+   "cambio_puntos": 1.3
   },
   {
    "ticker": "MCM",
@@ -5530,10 +5530,10 @@
    "per_grupo": 15.695158300022324,
    "per_vs_grupo": 0.935514755077092,
    "puesto": 56,
-   "puesto_ant": 54,
-   "puntos_ant": 51.5,
-   "cambio_puesto": -2,
-   "cambio_puntos": 0.1
+   "puesto_ant": 55,
+   "puntos_ant": 51.4,
+   "cambio_puesto": -1,
+   "cambio_puntos": 0.2
   },
   {
    "ticker": "MRL",
@@ -5604,10 +5604,10 @@
    "per_grupo": 8.70070337617791,
    "per_vs_grupo": 0.9980006587952701,
    "puesto": 25,
-   "puesto_ant": 27,
-   "puntos_ant": 69.3,
-   "cambio_puesto": 2,
-   "cambio_puntos": 1.4
+   "puesto_ant": 26,
+   "puntos_ant": 69.6,
+   "cambio_puesto": 1,
+   "cambio_puntos": 1.1
   },
   {
    "ticker": "MTB",
@@ -5681,9 +5681,9 @@
    "per_vs_grupo": 1.0174712720142791,
    "puesto": 71,
    "puesto_ant": 70,
-   "puntos_ant": 41.8,
+   "puntos_ant": 41.6,
    "cambio_puesto": -1,
-   "cambio_puntos": 0.2
+   "cambio_puntos": 0.4
   },
   {
    "ticker": "MTS",
@@ -5758,10 +5758,10 @@
    "per_grupo": 15.113192255740657,
    "per_vs_grupo": 0.8916785992915707,
    "puesto": 49,
-   "puesto_ant": 50,
-   "puntos_ant": 54.1,
-   "cambio_puesto": 1,
-   "cambio_puntos": 1.6
+   "puesto_ant": 52,
+   "puntos_ant": 54.2,
+   "cambio_puesto": 3,
+   "cambio_puntos": 1.5
   },
   {
    "ticker": "MVC",
@@ -5837,9 +5837,9 @@
    "per_vs_grupo": 1.8422339197431703,
    "puesto": 59,
    "puesto_ant": 60,
-   "puntos_ant": 49.3,
+   "puntos_ant": 49.4,
    "cambio_puesto": 1,
-   "cambio_puntos": 0.5
+   "cambio_puntos": 0.4
   },
   {
    "ticker": "NEA",
@@ -5916,10 +5916,10 @@
    "per_grupo": 22.406675587358446,
    "per_vs_grupo": 0.45565105561345565,
    "puesto": 18,
-   "puesto_ant": 16,
-   "puntos_ant": 73.9,
-   "cambio_puesto": -2,
-   "cambio_puntos": -0.3
+   "puesto_ant": 19,
+   "puntos_ant": 73.1,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.5
   },
   {
    "ticker": "NTGY",
@@ -5996,9 +5996,9 @@
    "per_vs_grupo": 0.7134779903864039,
    "puesto": 5,
    "puesto_ant": 4,
-   "puntos_ant": 82.7,
+   "puntos_ant": 82.8,
    "cambio_puesto": -1,
-   "cambio_puntos": 0.7
+   "cambio_puntos": 0.6
   },
   {
    "ticker": "NTH",
@@ -6074,9 +6074,9 @@
    "per_vs_grupo": 0.551109691046698,
    "puesto": 64,
    "puesto_ant": 64,
-   "puntos_ant": 46.4,
+   "puntos_ant": 46.5,
    "cambio_puesto": 0,
-   "cambio_puntos": 0.6
+   "cambio_puntos": 0.5
   },
   {
    "ticker": "NXT",
@@ -6225,9 +6225,9 @@
    "per_grupo": 17.088823896684303,
    "per_vs_grupo": 2.5290516778742393,
    "puesto": 104,
-   "puesto_ant": 101,
+   "puesto_ant": 102,
    "puntos_ant": 18.4,
-   "cambio_puesto": -3,
+   "cambio_puesto": -2,
    "cambio_puntos": 0.0
   },
   {
@@ -6383,9 +6383,9 @@
    "per_vs_grupo": 0.6076046166084818,
    "puesto": 74,
    "puesto_ant": 75,
-   "puntos_ant": 40.1,
+   "puntos_ant": 40.2,
    "cambio_puesto": 1,
-   "cambio_puntos": 0.8
+   "cambio_puntos": 0.7
   },
   {
    "ticker": "ORY",
@@ -6537,10 +6537,10 @@
    "per_grupo": 21.56532372159146,
    "per_vs_grupo": 0.6533929391874825,
    "puesto": 45,
-   "puesto_ant": 47,
-   "puntos_ant": 55.4,
-   "cambio_puesto": 2,
-   "cambio_puntos": 1.9
+   "puesto_ant": 45,
+   "puntos_ant": 56.1,
+   "cambio_puesto": 0,
+   "cambio_puntos": 1.2
   },
   {
    "ticker": "PRM",
@@ -6613,10 +6613,10 @@
    "per_grupo": 15.695158300022324,
    "per_vs_grupo": 0.8002632854117073,
    "puesto": 20,
-   "puesto_ant": 17,
-   "puntos_ant": 73.2,
-   "cambio_puesto": -3,
-   "cambio_puntos": 0.1
+   "puesto_ant": 16,
+   "puntos_ant": 73.3,
+   "cambio_puesto": -4,
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "PRS",
@@ -6768,9 +6768,9 @@
    "per_vs_grupo": 0.8876390769329798,
    "puesto": 21,
    "puesto_ant": 20,
-   "puntos_ant": 72.4,
+   "puntos_ant": 71.9,
    "cambio_puesto": -1,
-   "cambio_puntos": 0.4
+   "cambio_puntos": 0.9
   },
   {
    "ticker": "PUIG",
@@ -6846,9 +6846,9 @@
    "per_grupo": 21.89504993022174,
    "per_vs_grupo": 0.7963594585948354,
    "puesto": 38,
-   "puesto_ant": 36,
+   "puesto_ant": 37,
    "puntos_ant": 61.7,
-   "cambio_puesto": -2,
+   "cambio_puesto": -1,
    "cambio_puntos": -0.3
   },
   {
@@ -6922,9 +6922,9 @@
    "per_grupo": 21.89504993022174,
    "per_vs_grupo": null,
    "puesto": 84,
-   "puesto_ant": 84,
+   "puesto_ant": 85,
    "puntos_ant": 33.8,
-   "cambio_puesto": 0,
+   "cambio_puesto": 1,
    "cambio_puntos": 0.0
   },
   {
@@ -7000,10 +7000,10 @@
    "per_grupo": 11.916510997675314,
    "per_vs_grupo": 1.698217269739074,
    "puesto": 44,
-   "puesto_ant": 43,
-   "puntos_ant": 57.9,
-   "cambio_puesto": -1,
-   "cambio_puntos": 0.0
+   "puesto_ant": 44,
+   "puntos_ant": 57.7,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.2
   },
   {
    "ticker": "RED",
@@ -7079,9 +7079,9 @@
    "per_vs_grupo": 0.8895154892587811,
    "puesto": 33,
    "puesto_ant": 29,
-   "puntos_ant": 66.3,
+   "puntos_ant": 66.2,
    "cambio_puesto": -4,
-   "cambio_puntos": -1.7
+   "cambio_puntos": -1.6
   },
   {
    "ticker": "REN",
@@ -7158,9 +7158,9 @@
    "per_vs_grupo": 0.44624622230727873,
    "puesto": 16,
    "puesto_ant": 21,
-   "puntos_ant": 71.9,
+   "puntos_ant": 71.6,
    "cambio_puesto": 5,
-   "cambio_puntos": 2.5
+   "cambio_puntos": 2.8
   },
   {
    "ticker": "REP",
@@ -7236,9 +7236,9 @@
    "per_vs_grupo": 1.0768955257885835,
    "puesto": 3,
    "puesto_ant": 3,
-   "puntos_ant": 83.0,
+   "puntos_ant": 84.4,
    "cambio_puesto": 0,
-   "cambio_puntos": 1.8
+   "cambio_puntos": 0.4
   },
   {
    "ticker": "RIO",
@@ -7469,9 +7469,9 @@
    "per_vs_grupo": 1.2723838614096263,
    "puesto": 60,
    "puesto_ant": 59,
-   "puntos_ant": 49.6,
+   "puntos_ant": 49.5,
    "cambio_puesto": -1,
-   "cambio_puntos": -0.1
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "ROVI",
@@ -7547,10 +7547,10 @@
    "per_grupo": 21.56532372159146,
    "per_vs_grupo": 1.0995377805461584,
    "puesto": 54,
-   "puesto_ant": 57,
-   "puntos_ant": 50.5,
-   "cambio_puesto": 3,
-   "cambio_puntos": 1.4
+   "puesto_ant": 56,
+   "puntos_ant": 50.9,
+   "cambio_puesto": 2,
+   "cambio_puntos": 1.0
   },
   {
    "ticker": "SAB",
@@ -7624,9 +7624,9 @@
    "per_vs_grupo": 0.8291924589883686,
    "puesto": 31,
    "puesto_ant": 33,
-   "puntos_ant": 63.4,
+   "puntos_ant": 63.8,
    "cambio_puesto": 2,
-   "cambio_puntos": 1.4
+   "cambio_puntos": 1.0
   },
   {
    "ticker": "SAN",
@@ -7698,9 +7698,9 @@
    "per_vs_grupo": 0.9126226973371135,
    "puesto": 11,
    "puesto_ant": 12,
-   "puntos_ant": 78.3,
+   "puntos_ant": 78.7,
    "cambio_puesto": 1,
-   "cambio_puntos": 0.9
+   "cambio_puntos": 0.5
   },
   {
    "ticker": "SCYR",
@@ -7779,9 +7779,9 @@
    "per_vs_grupo": 1.8740681763573523,
    "puesto": 94,
    "puesto_ant": 93,
-   "puntos_ant": 25.7,
+   "puntos_ant": 25.9,
    "cambio_puesto": -1,
-   "cambio_puntos": 1.0
+   "cambio_puntos": 0.8
   },
   {
    "ticker": "SLR",
@@ -7858,9 +7858,9 @@
    "per_vs_grupo": 1.0,
    "puesto": 69,
    "puesto_ant": 72,
-   "puntos_ant": 41.1,
+   "puntos_ant": 41.2,
    "cambio_puesto": 3,
-   "cambio_puntos": 2.8
+   "cambio_puntos": 2.7
   },
   {
    "ticker": "SOL",
@@ -8015,9 +8015,9 @@
    "per_vs_grupo": 4.956585366847958,
    "puesto": 88,
    "puesto_ant": 89,
-   "puntos_ant": 29.9,
+   "puntos_ant": 30.3,
    "cambio_puesto": 1,
-   "cambio_puntos": 1.1
+   "cambio_puntos": 0.7
   },
   {
    "ticker": "TEF",
@@ -8092,10 +8092,10 @@
    "per_grupo": 20.198292784349405,
    "per_vs_grupo": null,
    "puesto": 75,
-   "puesto_ant": 73,
-   "puntos_ant": 40.3,
-   "cambio_puesto": -2,
-   "cambio_puntos": 0.1
+   "puesto_ant": 74,
+   "puntos_ant": 40.5,
+   "cambio_puesto": -1,
+   "cambio_puntos": -0.1
   },
   {
    "ticker": "TLGO",
@@ -8173,9 +8173,9 @@
    "per_vs_grupo": null,
    "puesto": 106,
    "puesto_ant": 106,
-   "puntos_ant": 17.3,
+   "puntos_ant": 17.2,
    "cambio_puesto": 0,
-   "cambio_puntos": -0.1
+   "cambio_puntos": 0.0
   },
   {
    "ticker": "TRE",
@@ -8250,10 +8250,10 @@
    "per_grupo": 22.406675587358446,
    "per_vs_grupo": 0.6475299164645425,
    "puesto": 73,
-   "puesto_ant": 74,
-   "puntos_ant": 40.2,
-   "cambio_puesto": 1,
-   "cambio_puntos": 0.9
+   "puesto_ant": 73,
+   "puntos_ant": 40.6,
+   "cambio_puesto": 0,
+   "cambio_puntos": 0.5
   },
   {
    "ticker": "TSK",
@@ -8351,9 +8351,9 @@
    "per_vs_grupo": null,
    "puesto": 87,
    "puesto_ant": 86,
-   "puntos_ant": 30.9,
+   "puntos_ant": 31.1,
    "cambio_puesto": -1,
-   "cambio_puntos": 0.7
+   "cambio_puntos": 0.5
   },
   {
    "ticker": "UNI",
@@ -8424,10 +8424,10 @@
    "per_grupo": 11.916510997675314,
    "per_vs_grupo": 1.1022179522547477,
    "puesto": 4,
-   "puesto_ant": 6,
-   "puntos_ant": 81.8,
-   "cambio_puesto": 2,
-   "cambio_puntos": 2.5
+   "puesto_ant": 5,
+   "puntos_ant": 82.8,
+   "cambio_puesto": 1,
+   "cambio_puntos": 1.5
   },
   {
    "ticker": "VID",
@@ -8501,9 +8501,9 @@
    "per_vs_grupo": 0.9956662528135714,
    "puesto": 42,
    "puesto_ant": 39,
-   "puntos_ant": 59.9,
+   "puntos_ant": 59.6,
    "cambio_puesto": -3,
-   "cambio_puntos": -0.7
+   "cambio_puntos": -0.4
   },
   {
    "ticker": "VIS",
@@ -8576,10 +8576,10 @@
    "per_grupo": 15.695158300022324,
    "per_vs_grupo": 1.0043337471864286,
    "puesto": 22,
-   "puesto_ant": 24,
-   "puntos_ant": 70.2,
-   "cambio_puesto": 2,
-   "cambio_puntos": 1.1
+   "puesto_ant": 23,
+   "puntos_ant": 70.6,
+   "cambio_puesto": 1,
+   "cambio_puntos": 0.7
   },
   {
    "ticker": "VOC",
@@ -8653,9 +8653,9 @@
    "per_vs_grupo": 1.0,
    "puesto": 66,
    "puesto_ant": 65,
-   "puntos_ant": 45.8,
+   "puntos_ant": 45.9,
    "cambio_puesto": -1,
-   "cambio_puntos": 0.0
+   "cambio_puntos": -0.1
   }
  ],
  "growth": [
@@ -9117,6 +9117,78 @@
    "salto_n": 1
   },
   {
+   "ticker": "BYTE",
+   "empresa": "Bytetravel",
+   "modelo": "GEN",
+   "modulos": [],
+   "grupo": "growth",
+   "descripcion": "Traveltech: visados y servicios de viaje online",
+   "n_anios": 2,
+   "avisos": [
+    "cotización solo desde 2026-01-02"
+   ],
+   "ultimo": "2025",
+   "primero": "2024",
+   "moneda": "EUR",
+   "normas": "PGC (cuentas consolidadas)",
+   "ingresos": 19.428,
+   "ebitda": 0.5740000000000001,
+   "mg_ebit": 0.017449042618900557,
+   "beneficio": 0.216,
+   "patrimonio": 6.626,
+   "deuda_neta": -4.105,
+   "dn_ebitda": -7.151567944250871,
+   "ltv": null,
+   "fcf": null,
+   "roe": 0.03259885300332025,
+   "cagr_ing": null,
+   "cagr_tramo": null,
+   "roe_med5": null,
+   "perdidas5": 0,
+   "anios5": 2,
+   "precio": 4.0,
+   "fecha_precio": "2026-11-23",
+   "var_1a": null,
+   "vs_max52": -0.29824561403508776,
+   "pos52": 0.0,
+   "cap": 122.697456,
+   "acciones_fuente": "Avisos de BME Growth: 29.984.127 acciones incorporadas el 3-jul-2026 (paso desde BME Scaleup) + 690.237 de la ampliación incorporada el 27-jul-2026. Las cuentas 2025 traen 3.384.127 acciones de antes del cambio de nominal; no se usan.",
+   "_acc": 30.674364,
+   "per": 568.0437777777778,
+   "pvc": 18.517575611228494,
+   "rpd_fuente": "flujo de caja (dividendos pagados) / capitalización",
+   "rpd": null,
+   "dilucion": null,
+   "recompra": null,
+   "ev_ebitda": 206.60706620209058,
+   "fcf_yield": null,
+   "payout": null,
+   "paga_sin_beneficio": false,
+   "etiquetas": [],
+   "estado": "universo",
+   "puntos": {
+    "total": 20.4,
+    "dividendo": 0,
+    "calidad": 58,
+    "valoracion": 0,
+    "nota": "sin dividendo ni recompras"
+   },
+   "radar_app": null,
+   "salto_fase": "Lejos",
+   "salto_anios": 0.4,
+   "salto_niif": "no",
+   "salto_referencia": false,
+   "salto_ultimo": null,
+   "salto": {
+    "Tamaño": false,
+    "Años": false,
+    "NIIF": false,
+    "Intención": false,
+    "Pasos": false
+   },
+   "salto_n": 0
+  },
+  {
    "ticker": "VYT",
    "empresa": "Vytrus Biotech",
    "modelo": "GEN",
@@ -9179,6 +9251,148 @@
    "radar_app": 37.5,
    "salto_fase": "Lejos",
    "salto_anios": 4.7,
+   "salto_niif": "no",
+   "salto_referencia": false,
+   "salto_ultimo": null,
+   "salto": {
+    "Tamaño": false,
+    "Años": true,
+    "NIIF": false,
+    "Intención": false,
+    "Pasos": false
+   },
+   "salto_n": 1
+  },
+  {
+   "ticker": "APG",
+   "empresa": "Axon Partners Group",
+   "modelo": "GEN",
+   "modulos": [
+    "PATRIMONIOS"
+   ],
+   "grupo": "growth",
+   "descripcion": "Gestión de activos alternativos y consultoría",
+   "n_anios": 2,
+   "avisos": [],
+   "ultimo": "2025",
+   "primero": "2024",
+   "moneda": "EUR",
+   "normas": "PGC (cuentas consolidadas)",
+   "ingresos": 26.365,
+   "ebitda": 8.965,
+   "mg_ebit": 0.32649345723497064,
+   "beneficio": 6.355,
+   "patrimonio": 29.574,
+   "deuda_neta": -5.411,
+   "dn_ebitda": -0.603569436698271,
+   "ltv": null,
+   "fcf": null,
+   "roe": 0.2148846960167715,
+   "cagr_ing": null,
+   "cagr_tramo": null,
+   "roe_med5": null,
+   "perdidas5": 0,
+   "anios5": 2,
+   "precio": 18.2,
+   "fecha_precio": "2026-11-23",
+   "var_1a": 0.2133333333333333,
+   "vs_max52": -0.005464480874317017,
+   "pos52": 0.9729729729729726,
+   "cap": 96.59540799999999,
+   "acciones_fuente": "cuentas consolidadas 2025: capital 530.744 € (nominal 0,10 €); boletín de BME 5.307.435",
+   "_acc": 5.30744,
+   "per": 15.199906845003932,
+   "pvc": 3.266227361871914,
+   "rpd_fuente": "flujo de caja (dividendos pagados) / capitalización",
+   "rpd": null,
+   "dilucion": null,
+   "recompra": null,
+   "ev_ebitda": 10.17115538204127,
+   "fcf_yield": null,
+   "payout": null,
+   "paga_sin_beneficio": false,
+   "etiquetas": [],
+   "estado": "universo",
+   "puntos": {
+    "total": 47.7,
+    "dividendo": 0,
+    "calidad": 100,
+    "valoracion": 42,
+    "nota": "sin dividendo ni recompras"
+   },
+   "radar_app": null,
+   "salto_fase": "Lejos",
+   "salto_anios": 4.3,
+   "salto_niif": "no",
+   "salto_referencia": false,
+   "salto_ultimo": null,
+   "salto": {
+    "Tamaño": false,
+    "Años": true,
+    "NIIF": false,
+    "Intención": false,
+    "Pasos": false
+   },
+   "salto_n": 1
+  },
+  {
+   "ticker": "ALQ",
+   "empresa": "Alquiber Quality",
+   "modelo": "GEN",
+   "modulos": [],
+   "grupo": "growth",
+   "descripcion": "Renting flexible de vehículos",
+   "n_anios": 2,
+   "avisos": [],
+   "ultimo": "2025",
+   "primero": "2024",
+   "moneda": "EUR",
+   "normas": "PGC (cuentas individuales; deuda financiera incluye arrendamiento financiero de la flota)",
+   "ingresos": 164.279,
+   "ebitda": 95.139,
+   "mg_ebit": 0.13320631364934044,
+   "beneficio": 7.994,
+   "patrimonio": 53.305,
+   "deuda_neta": 237.78799999999998,
+   "dn_ebitda": 2.4993745992705407,
+   "ltv": null,
+   "fcf": null,
+   "roe": 0.14996717005909388,
+   "cagr_ing": null,
+   "cagr_tramo": null,
+   "roe_med5": null,
+   "perdidas5": 0,
+   "anios5": 2,
+   "precio": 15.3,
+   "fecha_precio": "2026-11-23",
+   "var_1a": 0.2338709677419355,
+   "vs_max52": -0.11560693641618497,
+   "pos52": 0.6226415094339623,
+   "cap": 82.6417413,
+   "acciones_fuente": "cuentas 2025: capital 5.401.421 € (nominal 1 €)",
+   "_acc": 5.401421,
+   "per": 10.337971140855643,
+   "pvc": 1.5503562761467031,
+   "rpd_fuente": "flujo de caja (dividendos pagados) / capitalización",
+   "rpd": null,
+   "dilucion": null,
+   "recompra": null,
+   "ev_ebitda": 3.3680167050315855,
+   "fcf_yield": null,
+   "payout": null,
+   "paga_sin_beneficio": false,
+   "etiquetas": [],
+   "estado": "universo",
+   "puntos": {
+    "total": 54.7,
+    "dividendo": 0,
+    "calidad": 84,
+    "valoracion": 85,
+    "nota": "sin dividendo ni recompras"
+   },
+   "radar_app": null,
+   "salto_fase": "Lejos",
+   "salto_anios": 8.4,
    "salto_niif": "no",
    "salto_referencia": false,
    "salto_ultimo": null,
@@ -9652,176 +9866,6 @@
     "Pasos": false
    },
    "salto_n": 1
-  },
-  {
-   "ticker": "APG",
-   "empresa": "Axon Partners Group",
-   "modelo": "GEN",
-   "modulos": [
-    "PATRIMONIOS"
-   ],
-   "grupo": "growth",
-   "descripcion": "Gestión de activos alternativos y consultoría",
-   "n_anios": 2,
-   "avisos": [
-    "sin cotización en el repositorio"
-   ],
-   "ultimo": "2025",
-   "primero": "2024",
-   "moneda": "EUR",
-   "normas": "PGC (cuentas consolidadas)",
-   "ingresos": 26.365,
-   "ebitda": 8.965,
-   "mg_ebit": 0.32649345723497064,
-   "beneficio": 6.355,
-   "patrimonio": 29.574,
-   "deuda_neta": -5.411,
-   "dn_ebitda": -0.603569436698271,
-   "ltv": null,
-   "fcf": null,
-   "roe": 0.2148846960167715,
-   "cagr_ing": null,
-   "cagr_tramo": null,
-   "roe_med5": null,
-   "perdidas5": 0,
-   "anios5": 2,
-   "payout": null,
-   "paga_sin_beneficio": false,
-   "etiquetas": [],
-   "estado": "universo",
-   "puntos": {
-    "total": 50.0,
-    "dividendo": 0,
-    "calidad": 100,
-    "valoracion": 50,
-    "nota": "sin dividendo ni recompras"
-   },
-   "radar_app": null,
-   "salto_fase": "Lejos",
-   "salto_anios": 4.3,
-   "salto_niif": "no",
-   "salto_referencia": false,
-   "salto_ultimo": null,
-   "salto": {
-    "Tamaño": false,
-    "Años": true,
-    "NIIF": false,
-    "Intención": false,
-    "Pasos": false
-   },
-   "salto_n": 1
-  },
-  {
-   "ticker": "ALQ",
-   "empresa": "Alquiber Quality",
-   "modelo": "GEN",
-   "modulos": [],
-   "grupo": "growth",
-   "descripcion": "Renting flexible de vehículos",
-   "n_anios": 2,
-   "avisos": [
-    "sin cotización en el repositorio"
-   ],
-   "ultimo": "2025",
-   "primero": "2024",
-   "moneda": "EUR",
-   "normas": "PGC (cuentas individuales; deuda financiera incluye arrendamiento financiero de la flota)",
-   "ingresos": 164.279,
-   "ebitda": 95.139,
-   "mg_ebit": 0.13320631364934044,
-   "beneficio": 7.994,
-   "patrimonio": 53.305,
-   "deuda_neta": 237.78799999999998,
-   "dn_ebitda": 2.4993745992705407,
-   "ltv": null,
-   "fcf": null,
-   "roe": 0.14996717005909388,
-   "cagr_ing": null,
-   "cagr_tramo": null,
-   "roe_med5": null,
-   "perdidas5": 0,
-   "anios5": 2,
-   "payout": null,
-   "paga_sin_beneficio": false,
-   "etiquetas": [],
-   "estado": "universo",
-   "puntos": {
-    "total": 44.3,
-    "dividendo": 0,
-    "calidad": 84,
-    "valoracion": 50,
-    "nota": "sin dividendo ni recompras"
-   },
-   "radar_app": null,
-   "salto_fase": "Lejos",
-   "salto_anios": 8.4,
-   "salto_niif": "no",
-   "salto_referencia": false,
-   "salto_ultimo": null,
-   "salto": {
-    "Tamaño": false,
-    "Años": true,
-    "NIIF": false,
-    "Intención": false,
-    "Pasos": false
-   },
-   "salto_n": 1
-  },
-  {
-   "ticker": "BYTE",
-   "empresa": "Bytetravel",
-   "modelo": "GEN",
-   "modulos": [],
-   "grupo": "growth",
-   "descripcion": "Traveltech: visados y servicios de viaje online",
-   "n_anios": 2,
-   "avisos": [
-    "sin cotización en el repositorio"
-   ],
-   "ultimo": "2025",
-   "primero": "2024",
-   "moneda": "EUR",
-   "normas": "PGC (cuentas consolidadas)",
-   "ingresos": 19.428,
-   "ebitda": 0.5740000000000001,
-   "mg_ebit": 0.017449042618900557,
-   "beneficio": 0.216,
-   "patrimonio": 6.626,
-   "deuda_neta": -4.105,
-   "dn_ebitda": -7.151567944250871,
-   "ltv": null,
-   "fcf": null,
-   "roe": 0.03259885300332025,
-   "cagr_ing": null,
-   "cagr_tramo": null,
-   "roe_med5": null,
-   "perdidas5": 0,
-   "anios5": 2,
-   "payout": null,
-   "paga_sin_beneficio": false,
-   "etiquetas": [],
-   "estado": "universo",
-   "puntos": {
-    "total": 35.4,
-    "dividendo": 0,
-    "calidad": 58,
-    "valoracion": 50,
-    "nota": "sin dividendo ni recompras"
-   },
-   "radar_app": null,
-   "salto_fase": "Lejos",
-   "salto_anios": 0.4,
-   "salto_niif": "no",
-   "salto_referencia": false,
-   "salto_ultimo": null,
-   "salto": {
-    "Tamaño": false,
-    "Años": false,
-    "NIIF": false,
-    "Intención": false,
-    "Pasos": false
-   },
-   "salto_n": 0
   }
  ],
  "grupos": {
@@ -9876,7 +9920,7 @@
    "puntos_media": 76.37777777777778
   }
  },
- "movimientos_desde": "2026-11-17",
+ "movimientos_desde": "2026-11-18",
  "matriz": "Matriz v3 — definitiva (borrador 11)",
  "cartera_fecha": null,
  "n": {
