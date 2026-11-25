@@ -1,0 +1,74 @@
+{
+ "origen": "metodo-v3-bme-busqueda",
+ "generado": "2026-11-25T08:09",
+ "ultima_busqueda": "2026-11-24",
+ "proxima_busqueda": "2027-02-05",
+ "umbrales": "≥50 M€ en bolsa, beneficio positivo, y dividendo o ventas +15 %; sin SOCIMIs ni inmobiliarias",
+ "nuevas": [
+  "ALQ",
+  "APG",
+  "BYTE",
+  "AIG",
+  "AMEN",
+  "PANG",
+  "STNA"
+ ],
+ "pendientes_de_carlos": [],
+ "empresas": [
+  {
+   "ticker": "ALQ",
+   "nombre": "Alquiber Quality",
+   "visto": "2026-11-24",
+   "resultado": "pasa",
+   "decision": "radar",
+   "datos": "ventas 2025 164,3 M€ (+13,7 %), beneficio 8,0 M€, dividendo 0,33 €/acción",
+   "fuente": "presentación de resultados 2025 en BME Growth (abr-2026)"
+  },
+  {
+   "ticker": "APG",
+   "nombre": "Axon Partners Group",
+   "visto": "2026-11-24",
+   "resultado": "pasa",
+   "decision": "radar",
+   "datos": "ventas 2025 25,2 M€ (+16,6 %), BAI 8,4 M€, dividendo 0,89 €/acción",
+   "fuente": "comunicado de resultados 2025 de la empresa"
+  },
+  {
+   "ticker": "BYTE",
+   "nombre": "Bytetravel",
+   "visto": "2026-11-24",
+   "resultado": "pasa por poco",
+   "decision": "radar",
+   "datos": "ventas 2025 19,4 M€ (+74 %), beneficio 245.838 € (individuales), sin dividendo",
+   "fuente": "acta de la junta del 8-jun-2026"
+  },
+  {
+   "ticker": "AIG",
+   "nombre": "Andino Inversiones Global",
+   "visto": "2026-11-24",
+   "resultado": "fuera",
+   "motivo": "pérdidas 2025 (-9,6 M€)"
+  },
+  {
+   "ticker": "AMEN",
+   "nombre": "Aeternal Mentis",
+   "visto": "2026-11-24",
+   "resultado": "fuera",
+   "motivo": "pérdidas 2025 (-2,0 M€)"
+  },
+  {
+   "ticker": "PANG",
+   "nombre": "Pangaea Oncology",
+   "visto": "2026-11-24",
+   "resultado": "fuera",
+   "motivo": "pérdidas 2025 (-3,6 M€, S&P) y ventas +1,8 %"
+  },
+  {
+   "ticker": "STNA",
+   "nombre": "Santa Ana Global Enterprises",
+   "visto": "2026-11-24",
+   "resultado": "fuera",
+   "motivo": "promotora inmobiliaria y pérdidas"
+  }
+ ]
+}

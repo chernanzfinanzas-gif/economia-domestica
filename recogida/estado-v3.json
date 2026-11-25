@@ -1,18 +1,13 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-25T08:47",
+ "generado": "2026-11-25T09:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-25T08:45",
+  "cuando": "2026-11-25T09:45",
   "ficheros": [
-   "recogida/publicaciones/ATSI.json",
-   "recogida/publicaciones/GRE.json",
-   "recogida/publicaciones/IDR.json",
-   "recogida/publicaciones/MVC.json",
-   "recogida/publicaciones/_indice.json",
-   "recogida/publicaciones/dias/2026-11.json"
+   "recogida/bme-candidatas.json"
   ]
  },
  "rechazos": [],
@@ -1352,6 +1347,18 @@
    "estado": "resuelto",
    "resuelto": "2026-11-24T19:29",
    "como": "Arreglado en el chat (24-nov): el lector sí leía el EBITDA y el EBIT de 9M-2026, pero no los podía confirmar porque en 9M-2025 cogía la tabla «sin UK» (63.337 en vez de 59.421). Cifras de los dos 9M leídas en sus documentos y escritas en datos/CBAV/_confirmado_a_mano.json; paquete rehecho (el anterior queda como «sustituida») y nota escrita.",
+   "comprobado": null
+  },
+  {
+   "id": "P438996d8",
+   "creado": "2026-11-25T08:57",
+   "origen": "cruce con la nube",
+   "ticker": "FAE",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (25/11/2026 08:41)",
+   "detalle": "nº 43828: Pago de dividendo",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
    "comprobado": null
   }
  ],
