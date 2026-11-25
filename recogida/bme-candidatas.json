@@ -1,6 +1,6 @@
 {
  "origen": "metodo-v3-bme-busqueda",
- "generado": "2026-11-25T08:09",
+ "generado": "2026-11-25T09:03",
  "ultima_busqueda": "2026-11-24",
  "proxima_busqueda": "2027-02-05",
  "umbrales": "≥50 M€ en bolsa, beneficio positivo, y dividendo o ventas +15 %; sin SOCIMIs ni inmobiliarias",
@@ -13,7 +13,13 @@
   "PANG",
   "STNA"
  ],
- "pendientes_de_carlos": [],
+ "altas": [
+  "ALQ",
+  "APG",
+  "BYTE"
+ ],
+ "dudosas": [],
+ "alta_sin_hacer": [],
  "empresas": [
   {
    "ticker": "ALQ",
