@@ -15,6 +15,20 @@
    "que": "Cada vez que la app pinta los avisos del Panel, guarda una copia en Drive (avisos-panel.json) y el correo de la noche la lee: lo nuevo del día y el resto por grupos.",
    "efecto": "Si un día no abres la app, el correo lo dice y enseña los avisos de la última vez que la abriste.",
    "donde": "Panel › Avisos"
+  },
+  {
+   "fecha": "2026-11-25",
+   "titulo": "Universo: las de BME Growth salen con su fase hacia el Continuo",
+   "que": "La tabla de BME Growth y el detalle de cada empresa enseñan la fase del termómetro nuevo (En marcha, Preparando, Candidata, Lejos), los años en BME Growth y la última señal, en lugar del antiguo «x de 5». Ordenadas por fase.",
+   "efecto": "Se ve de un vistazo cuáles se mueven hacia el Mercado Continuo: hoy Indexa en marcha y Clerhp preparando.",
+   "donde": "Universo › filtro «Solo BME Growth» y pinchar una empresa"
+  },
+  {
+   "fecha": "2026-11-25",
+   "titulo": "Altas automáticas de BME Growth cada trimestre",
+   "que": "La búsqueda trimestral (5 de febrero, mayo, agosto y noviembre) da de alta sola en el universo a las empresas nuevas de BME Growth que cumplen tus umbrales, con su cotización y sus cuentas si las encuentra.",
+   "efecto": "El correo de la noche de ese día dice cuáles han entrado y si falta algún documento; la clasificación en la Matriz queda provisional para que la revises.",
+   "donde": "Universo (y correo de la noche)"
   }
  ]
 }
