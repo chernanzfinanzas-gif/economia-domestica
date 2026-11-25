@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <script>/* PUERTA DE ENTRADA (12-nov-2026, Carlos: «¿no era el tercer paso quitar lo viejo?»).
-   La app es la de nueva/. Esta página solo lleva allí. La app de siempre queda guardada aparte en vieja.html
-   (consulta, no guarda); los enlaces antiguos con ?vieja=1 siguen funcionando. */
-(function(){ try{ location.replace(/[?&]vieja=1\b/.test(location.search)?'vieja.html':'nueva/'); }catch(e){} })();</script>
+   La app es la de nueva/. Esta página solo lleva allí.
+   25-nov-2026 (Carlos: «borraría lo de la app vieja»): retirada la app de siempre (vieja.html y la carpeta js/ de la raíz).
+   Se conserva la consulta de la dirección (?v=panel de los accesos del icono). */
+(function(){ try{ location.replace('nueva/'+(location.search||'')); }catch(e){} })();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#1f3d6b">
 <title>Economía Doméstica</title>

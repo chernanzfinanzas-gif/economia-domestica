@@ -45,15 +45,15 @@
       try{ var bt=(typeof window.nBaseDrive==='function')?window.nBaseDrive():null;
         if(bt&&typeof window.nAplicarPendiente==='function'){
           var B=JSON.parse(bt), o=window.nAplicarPendiente(JSON.parse(bt),B,R);   /* cuánto ha cambiado el otro aparato */
-          window.nAplicarPendiente(R,B,DB);                                       /* a lo de Drive, lo que cambió esta sesión */
-          Object.keys(R).forEach(function(k){ DB[k]=R[k]; });
+          window.nAplicarPendiente(R,B,JSON.parse(JSON.stringify((typeof khDBParaDrive==='function'?khDBParaDrive():DB))));   /* a lo de Drive, lo que cambió esta sesión (25-nov: comparado sin los dividendos del repo, como la base) */
+          Object.keys(R).forEach(function(k){ DB[k]=R[k]; }); try{ if(typeof khDivRepoRestaurar==='function') khDivRepoRestaurar(); }catch(_){}
           n=(o.n||0)+(o.s||0); c={cambios:n}; tres=true; } }catch(e){ try{ console.warn('[n-guardado] tres vías',e); }catch(_){} tres=false; }
       if(!tres){ c=juntar(DB,R); n=0; Object.keys(c).forEach(function(k){ n+=c[k]; }); }
       _lastMod=mod;
       window._nUltimaJunta={cuando:new Date().toISOString(),cuenta:c,tres:tres};
       try{ if(n&&typeof renderAll==='function') renderAll(); }catch(e){}
       try{ if(tres){ if(typeof setFileStatus==='function') setFileStatus('ok',n?('Juntado con el otro aparato: '+n+' cambio'+(n===1?'':'s')+' suyo'+(n===1?'':'s')+' incorporado'+(n===1?'':'s')):'Juntado con la versión de Drive'); } else if(typeof setFileStatus==='function') setFileStatus('ok',n?('Juntado con el otro aparato: '+n+' registro'+(n===1?'':'s')+' recuperado'+(n===1?'':'s')+(c.movimientos?' ('+c.movimientos+' movimiento'+(c.movimientos===1?'':'s')+')':'')):'Juntado con la versión de Drive'); }catch(e){}
-      try{ window._nTxtTrasJunta=JSON.stringify(DB); }catch(e){}
+      try{ if(!tres&&typeof khDivRepoRestaurar==='function') khDivRepoRestaurar(); window._nTxtTrasJunta=JSON.stringify((typeof khDBParaDrive==='function'?khDBParaDrive():DB)); }catch(e){}
     }
     return {conflict:true};   /* tras tres intentos seguidos, como antes: pregunta */
   };

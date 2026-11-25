@@ -33,14 +33,14 @@
   /* ---------- operaciones de todas las carteras (también cerradas) ---------- */
   function todasOps(){
     var L=[]; (DB.operaciones||[]).forEach(function(o){ if(o.fecha&&num_(o.acciones)>0) L.push({t:String(o.ticker||'').toUpperCase(),cart:o.cartera||'Propia',fecha:o.fecha,tipo:o.tipo,acc:num_(o.acciones),pr:num_(o.precio),com:(typeof khComision==='function')?khComision(o):num_(o.comision)}); });
-    (DB.cerradas||[]).forEach(function(c){ (c.ops||[]).forEach(function(o){ if(o.fecha&&num_(o.acciones)>0) L.push({t:String(c.ticker||'').toUpperCase(),cart:c.cartera||'Propia',fecha:o.fecha,tipo:o.tipo,acc:num_(o.acciones),pr:num_(o.precio),com:num_(o.comision),cerrada:true}); }); });
+    (DB.cerradas||[]).forEach(function(c){ (c.ops||[]).forEach(function(o){ if(o.fecha&&num_(o.acciones)>0) L.push({t:String(c.ticker||'').toUpperCase(),cart:c.cartera||'Propia',fecha:o.fecha,tipo:o.tipo,acc:num_(o.acciones),pr:num_(o.precio),com:(typeof khComision==='function')?khComision(o):num_(o.comision),cerrada:true}); }); });
     return L.sort(function(a,b){ var c=a.fecha.localeCompare(b.fecha); return c||((a.tipo==='venta'?1:0)-(b.tipo==='venta'?1:0)); }); }
   /* FIFO por (valor, cartera) con comisiones dentro de la base, como la pestaña de siempre */
-  function fifo(L){ var Q={}, R=[];
-    L.forEach(function(o){ var k=o.t+'|'+o.cart, q=Q[k]=Q[k]||[];
-      if(o.tipo==='venta'){ var pv=o.acc>0?o.pr-o.com/o.acc:o.pr, rem=o.acc;
-        while(rem>1e-6&&q.length){ var l=q[0], tk=Math.min(rem,l.acc); R.push({t:o.t,cart:o.cart,fechaV:o.fecha,fechaC:l.fecha,acc:tk,pc:l.p,pv:pv,gan:(pv-l.p)*tk}); l.acc-=tk; rem-=tk; if(l.acc<=1e-6) q.shift(); } }
-      else q.push({fecha:o.fecha,acc:o.acc,p:o.acc>0?(o.acc*o.pr+o.com)/o.acc:o.pr}); });
+  /* 25-nov-2026: las ventas salen del motor FIFO único de la app (nFifo, n-20-fifo.js), el mismo de Cartera y Lotes.
+     Así Cartera y Fiscalidad no pueden dar dos ganancias distintas de la misma venta. Precio de venta neto de su comisión. */
+  function fifo(L){ var R=[];
+    nFifo(nFifoOpsTodas()).sold.forEach(function(s){ var pv=s.acc>0?s.pv-s.comV/s.acc:s.pv;
+      R.push({t:s.ticker,cart:s.cartera,fechaV:s.fVenta,fechaC:s.fecha,acc:s.acc,pc:s.pc,pv:pv,gan:(pv-s.pc)*s.acc}); });
     return R; }
   function accionesEn(L,t,cart,f){ var a=0; L.forEach(function(o){ if(o.t===t&&o.cart===cart&&o.fecha<=f) a+=(o.tipo==='venta'?-1:1)*o.acc; }); return Math.max(0,a); }
 

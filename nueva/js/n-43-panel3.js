@@ -82,8 +82,8 @@
   function tiene(t){ try{ return invPositions().some(function(p){ return String(p.ticker||'').toUpperCase()===t && (+p.acciones||0)>0.0001; }); }catch(e){ return false; } }
   window.nTiene=tiene;
   function cargarLib(){
-    if(typeof khEvCargar!=='function') return;
-    khEvCargar().then(function(){
+    if(typeof khEvCargar!=='function') return Promise.resolve();
+    return khEvCargar().then(function(){
       var out=[], hoy=hoyIso(), lim=new Date(Date.now()-60*864e5).toISOString().slice(0,10);
       var T={}; try{ invPositions().forEach(function(p){ if((+p.acciones||0)>0.0001) T[String(p.ticker||'').toUpperCase()]=1; }); }catch(e){}
       Object.keys(T).forEach(function(t){
@@ -179,6 +179,7 @@
   /* Última decisión S3 de una empresa (o null) */
   window.nDecS3=function(t){ var L=(window._nDecV3[t]||[]).filter(function(d){ return d.senal==='S3'; }); return L.length?L[L.length-1]:null; };
 
+  window.nCargarLib=cargarLib;   /* 25-nov-2026: el arranque completo (n-9k) lo espera antes de dar la cifra de avisos */
   setTimeout(function(){ cargarLib(); cargarDec(); },1500);
   if(typeof renderPanelDash==='function'){ var o=renderPanelDash; renderPanelDash=function(){ o.apply(this,arguments); clearTimeout(window._nLibT); window._nLibT=setTimeout(cargarLib,300); }; }
 })();

@@ -28,7 +28,7 @@
     b.textContent=txt; b.style.display=''; }
   /* ---------- marcar cambio ---------- */
   function marcar(){ if(!activo()) return; seq++; pend=true; clearTimeout(tW); tW=setTimeout(escribir,250); }
-  function escribir(){ if(!activo()) return; var s=seq; try{ put('local',JSON.stringify(DB)); put('meta',{pend:true,seq:s,cuando:new Date().toISOString()}); }catch(e){} }
+  function escribir(){ if(!activo()) return; var s=seq; try{ put('local',JSON.stringify((typeof khDBParaDrive==='function'?khDBParaDrive():DB))); put('meta',{pend:true,seq:s,cuando:new Date().toISOString()}); }catch(e){} }
   /* ---------- 3 vías: aplicar a R lo que cambió de B a L ---------- */
   function J(x){ return JSON.stringify(x); }
   function lista(a){ return Array.isArray(a)&&a.every(function(x){ return x&&typeof x==='object'&&!Array.isArray(x)&&x.id!=null; }); }
@@ -50,10 +50,10 @@
   var dS=driveSave;
   driveSave=async function(force){
     if(!activo()) return dS.apply(this,arguments);
-    var s=seq, txt=JSON.stringify(DB), r; window._nTxtTrasJunta=null;
+    var s=seq, txt=JSON.stringify((typeof khDBParaDrive==='function'?khDBParaDrive():DB)), r; window._nTxtTrasJunta=null;
     try{ r=await dS.apply(this,arguments); }
     catch(e){ fallo(); throw e; }
-    if(r&&r.ok){ baseMem=seq===s?JSON.stringify(DB):(window._nTxtTrasJunta||txt); put('base',baseMem); if(seq===s){ pend=false; put('meta',{pend:false,seq:s,cuando:new Date().toISOString()}); put('local',null); franja(null); } }
+    if(r&&r.ok){ baseMem=seq===s?JSON.stringify((typeof khDBParaDrive==='function'?khDBParaDrive():DB)):(window._nTxtTrasJunta||txt); put('base',baseMem); if(seq===s){ pend=false; put('meta',{pend:false,seq:s,cuando:new Date().toISOString()}); put('local',null); franja(null); } }
     else if(r&&r.conflict) fallo();
     return r; };
   function fallo(){ if(!activo()) return; pend=true; escribir(); franja('⚠️ Hay cambios sin guardar en Drive · reintentando (pulsa para reintentar ya)'); }
@@ -73,7 +73,7 @@
     if(window._demoOn){ return; }
     var meta=await get('meta'), loc=await get('local'), base=await get('base');
     if(meta&&meta.pend&&loc&&base){
-      try{ var L=JSON.parse(loc), B=JSON.parse(base), r0=JSON.stringify(DB), cc=aplicar(DB,B,L), n=cc.n; baseMem=r0;
+      try{ var L=JSON.parse(loc), B=JSON.parse(base), r0=JSON.stringify((typeof khDBParaDrive==='function'?khDBParaDrive():DB)), cc=aplicar(DB,B,L), n=cc.n; baseMem=r0; try{ if(typeof khDivRepoRestaurar==='function') khDivRepoRestaurar(); }catch(_){}
         listo=true;
         if(n||cc.s){ if(n) franja('🛟 Recuperado'+(n===1?'':'s')+' '+n+' cambio'+(n===1?'':'s')+' de este aparato que no habían llegado a Drive · guardando…','#B45309');
           try{ if(typeof renderAll==='function') renderAll(); }catch(e){}
@@ -81,6 +81,6 @@
           if(!pend&&n) franja('✅ Recuperado'+(n===1?'':'s')+' '+n+' cambio'+(n===1?'':'s')+' pendiente'+(n===1?'':'s')+' y guardado'+(n===1?'':'s')+' en Drive','#15803D'), setTimeout(function(){ if(!pend) franja(null); },8000);
           return; } }catch(e){ console.warn('[n-pendiente]',e); }
     }
-    listo=true; pend=false; baseMem=JSON.stringify(DB); put('base',baseMem); put('meta',{pend:false,seq:seq,cuando:new Date().toISOString()}); put('local',null);
+    listo=true; pend=false; baseMem=JSON.stringify((typeof khDBParaDrive==='function'?khDBParaDrive():DB)); put('base',baseMem); put('meta',{pend:false,seq:seq,cuando:new Date().toISOString()}); put('local',null);
   }
 })();

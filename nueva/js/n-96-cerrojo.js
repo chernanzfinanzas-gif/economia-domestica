@@ -79,10 +79,11 @@
         esc(n); setTimeout(function(){ D.remove(); alert('Bloqueo activado en este aparato'+(n.cred?' con huella y PIN.':' con PIN.')); }, e.textContent?2500:0); });
   }
   window.nCerrojo=configurar;
-  /* botón en ⚙ (menú de ajustes), junto a «App de siempre» */
-  function boton(){ if(document.getElementById('btnCerrojo')) return; var v=document.getElementById('btnVieja'); if(!v) return;
-    var b=document.createElement('button'); b.id='btnCerrojo'; b.className=v.className.replace(/\s*hbtn\b/,' hbtn'); b.textContent='🔐 Bloqueo con huella'; b.type='button'; b.addEventListener('click',configurar); v.parentNode.insertBefore(b,v); }
-  setInterval(boton,1500); boton();
+  /* botón en ⚙ (menú de ajustes), junto a «Modo demo» (25-nov-2026: «App de siempre» ya no existe) */
+  function boton(){ if(document.getElementById('btnCerrojo')) return true; var v=document.getElementById('btnDemo')||document.getElementById('btnVieja'); if(!v) return false;
+    var b=document.createElement('button'); b.id='btnCerrojo'; b.className=v.className.replace(/\s*hbtn\b/,' hbtn'); b.textContent='🔐 Bloqueo con huella'; b.type='button'; b.addEventListener('click',configurar); v.parentNode.insertBefore(b,v); return true; }
+  /* 25-nov-2026: antes lo intentaba cada 1,5 s para siempre; el menú está en la página desde el principio, así que basta con unos intentos */
+  (function intento(i){ if(!boton()&&i<20) setTimeout(function(){ intento(i+1); },500); })(0);
   var c0=lee(); if(!(c0&&c0.activo)) document.documentElement.classList.remove('kb-pend');
   bloquear();
 })();

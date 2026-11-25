@@ -1,34 +1,55 @@
 {
- "schemaVersion": 1,
- "nota": "Registro de cambios de la app y de la recogida que afectan a lo que ves. Lo escribe Claude con cada cambio; el correo de la noche cuenta los que llegan al repo ese día.",
- "cambios": [
-  {
-   "fecha": "2026-11-25",
-   "titulo": "Dividendos: un pago con parte ordinaria y parte extraordinaria ya no se cuenta dos veces",
-   "que": "Atresmedia salía con 1,71 € en 2026 porque la app sumaba el pago de 0,83 € y, aparte, su parte extraordinaria de 0,67 €. Ahora la recogida separa las dos partes (0,16 ordinario + 0,67 extraordinario) y lee bien el día sin derecho; la app pone las partes en su sitio y ya no pisa un pago de otro tipo.",
-   "efecto": "Atresmedia 2026 queda en 1,04 € (sin derecho el 14-dic, pago el 16-dic). También corrige la fecha de pago de CIE (7-ene) y deja Neinor «para revisar» (dos extraordinarios en un mismo anuncio).",
-   "donde": "Mi cartera › Dividendos"
-  },
-  {
-   "fecha": "2026-11-25",
-   "titulo": "El correo de la noche trae los avisos del Panel",
-   "que": "Cada vez que la app pinta los avisos del Panel, guarda una copia en Drive (avisos-panel.json) y el correo de la noche la lee: lo nuevo del día y el resto por grupos.",
-   "efecto": "Si un día no abres la app, el correo lo dice y enseña los avisos de la última vez que la abriste.",
-   "donde": "Panel › Avisos"
-  },
-  {
-   "fecha": "2026-11-25",
-   "titulo": "Universo: las de BME Growth salen con su fase hacia el Continuo",
-   "que": "La tabla de BME Growth y el detalle de cada empresa enseñan la fase del termómetro nuevo (En marcha, Preparando, Candidata, Lejos), los años en BME Growth y la última señal, en lugar del antiguo «x de 5». Ordenadas por fase.",
-   "efecto": "Se ve de un vistazo cuáles se mueven hacia el Mercado Continuo: hoy Indexa en marcha y Clerhp preparando.",
-   "donde": "Universo › filtro «Solo BME Growth» y pinchar una empresa"
-  },
-  {
-   "fecha": "2026-11-25",
-   "titulo": "Altas automáticas de BME Growth cada trimestre",
-   "que": "La búsqueda trimestral (5 de febrero, mayo, agosto y noviembre) da de alta sola en el universo a las empresas nuevas de BME Growth que cumplen tus umbrales, con su cotización y sus cuentas si las encuentra.",
-   "efecto": "El correo de la noche de ese día dice cuáles han entrado y si falta algún documento; la clasificación en la Matriz queda provisional para que la revises.",
-   "donde": "Universo (y correo de la noche)"
-  }
- ]
+  "schemaVersion": 1,
+  "nota": "Registro de cambios de la app y de la recogida que afectan a lo que ves. Lo escribe Claude con cada cambio; el correo de la noche cuenta los que llegan al repo ese día.",
+  "cambios": [
+    {
+      "fecha": "2026-11-25",
+      "titulo": "Dividendos: un pago con parte ordinaria y parte extraordinaria ya no se cuenta dos veces",
+      "que": "Atresmedia salía con 1,71 € en 2026 porque la app sumaba el pago de 0,83 € y, aparte, su parte extraordinaria de 0,67 €. Ahora la recogida separa las dos partes (0,16 ordinario + 0,67 extraordinario) y lee bien el día sin derecho; la app pone las partes en su sitio y ya no pisa un pago de otro tipo.",
+      "efecto": "Atresmedia 2026 queda en 1,04 € (sin derecho el 14-dic, pago el 16-dic). También corrige la fecha de pago de CIE (7-ene) y deja Neinor «para revisar» (dos extraordinarios en un mismo anuncio).",
+      "donde": "Mi cartera › Dividendos"
+    },
+    {
+      "fecha": "2026-11-25",
+      "titulo": "El correo de la noche trae los avisos del Panel",
+      "que": "Cada vez que la app pinta los avisos del Panel, guarda una copia en Drive (avisos-panel.json) y el correo de la noche la lee: lo nuevo del día y el resto por grupos.",
+      "efecto": "Si un día no abres la app, el correo lo dice y enseña los avisos de la última vez que la abriste.",
+      "donde": "Panel › Avisos"
+    },
+    {
+      "fecha": "2026-11-25",
+      "titulo": "Universo: las de BME Growth salen con su fase hacia el Continuo",
+      "que": "La tabla de BME Growth y el detalle de cada empresa enseñan la fase del termómetro nuevo (En marcha, Preparando, Candidata, Lejos), los años en BME Growth y la última señal, en lugar del antiguo «x de 5». Ordenadas por fase.",
+      "efecto": "Se ve de un vistazo cuáles se mueven hacia el Mercado Continuo: hoy Indexa en marcha y Clerhp preparando.",
+      "donde": "Universo › filtro «Solo BME Growth» y pinchar una empresa"
+    },
+    {
+      "fecha": "2026-11-25",
+      "titulo": "Altas automáticas de BME Growth cada trimestre",
+      "que": "La búsqueda trimestral (5 de febrero, mayo, agosto y noviembre) da de alta sola en el universo a las empresas nuevas de BME Growth que cumplen tus umbrales, con su cotización y sus cuentas si las encuentra.",
+      "efecto": "El correo de la noche de ese día dice cuáles han entrado y si falta algún documento; la clasificación en la Matriz queda provisional para que la revises.",
+      "donde": "Universo (y correo de la noche)"
+    },
+    {
+      "fecha": "2026-11-25",
+      "titulo": "Pantallas más rápidas y avisos del Panel que no cambian",
+      "que": "Al abrir la app, el trabajo pesado se hace una vez en segundo plano. Universo, Analizadas, la ficha de empresa, Tesis, Radar y las demás ya no tardan la primera vez. El Panel pone «calculando…» unos segundos y después da siempre la misma cifra de avisos, vengas de la pantalla que vengas. Se quita además un aviso falso de Proyección que salía mientras llegaban las cotizaciones.",
+      "efecto": "Al abrir la app verás «calculando…» en los avisos durante unos segundos.",
+      "donde": "Panel y pantallas de análisis"
+    },
+    {
+      "fecha": "2026-11-25",
+      "titulo": "Guardado en Drive más ligero",
+      "que": "Los dividendos que vienen del repo ya no se suben a Drive en cada guardado: la app los vuelve a copiar al abrir, también sin cobertura. Tus anotaciones de dividendos sí se guardan.",
+      "efecto": "Cada guardado sube menos datos, unos 0,5 MB menos por los datos móviles.",
+      "donde": "Guardado (todas las pantallas)"
+    },
+    {
+      "fecha": "2026-11-25",
+      "titulo": "Un solo cálculo de ventas (FIFO) y retirada la app de siempre",
+      "que": "Cartera, Lotes y Fiscalidad calculan las ventas con el mismo FIFO: compras antes que ventas el mismo día, una cola por cartera y la misma comisión. Lotes enseña ya las ventas parciales que escondía. La app de siempre y su botón en Ajustes desaparecen; tu icono sigue abriendo la app.",
+      "efecto": "Cuando vendas, Cartera y Fiscalidad darán la misma ganancia.",
+      "donde": "Cartera, Lotes, Fiscalidad y Ajustes"
+    }
+  ]
 }

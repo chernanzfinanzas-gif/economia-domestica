@@ -2,8 +2,19 @@
    Cada venta consume primero las acciones más antiguas de ESA cartera (Propia y Compartida van aparte:
    son de titulares distintos). Lo usan a la vez la Cartera (posiciones) y los Lotes, para que digan lo mismo.
    Antes: la posición usaba precio medio tras una venta parcial y los Lotes enseñaban las compras enteras. */
+/* 25-nov-2026 (Carlos: «haz el único cálculo de FIFO»): este es el ÚNICO motor de ventas de la app. Lo usan Cartera,
+   Lotes, Rentabilidad, Vender y también Fiscalidad (que antes llevaba su propio cálculo).
+   · Mismo día: primero las compras y después las ventas (antes dependía del orden en que se apuntaron).
+   · Comisión: siempre la registrada (khComision); si no está registrada, 0, en todas las pantallas.
+   · nFifoOpsTodas() añade las operaciones de las posiciones archivadas (cerradas), que Fiscalidad necesita. */
+function _nFifoOrden(a,b){ var c=invByFecha(a,b); if(c) return c; return (a.tipo==='venta'?1:0)-(b.tipo==='venta'?1:0); }
+function nFifoOpsTodas(){
+  var L=(DB.operaciones||[]).slice();
+  (DB.cerradas||[]).forEach(function(c){ (c.ops||[]).forEach(function(o,i){
+    L.push({id:'cerr-'+(c.id||c.ticker)+'-'+i,ticker:c.ticker,cartera:o.cartera||c.cartera||'Propia',fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio,comision:o.comision,broker:o.broker||'',cerrada:true}); }); });
+  return L; }
 function nFifo(lista){
-  var ops=(lista||DB.operaciones||[]).slice().sort(invByFecha), q={}, open=[], sold=[];
+  var ops=(lista||DB.operaciones||[]).slice().sort(_nFifoOrden), q={}, open=[], sold=[];
   ops.forEach(function(o){
     var t=(o.ticker||'').toUpperCase(); if(!t) return; var car=o.cartera||'Propia', k=car+'|'+t, n=num(o.acciones); if(!(n>0)) return;
     var L=q[k]=q[k]||[];
@@ -11,7 +22,7 @@ function nFifo(lista){
       var rest=n;
       while(rest>0.0001 && L.length){
         var l=L[0], take=Math.min(rest,l.acc), fr=take/l.acc;
-        sold.push({ticker:t,cartera:car,fecha:l.fecha,acc:take,pc:l.pc,pcBruto:l.pcBruto,com:l.com*fr,comReg:l.comReg,pv:num(o.precio),fVenta:o.fecha||'',comV:khComision(o)*take/n,opId:o.id,broker:l.broker,opIdC:l.opId});
+        sold.push({ticker:t,cartera:car,fecha:l.fecha,acc:take,pc:l.pc,pcBruto:l.pcBruto,com:l.com*fr,comReg:l.comReg,pv:num(o.precio),fVenta:o.fecha||'',comV:khComision(o)*take/n,opId:o.id,broker:l.broker,opIdC:l.opId,cerrada:!!o.cerrada});
         l.com-=l.com*fr; l.acc-=take; rest-=take; if(l.acc<=0.0001) L.shift();
       }
       if(rest>0.0001) console.warn('[FIFO] venta sin acciones suficientes',t,car,o.fecha,rest);
@@ -52,7 +63,10 @@ posLots=function(){
   F.open.forEach(function(l){ var v=(DB.valores&&DB.valores[l.ticker])||{}, pi=precioActualInfo(l.ticker);
     lots.push({fecha:l.fecha,ticker:l.ticker,nombre:v.nombre||l.ticker,cartera:l.cartera,acc:l.acc,pc:l.pc,pcBruto:l.pcBruto,com:l.com,comReg:l.comReg,
       pa:(pi.p>0)?pi.p:l.pcBruto,sinPrecio:!(pi.p>0),div:_posDivCobrado((DB.dividendos||{})[l.ticker],l.fecha,l.acc),years:_posYears(l.fecha,hoy),estado:'Cartera',fechaFin:hoy,broker:l.broker,opId:l.opId}); });
-  F.sold.forEach(function(l){ if(archT.has(l.ticker)) return; var v=(DB.valores&&DB.valores[l.ticker])||{};
+  /* 25-nov-2026: antes se escondían las ventas parciales de cualquier valor que se hubiera cerrado alguna vez (archT), aunque
+     fueran de un ciclo nuevo o de la otra cartera. Las operaciones archivadas salen de DB.operaciones al archivar, así que aquí
+     no hay nada repetido que esconder. */
+  F.sold.forEach(function(l){ var v=(DB.valores&&DB.valores[l.ticker])||{};
     lots.push({fecha:l.fecha,ticker:l.ticker,nombre:v.nombre||l.ticker,cartera:l.cartera,acc:l.acc,pc:l.pc,pcBruto:l.pcBruto,com:l.com,comReg:l.comReg,
       pa:l.pv,div:_nDivEntre((DB.dividendos||{})[l.ticker],l.fecha,l.fVenta,l.acc),years:_posYears(l.fecha,l.fVenta),estado:'Vendida',fechaFin:l.fVenta,broker:l.broker,opId:l.opIdC}); });
   return lots;

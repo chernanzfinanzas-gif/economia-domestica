@@ -1596,7 +1596,7 @@ function archivarCerrada(ticker){
   const _cid='c'+Math.random().toString(36).slice(2,9);
   const _opsOrig=ops.map(o=>Object.assign({},o));
   const _archivar=function(){
-    DB.cerradas.push({id:_cid,ticker:t,nombre:v.nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',ops:ops.map(o=>{ const _o={fecha:o.fecha,tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)}; if(o.broker)_o.broker=o.broker; /* [31-oct-2026] el bróker de cada lote viaja al archivo */
+    DB.cerradas.push({id:_cid,ticker:t,nombre:v.nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',ops:ops.map(o=>{ const _o={fecha:o.fecha,tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)}; if(o.broker)_o.broker=o.broker; if((o.cartera||'Propia')!==((buys[0]&&buys[0].cartera)||'Propia'))_o.cartera=o.cartera||'Propia'; /* 25-nov-2026: si el valor estaba en las dos carteras, cada operación conserva la suya (FIFO por cartera) */ /* [31-oct-2026] el bróker de cada lote viaja al archivo */
       /* [09-sep-2026] La comisión viaja al archivo. Esta copia recorta campos a propósito, pero
          recortar ÉSTE se llevaba el dato justo al archivar una posición vendida — que es cuando
          Fiscalidad lo necesita para el valor de adquisición. Solo se escribe si estaba registrada:

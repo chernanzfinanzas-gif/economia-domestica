@@ -245,7 +245,7 @@ async function driveLoad(){
 async function driveSave(force){
   if(window.NUEVA_RO) return {ro:true};
   if(window._demoOn) return {demo:true};   /* MODO DEMO: nunca escribir en Drive */
-  const body=JSON.stringify(DB);   /* 12-nov-2026: sin sangrías. Son los mismos datos y el fichero pesa un 39 % menos (2,4 → 1,5 MB en cada guardado). Las copias mensuales siguen con sangría. */
+  const body=JSON.stringify((typeof khDBParaDrive==='function'?khDBParaDrive():DB));   /* 25-nov-2026: sin los dividendos copiados del repo (n-9k). 12-nov-2026: sin sangrías. Son los mismos datos y el fichero pesa un 39 % menos (2,4 → 1,5 MB en cada guardado). Las copias mensuales siguen con sangría. */
   if(!fileId){
     const meta={name:FNAME};
     const b='-----econ'+Date.now();

@@ -1871,6 +1871,12 @@ function proyHipotesisVieja(){
      se separa mas de un 10% de la de diciembre sin que nada este mal. Un aviso que salta
      siempre no es un aviso: es ruido que enseña a ignorar los avisos de verdad.
      Lo que hay que comparar es contra el cierre de esa MISMA fecha. */
+  /* 25-nov-2026: solo se compara si están TODAS las cotizaciones de ese 31-dic. Mientras se van bajando, carteraAtClose
+     suma solo las que han llegado y salía un aviso falso («548 % de diferencia») que desaparecía al rato. */
+  const _faltaPx=(function(){ try{ if(typeof _allOps!=='function'||typeof priceRepoAt!=='function') return true; var cut=Date.UTC(yr-1,11,31), sh={};
+    _allOps().forEach(function(o){ if(!o.fecha)return; var om=Date.parse(o.fecha+'T00:00:00'); if(isNaN(om)||om>cut)return; var t=(o.ticker||'').toUpperCase(); sh[t]=(sh[t]||0)+(o.tipo==='venta'?-1:1)*num(o.acciones); });
+    return Object.keys(sh).some(function(t){ return sh[t]>0.0001 && !(priceRepoAt(t,cut)>0); }); }catch(e){ return true; } })();
+  if(_faltaPx) return null;
   const cierreBase=(typeof carteraAtClose==='function')?num(carteraAtClose(yr-1)):0;
   const base=num(c.carteraInicial);
   if(cierreBase>0 && base>0){ const d=Math.abs(cierreBase-base)/cierreBase;

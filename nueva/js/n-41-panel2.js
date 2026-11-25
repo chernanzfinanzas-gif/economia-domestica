@@ -80,7 +80,7 @@
     var nVis=A.lista.filter(function(x){ return vis[x.key]; }).length;
     var G={dec:[],doc:[],ext:[],tri:[],car:[],div:[],hog:[],inf:[],uni:[],s3d:[],s3i:[]}; L.forEach(function(x){ G[grupo(x)].push(x); });
     var nInf=G.inf.length+(G.s3i.length?1:0), nDec=L.length-G.inf.length-G.s3d.length-G.s3i.length-G.ext.length-G.uni.length+nSen;
-    sum('av',(nDec?nDec+' por decidir':'nada por decidir')+((nInf+G.ext.length+G.uni.length)?' · '+(nInf+G.ext.length+G.uni.length)+' informativos':''));
+    sum('av',(window._khPrecalc&&!window._nArranqueListo)?'calculando…':((nDec?nDec+' por decidir':'nada por decidir')+((nInf+G.ext.length+G.uni.length)?' · '+(nInf+G.ext.length+G.uni.length)+' informativos':'')));   /* 25-nov: hasta el repintado completo del arranque (n-9k) la cifra no es la buena */
     var ex=document.querySelector('#nP_av .n-pextra'); if(ex) ex.innerHTML='<button class="n-prvg" data-nprv="">🔍 Pedir revisión de una empresa</button>'+(L.length?'<span data-avseenall="'+L.map(function(x){return x.key;}).join('~')+'">marcar todos como vistos ✓</span>':'')+(nVis?' · <span data-avshow="1">'+(F.showSeen?'ocultar vistos':'ver vistos ('+nVis+')')+'</span>':'');
     var f=window._nAvF;
     var chips='<div class="n-avchips"><button data-navf="" class="'+(f?'':'on')+'">Todos</button>'+['dec','doc','ext','uni','tri','car','div','hog','inf'].filter(function(g){return G[g].length||(g==='inf'&&G.s3i.length);}).map(function(g){ return '<button data-navf="'+g+'" class="'+(f===g?'on':'')+'">'+CHIPN[g]+' '+(g==='inf'?nInf:G[g].length)+'</button>'; }).join('')+'</div>';
