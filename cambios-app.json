@@ -1,0 +1,20 @@
+{
+ "schemaVersion": 1,
+ "nota": "Registro de cambios de la app y de la recogida que afectan a lo que ves. Lo escribe Claude con cada cambio; el correo de la noche cuenta los que llegan al repo ese día.",
+ "cambios": [
+  {
+   "fecha": "2026-11-25",
+   "titulo": "Dividendos: un pago con parte ordinaria y parte extraordinaria ya no se cuenta dos veces",
+   "que": "Atresmedia salía con 1,71 € en 2026 porque la app sumaba el pago de 0,83 € y, aparte, su parte extraordinaria de 0,67 €. Ahora la recogida separa las dos partes (0,16 ordinario + 0,67 extraordinario) y lee bien el día sin derecho; la app pone las partes en su sitio y ya no pisa un pago de otro tipo.",
+   "efecto": "Atresmedia 2026 queda en 1,04 € (sin derecho el 14-dic, pago el 16-dic). También corrige la fecha de pago de CIE (7-ene) y deja Neinor «para revisar» (dos extraordinarios en un mismo anuncio).",
+   "donde": "Mi cartera › Dividendos"
+  },
+  {
+   "fecha": "2026-11-25",
+   "titulo": "El correo de la noche trae los avisos del Panel",
+   "que": "Cada vez que la app pinta los avisos del Panel, guarda una copia en Drive (avisos-panel.json) y el correo de la noche la lee: lo nuevo del día y el resto por grupos.",
+   "efecto": "Si un día no abres la app, el correo lo dice y enseña los avisos de la última vez que la abriste.",
+   "donde": "Panel › Avisos"
+  }
+ ]
+}
