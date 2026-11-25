@@ -1,18 +1,18 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-24T19:45",
+ "generado": "2026-11-25T08:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-24T19:45",
+  "cuando": "2026-11-25T08:45",
   "ficheros": [
-   "dossiers/CBAV.html",
-   "dossiers/CBAV.json",
-   "dossiers/trimestral/CBAV-trim.json",
-   "dossiers/v3/CBAV.html",
-   "fichas/CBAV.json",
-   "fichas/_resumen.json"
+   "recogida/publicaciones/ATSI.json",
+   "recogida/publicaciones/GRE.json",
+   "recogida/publicaciones/IDR.json",
+   "recogida/publicaciones/MVC.json",
+   "recogida/publicaciones/_indice.json",
+   "recogida/publicaciones/dias/2026-11.json"
   ]
  },
  "rechazos": [],
@@ -88,6 +88,24 @@
    "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A85483311",
    "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
    "desde": "2026-11-13"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "CBAV",
+   "que": "2026-02-18 La sociedad remite el reglamento del Consejo de Administración",
+   "carpeta": "CBAV - CLINICA BAVIERA, S.A\\Gobierno",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A-80240427",
+   "motivo": "el fichero de dentro no es el de este aviso: es un documento de la propia CNMV, no de la empresa",
+   "desde": "2026-11-23"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "CBAV",
+   "que": "2026-04-09 La sociedad remite el Informe Financiero Anual del ejercicio 2025",
+   "carpeta": "CBAV - CLINICA BAVIERA, S.A\\Resultados",
+   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A-80240427",
+   "motivo": "el fichero de dentro no es el de este aviso: es un documento de la propia CNMV, no de la empresa",
+   "desde": "2026-11-23"
   },
   {
    "clase": "fallido",
