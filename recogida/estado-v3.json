@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-25T08:45",
+ "generado": "2026-11-25T08:47",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -34,6 +34,24 @@
    "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A-32104226",
    "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (TEF - Telefó",
    "desde": "2026-11-10"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "AEDAS",
+   "que": "2023-10-24 Reducción de capital social de la Sociedad en la cuantía de 3.106.537",
+   "carpeta": "AEDAS - AEDAS Homes, S.A\\Capital",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/derechos-voto-capital.aspx?Nif=A87586483",
+   "motivo": "el fichero de dentro no es el de este aviso: es un documento de la propia CNMV, no de la empresa",
+   "desde": "2026-11-23"
+  },
+  {
+   "clase": "fallido",
+   "ticker": "AEDAS",
+   "que": "2022-06-20 La sociedad remite el reglamento del Consejo de Administración",
+   "carpeta": "AEDAS - AEDAS Homes, S.A\\Gobierno",
+   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A87586483",
+   "motivo": "el fichero de dentro no es el de este aviso: es un documento de la propia CNMV, no de la empresa",
+   "desde": "2026-11-23"
   },
   {
    "clase": "fallido",
@@ -276,7 +294,7 @@
    "que": "documento de resultados (solo hay anuncios)",
    "carpeta": "Resultados",
    "desde": "2026-11-20",
-   "dias": 4
+   "dias": 5
   }
  ],
  "pendientes_sistema": [
