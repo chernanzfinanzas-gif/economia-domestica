@@ -1,18 +1,15 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-25T19:45",
+ "generado": "2026-11-26T08:40",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-25T18:41",
+  "cuando": "2026-11-26T08:40",
   "ficheros": [
-   "recogida/publicaciones/AEDAS.json",
-   "recogida/publicaciones/AZK.json",
-   "recogida/publicaciones/BKT.json",
-   "recogida/publicaciones/FAE.json",
-   "recogida/publicaciones/PRS.json",
-   "recogida/publicaciones/REP.json",
+   "recogida/publicaciones/BBVA.json",
+   "recogida/publicaciones/GRF.json",
+   "recogida/publicaciones/IZER.json",
    "recogida/publicaciones/_indice.json",
    "recogida/publicaciones/dias/2026-11.json"
   ]
@@ -296,7 +293,7 @@
    "que": "documento de resultados (solo hay anuncios)",
    "carpeta": "Resultados",
    "desde": "2026-11-20",
-   "dias": 5
+   "dias": 6
   }
  ],
  "pendientes_sistema": [
