@@ -1,15 +1,18 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-26T09:45",
+ "generado": "2026-11-26T18:41",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-26T08:40",
+  "cuando": "2026-11-26T18:41",
   "ficheros": [
-   "recogida/publicaciones/BBVA.json",
-   "recogida/publicaciones/GRF.json",
-   "recogida/publicaciones/IZER.json",
+   "recogida/publicaciones/ALM.json",
+   "recogida/publicaciones/DESA.json",
+   "recogida/publicaciones/EZE.json",
+   "recogida/publicaciones/GEST.json",
+   "recogida/publicaciones/LDA.json",
+   "recogida/publicaciones/PSG.json",
    "recogida/publicaciones/_indice.json",
    "recogida/publicaciones/dias/2026-11.json"
   ]
