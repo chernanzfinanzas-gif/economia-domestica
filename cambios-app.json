@@ -71,6 +71,13 @@
    "que": "En la app vieja la ficha enseñaba cada dividendo cobrado con su fecha e importe; en la nueva solo salía el total de cada año. Ahora, en «Mi posición», hay una tabla con cada cobro: fecha, dividendo por acción, acciones que tenías ese día e importe bruto, con el total de cada año.",
    "efecto": "Se ve en todas las empresas que tienes o has tenido. Salen los dividendos que apuntas desde el Kanban.",
    "donde": "Ficha de la empresa › Mi posición"
+  },
+  {
+   "fecha": "2026-11-26",
+   "titulo": "Ficha: el neto de cada dividendo y cuánto falta para recuperar lo pagado",
+   "que": "La lista de dividendos cobrados de «Mi posición» trae ahora el neto de cada cobro (bruto menos la retención del 19 %) y, arriba, el total bruto, el total neto, lo pagado por las acciones que tienes y cuánto falta para recuperarlo con dividendos.",
+   "efecto": "Ejemplo Mapfre: 7.238 € brutos, 5.862,78 € netos; pagaste 19.180 €: faltan 13.317,22 € (30,6 % recuperado).",
+   "donde": "Ficha de la empresa › Mi posición"
   }
  ]
 }

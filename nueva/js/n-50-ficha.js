@@ -452,11 +452,15 @@
     var CB=[]; ((DB.dividendos||{})[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(!f) return; if(typeof divEsCobrado==='function'&&!divEsCobrado(d)) return;
       var sh=(typeof _calSharesAt==='function')?_calSharesAt(t,f,true):0, imp=sh*(+d.importe||0); if(imp>0) CB.push({f:f,dpa:+d.importe||0,acc:sh,imp:imp,nota:d.nota||d.tipo||''}); });
     CB.sort(function(a,b){ return a.f<b.f?1:(a.f>b.f?-1:0); });
-    if(CB.length){ var filas='', yAct=null, sub=0, fin=function(){ return '<tr class="nf-sub"><td colspan="3"><b>Total '+yAct+'</b></td><td><b>'+eu(sub)+'</b></td></tr>'; };
-      CB.forEach(function(x){ var y=x.f.slice(0,4); if(yAct&&y!==yAct){ filas+=fin(); sub=0; } yAct=y; sub+=x.imp;
-        filas+='<tr><td>'+fe(x.f)+'</td><td>'+eu(x.dpa,4)+'</td><td>'+n(x.acc,0)+'</td><td>'+eu(x.imp)+'</td></tr>'; });
+    if(CB.length){ var RT=(typeof _EVO_RET!=='undefined'&&+_EVO_RET>0)?+_EVO_RET:0.19, NT=function(b){ return b*(1-RT); }, filas='', yAct=null, sub=0, totB=0, fin=function(){ return '<tr class="nf-sub"><td colspan="3"><b>Total '+yAct+'</b></td><td><b>'+eu(sub)+'</b></td><td><b>'+eu(NT(sub))+'</b></td></tr>'; };
+      CB.forEach(function(x){ var y=x.f.slice(0,4); if(yAct&&y!==yAct){ filas+=fin(); sub=0; } yAct=y; sub+=x.imp; totB+=x.imp;
+        filas+='<tr><td>'+fe(x.f)+'</td><td>'+eu(x.dpa,4)+'</td><td>'+n(x.acc,0)+'</td><td>'+eu(x.imp)+'</td><td>'+eu(NT(x.imp))+'</td></tr>'; });
       filas+=fin();
-      h+=card('Cada dividendo cobrado','bruto · '+CB.length+' cobros · el más reciente arriba','<div class="nf-tw"><table class="nf-t"><tr><th>Fecha</th><th>Por acción</th><th>Acciones</th><th>Importe bruto</th></tr>'+filas+'</table></div>'); }
+      /* 26-nov (Carlos): arriba, total bruto, total neto y cuánto falta para recuperar con dividendos lo pagado por las acciones que tienes */
+      var totN=NT(totB), falta=coste-totN, kv='<div class="nf-kv"><span>Total cobrado bruto</span><b>'+eu(totB)+'</b><span>Total cobrado neto</span><b>'+eu(totN)+'</b>';
+      if(acc&&coste>0) kv+='<span>Pagado por tus '+n(acc,0)+' acciones</span><b>'+eu(coste)+'</b>'+(falta>0?'<span>Falta para recuperarlo con dividendos</span><b>'+eu(falta)+' ('+n(totN/coste*100,1)+' % ya recuperado)</b>':'<span>Recuperado con dividendos</span><b class="pos">todo, y '+eu(-falta)+' de más</b>');
+      kv+='</div><div class="nf-ws">Neto = bruto menos la retención del '+n(RT*100,0)+' %; sin contar la comisión del bróker. Lo pagado es el coste de las acciones que tienes hoy.</div>';
+      h+=card('Cada dividendo cobrado',CB.length+' cobros · el más reciente arriba',kv+'<div class="nf-tw"><table class="nf-t"><tr><th>Fecha</th><th>Por acción</th><th>Acciones</th><th>Bruto</th><th>Neto</th></tr>'+filas+'</table></div>'); }
     return h;
   }
 
