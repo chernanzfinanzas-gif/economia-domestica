@@ -64,6 +64,13 @@
    "que": "Renta 4 apuntó el dividendo de Mapfre en cuatro líneas: el bruto, la retención aparte, la comisión y su IVA. La app no reconocía la línea de la retención y lo propuso por 801,75 € (solo restaba comisión e IVA). Ahora junta las cuatro en un solo movimiento con lo que entra de verdad y escribe el desglose en la nota.",
    "efecto": "El pendiente de Mapfre del 26-nov pasa solo a 649,28 € (nota: bruto 802,48 · retención 152,47 · comisión e IVA 0,73). No se duplica al volver a importar.",
    "donde": "Movimientos › pendientes de revisar"
+  },
+  {
+   "fecha": "2026-11-26",
+   "titulo": "Ficha de la empresa: vuelve la lista de cada dividendo cobrado",
+   "que": "En la app vieja la ficha enseñaba cada dividendo cobrado con su fecha e importe; en la nueva solo salía el total de cada año. Ahora, en «Mi posición», hay una tabla con cada cobro: fecha, dividendo por acción, acciones que tenías ese día e importe bruto, con el total de cada año.",
+   "efecto": "Se ve en todas las empresas que tienes o has tenido. Salen los dividendos que apuntas desde el Kanban.",
+   "donde": "Ficha de la empresa › Mi posición"
   }
  ]
 }

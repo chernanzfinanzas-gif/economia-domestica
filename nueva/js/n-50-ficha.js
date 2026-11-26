@@ -447,6 +447,16 @@
       (acc&&window.nRegla?window.nRegla(V,{peq:1})+'<span class="nf-ws">La raya discontinua es tu precio medio.</span>':''));
     h+=card('Operaciones','compras y ventas','<div class="nf-tw"><table class="nf-t"><tr><th>Fecha</th><th>Tipo</th><th>Acciones</th><th>Precio</th><th>Cartera</th></tr>'+ops.map(function(o){ return '<tr><td>'+fe(o.fecha)+'</td><td>'+esc(o.tipo)+'</td><td>'+n(o.acciones,0)+'</td><td>'+(+o.precio>0?eu(o.precio,3):'0 € (liberadas)')+'</td><td>'+esc(o.cartera||'')+'</td></tr>'; }).join('')+'</table></div>');
     var ys=Object.keys(porA).sort(); if(ys.length) h+=card('Dividendos cobrados por año','bruto, año natural · de la app','<div class="nf-kv">'+ys.map(function(y){ return '<span>'+y+'</span><b>'+eu(porA[y])+'</b>'; }).join('')+'</div>');
+    /* 26-nov-2026 (Carlos: «en la app vieja veía en la ficha de la empresa cada dividendo cobrado con su fecha y cantidad»):
+       la lista de cada cobro, la más reciente arriba, con el total de cada año. Mismos datos y mismo criterio que el resumen de arriba. */
+    var CB=[]; ((DB.dividendos||{})[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(!f) return; if(typeof divEsCobrado==='function'&&!divEsCobrado(d)) return;
+      var sh=(typeof _calSharesAt==='function')?_calSharesAt(t,f,true):0, imp=sh*(+d.importe||0); if(imp>0) CB.push({f:f,dpa:+d.importe||0,acc:sh,imp:imp,nota:d.nota||d.tipo||''}); });
+    CB.sort(function(a,b){ return a.f<b.f?1:(a.f>b.f?-1:0); });
+    if(CB.length){ var filas='', yAct=null, sub=0, fin=function(){ return '<tr class="nf-sub"><td colspan="3"><b>Total '+yAct+'</b></td><td><b>'+eu(sub)+'</b></td></tr>'; };
+      CB.forEach(function(x){ var y=x.f.slice(0,4); if(yAct&&y!==yAct){ filas+=fin(); sub=0; } yAct=y; sub+=x.imp;
+        filas+='<tr><td>'+fe(x.f)+'</td><td>'+eu(x.dpa,4)+'</td><td>'+n(x.acc,0)+'</td><td>'+eu(x.imp)+'</td></tr>'; });
+      filas+=fin();
+      h+=card('Cada dividendo cobrado','bruto · '+CB.length+' cobros · el más reciente arriba','<div class="nf-tw"><table class="nf-t"><tr><th>Fecha</th><th>Por acción</th><th>Acciones</th><th>Importe bruto</th></tr>'+filas+'</table></div>'); }
     return h;
   }
 
