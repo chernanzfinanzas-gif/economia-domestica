@@ -1854,7 +1854,13 @@ async function cargarTesis(t){ t=(t||'').toUpperCase(); if(!t||_tesisCache[t]!==
     /* [15-oct-2026] …o si cambia el factor de eventos de capital (una liberada posterior al análisis). */
     const _evCambio = !!(a && Math.abs((num(a.evFactor)||1)-((j._evAjuste&&j._evAjuste.factor)||1))>1e-6);
     const _nuevo = !!(a && ((j.fecha && (!_dfA || (''+j.fecha) > _dfA)) || (j.revisadoEl && (''+j.revisadoEl) > _rvA))) || _evCambio;
-    if((vacia||_nuevo)&&importTesis(t)){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof scheduleSave==='function')scheduleSave();
+    /* [26-nov-2026 · Carlos: «¿por qué Colonial y Cevasa están en seguimiento?»] Las fechas no bastan: el 14-nov se
+       rehicieron las inmobiliarias (PO sin DCF) con la misma fecha del 13-nov y la app no copió la banda, el stop ni la
+       decisión; con el stop viejo por encima del precio, el Kanban las subía a «En revisión». Ahora, si la decisión, la
+       banda o el stop del dossier no coinciden con los de la app, se copian igual. */
+    const _difV = !!(a && ((j.decision && (''+j.decision).toUpperCase()!==(''+(a.decision||'')).toUpperCase())
+      || [['entMin','entMin'],['entMax','entMax'],['stop','stopTesis']].some(function(p){ const v=j[p[0]]; return v!=null&&v!==''&&num(v)>0&&Math.abs(num(v)-num(a[p[1]]))>0.005; })));
+    if((vacia||_nuevo||_difV)&&importTesis(t)){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof scheduleSave==='function')scheduleSave();
       if(_nuevo&&typeof showToast==='function'){ try{ showToast(_evCambio&&j._evAjuste?('\u2194\ufe0f '+t+': '+j._evAjuste.texto):('\ud83d\udd04 '+t+': An\u00e1lisis actualizado desde el dossier del '+j.fecha),'',null,_evCambio?12000:6000); }catch(e){} } } } } }catch(e){}
   if(fichaTicker===t&&typeof renderFicha==='function')renderFicha(t); }
 document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('[data-imptesis]'); if(!b)return; const t=(b.dataset.imptesis||'').toUpperCase(); if(!_tesisCache[t]){ alert('Resumen del dossier no disponible.'); return; } if(!confirm('¿Actualizar el Análisis de '+t+' con los datos del dossier? Sobrescribe rating, PO, banda de entrada, stop y decisión de esa empresa.'))return; if(importTesis(t)){ if(typeof saveNow==='function')saveNow(); if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderFicha==='function')renderFicha(t); alert('Análisis actualizado desde el dossier.'); } });
