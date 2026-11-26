@@ -76,18 +76,35 @@
       if((m=/^DIVIDENDO DE (\d+) (.+)$/.exec(c))){ var nm=m[2].replace(/\s+\d\d\.\d\d$/,'').trim(), esD=/\.D$/.test(nm), base=nm.replace(/\.D$/,'');
         var V=(DB.valores||{})[base.toUpperCase()]; var bonita=(V&&V.nombre?V.nombre:tc(base)).replace(/,?\s*S\.?\s?A\.?$/i,'').trim();
         var prev=null; for(var i=H.length-1;i>=0&&H[i].f===l.f;i--){ if(H[i].k==='div'&&H[i].nm.slice(0,3)===base.slice(0,3)){ prev=H[i]; break; } }
-        if(prev){ prev.imp+=l.imp; if(!esD){ prev.nm=base; prev.txt='Dividendo de '+bonita; } last=prev; return; }   /* Iberdrola: IBE.D (scrip) + Iberdrola el mismo día = un dividendo */
-        H.push(last={k:'div',f:l.f,nm:base,imp:l.imp,txt:'Dividendo de '+bonita,alts:['Dividendo de '+tc(base),'Dividendo de '+base]}); return; }
+        if(prev){ prev.imp+=l.imp; prev.bruto+=l.imp; if(!esD){ prev.nm=base; prev.txt='Dividendo de '+bonita; } last=prev; return; }   /* Iberdrola: IBE.D (scrip) + Iberdrola el mismo día = un dividendo */
+        H.push(last={k:'div',f:l.f,nm:base,imp:l.imp,bruto:l.imp,ret:0,com:0,txt:'Dividendo de '+bonita,alts:['Dividendo de '+tc(base),'Dividendo de '+base]}); return; }
       if(/^(COMISION DVDO|IVA DIVIDENDO)/.test(c)){ var mm=/^COMISION DVDO \d+ (\S+)/.exec(c), d=null;
         for(var j=H.length-1;j>=0&&H[j].f===l.f;j--){ if(H[j].k==='div'&&(!mm||H[j].nm.slice(0,3)===mm[1].slice(0,3))){ d=H[j]; break; } }
-        if(!d&&last&&last.k==='div'&&last.f===l.f) d=last; if(d){ d.imp+=l.imp; return; } }
+        if(!d&&last&&last.k==='div'&&last.f===l.f) d=last; if(d){ d.imp+=l.imp; d.com+=-l.imp; return; } }
+      /* 26-nov-2026 (Mapfre): R4 puede apuntar la retención del dividendo en una línea aparte, «RETENC. DESTINO DIV 10000 MAPFRE».
+         Antes no se reconocía y el dividendo entraba sin restarla. Va con su dividendo (mismo día y nombre), como la comisión y el IVA. */
+      if(/^RETENC(ION|\.)?\s*(DESTINO\s+)?(DIV|DVDO)/.test(c)){ var mr=/(?:DIV|DVDO)\S*\s+(?:\d+\s+)?(\S+)/.exec(c), dr=null;
+        for(var j3=H.length-1;j3>=0&&H[j3].f===l.f;j3--){ if(H[j3].k==='div'&&(!mr||H[j3].nm.slice(0,3)===mr[1].slice(0,3))){ dr=H[j3]; break; } }
+        if(!dr&&last&&last.k==='div'&&last.f===l.f) dr=last; if(dr){ dr.imp+=l.imp; dr.ret+=-l.imp; last=dr; return; } }
       if((m=/^VENTA DE (\d+) (\S+\.D)\b/.exec(c))){ var tkD=m[2].replace(/\.D$/,''), VD=(DB.valores||{})[tkD.toUpperCase()], nD=(VD&&VD.nombre?VD.nombre:tkD).replace(/,?\s*S\.?\s?A\.?$/i,'').trim();
         H.push(last={k:'der',f:l.f,imp:l.imp,txt:'Venta de '+m[1]+' derechos '+nD,tk:tkD.toUpperCase(),n:+m[1],bruto:l.imp,ret:0,alts:['Venta de '+m[1]+' derechos '+tkD,'Venta de '+m[1]+' derechos '+tkD.toUpperCase()]}); return; }
       if(/^RETENCION VENT DCHOS/.test(c)&&last&&last.k==='der'&&last.f===l.f){ last.imp+=l.imp; last.ret+=-l.imp; return; }
       if(/CUSTODIA/.test(c)){ if(last&&last.k==='cus'&&last.f===l.f){ last.imp+=l.imp; return; } H.push(last={k:'cus',f:l.f,imp:l.imp,txt:'Custodia Renta 4'}); return; }
-      if(!/^(COMISION DVDO|IVA DIVIDENDO)/.test(c)) last=null; });
+      if(!/^(COMISION DVDO|IVA DIVIDENDO|RETENC)/.test(c)) last=null; });
     return H.map(function(h){ return {src:'R4',f:h.f,txt:h.txt,alts:h.alts||[],kt:h.k+' '+(h.tk||h.nm||'')+' '+(h.n||''),imp:r2(h.imp),saldo:null,bcat:h.k==='cus'?'R4 custodia':'R4 dividendo',r4k:h.k,
-      r4der:h.k==='der'?{tk:h.tk,n:h.n,bruto:r2(h.bruto),ret:r2(h.ret)}:null}; }); }
+      r4der:h.k==='der'?{tk:h.tk,n:h.n,bruto:r2(h.bruto),ret:r2(h.ret)}:null,
+      r4nota:h.k!=='div'?'':(h.ret>0.004?('Bruto '+fe2(h.bruto)+' € · retención '+fe2(h.ret)+' € · comisión e IVA '+fe2(h.com)+' €'):(h.com>0.004?('Comisión e IVA restados: '+fe2(h.com)+' €'):''))}; }); }
+  function fe2(x){ return (Math.round(x*100)/100).toFixed(2).replace('.',','); }
+  /* 26-nov-2026: un dividendo de R4 que quedó pendiente con un importe que ya no es el bueno (p. ej. sin la retención)
+     se sustituye por el bueno, sacado del extracto de R4 que la app ya tiene guardado. Nunca quedan los dos. */
+  function repararPendR4(){ try{ var X=window.nR4Xls&&window.nR4Xls(); if(!X||!(X.cash||[]).length) return 0;
+      var B=r4Hechos(X.cash.map(function(l){ return {f:l.fecha,c:String(l.concepto||'').toUpperCase(),imp:l.imp}; })).filter(function(l){ return l.bcat==='R4 dividendo'; }), n=0;
+      pend().forEach(function(x){ var l=x&&x.l; if(!l||l.src!=='R4'||l.bcat!=='R4 dividendo') return;
+        var b=B.filter(function(y){ return y.f===l.f&&y.txt===l.txt; })[0]; if(!b||Math.abs(b.imp-l.imp)<0.005) return;
+        l.imp=b.imp; (x.parts||[]).forEach(function(p){ if((x.parts||[]).length===1) p.imp=r2(Math.abs(b.imp)); });
+        if(b.r4nota) x.nota=b.r4nota; x.corregido='26-nov: retención del dividendo restada'; n++; });
+      return n; }catch(e){ return 0; } }
+  window.nImpRepararPendR4=repararPendR4;
   /* la venta de derechos que trae R4 queda registrada en la rentabilidad de su empresa (si no lo estaba ya, ±5 días) */
   function asegurarDerechos(L){ var n=0; L.forEach(function(l){ var d=l.r4der; if(!d||!d.tk) return; DB.ventaDerechos=DB.ventaDerechos||[];
       if(DB.ventaDerechos.some(function(v){ return (v.ticker||'').toUpperCase()===d.tk&&dias(v.fecha,l.f)<=5; })) return;
@@ -227,7 +244,7 @@
       R4.forEach(function(x,i){ if(j<0&&!usR4[i]&&Math.abs(Math.abs(l.imp)-x.imp)<0.005&&dias(x.fecha,l.f)<=7) j=i; });
       if(j>=0){ usR4[j]=1; l._tr='Aportación a Renta 4 · ✓ cotejada: entró en R4 el '+fd(R4[j].fecha); l._r4=true; }
       else { l._tr='Aportación a Renta 4 · sin cotejar todavía (no está en el extracto de R4 que tengo)'; l._r4=false; ST.r4sin++; } });
-    limpiarPendR4();
+    limpiarPendR4(); repararPendR4();
     var P=pend(), enPend={}; P.forEach(function(x){ enPend[x.key]=x; });
     var nuevas=L.filter(function(l){ return !l._tr&&!l._visto; }), enL={}; nuevas.forEach(function(l){ enL[l.key]=1; });
     P.forEach(function(x){ if(!enL[x.key]) nuevas.push(x.l); });   /* los pendientes de otras veces vuelven a cotejarse (por si los apuntaste a mano) */
@@ -237,8 +254,11 @@
     /* lo que casó y estaba pendiente sale de pendientes; lo nuevo sin casar entra en tu lista como pendiente de revisar */
     DB.movPend=P.filter(function(x){ return !C.res[x.key]; });
     ST.nuevas=0;
-    nuevas.forEach(function(l){ if(C.res[l.key]||enPend[l.key]) return; var pr=proponer(l);
-      DB.movPend.push({id:'np'+l.key,key:l.key,l:{src:l.src,f:l.f,txt:l.txt,imp:l.imp,saldo:l.saldo,bcat:l.bcat||'',key:l.key},tipo:pr.tipo,nota:pr.nota,origen:pr.origen,dudoso:!pr.marcar,
+    nuevas.forEach(function(l){ if(C.res[l.key]||enPend[l.key]) return;
+      /* 26-nov: si ya hay pendiente el mismo dividendo de R4 (mismo día, nombre e importe, p. ej. corregido por repararPendR4), no se duplica */
+      if(l.src==='R4'&&DB.movPend.some(function(x){ return x.l&&x.l.src==='R4'&&x.l.f===l.f&&x.l.txt===l.txt&&Math.abs(x.l.imp-l.imp)<0.005; })){ V[l.key]='p'+l.f.replace(/-/g,'').slice(2); return; }
+      var pr=proponer(l);
+      DB.movPend.push({id:'np'+l.key,key:l.key,l:{src:l.src,f:l.f,txt:l.txt,imp:l.imp,saldo:l.saldo,bcat:l.bcat||'',key:l.key},tipo:pr.tipo,nota:pr.nota||l.r4nota||'',origen:pr.origen,dudoso:!pr.marcar,
         parts:pr.parts||[{f:l.f,k:pr.k,co:pr.co||'',d:pr.d||'',c:pr.c,t:pr.t,r:pr.r,imp:r2(Math.abs(l.imp))}]});
       V[l.key]='p'+l.f.replace(/-/g,'').slice(2); ST.nuevas++; });
     ST.traspasos=L.filter(function(l){ return l._tr&&!l._visto; });
@@ -531,7 +551,7 @@
     guardarLuego();
   }
   document.addEventListener('input',campo); document.addEventListener('change',campo);
-  if(typeof renderMovs==='function'){ var o=renderMovs; renderMovs=function(){ var r=o.apply(this,arguments); try{ if(limpiarPendR4()&&typeof scheduleSave==='function') scheduleSave(); montar(); ult(); inyectar(); var V=document.getElementById('view-movimientos'); if(V&&V.classList.contains('active')) setTimeout(function(){ window.nImpDrive(false); },800); }catch(e){ console.warn('[pendientes]',e); } return r; }; }
+  if(typeof renderMovs==='function'){ var o=renderMovs; renderMovs=function(){ var r=o.apply(this,arguments); try{ if((limpiarPendR4()+repararPendR4())&&typeof scheduleSave==='function') scheduleSave(); montar(); ult(); inyectar(); var V=document.getElementById('view-movimientos'); if(V&&V.classList.contains('active')) setTimeout(function(){ window.nImpDrive(false); },800); }catch(e){ console.warn('[pendientes]',e); } return r; }; }
   setTimeout(function(){ try{ montar(); if(document.getElementById('movTable')) inyectar(); }catch(e){} },1500);
 
   var st=document.createElement('style'); st.textContent=

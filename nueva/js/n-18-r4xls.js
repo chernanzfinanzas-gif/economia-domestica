@@ -68,7 +68,7 @@
       if(/^INGRESO RECIBO/.test(c)){ H.push(last={fecha:l.fecha,tipo:'fija',imp:l.imp,txt:'Ingreso recibo'}); return; }
       if(/^TRANSF\. RECIBIDA/.test(c)){ H.push(last={fecha:l.fecha,tipo:'puntual',imp:l.imp,txt:'Transferencia recibida'}); return; }
       if((m=/^DIVIDENDO DE (\d+) (.+)$/.exec(c))){ H.push(last={fecha:l.fecha,tipo:'div',imp:l.imp,txt:'Dividendo '+m[2].trim(),nombre:m[2].trim(),acc:+m[1]}); return; }
-      if(/^(COMISION DVDO|IVA DIVIDENDO)/.test(c)&&last&&last.tipo==='div'&&last.fecha===l.fecha){ last.imp+=l.imp; return; }
+      if(/^(COMISION DVDO|IVA DIVIDENDO|RETENC(ION|\.)?\s*(DESTINO\s+)?(DIV|DVDO))/.test(c)&&last&&last.tipo==='div'&&last.fecha===l.fecha){ last.imp+=l.imp; return; }   /* 26-nov: también la retención en línea aparte (Mapfre) */
       if((m=/^COMPRA DE (\d+) (\S+) A /.exec(c))){ H.push(last={fecha:l.fecha,tipo:'compra',imp:l.imp,txt:'Compra '+m[1]+' '+m[2],tk:m[2],acc:+m[1]}); return; }
       if((m=/^VENTA DE (\d+) (\S+) A /.exec(c))){ H.push(last={fecha:l.fecha,tipo:'venta',imp:l.imp,txt:'Venta '+m[1]+' '+m[2],tk:m[2],acc:+m[1]}); return; }
       if(/^RETENCION VENT DCHOS/.test(c)&&last&&last.tipo==='venta'&&last.fecha===l.fecha){ last.imp+=l.imp; last.txt+=' (neto de retención)'; return; }   /* venta de derechos: su retención va con ella */

@@ -57,6 +57,13 @@
    "que": "La app solo volvía a copiar el análisis de una empresa cuando su ficha traía fecha nueva. Colonial y Cevasa se rehicieron el 14-nov (precio objetivo sin descuento de flujos) con la fecha del 13-nov, y la app se quedó con la banda, el stop y —en Cevasa— la decisión antiguos; con ese stop por encima del precio, el Kanban las subía a «En revisión». Ahora la app compara también las cifras.",
    "efecto": "Colonial vuelve a Análisis (MANTENER, banda 7,05-7,23 €, stop 5,95 €) y Cevasa a Análisis (ESPERAR, banda 6,79-7,87 €, stop 6,49 €). Las demás empresas ya coincidían con su ficha.",
    "donde": "Kanban"
+  },
+  {
+   "fecha": "2026-11-26",
+   "titulo": "Movimientos: los dividendos de Renta 4 entran netos de la retención",
+   "que": "Renta 4 apuntó el dividendo de Mapfre en cuatro líneas: el bruto, la retención aparte, la comisión y su IVA. La app no reconocía la línea de la retención y lo propuso por 801,75 € (solo restaba comisión e IVA). Ahora junta las cuatro en un solo movimiento con lo que entra de verdad y escribe el desglose en la nota.",
+   "efecto": "El pendiente de Mapfre del 26-nov pasa solo a 649,28 € (nota: bruto 802,48 · retención 152,47 · comisión e IVA 0,73). No se duplica al volver a importar.",
+   "donde": "Movimientos › pendientes de revisar"
   }
  ]
 }
