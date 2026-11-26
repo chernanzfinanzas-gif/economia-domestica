@@ -75,8 +75,8 @@
   {
    "fecha": "2026-11-26",
    "titulo": "Ficha: el neto de cada dividendo y cuánto falta para recuperar lo pagado",
-   "que": "La lista de dividendos cobrados de «Mi posición» trae ahora el neto de cada cobro (bruto menos la retención del 19 %) y, arriba, el total bruto, el total neto, lo pagado por las acciones que tienes y cuánto falta para recuperarlo con dividendos.",
-   "efecto": "Ejemplo Mapfre: 7.238 € brutos, 5.862,78 € netos; pagaste 19.180 €: faltan 13.317,22 € (30,6 % recuperado).",
+   "que": "La lista de dividendos cobrados de «Mi posición» trae ahora el neto de cada cobro (bruto menos la retención del 19 %) y, arriba, el total bruto, el total neto, lo pagado por las acciones que tienes y cuánto falta para recuperarlo con dividendos, contado con el bruto porque la retención se recupera en la renta.",
+   "efecto": "Ejemplo Mapfre: 7.238 € brutos, 5.862,78 € netos; pagaste 19.180 €: faltan 11.942 € (37,7 % recuperado).",
    "donde": "Ficha de la empresa › Mi posición"
   }
  ]

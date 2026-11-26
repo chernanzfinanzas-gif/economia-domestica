@@ -457,9 +457,9 @@
         filas+='<tr><td>'+fe(x.f)+'</td><td>'+eu(x.dpa,4)+'</td><td>'+n(x.acc,0)+'</td><td>'+eu(x.imp)+'</td><td>'+eu(NT(x.imp))+'</td></tr>'; });
       filas+=fin();
       /* 26-nov (Carlos): arriba, total bruto, total neto y cuánto falta para recuperar con dividendos lo pagado por las acciones que tienes */
-      var totN=NT(totB), falta=coste-totN, kv='<div class="nf-kv"><span>Total cobrado bruto</span><b>'+eu(totB)+'</b><span>Total cobrado neto</span><b>'+eu(totN)+'</b>';
-      if(acc&&coste>0) kv+='<span>Pagado por tus '+n(acc,0)+' acciones</span><b>'+eu(coste)+'</b>'+(falta>0?'<span>Falta para recuperarlo con dividendos</span><b>'+eu(falta)+' ('+n(totN/coste*100,1)+' % ya recuperado)</b>':'<span>Recuperado con dividendos</span><b class="pos">todo, y '+eu(-falta)+' de más</b>');
-      kv+='</div><div class="nf-ws">Neto = bruto menos la retención del '+n(RT*100,0)+' %; sin contar la comisión del bróker. Lo pagado es el coste de las acciones que tienes hoy.</div>';
+      var totN=NT(totB), falta=coste-totB,   /* 26-nov (Carlos): con el BRUTO, la retención se la devuelven en la renta */ kv='<div class="nf-kv"><span>Total cobrado bruto</span><b>'+eu(totB)+'</b><span>Total cobrado neto</span><b>'+eu(totN)+'</b>';
+      if(acc&&coste>0) kv+='<span>Pagado por tus '+n(acc,0)+' acciones</span><b>'+eu(coste)+'</b>'+(falta>0?'<span>Falta para recuperarlo con dividendos</span><b>'+eu(falta)+' ('+n(totB/coste*100,1)+' % ya recuperado)</b>':'<span>Recuperado con dividendos</span><b class="pos">todo, y '+eu(-falta)+' de más</b>');
+      kv+='</div><div class="nf-ws">Neto = bruto menos la retención del '+n(RT*100,0)+' %; sin contar la comisión del bróker. Lo que falta se cuenta con el bruto (la retención se recupera en la renta). Lo pagado es el coste de las acciones que tienes hoy.</div>';
       h+=card('Cada dividendo cobrado',CB.length+' cobros · el más reciente arriba',kv+'<div class="nf-tw"><table class="nf-t"><tr><th>Fecha</th><th>Por acción</th><th>Acciones</th><th>Bruto</th><th>Neto</th></tr>'+filas+'</table></div>'); }
     return h;
   }
