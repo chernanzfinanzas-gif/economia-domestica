@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-26T08:45",
+ "generado": "2026-11-26T09:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -1372,6 +1372,18 @@
    "ticker": "BBVA",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (25/11/2026 18:41)",
    "detalle": "nº 43835: La Sociedad comunica su intención de solicitar la exclusión de cotización y negociación de sus acciones en la Bolsa de [",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P1bd51bb6",
+   "creado": "2026-11-26T08:57",
+   "origen": "cruce con la nube",
+   "ticker": "PSG",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (26/11/2026 08:37)",
+   "detalle": "nº 43839: Pago dividendo diciembre 2026",
    "estado": "abierto",
    "resuelto": null,
    "como": null,
