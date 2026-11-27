@@ -48,14 +48,21 @@
 
   function guardar(lista){
     if(!hayDrive()) return;
-    var d=hoy(), antes={};
-    ((_prev&&_prev.avisos)||[]).forEach(function(a){ if(a.k) antes[a.k]=a.desde; });
-    var av=lista.map(function(a){ var k=clave(a.grupo,a.texto); return {k:k,grupo:a.grupo,estado:a.estado,texto:a.texto,desde:antes[k]||d}; });
+    /* [27-nov-2026 · Carlos] «desde» ya no depende de que el aviso estuviera en la copia ANTERIOR: un repintado a medias
+       (p. ej. al abrir la app antes de que lleguen los hechos) los borraba y al volver salían como «nuevos hoy» (32 el 27-nov).
+       Ahora se guarda aparte un registro de la primera vez que se vio cada aviso («vistos»: clave → [primera, última vez]),
+       que solo crece; se olvida lo que lleva más de 120 días sin aparecer. */
+    var d=hoy(), V={};
+    var pv=(_prev&&_prev.vistos)||{}; Object.keys(pv).forEach(function(k){ var x=pv[k]; if(x&&x[0]) V[k]=[x[0],x[1]||x[0]]; });
+    ((_prev&&_prev.avisos)||[]).forEach(function(a){ if(a.k&&a.desde&&(!V[a.k]||a.desde<V[a.k][0])) V[a.k]=[a.desde,(V[a.k]&&V[a.k][1])||a.desde]; });
+    var av=lista.map(function(a){ var k=clave(a.grupo,a.texto); var desde=V[k]?V[k][0]:d; V[k]=[desde,d]; return {k:k,grupo:a.grupo,estado:a.estado,texto:a.texto,desde:desde}; });
+    var lim=new Date(Date.parse(d+'T12:00:00')-120*864e5).toISOString().slice(0,10);
+    Object.keys(V).forEach(function(k){ if(V[k][1]<lim) delete V[k]; });
     var firma=JSON.stringify(av.map(function(a){ return a.k; }));
     if(firma===_ult) return;
     var ahora=Date.now(); if(ahora-_ultEsc<60000){ clearTimeout(_t); _t=setTimeout(function(){ guardar(lista); },60000-(ahora-_ultEsc)+50); return; }
     _ult=firma; _ultEsc=ahora;
-    var D={schemaVersion:1, actualizado:new Date().toISOString(), dia:d, n:av.length, avisos:av}; _prev=D;
+    var D={schemaVersion:1, actualizado:new Date().toISOString(), dia:d, n:av.length, avisos:av, vistos:V}; _prev=D;
     var body=JSON.stringify(D,null,1);
     if(_fid){ gfetch('https://www.googleapis.com/upload/drive/v3/files/'+_fid+'?uploadType=media',{method:'PATCH',headers:{'Content-Type':'application/json'},body:body}).catch(function(){}); return; }
     var b='-----avc'+Date.now();

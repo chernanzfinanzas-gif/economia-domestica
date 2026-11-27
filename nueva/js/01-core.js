@@ -982,7 +982,7 @@ function hallazgosAvisos(){
             +'<div style="font-size:11.5px;color:#475569;margin-top:2px">'+_radEsc((h.resumen||'').slice(0,240))+'</div>'
             +(h.fuente?' · <a href="'+h.fuente+'" target="_blank" rel="noopener" style="text-decoration:underline">fuente ↗</a>':'');
       }
-      out.push({pri:pri, cls:cls, goto:'analisis', tipo:'hallazgo', tick:tk, sig:sig, txt:txt});
+      out.push({pri:pri, cls:cls, goto:'analisis', tipo:'hallazgo', tick:tk, sig:sig, txt:txt, tipoH:h.tipo||'', nat:h.naturaleza||'', fechaH:(h.fecha||h.abiertoEl||'')});   /* 27-nov: para archivar en el Panel los avisos informativos de más de 30 días */
     });
   });
   return out;
