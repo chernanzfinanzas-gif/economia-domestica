@@ -1,29 +1,29 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-11-26",
+ "generadoEl": "2026-11-27",
  "fuente": "mercado-diario",
  "nota": "Escrito por macro_mercado.py (GitHub Actions, un pase diario). Misma forma que macro.json: la app funde los dos y este pisa al del informe solo donde trae dato. Un indicador que falla no aparece; nunca se escribe 0 ni un valor a medias.",
  "ind": {
   "ibex": {
    "n": "IBEX 35",
    "grupo": "bolsa",
-   "v": 18635.8,
+   "v": 19057.9,
    "u": "puntos",
-   "f": "2026-11-25",
-   "d": -2.0,
+   "f": "2026-11-26",
+   "d": 2.26,
    "dU": "%",
    "dPer": "sesión",
    "src": "precios/IBEX.json (serie propia)",
    "slider": "BOLSA",
-   "sliderV": 15.5,
-   "nota": "+15,5 % en 12 meses (alimenta el escenario) · +7,7 % en lo que va de año"
+   "sliderV": 16.5,
+   "nota": "+16,5 % en 12 meses (alimenta el escenario) · +10,1 % en lo que va de año"
   },
   "vix": {
    "n": "VIX · volatilidad implícita",
    "grupo": "otros",
-   "v": 28.29,
-   "f": "2026-11-25",
-   "d": 7.32,
+   "v": 26.8,
+   "f": "2026-11-26",
+   "d": -5.27,
    "dU": "%",
    "dPer": "sesión",
    "src": "yahoo · ^VIX",
@@ -58,9 +58,9 @@
   "eur_usd": {
    "n": "EUR/USD",
    "grupo": "divisas",
-   "v": 1.0962,
-   "f": "2026-11-25",
-   "d": 0.5,
+   "v": 1.097,
+   "f": "2026-11-26",
+   "d": 0.07,
    "dU": "%",
    "dPer": "sesión",
    "src": "yahoo · EURUSD=X",
@@ -69,12 +69,12 @@
   "latam_cesta": {
    "n": "Cesta LatAm (fuerza)",
    "grupo": "divisas",
-   "v": 2.0,
+   "v": 0.8,
    "u": "%",
-   "f": "2026-11-25",
+   "f": "2026-11-26",
    "slider": "LATAM",
-   "sliderV": 2.0,
-   "nota": "12 meses móviles, a partes iguales, signo invertido (par EUR/XXX al alza = divisa débil). BRL -4,3 % · MXN -0,0 % · CLP -1,8 % · COP +14,1 %. ARS excluido: su tipo mide política cambiaria, no mercado",
+   "sliderV": 0.8,
+   "nota": "12 meses móviles, a partes iguales, signo invertido (par EUR/XXX al alza = divisa débil). BRL -2,7 % · MXN -1,1 % · CLP -4,7 % · COP +11,5 %. ARS excluido: su tipo mide política cambiaria, no mercado",
    "src": "yahoo · EURBRL=X, EURMXN=X, EURCLP=X, EURCOP=X"
   },
   "treasury_10a": {
