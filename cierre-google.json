@@ -1,117 +1,119 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-27T01:48:22",
- "sesion": "2026-11-26",
+ "generado": "2026-11-27T17:50:10",
+ "sesion": "2026-11-27",
  "tipo": "cierre",
  "bloqueOrigen": "cierre",
- "selloUTC": "2026-11-26 18:31:08",
+ "selloUTC": "2026-11-27 18:31:07",
  "fuente": "Google Finance · hoja «Cierres KH» · captura post-subasta",
  "umbralEur": 2.0,
  "precisionEur": 0.005,
- "n": 97,
+ "n": 99,
  "precios": {
-  "A3M": 6.22,
-  "ACS": 81.05,
-  "ACX": 14.64,
-  "ADZ": 6.0,
+  "A3M": 6.2,
+  "ACS": 82.85,
+  "ACX": 14.88,
+  "ADZ": 5.95,
   "AEDAS": 23.8,
-  "AENA": 28.36,
-  "AIR": 196.0,
-  "ALM": 10.54,
-  "ALNT": 8.6,
-  "AMP": 4.54,
-  "AMS": 61.9,
-  "ANA": 188.0,
-  "ANE": 19.02,
+  "AENA": 28.5,
+  "AIR": 196.1,
+  "ALM": 10.56,
+  "ALNT": 8.82,
+  "AMP": 4.59,
+  "AMS": 62.76,
+  "ANA": 187.3,
+  "ANE": 19.79,
   "APAM": 32.74,
-  "ART": 27.1,
-  "AZK": 10.3,
-  "BBVA": 21.86,
-  "BKT": 13.71,
-  "CABK": 11.29,
-  "CAF": 65.8,
-  "CCEP": 108.2,
-  "CIE": 27.0,
-  "CIRSA": 18.98,
-  "CLNX": 25.5,
-  "COL": 5.03,
-  "COXG": 10.4,
-  "DIA": 48.3,
+  "ARM": 13.8,
+  "ART": 27.3,
+  "AZK": 10.35,
+  "BBVA": 22.25,
+  "BKT": 13.96,
+  "CABK": 11.52,
+  "CAF": 68.0,
+  "CCEP": 108.0,
+  "CIE": 27.2,
+  "CIRSA": 19.04,
+  "CLNX": 25.6,
+  "COL": 5.09,
+  "COXG": 10.55,
+  "DIA": 48.0,
   "EBRO": 18.04,
-  "ECO": 3.38,
-  "ELE": 43.32,
-  "ENC": 2.15,
-  "ENG": 18.12,
-  "ENO": 31.25,
-  "FAE": 4.97,
-  "FCC": 10.7,
-  "FDR": 18.7,
-  "FER": 53.7,
-  "GEST": 3.0,
+  "ELE": 43.74,
+  "ENC": 2.26,
+  "ENG": 18.31,
+  "ENO": 32.0,
+  "FAE": 4.95,
+  "FCC": 10.84,
+  "FDR": 18.79,
+  "FER": 54.88,
+  "GEST": 3.01,
+  "GIGA": 2.35,
   "GRE": 51.1,
-  "GRF": 11.4,
-  "GSJ": 6.76,
-  "HOME": 19.51,
-  "IAG": 5.27,
-  "IBE": 23.03,
-  "IBG": 16.75,
-  "IDR": 56.7,
-  "ITX": 58.62,
-  "LGT": 5.08,
-  "LOG": 37.7,
-  "MAKS": 5.2,
-  "MAP": 4.0,
-  "MCM": 9.92,
-  "MEL": 11.18,
-  "MRL": 11.35,
-  "MTS": 51.98,
-  "MVC": 11.42,
-  "NEA": 9.92,
-  "NTGY": 30.14,
+  "GRF": 11.55,
+  "GSJ": 7.03,
+  "HOME": 19.88,
+  "IAG": 5.32,
+  "IBE": 23.21,
+  "IBG": 17.0,
+  "IDR": 57.38,
+  "ITX": 58.64,
+  "LGT": 5.16,
+  "LOG": 39.06,
+  "MAKS": 5.15,
+  "MAP": 4.05,
+  "MCM": 9.86,
+  "MEL": 11.3,
+  "MRL": 11.79,
+  "MTS": 54.42,
+  "MVC": 11.46,
+  "NEA": 9.8,
+  "NTGY": 30.38,
   "ORY": 2.4,
-  "PHM": 59.6,
-  "PRM": 12.4,
-  "PRS": 2.13,
-  "PSG": 3.17,
-  "PUIG": 20.94,
-  "R4": 21.1,
-  "RED": 16.92,
-  "REP": 27.52,
-  "RJF": 2.69,
-  "ROVI": 64.05,
-  "SAB": 3.48,
-  "SAN": 10.44,
-  "SCYR": 4.11,
-  "SLR": 14.08,
-  "TEF": 3.38,
-  "TLGO": 2.26,
-  "TRE": 29.62,
-  "TUB": 2.85,
-  "UNI": 3.22,
-  "VID": 93.7,
-  "VIS": 53.5,
-  "ATRY": 2.36,
-  "ATSI": 3.48,
-  "CBAV": 57.0,
-  "CLR": 19.0,
-  "CMO": 39.0,
-  "DESA": 19.5,
-  "DOM": 2.74,
-  "EBROM": 9.2,
-  "EDR": 4.46,
-  "IMC": 3.56,
-  "INDXA": 16.5,
-  "ISUR": 16.5,
-  "IZER": 7.0,
+  "PHM": 60.15,
+  "PRM": 12.6,
+  "PRS": 2.06,
+  "PSG": 3.16,
+  "PUIG": 21.02,
+  "R4": 21.5,
+  "RED": 17.05,
+  "REP": 27.8,
+  "RJF": 2.68,
+  "ROVI": 63.6,
+  "SAB": 3.56,
+  "SAN": 10.9,
+  "SCYR": 4.2,
+  "SLR": 14.27,
+  "TEF": 3.44,
+  "TLGO": 2.29,
+  "TRE": 30.24,
+  "TUB": 2.89,
+  "UNI": 3.29,
+  "VID": 93.5,
+  "VIS": 53.6,
+  "ATRY": 2.44,
+  "ATSI": 3.5,
+  "CBAV": 56.8,
+  "CLR": 19.35,
+  "CMO": 38.0,
+  "DESA": 19.4,
+  "DOM": 2.73,
+  "EBROM": 9.0,
+  "EDR": 4.35,
+  "IMC": 3.65,
+  "INDXA": 16.6,
+  "ISUR": 16.65,
+  "IZER": 6.96,
   "LIB": 3.0,
-  "LLYC": 3.08,
-  "TSK": 5.58,
-  "VYT": 13.05
+  "LLYC": 3.0,
+  "NTH": 2.07,
+  "TSK": 5.53,
+  "VYT": 13.0
  },
  "descartados": [
   {
    "ticker": "ADX",
-   "precio": 1.09,
+   "precio": 1.08,
    "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.46% de error"
   },
   {
@@ -120,19 +122,19 @@
    "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 6.25% de error"
   },
   {
-   "ticker": "ARM",
-   "precio": 13.0,
-   "motivo": "ultima operacion del 2026-11-25, no de hoy"
-  },
-  {
    "ticker": "BKY",
-   "precio": 0.48,
-   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 1.04% de error"
+   "precio": 0.5,
+   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 1.00% de error"
   },
   {
    "ticker": "CEV",
    "precio": 8.55,
    "motivo": "ultima operacion del 2026-11-23, no de hoy"
+  },
+  {
+   "ticker": "ECO",
+   "precio": 3.38,
+   "motivo": "ultima operacion del 2026-11-26, no de hoy"
   },
   {
    "ticker": "ECR",
@@ -144,13 +146,8 @@
    "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 10.00% de error"
   },
   {
-   "ticker": "GIGA",
-   "precio": 2.35,
-   "motivo": "ultima operacion del 2026-11-25, no de hoy"
-  },
-  {
    "ticker": "LDA",
-   "precio": 1.25,
+   "precio": 1.26,
    "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.40% de error"
   },
   {
@@ -169,8 +166,8 @@
   },
   {
    "ticker": "OHLA",
-   "precio": 0.32,
-   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 1.56% de error"
+   "precio": 0.34,
+   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 1.47% de error"
   },
   {
    "ticker": "OLE",
@@ -184,18 +181,18 @@
   },
   {
    "ticker": "REN",
-   "precio": 0.58,
-   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.86% de error"
+   "precio": 0.62,
+   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.81% de error"
   },
   {
    "ticker": "RIO",
-   "precio": 0.79,
-   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.63% de error"
+   "precio": 0.78,
+   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.64% de error"
   },
   {
    "ticker": "RLIA",
-   "precio": 1.03,
-   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.49% de error"
+   "precio": 1.01,
+   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.50% de error"
   },
   {
    "ticker": "SEC",
@@ -218,23 +215,23 @@
   },
   {
    "ticker": "CASH",
-   "precio": 0.68,
-   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.74% de error"
+   "precio": 0.65,
+   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.77% de error"
   },
   {
    "ticker": "EAT",
-   "precio": 1.84,
+   "precio": 1.88,
    "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.27% de error"
   },
   {
    "ticker": "GAM",
-   "precio": 1.35,
-   "motivo": "ultima operacion del 2026-11-25, no de hoy"
+   "precio": 1.38,
+   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.36% de error"
   },
   {
    "ticker": "GGR",
-   "precio": 1.35,
-   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.37% de error"
+   "precio": 1.33,
+   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.38% de error"
   },
   {
    "ticker": "MDF",
@@ -243,7 +240,7 @@
   },
   {
    "ticker": "MTB",
-   "precio": 1.94,
+   "precio": 1.92,
    "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.26% de error"
   },
   {
@@ -252,24 +249,19 @@
    "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.89% de error"
   },
   {
-   "ticker": "NTH",
-   "precio": 1.99,
-   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.25% de error"
-  },
-  {
    "ticker": "SNG",
-   "precio": 1.35,
-   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.37% de error"
+   "precio": 1.44,
+   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.35% de error"
   },
   {
    "ticker": "SOL",
-   "precio": 0.42,
-   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 1.19% de error"
+   "precio": 0.45,
+   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 1.11% de error"
   },
   {
    "ticker": "SQRL",
-   "precio": 1.86,
-   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.27% de error"
+   "precio": 1.9,
+   "motivo": "por debajo de 2.00 EUR: el redondeo a 2 decimales mete hasta un 0.26% de error"
   }
  ],
  "control": null
