@@ -1,18 +1,13 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-26T18:45",
+ "generado": "2026-11-27T08:44",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-11-26T18:41",
+  "cuando": "2026-11-27T08:44",
   "ficheros": [
-   "recogida/publicaciones/ALM.json",
-   "recogida/publicaciones/DESA.json",
-   "recogida/publicaciones/EZE.json",
-   "recogida/publicaciones/GEST.json",
-   "recogida/publicaciones/LDA.json",
-   "recogida/publicaciones/PSG.json",
+   "recogida/publicaciones/AI.json",
    "recogida/publicaciones/_indice.json",
    "recogida/publicaciones/dias/2026-11.json"
   ]
@@ -20,283 +15,13 @@
  "rechazos": [],
  "descargas_pendientes": [
   {
-   "clase": "fallido",
-   "ticker": "ADZ",
-   "que": "2025-09-18 La sociedad remite el reglamento del Consejo de Administración",
-   "carpeta": "ADZ - Adolfo Domínguez, S.A\\Gobierno",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A-32104226",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (TEF - Telefó",
-   "desde": "2026-11-10"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "ADZ",
-   "que": "2026-04-30 La sociedad remite el Informe Financiero Anual del ejercicio 2026",
-   "carpeta": "ADZ - Adolfo Domínguez, S.A\\Resultados",
-   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A-32104226",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (TEF - Telefó",
-   "desde": "2026-11-10"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "AEDAS",
-   "que": "2023-10-24 Reducción de capital social de la Sociedad en la cuantía de 3.106.537",
-   "carpeta": "AEDAS - AEDAS Homes, S.A\\Capital",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/derechos-voto-capital.aspx?Nif=A87586483",
-   "motivo": "el fichero de dentro no es el de este aviso: es un documento de la propia CNMV, no de la empresa",
-   "desde": "2026-11-23"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "AEDAS",
-   "que": "2022-06-20 La sociedad remite el reglamento del Consejo de Administración",
-   "carpeta": "AEDAS - AEDAS Homes, S.A\\Gobierno",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A87586483",
-   "motivo": "el fichero de dentro no es el de este aviso: es un documento de la propia CNMV, no de la empresa",
-   "desde": "2026-11-23"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "AEDAS",
-   "que": "2026-05-28 La sociedad remite el Informe Financiero Anual del ejercicio 2026",
-   "carpeta": "AEDAS - AEDAS Homes, S.A\\Resultados",
-   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A87586483",
-   "motivo": "el fichero de dentro no es el de este aviso: el aviso es de 2026 y el PDF se creo en 2024",
-   "desde": "2026-11-14"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "AI",
-   "que": "2022 S1 Anexo Anexo del informe financiero semestral AI",
-   "carpeta": "AI - Airtificial Intelligence Structures, S.A\\Intermedios",
-   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=j72G3%2fn2I3qnToCafO88mqmXZV1vcuoSKtZyoxqWa7BUEAeRxZR3srt1mVLkRHmQ",
-   "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
-   "desde": "2026-10"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "AI",
-   "que": "2022 S2 Anexo Anexo del informe financiero semestral AI",
-   "carpeta": "AI - Airtificial Intelligence Structures, S.A\\Intermedios",
-   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=obQonWR8CA8sX7ds7KOcbcBEdSPIK4%2bhVV5zxSvL1AhUEAeRxZR3srt1mVLkRHmQ",
-   "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
-   "desde": "2026-10"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "ANE",
-   "que": "2024-07-02 Acciona Energia informa de la inscripción de la escritura de reducción",
-   "carpeta": "ANE - Corporación Acciona Energías Renovables, S.A\\Capital",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/derechos-voto-capital.aspx?Nif=A85483311",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
-   "desde": "2026-11-13"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "ANE",
-   "que": "2021-06-23 La sociedad remite el reglamento del Consejo de Administración",
-   "carpeta": "ANE - Corporación Acciona Energías Renovables, S.A\\Gobierno",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A85483311",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
-   "desde": "2026-11-13"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "ANE",
-   "que": "2026-02-26 La sociedad remite el Informe Financiero Anual del ejercicio 2025",
-   "carpeta": "ANE - Corporación Acciona Energías Renovables, S.A\\Resultados",
-   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A85483311",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
-   "desde": "2026-11-13"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "CBAV",
-   "que": "2026-02-18 La sociedad remite el reglamento del Consejo de Administración",
-   "carpeta": "CBAV - CLINICA BAVIERA, S.A\\Gobierno",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A-80240427",
-   "motivo": "el fichero de dentro no es el de este aviso: es un documento de la propia CNMV, no de la empresa",
-   "desde": "2026-11-23"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "CBAV",
-   "que": "2026-04-09 La sociedad remite el Informe Financiero Anual del ejercicio 2025",
-   "carpeta": "CBAV - CLINICA BAVIERA, S.A\\Resultados",
-   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A-80240427",
-   "motivo": "el fichero de dentro no es el de este aviso: es un documento de la propia CNMV, no de la empresa",
-   "desde": "2026-11-23"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "COL",
-   "que": "2026-06-25 La sociedad comunica la inscripción de la reducción de capital en el r",
-   "carpeta": "COL - Colonial SFL, SOCIMI, S.A\\Capital",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/derechos-voto-capital.aspx?Nif=A-28027399",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (ACS - ACS, A",
-   "desde": "2026-11-09"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "COL",
-   "que": "2026-03-23 La sociedad remite el reglamento del Consejo de Administración",
-   "carpeta": "COL - Colonial SFL, SOCIMI, S.A\\Gobierno",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A-28027399",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (ACS - ACS, A",
-   "desde": "2026-11-09"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "COL",
-   "que": "2026-02-26 La sociedad remite el Informe Financiero Anual del ejercicio 2025",
-   "carpeta": "COL - Colonial SFL, SOCIMI, S.A\\Resultados",
-   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A-28027399",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (ACS - ACS, A",
-   "desde": "2026-11-09"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "EAT",
-   "que": "2023-05-30 La sociedad remite el reglamento del Consejo de Administración",
-   "carpeta": "EAT - AMREST HOLDINGS, S.E\\Gobierno",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A88063979",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (ACS - ACS, A",
-   "desde": "2026-11-09"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "EAT",
-   "que": "2026-02-26 La sociedad remite el Informe Financiero Anual del ejercicio 2025",
-   "carpeta": "EAT - AMREST HOLDINGS, S.E\\Resultados",
-   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A88063979",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (ACS - ACS, A",
-   "desde": "2026-11-09"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "EDR",
-   "que": "2026-05-28 La sociedad remite el Informe Financiero Anual del ejercicio 2026",
-   "carpeta": "EDR - EDREAMS ODIGEO, S.A\\Resultados",
-   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A02850956",
-   "motivo": "el fichero de dentro no es el de este aviso: el aviso es de 2026 y el PDF se creo en 2024",
-   "desde": "2026-11-14"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "ELE",
-   "que": "2026-11-06 Inscripción en el Registro Mercantil de la reducción de capital",
-   "carpeta": "ELE - Endesa, S.A\\Capital",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/derechos-voto-capital.aspx?Nif=A-28023430",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
-   "desde": "2026-11-07"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "GAM",
-   "que": "2020-12-09 Número de votos y capital tras ampliación de capital 2020",
-   "carpeta": "GAM - GENERAL DE ALQUILER DE MAQUINARIA, S.A\\Capital",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/derechos-voto-capital.aspx?Nif=A-83443556",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (CBAV - CLINI",
-   "desde": "2026-11-14"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "GAM",
-   "que": "2025-01-28 La sociedad remite el reglamento del Consejo de Administración",
-   "carpeta": "GAM - GENERAL DE ALQUILER DE MAQUINARIA, S.A\\Gobierno",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A-83443556",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (CBAV - CLINI",
-   "desde": "2026-11-14"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "GAM",
-   "que": "2026-02-26 La sociedad remite el Informe Financiero Anual del ejercicio 2025",
-   "carpeta": "GAM - GENERAL DE ALQUILER DE MAQUINARIA, S.A\\Resultados",
-   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A-83443556",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (CBAV - CLINI",
-   "desde": "2026-11-14"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "GRE",
-   "que": "2025-06-23 Actualización de derechos de voto tras venta de acciones por parte de",
-   "carpeta": "GRE - Grenergy Renovables, S.A\\Capital",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/derechos-voto-capital.aspx?Nif=A85130821",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (CBAV - CLINI",
-   "desde": "2026-11-14"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "GRE",
-   "que": "2025-02-27 La sociedad remite el reglamento del Consejo de Administración",
-   "carpeta": "GRE - Grenergy Renovables, S.A\\Gobierno",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/resultado-oirc.aspx?TipoInf=23&Nif=A85130821",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (CBAV - CLINI",
-   "desde": "2026-11-14"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "GRE",
-   "que": "2026-02-25 La sociedad remite el Informe Financiero Anual del ejercicio 2025",
-   "carpeta": "GRE - Grenergy Renovables, S.A\\Resultados",
-   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A85130821",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (CBAV - CLINI",
-   "desde": "2026-11-14"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "GRE",
-   "que": "2026-06-10 Renovación previsión estatutaria voto adicional doble por lealtad",
-   "carpeta": "GRE - Grenergy Renovables, S.A\\Resultados",
-   "url": "https://www.cnmv.es/portal/otra-informacion-regulada-corporativa/lealtad-regimen.aspx?Nif=A85130821",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (CBAV - CLINI",
-   "desde": "2026-11-14"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "LGT",
-   "que": "2016 S1 Anexo Anexo de las notas explicativas estados fina LGT",
-   "carpeta": "LGT - Lingotes Especiales, S.A\\Intermedios",
-   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=M23gBDW5NXuBMlNMcR6pJ37C1xx%2b3xyVJEOPD6KJlbWhUFgrkk%2fhEZzWRbwiPkSI",
-   "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
-   "desde": "2026-10"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "LGT",
-   "que": "2017 S1 Anexo Anexo de las notas explicativas estados fina LGT",
-   "carpeta": "LGT - Lingotes Especiales, S.A\\Intermedios",
-   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=vl7%2fO%2fq7dCNbIEJTLkSFTxzKdlCZSvpwmoAaC%2brFX%2bmhUFgrkk%2fhEZzWRbwiPkSI",
-   "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
-   "desde": "2026-10"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "LGT",
-   "que": "2018 S1 Anexo Anexo de las notas explicativas estados fina LGT",
-   "carpeta": "LGT - Lingotes Especiales, S.A\\Intermedios",
-   "url": "https://www.cnmv.es/webservices/verdocumento/ver?e=FWpndKCb8ezODyA4jwPmJcxjKdhZ965VtYrpkC%2bDgj%2bhUFgrkk%2fhEZzWRbwiPkSI",
-   "motivo": "la fuente devolvio una pagina, no un fichero (guardada en _diagnostico)",
-   "desde": "2026-10"
-  },
-  {
-   "clase": "fallido",
-   "ticker": "LOG",
-   "que": "2026-11-06 La sociedad remite el Informe Financiero Anual del ejercicio 2026",
-   "carpeta": "LOG - Logista Integral, S.A\\Resultados",
-   "url": "https://www.cnmv.es/portal/consultas/ifa/listadoifa.aspx?id=0&nif=A87008579",
-   "motivo": "el fichero de dentro no es el de este aviso: es el mismo fichero que se acaba de guardar para otra empresa (SAB - Banco ",
-   "desde": "2026-11-07"
-  },
-  {
    "clase": "falta",
    "ticker": "AEDAS",
    "empresa": "AEDAS Homes",
    "que": "documento de resultados (solo hay anuncios)",
    "carpeta": "Resultados",
    "desde": "2026-11-20",
-   "dias": 6
+   "dias": 7
   }
  ],
  "pendientes_sistema": [
@@ -1267,9 +992,9 @@
    "ticker": "VIS",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (20/11/2026 19:49)",
    "detalle": "nº 43776: Información complementaria sobre las cuestiones pendientes de concretar del dividendo retribución flexible, entre otras,",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-27T08:37",
+   "como": "27-nov: ya en la Biblioteca (VIS, 2026-11-20 43776 Información complementaria…pdf)",
    "comprobado": null
   },
   {
@@ -1279,9 +1004,9 @@
    "ticker": "",
    "que": "Error en el pase de novedades",
    "detalle": "SAB trimestral: Error: p/kh_revision_SAB_zdmlynxw/datos/_universo.json', \"[Errno 28] No space left on device: '/sessions/rcw-01hs37azvwqruzcmyqndbtva/mnt/Análisis Financiero KH&Claude/Método v3 (paralelo)/datos/_universo.json' -> '/sessions/rcw-01hs37azvwqruzcmyqndbtva/tmp/kh_revision_SAB_zdmlynxw/datos/_universo.json'\")]",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-27T08:37",
+   "como": "27-nov 08:50: el disco del ordenador virtual está al 6 % (477 MB de 9,8 GB). CBAV: 9M rehecho y aprobado el 24-nov. SAB: pase_trimestral relanzado hoy → «nada nuevo en la Biblioteca».",
    "comprobado": null
   },
   {
@@ -1303,9 +1028,9 @@
    "ticker": "",
    "que": "El disco de trabajo del ordenador virtual del PC está lleno y los pases no pueden preparar copias temporales",
    "detalle": "18:57: el pase trimestral de SAB falló con «No space left on device» al copiar datos/_universo.json a la carpeta temporal. El disco /sessions (9,8 GB) está al 100 %; esta sesión solo ocupa 60 MB (una carpeta temporal kh_revision_SAB_… que no he podido borrar). Si sigue lleno, las próximas revisiones no se podrán preparar. · 23-nov: el disco lo llenan unas 310 carpetas de sesiones anteriores (desde el 2-oct) a las que una sesión no tiene acceso; los temporales del pase sí se borran. Liberados 175 MB de esta sesión.",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-27T08:37",
+   "como": "27-nov 08:50: el disco del ordenador virtual está al 6 % (477 MB de 9,8 GB). CBAV: 9M rehecho y aprobado el 24-nov. SAB: pase_trimestral relanzado hoy → «nada nuevo en la Biblioteca».",
    "comprobado": null
   },
   {
@@ -1315,9 +1040,9 @@
    "ticker": "",
    "que": "Error en el pase de novedades",
    "detalle": "CBAV trimestral: Error: kh_revision_CBAV_nzg09ham/datos/_universo.json', \"[Errno 28] No space left on device: '/sessions/rcw-01hs37b1zttsczs4hm7z3hfv/mnt/Análisis Financiero KH&Claude/Método v3 (paralelo)/datos/_universo.json' -> '/sessions/rcw-01hs37b1zttsczs4hm7z3hfv/tmp/kh_revision_CBAV_nzg09ham/datos/_universo.json'\")]",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-27T08:37",
+   "como": "27-nov 08:50: el disco del ordenador virtual está al 6 % (477 MB de 9,8 GB). CBAV: 9M rehecho y aprobado el 24-nov. SAB: pase_trimestral relanzado hoy → «nada nuevo en la Biblioteca».",
    "comprobado": null
   },
   {
@@ -1327,9 +1052,9 @@
    "ticker": "",
    "que": "Error en el pase de novedades",
    "detalle": "SAB trimestral: OSError: [Errno 28] No space left on device: '/sessions/rcw-01hs37b1zttsczs4hm7z3hfv/tmp/kh_revision_SAB_eglccji9'",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-27T08:37",
+   "como": "27-nov 08:50: el disco del ordenador virtual está al 6 % (477 MB de 9,8 GB). CBAV: 9M rehecho y aprobado el 24-nov. SAB: pase_trimestral relanzado hoy → «nada nuevo en la Biblioteca».",
    "comprobado": null
   },
   {
@@ -1363,9 +1088,9 @@
    "ticker": "FAE",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (25/11/2026 08:41)",
    "detalle": "nº 43828: Pago de dividendo",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-27T08:37",
+   "como": "27-nov: ya en la Biblioteca (FAE, 2026-11-25 43828 Pago de dividendo.pdf)",
    "comprobado": null
   },
   {
@@ -1375,9 +1100,9 @@
    "ticker": "BBVA",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (25/11/2026 18:41)",
    "detalle": "nº 43835: La Sociedad comunica su intención de solicitar la exclusión de cotización y negociación de sus acciones en la Bolsa de [",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-27T08:37",
+   "como": "27-nov: ya en la Biblioteca (BBVA, 2026-11-25 43835). Contenido: exclusión voluntaria SOLO de la Bolsa de Londres por bajo volumen; sigue cotizando en España.",
    "comprobado": null
   },
   {
@@ -1387,9 +1112,9 @@
    "ticker": "PSG",
    "que": "La CNMV registró una comunicación que la recogida no ha bajado (26/11/2026 08:37)",
    "detalle": "nº 43839: Pago dividendo diciembre 2026",
-   "estado": "abierto",
-   "resuelto": null,
-   "como": null,
+   "estado": "resuelto",
+   "resuelto": "2026-11-27T08:37",
+   "como": "27-nov: ya en la Biblioteca (PSG, 2026-11-26 43839 Pago dividendo diciembre 2026.pdf)",
    "comprobado": null
   }
  ],
