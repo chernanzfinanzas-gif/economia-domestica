@@ -59,10 +59,23 @@
     Object.keys(V.multiplos||{}).forEach(function(k){ var m=V.multiplos[k]; if(m&&m.vpa!=null) m.vpa=R(m.vpa); });
     Object.keys(V.matriz||{}).forEach(function(w){ Object.keys(V.matriz[w]).forEach(function(g){ V.matriz[w][g]=R(V.matriz[w][g]); }); });
     if(window.khEvFactor){ try{ var f=khEvFactor(t,fe); if(Math.abs(f-1)>1e-9) F._evNota='Niveles pasados a las acciones de hoy por un evento de capital posterior al análisis (÷ '+n(f,4)+').'; }catch(e){} } }
-  function lista(){
-    var L=[]; (DB.analisis||[]).forEach(function(a){ var t=String(a.ticker||'').toUpperCase(); if(t&&a.dossierFecha) L.push([t,a.nombre||t]); });
-    L.sort(function(a,b){ return a[1].localeCompare(b[1]); }); return L;
+  /* 27-nov-2026 (Carlos): filtro de la ficha por niveles que se contienen: Cartera ⊂ Plan ⊂ Analizadas.
+     «Plan» = las del plan de diversificación + las que tienes; «Analizadas» = las que tienen dossier + plan + cartera. */
+  var _fil=(function(){ try{ return localStorage.getItem('nfFiltro')||'ana'; }catch(e){ return 'ana'; } })();
+  function grupos(){
+    var nom={}, ana=[], plan=[], car=[];
+    (DB.analisis||[]).forEach(function(a){ var t=String(a.ticker||'').toUpperCase(); if(!t) return; nom[t]=a.nombre||nom[t]||t; if(a.dossierFecha&&ana.indexOf(t)<0) ana.push(t); });
+    try{ var P=(typeof _planParams==='function')?_planParams():null; (P&&P.allTk||[]).forEach(function(t){ t=String(t).toUpperCase(); if(plan.indexOf(t)<0) plan.push(t); }); }catch(e){}
+    try{ (typeof invPositions==='function'?invPositions():[]).forEach(function(p){ var t=String(p.ticker||'').toUpperCase(); if(t&&(+p.acciones||0)>0.0001&&car.indexOf(t)<0) car.push(t); }); }catch(e){}
+    function u(){ var o=[]; [].slice.call(arguments).forEach(function(L){ L.forEach(function(t){ if(o.indexOf(t)<0) o.push(t); }); }); return o; }
+    var nm=function(t){ return nom[t]||(((DB.valores||{})[t]||{}).nombre)||t; };
+    var mk=function(T){ return T.map(function(t){ return [t,nm(t)]; }).sort(function(a,b){ return a[1].localeCompare(b[1]); }); };
+    return {car:mk(car), plan:mk(u(plan,car)), ana:mk(u(ana,plan,car))};
   }
+  function lista(){ var G=grupos(); return G[_fil]||G.ana; }
+  function filtroHtml(){ var G=grupos(), B=[['car','En cartera'],['plan','En plan'],['ana','Analizadas']];
+    return '<div class="nf-fil" style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px">'+B.map(function(b){ var on=b[0]===_fil;
+      return '<button type="button" data-nffil="'+b[0]+'" style="padding:4px 12px;border-radius:999px;border:1px solid '+(on?'#1F4A9A':'#CBD5E1')+';background:'+(on?'#1F4A9A':'#fff')+';color:'+(on?'#fff':'#334155')+';font-size:12.5px;cursor:pointer">'+b[1]+' · '+G[b[0]].length+'</button>'; }).join('')+'</div>'; }
 
   /* ---------------- regla y cabecera ---------------- */
   function niveles(F,t){ var T=F.tesis||{}; return {precio:cot(t)||T.precio, stop:T.stop, entMin:T.entrada_min||T.po_bear, entMax:T.entrada_max, poBase:T.po_base, poBull:T.po_bull}; }
@@ -862,9 +875,12 @@
   var TABS=[['res','Resumen'],['emp','La empresa'],['neg','Cómo va la empresa'],['rat','Ratios'],['cot','Cotización'],['div','Dividendo'],['pos','Mi posición'],['his','Revisiones e historial'],['not','Noticias y coyuntura']];
   function pintar(){
     var v=document.getElementById('view-fichaemp'); if(!v) return;
-    var L=lista(); if(!cur) cur=(L[0]||[])[0]; if(!cur){ v.innerHTML='<div class="nf-mu">Sin empresas analizadas.</div>'; return; }
+    var L=lista();
+    /* si la empresa pedida (p. ej. desde el Kanban) no está en el filtro elegido, se abre el filtro más amplio */
+    if(cur&&!L.some(function(x){ return x[0]===cur; })){ if(_fil!=='ana'&&grupos().ana.some(function(x){ return x[0]===cur; })){ _fil='ana'; L=lista(); } else cur=null; }
+    if(!cur) cur=(L[0]||[])[0]; if(!cur){ v.innerHTML=filtroHtml()+'<div class="nf-mu">No hay empresas en este filtro.</div>'; return; }
     var i=L.map(function(x){return x[0];}).indexOf(cur), prev=L[(i-1+L.length)%L.length], next=L[(i+1)%L.length];
-    var pick='<div class="nf-pick"><div class="nf-bus"><input id="nfBus" type="search" autocomplete="off" placeholder="🔎 Escribe ticker o nombre (LO → Logista)"><div id="nfSug" class="nf-sug"></div></div><select id="nfSel">'+L.map(function(x){ return '<option value="'+x[0]+'"'+(x[0]===cur?' selected':'')+'>'+esc(x[1])+' ('+x[0]+')</option>'; }).join('')+'</select><button data-nfgo="'+(prev||[])[0]+'">◀ '+esc((prev||[])[0]||'')+'</button><button data-nfgo="'+(next||[])[0]+'">'+esc((next||[])[0]||'')+' ▶</button></div>';
+    var pick=filtroHtml()+'<div class="nf-pick"><div class="nf-bus"><input id="nfBus" type="search" autocomplete="off" placeholder="🔎 Escribe ticker o nombre (LO → Logista)"><div id="nfSug" class="nf-sug"></div></div><select id="nfSel">'+L.map(function(x){ return '<option value="'+x[0]+'"'+(x[0]===cur?' selected':'')+'>'+esc(x[1])+' ('+x[0]+')</option>'; }).join('')+'</select><button data-nfgo="'+(prev||[])[0]+'">◀ '+esc((prev||[])[0]||'')+'</button><button data-nfgo="'+(next||[])[0]+'">'+esc((next||[])[0]||'')+' ▶</button></div>';
     soltarCot(); v.innerHTML=pick+'<div class="nf-mu" style="padding:20px">Cargando la ficha de '+esc(cur)+'…</div>';
     var t=cur;
     cargar(t).then(function(F){ if(t!==cur) return;
@@ -883,6 +899,7 @@
   document.addEventListener('click',function(e){
     var dp=e.target.closest&&e.target.closest('[data-nfdp]'); if(dp){ var id=dp.getAttribute('data-nfdp'), cd=dp.closest('.nf-card'), g=cd&&cd.querySelector('g[data-dp="'+id+'"]'); if(g){ var on=g.style.display==='none'; g.style.display=on?'':'none'; dp.classList.toggle('on',on); } return; }
     var rt=e.target.closest&&e.target.closest('[data-nfrt]'); if(rt){ var row=document.getElementById(rt.getAttribute('data-nfrt')); if(row) row.style.display=row.style.display==='none'?'':'none'; return; }
+    var fl=e.target.closest&&e.target.closest('[data-nffil]'); if(fl){ _fil=fl.getAttribute('data-nffil'); try{ localStorage.setItem('nfFiltro',_fil); }catch(err){} if(!lista().some(function(x){ return x[0]===cur; })) cur=null; pintar(); return; }
     var a=e.target.closest&&e.target.closest('[data-nftab]'); if(a){ tab=a.getAttribute('data-nftab'); pintar(); return; }
     var g=e.target.closest&&e.target.closest('[data-nfgo]'); if(g){ cur=g.getAttribute('data-nfgo'); tab=tab==='cot'?'cot':tab; pintar(); return; }
   });
