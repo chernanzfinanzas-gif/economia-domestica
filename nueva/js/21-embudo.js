@@ -939,7 +939,12 @@ function _emDivDo(t){ t=_emUp(t);
     }
     var ckey=t+'|'+(_pagoF||fecha);
     DB.cajaDivReal[ckey]=neto; DB.cajaDivFecha[ckey]=fecha;
-    var sh=_emSharesHeld(t); if(sh>0){ var r=_emDivFichaLineas(t, dp, neto, sh, fecha, _pagoF, _emNum((document.getElementById('emdBruto')||{}).value));
+    /* [27-nov-2026] (Carlos, scrip de Viscofan) El «por acción» se calcula con las acciones que tenías en la ex-div
+       (o, sin ex-div, antes de la fecha de cobro), no con las de hoy: si compras después, el €/acc salía más bajo
+       (217 € / 160 = 1,3563 en vez de 217 / 155 = 1,40). Si no hay operaciones anteriores, las de hoy, como antes. */
+    var sh=0; try{ if(typeof _emAccEn==='function'){ if(dp&&dp.exDiv) sh=_emAccEn(t,String(dp.exDiv).slice(0,10)); if(!(sh>0)) sh=_emAccEn(t,fecha); } }catch(e){ sh=0; }
+    if(!(sh>0)) sh=_emSharesHeld(t);
+    if(sh>0){ var r=_emDivFichaLineas(t, dp, neto, sh, fecha, _pagoF, _emNum((document.getElementById('emdBruto')||{}).value));
       if(r===false){ delete DB.cajaDivReal[ckey]; delete DB.cajaDivFecha[ckey]; return; } }
     if(typeof showToast==='function')showToast('Dividendo anotado: '+t+' ('+_emEur(neto)+' neto)');
   }
