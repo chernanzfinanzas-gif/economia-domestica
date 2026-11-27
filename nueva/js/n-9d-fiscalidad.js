@@ -32,15 +32,17 @@
 
   /* ---------- operaciones de todas las carteras (también cerradas) ---------- */
   function todasOps(){
-    var L=[]; (DB.operaciones||[]).forEach(function(o){ if(o.fecha&&num_(o.acciones)>0) L.push({t:String(o.ticker||'').toUpperCase(),cart:o.cartera||'Propia',fecha:o.fecha,tipo:o.tipo,acc:num_(o.acciones),pr:num_(o.precio),com:(typeof khComision==='function')?khComision(o):num_(o.comision)}); });
-    (DB.cerradas||[]).forEach(function(c){ (c.ops||[]).forEach(function(o){ if(o.fecha&&num_(o.acciones)>0) L.push({t:String(c.ticker||'').toUpperCase(),cart:c.cartera||'Propia',fecha:o.fecha,tipo:o.tipo,acc:num_(o.acciones),pr:num_(o.precio),com:(typeof khComision==='function')?khComision(o):num_(o.comision),cerrada:true}); }); });
+    /* [27-nov-2026] para Hacienda, la parte de una compra pagada con un dividendo en acciones no es coste (las acciones liberadas entran a 0) */
+    var DA=null; try{ DA=(typeof window.nDivAccMapa==='function')?window.nDivAccMapa():null; }catch(e){ DA=null; }
+    var L=[]; (DB.operaciones||[]).forEach(function(o){ if(o.fecha&&num_(o.acciones)>0) L.push({t:String(o.ticker||'').toUpperCase(),cart:o.cartera||'Propia',fecha:o.fecha,tipo:o.tipo,acc:num_(o.acciones),pr:num_(o.precio),com:((typeof khComision==='function')?khComision(o):num_(o.comision))-((DA&&o.tipo!=='venta')?(DA.get(o)||0):0)}); });
+    (DB.cerradas||[]).forEach(function(c){ (c.ops||[]).forEach(function(o){ if(o.fecha&&num_(o.acciones)>0) L.push({t:String(c.ticker||'').toUpperCase(),cart:c.cartera||'Propia',fecha:o.fecha,tipo:o.tipo,acc:num_(o.acciones),pr:num_(o.precio),com:num_(o.comision),cerrada:true}); }); });
     return L.sort(function(a,b){ var c=a.fecha.localeCompare(b.fecha); return c||((a.tipo==='venta'?1:0)-(b.tipo==='venta'?1:0)); }); }
   /* FIFO por (valor, cartera) con comisiones dentro de la base, como la pestaña de siempre */
-  /* 25-nov-2026: las ventas salen del motor FIFO único de la app (nFifo, n-20-fifo.js), el mismo de Cartera y Lotes.
-     Así Cartera y Fiscalidad no pueden dar dos ganancias distintas de la misma venta. Precio de venta neto de su comisión. */
-  function fifo(L){ var R=[];
-    nFifo(nFifoOpsTodas()).sold.forEach(function(s){ var pv=s.acc>0?s.pv-s.comV/s.acc:s.pv;
-      R.push({t:s.ticker,cart:s.cartera,fechaV:s.fVenta,fechaC:s.fecha,acc:s.acc,pc:s.pc,pv:pv,gan:(pv-s.pc)*s.acc}); });
+  function fifo(L){ var Q={}, R=[];
+    L.forEach(function(o){ var k=o.t+'|'+o.cart, q=Q[k]=Q[k]||[];
+      if(o.tipo==='venta'){ var pv=o.acc>0?o.pr-o.com/o.acc:o.pr, rem=o.acc;
+        while(rem>1e-6&&q.length){ var l=q[0], tk=Math.min(rem,l.acc); R.push({t:o.t,cart:o.cart,fechaV:o.fecha,fechaC:l.fecha,acc:tk,pc:l.p,pv:pv,gan:(pv-l.p)*tk}); l.acc-=tk; rem-=tk; if(l.acc<=1e-6) q.shift(); } }
+      else q.push({fecha:o.fecha,acc:o.acc,p:o.acc>0?(o.acc*o.pr+o.com)/o.acc:o.pr}); });
     return R; }
   function accionesEn(L,t,cart,f){ var a=0; L.forEach(function(o){ if(o.t===t&&o.cart===cart&&o.fecha<=f) a+=(o.tipo==='venta'?-1:1)*o.acc; }); return Math.max(0,a); }
 
@@ -48,7 +50,7 @@
   function dividendos(L){ var H=hoyISO(), out={};   /* out[año][cart] = {cob, prev, porT:{t:bruto}} */
     function add(y,cart,t,v,fut){ var a=out[y]=out[y]||{}, c=a[cart]=a[cart]||{cob:0,prev:0,porT:{}}; c[fut?'prev':'cob']+=v; c.porT[t]=(c.porT[t]||0)+v; }
     var D=DB.dividendos||{}, carts={}; L.forEach(function(o){ (carts[o.t]=carts[o.t]||{})[o.cart]=1; });
-    Object.keys(D).forEach(function(t){ var T=t.toUpperCase(); (D[t]||[]).forEach(function(d){ if(!d||!d.fecha) return; var f=String(d.fecha).slice(0,10);
+    Object.keys(D).forEach(function(t){ var T=t.toUpperCase(); (D[t]||[]).forEach(function(d){ if(!d||!d.fecha||d.enAcciones) return;   /* [27-nov-2026] cobrado en acciones: no es rendimiento ni lleva retención */ var f=String(d.fecha).slice(0,10);
       Object.keys(carts[T]||{}).forEach(function(cart){ var acc=accionesEn(L,T,cart,f); if(acc>0) add(f.slice(0,4),cart,T,acc*num_(d.importe),f>H); }); }); });
     (DB.cerradas||[]).forEach(function(c){ var T=String(c.ticker||'').toUpperCase(); if(D[c.ticker]||D[T]) return;
       (c.divs||[]).forEach(function(d){ var f=String(d.fecha||'').slice(0,10); if(!f) return; var acc=accionesEn(L,T,c.cartera||'Propia',f); if(acc>0) add(f.slice(0,4),c.cartera||'Propia',T,acc*num_(d.importe),f>H); }); });

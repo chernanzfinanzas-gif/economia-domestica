@@ -41,18 +41,23 @@
     return out; }
   function flujos(hasta){
     var out=fijas(P.fecha,hasta), pend=[];
+    /* [27-nov-2026 · Carlos, scrip de Viscofan] Dividendo cobrado EN ACCIONES: no es dinero que entre en R4, y la compra que lo
+       acompaña solo saca de la caja lo pagado de verdad (derechos comprados + comisión). DA = compra → importe del dividendo. */
+    var DA=null; try{ DA=(typeof window.nDivAccMapa==='function')?window.nDivAccMapa():null; }catch(e){ DA=null; }
     (DB.operaciones||[]).forEach(function(o){ if(!(o.fecha>P.fecha&&o.fecha<=hasta)) return;
       /* [31-oct · Carlos] una venta en otro bróker deja el dinero allí: queda pendiente de traspasar a R4 (todo va al Foncuenta) */
       if(brk(o)!=='Renta 4'){ if(o.tipo==='venta'){ var bv=num(o.acciones)*num(o.precio)-num(o.comision); pend.push({fecha:o.fecha,imp:bv,txt:'Venta '+num(o.acciones)+' '+o.ticker+' ('+brk(o)+')',origen:'operación',tk:o.ticker+' (venta '+brk(o)+')'}); } return; } var b=num(o.acciones)*num(o.precio), c=num(o.comision);
-      out.push(o.tipo==='venta'?{fecha:o.fecha,imp:b-c,txt:'Venta '+num(o.acciones)+' '+o.ticker,origen:'operación'}:{fecha:o.fecha,imp:-(b+c),txt:'Compra '+num(o.acciones)+' '+o.ticker,origen:'operación'}); });
+      if(o.tipo!=='venta'&&!(b+c>0)) return;   /* acciones liberadas a coste 0 (p. ej. Vidrala 1x20): no mueven dinero */
+      var xa=(DA&&o.tipo!=='venta')?(DA.get(o)||0):0;
+      out.push(o.tipo==='venta'?{fecha:o.fecha,imp:b-c,txt:'Venta '+num(o.acciones)+' '+o.ticker,origen:'operación'}:{fecha:o.fecha,imp:-(b+c)+xa,txt:'Compra '+num(o.acciones)+' '+o.ticker+(xa>0?' ('+E(xa)+' con el dividendo en acciones)':''),origen:'operación'}); });
     (DB.ventaDerechos||[]).forEach(function(v){ if(!(v.fecha>P.fecha&&v.fecha<=hasta)) return; if(v.broker&&v.broker!=='Renta 4') return;
       out.push({fecha:v.fecha,imp:num(v.neto),txt:'Venta '+(v.derechos?v.derechos+' ':'')+'derechos '+(v.ticker||'')+' (neto de retención)',origen:'operación'}); });
     (DB.movimientos||[]).forEach(function(m){ if(!(m.fecha>P.fecha&&m.fecha<=hasta)||m.tipo!=='gasto') return; var t=((m.comercio||'')+' '+(m.concepto||'')+' '+(m.detalle||'')); if(/custodia/i.test(t)&&/\bR4\b|renta ?4/i.test(t)) out.push({fecha:m.fecha,imp:-num(m.importe),txt:'Custodia R4',origen:'Movimientos'}); });
-    Object.keys(DB.dividendos||{}).forEach(function(t){ (DB.dividendos[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(!(f>P.fecha&&f<=hasta)) return; var shP=accPropia(t,f), shR=accR4(t,f), shO=Math.max(0,shP-shR);
+    Object.keys(DB.dividendos||{}).forEach(function(t){ (DB.dividendos[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(!(f>P.fecha&&f<=hasta)||d.enAcciones) return; var shP=accPropia(t,f), shR=accR4(t,f), shO=Math.max(0,shP-shR);
       if(shR>0){ var bR=shR*num(d.importe); out.push({fecha:f,imp:bR*(1-RET)-feeR4(bR),txt:'Dividendo '+t+' ('+E(bR)+' bruto)',origen:'dividendo',tk:t}); }
       if(shO>0){ var bO=shO*num(d.importe); pend.push({fecha:f,imp:bO*(1-RET),txt:'Dividendo '+t+' (fuera de R4)',origen:'dividendo',tk:t}); } }); });
     /* Carlos 29-oct: la cartera Compartida cobra en su bróker (Endesa, Santander…) y lo traspasa a R4 con transferencias puntuales */
-    Object.keys(DB.dividendos||{}).forEach(function(t){ (DB.dividendos[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(!(f>P.fecha&&f<=hasta)) return; var sh=accCart(t,f,'Compartida'); if(!(sh>0)) return;
+    Object.keys(DB.dividendos||{}).forEach(function(t){ (DB.dividendos[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(!(f>P.fecha&&f<=hasta)||d.enAcciones) return; var sh=accCart(t,f,'Compartida'); if(!(sh>0)) return;
       var bruto=sh*num(d.importe); pend.push({fecha:f,imp:bruto*(1-RET),txt:'Dividendo '+t+' (Compartida)',origen:'dividendo',tk:t+' (Comp.)'}); }); });
     out.sort(function(a,b){ return a.fecha<b.fecha?-1:1; });
     return {out:out,pend:pend};
