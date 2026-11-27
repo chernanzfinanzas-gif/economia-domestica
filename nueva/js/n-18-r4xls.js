@@ -73,6 +73,10 @@
       if((m=/^VENTA DE (\d+) (\S+) A /.exec(c))){ H.push(last={fecha:l.fecha,tipo:'venta',imp:l.imp,txt:'Venta '+m[1]+' '+m[2],tk:m[2],acc:+m[1]}); return; }
       if(/^RETENCION VENT DCHOS/.test(c)&&last&&last.tipo==='venta'&&last.fecha===l.fecha){ last.imp+=l.imp; last.txt+=' (neto de retención)'; return; }   /* venta de derechos: su retención va con ella */
       if(/^ITF /.test(c)&&last&&(last.tipo==='compra'||last.tipo==='venta')&&last.fecha===l.fecha){ last.imp+=l.imp; return; }
+      /* [27-nov-2026 · Carlos] comisión de R4 por entregar acciones de una ampliación liberada («COMISION 5 VID 10.2026») y su IVA
+         («IVA SUSCRIPCIÓN», misma fecha): un solo gasto, que ya está en el saldo del extracto y no hace falta apuntar en la app */
+      if((m=/^COMISION (\d+) (\S+) \d{2}\.\d{4}/.exec(c))){ H.push(last={fecha:l.fecha,tipo:'gastoampl',imp:l.imp,txt:'Comisión de R4 por la ampliación liberada ('+m[1]+' '+m[2]+')',tk:m[2],acc:+m[1]}); return; }
+      if(/^IVA SUSCRIPCI/.test(c)&&last&&last.tipo==='gastoampl'&&last.fecha===l.fecha){ last.imp+=l.imp; last.txt+=' con IVA'; return; }
       if(/CUSTODIA/.test(c)){ var u=H.filter(function(h){ return h.tipo==='custodia'&&h.fecha===l.fecha; })[0]; if(u) u.imp+=l.imp; else H.push(last={fecha:l.fecha,tipo:'custodia',imp:l.imp,txt:'Custodia R4'}); return; }
       H.push(last={fecha:l.fecha,tipo:'otro',imp:l.imp,txt:l.concepto});
     });
