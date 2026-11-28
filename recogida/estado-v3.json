@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generado": "2026-11-27T18:39",
+ "generado": "2026-11-28T09:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
@@ -1124,6 +1124,42 @@
    "estado": "resuelto",
    "resuelto": "2026-11-27T08:37",
    "como": "27-nov: ya en la Biblioteca (PSG, 2026-11-26 43839 Pago dividendo diciembre 2026.pdf)",
+   "comprobado": null
+  },
+  {
+   "id": "Paec5bab2",
+   "creado": "2026-11-28T08:57",
+   "origen": "cruce con la nube",
+   "ticker": "ELE",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (27/11/2026 21:17)",
+   "detalle": "nº 43869: Programa de recompra de acciones Sexto Tramo",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "Pd744f2ea",
+   "creado": "2026-11-28T08:57",
+   "origen": "cruce con la nube",
+   "ticker": "PUIG",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (27/11/2026 20:06)",
+   "detalle": "nº 3437: Presentación - Puig suscribe acuerdos con la intención de adquirir el 75% del capital social del Grupo Artessence",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
+   "comprobado": null
+  },
+  {
+   "id": "P5e6d7cb5",
+   "creado": "2026-11-28T08:57",
+   "origen": "cruce con la nube",
+   "ticker": "PUIG",
+   "que": "La CNMV registró una comunicación que la recogida no ha bajado (27/11/2026 20:03)",
+   "detalle": "nº 3436: Puig suscribe acuerdos con la intención de adquirir el 75% del capital social del Grupo Artessence.",
+   "estado": "abierto",
+   "resuelto": null,
+   "como": null,
    "comprobado": null
   }
  ],
