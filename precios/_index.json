@@ -1,28 +1,28 @@
 {
-"actualizado": "2026-11-27",
+"actualizado": "2026-11-28",
 "ventana_dias": 10,
-"ventana_desde": "2026-11-17",
+"ventana_desde": "2026-11-18",
 "tickers": [
 {
 "ticker": "A3M",
 "symbol": "A3M.MC",
 "desde": "2003-10-29",
-"hasta": "2026-11-26",
-"n": 5881
+"hasta": "2026-11-27",
+"n": 5882
 },
 {
 "ticker": "ACS",
 "symbol": "ACS.MC",
 "desde": "2002-01-02",
-"hasta": "2026-11-26",
-"n": 6348
+"hasta": "2026-11-27",
+"n": 6349
 },
 {
 "ticker": "ACX",
 "symbol": "ACX.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "ADX",
@@ -35,22 +35,22 @@
 "ticker": "ADZ",
 "symbol": "ADZ.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4069
+"hasta": "2026-11-27",
+"n": 4070
 },
 {
 "ticker": "AEDAS",
 "symbol": "AEDAS.MC",
 "desde": "2017-10-20",
-"hasta": "2026-11-26",
-"n": 2327
+"hasta": "2026-11-27",
+"n": 2328
 },
 {
 "ticker": "AENA",
 "symbol": "AENA.MC",
 "desde": "2015-02-11",
-"hasta": "2026-11-26",
-"n": 3018
+"hasta": "2026-11-27",
+"n": 3019
 },
 {
 "ticker": "AI",
@@ -63,22 +63,22 @@
 "ticker": "AIR",
 "symbol": "AIR.MC",
 "desde": "2000-07-18",
-"hasta": "2026-11-26",
-"n": 6717
+"hasta": "2026-11-27",
+"n": 6718
 },
 {
 "ticker": "ALM",
 "symbol": "ALM.MC",
 "desde": "2007-06-20",
-"hasta": "2026-11-26",
-"n": 4957
+"hasta": "2026-11-27",
+"n": 4958
 },
 {
 "ticker": "ALNT",
 "symbol": "ALNT.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "ALQ",
@@ -91,36 +91,36 @@
 "ticker": "AMP",
 "symbol": "AMP.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4069
+"hasta": "2026-11-27",
+"n": 4070
 },
 {
 "ticker": "AMS",
 "symbol": "AMS.MC",
 "desde": "2010-04-29",
-"hasta": "2026-11-26",
-"n": 4241
+"hasta": "2026-11-27",
+"n": 4242
 },
 {
 "ticker": "ANA",
 "symbol": "ANA.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "ANE",
 "symbol": "ANE.MC",
 "desde": "2021-07-02",
-"hasta": "2026-11-26",
-"n": 1384
+"hasta": "2026-11-27",
+"n": 1385
 },
 {
 "ticker": "APAM",
 "symbol": "APAM.MC",
 "desde": "2011-01-26",
-"hasta": "2026-11-26",
-"n": 4053
+"hasta": "2026-11-27",
+"n": 4054
 },
 {
 "ticker": "APG",
@@ -133,50 +133,50 @@
 "ticker": "ARM",
 "symbol": "ARM.MC",
 "desde": "2018-10-23",
-"hasta": "2026-11-26",
-"n": 2072
+"hasta": "2026-11-27",
+"n": 2073
 },
 {
 "ticker": "ART",
 "symbol": "ART.MC",
 "desde": "2021-06-24",
-"hasta": "2026-11-26",
-"n": 1390
+"hasta": "2026-11-27",
+"n": 1391
 },
 {
 "ticker": "ATRY",
 "symbol": "ATRY.MC",
 "desde": "2016-07-22",
-"hasta": "2026-11-26",
-"n": 2648
+"hasta": "2026-11-27",
+"n": 2649
 },
 {
 "ticker": "ATSI",
 "symbol": "ATSI.MC",
 "desde": "2024-10-03",
-"hasta": "2026-11-26",
-"n": 549
+"hasta": "2026-11-27",
+"n": 550
 },
 {
 "ticker": "AZK",
 "symbol": "AZK.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "BBVA",
 "symbol": "BBVA.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "BKT",
 "symbol": "BKT.MC",
 "desde": "2002-04-03",
-"hasta": "2026-11-26",
-"n": 6257
+"hasta": "2026-11-27",
+"n": 6258
 },
 {
 "ticker": "BKY",
@@ -196,15 +196,15 @@
 "ticker": "CABK",
 "symbol": "CABK.MC",
 "desde": "2007-10-10",
-"hasta": "2026-11-26",
-"n": 4878
+"hasta": "2026-11-27",
+"n": 4879
 },
 {
 "ticker": "CAF",
 "symbol": "CAF.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "CASH",
@@ -217,15 +217,15 @@
 "ticker": "CBAV",
 "symbol": "CBAV.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4069
+"hasta": "2026-11-27",
+"n": 4070
 },
 {
 "ticker": "CCEP",
 "symbol": "CCEP.MC",
 "desde": "2016-06-02",
-"hasta": "2026-11-26",
-"n": 2684
+"hasta": "2026-11-27",
+"n": 2685
 },
 {
 "ticker": "CEV",
@@ -238,71 +238,71 @@
 "ticker": "CIE",
 "symbol": "CIE.MC",
 "desde": "2002-08-01",
-"hasta": "2026-11-26",
-"n": 6198
+"hasta": "2026-11-27",
+"n": 6199
 },
 {
 "ticker": "CIRSA",
 "symbol": "CIRSA.MC",
 "desde": "2025-07-09",
-"hasta": "2026-11-26",
-"n": 356
+"hasta": "2026-11-27",
+"n": 357
 },
 {
 "ticker": "CLNX",
 "symbol": "CLNX.MC",
 "desde": "2015-05-07",
-"hasta": "2026-11-26",
-"n": 2960
+"hasta": "2026-11-27",
+"n": 2961
 },
 {
 "ticker": "CLR",
 "symbol": "CLR.MC",
 "desde": "2017-09-18",
-"hasta": "2026-11-26",
-"n": 2352
+"hasta": "2026-11-27",
+"n": 2353
 },
 {
 "ticker": "CMO",
 "symbol": "CMO.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4070
+"hasta": "2026-11-27",
+"n": 4071
 },
 {
 "ticker": "COL",
 "symbol": "COL.MC",
 "desde": "2002-05-15",
-"hasta": "2026-11-26",
-"n": 6254
+"hasta": "2026-11-27",
+"n": 6255
 },
 {
 "ticker": "COXG",
 "symbol": "COXG.MC",
 "desde": "2024-12-06",
-"hasta": "2026-11-26",
-"n": 503
+"hasta": "2026-11-27",
+"n": 504
 },
 {
 "ticker": "DESA",
 "symbol": "DESA.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4070
+"hasta": "2026-11-27",
+"n": 4071
 },
 {
 "ticker": "DIA",
 "symbol": "DIA.MC",
 "desde": "2011-07-04",
-"hasta": "2026-11-26",
-"n": 3941
+"hasta": "2026-11-27",
+"n": 3942
 },
 {
 "ticker": "DOM",
 "symbol": "DOM.MC",
 "desde": "2016-04-27",
-"hasta": "2026-11-26",
-"n": 2710
+"hasta": "2026-11-27",
+"n": 2711
 },
 {
 "ticker": "EAT",
@@ -315,15 +315,15 @@
 "ticker": "EBRO",
 "symbol": "EBRO.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "EBROM",
 "symbol": "EBROM.MC",
 "desde": "2024-10-14",
-"hasta": "2026-11-26",
-"n": 542
+"hasta": "2026-11-27",
+"n": 543
 },
 {
 "ticker": "ECO",
@@ -343,36 +343,36 @@
 "ticker": "EDR",
 "symbol": "EDR.MC",
 "desde": "2014-04-08",
-"hasta": "2026-11-26",
-"n": 3233
+"hasta": "2026-11-27",
+"n": 3234
 },
 {
 "ticker": "ELE",
 "symbol": "ELE.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "ENC",
 "symbol": "ENC.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4069
+"hasta": "2026-11-27",
+"n": 4070
 },
 {
 "ticker": "ENG",
 "symbol": "ENG.MC",
 "desde": "2002-06-26",
-"hasta": "2026-11-26",
-"n": 6224
+"hasta": "2026-11-27",
+"n": 6225
 },
 {
 "ticker": "ENO",
 "symbol": "ENO.MC",
 "desde": "2002-06-10",
-"hasta": "2026-11-26",
-"n": 6236
+"hasta": "2026-11-27",
+"n": 6237
 },
 {
 "ticker": "EZE",
@@ -385,29 +385,29 @@
 "ticker": "FAE",
 "symbol": "FAE.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "FCC",
 "symbol": "FCC.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "FDR",
 "symbol": "FDR.MC",
 "desde": "2007-10-31",
-"hasta": "2026-11-26",
-"n": 4864
+"hasta": "2026-11-27",
+"n": 4865
 },
 {
 "ticker": "FER",
 "symbol": "FER.MC",
 "desde": "2004-10-27",
-"hasta": "2026-11-26",
-"n": 5626
+"hasta": "2026-11-27",
+"n": 5627
 },
 {
 "ticker": "GAM",
@@ -420,8 +420,8 @@
 "ticker": "GEST",
 "symbol": "GEST.MC",
 "desde": "2017-04-07",
-"hasta": "2026-11-26",
-"n": 2464
+"hasta": "2026-11-27",
+"n": 2465
 },
 {
 "ticker": "GGR",
@@ -434,50 +434,50 @@
 "ticker": "GIGA",
 "symbol": "GIGA.MC",
 "desde": "2015-11-03",
-"hasta": "2026-11-26",
-"n": 2832
+"hasta": "2026-11-27",
+"n": 2833
 },
 {
 "ticker": "GRE",
 "symbol": "GRE.MC",
 "desde": "2015-07-08",
-"hasta": "2026-11-26",
-"n": 2916
+"hasta": "2026-11-27",
+"n": 2917
 },
 {
 "ticker": "GRF",
 "symbol": "GRF.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4069
+"hasta": "2026-11-27",
+"n": 4070
 },
 {
 "ticker": "GSJ",
 "symbol": "GSJ.MC",
 "desde": "2009-07-20",
-"hasta": "2026-11-26",
-"n": 4435
+"hasta": "2026-11-27",
+"n": 4436
 },
 {
 "ticker": "HOME",
 "symbol": "HOME.MC",
 "desde": "2017-03-29",
-"hasta": "2026-11-26",
-"n": 2471
+"hasta": "2026-11-27",
+"n": 2472
 },
 {
 "ticker": "IAG",
 "symbol": "IAG.MC",
 "desde": "2011-01-24",
-"hasta": "2026-11-26",
-"n": 4054
+"hasta": "2026-11-27",
+"n": 4055
 },
 {
 "ticker": "IBE",
 "symbol": "IBE.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "IBEX",
@@ -490,50 +490,50 @@
 "ticker": "IBG",
 "symbol": "IBG.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6855
+"hasta": "2026-11-27",
+"n": 6856
 },
 {
 "ticker": "IDR",
 "symbol": "IDR.MC",
 "desde": "2000-10-03",
-"hasta": "2026-11-26",
-"n": 6663
+"hasta": "2026-11-27",
+"n": 6664
 },
 {
 "ticker": "IMC",
 "symbol": "IMC.MC",
 "desde": "2024-11-12",
-"hasta": "2026-11-26",
-"n": 521
+"hasta": "2026-11-27",
+"n": 522
 },
 {
 "ticker": "INDXA",
 "symbol": "INDXA.MC",
 "desde": "2023-07-12",
-"hasta": "2026-11-26",
-"n": 864
+"hasta": "2026-11-27",
+"n": 865
 },
 {
 "ticker": "ISUR",
 "symbol": "ISUR.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4069
+"hasta": "2026-11-27",
+"n": 4070
 },
 {
 "ticker": "ITX",
 "symbol": "ITX.MC",
 "desde": "2001-05-24",
-"hasta": "2026-11-26",
-"n": 6502
+"hasta": "2026-11-27",
+"n": 6503
 },
 {
 "ticker": "IZER",
 "symbol": "IZER.MC",
 "desde": "2020-07-30",
-"hasta": "2026-11-26",
-"n": 1621
+"hasta": "2026-11-27",
+"n": 1622
 },
 {
 "ticker": "LDA",
@@ -546,15 +546,15 @@
 "ticker": "LGT",
 "symbol": "LGT.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4069
+"hasta": "2026-11-27",
+"n": 4070
 },
 {
 "ticker": "LIB",
 "symbol": "LIB.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4070
+"hasta": "2026-11-27",
+"n": 4071
 },
 {
 "ticker": "LLN",
@@ -567,36 +567,36 @@
 "ticker": "LLYC",
 "symbol": "LLYC.MC",
 "desde": "2021-07-22",
-"hasta": "2026-11-26",
-"n": 1370
+"hasta": "2026-11-27",
+"n": 1371
 },
 {
 "ticker": "LOG",
 "symbol": "LOG.MC",
 "desde": "2014-07-14",
-"hasta": "2026-11-26",
-"n": 3167
+"hasta": "2026-11-27",
+"n": 3168
 },
 {
 "ticker": "MAKS",
 "symbol": "MAKS.MC",
 "desde": "2020-07-31",
-"hasta": "2026-11-26",
-"n": 1620
+"hasta": "2026-11-27",
+"n": 1621
 },
 {
 "ticker": "MAP",
 "symbol": "MAP.MC",
 "desde": "2001-09-17",
-"hasta": "2026-11-26",
-"n": 6421
+"hasta": "2026-11-27",
+"n": 6422
 },
 {
 "ticker": "MCM",
 "symbol": "MCM.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6763
+"hasta": "2026-11-27",
+"n": 6764
 },
 {
 "ticker": "MDF",
@@ -609,15 +609,15 @@
 "ticker": "MEL",
 "symbol": "MEL.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "MRL",
 "symbol": "MRL.MC",
 "desde": "2014-06-30",
-"hasta": "2026-11-26",
-"n": 3177
+"hasta": "2026-11-27",
+"n": 3178
 },
 {
 "ticker": "MTB",
@@ -630,15 +630,15 @@
 "ticker": "MTS",
 "symbol": "MTS.MC",
 "desde": "2006-07-28",
-"hasta": "2026-11-26",
-"n": 5180
+"hasta": "2026-11-27",
+"n": 5181
 },
 {
 "ticker": "MVC",
 "symbol": "MVC.MC",
 "desde": "2018-02-06",
-"hasta": "2026-11-26",
-"n": 2253
+"hasta": "2026-11-27",
+"n": 2254
 },
 {
 "ticker": "NAT",
@@ -651,22 +651,22 @@
 "ticker": "NEA",
 "symbol": "NEA.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "NTGY",
 "symbol": "NTGY.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "NTH",
 "symbol": "NTH.MC",
 "desde": "2015-04-24",
-"hasta": "2026-11-26",
-"n": 2968
+"hasta": "2026-11-27",
+"n": 2969
 },
 {
 "ticker": "NXT",
@@ -700,43 +700,43 @@
 "ticker": "ORY",
 "symbol": "ORY.MC",
 "desde": "2015-12-14",
-"hasta": "2026-11-26",
-"n": 2803
+"hasta": "2026-11-27",
+"n": 2804
 },
 {
 "ticker": "PHM",
 "symbol": "PHM.MC",
 "desde": "2000-09-08",
-"hasta": "2026-11-26",
-"n": 6680
+"hasta": "2026-11-27",
+"n": 6681
 },
 {
 "ticker": "PRM",
 "symbol": "PRM.MC",
 "desde": "2005-04-01",
-"hasta": "2026-11-26",
-"n": 5516
+"hasta": "2026-11-27",
+"n": 5517
 },
 {
 "ticker": "PRS",
 "symbol": "PRS.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4069
+"hasta": "2026-11-27",
+"n": 4070
 },
 {
 "ticker": "PSG",
 "symbol": "PSG.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "PUIG",
 "symbol": "PUIG.MC",
 "desde": "2024-05-03",
-"hasta": "2026-11-26",
-"n": 658
+"hasta": "2026-11-27",
+"n": 659
 },
 {
 "ticker": "PVA",
@@ -749,15 +749,15 @@
 "ticker": "R4",
 "symbol": "R4.MC",
 "desde": "2007-11-14",
-"hasta": "2026-11-26",
-"n": 4855
+"hasta": "2026-11-27",
+"n": 4856
 },
 {
 "ticker": "RED",
 "symbol": "RED.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "REN",
@@ -770,8 +770,8 @@
 "ticker": "REP",
 "symbol": "REP.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "RIO",
@@ -784,8 +784,8 @@
 "ticker": "RJF",
 "symbol": "RJF.MC",
 "desde": "2002-11-29",
-"hasta": "2026-11-26",
-"n": 6114
+"hasta": "2026-11-27",
+"n": 6115
 },
 {
 "ticker": "RLIA",
@@ -798,29 +798,29 @@
 "ticker": "ROVI",
 "symbol": "ROVI.MC",
 "desde": "2007-12-05",
-"hasta": "2026-11-26",
-"n": 4840
+"hasta": "2026-11-27",
+"n": 4841
 },
 {
 "ticker": "SAB",
 "symbol": "SAB.MC",
 "desde": "2001-04-18",
-"hasta": "2026-11-26",
-"n": 6527
+"hasta": "2026-11-27",
+"n": 6528
 },
 {
 "ticker": "SAN",
 "symbol": "SAN.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "SCYR",
 "symbol": "SCYR.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "SEC",
@@ -833,8 +833,8 @@
 "ticker": "SLR",
 "symbol": "SLR.MC",
 "desde": "2007-06-19",
-"hasta": "2026-11-26",
-"n": 4958
+"hasta": "2026-11-27",
+"n": 4959
 },
 {
 "ticker": "SNG",
@@ -861,22 +861,22 @@
 "ticker": "TEF",
 "symbol": "TEF.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "TLGO",
 "symbol": "TLGO.MC",
 "desde": "2015-05-07",
-"hasta": "2026-11-26",
-"n": 2960
+"hasta": "2026-11-27",
+"n": 2961
 },
 {
 "ticker": "TRE",
 "symbol": "TRE.MC",
 "desde": "2011-01-03",
-"hasta": "2026-11-26",
-"n": 4069
+"hasta": "2026-11-27",
+"n": 4070
 },
 {
 "ticker": "TRG",
@@ -889,15 +889,15 @@
 "ticker": "TSK",
 "symbol": "TSK.MC",
 "desde": "2026-05-13",
-"hasta": "2026-11-26",
-"n": 142
+"hasta": "2026-11-27",
+"n": 143
 },
 {
 "ticker": "TUB",
 "symbol": "TUB.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "UBS",
@@ -910,22 +910,22 @@
 "ticker": "UNI",
 "symbol": "UNI.MC",
 "desde": "2017-06-30",
-"hasta": "2026-11-26",
-"n": 2407
+"hasta": "2026-11-27",
+"n": 2408
 },
 {
 "ticker": "VID",
 "symbol": "VID.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "VIS",
 "symbol": "VIS.MC",
 "desde": "2000-01-03",
-"hasta": "2026-11-26",
-"n": 6856
+"hasta": "2026-11-27",
+"n": 6857
 },
 {
 "ticker": "VOC",
@@ -938,175 +938,12 @@
 "ticker": "VYT",
 "symbol": "VYT.MC",
 "desde": "2022-03-15",
-"hasta": "2026-11-26",
-"n": 1204
+"hasta": "2026-11-27",
+"n": 1205
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "ADZ",
-"fecha": "2026-11-26",
-"anterior": 6.0,
-"nuevo": 5.95
-},
-{
-"ticker": "AIR",
-"fecha": "2026-11-26",
-"anterior": 196.0,
-"nuevo": 195.0
-},
-{
-"ticker": "APAM",
-"fecha": "2026-11-26",
-"anterior": 32.74,
-"nuevo": 31.52
-},
-{
-"ticker": "CCEP",
-"fecha": "2026-11-26",
-"anterior": 108.2,
-"nuevo": 108.4
-},
-{
-"ticker": "CMO",
-"fecha": "2026-11-26",
-"anterior": 39.0,
-"nuevo": 38.0
-},
-{
-"ticker": "COL",
-"fecha": "2026-11-26",
-"anterior": 5.03,
-"nuevo": 5.025
-},
-{
-"ticker": "COXG",
-"fecha": "2026-11-26",
-"anterior": 10.4,
-"nuevo": 10.25
-},
-{
-"ticker": "DOM",
-"fecha": "2026-11-26",
-"anterior": 2.74,
-"nuevo": 2.735
-},
-{
-"ticker": "EBROM",
-"fecha": "2026-11-26",
-"anterior": 9.2,
-"nuevo": 8.9
-},
-{
-"ticker": "EDR",
-"fecha": "2026-11-26",
-"anterior": 4.46,
-"nuevo": 4.455
-},
-{
-"ticker": "ENC",
-"fecha": "2026-11-26",
-"anterior": 2.15,
-"nuevo": 2.154
-},
-{
-"ticker": "FAE",
-"fecha": "2026-11-26",
-"anterior": 4.97,
-"nuevo": 4.975
-},
-{
-"ticker": "GEST",
-"fecha": "2026-11-26",
-"anterior": 3.0,
-"nuevo": 2.995
-},
-{
-"ticker": "IAG",
-"fecha": "2026-11-26",
-"anterior": 5.27,
-"nuevo": 5.274
-},
-{
-"ticker": "IBG",
-"fecha": "2026-11-26",
-"anterior": 16.75,
-"nuevo": 16.9
-},
-{
-"ticker": "IMC",
-"fecha": "2026-11-26",
-"anterior": 3.56,
-"nuevo": 3.58
-},
-{
-"ticker": "IZER",
-"fecha": "2026-11-26",
-"anterior": 7.0,
-"nuevo": 7.12
-},
-{
-"ticker": "LLYC",
-"fecha": "2026-11-26",
-"anterior": 3.08,
-"nuevo": 3.12
-},
-{
-"ticker": "MAKS",
-"fecha": "2026-11-26",
-"anterior": 5.2,
-"nuevo": 5.1
-},
-{
-"ticker": "MAP",
-"fecha": "2026-11-26",
-"anterior": 4.0,
-"nuevo": 4.002
-},
-{
-"ticker": "PRM",
-"fecha": "2026-11-26",
-"anterior": 12.4,
-"nuevo": 12.35
-},
-{
-"ticker": "PRS",
-"fecha": "2026-11-26",
-"anterior": 2.13,
-"nuevo": 2.125
-},
-{
-"ticker": "R4",
-"fecha": "2026-11-26",
-"anterior": 21.1,
-"nuevo": 21.0
-},
-{
-"ticker": "SAB",
-"fecha": "2026-11-26",
-"anterior": 3.48,
-"nuevo": 3.483
-},
-{
-"ticker": "SCYR",
-"fecha": "2026-11-26",
-"anterior": 4.11,
-"nuevo": 4.108
-},
-{
-"ticker": "TUB",
-"fecha": "2026-11-26",
-"anterior": 2.85,
-"nuevo": 2.845
-},
-{
-"ticker": "UNI",
-"fecha": "2026-11-26",
-"anterior": 3.22,
-"nuevo": 3.216
-}
-],
+"corregidos": [],
 "revisar": [],
 "eventos": []
 }
