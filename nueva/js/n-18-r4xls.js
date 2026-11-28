@@ -69,8 +69,8 @@
       if(/^TRANSF\. RECIBIDA/.test(c)){ H.push(last={fecha:l.fecha,tipo:'puntual',imp:l.imp,txt:'Transferencia recibida'}); return; }
       if((m=/^DIVIDENDO DE (\d+) (.+)$/.exec(c))){ H.push(last={fecha:l.fecha,tipo:'div',imp:l.imp,txt:'Dividendo '+m[2].trim(),nombre:m[2].trim(),acc:+m[1]}); return; }
       if(/^(COMISION DVDO|IVA DIVIDENDO|RETENC(ION|\.)?\s*(DESTINO\s+)?(DIV|DVDO))/.test(c)&&last&&last.tipo==='div'&&last.fecha===l.fecha){ last.imp+=l.imp; return; }   /* 26-nov: también la retención en línea aparte (Mapfre) */
-      if((m=/^COMPRA DE (\d+) (\S+) A /.exec(c))){ H.push(last={fecha:l.fecha,tipo:'compra',imp:l.imp,txt:'Compra '+m[1]+' '+m[2],tk:m[2],acc:+m[1]}); return; }
-      if((m=/^VENTA DE (\d+) (\S+) A /.exec(c))){ H.push(last={fecha:l.fecha,tipo:'venta',imp:l.imp,txt:'Venta '+m[1]+' '+m[2],tk:m[2],acc:+m[1]}); return; }
+      if((m=/^COMPRA DE (\d+) (\S+)(?: \S+)*? A /.exec(c))){   /* 28-nov: también «COMPRA DE 35 VIS.D 11.26 A 1,4091» (derechos) */ H.push(last={fecha:l.fecha,tipo:'compra',imp:l.imp,txt:'Compra '+m[1]+' '+m[2],tk:m[2],acc:+m[1]}); return; }
+      if((m=/^VENTA DE (\d+) (\S+)(?: \S+)*? A /.exec(c))){ H.push(last={fecha:l.fecha,tipo:'venta',imp:l.imp,txt:'Venta '+m[1]+' '+m[2],tk:m[2],acc:+m[1]}); return; }
       if(/^RETENCION VENT DCHOS/.test(c)&&last&&last.tipo==='venta'&&last.fecha===l.fecha){ last.imp+=l.imp; last.txt+=' (neto de retención)'; return; }   /* venta de derechos: su retención va con ella */
       if(/^ITF /.test(c)&&last&&(last.tipo==='compra'||last.tipo==='venta')&&last.fecha===l.fecha){ last.imp+=l.imp; return; }
       /* [27-nov-2026 · Carlos] comisión de R4 por entregar acciones de una ampliación liberada («COMISION 5 VID 10.2026») y su IVA

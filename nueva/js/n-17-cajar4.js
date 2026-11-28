@@ -49,7 +49,7 @@
       if(brk(o)!=='Renta 4'){ if(o.tipo==='venta'){ var bv=num(o.acciones)*num(o.precio)-num(o.comision); pend.push({fecha:o.fecha,imp:bv,txt:'Venta '+num(o.acciones)+' '+o.ticker+' ('+brk(o)+')',origen:'operación',tk:o.ticker+' (venta '+brk(o)+')'}); } return; } var b=num(o.acciones)*num(o.precio), c=num(o.comision);
       if(o.tipo!=='venta'&&!(b+c>0)) return;   /* acciones liberadas a coste 0 (p. ej. Vidrala 1x20): no mueven dinero */
       var xa=(DA&&o.tipo!=='venta')?(DA.get(o)||0):0;
-      out.push(o.tipo==='venta'?{fecha:o.fecha,imp:b-c,txt:'Venta '+num(o.acciones)+' '+o.ticker,origen:'operación'}:{fecha:o.fecha,imp:-(b+c)+xa,txt:'Compra '+num(o.acciones)+' '+o.ticker+(xa>0?' ('+E(xa)+' con el dividendo en acciones)':''),origen:'operación'}); });
+      out.push(o.tipo==='venta'?{fecha:o.fecha,imp:b-c,tk:String(o.ticker||'').toUpperCase(),txt:'Venta '+num(o.acciones)+' '+o.ticker,origen:'operación'}:{fecha:o.fecha,imp:-(b+c)+xa,tk:String(o.ticker||'').toUpperCase(),txt:'Compra '+num(o.acciones)+' '+o.ticker+(xa>0?' ('+E(xa)+' con el dividendo en acciones)':''),origen:'operación'}); });
     (DB.ventaDerechos||[]).forEach(function(v){ if(!(v.fecha>P.fecha&&v.fecha<=hasta)) return; if(v.broker&&v.broker!=='Renta 4') return;
       out.push({fecha:v.fecha,imp:num(v.neto),txt:'Venta '+(v.derechos?v.derechos+' ':'')+'derechos '+(v.ticker||'')+' (neto de retención)',origen:'operación'}); });
     (DB.movimientos||[]).forEach(function(m){ if(!(m.fecha>P.fecha&&m.fecha<=hasta)||m.tipo!=='gasto') return; var t=((m.comercio||'')+' '+(m.concepto||'')+' '+(m.detalle||'')); if(/custodia/i.test(t)&&/\bR4\b|renta ?4/i.test(t)) out.push({fecha:m.fecha,imp:-num(m.importe),txt:'Custodia R4',origen:'Movimientos'}); });
@@ -127,17 +127,25 @@
     var transito=0, transL=[], int0=fondo-P.fondo-neto-despues;
     if(int0<-1){ compF.slice().sort(function(a,b){ return a.fecha<b.fecha?1:-1; }).forEach(function(l){ if(int0+transito>=-1) return; if(dias(l.fecha,X.fecha)>5) return; transito+=-l.imp; transL.push(l); }); }
     C.S=S; C.ef=ef; C.fondo=fondo; C.transito=transito; C.transL=transL; C.total=ef+fondo+transito; C.vl=vl; C.interes=int0+transito; C.X=X; C.lastE=X.fecha; C.fuente='R4';
-    var H=nR4Hechos(X,P.fecha), usado={};
+    var H=nR4Hechos(X,P.fecha), usado={}, pendUsado=false;
     var TIPO={regla:'fija','Movimientos':'custodia',dividendo:'div'};
     C.filas=fl.map(function(x){
       if(x.fecha>X.fecha) return {x:x,st:['pendiente del próximo extracto','#64748B']};
       var t=x.origen==='operación'?(x.imp<0?'compra':'venta'):TIPO[x.origen], hit=null;
       H.forEach(function(h,i){ if(hit!=null||usado[i]||h.tipo!==t) return; if(Math.abs(dias(h.fecha,x.fecha))>4) return; if(Math.abs(h.imp-x.imp)<=Math.max(0.1,Math.abs(x.imp)*(t==='div'?0.02:0.005))) hit=i; });
+      /* 28-nov-2026 (Carlos): R4 puede partir una operación en varias líneas (varias ejecuciones, o derechos y acciones):
+         si ninguna cuadra sola, se suman las del mismo valor y mismo tipo en ±4 días. */
+      if(hit==null&&(t==='compra'||t==='venta')&&x.tk){ var base=function(s){ return String(s||'').toUpperCase().split('.')[0]; }, G=[], sm=0;
+        H.forEach(function(h,i){ if(usado[i]||h.tipo!==t||base(h.tk)!==base(x.tk)||Math.abs(dias(h.fecha,x.fecha))>4) return; G.push(i); sm+=h.imp; });
+        if(G.length>1&&Math.abs(sm-x.imp)<=Math.max(0.1,Math.abs(x.imp)*0.005)){ G.forEach(function(i){ usado[i]=1; }); var df2=sm-x.imp; return {x:x,st:['✓ en R4 '+fd(H[G[0]].fecha)+' ('+G.length+' líneas'+(Math.abs(df2)>=0.01?', '+(df2>0?'+':'')+E(df2):'')+')','#15803D']}; } }
       if(hit!=null){ usado[hit]=1; var df=H[hit].imp-x.imp; return {x:x,st:['✓ en R4 '+fd(H[hit].fecha)+(Math.abs(df)>=0.01?' ('+(df>0?'+':'')+E(df)+')':''),'#15803D']}; }
+      /* 28-nov-2026 (Carlos, derechos de Viscofan): R4 ya lo ha cargado pero aún no lo detalla («saldo pendiente de liquidar»).
+         Si tu apunte coincide en importe con ese pendiente y es de los 4 días anteriores al extracto, es lo mismo. */
+      if(!pendUsado&&X.pendiente&&Math.abs(X.pendiente-x.imp)<=Math.max(0.05,Math.abs(x.imp)*0.005)&&dias(x.fecha,X.fecha)>=0&&dias(x.fecha,X.fecha)<=4){ pendUsado=true; return {x:x,st:['✓ en R4, pendiente de liquidar','#15803D']}; }
       return {x:x,st:['⚠ no está en el extracto de R4','#B45309']};
     });
     C.sueltos=[]; C.sueltosR4=H.map(function(h,i){ return {h:h,i:i}; }).filter(function(o){ return !usado[o.i]; }).map(function(o){ return o.h; });
-    if(X.pendiente) C.sueltosR4.push({fecha:X.fecha,tipo:'pendiente',imp:X.pendiente,txt:'Pendiente de anotar en R4 (p. ej. venta de derechos)'});
+    if(X.pendiente&&!pendUsado) C.sueltosR4.push({fecha:X.fecha,tipo:'pendiente',imp:X.pendiente,txt:'Pendiente de anotar en R4 (p. ej. venta de derechos)'});
     /* acciones: lo que dice R4 frente a la cartera Propia de la app */
     var nom=function(s){ return String(s||'').toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Z0-9 ]/g,' ').trim().split(/\s+/)[0]; };
     var app={}, fut={}; (DB.operaciones||[]).forEach(function(o){ if((o.cartera||'Propia')!=='Propia') return; var t=(o.ticker||'').toUpperCase(), q=(o.tipo==='venta'?-1:1)*num(o.acciones);
